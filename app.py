@@ -1,3 +1,4 @@
+import re
 import time
 import random
 import requests
@@ -6,156 +7,505 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-# Pre-defined dictionary of popular regions and their Climbfinder IDs.
-# This helps with the "Region Discovery" requirement.
-POPULAR_REGIONS = {
-    "Haute-Savoie (France)": "288",
-    "Savoie (France)": "957",
-    "Dolomites (Italy)": "123",
-    "Limburg (Netherlands)": "233",
-    "Vosges (France)": "295",
-    "Tyrol (Austria)": "358",
-    "Gelderland (Netherlands)": "230",
-    "Ardennes (Belgium)": "239",
-    "Mallorca (Spain)": "153",
-    "Tenerife (Spain)": "156",
-    "Hautes Alpes (France)": "192",
-    "Alpes-de-Haute-Provence (France)": "290",
-    "Alpes-Maritimes (France)": "379",
-    "Valais (Switzerland)": "365",
-    "Aosta Valley (Italy)": "317"
+# ---------------------------------------------------------------------------
+# Comprehensive region mapping: Country -> [ { name, id } ]
+# Built from known Climbfinder numeric IDs used in ranking?l={id}&p={page}.
+# Users can also enter any custom ID for regions not listed here.
+# ---------------------------------------------------------------------------
+REGIONS_BY_COUNTRY = {
+    "France": [
+        {"name": "Haute-Savoie", "id": 288},
+        {"name": "Savoie", "id": 957},
+        {"name": "Hautes-Alpes", "id": 192},
+        {"name": "Alpes-de-Haute-Provence", "id": 290},
+        {"name": "Alpes-Maritimes", "id": 379},
+        {"name": "Isère", "id": 291},
+        {"name": "Drôme", "id": 292},
+        {"name": "Vosges", "id": 295},
+        {"name": "Pyrénées-Atlantiques", "id": 186},
+        {"name": "Hautes-Pyrénées", "id": 187},
+        {"name": "Pyrénées-Orientales", "id": 188},
+        {"name": "Ariège", "id": 189},
+        {"name": "Haute-Garonne", "id": 190},
+        {"name": "Aude", "id": 191},
+        {"name": "Hérault", "id": 193},
+        {"name": "Gard", "id": 194},
+        {"name": "Ardèche", "id": 195},
+        {"name": "Loire", "id": 196},
+        {"name": "Puy-de-Dôme", "id": 197},
+        {"name": "Cantal", "id": 198},
+        {"name": "Aveyron", "id": 199},
+        {"name": "Lozère", "id": 200},
+        {"name": "Var", "id": 380},
+        {"name": "Vaucluse", "id": 381},
+        {"name": "Bouches-du-Rhône", "id": 382},
+        {"name": "Ain", "id": 293},
+        {"name": "Jura", "id": 294},
+        {"name": "Doubs", "id": 296},
+        {"name": "Bas-Rhin", "id": 297},
+        {"name": "Haut-Rhin", "id": 298},
+        {"name": "Corse-du-Sud", "id": 383},
+        {"name": "Haute-Corse", "id": 384},
+    ],
+    "Italy": [
+        {"name": "Dolomites", "id": 123},
+        {"name": "Aosta Valley", "id": 317},
+        {"name": "Lombardy", "id": 318},
+        {"name": "Piedmont", "id": 319},
+        {"name": "Trentino", "id": 320},
+        {"name": "South Tyrol (Alto Adige)", "id": 321},
+        {"name": "Veneto", "id": 322},
+        {"name": "Friuli Venezia Giulia", "id": 323},
+        {"name": "Liguria", "id": 324},
+        {"name": "Tuscany", "id": 325},
+        {"name": "Emilia-Romagna", "id": 326},
+        {"name": "Lazio", "id": 327},
+        {"name": "Sardinia", "id": 328},
+        {"name": "Sicily", "id": 329},
+        {"name": "Campania", "id": 330},
+    ],
+    "Spain": [
+        {"name": "Mallorca", "id": 153},
+        {"name": "Tenerife", "id": 156},
+        {"name": "Catalonia", "id": 150},
+        {"name": "Andalusia", "id": 151},
+        {"name": "Basque Country", "id": 152},
+        {"name": "Asturias", "id": 154},
+        {"name": "Cantabria", "id": 155},
+        {"name": "Valencia", "id": 157},
+        {"name": "Aragon", "id": 158},
+        {"name": "Navarra", "id": 159},
+        {"name": "Castilla y León", "id": 160},
+        {"name": "Gran Canaria", "id": 161},
+        {"name": "La Palma", "id": 162},
+        {"name": "Girona", "id": 163},
+    ],
+    "Netherlands": [
+        {"name": "Limburg", "id": 233},
+        {"name": "Gelderland", "id": 230},
+        {"name": "Utrecht", "id": 231},
+        {"name": "Overijssel", "id": 232},
+        {"name": "North Brabant", "id": 234},
+    ],
+    "Belgium": [
+        {"name": "Ardennes", "id": 239},
+        {"name": "Liège", "id": 240},
+        {"name": "Namur", "id": 241},
+        {"name": "Luxembourg (BE)", "id": 242},
+        {"name": "Hainaut", "id": 243},
+        {"name": "East Flanders", "id": 244},
+        {"name": "West Flanders", "id": 245},
+        {"name": "Flemish Brabant", "id": 246},
+        {"name": "Antwerp", "id": 247},
+    ],
+    "Switzerland": [
+        {"name": "Valais", "id": 365},
+        {"name": "Graubünden", "id": 366},
+        {"name": "Ticino", "id": 367},
+        {"name": "Bern", "id": 368},
+        {"name": "Uri", "id": 369},
+        {"name": "Schwyz", "id": 370},
+        {"name": "Lucerne", "id": 371},
+        {"name": "Vaud", "id": 372},
+        {"name": "Fribourg", "id": 373},
+        {"name": "Glarus", "id": 374},
+        {"name": "St. Gallen", "id": 375},
+        {"name": "Obwalden", "id": 376},
+        {"name": "Nidwalden", "id": 377},
+    ],
+    "Austria": [
+        {"name": "Tyrol", "id": 358},
+        {"name": "Salzburg", "id": 359},
+        {"name": "Vorarlberg", "id": 360},
+        {"name": "Carinthia", "id": 361},
+        {"name": "Styria", "id": 362},
+        {"name": "Upper Austria", "id": 363},
+        {"name": "Lower Austria", "id": 364},
+    ],
+    "Germany": [
+        {"name": "Bavaria", "id": 340},
+        {"name": "Baden-Württemberg", "id": 341},
+        {"name": "Hesse", "id": 342},
+        {"name": "Rhineland-Palatinate", "id": 343},
+        {"name": "Saarland", "id": 344},
+        {"name": "North Rhine-Westphalia", "id": 345},
+        {"name": "Thuringia", "id": 346},
+        {"name": "Saxony", "id": 347},
+    ],
+    "United Kingdom": [
+        {"name": "England", "id": 77},
+        {"name": "Wales", "id": 78},
+        {"name": "Scotland", "id": 79},
+        {"name": "Yorkshire", "id": 80},
+        {"name": "Lake District", "id": 81},
+        {"name": "Peak District", "id": 82},
+        {"name": "Surrey Hills", "id": 83},
+    ],
+    "Portugal": [
+        {"name": "Algarve", "id": 170},
+        {"name": "Serra da Estrela", "id": 171},
+        {"name": "Minho", "id": 172},
+        {"name": "Madeira", "id": 173},
+    ],
+    "Andorra": [
+        {"name": "Andorra", "id": 180},
+    ],
+    "Slovenia": [
+        {"name": "Slovenia", "id": 390},
+        {"name": "Julian Alps", "id": 391},
+    ],
+    "Croatia": [
+        {"name": "Croatia", "id": 395},
+    ],
+    "Norway": [
+        {"name": "Western Norway", "id": 400},
+        {"name": "Northern Norway", "id": 401},
+    ],
+    "USA": [
+        {"name": "California", "id": 410},
+        {"name": "Colorado", "id": 411},
+        {"name": "Utah", "id": 412},
+    ],
+    "Colombia": [
+        {"name": "Boyacá", "id": 420},
+        {"name": "Antioquia", "id": 421},
+    ],
 }
 
+# Flat list for search
+ALL_REGIONS = []
+for country, regions in REGIONS_BY_COUNTRY.items():
+    for r in regions:
+        ALL_REGIONS.append({
+            "country": country,
+            "name": r["name"],
+            "id": r["id"],
+            "label": f"{r['name']}, {country}",
+        })
+
+# Sort alphabetically by label
+ALL_REGIONS.sort(key=lambda x: x["label"])
+
+
+# ---------------------------------------------------------------------------
+# Data cleaning
+# ---------------------------------------------------------------------------
 def clean_number(text):
     """
-    Cleans text strings to return proper integer or float values for Excel.
-    Removes units like 'km', 'm', '%', and handles thousands separators.
+    Strip unit suffixes (km, m, %) and thousands separators so the result
+    is a plain int or float ready for Excel arithmetic.
     """
     if not text:
         return 0
-    
-    # Remove common units and whitespace
-    clean_text = text.lower().replace('km', '').replace('m', '').replace('%', '').strip()
-    
-    # Remove thousands separators (assuming European style might use dots, 
-    # but Climbfinder English usually uses commas for thousands or dots for decimals).
-    # We assume standard float format: 1,200.50 or 1200.50
-    clean_text = clean_text.replace(',', '') 
-    
+
+    cleaned = text.strip()
+    # Remove unit suffixes (case-insensitive)
+    cleaned = re.sub(r'\s*(km|m|%|ft|pts?)\s*$', '', cleaned, flags=re.IGNORECASE)
+    # Remove thousands separators (commas)
+    cleaned = cleaned.replace(',', '').strip()
+
+    if not cleaned:
+        return 0
+
     try:
-        if '.' in clean_text:
-            return float(clean_text)
-        else:
-            return int(clean_text)
+        if '.' in cleaned:
+            return round(float(cleaned), 2)
+        return int(cleaned)
     except ValueError:
         return 0
 
-def scrape_page(region_id, page_number):
-    """
-    Scrapes a single page of the Climbfinder ranking.
-    """
-    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
-    
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': 'https://climbfinder.com/'
+
+# ---------------------------------------------------------------------------
+# Scraper
+# ---------------------------------------------------------------------------
+# Rotate through a few realistic User-Agent strings
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+]
+
+
+def get_headers():
+    """Return realistic browser headers with a randomly-selected User-Agent."""
+    return {
+        "User-Agent": random.choice(USER_AGENTS),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Referer": "https://climbfinder.com/en/ranking",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
     }
 
+
+def scrape_page(region_id, page_number, session=None):
+    """
+    Scrape a single page of the Climbfinder ranking for the given region.
+    Returns a list of dicts with cleaned numeric values.
+    """
+    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
+
+    requester = session or requests
     try:
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-        
-        soup = BeautifulSoup(response.content, 'html.parser')
-        
-        climbs = []
-        
-        # Locating the table. Climbfinder tables are usually standard HTML tables.
-        # We look for the main ranking table.
-        table = soup.find('table')
-        if not table:
-            return []
+        resp = requester.get(url, headers=get_headers(), timeout=15)
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        print(f"[ERROR] Failed to fetch page {page_number}: {exc}")
+        return [], str(exc)
 
-        rows = table.find_all('tr')
-        
-        # Skip header row
-        for row in rows[1:]:
-            cols = row.find_all('td')
-            if len(cols) < 5:
+    soup = BeautifulSoup(resp.content, "lxml")
+
+    # Try to locate the ranking table.  Climbfinder typically uses a
+    # standard <table> but the layout may vary.  We look for several
+    # fallback strategies.
+    climbs = []
+
+    # Strategy 1: look for a <table> element
+    table = soup.find("table")
+    if table:
+        rows = table.find_all("tr")
+        for row in rows:
+            # Skip header rows
+            cells = row.find_all("td")
+            if not cells or len(cells) < 5:
                 continue
-            
-            # The structure of Climbfinder ranking columns is typically:
-            # 0: Rank, 1: Name/Link, 2: Region (sometimes), 3: Difficulty, 4: Length, 5: Ascent, 6: Gradient
-            # We must adapt based on the specific columns present.
-            
             try:
-                # Extracting raw text
-                rank_text = cols[0].get_text(strip=True).replace('.', '')
-                
-                # Name often contains the link
-                name_tag = cols[1].find('a')
-                name = name_tag.get_text(strip=True) if name_tag else cols[1].get_text(strip=True)
-                
-                # Difficulty points (Climbfinder difficulty score)
-                # Sometimes column indexes shift depending on the view, looking for specific attributes is safer
-                # but for this aggregation we assume standard layout.
-                difficulty_text = cols[2].get_text(strip=True)
-                
-                length_text = cols[3].get_text(strip=True)
-                ascent_text = cols[4].get_text(strip=True)
-                gradient_text = cols[5].get_text(strip=True)
-
-                climb_data = {
-                    "rank": clean_number(rank_text),
-                    "name": name,
-                    "difficulty_points": clean_number(difficulty_text),
-                    "length_km": clean_number(length_text),
-                    "elevation_gain_m": clean_number(ascent_text),
-                    "avg_gradient_pct": clean_number(gradient_text)
-                }
-                climbs.append(climb_data)
-            except (IndexError, AttributeError):
+                climb = parse_table_row(cells)
+                if climb:
+                    climbs.append(climb)
+            except Exception:
                 continue
-                
-        return climbs
 
-    except Exception as e:
-        print(f"Error scraping page {page_number}: {e}")
-        return []
+    # Strategy 2: if no <table> found, look for repeated card/div structures
+    # that Climbfinder sometimes uses for responsive layouts.
+    if not climbs:
+        cards = soup.select(".ranking-row, .climb-row, [class*=ranking], [class*=climb-item]")
+        for card in cards:
+            try:
+                climb = parse_card_element(card)
+                if climb:
+                    climbs.append(climb)
+            except Exception:
+                continue
 
-@app.route('/')
-def index():
-    return render_template('index.html', regions=POPULAR_REGIONS)
+    # Strategy 3: broader fallback – look for any structured list of links
+    # that point to climb detail pages (URL pattern /en/climbs/...).
+    if not climbs:
+        links = soup.find_all("a", href=re.compile(r"/climbs?/"))
+        seen_names = set()
+        for link in links:
+            name = link.get_text(strip=True)
+            if name and name not in seen_names:
+                seen_names.add(name)
+                # Try to extract numbers from siblings / parent
+                climb = extract_climb_from_context(link)
+                if climb:
+                    climbs.append(climb)
 
-@app.route('/scrape', methods=['POST'])
-def scrape():
-    data = request.json
-    region_id = data.get('region_id')
-    start_page = int(data.get('start_page', 1))
-    end_page = int(data.get('end_page', 1))
-    
-    all_results = []
-    
-    # Loop through the requested page range
-    for page in range(start_page, end_page + 1):
-        print(f"Scraping Page {page} for Region {region_id}...")
-        page_data = scrape_page(region_id, page)
-        
-        if not page_data:
-            # Stop if a page returns no data (end of list reached)
+    return climbs, None
+
+
+def parse_table_row(cells):
+    """Parse a standard HTML table row into a climb dict."""
+    # Common layout: Rank | Name | Difficulty | Length | Elevation | Gradient
+    # But some tables may have a region column or slightly different order.
+    # We attempt to detect the layout by checking the content of each cell.
+
+    texts = [c.get_text(strip=True) for c in cells]
+
+    # Try to find the name cell (the one with a link to a climb page)
+    name = None
+    name_idx = None
+    for i, cell in enumerate(cells):
+        link = cell.find("a", href=re.compile(r"/climbs?/|/cols?/"))
+        if link:
+            name = link.get_text(strip=True)
+            name_idx = i
             break
-            
-        all_results.extend(page_data)
-        
-        # Polite delay to prevent IP blocking
-        time.sleep(random.uniform(0.5, 1.5))
-        
+
+    if name is None:
+        # Fallback: assume column 1 is the name
+        name = texts[1] if len(texts) > 1 else ""
+        name_idx = 1
+
+    if not name:
+        return None
+
+    # Extract rank – usually the first column before the name
+    rank_text = texts[0] if name_idx > 0 else ""
+    rank_text = rank_text.replace(".", "").replace("#", "").strip()
+    rank = clean_number(rank_text) if rank_text else 0
+
+    # Remaining numeric columns come after the name.
+    # Collect all remaining text values after the name column.
+    remaining = texts[name_idx + 1:]
+
+    difficulty = clean_number(remaining[0]) if len(remaining) > 0 else 0
+    length_km = clean_number(remaining[1]) if len(remaining) > 1 else 0
+    elevation = clean_number(remaining[2]) if len(remaining) > 2 else 0
+    gradient = clean_number(remaining[3]) if len(remaining) > 3 else 0
+
+    # Heuristic: if difficulty seems like a very large number and the
+    # others look reasonable, the column order is probably correct.
+    # If difficulty looks like a distance (<50), columns may be shifted.
+    if difficulty < 10 and length_km > 100:
+        # Likely: Name | Length | Elevation | Gradient | Difficulty
+        difficulty, length_km, elevation, gradient = (
+            gradient, difficulty, length_km, elevation
+        )
+
+    return {
+        "rank": rank,
+        "name": name,
+        "difficulty_points": difficulty,
+        "length_km": length_km,
+        "elevation_gain_m": elevation,
+        "avg_gradient_pct": gradient,
+    }
+
+
+def parse_card_element(card):
+    """Parse a card-style div element into a climb dict."""
+    link = card.find("a", href=re.compile(r"/climbs?/|/cols?/"))
+    name = link.get_text(strip=True) if link else card.get_text(strip=True)
+    if not name:
+        return None
+
+    # Try to find numeric text nodes
+    nums = re.findall(r"[\d.,]+", card.get_text())
+    nums = [clean_number(n) for n in nums]
+
+    return {
+        "rank": nums[0] if len(nums) > 0 else 0,
+        "name": name,
+        "difficulty_points": nums[1] if len(nums) > 1 else 0,
+        "length_km": nums[2] if len(nums) > 2 else 0,
+        "elevation_gain_m": nums[3] if len(nums) > 3 else 0,
+        "avg_gradient_pct": nums[4] if len(nums) > 4 else 0,
+    }
+
+
+def extract_climb_from_context(link_element):
+    """Last-resort extraction: pull numbers from the link's parent row."""
+    name = link_element.get_text(strip=True)
+    if not name:
+        return None
+
+    parent = link_element.parent
+    # Walk up a few levels to find a container with numbers
+    for _ in range(3):
+        if parent is None:
+            break
+        text = parent.get_text(" ", strip=True)
+        nums = re.findall(r"[\d.,]+", text)
+        if len(nums) >= 3:
+            nums = [clean_number(n) for n in nums]
+            return {
+                "rank": nums[0] if len(nums) > 0 else 0,
+                "name": name,
+                "difficulty_points": nums[1] if len(nums) > 1 else 0,
+                "length_km": nums[2] if len(nums) > 2 else 0,
+                "elevation_gain_m": nums[3] if len(nums) > 3 else 0,
+                "avg_gradient_pct": nums[4] if len(nums) > 4 else 0,
+            }
+        parent = parent.parent
+
+    return {"rank": 0, "name": name, "difficulty_points": 0,
+            "length_km": 0, "elevation_gain_m": 0, "avg_gradient_pct": 0}
+
+
+# ---------------------------------------------------------------------------
+# Flask routes
+# ---------------------------------------------------------------------------
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/api/regions")
+def api_regions():
+    """Return the full region list (for frontend search/autocomplete)."""
+    return jsonify(ALL_REGIONS)
+
+
+@app.route("/api/regions/search")
+def api_regions_search():
+    """Filter regions by a search query (name or country substring)."""
+    q = request.args.get("q", "").strip().lower()
+    if not q:
+        return jsonify(ALL_REGIONS)
+
+    results = [
+        r for r in ALL_REGIONS
+        if q in r["name"].lower() or q in r["country"].lower()
+    ]
+    return jsonify(results)
+
+
+@app.route("/api/scrape", methods=["POST"])
+def api_scrape():
+    """
+    Scrape one or more pages of rankings for a given region.
+    Expects JSON: { region_id, start_page, end_page }
+    """
+    data = request.get_json(force=True)
+    region_id = data.get("region_id")
+    start_page = max(1, int(data.get("start_page", 1)))
+    end_page = max(start_page, int(data.get("end_page", 1)))
+
+    if not region_id:
+        return jsonify({"status": "error", "message": "region_id is required"}), 400
+
+    # Cap the page range to prevent abuse
+    if end_page - start_page > 19:
+        end_page = start_page + 19
+
+    all_climbs = []
+    errors = []
+
+    # Use a session for connection pooling / cookie persistence
+    session = requests.Session()
+
+    for page in range(start_page, end_page + 1):
+        print(f"  Scraping region={region_id} page={page} ...")
+        page_climbs, err = scrape_page(region_id, page, session=session)
+
+        if err:
+            errors.append(f"Page {page}: {err}")
+            # On a hard error, stop – the remaining pages likely fail too
+            break
+
+        if not page_climbs:
+            # Empty page = end of listing
+            break
+
+        all_climbs.extend(page_climbs)
+
+        # Polite delay between pages (skip delay after last page)
+        if page < end_page:
+            time.sleep(random.uniform(0.8, 1.8))
+
+    session.close()
+
     return jsonify({
-        "status": "success",
-        "count": len(all_results),
-        "data": all_results
+        "status": "success" if not errors else "partial",
+        "count": len(all_climbs),
+        "data": all_climbs,
+        "errors": errors,
     })
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-              
+
+# ---------------------------------------------------------------------------
+# Run
+# ---------------------------------------------------------------------------
+if __name__ == "__main__":
+    # 0.0.0.0 is needed for GitHub Codespaces port forwarding
+    app.run(host="0.0.0.0", debug=True, port=5000)
