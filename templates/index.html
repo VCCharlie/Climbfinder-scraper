@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Climbfinder Ranking Aggregator</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
-    
+
     <style>
+        /* Fallback for .hidden in case Tailwind CDN fails to load */
+        .hidden { display: none !important; }
         /* Custom Overrides for DataTables/Tailwind Integration */
         .dataTables_wrapper .dataTables_length select {
             padding-right: 2rem;
