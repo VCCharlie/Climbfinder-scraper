@@ -186,6 +186,9 @@ for country, regions in REGIONS_BY_COUNTRY.items():
 # Sort alphabetically by label
 ALL_REGIONS.sort(key=lambda x: x["label"])
 
+# Sorted country list
+ALL_COUNTRIES = sorted(REGIONS_BY_COUNTRY.keys())
+
 
 # ---------------------------------------------------------------------------
 # Data cleaning
@@ -218,7 +221,7 @@ def clean_number(text):
 # ---------------------------------------------------------------------------
 # Scraper
 # ---------------------------------------------------------------------------
-# Rotate through a few realistic User-Agent strings
+# Rotate through realistic User-Agent strings
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
@@ -246,6 +249,42 @@ def get_headers():
     }
 
 
+def choose_parser():
+    """Return the best available HTML parser."""
+    try:
+        import lxml  # noqa: F401
+        return "lxml"
+    except ImportError:
+        return "html.parser"
+
+
+HTML_PARSER = choose_parser()
+
+
+def fetch_with_retry(session, url, max_retries=3):
+    """
+    Fetch a URL with exponential backoff on transient failures.
+    Returns the Response object or raises the last exception.
+    """
+    last_exc = None
+    for attempt in range(max_retries):
+        try:
+            resp = session.get(url, headers=get_headers(), timeout=15)
+            resp.raise_for_status()
+            return resp
+        except requests.RequestException as exc:
+            last_exc = exc
+            status = getattr(exc.response, 'status_code', None) if hasattr(exc, 'response') else None
+            # Don't retry on 4xx client errors (except 429 Too Many Requests)
+            if status and 400 <= status < 500 and status != 429:
+                raise
+            if attempt < max_retries - 1:
+                wait = (2 ** attempt) + random.uniform(0.5, 1.5)
+                print(f"  [RETRY] Attempt {attempt + 1} failed: {exc}. Waiting {wait:.1f}s...")
+                time.sleep(wait)
+    raise last_exc
+
+
 def scrape_page(region_id, page_number, session=None):
     """
     Scrape a single page of the Climbfinder ranking for the given region.
@@ -253,15 +292,14 @@ def scrape_page(region_id, page_number, session=None):
     """
     url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
 
-    requester = session or requests
+    requester = session or requests.Session()
     try:
-        resp = requester.get(url, headers=get_headers(), timeout=15)
-        resp.raise_for_status()
+        resp = fetch_with_retry(requester, url)
     except requests.RequestException as exc:
         print(f"[ERROR] Failed to fetch page {page_number}: {exc}")
         return [], str(exc)
 
-    soup = BeautifulSoup(resp.content, "lxml")
+    soup = BeautifulSoup(resp.content, HTML_PARSER)
 
     # Try to locate the ranking table.  Climbfinder typically uses a
     # standard <table> but the layout may vary.  We look for several
@@ -315,10 +353,6 @@ def scrape_page(region_id, page_number, session=None):
 
 def parse_table_row(cells):
     """Parse a standard HTML table row into a climb dict."""
-    # Common layout: Rank | Name | Difficulty | Length | Elevation | Gradient
-    # But some tables may have a region column or slightly different order.
-    # We attempt to detect the layout by checking the content of each cell.
-
     texts = [c.get_text(strip=True) for c in cells]
 
     # Try to find the name cell (the one with a link to a climb page)
@@ -345,7 +379,6 @@ def parse_table_row(cells):
     rank = clean_number(rank_text) if rank_text else 0
 
     # Remaining numeric columns come after the name.
-    # Collect all remaining text values after the name column.
     remaining = texts[name_idx + 1:]
 
     difficulty = clean_number(remaining[0]) if len(remaining) > 0 else 0
@@ -357,7 +390,6 @@ def parse_table_row(cells):
     # others look reasonable, the column order is probably correct.
     # If difficulty looks like a distance (<50), columns may be shifted.
     if difficulty < 10 and length_km > 100:
-        # Likely: Name | Length | Elevation | Gradient | Difficulty
         difficulty, length_km, elevation, gradient = (
             gradient, difficulty, length_km, elevation
         )
@@ -430,6 +462,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/api/countries")
+def api_countries():
+    """Return the sorted list of countries."""
+    return jsonify(ALL_COUNTRIES)
+
+
 @app.route("/api/regions")
 def api_regions():
     """Return the full region list (for frontend search/autocomplete)."""
@@ -440,13 +478,22 @@ def api_regions():
 def api_regions_search():
     """Filter regions by a search query (name or country substring)."""
     q = request.args.get("q", "").strip().lower()
-    if not q:
-        return jsonify(ALL_REGIONS)
+    country = request.args.get("country", "").strip()
 
-    results = [
-        r for r in ALL_REGIONS
-        if q in r["name"].lower() or q in r["country"].lower()
-    ]
+    results = ALL_REGIONS
+
+    # Filter by country if provided
+    if country:
+        results = [r for r in results if r["country"] == country]
+
+    # Filter by text query
+    if q:
+        results = [
+            r for r in results
+            if q in r["name"].lower() or q in r["country"].lower()
+               or q in str(r["id"])
+        ]
+
     return jsonify(results)
 
 
@@ -470,6 +517,7 @@ def api_scrape():
 
     all_climbs = []
     errors = []
+    pages_scraped = 0
 
     # Use a session for connection pooling / cookie persistence
     session = requests.Session()
@@ -488,6 +536,7 @@ def api_scrape():
             break
 
         all_climbs.extend(page_climbs)
+        pages_scraped += 1
 
         # Polite delay between pages (skip delay after last page)
         if page < end_page:
@@ -498,6 +547,7 @@ def api_scrape():
     return jsonify({
         "status": "success" if not errors else "partial",
         "count": len(all_climbs),
+        "pages_scraped": pages_scraped,
         "data": all_climbs,
         "errors": errors,
     })

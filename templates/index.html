@@ -83,7 +83,7 @@
             gap: 1.25rem;
         }
         @media (min-width: 900px) {
-            .form-grid { grid-template-columns: 2.5fr 1fr 1fr auto; align-items: end; }
+            .form-grid { grid-template-columns: 1fr 2fr 1fr auto; align-items: end; }
         }
 
         /* === Form elements === */
@@ -166,6 +166,18 @@
             padding: 0.15rem 0.4rem;
             border-radius: 0.25rem;
             font-family: monospace;
+        }
+        .autocomplete-group-header {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--slate-400);
+            background: var(--slate-50);
+            border-bottom: 1px solid var(--slate-100);
+            position: sticky;
+            top: 0;
         }
         .selected-region {
             display: flex;
@@ -253,6 +265,33 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* === Progress bar === */
+        .progress-wrap {
+            display: none;
+            margin-bottom: 1.5rem;
+        }
+        .progress-wrap.active { display: block; }
+        .progress-label {
+            font-size: 0.8rem;
+            color: var(--slate-500);
+            margin-bottom: 0.35rem;
+            font-weight: 500;
+        }
+        .progress-bar-outer {
+            width: 100%;
+            height: 0.5rem;
+            background: var(--slate-200);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            background: var(--blue-600);
+            border-radius: 1rem;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
         /* === Status bar === */
         .status-bar {
             display: none;
@@ -288,8 +327,13 @@
             color: var(--slate-500);
             font-size: 0.875rem;
         }
-        .google-sheets-btn {
-            background: #0f9d58;
+        .export-btns {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .google-sheets-btn, .copy-tsv-btn {
             color: #fff;
             padding: 0.4rem 0.85rem;
             border: none;
@@ -302,8 +346,11 @@
             gap: 0.4rem;
             transition: background-color 0.15s;
         }
+        .google-sheets-btn { background: #0f9d58; }
         .google-sheets-btn:hover { background: #0b8043; }
-        .google-sheets-btn svg { width: 0.9rem; height: 0.9rem; }
+        .copy-tsv-btn { background: var(--blue-600); }
+        .copy-tsv-btn:hover { background: var(--blue-700); }
+        .google-sheets-btn svg, .copy-tsv-btn svg { width: 0.9rem; height: 0.9rem; }
 
         .table-wrap { overflow-x: auto; }
 
@@ -383,6 +430,25 @@
             font-size: 0.8rem;
             color: var(--slate-400);
         }
+
+        /* === Tooltip for copy feedback === */
+        .copy-feedback {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--slate-800);
+            color: #fff;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .copy-feedback.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -409,11 +475,19 @@
 
         <form id="scrapeForm" class="form-grid" autocomplete="off">
 
+            <!-- Country filter -->
+            <div>
+                <label for="countryFilter">Country</label>
+                <select id="countryFilter">
+                    <option value="">All Countries</option>
+                </select>
+            </div>
+
             <!-- Region search -->
             <div>
                 <label for="regionSearch">Region</label>
                 <div class="region-search-wrap">
-                    <input type="text" id="regionSearch" placeholder="Type to search (e.g. Dolomites, France, Tyrol)...">
+                    <input type="text" id="regionSearch" placeholder="Type to search (e.g. Dolomites, Tyrol)...">
                     <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
@@ -434,13 +508,8 @@
                     <span class="sep">to</span>
                     <input type="number" id="endPage" value="5" min="1">
                 </div>
-            </div>
-
-            <!-- Per-page info -->
-            <div>
-                <label>Max pages</label>
-                <p style="font-size:0.8rem;color:var(--slate-500);padding-top:0.4rem">
-                    Up to 20 pages per request. Each page has ~25 climbs.
+                <p style="font-size:0.75rem;color:var(--slate-400);margin-top:0.35rem">
+                    Max 20 pages per request (~25 climbs/page)
                 </p>
             </div>
 
@@ -457,6 +526,14 @@
         </form>
     </div>
 
+    <!-- Progress bar -->
+    <div id="progressWrap" class="progress-wrap">
+        <div class="progress-label" id="progressLabel">Fetching...</div>
+        <div class="progress-bar-outer">
+            <div class="progress-bar-inner" id="progressBar"></div>
+        </div>
+    </div>
+
     <!-- Status bar -->
     <div id="statusBar" class="status-bar"></div>
 
@@ -464,13 +541,21 @@
     <div class="card hidden" id="resultsContainer">
         <div class="results-header">
             <h2>Ranking Results <span id="resultCount" class="count"></span></h2>
-            <button id="googleSheetsBtn" class="google-sheets-btn" title="Download CSV formatted for Google Sheets import">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
-                    <path d="M7 12h2v5H7zm4-3h2v8h-2zm4-3h2v11h-2z"/>
-                </svg>
-                Google Sheets CSV
-            </button>
+            <div class="export-btns">
+                <button id="copyTsvBtn" class="copy-tsv-btn" title="Copy as tab-separated values for pasting into Google Sheets">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    Copy for Sheets
+                </button>
+                <button id="googleSheetsBtn" class="google-sheets-btn" title="Download CSV formatted for Google Sheets import">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                        <path d="M7 12h2v5H7zm4-3h2v8h-2zm4-3h2v11h-2z"/>
+                    </svg>
+                    Google Sheets CSV
+                </button>
+            </div>
         </div>
 
         <div class="table-wrap">
@@ -496,6 +581,9 @@
     </div>
 </div>
 
+<!-- Copy feedback toast -->
+<div id="copyFeedback" class="copy-feedback">Copied to clipboard!</div>
+
 <!-- JS Dependencies -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
@@ -510,68 +598,143 @@ $(document).ready(function () {
     // State
     // -----------------------------------------------------------------------
     let allRegions = [];
+    let allCountries = [];
     let selectedRegionId = null;
     let selectedRegionLabel = '';
     let dataTable = null;
-    let currentData = [];  // store the last fetched dataset for Google Sheets export
+    let currentData = [];  // store the last fetched dataset for exports
     let acIndex = -1;      // autocomplete keyboard navigation index
 
     // -----------------------------------------------------------------------
-    // Load regions on start
+    // Load regions and countries on start
     // -----------------------------------------------------------------------
-    $.getJSON('/api/regions', function (data) {
-        allRegions = data;
+    $.when(
+        $.getJSON('/api/regions'),
+        $.getJSON('/api/countries')
+    ).done(function (regionsResp, countriesResp) {
+        allRegions = regionsResp[0];
+        allCountries = countriesResp[0];
+
+        // Populate country dropdown
+        var $cf = $('#countryFilter');
+        allCountries.forEach(function (c) {
+            $cf.append('<option value="' + c + '">' + c + '</option>');
+        });
+    });
+
+    // -----------------------------------------------------------------------
+    // Country filter changes -> update autocomplete context
+    // -----------------------------------------------------------------------
+    $('#countryFilter').on('change', function () {
+        var country = $(this).val();
+        // If a country is selected, show its regions immediately in autocomplete
+        if (country) {
+            var filtered = allRegions.filter(function (r) {
+                return r.country === country;
+            });
+            renderAutocomplete(filtered, '');
+            $('#regionSearch').val('').focus();
+        } else {
+            $('#autocompleteList').removeClass('open').empty();
+        }
     });
 
     // -----------------------------------------------------------------------
     // Autocomplete for region search
     // -----------------------------------------------------------------------
-    const $search = $('#regionSearch');
-    const $list = $('#autocompleteList');
+    var $search = $('#regionSearch');
+    var $list = $('#autocompleteList');
 
-    $search.on('input', function () {
-        const q = $(this).val().trim().toLowerCase();
-        acIndex = -1;
-        if (q.length < 1) {
-            $list.removeClass('open').empty();
-            return;
+    function getFilteredRegions(query) {
+        var country = $('#countryFilter').val();
+        var pool = allRegions;
+
+        if (country) {
+            pool = pool.filter(function (r) { return r.country === country; });
         }
 
-        const matches = allRegions.filter(function (r) {
-            return r.name.toLowerCase().indexOf(q) !== -1 ||
-                   r.country.toLowerCase().indexOf(q) !== -1 ||
-                   String(r.id).indexOf(q) !== -1;
+        if (!query) return pool.slice(0, 50);
+
+        return pool.filter(function (r) {
+            return r.name.toLowerCase().indexOf(query) !== -1 ||
+                   r.country.toLowerCase().indexOf(query) !== -1 ||
+                   String(r.id).indexOf(query) !== -1;
         }).slice(0, 30);
+    }
+
+    function renderAutocomplete(matches, query) {
+        acIndex = -1;
 
         if (matches.length === 0) {
             $list.html('<div style="padding:0.75rem;color:var(--slate-400);font-size:0.85rem">No regions found. Use the custom ID field.</div>').addClass('open');
             return;
         }
 
-        let html = '';
+        // Group by country
+        var grouped = {};
         matches.forEach(function (r) {
-            html += '<div class="autocomplete-item" data-id="' + r.id + '" data-label="' + r.name + ', ' + r.country + '">'
-                  + '<div><span class="region-name">' + highlight(r.name, q) + '</span> '
-                  + '<span class="region-country">' + r.country + '</span></div>'
-                  + '<span class="region-id">ID: ' + r.id + '</span>'
-                  + '</div>';
+            if (!grouped[r.country]) grouped[r.country] = [];
+            grouped[r.country].push(r);
         });
+
+        var html = '';
+        var countries = Object.keys(grouped).sort();
+        var showGroups = countries.length > 1;
+
+        countries.forEach(function (country) {
+            if (showGroups) {
+                html += '<div class="autocomplete-group-header">' + country + '</div>';
+            }
+            grouped[country].forEach(function (r) {
+                html += '<div class="autocomplete-item" data-id="' + r.id + '" data-label="' + escapeAttr(r.name + ', ' + r.country) + '">'
+                      + '<div><span class="region-name">' + highlight(r.name, query) + '</span> '
+                      + '<span class="region-country">' + r.country + '</span></div>'
+                      + '<span class="region-id">ID: ' + r.id + '</span>'
+                      + '</div>';
+            });
+        });
+
         $list.html(html).addClass('open');
+    }
+
+    $search.on('input', function () {
+        var q = $(this).val().trim().toLowerCase();
+        if (q.length < 1 && !$('#countryFilter').val()) {
+            $list.removeClass('open').empty();
+            return;
+        }
+        var matches = getFilteredRegions(q);
+        renderAutocomplete(matches, q);
+    });
+
+    // Show regions on focus if a country is selected
+    $search.on('focus', function () {
+        var country = $('#countryFilter').val();
+        var q = $(this).val().trim().toLowerCase();
+        if (country && !q) {
+            var matches = getFilteredRegions('');
+            renderAutocomplete(matches, '');
+        }
     });
 
     // Keyboard navigation in autocomplete
     $search.on('keydown', function (e) {
-        const $items = $list.find('.autocomplete-item');
+        var $items = $list.find('.autocomplete-item');
         if (!$items.length) return;
 
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             acIndex = Math.min(acIndex + 1, $items.length - 1);
             $items.removeClass('active').eq(acIndex).addClass('active');
+            // Scroll into view
+            var item = $items.eq(acIndex)[0];
+            if (item) item.scrollIntoView({ block: 'nearest' });
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             acIndex = Math.max(acIndex - 1, 0);
             $items.removeClass('active').eq(acIndex).addClass('active');
+            var item = $items.eq(acIndex)[0];
+            if (item) item.scrollIntoView({ block: 'nearest' });
         } else if (e.key === 'Enter' && acIndex >= 0) {
             e.preventDefault();
             $items.eq(acIndex).trigger('click');
@@ -582,8 +745,8 @@ $(document).ready(function () {
 
     // Click on autocomplete item
     $(document).on('click', '.autocomplete-item', function () {
-        const id = $(this).data('id');
-        const label = $(this).data('label');
+        var id = $(this).data('id');
+        var label = $(this).data('label');
         selectRegion(id, label);
         $list.removeClass('open').empty();
         $search.val('');
@@ -601,7 +764,7 @@ $(document).ready(function () {
         selectedRegionLabel = label;
         $('#customRegionId').val('');
         $('#selectedRegion').removeClass('hidden').html(
-            '<span class="badge">' + label + ' (ID: ' + id + ')'
+            '<span class="badge">' + escapeHtml(label) + ' (ID: ' + id + ')'
             + ' <button type="button" id="clearRegion">&times;</button>'
             + '</span>'
         );
@@ -623,12 +786,13 @@ $(document).ready(function () {
     });
 
     function highlight(text, query) {
-        if (!query) return text;
-        const idx = text.toLowerCase().indexOf(query.toLowerCase());
-        if (idx === -1) return text;
-        return text.substring(0, idx)
-             + '<strong style="color:var(--blue-600)">' + text.substring(idx, idx + query.length) + '</strong>'
-             + text.substring(idx + query.length);
+        if (!query) return escapeHtml(text);
+        var lower = text.toLowerCase();
+        var idx = lower.indexOf(query.toLowerCase());
+        if (idx === -1) return escapeHtml(text);
+        return escapeHtml(text.substring(0, idx))
+             + '<strong style="color:var(--blue-600)">' + escapeHtml(text.substring(idx, idx + query.length)) + '</strong>'
+             + escapeHtml(text.substring(idx + query.length));
     }
 
     // -----------------------------------------------------------------------
@@ -642,14 +806,27 @@ $(document).ready(function () {
     }
 
     // -----------------------------------------------------------------------
-    // Form submit → Scrape
+    // Progress bar helpers
+    // -----------------------------------------------------------------------
+    function showProgress(label, pct) {
+        $('#progressWrap').addClass('active');
+        $('#progressLabel').text(label);
+        $('#progressBar').css('width', pct + '%');
+    }
+    function hideProgress() {
+        $('#progressWrap').removeClass('active');
+        $('#progressBar').css('width', '0%');
+    }
+
+    // -----------------------------------------------------------------------
+    // Form submit -> Scrape
     // -----------------------------------------------------------------------
     $('#scrapeForm').on('submit', function (e) {
         e.preventDefault();
 
         // Determine region ID
-        let regionId = selectedRegionId;
-        const customId = $('#customRegionId').val().trim();
+        var regionId = selectedRegionId;
+        var customId = $('#customRegionId').val().trim();
         if (customId) {
             regionId = customId;
         }
@@ -659,18 +836,32 @@ $(document).ready(function () {
             return;
         }
 
-        const startPage = parseInt($('#startPage').val(), 10) || 1;
-        const endPage = parseInt($('#endPage').val(), 10) || 1;
+        var startPage = parseInt($('#startPage').val(), 10) || 1;
+        var endPage = parseInt($('#endPage').val(), 10) || 1;
 
         if (endPage < startPage) {
             showStatus('warning', 'End page must be greater than or equal to start page.');
             return;
         }
 
-        const $btn = $('#scrapeBtn');
+        var $btn = $('#scrapeBtn');
         $btn.prop('disabled', true).html('<span class="spinner"></span> Scraping...');
+
+        var totalPages = endPage - startPage + 1;
+        showProgress('Fetching page 1 of ' + totalPages + '...', 5);
         showStatus('info', '<span class="spinner" style="border-color:rgba(30,64,175,0.3);border-top-color:#1e40af;width:0.85rem;height:0.85rem"></span> Fetching pages ' + startPage + ' to ' + endPage + ' for region ' + regionId + '...');
         $('#resultsContainer').addClass('hidden');
+
+        // Simulate progress (the actual request is a single POST)
+        var progressTimer = null;
+        var fakeProgress = 5;
+        if (totalPages > 1) {
+            progressTimer = setInterval(function () {
+                fakeProgress = Math.min(fakeProgress + (80 / (totalPages * 2)), 85);
+                var estimatedPage = Math.min(Math.ceil((fakeProgress / 85) * totalPages), totalPages);
+                showProgress('Fetching page ' + estimatedPage + ' of ' + totalPages + '...', fakeProgress);
+            }, 1500);
+        }
 
         $.ajax({
             url: '/api/scrape',
@@ -684,12 +875,16 @@ $(document).ready(function () {
             success: function (response) {
                 currentData = response.data || [];
 
+                if (progressTimer) clearInterval(progressTimer);
+                showProgress('Complete!', 100);
+                setTimeout(hideProgress, 600);
+
                 if (response.errors && response.errors.length) {
-                    showStatus('warning', 'Completed with warnings: ' + response.errors.join('; ') + ' &mdash; ' + response.count + ' climbs retrieved.');
+                    showStatus('warning', 'Completed with warnings: ' + response.errors.join('; ') + ' &mdash; ' + response.count + ' climbs retrieved across ' + (response.pages_scraped || '?') + ' pages.');
                 } else if (response.count === 0) {
                     showStatus('warning', 'No climbs found. The region ID may be invalid, or Climbfinder may be blocking the request. Try a different region or check the ID.');
                 } else {
-                    showStatus('success', 'Successfully fetched <strong>' + response.count + '</strong> climbs.');
+                    showStatus('success', 'Successfully fetched <strong>' + response.count + '</strong> climbs across <strong>' + (response.pages_scraped || '?') + '</strong> pages.');
                 }
 
                 if (response.count > 0) {
@@ -699,7 +894,10 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr) {
-                let msg = 'Request failed.';
+                if (progressTimer) clearInterval(progressTimer);
+                hideProgress();
+
+                var msg = 'Request failed.';
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     msg = xhr.responseJSON.message;
                 }
@@ -742,7 +940,7 @@ $(document).ready(function () {
                     data: 'difficulty_points',
                     className: 'dt-body-center',
                     render: function (val) {
-                        let cls = 'diff-easy';
+                        var cls = 'diff-easy';
                         if (val >= 800) cls = 'diff-extreme';
                         else if (val >= 400) cls = 'diff-hard';
                         else if (val >= 150) cls = 'diff-medium';
@@ -767,7 +965,7 @@ $(document).ready(function () {
                     data: 'avg_gradient_pct',
                     className: 'dt-body-center',
                     render: function (val) {
-                        let cls = 'grad-low';
+                        var cls = 'grad-low';
                         if (val >= 10) cls = 'grad-high';
                         else if (val >= 6) cls = 'grad-mid';
                         return '<span class="' + cls + '">' + val + '%</span>';
@@ -827,7 +1025,7 @@ $(document).ready(function () {
     // Google Sheets CSV export
     // -----------------------------------------------------------------------
     // Generates a CSV with a BOM so Google Sheets auto-detects UTF-8,
-    // and uses tab separator which Sheets handles cleanly on paste/import.
+    // and uses comma separator which Sheets handles cleanly on import.
     $('#googleSheetsBtn').on('click', function () {
         if (!currentData.length) return;
 
@@ -856,12 +1054,54 @@ $(document).ready(function () {
     });
 
     // -----------------------------------------------------------------------
+    // Copy as TSV for direct paste into Google Sheets
+    // -----------------------------------------------------------------------
+    $('#copyTsvBtn').on('click', function () {
+        if (!currentData.length) return;
+
+        var headers = ['Rank', 'Climb Name', 'Difficulty Points', 'Length (km)', 'Elevation Gain (m)', 'Avg Gradient (%)'];
+        var rows = [headers.join('\t')];
+
+        currentData.forEach(function (c) {
+            rows.push([
+                c.rank,
+                c.name || '',
+                c.difficulty_points,
+                c.length_km,
+                c.elevation_gain_m,
+                c.avg_gradient_pct
+            ].join('\t'));
+        });
+
+        var tsv = rows.join('\n');
+        navigator.clipboard.writeText(tsv).then(function () {
+            showCopyFeedback('Copied ' + currentData.length + ' rows! Paste into Google Sheets with Ctrl+V.');
+        }).catch(function () {
+            // Fallback: textarea copy
+            var $ta = $('<textarea>').val(tsv).appendTo('body').select();
+            document.execCommand('copy');
+            $ta.remove();
+            showCopyFeedback('Copied ' + currentData.length + ' rows! Paste into Google Sheets with Ctrl+V.');
+        });
+    });
+
+    function showCopyFeedback(msg) {
+        var $fb = $('#copyFeedback');
+        $fb.text(msg).addClass('show');
+        setTimeout(function () { $fb.removeClass('show'); }, 2500);
+    }
+
+    // -----------------------------------------------------------------------
     // Utility
     // -----------------------------------------------------------------------
     function escapeHtml(text) {
         var div = document.createElement('div');
         div.appendChild(document.createTextNode(text));
         return div.innerHTML;
+    }
+
+    function escapeAttr(text) {
+        return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
 });
