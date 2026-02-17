@@ -884,7 +884,8 @@ $(document).ready(function () {
                 } else if (response.count === 0) {
                     showStatus('warning', 'No climbs found. The region ID may be invalid, or Climbfinder may be blocking the request. Try a different region or check the ID.');
                 } else {
-                    showStatus('success', 'Successfully fetched <strong>' + response.count + '</strong> climbs across <strong>' + (response.pages_scraped || '?') + '</strong> pages.');
+                    var method = response.method === 'playwright' ? ' (via headless browser)' : '';
+                    showStatus('success', 'Successfully fetched <strong>' + response.count + '</strong> climbs across <strong>' + (response.pages_scraped || '?') + '</strong> pages' + method + '.');
                 }
 
                 if (response.count > 0) {

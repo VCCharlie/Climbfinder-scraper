@@ -1,3 +1,4 @@
+import json
 import re
 import time
 import random
@@ -201,7 +202,10 @@ def clean_number(text):
     if not text:
         return 0
 
-    cleaned = text.strip()
+    if isinstance(text, (int, float)):
+        return round(text, 2) if isinstance(text, float) else text
+
+    cleaned = str(text).strip()
     # Remove unit suffixes (case-insensitive)
     cleaned = re.sub(r'\s*(km|m|%|ft|pts?)\s*$', '', cleaned, flags=re.IGNORECASE)
     # Remove thousands separators (commas)
@@ -219,180 +223,318 @@ def clean_number(text):
 
 
 # ---------------------------------------------------------------------------
-# Scraper
+# Scraper — Playwright (headless browser) with __NEXT_DATA__ fast-path
 # ---------------------------------------------------------------------------
-# Rotate through realistic User-Agent strings
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-]
+# Climbfinder is a Next.js app that renders the ranking table with
+# JavaScript.  Plain HTTP requests (requests + BeautifulSoup) only get
+# the empty HTML shell before JS runs — so the table is never there.
+#
+# Approach:
+#   1. Use Playwright to load the page in a real headless Chromium browser.
+#   2. Wait for the ranking table / climb data to appear in the DOM.
+#   3. Extract data from the rendered HTML OR from __NEXT_DATA__ JSON.
+#   4. Fall back to raw requests + BS4 only if Playwright is unavailable.
+# ---------------------------------------------------------------------------
+
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 
 
-def get_headers():
-    """Return realistic browser headers with a randomly-selected User-Agent."""
-    return {
-        "User-Agent": random.choice(USER_AGENTS),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Referer": "https://climbfinder.com/en/ranking",
-        "DNT": "1",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-Fetch-User": "?1",
-    }
-
-
-def choose_parser():
-    """Return the best available HTML parser."""
+def _check_playwright():
+    """Return True if Playwright + Chromium are available."""
     try:
-        import lxml  # noqa: F401
-        return "lxml"
-    except ImportError:
-        return "html.parser"
+        from playwright.sync_api import sync_playwright
+        # Quick check that the browser binary exists
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            browser.close()
+        return True
+    except Exception as exc:
+        print(f"[INFO] Playwright not available: {exc}")
+        return False
 
 
-HTML_PARSER = choose_parser()
+# Cache the check at startup
+PLAYWRIGHT_AVAILABLE = _check_playwright()
 
 
-def fetch_with_retry(session, url, max_retries=3):
+def scrape_page(region_id, page_number):
     """
-    Fetch a URL with exponential backoff on transient failures.
-    Returns the Response object or raises the last exception.
-    """
-    last_exc = None
-    for attempt in range(max_retries):
-        try:
-            resp = session.get(url, headers=get_headers(), timeout=15)
-            resp.raise_for_status()
-            return resp
-        except requests.RequestException as exc:
-            last_exc = exc
-            status = getattr(exc.response, 'status_code', None) if hasattr(exc, 'response') else None
-            # Don't retry on 4xx client errors (except 429 Too Many Requests)
-            if status and 400 <= status < 500 and status != 429:
-                raise
-            if attempt < max_retries - 1:
-                wait = (2 ** attempt) + random.uniform(0.5, 1.5)
-                print(f"  [RETRY] Attempt {attempt + 1} failed: {exc}. Waiting {wait:.1f}s...")
-                time.sleep(wait)
-    raise last_exc
-
-
-def scrape_page(region_id, page_number, session=None):
-    """
-    Scrape a single page of the Climbfinder ranking for the given region.
-    Returns a list of dicts with cleaned numeric values.
+    Scrape a single ranking page.  Uses Playwright if available, otherwise
+    falls back to requests + BeautifulSoup.
     """
     url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
 
-    requester = session or requests.Session()
+    if PLAYWRIGHT_AVAILABLE:
+        return _scrape_with_playwright(url, page_number)
+    else:
+        return _scrape_with_requests(url, page_number)
+
+
+# ---------------------------------------------------------------------------
+# Strategy A: Playwright (headless Chromium)
+# ---------------------------------------------------------------------------
+def _scrape_with_playwright(url, page_number):
+    """Load page in a headless browser, wait for JS to render, then extract."""
+    from playwright.sync_api import sync_playwright
+
     try:
-        resp = fetch_with_retry(requester, url)
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent=USER_AGENT,
+                viewport={"width": 1280, "height": 900},
+                locale="en-US",
+            )
+            page = context.new_page()
+            page.goto(url, wait_until="domcontentloaded", timeout=20000)
+
+            # Wait for ranking content to appear (table rows, links to climbs,
+            # or the __NEXT_DATA__ script to be populated).
+            # We try a few selectors that indicate the data has loaded.
+            try:
+                page.wait_for_selector(
+                    "table tr td, a[href*='/climbs/'], a[href*='/cols/'], [class*='ranking']",
+                    timeout=10000,
+                )
+                # Give a tiny extra moment for all rows to render
+                page.wait_for_timeout(500)
+            except Exception:
+                # Timeout — maybe no results for this page
+                pass
+
+            html = page.content()
+            browser.close()
+
+        return _parse_html(html, page_number)
+
+    except Exception as exc:
+        print(f"[ERROR] Playwright failed for page {page_number}: {exc}")
+        return [], str(exc)
+
+
+# ---------------------------------------------------------------------------
+# Strategy B: requests + BeautifulSoup (fallback for no-Playwright envs)
+# ---------------------------------------------------------------------------
+def _scrape_with_requests(url, page_number):
+    """Plain HTTP fetch — works only if the data is in __NEXT_DATA__ or SSR HTML."""
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://climbfinder.com/en/ranking",
+    }
+    try:
+        resp = requests.get(url, headers=headers, timeout=15)
+        resp.raise_for_status()
     except requests.RequestException as exc:
         print(f"[ERROR] Failed to fetch page {page_number}: {exc}")
         return [], str(exc)
 
-    soup = BeautifulSoup(resp.content, HTML_PARSER)
+    return _parse_html(resp.text, page_number)
 
-    # Try to locate the ranking table.  Climbfinder typically uses a
-    # standard <table> but the layout may vary.  We look for several
-    # fallback strategies.
+
+# ---------------------------------------------------------------------------
+# Unified HTML parser — tries multiple extraction strategies on the HTML
+# ---------------------------------------------------------------------------
+def _parse_html(html, page_number):
+    """
+    Given the full HTML (from Playwright or requests), try to extract climb
+    data using multiple strategies in order of reliability.
+    """
+    soup = BeautifulSoup(html, "html.parser")
     climbs = []
 
-    # Strategy 1: look for a <table> element
+    # ------------------------------------------------------------------
+    # Strategy 0: __NEXT_DATA__ JSON (Next.js embeds page props as JSON)
+    # ------------------------------------------------------------------
+    climbs = _extract_from_next_data(soup)
+    if climbs:
+        print(f"  Page {page_number}: extracted {len(climbs)} climbs from __NEXT_DATA__")
+        return climbs, None
+
+    # ------------------------------------------------------------------
+    # Strategy 1: HTML table
+    # ------------------------------------------------------------------
     table = soup.find("table")
     if table:
         rows = table.find_all("tr")
         for row in rows:
-            # Skip header rows
             cells = row.find_all("td")
-            if not cells or len(cells) < 5:
+            if not cells or len(cells) < 3:
                 continue
             try:
-                climb = parse_table_row(cells)
+                climb = _parse_table_row(cells)
                 if climb:
                     climbs.append(climb)
             except Exception:
                 continue
 
-    # Strategy 2: if no <table> found, look for repeated card/div structures
-    # that Climbfinder sometimes uses for responsive layouts.
-    if not climbs:
-        cards = soup.select(".ranking-row, .climb-row, [class*=ranking], [class*=climb-item]")
-        for card in cards:
-            try:
-                climb = parse_card_element(card)
-                if climb:
-                    climbs.append(climb)
-            except Exception:
-                continue
+    if climbs:
+        print(f"  Page {page_number}: extracted {len(climbs)} climbs from HTML table")
+        return climbs, None
 
-    # Strategy 3: broader fallback – look for any structured list of links
-    # that point to climb detail pages (URL pattern /en/climbs/...).
-    if not climbs:
-        links = soup.find_all("a", href=re.compile(r"/climbs?/"))
-        seen_names = set()
-        for link in links:
-            name = link.get_text(strip=True)
-            if name and name not in seen_names:
-                seen_names.add(name)
-                # Try to extract numbers from siblings / parent
-                climb = extract_climb_from_context(link)
-                if climb:
-                    climbs.append(climb)
+    # ------------------------------------------------------------------
+    # Strategy 2: Links to climb pages with surrounding context
+    # ------------------------------------------------------------------
+    links = soup.find_all("a", href=re.compile(r"/(climbs?|cols?)/"))
+    seen = set()
+    for link in links:
+        name = link.get_text(strip=True)
+        href = link.get("href", "")
+        if not name or name in seen:
+            continue
+        # Skip nav/footer links (very short names or generic text)
+        if len(name) < 3 or name.lower() in ("ranking", "home", "climbs", "map"):
+            continue
+        seen.add(name)
+        climb = _extract_climb_from_context(link, name)
+        if climb:
+            climbs.append(climb)
 
-    return climbs, None
+    if climbs:
+        print(f"  Page {page_number}: extracted {len(climbs)} climbs from link context")
+        return climbs, None
+
+    print(f"  Page {page_number}: no climbs found in HTML ({len(html)} bytes)")
+    return [], None
 
 
-def parse_table_row(cells):
+# ---------------------------------------------------------------------------
+# __NEXT_DATA__ extraction
+# ---------------------------------------------------------------------------
+def _extract_from_next_data(soup):
+    """
+    Next.js pages often embed their data in a <script id="__NEXT_DATA__"> tag.
+    This contains the full page props as JSON, including the ranking data.
+    """
+    script = soup.find("script", id="__NEXT_DATA__")
+    if not script or not script.string:
+        return []
+
+    try:
+        data = json.loads(script.string)
+    except json.JSONDecodeError:
+        return []
+
+    # Navigate the __NEXT_DATA__ JSON tree to find climb/ranking data.
+    # The exact path depends on Climbfinder's Next.js page structure.
+    # We search recursively for arrays that look like ranking data.
+    climbs = _find_ranking_data(data)
+    return climbs
+
+
+def _find_ranking_data(obj, depth=0):
+    """
+    Recursively search a nested JSON structure for an array of objects
+    that look like climb ranking entries (have name + numeric fields).
+    """
+    if depth > 12:
+        return []
+
+    if isinstance(obj, list) and len(obj) >= 2:
+        # Check if this looks like a list of climb objects
+        sample = obj[0] if obj else None
+        if isinstance(sample, dict) and _looks_like_climb(sample):
+            return [_normalize_climb(item, idx) for idx, item in enumerate(obj) if isinstance(item, dict)]
+
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            result = _find_ranking_data(value, depth + 1)
+            if result:
+                return result
+
+    if isinstance(obj, list):
+        for item in obj:
+            result = _find_ranking_data(item, depth + 1)
+            if result:
+                return result
+
+    return []
+
+
+def _looks_like_climb(d):
+    """Heuristic: does this dict look like a climb ranking entry?"""
+    keys_lower = {k.lower() for k in d.keys()}
+    # Must have some kind of name
+    has_name = bool(keys_lower & {"name", "title", "climb", "climbname", "climb_name"})
+    # Must have at least one numeric-looking field
+    numeric_keys = {"difficulty", "points", "length", "distance", "elevation",
+                    "gradient", "avg_gradient", "height", "altitude", "km",
+                    "rating", "score", "rank", "position", "difficultypoints",
+                    "difficulty_points", "elevationgain", "elevation_gain",
+                    "avggradient", "avg_gradient_pct", "length_km"}
+    has_numeric = bool(keys_lower & numeric_keys)
+    return has_name and has_numeric
+
+
+def _normalize_climb(d, idx):
+    """Convert a raw JSON climb object to our standard format."""
+    # Build a case-insensitive key map
+    lc = {k.lower(): v for k, v in d.items()}
+
+    name = (lc.get("name") or lc.get("title") or lc.get("climb")
+            or lc.get("climbname") or lc.get("climb_name") or "")
+
+    rank = (lc.get("rank") or lc.get("position") or lc.get("ranking")
+            or idx + 1)
+
+    difficulty = (lc.get("difficulty") or lc.get("points")
+                  or lc.get("difficultypoints") or lc.get("difficulty_points")
+                  or lc.get("score") or lc.get("rating") or 0)
+
+    length_km = (lc.get("length") or lc.get("distance") or lc.get("km")
+                 or lc.get("length_km") or 0)
+
+    elevation = (lc.get("elevation") or lc.get("elevationgain")
+                 or lc.get("elevation_gain") or lc.get("elevation_gain_m")
+                 or lc.get("height") or lc.get("altitude") or 0)
+
+    gradient = (lc.get("gradient") or lc.get("avg_gradient")
+                or lc.get("avggradient") or lc.get("avg_gradient_pct") or 0)
+
+    return {
+        "rank": clean_number(rank),
+        "name": str(name).strip(),
+        "difficulty_points": clean_number(difficulty),
+        "length_km": clean_number(length_km),
+        "elevation_gain_m": clean_number(elevation),
+        "avg_gradient_pct": clean_number(gradient),
+    }
+
+
+# ---------------------------------------------------------------------------
+# HTML table row parser
+# ---------------------------------------------------------------------------
+def _parse_table_row(cells):
     """Parse a standard HTML table row into a climb dict."""
     texts = [c.get_text(strip=True) for c in cells]
 
-    # Try to find the name cell (the one with a link to a climb page)
+    # Find the name cell (one with a link to a climb/col page)
     name = None
     name_idx = None
     for i, cell in enumerate(cells):
-        link = cell.find("a", href=re.compile(r"/climbs?/|/cols?/"))
+        link = cell.find("a", href=re.compile(r"/(climbs?|cols?)/"))
         if link:
             name = link.get_text(strip=True)
             name_idx = i
             break
 
     if name is None:
-        # Fallback: assume column 1 is the name
         name = texts[1] if len(texts) > 1 else ""
         name_idx = 1
 
     if not name:
         return None
 
-    # Extract rank – usually the first column before the name
     rank_text = texts[0] if name_idx > 0 else ""
     rank_text = rank_text.replace(".", "").replace("#", "").strip()
     rank = clean_number(rank_text) if rank_text else 0
 
-    # Remaining numeric columns come after the name.
     remaining = texts[name_idx + 1:]
-
     difficulty = clean_number(remaining[0]) if len(remaining) > 0 else 0
     length_km = clean_number(remaining[1]) if len(remaining) > 1 else 0
     elevation = clean_number(remaining[2]) if len(remaining) > 2 else 0
     gradient = clean_number(remaining[3]) if len(remaining) > 3 else 0
-
-    # Heuristic: if difficulty seems like a very large number and the
-    # others look reasonable, the column order is probably correct.
-    # If difficulty looks like a distance (<50), columns may be shifted.
-    if difficulty < 10 and length_km > 100:
-        difficulty, length_km, elevation, gradient = (
-            gradient, difficulty, length_km, elevation
-        )
 
     return {
         "rank": rank,
@@ -404,40 +546,17 @@ def parse_table_row(cells):
     }
 
 
-def parse_card_element(card):
-    """Parse a card-style div element into a climb dict."""
-    link = card.find("a", href=re.compile(r"/climbs?/|/cols?/"))
-    name = link.get_text(strip=True) if link else card.get_text(strip=True)
-    if not name:
-        return None
-
-    # Try to find numeric text nodes
-    nums = re.findall(r"[\d.,]+", card.get_text())
-    nums = [clean_number(n) for n in nums]
-
-    return {
-        "rank": nums[0] if len(nums) > 0 else 0,
-        "name": name,
-        "difficulty_points": nums[1] if len(nums) > 1 else 0,
-        "length_km": nums[2] if len(nums) > 2 else 0,
-        "elevation_gain_m": nums[3] if len(nums) > 3 else 0,
-        "avg_gradient_pct": nums[4] if len(nums) > 4 else 0,
-    }
-
-
-def extract_climb_from_context(link_element):
-    """Last-resort extraction: pull numbers from the link's parent row."""
-    name = link_element.get_text(strip=True)
-    if not name:
-        return None
-
+# ---------------------------------------------------------------------------
+# Context-based extraction (links to climb pages)
+# ---------------------------------------------------------------------------
+def _extract_climb_from_context(link_element, name):
+    """Extract numeric data from the link's parent elements."""
     parent = link_element.parent
-    # Walk up a few levels to find a container with numbers
-    for _ in range(3):
+    for _ in range(4):
         if parent is None:
             break
         text = parent.get_text(" ", strip=True)
-        nums = re.findall(r"[\d.,]+", text)
+        nums = re.findall(r"[\d]+(?:[.,]\d+)?", text)
         if len(nums) >= 3:
             nums = [clean_number(n) for n in nums]
             return {
@@ -482,11 +601,9 @@ def api_regions_search():
 
     results = ALL_REGIONS
 
-    # Filter by country if provided
     if country:
         results = [r for r in results if r["country"] == country]
 
-    # Filter by text query
     if q:
         results = [
             r for r in results
@@ -519,35 +636,32 @@ def api_scrape():
     errors = []
     pages_scraped = 0
 
-    # Use a session for connection pooling / cookie persistence
-    session = requests.Session()
+    method = "playwright" if PLAYWRIGHT_AVAILABLE else "requests"
+    print(f"[SCRAPE] region={region_id} pages={start_page}-{end_page} method={method}")
 
     for page in range(start_page, end_page + 1):
         print(f"  Scraping region={region_id} page={page} ...")
-        page_climbs, err = scrape_page(region_id, page, session=session)
+        page_climbs, err = scrape_page(region_id, page)
 
         if err:
             errors.append(f"Page {page}: {err}")
-            # On a hard error, stop – the remaining pages likely fail too
             break
 
         if not page_climbs:
-            # Empty page = end of listing
             break
 
         all_climbs.extend(page_climbs)
         pages_scraped += 1
 
-        # Polite delay between pages (skip delay after last page)
+        # Polite delay between pages
         if page < end_page:
             time.sleep(random.uniform(0.8, 1.8))
-
-    session.close()
 
     return jsonify({
         "status": "success" if not errors else "partial",
         "count": len(all_climbs),
         "pages_scraped": pages_scraped,
+        "method": method,
         "data": all_climbs,
         "errors": errors,
     })
@@ -557,5 +671,6 @@ def api_scrape():
 # Run
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
+    print(f"[STARTUP] Playwright available: {PLAYWRIGHT_AVAILABLE}")
     # 0.0.0.0 is needed for GitHub Codespaces port forwarding
     app.run(host="0.0.0.0", debug=True, port=5000)
