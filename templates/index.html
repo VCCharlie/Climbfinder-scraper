@@ -562,12 +562,11 @@
             <table id="climbsTable" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Rank</th>
-                        <th>Climb Name</th>
-                        <th>Difficulty</th>
                         <th>Length (km)</th>
-                        <th>Elev. Gain (m)</th>
+                        <th>Climb Name</th>
                         <th>Avg Gradient (%)</th>
+                        <th>Difficulty Points</th>
+                        <th>Elev. Gain (m)</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -925,16 +924,26 @@ $(document).ready(function () {
             data: data,
             columns: [
                 {
-                    data: 'rank',
+                    data: 'length_km',
                     className: 'dt-body-center',
                     render: function (val) {
-                        return '<strong>' + val + '</strong>';
+                        return val + ' km';
                     }
                 },
                 {
                     data: 'name',
                     render: function (val) {
                         return '<span class="climb-name">' + escapeHtml(val) + '</span>';
+                    }
+                },
+                {
+                    data: 'avg_gradient_pct',
+                    className: 'dt-body-center',
+                    render: function (val) {
+                        var cls = 'grad-low';
+                        if (val >= 10) cls = 'grad-high';
+                        else if (val >= 6) cls = 'grad-mid';
+                        return '<span class="' + cls + '">' + val + '%</span>';
                     }
                 },
                 {
@@ -949,27 +958,10 @@ $(document).ready(function () {
                     }
                 },
                 {
-                    data: 'length_km',
-                    className: 'dt-body-center',
-                    render: function (val) {
-                        return val + ' km';
-                    }
-                },
-                {
                     data: 'elevation_gain_m',
                     className: 'dt-body-center',
                     render: function (val) {
-                        return val.toLocaleString() + ' m';
-                    }
-                },
-                {
-                    data: 'avg_gradient_pct',
-                    className: 'dt-body-center',
-                    render: function (val) {
-                        var cls = 'grad-low';
-                        if (val >= 10) cls = 'grad-high';
-                        else if (val >= 6) cls = 'grad-mid';
-                        return '<span class="' + cls + '">' + val + '%</span>';
+                        return (val || 0).toLocaleString() + ' m';
                     }
                 }
             ],
@@ -981,13 +973,10 @@ $(document).ready(function () {
                     title: 'Climbfinder_Rankings',
                     autoFilter: true,
                     exportOptions: {
-                        // Export raw values (numbers) not the HTML-rendered display
                         orthogonal: 'export',
                         format: {
                             body: function (data, row, column, node) {
-                                // Strip HTML tags to get raw value
                                 var stripped = data.replace(/<[^>]*>/g, '').trim();
-                                // Remove unit suffixes for pure numeric export
                                 stripped = stripped.replace(/\s*(km|m|%)$/g, '').replace(/,/g, '');
                                 var num = Number(stripped);
                                 return isNaN(num) ? stripped : num;
@@ -1012,7 +1001,7 @@ $(document).ready(function () {
             ],
             pageLength: 25,
             lengthMenu: [10, 25, 50, 100],
-            order: [[0, 'asc']],
+            order: [[3, 'desc']],
             language: {
                 search: 'Filter:',
                 lengthMenu: 'Show _MENU_ climbs',
@@ -1030,17 +1019,16 @@ $(document).ready(function () {
     $('#googleSheetsBtn').on('click', function () {
         if (!currentData.length) return;
 
-        var headers = ['Rank', 'Climb Name', 'Difficulty Points', 'Length (km)', 'Elevation Gain (m)', 'Avg Gradient (%)'];
+        var headers = ['Length (km)', 'Climb Name', 'Avg Gradient (%)', 'Difficulty Points', 'Elevation Gain (m)'];
         var rows = [headers.join(',')];
 
         currentData.forEach(function (c) {
             rows.push([
-                c.rank,
-                '"' + (c.name || '').replace(/"/g, '""') + '"',
-                c.difficulty_points,
                 c.length_km,
-                c.elevation_gain_m,
-                c.avg_gradient_pct
+                '"' + (c.name || '').replace(/"/g, '""') + '"',
+                c.avg_gradient_pct,
+                c.difficulty_points,
+                c.elevation_gain_m || 0
             ].join(','));
         });
 
@@ -1060,17 +1048,16 @@ $(document).ready(function () {
     $('#copyTsvBtn').on('click', function () {
         if (!currentData.length) return;
 
-        var headers = ['Rank', 'Climb Name', 'Difficulty Points', 'Length (km)', 'Elevation Gain (m)', 'Avg Gradient (%)'];
+        var headers = ['Length (km)', 'Climb Name', 'Avg Gradient (%)', 'Difficulty Points', 'Elevation Gain (m)'];
         var rows = [headers.join('\t')];
 
         currentData.forEach(function (c) {
             rows.push([
-                c.rank,
-                c.name || '',
-                c.difficulty_points,
                 c.length_km,
-                c.elevation_gain_m,
-                c.avg_gradient_pct
+                c.name || '',
+                c.avg_gradient_pct,
+                c.difficulty_points,
+                c.elevation_gain_m || 0
             ].join('\t'));
         });
 
