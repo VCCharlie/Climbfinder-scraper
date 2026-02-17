@@ -305,7 +305,7 @@ def _looks_like_climb(d):
 
 def _normalize_climb(d, idx):
     lc = {k.lower(): v for k, v in d.items()}
-    name = lc.get("name") or lc.get("title") or lc.get("climb") or lc.get("climbname") or lc.get("climb_name") or ""
+    name = _best_name(lc)
     rank = lc.get("rank") or lc.get("position") or lc.get("ranking") or idx + 1
     difficulty = lc.get("difficulty") or lc.get("points") or lc.get("difficultypoints") or lc.get("difficulty_points") or lc.get("score") or lc.get("rating") or 0
     length_km = lc.get("length") or lc.get("distance") or lc.get("km") or lc.get("length_km") or 0
@@ -317,12 +317,42 @@ def _normalize_climb(d, idx):
 
     return {
         "rank": clean_number(rank),
-        "name": str(name).strip(),
+        "name": name,
         "difficulty_points": clean_number(difficulty),
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,
     }
+
+
+def _best_name(lc):
+    """Pick the best human-readable climb name from available fields.
+    Skips values that look like concatenated stats (e.g. '34.8 km 6 % 1556')
+    by requiring at least one word with 3+ letters.
+    """
+    for key in ("title", "name", "climb", "climbname", "climb_name",
+                "displayname", "display_name", "routename", "route_name"):
+        val = lc.get(key)
+        if not val:
+            continue
+        if isinstance(val, dict):
+            for lang in ("en", "nl", "fr", "de", "es", "it"):
+                if lang in val and isinstance(val[lang], str) and val[lang].strip():
+                    return val[lang].strip()
+            for v in val.values():
+                if isinstance(v, str) and v.strip():
+                    return v.strip()
+            continue
+        if not isinstance(val, str) or not val.strip():
+            continue
+        s = val.strip()
+        if re.search(r'[a-zA-ZÀ-ÿ]{3,}', s):
+            return s
+    slug = lc.get("slug") or ""
+    if isinstance(slug, str) and slug.strip():
+        return slug.strip().split("/")[-1].replace("-", " ").title()
+    raw = lc.get("name") or lc.get("title") or ""
+    return str(raw).strip() if raw else ""
 
 
 def _detect_table_columns(table):
