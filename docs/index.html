@@ -325,12 +325,11 @@
             <table id="climbsTable" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Rank</th>
-                        <th>Climb Name</th>
-                        <th>Difficulty</th>
                         <th>Length (km)</th>
-                        <th>Elev. Gain (m)</th>
+                        <th>Climb Name</th>
                         <th>Avg Gradient (%)</th>
+                        <th>Difficulty Points</th>
+                        <th>Elev. Gain (m)</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -591,11 +590,12 @@ $(document).ready(function () {
         // Strategy 1a: HTML table
         var table = doc.querySelector('table');
         if (table) {
+            var colMap = detectTableColumns(table);
             var rows = table.querySelectorAll('tr');
             for (var i = 0; i < rows.length; i++) {
                 var cells = rows[i].querySelectorAll('td');
                 if (cells.length < 3) continue;
-                var climb = parseTableRow(cells);
+                var climb = parseTableRow(cells, colMap);
                 if (climb) climbs.push(climb);
             }
             if (climbs.length > 0) return climbs;
@@ -616,65 +616,102 @@ $(document).ready(function () {
         return climbs;
     }
 
-    function findRankingData(obj, depth) {
-        if (!depth) depth = 0;
-        if (depth > 12) return [];
+    function findRankingData(obj) {
+        // Collect ALL candidate arrays, then pick the largest one
+        // (real ranking data has ~25 items; spurious matches are smaller)
+        var candidates = [];
+        collectRankingCandidates(obj, candidates, 0);
+        if (candidates.length === 0) return [];
+        candidates.sort(function(a,b){return b.length - a.length;});
+        return candidates[0].map(function(item, idx){return normalizeClimb(item, idx);});
+    }
+
+    function collectRankingCandidates(obj, candidates, depth) {
+        if (depth > 12) return;
         if (Array.isArray(obj) && obj.length >= 2 && typeof obj[0] === 'object' && obj[0] !== null && looksLikeClimb(obj[0])) {
-            return obj.filter(function(item) { return typeof item === 'object' && item !== null; }).map(function(item, idx) { return normalizeClimb(item, idx); });
+            candidates.push(obj.filter(function(item){return typeof item === 'object' && item !== null;}));
         }
-        if (typeof obj === 'object' && obj !== null) {
+        if (typeof obj === 'object' && obj !== null && !Array.isArray(obj)) {
             var keys = Object.keys(obj);
-            for (var i = 0; i < keys.length; i++) {
-                var result = findRankingData(obj[keys[i]], depth + 1);
-                if (result.length > 0) return result;
-            }
+            for (var i = 0; i < keys.length; i++) collectRankingCandidates(obj[keys[i]], candidates, depth + 1);
         }
         if (Array.isArray(obj)) {
-            for (var k = 0; k < obj.length; k++) {
-                var result = findRankingData(obj[k], depth + 1);
-                if (result.length > 0) return result;
-            }
+            for (var k = 0; k < obj.length; k++) collectRankingCandidates(obj[k], candidates, depth + 1);
         }
-        return [];
     }
 
     function looksLikeClimb(d) {
         var keys = Object.keys(d).map(function(k){return k.toLowerCase();});
         var hasName = keys.some(function(k){return ['name','title','climb','climbname','climb_name'].indexOf(k)!==-1;});
-        var numKeys = ['difficulty','points','length','distance','elevation','gradient','avg_gradient','height','altitude','km','rating','score','rank','position'];
-        var hasNum = keys.some(function(k){return numKeys.indexOf(k)!==-1;});
-        return hasName && hasNum;
+        if (!hasName) return false;
+        // Require at least 2 distinct numeric categories
+        var cats = 0;
+        if (keys.some(function(k){return ['length','distance','km','length_km'].indexOf(k)!==-1;})) cats++;
+        if (keys.some(function(k){return ['gradient','avg_gradient','avggradient','avg_gradient_pct','averagegradient'].indexOf(k)!==-1;})) cats++;
+        if (keys.some(function(k){return ['difficulty','points','difficultypoints','difficulty_points','score','rating'].indexOf(k)!==-1;})) cats++;
+        if (keys.some(function(k){return ['rank','position','ranking'].indexOf(k)!==-1;})) cats++;
+        if (keys.some(function(k){return ['elevation','elevationgain','elevation_gain','height','altitude'].indexOf(k)!==-1;})) cats++;
+        return cats >= 2;
     }
 
     function normalizeClimb(d, idx) {
         var lc = {};
         Object.keys(d).forEach(function(k){lc[k.toLowerCase()]=d[k];});
+        var lengthVal = cleanNum(lc.length || lc.distance || lc.km || lc.length_km || 0);
+        var gradientVal = cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || lc.averagegradient || 0);
+        var elevGain = (lengthVal && gradientVal) ? Math.round(lengthVal * 10 * gradientVal) : 0;
         return {
             rank: cleanNum(lc.rank || lc.position || lc.ranking || (idx+1)),
             name: String(lc.name || lc.title || lc.climb || lc.climbname || lc.climb_name || '').trim(),
             difficulty_points: cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || lc.score || lc.rating || 0),
-            length_km: cleanNum(lc.length || lc.distance || lc.km || lc.length_km || 0),
-            elevation_gain_m: cleanNum(lc.elevation || lc.elevationgain || lc.elevation_gain || lc.elevation_gain_m || lc.height || lc.altitude || 0),
-            avg_gradient_pct: cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || 0)
+            length_km: lengthVal,
+            avg_gradient_pct: gradientVal,
+            elevation_gain_m: elevGain
         };
     }
 
-    function parseTableRow(cells) {
+    function detectTableColumns(table) {
+        var colMap = {};
+        var headers = table.querySelectorAll('th');
+        for (var i = 0; i < headers.length; i++) {
+            var t = headers[i].textContent.trim().toLowerCase();
+            if (/rank|#|pos/.test(t)) colMap.rank = i;
+            else if (/name|climb|col /.test(t)) colMap.name = i;
+            else if (/diff|point|score/.test(t)) colMap.difficulty = i;
+            else if (/length|dist|km/.test(t)) colMap.length = i;
+            else if (/grad|avg|slope|%/.test(t)) colMap.gradient = i;
+        }
+        return colMap;
+    }
+
+    function parseTableRow(cells, colMap) {
         var texts = []; for (var i=0; i<cells.length; i++) texts.push(cells[i].textContent.trim());
         var name = null, nameIdx = null;
         for (var j=0; j<cells.length; j++) {
             var link = cells[j].querySelector('a[href*="/climbs/"], a[href*="/cols/"]');
             if (link) { name = link.textContent.trim(); nameIdx = j; break; }
         }
-        if (name === null) { name = texts[1] || ''; nameIdx = 1; }
+        if (name === null) {
+            if (colMap && colMap.name !== undefined && colMap.name < texts.length) { nameIdx = colMap.name; name = texts[nameIdx]; }
+            else { name = texts[1] || ''; nameIdx = 1; }
+        }
         if (!name) return null;
-        var rankText = (nameIdx > 0 ? texts[0] : '').replace(/[.#]/g, '').trim();
-        var remaining = texts.slice(nameIdx + 1);
-        return {
-            rank: cleanNum(rankText), name: name,
-            difficulty_points: cleanNum(remaining[0] || 0), length_km: cleanNum(remaining[1] || 0),
-            elevation_gain_m: cleanNum(remaining[2] || 0), avg_gradient_pct: cleanNum(remaining[3] || 0)
-        };
+        var rank, difficulty, lengthKm, gradient;
+        if (colMap && Object.keys(colMap).length >= 3) {
+            rank = (colMap.rank !== undefined && colMap.rank < texts.length) ? cleanNum(texts[colMap.rank].replace(/[.#]/g, '')) : 0;
+            difficulty = (colMap.difficulty !== undefined && colMap.difficulty < texts.length) ? cleanNum(texts[colMap.difficulty]) : 0;
+            lengthKm = (colMap.length !== undefined && colMap.length < texts.length) ? cleanNum(texts[colMap.length]) : 0;
+            gradient = (colMap.gradient !== undefined && colMap.gradient < texts.length) ? cleanNum(texts[colMap.gradient]) : 0;
+        } else {
+            var rankText = (nameIdx > 0 ? texts[0] : '').replace(/[.#]/g, '').trim();
+            rank = cleanNum(rankText);
+            var remaining = texts.slice(nameIdx + 1);
+            lengthKm = cleanNum(remaining[0] || 0);
+            gradient = cleanNum(remaining[1] || 0);
+            difficulty = cleanNum(remaining[2] || 0);
+        }
+        var elevGain = (lengthKm && gradient) ? Math.round(lengthKm * 10 * gradient) : 0;
+        return { rank: rank, name: name, difficulty_points: difficulty, length_km: lengthKm, avg_gradient_pct: gradient, elevation_gain_m: elevGain };
     }
 
     function extractFromContext(linkEl, name) {
@@ -683,11 +720,13 @@ $(document).ready(function () {
             var nums = (parent.textContent || '').match(/[\d]+(?:[.,]\d+)?/g);
             if (nums && nums.length >= 3) {
                 nums = nums.map(cleanNum);
-                return { rank: nums[0]||0, name: name, difficulty_points: nums[1]||0, length_km: nums[2]||0, elevation_gain_m: nums[3]||0, avg_gradient_pct: nums[4]||0 };
+                var lk = nums[1]||0, gr = nums[2]||0;
+                var eg = (lk && gr) ? Math.round(lk * 10 * gr) : 0;
+                return { rank: nums[0]||0, name: name, length_km: lk, avg_gradient_pct: gr, difficulty_points: nums[3]||0, elevation_gain_m: eg };
             }
             parent = parent.parentElement;
         }
-        return { rank: 0, name: name, difficulty_points: 0, length_km: 0, elevation_gain_m: 0, avg_gradient_pct: 0 };
+        return { rank: 0, name: name, difficulty_points: 0, length_km: 0, avg_gradient_pct: 0, elevation_gain_m: 0 };
     }
 
     function cleanNum(v) {
@@ -705,19 +744,18 @@ $(document).ready(function () {
         dataTable = $('#climbsTable').DataTable({
             data: data,
             columns: [
-                { data: 'rank', className: 'dt-body-center', render: function(v){return '<strong>'+v+'</strong>';} },
-                { data: 'name', render: function(v){return '<span class="climb-name">'+escapeHtml(v)+'</span>';} },
-                { data: 'difficulty_points', className: 'dt-body-center', render: function(v){ var c='diff-easy'; if(v>=800)c='diff-extreme'; else if(v>=400)c='diff-hard'; else if(v>=150)c='diff-medium'; return '<span class="diff-badge '+c+'">'+v+'</span>';} },
                 { data: 'length_km', className: 'dt-body-center', render: function(v){return v+' km';} },
-                { data: 'elevation_gain_m', className: 'dt-body-center', render: function(v){return v.toLocaleString()+' m';} },
-                { data: 'avg_gradient_pct', className: 'dt-body-center', render: function(v){ var c='grad-low'; if(v>=10)c='grad-high'; else if(v>=6)c='grad-mid'; return '<span class="'+c+'">'+v+'%</span>';} }
+                { data: 'name', render: function(v){return '<span class="climb-name">'+escapeHtml(v)+'</span>';} },
+                { data: 'avg_gradient_pct', className: 'dt-body-center', render: function(v){ var c='grad-low'; if(v>=10)c='grad-high'; else if(v>=6)c='grad-mid'; return '<span class="'+c+'">'+v+'%</span>';} },
+                { data: 'difficulty_points', className: 'dt-body-center', render: function(v){ var c='diff-easy'; if(v>=800)c='diff-extreme'; else if(v>=400)c='diff-hard'; else if(v>=150)c='diff-medium'; return '<span class="diff-badge '+c+'">'+v+'</span>';} },
+                { data: 'elevation_gain_m', className: 'dt-body-center', render: function(v){return (v||0).toLocaleString()+' m';} }
             ],
             dom: 'Bfrtip',
             buttons: [
                 { extend:'excelHtml5', text:'Export Excel', title:'Climbfinder_Rankings', autoFilter:true, exportOptions:{orthogonal:'export',format:{body:function(d){var s=d.replace(/<[^>]*>/g,'').trim().replace(/\s*(km|m|%)$/g,'').replace(/,/g,'');var n=Number(s);return isNaN(n)?s:n;}}} },
                 { extend:'csvHtml5', text:'Export CSV', exportOptions:{format:{body:function(d){var s=d.replace(/<[^>]*>/g,'').trim().replace(/\s*(km|m|%)$/g,'').replace(/,/g,'');var n=Number(s);return isNaN(n)?s:n;}}} }
             ],
-            pageLength: 25, lengthMenu: [10,25,50,100], order: [[0,'asc']],
+            pageLength: 25, lengthMenu: [10,25,50,100], order: [[3,'desc']],
             language: { search:'Filter:', lengthMenu:'Show _MENU_ climbs', info:'Showing _START_ to _END_ of _TOTAL_ climbs', emptyTable:'No climb data available' }
         });
     }
@@ -725,9 +763,9 @@ $(document).ready(function () {
     // --- Google Sheets CSV ---
     $('#googleSheetsBtn').on('click', function () {
         if (!currentData.length) return;
-        var h=['Rank','Climb Name','Difficulty Points','Length (km)','Elevation Gain (m)','Avg Gradient (%)'];
+        var h=['Length (km)','Climb Name','Avg Gradient (%)','Difficulty Points','Elevation Gain (m)'];
         var rows=[h.join(',')];
-        currentData.forEach(function(c){rows.push([c.rank,'"'+(c.name||'').replace(/"/g,'""')+'"',c.difficulty_points,c.length_km,c.elevation_gain_m,c.avg_gradient_pct].join(','));});
+        currentData.forEach(function(c){rows.push([c.length_km,'"'+(c.name||'').replace(/"/g,'""')+'"',c.avg_gradient_pct,c.difficulty_points,c.elevation_gain_m||0].join(','));});
         var csv='\uFEFF'+rows.join('\r\n');
         var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
         var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Climbfinder_GoogleSheets.csv'; a.click();
@@ -736,9 +774,9 @@ $(document).ready(function () {
     // --- Copy TSV ---
     $('#copyTsvBtn').on('click', function () {
         if (!currentData.length) return;
-        var h=['Rank','Climb Name','Difficulty Points','Length (km)','Elevation Gain (m)','Avg Gradient (%)'];
+        var h=['Length (km)','Climb Name','Avg Gradient (%)','Difficulty Points','Elevation Gain (m)'];
         var rows=[h.join('\t')];
-        currentData.forEach(function(c){rows.push([c.rank,c.name||'',c.difficulty_points,c.length_km,c.elevation_gain_m,c.avg_gradient_pct].join('\t'));});
+        currentData.forEach(function(c){rows.push([c.length_km,c.name||'',c.avg_gradient_pct,c.difficulty_points,c.elevation_gain_m||0].join('\t'));});
         var tsv=rows.join('\n');
         navigator.clipboard.writeText(tsv).then(function(){showCopyFeedback('Copied '+currentData.length+' rows!');}).catch(function(){
             var $ta=$('<textarea>').val(tsv).appendTo('body').select();document.execCommand('copy');$ta.remove();

@@ -357,13 +357,14 @@ def _parse_html(html, page_number):
     # ------------------------------------------------------------------
     table = soup.find("table")
     if table:
+        col_map = _detect_table_columns(table)
         rows = table.find_all("tr")
         for row in rows:
             cells = row.find_all("td")
             if not cells or len(cells) < 3:
                 continue
             try:
-                climb = _parse_table_row(cells)
+                climb = _parse_table_row(cells, col_map)
                 if climb:
                     climbs.append(climb)
             except Exception:
@@ -425,50 +426,69 @@ def _extract_from_next_data(soup):
 
 def _find_ranking_data(obj, depth=0):
     """
-    Recursively search a nested JSON structure for an array of objects
-    that look like climb ranking entries (have name + numeric fields).
+    Recursively search a nested JSON structure for arrays of objects
+    that look like climb ranking entries.  Collects ALL candidates and
+    returns the largest one (the actual ranking typically has ~25 items
+    per page, while spurious matches are smaller).
     """
-    if depth > 12:
+    candidates = []
+    _collect_ranking_candidates(obj, candidates)
+    if not candidates:
         return []
+    # Pick the largest candidate — the real ranking data
+    candidates.sort(key=len, reverse=True)
+    best = candidates[0]
+    return [_normalize_climb(item, idx) for idx, item in enumerate(best)
+            if isinstance(item, dict)]
 
+
+def _collect_ranking_candidates(obj, candidates, depth=0):
+    """Recursively collect all arrays that look like ranking data."""
+    if depth > 12:
+        return
     if isinstance(obj, list) and len(obj) >= 2:
-        # Check if this looks like a list of climb objects
-        sample = obj[0] if obj else None
+        sample = obj[0]
         if isinstance(sample, dict) and _looks_like_climb(sample):
-            return [_normalize_climb(item, idx) for idx, item in enumerate(obj) if isinstance(item, dict)]
-
+            candidates.append([item for item in obj if isinstance(item, dict)])
     if isinstance(obj, dict):
-        for key, value in obj.items():
-            result = _find_ranking_data(value, depth + 1)
-            if result:
-                return result
-
-    if isinstance(obj, list):
+        for value in obj.values():
+            _collect_ranking_candidates(value, candidates, depth + 1)
+    elif isinstance(obj, list):
         for item in obj:
-            result = _find_ranking_data(item, depth + 1)
-            if result:
-                return result
-
-    return []
+            _collect_ranking_candidates(item, candidates, depth + 1)
 
 
 def _looks_like_climb(d):
-    """Heuristic: does this dict look like a climb ranking entry?"""
+    """Heuristic: does this dict look like a climb ranking entry?
+    Requires a name field AND at least 2 distinct numeric categories
+    to avoid false positives on other arrays in __NEXT_DATA__.
+    """
     keys_lower = {k.lower() for k in d.keys()}
-    # Must have some kind of name
     has_name = bool(keys_lower & {"name", "title", "climb", "climbname", "climb_name"})
-    # Must have at least one numeric-looking field
-    numeric_keys = {"difficulty", "points", "length", "distance", "elevation",
-                    "gradient", "avg_gradient", "height", "altitude", "km",
-                    "rating", "score", "rank", "position", "difficultypoints",
-                    "difficulty_points", "elevationgain", "elevation_gain",
-                    "avggradient", "avg_gradient_pct", "length_km"}
-    has_numeric = bool(keys_lower & numeric_keys)
-    return has_name and has_numeric
+    if not has_name:
+        return False
+    categories = 0
+    if keys_lower & {"length", "distance", "km", "length_km"}:
+        categories += 1
+    if keys_lower & {"gradient", "avg_gradient", "avggradient", "avg_gradient_pct",
+                     "averagegradient"}:
+        categories += 1
+    if keys_lower & {"difficulty", "points", "difficultypoints", "difficulty_points",
+                     "score", "rating"}:
+        categories += 1
+    if keys_lower & {"rank", "position", "ranking"}:
+        categories += 1
+    if keys_lower & {"elevation", "elevationgain", "elevation_gain", "height",
+                     "altitude"}:
+        categories += 1
+    return categories >= 2
 
 
 def _normalize_climb(d, idx):
-    """Convert a raw JSON climb object to our standard format."""
+    """Convert a raw JSON climb object to our standard format.
+    Elevation gain is NOT available from Climbfinder — we calculate it
+    from length (km) and average gradient (%).
+    """
     # Build a case-insensitive key map
     lc = {k.lower(): v for k, v in d.items()}
 
@@ -485,28 +505,52 @@ def _normalize_climb(d, idx):
     length_km = (lc.get("length") or lc.get("distance") or lc.get("km")
                  or lc.get("length_km") or 0)
 
-    elevation = (lc.get("elevation") or lc.get("elevationgain")
-                 or lc.get("elevation_gain") or lc.get("elevation_gain_m")
-                 or lc.get("height") or lc.get("altitude") or 0)
-
     gradient = (lc.get("gradient") or lc.get("avg_gradient")
-                or lc.get("avggradient") or lc.get("avg_gradient_pct") or 0)
+                or lc.get("avggradient") or lc.get("avg_gradient_pct")
+                or lc.get("averagegradient") or 0)
+
+    length_val = clean_number(length_km)
+    gradient_val = clean_number(gradient)
+    # Elevation gain (m) = length (km) * 1000 * gradient (%) / 100
+    elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
 
     return {
         "rank": clean_number(rank),
         "name": str(name).strip(),
         "difficulty_points": clean_number(difficulty),
-        "length_km": clean_number(length_km),
-        "elevation_gain_m": clean_number(elevation),
-        "avg_gradient_pct": clean_number(gradient),
+        "length_km": length_val,
+        "avg_gradient_pct": gradient_val,
+        "elevation_gain_m": elevation_gain,
     }
+
+
+# ---------------------------------------------------------------------------
+# HTML table column detection
+# ---------------------------------------------------------------------------
+def _detect_table_columns(table):
+    """Read <th> headers and map column indices to field names."""
+    col_map = {}
+    headers = table.find_all("th")
+    for idx, th in enumerate(headers):
+        text = th.get_text(strip=True).lower()
+        if any(k in text for k in ["rank", "#", "pos"]):
+            col_map["rank"] = idx
+        elif any(k in text for k in ["name", "climb", "col "]):
+            col_map["name"] = idx
+        elif any(k in text for k in ["diff", "point", "score"]):
+            col_map["difficulty"] = idx
+        elif any(k in text for k in ["length", "dist", "km"]):
+            col_map["length"] = idx
+        elif any(k in text for k in ["grad", "avg", "slope", "%"]):
+            col_map["gradient"] = idx
+    return col_map
 
 
 # ---------------------------------------------------------------------------
 # HTML table row parser
 # ---------------------------------------------------------------------------
-def _parse_table_row(cells):
-    """Parse a standard HTML table row into a climb dict."""
+def _parse_table_row(cells, col_map=None):
+    """Parse a table row using detected column mapping or heuristics."""
     texts = [c.get_text(strip=True) for c in cells]
 
     # Find the name cell (one with a link to a climb/col page)
@@ -520,29 +564,45 @@ def _parse_table_row(cells):
             break
 
     if name is None:
-        name = texts[1] if len(texts) > 1 else ""
-        name_idx = 1
+        if col_map and "name" in col_map and col_map["name"] < len(texts):
+            name_idx = col_map["name"]
+            name = texts[name_idx]
+        else:
+            name = texts[1] if len(texts) > 1 else ""
+            name_idx = 1
 
     if not name:
         return None
 
-    rank_text = texts[0] if name_idx > 0 else ""
-    rank_text = rank_text.replace(".", "").replace("#", "").strip()
-    rank = clean_number(rank_text) if rank_text else 0
+    # Use column map if available (header-based detection)
+    if col_map and len(col_map) >= 3:
+        rank = clean_number(texts[col_map["rank"]].replace(".", "").replace("#", "")) if "rank" in col_map and col_map["rank"] < len(texts) else 0
+        difficulty = clean_number(texts[col_map["difficulty"]]) if "difficulty" in col_map and col_map["difficulty"] < len(texts) else 0
+        length_km = clean_number(texts[col_map["length"]]) if "length" in col_map and col_map["length"] < len(texts) else 0
+        gradient = clean_number(texts[col_map["gradient"]]) if "gradient" in col_map and col_map["gradient"] < len(texts) else 0
+    else:
+        # Fallback: positional parsing.
+        # Climbfinder table after the name: Length, Gradient, Difficulty
+        rank_text = texts[0] if name_idx > 0 else ""
+        rank_text = rank_text.replace(".", "").replace("#", "").strip()
+        rank = clean_number(rank_text) if rank_text else 0
 
-    remaining = texts[name_idx + 1:]
-    difficulty = clean_number(remaining[0]) if len(remaining) > 0 else 0
-    length_km = clean_number(remaining[1]) if len(remaining) > 1 else 0
-    elevation = clean_number(remaining[2]) if len(remaining) > 2 else 0
-    gradient = clean_number(remaining[3]) if len(remaining) > 3 else 0
+        remaining = texts[name_idx + 1:]
+        length_km = clean_number(remaining[0]) if len(remaining) > 0 else 0
+        gradient = clean_number(remaining[1]) if len(remaining) > 1 else 0
+        difficulty = clean_number(remaining[2]) if len(remaining) > 2 else 0
+
+    length_val = length_km if isinstance(length_km, (int, float)) else clean_number(length_km)
+    gradient_val = gradient if isinstance(gradient, (int, float)) else clean_number(gradient)
+    elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
 
     return {
         "rank": rank,
         "name": name,
         "difficulty_points": difficulty,
-        "length_km": length_km,
-        "elevation_gain_m": elevation,
-        "avg_gradient_pct": gradient,
+        "length_km": length_val,
+        "avg_gradient_pct": gradient_val,
+        "elevation_gain_m": elevation_gain,
     }
 
 
@@ -559,18 +619,23 @@ def _extract_climb_from_context(link_element, name):
         nums = re.findall(r"[\d]+(?:[.,]\d+)?", text)
         if len(nums) >= 3:
             nums = [clean_number(n) for n in nums]
+            rank = nums[0] if len(nums) > 0 else 0
+            length_km = nums[1] if len(nums) > 1 else 0
+            gradient = nums[2] if len(nums) > 2 else 0
+            difficulty = nums[3] if len(nums) > 3 else 0
+            elevation_gain = round(length_km * 10 * gradient) if length_km and gradient else 0
             return {
-                "rank": nums[0] if len(nums) > 0 else 0,
+                "rank": rank,
                 "name": name,
-                "difficulty_points": nums[1] if len(nums) > 1 else 0,
-                "length_km": nums[2] if len(nums) > 2 else 0,
-                "elevation_gain_m": nums[3] if len(nums) > 3 else 0,
-                "avg_gradient_pct": nums[4] if len(nums) > 4 else 0,
+                "difficulty_points": difficulty,
+                "length_km": length_km,
+                "avg_gradient_pct": gradient,
+                "elevation_gain_m": elevation_gain,
             }
         parent = parent.parent
 
     return {"rank": 0, "name": name, "difficulty_points": 0,
-            "length_km": 0, "elevation_gain_m": 0, "avg_gradient_pct": 0}
+            "length_km": 0, "avg_gradient_pct": 0, "elevation_gain_m": 0}
 
 
 # ---------------------------------------------------------------------------

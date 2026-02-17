@@ -2,9 +2,10 @@
 
 A web application that lets you search climbing regions, scrape multi-page rankings from Climbfinder, and export the data to Excel (.xlsx), CSV, or Google Sheets.
 
-**Two deployment options:**
+**Three deployment options:**
 - **GitHub Pages** (static, zero-backend) — visit the URL, scrape from your browser
-- **Codespaces / local** (Flask + Playwright) — headless browser for maximum reliability
+- **Streamlit** (lightweight Python) — runs anywhere Python runs, including NAS/Docker
+- **Flask + Playwright** (Codespaces / local) — headless browser for maximum reliability
 
 ## Features
 
@@ -30,7 +31,37 @@ Your site will be live at: `https://<username>.github.io/Climbfinder-scraper/`
 
 The static version uses a CORS proxy to fetch Climbfinder pages client-side, then parses the `__NEXT_DATA__` JSON (Next.js server-side rendered data) or the HTML directly in the browser. No server needed.
 
-## Option 2: GitHub Codespaces / Local (Flask + Playwright)
+## Option 2: Streamlit (lightweight, NAS/Docker friendly)
+
+No Codespace hours needed. Runs on any machine with Python — laptop, Synology NAS, Raspberry Pi, Docker container.
+
+### Quick start
+
+```bash
+pip install streamlit requests beautifulsoup4 lxml pandas openpyxl
+streamlit run streamlit_app.py
+```
+
+Visit `http://localhost:8501`.
+
+### Docker / Synology NAS (DS225+)
+
+```bash
+# Pull a lightweight Python image
+docker run -d --name climbfinder \
+  -p 8501:8501 \
+  -v /path/to/Climbfinder-scraper:/app \
+  python:3.11-slim \
+  bash -c "pip install streamlit requests beautifulsoup4 lxml pandas openpyxl && cd /app && streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0"
+```
+
+Access at `http://<nas-ip>:8501`. Add Playwright for better reliability:
+
+```bash
+pip install playwright && playwright install --with-deps chromium
+```
+
+## Option 3: GitHub Codespaces / Local (Flask + Playwright)
 
 For maximum reliability, the Flask backend uses **Playwright** (headless Chromium) to fully render the JavaScript-heavy Climbfinder pages.
 
@@ -77,7 +108,8 @@ The GitHub Pages version works around this by parsing `__NEXT_DATA__` (the JSON 
 ```
 .
 ├── app.py                 # Flask backend: Playwright scraper + API routes
-├── requirements.txt       # Python dependencies (Flask, Playwright, etc.)
+├── streamlit_app.py       # Streamlit version: lightweight, NAS/Docker friendly
+├── requirements.txt       # Python dependencies
 ├── templates/
 │   └── index.html         # Frontend for Flask version
 ├── docs/
