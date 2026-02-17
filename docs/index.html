@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climbfinder Ranking Aggregator</title>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue-600: #2563eb;
+            --blue-700: #1d4ed8;
+            --green-600: #16a34a;
+            --green-700: #15803d;
+            --orange-500: #f97316;
+            --red-600: #dc2626;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --radius: 0.5rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,.05);
+            --shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1);
+        }
+
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--slate-50);
+            color: var(--slate-800);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 82rem; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        .header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .header svg { width: 2rem; height: 2rem; color: var(--blue-600); flex-shrink: 0; }
+        .header h1 { font-size: 1.875rem; font-weight: 800; color: var(--slate-900); letter-spacing: -0.025em; }
+        .header h1 span { color: var(--blue-600); }
+        .subtitle { color: var(--slate-500); font-size: 0.95rem; margin-bottom: 2rem; }
+
+        .card {
+            background: #fff;
+            padding: 1.75rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--slate-200);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        .card-title {
+            font-size: 1rem; font-weight: 600; color: var(--slate-700);
+            margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .card-title svg { width: 1.25rem; height: 1.25rem; color: var(--blue-600); }
+
+        .form-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+        @media (min-width: 900px) {
+            .form-grid { grid-template-columns: 1fr 2fr 1fr auto; align-items: end; }
+        }
+
+        label {
+            display: block; font-size: 0.8rem; font-weight: 600; color: var(--slate-700);
+            margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        select, input[type="text"], input[type="number"] {
+            width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--slate-300);
+            border-radius: 0.375rem; font-size: 0.875rem; background: #fff;
+            color: var(--slate-800); box-shadow: var(--shadow-sm);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        select:focus, input:focus {
+            outline: none; border-color: var(--blue-600);
+            box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+        }
+
+        .region-search-wrap { position: relative; }
+        #regionSearch { padding-right: 2.5rem; }
+        .region-search-wrap .search-icon {
+            position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+            width: 1rem; height: 1rem; color: var(--slate-400); pointer-events: none;
+        }
+        .autocomplete-list {
+            position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+            background: #fff; border: 1px solid var(--slate-200); border-top: none;
+            border-radius: 0 0 0.375rem 0.375rem; max-height: 16rem; overflow-y: auto;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.1); display: none;
+        }
+        .autocomplete-list.open { display: block; }
+        .autocomplete-item {
+            padding: 0.5rem 0.75rem; cursor: pointer; font-size: 0.85rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--slate-100);
+        }
+        .autocomplete-item:last-child { border-bottom: none; }
+        .autocomplete-item:hover, .autocomplete-item.active { background-color: var(--slate-100); }
+        .autocomplete-item .region-name { font-weight: 500; color: var(--slate-800); }
+        .autocomplete-item .region-country { font-size: 0.75rem; color: var(--slate-500); }
+        .autocomplete-item .region-id {
+            font-size: 0.7rem; color: var(--slate-400); background: var(--slate-100);
+            padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-family: monospace;
+        }
+        .autocomplete-group-header {
+            padding: 0.4rem 0.75rem; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-400);
+            background: var(--slate-50); border-bottom: 1px solid var(--slate-100);
+            position: sticky; top: 0;
+        }
+        .selected-region { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.35rem; font-size: 0.8rem; }
+        .selected-region .badge {
+            background: var(--blue-600); color: #fff; padding: 0.15rem 0.5rem;
+            border-radius: 1rem; font-size: 0.75rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 0.35rem;
+        }
+        .selected-region .badge button {
+            background: none; border: none; color: rgba(255,255,255,0.8);
+            cursor: pointer; font-size: 1rem; line-height: 1; padding: 0;
+        }
+        .selected-region .badge button:hover { color: #fff; }
+        .custom-id-row {
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-top: 0.35rem; font-size: 0.8rem; color: var(--slate-500);
+        }
+        .custom-id-row input { width: 5rem; text-align: center; padding: 0.35rem 0.5rem; font-size: 0.85rem; }
+
+        .page-range { display: flex; align-items: center; gap: 0.5rem; }
+        .page-range input { width: 4.5rem; text-align: center; }
+        .page-range .sep { color: var(--slate-400); font-size: 0.85rem; font-weight: 500; }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.55rem 1.5rem; border: none; border-radius: 0.375rem;
+            font-size: 0.875rem; font-weight: 700; cursor: pointer;
+            transition: background-color 0.15s, opacity 0.15s; white-space: nowrap;
+        }
+        .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .btn-primary { background-color: var(--blue-600); color: #fff; }
+        .btn-primary:hover:not(:disabled) { background-color: var(--blue-700); }
+        .btn svg { width: 1rem; height: 1rem; }
+
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid #fff;
+            border-radius: 50%; width: 1rem; height: 1rem;
+            animation: spin 0.7s linear infinite; display: inline-block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .progress-wrap { display: none; margin-bottom: 1.5rem; }
+        .progress-wrap.active { display: block; }
+        .progress-label { font-size: 0.8rem; color: var(--slate-500); margin-bottom: 0.35rem; font-weight: 500; }
+        .progress-bar-outer { width: 100%; height: 0.5rem; background: var(--slate-200); border-radius: 1rem; overflow: hidden; }
+        .progress-bar-inner { height: 100%; background: var(--blue-600); border-radius: 1rem; transition: width 0.3s ease; width: 0%; }
+
+        .status-bar {
+            display: none; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem;
+            border-radius: 0.375rem; font-size: 0.85rem; font-weight: 500; margin-bottom: 1.5rem;
+        }
+        .status-bar.info { display: flex; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+        .status-bar.success { display: flex; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+        .status-bar.warning { display: flex; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+        .status-bar.error { display: flex; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+        .results-header {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;
+        }
+        .results-header h2 { font-size: 1.125rem; font-weight: 700; color: var(--slate-800); }
+        .results-header .count { font-weight: 400; color: var(--slate-500); font-size: 0.875rem; }
+        .export-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        .google-sheets-btn, .copy-tsv-btn {
+            color: #fff; padding: 0.4rem 0.85rem; border: none; border-radius: 0.375rem;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.4rem; transition: background-color 0.15s;
+        }
+        .google-sheets-btn { background: #0f9d58; }
+        .google-sheets-btn:hover { background: #0b8043; }
+        .copy-tsv-btn { background: var(--blue-600); }
+        .copy-tsv-btn:hover { background: var(--blue-700); }
+        .google-sheets-btn svg, .copy-tsv-btn svg { width: 0.9rem; height: 0.9rem; }
+
+        .table-wrap { overflow-x: auto; }
+        .hidden { display: none !important; }
+
+        table.dataTable { border-collapse: collapse !important; width: 100% !important; }
+        table.dataTable thead th {
+            background: var(--slate-50); border-bottom: 2px solid var(--slate-200) !important;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--slate-500); padding: 0.75rem 0.75rem !important;
+        }
+        table.dataTable tbody td {
+            padding: 0.6rem 0.75rem !important; font-size: 0.85rem;
+            border-bottom: 1px solid var(--slate-100) !important; vertical-align: middle;
+        }
+        table.dataTable tbody tr:hover { background-color: #f8fafc !important; }
+        .dataTables_wrapper .dataTables_length select { padding: 0.25rem 1.5rem 0.25rem 0.5rem; border-radius: 0.25rem; border: 1px solid var(--slate-200); }
+        .dataTables_wrapper .dataTables_filter input { border: 1px solid var(--slate-200); border-radius: 0.25rem; padding: 0.3rem 0.6rem; margin-left: 0.5rem; }
+        .dataTables_wrapper .dataTables_info { font-size: 0.8rem; color: var(--slate-500); }
+
+        .climb-name { font-weight: 600; color: var(--blue-600); }
+        .diff-badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 700; }
+        .diff-easy { background: #dcfce7; color: #166534; }
+        .diff-medium { background: #fef9c3; color: #854d0e; }
+        .diff-hard { background: #fee2e2; color: #991b1b; }
+        .diff-extreme { background: #991b1b; color: #fff; }
+        .grad-low { color: var(--green-600); font-weight: 600; }
+        .grad-mid { color: var(--orange-500); font-weight: 600; }
+        .grad-high { color: var(--red-600); font-weight: 700; }
+
+        .dt-buttons { margin-bottom: 1rem !important; }
+        .dt-buttons .dt-button {
+            color: #fff !important; padding: 0.45rem 1rem !important;
+            border-radius: 0.375rem !important; border: none !important;
+            cursor: pointer; font-size: 0.8rem !important; font-weight: 600 !important;
+        }
+        .dt-buttons .buttons-excel { background-color: var(--green-600) !important; }
+        .dt-buttons .buttons-excel:hover { background-color: var(--green-700) !important; }
+        .dt-buttons .buttons-csv { background-color: var(--slate-500) !important; margin-left: 0.5rem !important; }
+        .dt-buttons .buttons-csv:hover { background-color: var(--slate-700) !important; }
+
+        .footer { text-align: center; padding: 1.5rem 0; font-size: 0.8rem; color: var(--slate-400); }
+        .copy-feedback {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            background: var(--slate-800); color: #fff; padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem; font-size: 0.85rem; font-weight: 500;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999;
+        }
+        .copy-feedback.show { opacity: 1; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+        </svg>
+        <h1>Climb<span>finder</span> Aggregator</h1>
+    </div>
+    <p class="subtitle">Search regions, scrape climb rankings, and export to Excel or Google Sheets. Runs entirely in your browser.</p>
+
+    <div class="card">
+        <div class="card-title">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            Region Discovery &amp; Scrape Settings
+        </div>
+
+        <form id="scrapeForm" class="form-grid" autocomplete="off">
+            <div>
+                <label for="countryFilter">Country</label>
+                <select id="countryFilter"><option value="">All Countries</option></select>
+            </div>
+            <div>
+                <label for="regionSearch">Region</label>
+                <div class="region-search-wrap">
+                    <input type="text" id="regionSearch" placeholder="Type to search (e.g. Dolomites, Tyrol)...">
+                    <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <div id="autocompleteList" class="autocomplete-list"></div>
+                </div>
+                <div id="selectedRegion" class="selected-region hidden"></div>
+                <div class="custom-id-row" style="margin-top:0.5rem">
+                    <span>or enter ID directly:</span>
+                    <input type="text" id="customRegionId" placeholder="e.g. 288">
+                </div>
+            </div>
+            <div>
+                <label>Page Range</label>
+                <div class="page-range">
+                    <input type="number" id="startPage" value="1" min="1">
+                    <span class="sep">to</span>
+                    <input type="number" id="endPage" value="3" min="1">
+                </div>
+                <p style="font-size:0.75rem;color:var(--slate-400);margin-top:0.35rem">Max 20 pages (~25 climbs/page)</p>
+            </div>
+            <div>
+                <button type="submit" id="scrapeBtn" class="btn btn-primary" style="width:100%">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Fetch Rankings
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="progressWrap" class="progress-wrap">
+        <div class="progress-label" id="progressLabel">Fetching...</div>
+        <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+    </div>
+
+    <div id="statusBar" class="status-bar"></div>
+
+    <div class="card hidden" id="resultsContainer">
+        <div class="results-header">
+            <h2>Ranking Results <span id="resultCount" class="count"></span></h2>
+            <div class="export-btns">
+                <button id="copyTsvBtn" class="copy-tsv-btn" title="Copy tab-separated values for Google Sheets paste">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    Copy for Sheets
+                </button>
+                <button id="googleSheetsBtn" class="google-sheets-btn" title="Download CSV for Google Sheets import">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                        <path d="M7 12h2v5H7zm4-3h2v8h-2zm4-3h2v11h-2z"/>
+                    </svg>
+                    Google Sheets CSV
+                </button>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table id="climbsTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Climb Name</th>
+                        <th>Difficulty</th>
+                        <th>Length (km)</th>
+                        <th>Elev. Gain (m)</th>
+                        <th>Avg Gradient (%)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        Climbfinder Ranking Aggregator &mdash; Data sourced from
+        <a href="https://climbfinder.com" target="_blank" style="color:var(--blue-600)">climbfinder.com</a>
+    </div>
+</div>
+
+<div id="copyFeedback" class="copy-feedback">Copied to clipboard!</div>
+
+<!-- JS Dependencies -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script>
+// =========================================================================
+// STATIC VERSION — runs entirely in the browser, no backend needed.
+// Uses a CORS proxy to fetch Climbfinder ranking pages, then parses
+// the __NEXT_DATA__ JSON or the rendered HTML client-side.
+// =========================================================================
+
+// -------------------------------------------------------------------------
+// Region data (embedded — no API call needed)
+// -------------------------------------------------------------------------
+var REGIONS_BY_COUNTRY = {"France":[{"name":"Haute-Savoie","id":288},{"name":"Savoie","id":957},{"name":"Hautes-Alpes","id":192},{"name":"Alpes-de-Haute-Provence","id":290},{"name":"Alpes-Maritimes","id":379},{"name":"Is\u00e8re","id":291},{"name":"Dr\u00f4me","id":292},{"name":"Vosges","id":295},{"name":"Pyr\u00e9n\u00e9es-Atlantiques","id":186},{"name":"Hautes-Pyr\u00e9n\u00e9es","id":187},{"name":"Pyr\u00e9n\u00e9es-Orientales","id":188},{"name":"Ari\u00e8ge","id":189},{"name":"Haute-Garonne","id":190},{"name":"Aude","id":191},{"name":"H\u00e9rault","id":193},{"name":"Gard","id":194},{"name":"Ard\u00e8che","id":195},{"name":"Loire","id":196},{"name":"Puy-de-D\u00f4me","id":197},{"name":"Cantal","id":198},{"name":"Aveyron","id":199},{"name":"Loz\u00e8re","id":200},{"name":"Var","id":380},{"name":"Vaucluse","id":381},{"name":"Bouches-du-Rh\u00f4ne","id":382},{"name":"Ain","id":293},{"name":"Jura","id":294},{"name":"Doubs","id":296},{"name":"Bas-Rhin","id":297},{"name":"Haut-Rhin","id":298},{"name":"Corse-du-Sud","id":383},{"name":"Haute-Corse","id":384}],"Italy":[{"name":"Dolomites","id":123},{"name":"Aosta Valley","id":317},{"name":"Lombardy","id":318},{"name":"Piedmont","id":319},{"name":"Trentino","id":320},{"name":"South Tyrol (Alto Adige)","id":321},{"name":"Veneto","id":322},{"name":"Friuli Venezia Giulia","id":323},{"name":"Liguria","id":324},{"name":"Tuscany","id":325},{"name":"Emilia-Romagna","id":326},{"name":"Lazio","id":327},{"name":"Sardinia","id":328},{"name":"Sicily","id":329},{"name":"Campania","id":330}],"Spain":[{"name":"Mallorca","id":153},{"name":"Tenerife","id":156},{"name":"Catalonia","id":150},{"name":"Andalusia","id":151},{"name":"Basque Country","id":152},{"name":"Asturias","id":154},{"name":"Cantabria","id":155},{"name":"Valencia","id":157},{"name":"Aragon","id":158},{"name":"Navarra","id":159},{"name":"Castilla y Le\u00f3n","id":160},{"name":"Gran Canaria","id":161},{"name":"La Palma","id":162},{"name":"Girona","id":163}],"Netherlands":[{"name":"Limburg","id":233},{"name":"Gelderland","id":230},{"name":"Utrecht","id":231},{"name":"Overijssel","id":232},{"name":"North Brabant","id":234}],"Belgium":[{"name":"Ardennes","id":239},{"name":"Li\u00e8ge","id":240},{"name":"Namur","id":241},{"name":"Luxembourg (BE)","id":242},{"name":"Hainaut","id":243},{"name":"East Flanders","id":244},{"name":"West Flanders","id":245},{"name":"Flemish Brabant","id":246},{"name":"Antwerp","id":247}],"Switzerland":[{"name":"Valais","id":365},{"name":"Graub\u00fcnden","id":366},{"name":"Ticino","id":367},{"name":"Bern","id":368},{"name":"Uri","id":369},{"name":"Schwyz","id":370},{"name":"Lucerne","id":371},{"name":"Vaud","id":372},{"name":"Fribourg","id":373},{"name":"Glarus","id":374},{"name":"St. Gallen","id":375},{"name":"Obwalden","id":376},{"name":"Nidwalden","id":377}],"Austria":[{"name":"Tyrol","id":358},{"name":"Salzburg","id":359},{"name":"Vorarlberg","id":360},{"name":"Carinthia","id":361},{"name":"Styria","id":362},{"name":"Upper Austria","id":363},{"name":"Lower Austria","id":364}],"Germany":[{"name":"Bavaria","id":340},{"name":"Baden-W\u00fcrttemberg","id":341},{"name":"Hesse","id":342},{"name":"Rhineland-Palatinate","id":343},{"name":"Saarland","id":344},{"name":"North Rhine-Westphalia","id":345},{"name":"Thuringia","id":346},{"name":"Saxony","id":347}],"United Kingdom":[{"name":"England","id":77},{"name":"Wales","id":78},{"name":"Scotland","id":79},{"name":"Yorkshire","id":80},{"name":"Lake District","id":81},{"name":"Peak District","id":82},{"name":"Surrey Hills","id":83}],"Portugal":[{"name":"Algarve","id":170},{"name":"Serra da Estrela","id":171},{"name":"Minho","id":172},{"name":"Madeira","id":173}],"Andorra":[{"name":"Andorra","id":180}],"Slovenia":[{"name":"Slovenia","id":390},{"name":"Julian Alps","id":391}],"Croatia":[{"name":"Croatia","id":395}],"Norway":[{"name":"Western Norway","id":400},{"name":"Northern Norway","id":401}],"USA":[{"name":"California","id":410},{"name":"Colorado","id":411},{"name":"Utah","id":412}],"Colombia":[{"name":"Boyac\u00e1","id":420},{"name":"Antioquia","id":421}]};
+
+// Build flat list
+var allRegions = [];
+Object.keys(REGIONS_BY_COUNTRY).sort().forEach(function (country) {
+    REGIONS_BY_COUNTRY[country].forEach(function (r) {
+        allRegions.push({ country: country, name: r.name, id: r.id, label: r.name + ', ' + country });
+    });
+});
+allRegions.sort(function (a, b) { return a.label.localeCompare(b.label); });
+
+var allCountries = Object.keys(REGIONS_BY_COUNTRY).sort();
+
+// CORS proxy — we try multiple in case one is down
+var CORS_PROXIES = [
+    function(url) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url); },
+    function(url) { return 'https://corsproxy.io/?' + encodeURIComponent(url); },
+];
+
+$(document).ready(function () {
+
+    var selectedRegionId = null;
+    var selectedRegionLabel = '';
+    var dataTable = null;
+    var currentData = [];
+    var acIndex = -1;
+
+    // Populate country dropdown
+    var $cf = $('#countryFilter');
+    allCountries.forEach(function (c) { $cf.append('<option value="' + c + '">' + c + '</option>'); });
+
+    // --- Country filter ---
+    $('#countryFilter').on('change', function () {
+        var country = $(this).val();
+        if (country) {
+            var filtered = allRegions.filter(function (r) { return r.country === country; });
+            renderAutocomplete(filtered, '');
+            $('#regionSearch').val('').focus();
+        } else {
+            $('#autocompleteList').removeClass('open').empty();
+        }
+    });
+
+    // --- Autocomplete ---
+    var $search = $('#regionSearch');
+    var $list = $('#autocompleteList');
+
+    function getFilteredRegions(query) {
+        var country = $('#countryFilter').val();
+        var pool = country ? allRegions.filter(function (r) { return r.country === country; }) : allRegions;
+        if (!query) return pool.slice(0, 50);
+        return pool.filter(function (r) {
+            return r.name.toLowerCase().indexOf(query) !== -1 ||
+                   r.country.toLowerCase().indexOf(query) !== -1 ||
+                   String(r.id).indexOf(query) !== -1;
+        }).slice(0, 30);
+    }
+
+    function renderAutocomplete(matches, query) {
+        acIndex = -1;
+        if (matches.length === 0) {
+            $list.html('<div style="padding:0.75rem;color:var(--slate-400);font-size:0.85rem">No regions found. Use the custom ID field.</div>').addClass('open');
+            return;
+        }
+        var grouped = {};
+        matches.forEach(function (r) { if (!grouped[r.country]) grouped[r.country] = []; grouped[r.country].push(r); });
+        var html = '';
+        var countries = Object.keys(grouped).sort();
+        var showGroups = countries.length > 1;
+        countries.forEach(function (country) {
+            if (showGroups) html += '<div class="autocomplete-group-header">' + country + '</div>';
+            grouped[country].forEach(function (r) {
+                html += '<div class="autocomplete-item" data-id="' + r.id + '" data-label="' + escapeAttr(r.name + ', ' + r.country) + '">'
+                    + '<div><span class="region-name">' + highlight(r.name, query) + '</span> '
+                    + '<span class="region-country">' + r.country + '</span></div>'
+                    + '<span class="region-id">ID: ' + r.id + '</span></div>';
+            });
+        });
+        $list.html(html).addClass('open');
+    }
+
+    $search.on('input', function () {
+        var q = $(this).val().trim().toLowerCase();
+        if (q.length < 1 && !$('#countryFilter').val()) { $list.removeClass('open').empty(); return; }
+        renderAutocomplete(getFilteredRegions(q), q);
+    });
+    $search.on('focus', function () {
+        var country = $('#countryFilter').val();
+        if (country && !$(this).val().trim()) renderAutocomplete(getFilteredRegions(''), '');
+    });
+    $search.on('keydown', function (e) {
+        var $items = $list.find('.autocomplete-item');
+        if (!$items.length) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); acIndex = Math.min(acIndex + 1, $items.length - 1); $items.removeClass('active').eq(acIndex).addClass('active'); $items.eq(acIndex)[0].scrollIntoView({block:'nearest'}); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); acIndex = Math.max(acIndex - 1, 0); $items.removeClass('active').eq(acIndex).addClass('active'); $items.eq(acIndex)[0].scrollIntoView({block:'nearest'}); }
+        else if (e.key === 'Enter' && acIndex >= 0) { e.preventDefault(); $items.eq(acIndex).trigger('click'); }
+        else if (e.key === 'Escape') { $list.removeClass('open').empty(); }
+    });
+    $(document).on('click', '.autocomplete-item', function () {
+        selectRegion($(this).data('id'), $(this).data('label'));
+        $list.removeClass('open').empty(); $search.val('');
+    });
+    $(document).on('click', function (e) { if (!$(e.target).closest('.region-search-wrap').length) $list.removeClass('open').empty(); });
+
+    function selectRegion(id, label) {
+        selectedRegionId = id; selectedRegionLabel = label;
+        $('#customRegionId').val('');
+        $('#selectedRegion').removeClass('hidden').html(
+            '<span class="badge">' + escapeHtml(label) + ' (ID: ' + id + ') <button type="button" id="clearRegion">&times;</button></span>'
+        );
+    }
+    $(document).on('click', '#clearRegion', function () { selectedRegionId = null; selectedRegionLabel = ''; $('#selectedRegion').addClass('hidden').empty(); });
+    $('#customRegionId').on('input', function () { if ($(this).val().trim()) { selectedRegionId = null; selectedRegionLabel = ''; $('#selectedRegion').addClass('hidden').empty(); } });
+
+    // --- Status / Progress ---
+    function showStatus(type, msg) { $('#statusBar').attr('class', 'status-bar ' + type).html(msg); }
+    function showProgress(label, pct) { $('#progressWrap').addClass('active'); $('#progressLabel').text(label); $('#progressBar').css('width', pct + '%'); }
+    function hideProgress() { $('#progressWrap').removeClass('active'); $('#progressBar').css('width', '0%'); }
+
+    // --- Scrape (client-side via CORS proxy) ---
+    $('#scrapeForm').on('submit', function (e) {
+        e.preventDefault();
+        var regionId = selectedRegionId;
+        var customId = $('#customRegionId').val().trim();
+        if (customId) regionId = customId;
+        if (!regionId) { showStatus('warning', 'Please select a region or enter a custom Region ID.'); return; }
+
+        var startPage = parseInt($('#startPage').val(), 10) || 1;
+        var endPage = parseInt($('#endPage').val(), 10) || 1;
+        if (endPage < startPage) { showStatus('warning', 'End page must be &ge; start page.'); return; }
+        if (endPage - startPage > 19) endPage = startPage + 19;
+
+        var $btn = $('#scrapeBtn');
+        $btn.prop('disabled', true).html('<span class="spinner"></span> Scraping...');
+        var totalPages = endPage - startPage + 1;
+        showProgress('Fetching page 1 of ' + totalPages + '...', 2);
+        showStatus('info', '<span class="spinner" style="border-color:rgba(30,64,175,0.3);border-top-color:#1e40af;width:0.85rem;height:0.85rem"></span> Fetching pages ' + startPage + '\u2013' + endPage + ' for region ' + regionId + '...');
+        $('#resultsContainer').addClass('hidden');
+
+        scrapePages(regionId, startPage, endPage, function (allClimbs, pagesScraped, errors) {
+            showProgress('Complete!', 100);
+            setTimeout(hideProgress, 600);
+            currentData = allClimbs;
+
+            if (errors.length) {
+                showStatus('warning', 'Completed with issues: ' + errors.join('; ') + ' &mdash; ' + allClimbs.length + ' climbs across ' + pagesScraped + ' pages.');
+            } else if (allClimbs.length === 0) {
+                showStatus('warning', 'No climbs found. The region ID may be invalid or Climbfinder\'s structure may have changed. Try a different region.');
+            } else {
+                showStatus('success', 'Fetched <strong>' + allClimbs.length + '</strong> climbs across <strong>' + pagesScraped + '</strong> pages.');
+            }
+            if (allClimbs.length > 0) {
+                renderTable(allClimbs);
+                $('#resultCount').text('(' + allClimbs.length + ' climbs)');
+                $('#resultsContainer').removeClass('hidden');
+            }
+            $btn.prop('disabled', false).html('<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Fetch Rankings');
+        });
+    });
+
+    function scrapePages(regionId, startPage, endPage, callback) {
+        var allClimbs = [];
+        var errors = [];
+        var pagesScraped = 0;
+        var totalPages = endPage - startPage + 1;
+        var currentPage = startPage;
+
+        function next() {
+            if (currentPage > endPage) { callback(allClimbs, pagesScraped, errors); return; }
+            var pct = Math.round(((currentPage - startPage) / totalPages) * 85) + 5;
+            showProgress('Fetching page ' + (currentPage - startPage + 1) + ' of ' + totalPages + '...', pct);
+
+            fetchAndParsePage(regionId, currentPage, function (climbs, err) {
+                if (err) { errors.push('Page ' + currentPage + ': ' + err); callback(allClimbs, pagesScraped, errors); return; }
+                if (climbs.length === 0) { callback(allClimbs, pagesScraped, errors); return; }
+                allClimbs = allClimbs.concat(climbs);
+                pagesScraped++;
+                currentPage++;
+                // Polite delay
+                if (currentPage <= endPage) { setTimeout(next, 800); } else { callback(allClimbs, pagesScraped, errors); }
+            });
+        }
+        next();
+    }
+
+    function fetchAndParsePage(regionId, pageNum, callback) {
+        var targetUrl = 'https://climbfinder.com/en/ranking?l=' + regionId + '&p=' + pageNum;
+        tryProxies(targetUrl, 0, function (html, err) {
+            if (err) { callback([], err); return; }
+            var climbs = parseClimbfinderHtml(html);
+            callback(climbs, null);
+        });
+    }
+
+    function tryProxies(targetUrl, idx, callback) {
+        if (idx >= CORS_PROXIES.length) { callback(null, 'All CORS proxies failed'); return; }
+        var proxyUrl = CORS_PROXIES[idx](targetUrl);
+        $.ajax({
+            url: proxyUrl, method: 'GET', dataType: 'text', timeout: 20000,
+            success: function (html) {
+                if (html && html.length > 500) { callback(html, null); }
+                else { tryProxies(targetUrl, idx + 1, callback); }
+            },
+            error: function () { tryProxies(targetUrl, idx + 1, callback); }
+        });
+    }
+
+    // --- Parse Climbfinder HTML client-side ---
+    function parseClimbfinderHtml(html) {
+        var climbs = [];
+
+        // Strategy 0: __NEXT_DATA__ JSON
+        var nextDataMatch = html.match(/<script\s+id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
+        if (nextDataMatch) {
+            try {
+                var nextData = JSON.parse(nextDataMatch[1]);
+                climbs = findRankingData(nextData);
+                if (climbs.length > 0) return climbs;
+            } catch (e) { /* continue to other strategies */ }
+        }
+
+        // Strategy 1: parse rendered HTML with DOMParser
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, 'text/html');
+
+        // Strategy 1a: HTML table
+        var table = doc.querySelector('table');
+        if (table) {
+            var rows = table.querySelectorAll('tr');
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].querySelectorAll('td');
+                if (cells.length < 3) continue;
+                var climb = parseTableRow(cells);
+                if (climb) climbs.push(climb);
+            }
+            if (climbs.length > 0) return climbs;
+        }
+
+        // Strategy 1b: links to climb pages
+        var links = doc.querySelectorAll('a[href*="/climbs/"], a[href*="/cols/"]');
+        var seen = {};
+        for (var j = 0; j < links.length; j++) {
+            var name = links[j].textContent.trim();
+            if (!name || name.length < 3 || seen[name]) continue;
+            if (['ranking','home','climbs','map'].indexOf(name.toLowerCase()) !== -1) continue;
+            seen[name] = true;
+            var climb = extractFromContext(links[j], name);
+            if (climb) climbs.push(climb);
+        }
+
+        return climbs;
+    }
+
+    function findRankingData(obj, depth) {
+        if (!depth) depth = 0;
+        if (depth > 12) return [];
+        if (Array.isArray(obj) && obj.length >= 2 && typeof obj[0] === 'object' && obj[0] !== null && looksLikeClimb(obj[0])) {
+            return obj.filter(function(item) { return typeof item === 'object' && item !== null; }).map(function(item, idx) { return normalizeClimb(item, idx); });
+        }
+        if (typeof obj === 'object' && obj !== null) {
+            var keys = Object.keys(obj);
+            for (var i = 0; i < keys.length; i++) {
+                var result = findRankingData(obj[keys[i]], depth + 1);
+                if (result.length > 0) return result;
+            }
+        }
+        if (Array.isArray(obj)) {
+            for (var k = 0; k < obj.length; k++) {
+                var result = findRankingData(obj[k], depth + 1);
+                if (result.length > 0) return result;
+            }
+        }
+        return [];
+    }
+
+    function looksLikeClimb(d) {
+        var keys = Object.keys(d).map(function(k){return k.toLowerCase();});
+        var hasName = keys.some(function(k){return ['name','title','climb','climbname','climb_name'].indexOf(k)!==-1;});
+        var numKeys = ['difficulty','points','length','distance','elevation','gradient','avg_gradient','height','altitude','km','rating','score','rank','position'];
+        var hasNum = keys.some(function(k){return numKeys.indexOf(k)!==-1;});
+        return hasName && hasNum;
+    }
+
+    function normalizeClimb(d, idx) {
+        var lc = {};
+        Object.keys(d).forEach(function(k){lc[k.toLowerCase()]=d[k];});
+        return {
+            rank: cleanNum(lc.rank || lc.position || lc.ranking || (idx+1)),
+            name: String(lc.name || lc.title || lc.climb || lc.climbname || lc.climb_name || '').trim(),
+            difficulty_points: cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || lc.score || lc.rating || 0),
+            length_km: cleanNum(lc.length || lc.distance || lc.km || lc.length_km || 0),
+            elevation_gain_m: cleanNum(lc.elevation || lc.elevationgain || lc.elevation_gain || lc.elevation_gain_m || lc.height || lc.altitude || 0),
+            avg_gradient_pct: cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || 0)
+        };
+    }
+
+    function parseTableRow(cells) {
+        var texts = []; for (var i=0; i<cells.length; i++) texts.push(cells[i].textContent.trim());
+        var name = null, nameIdx = null;
+        for (var j=0; j<cells.length; j++) {
+            var link = cells[j].querySelector('a[href*="/climbs/"], a[href*="/cols/"]');
+            if (link) { name = link.textContent.trim(); nameIdx = j; break; }
+        }
+        if (name === null) { name = texts[1] || ''; nameIdx = 1; }
+        if (!name) return null;
+        var rankText = (nameIdx > 0 ? texts[0] : '').replace(/[.#]/g, '').trim();
+        var remaining = texts.slice(nameIdx + 1);
+        return {
+            rank: cleanNum(rankText), name: name,
+            difficulty_points: cleanNum(remaining[0] || 0), length_km: cleanNum(remaining[1] || 0),
+            elevation_gain_m: cleanNum(remaining[2] || 0), avg_gradient_pct: cleanNum(remaining[3] || 0)
+        };
+    }
+
+    function extractFromContext(linkEl, name) {
+        var parent = linkEl.parentElement;
+        for (var i = 0; i < 4 && parent; i++) {
+            var nums = (parent.textContent || '').match(/[\d]+(?:[.,]\d+)?/g);
+            if (nums && nums.length >= 3) {
+                nums = nums.map(cleanNum);
+                return { rank: nums[0]||0, name: name, difficulty_points: nums[1]||0, length_km: nums[2]||0, elevation_gain_m: nums[3]||0, avg_gradient_pct: nums[4]||0 };
+            }
+            parent = parent.parentElement;
+        }
+        return { rank: 0, name: name, difficulty_points: 0, length_km: 0, elevation_gain_m: 0, avg_gradient_pct: 0 };
+    }
+
+    function cleanNum(v) {
+        if (typeof v === 'number') return Math.round(v * 100) / 100;
+        if (!v) return 0;
+        var s = String(v).trim().replace(/\s*(km|m|%|ft|pts?)\s*$/i, '').replace(/,/g, '');
+        if (!s) return 0;
+        var n = Number(s);
+        return isNaN(n) ? 0 : Math.round(n * 100) / 100;
+    }
+
+    // --- Render DataTable ---
+    function renderTable(data) {
+        if (dataTable) { dataTable.destroy(); $('#climbsTable tbody').empty(); }
+        dataTable = $('#climbsTable').DataTable({
+            data: data,
+            columns: [
+                { data: 'rank', className: 'dt-body-center', render: function(v){return '<strong>'+v+'</strong>';} },
+                { data: 'name', render: function(v){return '<span class="climb-name">'+escapeHtml(v)+'</span>';} },
+                { data: 'difficulty_points', className: 'dt-body-center', render: function(v){ var c='diff-easy'; if(v>=800)c='diff-extreme'; else if(v>=400)c='diff-hard'; else if(v>=150)c='diff-medium'; return '<span class="diff-badge '+c+'">'+v+'</span>';} },
+                { data: 'length_km', className: 'dt-body-center', render: function(v){return v+' km';} },
+                { data: 'elevation_gain_m', className: 'dt-body-center', render: function(v){return v.toLocaleString()+' m';} },
+                { data: 'avg_gradient_pct', className: 'dt-body-center', render: function(v){ var c='grad-low'; if(v>=10)c='grad-high'; else if(v>=6)c='grad-mid'; return '<span class="'+c+'">'+v+'%</span>';} }
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                { extend:'excelHtml5', text:'Export Excel', title:'Climbfinder_Rankings', autoFilter:true, exportOptions:{orthogonal:'export',format:{body:function(d){var s=d.replace(/<[^>]*>/g,'').trim().replace(/\s*(km|m|%)$/g,'').replace(/,/g,'');var n=Number(s);return isNaN(n)?s:n;}}} },
+                { extend:'csvHtml5', text:'Export CSV', exportOptions:{format:{body:function(d){var s=d.replace(/<[^>]*>/g,'').trim().replace(/\s*(km|m|%)$/g,'').replace(/,/g,'');var n=Number(s);return isNaN(n)?s:n;}}} }
+            ],
+            pageLength: 25, lengthMenu: [10,25,50,100], order: [[0,'asc']],
+            language: { search:'Filter:', lengthMenu:'Show _MENU_ climbs', info:'Showing _START_ to _END_ of _TOTAL_ climbs', emptyTable:'No climb data available' }
+        });
+    }
+
+    // --- Google Sheets CSV ---
+    $('#googleSheetsBtn').on('click', function () {
+        if (!currentData.length) return;
+        var h=['Rank','Climb Name','Difficulty Points','Length (km)','Elevation Gain (m)','Avg Gradient (%)'];
+        var rows=[h.join(',')];
+        currentData.forEach(function(c){rows.push([c.rank,'"'+(c.name||'').replace(/"/g,'""')+'"',c.difficulty_points,c.length_km,c.elevation_gain_m,c.avg_gradient_pct].join(','));});
+        var csv='\uFEFF'+rows.join('\r\n');
+        var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+        var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Climbfinder_GoogleSheets.csv'; a.click();
+    });
+
+    // --- Copy TSV ---
+    $('#copyTsvBtn').on('click', function () {
+        if (!currentData.length) return;
+        var h=['Rank','Climb Name','Difficulty Points','Length (km)','Elevation Gain (m)','Avg Gradient (%)'];
+        var rows=[h.join('\t')];
+        currentData.forEach(function(c){rows.push([c.rank,c.name||'',c.difficulty_points,c.length_km,c.elevation_gain_m,c.avg_gradient_pct].join('\t'));});
+        var tsv=rows.join('\n');
+        navigator.clipboard.writeText(tsv).then(function(){showCopyFeedback('Copied '+currentData.length+' rows!');}).catch(function(){
+            var $ta=$('<textarea>').val(tsv).appendTo('body').select();document.execCommand('copy');$ta.remove();
+            showCopyFeedback('Copied '+currentData.length+' rows!');
+        });
+    });
+
+    function showCopyFeedback(msg) { var $fb=$('#copyFeedback'); $fb.text(msg).addClass('show'); setTimeout(function(){$fb.removeClass('show');},2500); }
+
+    // --- Util ---
+    function escapeHtml(t) { var d=document.createElement('div'); d.appendChild(document.createTextNode(t)); return d.innerHTML; }
+    function escapeAttr(t) { return t.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function highlight(text, query) {
+        if (!query) return escapeHtml(text);
+        var idx = text.toLowerCase().indexOf(query.toLowerCase());
+        if (idx === -1) return escapeHtml(text);
+        return escapeHtml(text.substring(0,idx))+'<strong style="color:var(--blue-600)">'+escapeHtml(text.substring(idx,idx+query.length))+'</strong>'+escapeHtml(text.substring(idx+query.length));
+    }
+});
+</script>
+</body>
+</html>
