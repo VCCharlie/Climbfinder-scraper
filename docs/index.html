@@ -654,6 +654,33 @@ $(document).ready(function () {
         return cats >= 2;
     }
 
+    function bestName(lc) {
+        var keys = ['title','name','climb','climbname','climb_name','displayname','display_name','routename','route_name'];
+        for (var i = 0; i < keys.length; i++) {
+            var val = lc[keys[i]];
+            if (!val) continue;
+            if (typeof val === 'object' && val !== null) {
+                var langs = ['en','nl','fr','de','es','it'];
+                for (var j = 0; j < langs.length; j++) {
+                    if (val[langs[j]] && typeof val[langs[j]] === 'string' && val[langs[j]].trim()) return val[langs[j]].trim();
+                }
+                var vkeys = Object.keys(val);
+                for (var k = 0; k < vkeys.length; k++) {
+                    if (typeof val[vkeys[k]] === 'string' && val[vkeys[k]].trim()) return val[vkeys[k]].trim();
+                }
+                continue;
+            }
+            if (typeof val !== 'string' || !val.trim()) continue;
+            var s = val.trim();
+            if (/[a-zA-Z\u00C0-\u024F]{3,}/.test(s)) return s;
+        }
+        var slug = lc.slug || '';
+        if (typeof slug === 'string' && slug.trim()) {
+            return slug.trim().split('/').pop().replace(/-/g, ' ').replace(/\b\w/g, function(c){return c.toUpperCase();});
+        }
+        return String(lc.name || lc.title || '').trim();
+    }
+
     function normalizeClimb(d, idx) {
         var lc = {};
         Object.keys(d).forEach(function(k){lc[k.toLowerCase()]=d[k];});
@@ -662,7 +689,7 @@ $(document).ready(function () {
         var elevGain = (lengthVal && gradientVal) ? Math.round(lengthVal * 10 * gradientVal) : 0;
         return {
             rank: cleanNum(lc.rank || lc.position || lc.ranking || (idx+1)),
-            name: String(lc.name || lc.title || lc.climb || lc.climbname || lc.climb_name || '').trim(),
+            name: bestName(lc),
             difficulty_points: cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || lc.score || lc.rating || 0),
             length_km: lengthVal,
             avg_gradient_pct: gradientVal,

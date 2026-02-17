@@ -492,8 +492,7 @@ def _normalize_climb(d, idx):
     # Build a case-insensitive key map
     lc = {k.lower(): v for k, v in d.items()}
 
-    name = (lc.get("name") or lc.get("title") or lc.get("climb")
-            or lc.get("climbname") or lc.get("climb_name") or "")
+    name = _best_name(lc)
 
     rank = (lc.get("rank") or lc.get("position") or lc.get("ranking")
             or idx + 1)
@@ -516,12 +515,47 @@ def _normalize_climb(d, idx):
 
     return {
         "rank": clean_number(rank),
-        "name": str(name).strip(),
+        "name": name,
         "difficulty_points": clean_number(difficulty),
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,
     }
+
+
+def _best_name(lc):
+    """Pick the best human-readable climb name from available fields.
+    Skips values that look like concatenated stats (e.g. '34.8 km 6 % 1556')
+    by requiring at least one word with 3+ letters.
+    """
+    # Priority order: title often has the display name, name may have stats
+    for key in ("title", "name", "climb", "climbname", "climb_name",
+                "displayname", "display_name", "routename", "route_name"):
+        val = lc.get(key)
+        if not val:
+            continue
+        # Handle nested dicts (e.g. localized names: {"en": "Col du Galibier"})
+        if isinstance(val, dict):
+            for lang in ("en", "nl", "fr", "de", "es", "it"):
+                if lang in val and isinstance(val[lang], str) and val[lang].strip():
+                    return val[lang].strip()
+            for v in val.values():
+                if isinstance(v, str) and v.strip():
+                    return v.strip()
+            continue
+        if not isinstance(val, str) or not val.strip():
+            continue
+        s = val.strip()
+        # Accept if it contains at least one word with 3+ letters
+        if re.search(r'[a-zA-ZÀ-ÿ]{3,}', s):
+            return s
+    # Fallback: try slug field ("col-du-galibier" → "Col Du Galibier")
+    slug = lc.get("slug") or ""
+    if isinstance(slug, str) and slug.strip():
+        return slug.strip().split("/")[-1].replace("-", " ").title()
+    # Last resort: return whatever "name" has, even if it looks like stats
+    raw = lc.get("name") or lc.get("title") or ""
+    return str(raw).strip() if raw else ""
 
 
 # ---------------------------------------------------------------------------
