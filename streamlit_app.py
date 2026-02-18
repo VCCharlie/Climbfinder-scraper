@@ -349,6 +349,11 @@ def _normalize_climb(d, idx):
             or lc.get("difficultypoints") or lc.get("difficulty_points") or 0
         )
 
+    # Sanity check: avg_gradient > 20% is virtually impossible for a real climb.
+    # If we see this, gradient and difficulty are almost certainly swapped.
+    if gradient_val > 20 and difficulty_val <= 20:
+        gradient_val, difficulty_val = difficulty_val, gradient_val
+
     elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
 
     return {
@@ -392,18 +397,24 @@ def _best_name(lc):
 
 
 def _detect_table_columns(table):
+    """Read <th> headers and map column indices to field names.
+    "score"/"rating" = user review — must be checked BEFORE "diff/point".
+    """
     col_map = {}
     for idx, th in enumerate(table.find_all("th")):
         text = th.get_text(strip=True).lower()
         if any(k in text for k in ["rank", "#", "pos"]):
             col_map["rank"] = idx
-        elif any(k in text for k in ["name", "climb", "col "]):
+        elif any(k in text for k in ["name", "climb", "col ", "klim", "naam"]):
             col_map["name"] = idx
-        elif any(k in text for k in ["diff", "point", "score"]):
+        elif any(k in text for k in ["score", "rating", "review", "beoordeling", "cijfer"]):
+            # Review / user rating — NOT difficulty points
+            col_map["review_score"] = idx
+        elif any(k in text for k in ["diff", "point", "punten", "moeilijk"]):
             col_map["difficulty"] = idx
-        elif any(k in text for k in ["length", "dist", "km"]):
+        elif any(k in text for k in ["length", "dist", "km", "lengte", "afstand"]):
             col_map["length"] = idx
-        elif any(k in text for k in ["grad", "avg", "slope", "%"]):
+        elif any(k in text for k in ["grad", "avg", "slope", "%", "stijg", "gemiddeld"]):
             col_map["gradient"] = idx
     return col_map
 
@@ -430,19 +441,27 @@ def _parse_table_row(cells, col_map=None):
 
     if col_map and len(col_map) >= 3:
         rank = clean_number(texts[col_map["rank"]].replace(".", "").replace("#", "")) if "rank" in col_map and col_map["rank"] < len(texts) else 0
+        # review_score is intentionally excluded from difficulty_points
         difficulty = clean_number(texts[col_map["difficulty"]]) if "difficulty" in col_map and col_map["difficulty"] < len(texts) else 0
         length_km = clean_number(texts[col_map["length"]]) if "length" in col_map and col_map["length"] < len(texts) else 0
         gradient = clean_number(texts[col_map["gradient"]]) if "gradient" in col_map and col_map["gradient"] < len(texts) else 0
     else:
+        # Positional fallback — Climbfinder ranking table order after name:
+        # [0] avg_gradient_pct  [1] difficulty_points  [2] review_score (skip)
+        # Length (km) is NOT a separate column in Climbfinder's ranking table.
         rank_text = texts[0] if name_idx > 0 else ""
         rank = clean_number(rank_text.replace(".", "").replace("#", "").strip())
         remaining = texts[name_idx + 1:]
-        length_km = clean_number(remaining[0]) if len(remaining) > 0 else 0
-        gradient = clean_number(remaining[1]) if len(remaining) > 1 else 0
-        difficulty = clean_number(remaining[2]) if len(remaining) > 2 else 0
+        gradient = clean_number(remaining[0]) if len(remaining) > 0 else 0
+        difficulty = clean_number(remaining[1]) if len(remaining) > 1 else 0
+        # remaining[2] = review score — intentionally skipped
+        length_km = 0  # not a column in Climbfinder's ranking table HTML
 
     lv = length_km if isinstance(length_km, (int, float)) else clean_number(length_km)
     gv = gradient if isinstance(gradient, (int, float)) else clean_number(gradient)
+    # Sanity check: avg_gradient > 20% is virtually impossible for a real climb
+    if gv > 20 and difficulty <= 20:
+        gv, difficulty = difficulty, gv
     elevation_gain = round(lv * 10 * gv) if lv and gv else 0
 
     return {"rank": rank, "name": name, "difficulty_points": difficulty,
@@ -458,11 +477,15 @@ def _extract_from_context(link_element, name):
         nums = re.findall(r"[\d]+(?:[.,]\d+)?", text)
         if len(nums) >= 3:
             nums = [clean_number(n) for n in nums]
-            lk, gr = nums[1] if len(nums) > 1 else 0, nums[2] if len(nums) > 2 else 0
-            eg = round(lk * 10 * gr) if lk and gr else 0
-            return {"rank": nums[0], "name": name, "length_km": lk,
-                    "avg_gradient_pct": gr, "difficulty_points": nums[3] if len(nums) > 3 else 0,
-                    "elevation_gain_m": eg}
+            # Climbfinder context order: rank, avg_gradient, difficulty, review_score
+            gr = nums[1] if len(nums) > 1 else 0
+            diff = nums[2] if len(nums) > 2 else 0
+            # Sanity check
+            if gr > 20 and diff <= 20:
+                gr, diff = diff, gr
+            return {"rank": nums[0], "name": name, "length_km": 0,
+                    "avg_gradient_pct": gr, "difficulty_points": diff,
+                    "elevation_gain_m": 0}
         parent = parent.parent
     return {"rank": 0, "name": name, "difficulty_points": 0,
             "length_km": 0, "avg_gradient_pct": 0, "elevation_gain_m": 0}
