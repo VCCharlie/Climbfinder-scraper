@@ -304,21 +304,57 @@ def _looks_like_climb(d):
 
 
 def _normalize_climb(d, idx):
+    """Convert a raw JSON climb object to our standard format.
+
+    Climbfinder's __NEXT_DATA__ JSON has a "name" field containing
+    formatted stats, e.g. "34.8 km 6 % 1556".  The actual name is in
+    "title".  We parse the stats string first to get reliable values,
+    then fall back to individual field lookups.
+
+    Stats string format: "LENGTH_KM km AVG_GRADIENT_PCT % DIFFICULTY_PTS"
+
+    Note: "score"/"rating" are user review scores, not difficulty points.
+    """
     lc = {k.lower(): v for k, v in d.items()}
     name = _best_name(lc)
     rank = lc.get("rank") or lc.get("position") or lc.get("ranking") or idx + 1
-    difficulty = lc.get("difficulty") or lc.get("points") or lc.get("difficultypoints") or lc.get("difficulty_points") or lc.get("score") or lc.get("rating") or 0
-    length_km = lc.get("length") or lc.get("distance") or lc.get("km") or lc.get("length_km") or 0
-    gradient = lc.get("gradient") or lc.get("avg_gradient") or lc.get("avggradient") or lc.get("avg_gradient_pct") or lc.get("averagegradient") or 0
 
-    length_val = clean_number(length_km)
-    gradient_val = clean_number(gradient)
+    # Strategy A: parse from "name" field stats string
+    length_val = 0
+    gradient_val = 0
+    difficulty_val = 0
+
+    name_field = lc.get("name", "")
+    if isinstance(name_field, str):
+        m = re.match(r'^\s*([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)', name_field.strip())
+        if m:
+            length_val = clean_number(m.group(1))
+            gradient_val = clean_number(m.group(2))
+            difficulty_val = clean_number(m.group(3))
+
+    # Strategy B: individual field lookups (fallback)
+    # Note: "score"/"rating" are user review scores — excluded from difficulty.
+    if not length_val:
+        length_val = clean_number(
+            lc.get("length") or lc.get("distance") or lc.get("km") or lc.get("length_km") or 0
+        )
+    if not gradient_val:
+        gradient_val = clean_number(
+            lc.get("gradient") or lc.get("avg_gradient") or lc.get("avggradient")
+            or lc.get("avg_gradient_pct") or lc.get("averagegradient") or 0
+        )
+    if not difficulty_val:
+        difficulty_val = clean_number(
+            lc.get("difficulty") or lc.get("points")
+            or lc.get("difficultypoints") or lc.get("difficulty_points") or 0
+        )
+
     elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
 
     return {
         "rank": clean_number(rank),
         "name": name,
-        "difficulty_points": clean_number(difficulty),
+        "difficulty_points": difficulty_val,
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,

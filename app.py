@@ -486,8 +486,16 @@ def _looks_like_climb(d):
 
 def _normalize_climb(d, idx):
     """Convert a raw JSON climb object to our standard format.
-    Elevation gain is NOT available from Climbfinder — we calculate it
-    from length (km) and average gradient (%).
+
+    Climbfinder's __NEXT_DATA__ JSON has a "name" field that contains
+    formatted stats rather than the climb name, e.g. "34.8 km 6 % 1556".
+    The actual climb name is in "title".  We parse the stats string first
+    to get reliable values, then fall back to individual field lookups.
+
+    Stats string format: "LENGTH_KM km AVG_GRADIENT_PCT % DIFFICULTY_PTS"
+
+    Elevation gain is NOT directly available — we calculate it as
+    length (km) × 1000 × gradient (%) / 100.
     """
     # Build a case-insensitive key map
     lc = {k.lower(): v for k, v in d.items()}
@@ -497,26 +505,56 @@ def _normalize_climb(d, idx):
     rank = (lc.get("rank") or lc.get("position") or lc.get("ranking")
             or idx + 1)
 
-    difficulty = (lc.get("difficulty") or lc.get("points")
-                  or lc.get("difficultypoints") or lc.get("difficulty_points")
-                  or lc.get("score") or lc.get("rating") or 0)
+    # ------------------------------------------------------------------
+    # Strategy A: parse the "name" field stats string
+    # e.g. "34.8 km 6 % 1556"  →  length=34.8, gradient=6, difficulty=1556
+    # ------------------------------------------------------------------
+    length_val = 0
+    gradient_val = 0
+    difficulty_val = 0
 
-    length_km = (lc.get("length") or lc.get("distance") or lc.get("km")
-                 or lc.get("length_km") or 0)
+    name_field = lc.get("name", "")
+    if isinstance(name_field, str):
+        m = re.match(
+            r'^\s*([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)',
+            name_field.strip()
+        )
+        if m:
+            length_val = clean_number(m.group(1))
+            gradient_val = clean_number(m.group(2))
+            difficulty_val = clean_number(m.group(3))
 
-    gradient = (lc.get("gradient") or lc.get("avg_gradient")
-                or lc.get("avggradient") or lc.get("avg_gradient_pct")
-                or lc.get("averagegradient") or 0)
+    # ------------------------------------------------------------------
+    # Strategy B: individual field lookups (fallback)
+    # Note: "score" and "rating" are review scores — NOT difficulty points.
+    # ------------------------------------------------------------------
+    if not length_val:
+        length_val = clean_number(
+            lc.get("length") or lc.get("distance") or lc.get("km")
+            or lc.get("length_km") or 0
+        )
 
-    length_val = clean_number(length_km)
-    gradient_val = clean_number(gradient)
+    if not gradient_val:
+        gradient_val = clean_number(
+            lc.get("gradient") or lc.get("avg_gradient")
+            or lc.get("avggradient") or lc.get("avg_gradient_pct")
+            or lc.get("averagegradient") or 0
+        )
+
+    if not difficulty_val:
+        # Explicitly exclude "score"/"rating": those are user review scores
+        difficulty_val = clean_number(
+            lc.get("difficulty") or lc.get("points")
+            or lc.get("difficultypoints") or lc.get("difficulty_points") or 0
+        )
+
     # Elevation gain (m) = length (km) * 1000 * gradient (%) / 100
     elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
 
     return {
         "rank": clean_number(rank),
         "name": name,
-        "difficulty_points": clean_number(difficulty),
+        "difficulty_points": difficulty_val,
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,
@@ -711,6 +749,72 @@ def api_regions_search():
         ]
 
     return jsonify(results)
+
+
+@app.route("/api/debug-raw", methods=["POST"])
+def api_debug_raw():
+    """
+    Debug endpoint: returns the raw __NEXT_DATA__ JSON keys/values for
+    one page, so you can verify which field names Climbfinder uses.
+    Expects JSON: { region_id, page }
+    """
+    data = request.get_json(force=True)
+    region_id = data.get("region_id")
+    page_number = int(data.get("page", 1))
+
+    if not region_id:
+        return jsonify({"status": "error", "message": "region_id is required"}), 400
+
+    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
+
+    try:
+        if PLAYWRIGHT_AVAILABLE:
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = browser.new_context(user_agent=USER_AGENT, viewport={"width": 1280, "height": 900}, locale="en-US")
+                page = context.new_page()
+                page.goto(url, wait_until="domcontentloaded", timeout=20000)
+                try:
+                    page.wait_for_selector("table tr td, a[href*='/climbs/']", timeout=10000)
+                    page.wait_for_timeout(500)
+                except Exception:
+                    pass
+                html = page.content()
+                browser.close()
+        else:
+            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
+            html = resp.text
+
+        soup = BeautifulSoup(html, "html.parser")
+        script = soup.find("script", id="__NEXT_DATA__")
+        if not script or not script.string:
+            return jsonify({"status": "error", "message": "No __NEXT_DATA__ found"})
+
+        raw = json.loads(script.string)
+
+        # Find ranking candidates and return first raw item
+        candidates = []
+        _collect_ranking_candidates(raw, candidates)
+        candidates.sort(key=len, reverse=True)
+
+        if not candidates:
+            return jsonify({"status": "error", "message": "No ranking candidates found in __NEXT_DATA__"})
+
+        best = candidates[0]
+        first_item = best[0] if best else {}
+
+        return jsonify({
+            "status": "ok",
+            "candidates_found": len(candidates),
+            "best_candidate_length": len(best),
+            "first_item_keys": list(first_item.keys()),
+            "first_item": first_item,
+            "all_items_sample": best[:3],
+        })
+
+    except Exception as exc:
+        return jsonify({"status": "error", "message": str(exc)}), 500
 
 
 @app.route("/api/scrape", methods=["POST"])
