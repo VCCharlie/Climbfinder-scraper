@@ -684,13 +684,30 @@ $(document).ready(function () {
     function normalizeClimb(d, idx) {
         var lc = {};
         Object.keys(d).forEach(function(k){lc[k.toLowerCase()]=d[k];});
-        var lengthVal = cleanNum(lc.length || lc.distance || lc.km || lc.length_km || 0);
-        var gradientVal = cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || lc.averagegradient || 0);
+
+        // Strategy A: parse from "name" field stats string
+        // Climbfinder stores formatted stats in the "name" field, e.g. "34.8 km 6 % 1556"
+        // Format: "LENGTH_KM km AVG_GRADIENT_PCT % DIFFICULTY_PTS"
+        var lengthVal = 0, gradientVal = 0, difficultyVal = 0;
+        var nameField = typeof lc.name === 'string' ? lc.name.trim() : '';
+        var statsMatch = nameField.match(/^([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)/);
+        if (statsMatch) {
+            lengthVal = cleanNum(statsMatch[1]);
+            gradientVal = cleanNum(statsMatch[2]);
+            difficultyVal = cleanNum(statsMatch[3]);
+        }
+
+        // Strategy B: individual field lookups (fallback)
+        // Note: "score"/"rating" are user review scores, NOT difficulty points — excluded.
+        if (!lengthVal)    lengthVal    = cleanNum(lc.length || lc.distance || lc.km || lc.length_km || 0);
+        if (!gradientVal)  gradientVal  = cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || lc.averagegradient || 0);
+        if (!difficultyVal) difficultyVal = cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || 0);
+
         var elevGain = (lengthVal && gradientVal) ? Math.round(lengthVal * 10 * gradientVal) : 0;
         return {
             rank: cleanNum(lc.rank || lc.position || lc.ranking || (idx+1)),
             name: bestName(lc),
-            difficulty_points: cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || lc.score || lc.rating || 0),
+            difficulty_points: difficultyVal,
             length_km: lengthVal,
             avg_gradient_pct: gradientVal,
             elevation_gain_m: elevGain
