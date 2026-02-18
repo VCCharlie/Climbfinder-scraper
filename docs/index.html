@@ -703,6 +703,12 @@ $(document).ready(function () {
         if (!gradientVal)  gradientVal  = cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || lc.averagegradient || 0);
         if (!difficultyVal) difficultyVal = cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || 0);
 
+        // Sanity check: avg_gradient > 20% is virtually impossible for a real climb.
+        // If we see this, gradient and difficulty are almost certainly swapped.
+        if (gradientVal > 20 && difficultyVal <= 20) {
+            var tmp = gradientVal; gradientVal = difficultyVal; difficultyVal = tmp;
+        }
+
         var elevGain = (lengthVal && gradientVal) ? Math.round(lengthVal * 10 * gradientVal) : 0;
         return {
             rank: cleanNum(lc.rank || lc.position || lc.ranking || (idx+1)),
@@ -715,15 +721,18 @@ $(document).ready(function () {
     }
 
     function detectTableColumns(table) {
+        // "score"/"rating" = user review — must be checked BEFORE "diff/point"
+        // so it does NOT get mapped to difficulty.
         var colMap = {};
         var headers = table.querySelectorAll('th');
         for (var i = 0; i < headers.length; i++) {
             var t = headers[i].textContent.trim().toLowerCase();
             if (/rank|#|pos/.test(t)) colMap.rank = i;
-            else if (/name|climb|col /.test(t)) colMap.name = i;
-            else if (/diff|point|score/.test(t)) colMap.difficulty = i;
-            else if (/length|dist|km/.test(t)) colMap.length = i;
-            else if (/grad|avg|slope|%/.test(t)) colMap.gradient = i;
+            else if (/name|climb|col |klim|naam/.test(t)) colMap.name = i;
+            else if (/score|rating|review|beoordeling|cijfer/.test(t)) colMap.review_score = i;
+            else if (/diff|point|punten|moeilijk/.test(t)) colMap.difficulty = i;
+            else if (/length|dist|km|lengte|afstand/.test(t)) colMap.length = i;
+            else if (/grad|avg|slope|%|stijg|gemiddeld/.test(t)) colMap.gradient = i;
         }
         return colMap;
     }
@@ -743,17 +752,24 @@ $(document).ready(function () {
         var rank, difficulty, lengthKm, gradient;
         if (colMap && Object.keys(colMap).length >= 3) {
             rank = (colMap.rank !== undefined && colMap.rank < texts.length) ? cleanNum(texts[colMap.rank].replace(/[.#]/g, '')) : 0;
+            // review_score is intentionally excluded from difficulty_points
             difficulty = (colMap.difficulty !== undefined && colMap.difficulty < texts.length) ? cleanNum(texts[colMap.difficulty]) : 0;
             lengthKm = (colMap.length !== undefined && colMap.length < texts.length) ? cleanNum(texts[colMap.length]) : 0;
             gradient = (colMap.gradient !== undefined && colMap.gradient < texts.length) ? cleanNum(texts[colMap.gradient]) : 0;
         } else {
+            // Positional fallback — Climbfinder ranking table order after name:
+            // [0] avg_gradient_pct  [1] difficulty_points  [2] review_score (skip)
+            // Length (km) is NOT a separate column in Climbfinder's ranking table.
             var rankText = (nameIdx > 0 ? texts[0] : '').replace(/[.#]/g, '').trim();
             rank = cleanNum(rankText);
             var remaining = texts.slice(nameIdx + 1);
-            lengthKm = cleanNum(remaining[0] || 0);
-            gradient = cleanNum(remaining[1] || 0);
-            difficulty = cleanNum(remaining[2] || 0);
+            gradient   = cleanNum(remaining[0] || 0);
+            difficulty = cleanNum(remaining[1] || 0);
+            // remaining[2] = review score — intentionally skipped
+            lengthKm = 0;  // not a column in Climbfinder's ranking table HTML
         }
+        // Sanity check: avg_gradient > 20% is virtually impossible for a real climb
+        if (gradient > 20 && difficulty <= 20) { var tmp = gradient; gradient = difficulty; difficulty = tmp; }
         var elevGain = (lengthKm && gradient) ? Math.round(lengthKm * 10 * gradient) : 0;
         return { rank: rank, name: name, difficulty_points: difficulty, length_km: lengthKm, avg_gradient_pct: gradient, elevation_gain_m: elevGain };
     }
@@ -764,9 +780,11 @@ $(document).ready(function () {
             var nums = (parent.textContent || '').match(/[\d]+(?:[.,]\d+)?/g);
             if (nums && nums.length >= 3) {
                 nums = nums.map(cleanNum);
-                var lk = nums[1]||0, gr = nums[2]||0;
-                var eg = (lk && gr) ? Math.round(lk * 10 * gr) : 0;
-                return { rank: nums[0]||0, name: name, length_km: lk, avg_gradient_pct: gr, difficulty_points: nums[3]||0, elevation_gain_m: eg };
+                // Climbfinder context order: rank, avg_gradient, difficulty, review_score
+                var gr = nums[1]||0, diff = nums[2]||0;
+                // Sanity check
+                if (gr > 20 && diff <= 20) { var tmp = gr; gr = diff; diff = tmp; }
+                return { rank: nums[0]||0, name: name, length_km: 0, avg_gradient_pct: gr, difficulty_points: diff, elevation_gain_m: 0 };
             }
             parent = parent.parentElement;
         }
