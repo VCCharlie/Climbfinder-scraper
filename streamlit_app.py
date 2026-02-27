@@ -167,8 +167,25 @@ def _check_playwright():
 
 
 @st.cache_resource
-def playwright_available():
+def _playwright_available_cached():
+    """Cached at process level — only runs once per Streamlit server start."""
     return _check_playwright()
+
+
+def playwright_available() -> bool:
+    """Return True if Playwright+Chromium are usable.
+
+    Reads from the process-level cache normally.  The sidebar "Hercheck"
+    button sets st.session_state['_pw_recheck'] = True to force a fresh
+    check (useful after running `playwright install` without restarting).
+    """
+    if st.session_state.get("_pw_recheck"):
+        st.session_state["_pw_recheck"] = False
+        result = _check_playwright()
+        # Bust the process-level cache so next calls also get the new result
+        _playwright_available_cached.clear()
+        return result
+    return _playwright_available_cached()
 
 
 def scrape_page(region_id, page_number, sort_mode="popular"):
@@ -855,16 +872,37 @@ st.title("Climbfinder Ranking Aggregator")
 st.caption("Search regions, scrape climb rankings, and export to Excel or CSV.")
 
 # Playwright status banner — shown once at startup
-if not playwright_available():
-    _pw_err = _playwright_error or "onbekende fout"
+_pw_ok = playwright_available()
+if not _pw_ok:
+    import subprocess, sys
+    _pw_err = _playwright_error or "(geen foutmelding — waarschijnlijk gecachede False van vóór installatie)"
+    # Try to find where Chromium was installed so the user can compare
+    _ms_dir = ""
+    try:
+        import pathlib, os
+        _candidates = [
+            pathlib.Path.home() / ".cache" / "ms-playwright",       # Linux/Mac
+            pathlib.Path(os.environ.get("LOCALAPPDATA", "")) / "ms-playwright",  # Windows
+        ]
+        for _c in _candidates:
+            if _c.exists():
+                _ms_dir = str(_c)
+                break
+    except Exception:
+        pass
     st.error(
         "**Playwright-browser niet beschikbaar** — volledige data vereist Playwright.\n\n"
         f"Fout: `{_pw_err}`\n\n"
-        "Voer dit eenmalig uit in je terminal om de browser te installeren:\n"
+        "**Stap 1** — installeer de browser (eenmalig):\n"
         "```\n"
-        r".\.venv\Scripts\python.exe -m playwright install chromium"
-        "\n```\n"
-        "Herstart daarna de app. Tot die tijd probeert de scraper de API direct te benaderen."
+        f"{sys.executable} -m playwright install chromium\n"
+        "```\n"
+        + (f"ms-playwright map gevonden op: `{_ms_dir}`\n\n" if _ms_dir else
+           "ms-playwright map nog **niet** gevonden — installatie is nog niet gebeurd "
+           "(of in een andere gebruikersaccount / container).\n\n")
+        + "**Stap 2** — klik op **Hercheck Playwright** in de zijbalk nadat de installatie klaar is "
+        "(of herstart de app volledig met Ctrl+C).\n\n"
+        "Tot die tijd probeert de scraper de API direct te benaderen."
     )
 
 # --- Sidebar: Region selection ---
@@ -901,6 +939,17 @@ with st.sidebar:
     end_page = col2.number_input("End page", min_value=1, value=5)
 
     fetch_btn = st.button("Fetch Rankings", type="primary", use_container_width=True)
+
+    # Playwright status + re-check button
+    st.markdown("---")
+    if _pw_ok:
+        st.success("Playwright beschikbaar")
+    else:
+        st.warning("Playwright niet beschikbaar")
+        if st.button("Hercheck Playwright", use_container_width=True,
+                     help="Klik na 'playwright install chromium' om opnieuw te testen"):
+            st.session_state["_pw_recheck"] = True
+            st.rerun()
 
 # --- Main area ---
 if fetch_btn:
