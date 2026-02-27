@@ -193,7 +193,8 @@ def _scrape_with_playwright(url, page_number):
                     if "json" not in ct:
                         return
                     resp_url = response.url
-                    if "uphill.climbfinder.com" in resp_url or "/api/" in resp_url:
+                    # Capture ALL JSON from climbfinder.com (not just known sub-paths)
+                    if "climbfinder.com" in resp_url:
                         data = response.json()
                         captured_json.append({"url": resp_url, "data": data})
                         print(f"[API] Captured: {resp_url}")
@@ -271,6 +272,9 @@ def _scrape_with_playwright(url, page_number):
             "dom_table_headers": dom_table.get("headers", []) if dom_table else [],
             "dom_table_rows": len(dom_table.get("rows", [])) if dom_table else 0,
             "api_responses": len(captured_json),
+            "api_urls": [r["url"] for r in captured_json],
+            "html_length": len(html),
+            "html_snippet": html[:3000],
             "path": "none",
         }
 
@@ -402,6 +406,14 @@ def _parse_dom_table(dom_table, page_number):
 
 
 def _scrape_with_requests(url, page_number):
+    global _debug_info
+    _debug_info = {
+        "dom_table_found": False,
+        "dom_table_headers": [],
+        "dom_table_rows": 0,
+        "api_responses": 0,
+        "path": "requests",
+    }
     headers = {"User-Agent": USER_AGENT,
                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                "Accept-Language": "en-US,en;q=0.9",
@@ -411,6 +423,8 @@ def _scrape_with_requests(url, page_number):
         resp.raise_for_status()
     except requests.RequestException as exc:
         return [], str(exc)
+    _debug_info["html_length"] = len(resp.text)
+    _debug_info["html_snippet"] = resp.text[:3000]
     return _parse_html(resp.text, page_number)
 
 
@@ -567,6 +581,7 @@ def _parse_html(html, page_number):
         return climbs, None
 
     # Strategy 2: links
+    global _debug_raw_sample
     links = soup.find_all("a", href=re.compile(r"/(climbs?|cols?)/"))
     seen = set()
     for link in links:
@@ -579,6 +594,14 @@ def _parse_html(html, page_number):
         climb = _extract_from_context(link, name)
         if climb:
             climbs.append(climb)
+            if len(_debug_raw_sample) < 3:
+                parent_text = (link.parent.get_text(" ", strip=True) if link.parent else "")[:200]
+                _debug_raw_sample.append({
+                    "naam": name,
+                    "href": link.get("href", ""),
+                    "context_tekst": parent_text,
+                    "_strategy": "link-context",
+                })
 
     return climbs, None
 
@@ -895,8 +918,10 @@ if fetch_btn:
                     info = _debug_info
                     path = info.get("path", "onbekend")
                     path_labels = {
-                        "dom_table": "DOM-tabel (Playwright evaluate)",
-                        "html_fallback": "HTML-fallback (BeautifulSoup tabel of links)",
+                        "dom_table":    "DOM-tabel (Playwright evaluate)",
+                        "html_fallback":"HTML-fallback (BeautifulSoup tabel of links)",
+                        "requests":     "Requests (geen Playwright) → HTML-fallback",
+                        "none":         "Geen pad bepaald (data niet gevonden?)",
                     }
                     if path.startswith("api:"):
                         path_label = f"API-respons: {path[4:]}"
@@ -904,17 +929,24 @@ if fetch_btn:
                         path_label = path_labels.get(path, path)
 
                     st.markdown(f"**Scrape-pad:** `{path_label}`")
+
                     if info.get("dom_table_found"):
                         dom_hdrs = info.get("dom_table_headers", [])
                         dom_rows = info.get("dom_table_rows", 0)
                         st.markdown(
-                            f"**DOM-tabel headers** ({dom_rows} rijen gevonden):  \n"
-                            f"`{dom_hdrs}`"
+                            f"**DOM-tabel headers** ({dom_rows} rijen):  \n`{dom_hdrs}`"
                         )
                         if info.get("dom_table_parse_result"):
                             st.warning(f"DOM-tabel parsing: {info['dom_table_parse_result']}")
                     else:
-                        st.warning("Geen DOM-tabel gevonden door Playwright.")
+                        if path not in ("requests",):
+                            st.warning("Geen `<table>` gevonden in gerenderde DOM.")
+                        api_urls = info.get("api_urls", [])
+                        if api_urls:
+                            st.markdown("**Gevangen API-verzoeken:**  \n" +
+                                        "\n".join(f"- `{u}`" for u in api_urls))
+                        else:
+                            st.info("Geen climbfinder.com JSON-API calls onderschept.")
 
                     # Raw sample rows
                     debug_rows = []
@@ -924,22 +956,25 @@ if fetch_btn:
                                 debug_rows.append({
                                     "klimnr": i + 1,
                                     "veldnaam": field,
-                                    "waarde": str(val)[:120],
+                                    "waarde": str(val)[:160],
                                 })
                     if debug_rows:
                         st.markdown("**Eerste 3 ruwe rijen:**")
                         st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
                     else:
-                        st.info(
-                            "Geen ruwe rij-data beschikbaar.  \n"
-                            "Kijk naar DOM-tabel headers hierboven voor de kolomstructuur."
-                        )
+                        st.warning("Geen ruwe rij-data — data komt waarschijnlijk via link-context heuristiek.")
 
                     # Stats-field info from JSON path
                     first_debug = all_climbs[0].get("_debug", {}) if all_climbs else {}
                     sf = first_debug.get("stats_field")
                     if sf:
                         st.success(f"Stats-veld: **{sf!r}** — patroon `LENGTH km GRADIENT % SCORE`")
+
+                    # HTML snippet for deep debugging
+                    snippet = info.get("html_snippet", "")
+                    if snippet:
+                        with st.expander("🔎 HTML-snippet (eerste 3000 tekens van de paginabron)"):
+                            st.code(snippet, language="html")
                 # ------------------------------------------------------------
 
                 # Export buttons
