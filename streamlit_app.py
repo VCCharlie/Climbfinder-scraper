@@ -501,6 +501,26 @@ def _parse_html(html, page_number):
     table = soup.find("table")
     if table:
         col_map = _detect_table_columns(table)
+        # Populate debug sample using real <th> headers
+        global _debug_raw_sample
+        th_labels = [th.get_text(strip=True) for th in table.find_all("th")]
+        debug_sample = []
+        for row in table.find_all("tr"):
+            tds = row.find_all("td")
+            if not tds:
+                continue
+            sample = {}
+            for i, td in enumerate(tds):
+                label = th_labels[i] if i < len(th_labels) else f"col_{i}"
+                sample[label] = td.get_text(strip=True)
+            link_el = row.find("a", href=re.compile(r"/(climbs?|cols?)/"))
+            sample["_link"] = link_el["href"] if link_el else None
+            debug_sample.append(sample)
+            if len(debug_sample) >= 3:
+                break
+        if debug_sample:
+            _debug_raw_sample = debug_sample
+
         for row in table.find_all("tr"):
             cells = row.find_all("td")
             if not cells or len(cells) < 3:
@@ -821,6 +841,10 @@ if fetch_btn:
                 score_label = "Populariteit" if sort_mode == "popular" else "Cotacol score"
                 df_display.columns = ["Lengte (km)", "Klim", "Gem. stijging (%)", score_label, "Hoogtemeters (m)"]
 
+                # Save to session state BEFORE any export calls that might crash
+                st.session_state["last_results"] = df_display
+                st.session_state["_debug_raw_sample"] = _debug_raw_sample[:]
+
                 st.dataframe(df_display, use_container_width=True, hide_index=True)
 
                 # ---- Debug expander ----------------------------------------
@@ -857,24 +881,23 @@ if fetch_btn:
 
                 # Export buttons
                 col_a, col_b = st.columns(2)
-
-                # Excel export
-                excel_buf = io.BytesIO()
-                df_display.to_excel(excel_buf, index=False, sheet_name="Rankings")
                 filename_prefix = f"Climbfinder_{sort_mode.capitalize()}"
-                col_a.download_button("Download Excel", data=excel_buf.getvalue(),
-                                      file_name=f"{filename_prefix}_Rankings.xlsx",
-                                      mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
-                # CSV export
+                # Excel export (requires openpyxl)
+                try:
+                    excel_buf = io.BytesIO()
+                    df_display.to_excel(excel_buf, index=False, sheet_name="Rankings")
+                    col_a.download_button("Download Excel", data=excel_buf.getvalue(),
+                                          file_name=f"{filename_prefix}_Rankings.xlsx",
+                                          mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                except ImportError:
+                    col_a.error("Excel vereist openpyxl:  \n`pip install openpyxl`")
+
+                # CSV export (no extra dependency)
                 csv_data = df_display.to_csv(index=False)
                 col_b.download_button("Download CSV", data=csv_data,
                                       file_name=f"{filename_prefix}_Rankings.csv",
                                       mime="text/csv")
-
-                # Store in session state for persistence
-                st.session_state["last_results"] = df_display
-                st.session_state["_debug_raw_sample"] = _debug_raw_sample[:]
 
 # Show previous results if available
 elif "last_results" in st.session_state:
