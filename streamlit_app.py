@@ -529,6 +529,7 @@ def _normalize_climb(d, idx):
         },
     }
 def _parse_html(html, page_number):
+    global _debug_raw_sample
     soup = BeautifulSoup(html, "html.parser")
     climbs = []
 
@@ -548,7 +549,6 @@ def _parse_html(html, page_number):
     if table:
         col_map = _detect_table_columns(table)
         # Populate debug sample using real <th> headers
-        global _debug_raw_sample
         th_labels = [th.get_text(strip=True) for th in table.find_all("th")]
         debug_sample = []
         for row in table.find_all("tr"):
@@ -581,7 +581,6 @@ def _parse_html(html, page_number):
         return climbs, None
 
     # Strategy 2: links
-    global _debug_raw_sample
     links = soup.find_all("a", href=re.compile(r"/(climbs?|cols?)/"))
     seen = set()
     for link in links:
