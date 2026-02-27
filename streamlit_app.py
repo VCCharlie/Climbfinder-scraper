@@ -220,12 +220,29 @@ def _scrape_with_playwright(url, page_number):
                     () => {
                         const table = document.querySelector('table');
                         if (!table) return null;
+                        // Prefer <th> elements; fall back to first <tr> cells as headers
                         const ths = Array.from(table.querySelectorAll('th'));
-                        const headers = ths.map(th => th.innerText.trim());
+                        let headers;
+                        let skipFirstRow = false;
+                        if (ths.length > 0) {
+                            headers = ths.map(th => th.innerText.trim());
+                        } else {
+                            const firstRow = table.querySelector('tr');
+                            if (firstRow) {
+                                headers = Array.from(firstRow.querySelectorAll('td'))
+                                              .map(td => td.innerText.trim());
+                                skipFirstRow = true;
+                            } else {
+                                headers = [];
+                            }
+                        }
                         const bodyRows = Array.from(table.querySelectorAll('tbody tr'));
-                        const allRows = bodyRows.length > 0
+                        let allRows = bodyRows.length > 0
                             ? bodyRows
                             : Array.from(table.querySelectorAll('tr')).slice(1);
+                        if (skipFirstRow && bodyRows.length === 0) {
+                            allRows = Array.from(table.querySelectorAll('tr')).slice(1);
+                        }
                         const rows = allRows.map(tr => {
                             const tds = Array.from(tr.querySelectorAll('td'));
                             if (tds.length < 2) return null;
@@ -352,16 +369,17 @@ def _parse_dom_table(dom_table, page_number):
             difficulty = _cell("difficulty")
         else:
             # No headers — positional fallback.
-            # Climbfinder ranking table order after name:
-            #   avg_gradient | score | review  (no length column)
+            # Climbfinder ranking table column order:
+            #   # | Naam | Lengte (km) | Gem. stijging | Punten | Beoordeling
             name_idx = next(
                 (i for i, c in enumerate(cells) if c == link_text and link_text), 1
             )
             rank = clean_number(cells[0]) if name_idx > 0 and cells[0] else 0
             rest = cells[name_idx + 1:]
-            gradient = clean_number(rest[0]) if len(rest) > 0 else 0
-            difficulty = clean_number(rest[1]) if len(rest) > 1 else 0
-            length_km = 0
+            length_km  = clean_number(rest[0]) if len(rest) > 0 else 0
+            gradient   = clean_number(rest[1]) if len(rest) > 1 else 0
+            difficulty = clean_number(rest[2]) if len(rest) > 2 else 0
+            # rest[3] = beoordeling (review score) — skip
 
         # Sanity check: avg gradient > 30% is virtually impossible
         if gradient > 30 and difficulty <= 30:
@@ -660,11 +678,17 @@ def _best_name(lc):
 
 
 def _detect_table_columns(table):
-    """Read <th> headers and map column indices to field names.
+    """Read <th> headers (or first-row <td> if no <th>) and map indices to field names.
     "score"/"rating" = user review — must be checked BEFORE "diff/point".
     """
     col_map = {}
-    for idx, th in enumerate(table.find_all("th")):
+    header_cells = table.find_all("th")
+    if not header_cells:
+        # Climbfinder may use <td> for all cells; treat first row as header
+        first_row = table.find("tr")
+        if first_row:
+            header_cells = first_row.find_all("td")
+    for idx, th in enumerate(header_cells):
         text = th.get_text(strip=True).lower()
         if any(k in text for k in ["rank", "#", "pos"]):
             col_map["rank"] = idx
@@ -709,16 +733,15 @@ def _parse_table_row(cells, col_map=None):
         length_km = clean_number(texts[col_map["length"]]) if "length" in col_map and col_map["length"] < len(texts) else 0
         gradient = clean_number(texts[col_map["gradient"]]) if "gradient" in col_map and col_map["gradient"] < len(texts) else 0
     else:
-        # Positional fallback — Climbfinder ranking table order after name:
-        # [0] avg_gradient_pct  [1] difficulty_points  [2] review_score (skip)
-        # Length (km) is NOT a separate column in Climbfinder's ranking table.
+        # Positional fallback — Climbfinder ranking table column order:
+        #   # | Naam | Lengte (km) | Gem. stijging | Punten | Beoordeling
         rank_text = texts[0] if name_idx > 0 else ""
         rank = clean_number(rank_text.replace(".", "").replace("#", "").strip())
         remaining = texts[name_idx + 1:]
-        gradient = clean_number(remaining[0]) if len(remaining) > 0 else 0
-        difficulty = clean_number(remaining[1]) if len(remaining) > 1 else 0
-        # remaining[2] = review score — intentionally skipped
-        length_km = 0  # not a column in Climbfinder's ranking table HTML
+        length_km  = clean_number(remaining[0]) if len(remaining) > 0 else 0
+        gradient   = clean_number(remaining[1]) if len(remaining) > 1 else 0
+        difficulty = clean_number(remaining[2]) if len(remaining) > 2 else 0
+        # remaining[3] = beoordeling (review score) — skip
 
     lv = length_km if isinstance(length_km, (int, float)) else clean_number(length_km)
     gv = gradient if isinstance(gradient, (int, float)) else clean_number(gradient)
@@ -849,16 +872,10 @@ if fetch_btn:
                 clean_climbs = [{k: v for k, v in c.items() if k != "_debug"}
                                 for c in all_climbs]
                 df = pd.DataFrame(clean_climbs)
-                # Build display columns; drop Lengte if the ranking table doesn't expose it
-                has_length = df["length_km"].astype(float).gt(0).any()
-                if has_length:
-                    display_cols = ["length_km", "name", "avg_gradient_pct", "score", "elevation_gain_m"]
-                    col_labels   = ["Lengte (km)", "Klim", "Gem. stijging (%)", "Moeilijkheid (punten)", "Hoogtemeters (m)"]
-                else:
-                    display_cols = ["name", "avg_gradient_pct", "score"]
-                    col_labels   = ["Klim", "Gem. stijging (%)", "Moeilijkheid (punten)"]
+                # Always show all 5 columns — length is essential
+                display_cols = ["length_km", "name", "avg_gradient_pct", "score", "elevation_gain_m"]
                 df_display = df[display_cols].copy()
-                df_display.columns = col_labels
+                df_display.columns = ["Lengte (km)", "Klim", "Gem. stijging (%)", "Moeilijkheid (punten)", "Hoogtemeters (m)"]
 
                 # Save to session state BEFORE any export calls that might crash
                 st.session_state["last_results"] = df_display
