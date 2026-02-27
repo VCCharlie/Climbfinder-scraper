@@ -209,9 +209,105 @@ def _scrape_with_requests(url, page_number):
     return _parse_html(resp.text, page_number)
 
 
-# ---------------------------------------------------------------------------
-# HTML parsing (same strategies as app.py)
-# ---------------------------------------------------------------------------
+# Module-level storage so the Streamlit debug expander can read it
+# after a scrape without changing the function return signatures.
+_debug_raw_sample: list = []   # raw dicts of first 3 climb objects found
+
+
+def _normalize_climb(d, idx):
+    """Convert a raw JSON climb object to our standard format.
+
+    Strategy A  — scan ALL string fields for a stats pattern.
+    Climbfinder embeds formatted stats in the JSON, e.g. "34.8 km 6 % 1556",
+    but the field name that carries this string differs between ranking modes:
+    - cotacol ranking  → typically the "name" field
+    - popular ranking  → may be a different field (label, subtitle, stats, …)
+    So we scan every string value in the object and pick the first match.
+
+    Stats string format: "LENGTH_KM km AVG_GRADIENT_PCT % SCORE"
+
+    Strategy B  — fall back to individual named fields if no stats string found.
+
+    Note: "score"/"rating" are user star-review scores — deliberately excluded
+    from the difficulty/score lookup to avoid confusing them with ranking scores.
+    """
+    lc = {k.lower(): v for k, v in d.items()}
+    name = _best_name(lc)
+    rank = lc.get("rank") or lc.get("position") or lc.get("ranking") or idx + 1
+
+    # ------------------------------------------------------------------
+    # Strategy A: scan ALL string fields for "LENGTH km GRADIENT % SCORE"
+    # ------------------------------------------------------------------
+    _stats_re = re.compile(r'^\s*([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)')
+    length_val = 0
+    gradient_val = 0
+    difficulty_val = 0
+    _stats_field = None   # which field held the stats string (debug only)
+
+    # Preferred order: check "name" first (most common), then all others
+    field_order = ["name"] + [k for k in lc if k != "name"]
+    for field_key in field_order:
+        field_val = lc.get(field_key, "")
+        if not isinstance(field_val, str):
+            continue
+        m = _stats_re.match(field_val.strip())
+        if not m:
+            continue
+        cand_length = clean_number(m.group(1))
+        cand_gradient = clean_number(m.group(2))
+        cand_score = clean_number(m.group(3))
+        # Reject if "length" looks implausibly small (< 0.3 km) —
+        # that would mean the matched value is probably not a real length.
+        if cand_length >= 0.3:
+            length_val = cand_length
+            gradient_val = cand_gradient
+            difficulty_val = cand_score
+            _stats_field = field_key
+            break
+
+    # ------------------------------------------------------------------
+    # Strategy B: individual named-field lookups (fallback)
+    # ------------------------------------------------------------------
+    if not length_val:
+        length_val = clean_number(
+            lc.get("length") or lc.get("distance") or lc.get("km") or lc.get("length_km") or 0
+        )
+    if not gradient_val:
+        gradient_val = clean_number(
+            lc.get("gradient") or lc.get("avg_gradient") or lc.get("avggradient")
+            or lc.get("avg_gradient_pct") or lc.get("averagegradient") or 0
+        )
+    if not difficulty_val:
+        # "score"/"rating" = user star-review — intentionally excluded here
+        difficulty_val = clean_number(
+            lc.get("difficulty") or lc.get("points")
+            or lc.get("difficultypoints") or lc.get("difficulty_points") or 0
+        )
+
+    # ------------------------------------------------------------------
+    # Sanity check
+    # ------------------------------------------------------------------
+    # avg_gradient > 20% is virtually impossible for a real climb.
+    # If gradient_val is huge AND difficulty_val is small, they are swapped.
+    if gradient_val > 20 and difficulty_val <= 20:
+        gradient_val, difficulty_val = difficulty_val, gradient_val
+
+    elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
+
+    return {
+        "rank": clean_number(rank),
+        "name": name,
+        "score": difficulty_val,
+        "length_km": length_val,
+        "avg_gradient_pct": gradient_val,
+        "elevation_gain_m": elevation_gain,
+        "_debug": {
+            "raw_keys": list(lc.keys()),
+            "raw_values": {k: v for k, v in lc.items()
+                           if not isinstance(v, (dict, list))},
+            "stats_field": _stats_field,
+        },
+    }
 def _parse_html(html, page_number):
     soup = BeautifulSoup(html, "html.parser")
     climbs = []
@@ -282,8 +378,15 @@ def _find_ranking_data(obj):
 
     # Prefer candidates with stats-format names; break ties by array length.
     candidates.sort(key=lambda c: (_stats_name_count(c), len(c)), reverse=True)
-    return [_normalize_climb(item, idx) for idx, item in enumerate(candidates[0])
-            if isinstance(item, dict)]
+    best = candidates[0]
+
+    # Store first 3 raw objects for the debug expander (module-level)
+    global _debug_raw_sample
+    _debug_raw_sample = [dict(item) for item in best[:3] if isinstance(item, dict)]
+
+    normalized = [_normalize_climb(item, idx) for idx, item in enumerate(best)
+                  if isinstance(item, dict)]
+    return normalized
 
 
 def _collect_ranking_candidates(obj, candidates, depth=0):
@@ -316,69 +419,6 @@ def _looks_like_climb(d):
     if keys_lower & {"elevation", "elevationgain", "elevation_gain", "height", "altitude"}:
         cats += 1
     return cats >= 2
-
-
-def _normalize_climb(d, idx):
-    """Convert a raw JSON climb object to our standard format.
-
-    Climbfinder's __NEXT_DATA__ JSON has a "name" field containing
-    formatted stats, e.g. "34.8 km 6 % 1556".  The actual name is in
-    "title".  We parse the stats string first to get reliable values,
-    then fall back to individual field lookups.
-
-    Stats string format: "LENGTH_KM km AVG_GRADIENT_PCT % DIFFICULTY_PTS"
-
-    Note: "score"/"rating" are user review scores, not difficulty points.
-    """
-    lc = {k.lower(): v for k, v in d.items()}
-    name = _best_name(lc)
-    rank = lc.get("rank") or lc.get("position") or lc.get("ranking") or idx + 1
-
-    # Strategy A: parse from "name" field stats string
-    length_val = 0
-    gradient_val = 0
-    difficulty_val = 0
-
-    name_field = lc.get("name", "")
-    if isinstance(name_field, str):
-        m = re.match(r'^\s*([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)', name_field.strip())
-        if m:
-            length_val = clean_number(m.group(1))
-            gradient_val = clean_number(m.group(2))
-            difficulty_val = clean_number(m.group(3))
-
-    # Strategy B: individual field lookups (fallback)
-    # Note: "score"/"rating" are user review scores — excluded from difficulty.
-    if not length_val:
-        length_val = clean_number(
-            lc.get("length") or lc.get("distance") or lc.get("km") or lc.get("length_km") or 0
-        )
-    if not gradient_val:
-        gradient_val = clean_number(
-            lc.get("gradient") or lc.get("avg_gradient") or lc.get("avggradient")
-            or lc.get("avg_gradient_pct") or lc.get("averagegradient") or 0
-        )
-    if not difficulty_val:
-        difficulty_val = clean_number(
-            lc.get("difficulty") or lc.get("points")
-            or lc.get("difficultypoints") or lc.get("difficulty_points") or 0
-        )
-
-    # Sanity check: avg_gradient > 20% is virtually impossible for a real climb.
-    # If we see this, gradient and difficulty are almost certainly swapped.
-    if gradient_val > 20 and difficulty_val <= 20:
-        gradient_val, difficulty_val = difficulty_val, gradient_val
-
-    elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
-
-    return {
-        "rank": clean_number(rank),
-        "name": name,
-        "score": difficulty_val,
-        "length_km": length_val,
-        "avg_gradient_pct": gradient_val,
-        "elevation_gain_m": elevation_gain,
-    }
 
 
 def _best_name(lc):
@@ -597,7 +637,10 @@ if fetch_btn:
                 st.success(f"Fetched **{len(all_climbs)}** climbs across **{len(range(start_page, start_page + len(all_climbs) // 25 + (1 if len(all_climbs) % 25 else 0)))}** pages.")
 
             if all_climbs:
-                df = pd.DataFrame(all_climbs)
+                # Strip internal _debug key before building the display DataFrame
+                clean_climbs = [{k: v for k, v in c.items() if k != "_debug"}
+                                for c in all_climbs]
+                df = pd.DataFrame(clean_climbs)
                 # Show only the 5 relevant columns in the correct order
                 display_cols = ["length_km", "name", "avg_gradient_pct", "score", "elevation_gain_m"]
                 df_display = df[display_cols].copy()
@@ -605,6 +648,39 @@ if fetch_btn:
                 df_display.columns = ["Lengte (km)", "Klim", "Gem. stijging (%)", score_label, "Hoogtemeters (m)"]
 
                 st.dataframe(df_display, use_container_width=True, hide_index=True)
+
+                # ---- Debug expander ----------------------------------------
+                with st.expander("🔍 Debug: bekijk ruwe JSON-velden (eerste 3 klimmen)"):
+                    st.caption(
+                        "Dit toont de exacte veldnamen en waarden zoals Climbfinder ze "
+                        "aanlevert in __NEXT_DATA__.  Deel deze output als de kolommen "
+                        "nog steeds verkeerd staan."
+                    )
+                    debug_rows = []
+                    for i, raw in enumerate(_debug_raw_sample[:3]):
+                        for field, val in raw.items():
+                            if not isinstance(val, (dict, list)):
+                                debug_rows.append({
+                                    "klimnr": i + 1,
+                                    "veldnaam": field,
+                                    "waarde": str(val)[:120],
+                                })
+                    if debug_rows:
+                        st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
+                    else:
+                        st.info("Geen ruwe debug-data beschikbaar. Probeer opnieuw te scrapen.")
+
+                    # Also show which field held the stats string
+                    first_debug = all_climbs[0].get("_debug", {}) if all_climbs else {}
+                    sf = first_debug.get("stats_field")
+                    if sf:
+                        st.success(f"Stats gevonden in veld: **{sf!r}** — patroon `LENGTH km GRADIENT % SCORE`")
+                    else:
+                        st.warning(
+                            "Geen stats-patroon (`X km Y % Z`) gevonden in enig tekstveld. "
+                            "Individuele veldnamen worden gebruikt als fallback."
+                        )
+                # ------------------------------------------------------------
 
                 # Export buttons
                 col_a, col_b = st.columns(2)
@@ -625,6 +701,7 @@ if fetch_btn:
 
                 # Store in session state for persistence
                 st.session_state["last_results"] = df_display
+                st.session_state["_debug_raw_sample"] = _debug_raw_sample[:]
 
 # Show previous results if available
 elif "last_results" in st.session_state:
