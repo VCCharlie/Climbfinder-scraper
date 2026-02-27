@@ -165,8 +165,8 @@ def playwright_available():
     return _check_playwright()
 
 
-def scrape_page(region_id, page_number):
-    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
+def scrape_page(region_id, page_number, sort_mode="popular"):
+    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}&s={sort_mode}"
     if playwright_available():
         return _scrape_with_playwright(url, page_number)
     return _scrape_with_requests(url, page_number)
@@ -266,7 +266,22 @@ def _find_ranking_data(obj):
     _collect_ranking_candidates(obj, candidates)
     if not candidates:
         return []
-    candidates.sort(key=len, reverse=True)
+
+    def _stats_name_count(candidate):
+        """Count items whose 'name' field looks like a stats string,
+        e.g. '34.8 km 6 % 1556' — the format used in real ranking rows."""
+        count = 0
+        for item in candidate:
+            if isinstance(item, dict):
+                name = item.get("name", "")
+                if isinstance(name, str) and re.search(
+                    r'[\d]+[.,]?[\d]*\s*km', name
+                ):
+                    count += 1
+        return count
+
+    # Prefer candidates with stats-format names; break ties by array length.
+    candidates.sort(key=lambda c: (_stats_name_count(c), len(c)), reverse=True)
     return [_normalize_climb(item, idx) for idx, item in enumerate(candidates[0])
             if isinstance(item, dict)]
 
@@ -359,7 +374,7 @@ def _normalize_climb(d, idx):
     return {
         "rank": clean_number(rank),
         "name": name,
-        "difficulty_points": difficulty_val,
+        "score": difficulty_val,
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,
@@ -464,7 +479,7 @@ def _parse_table_row(cells, col_map=None):
         gv, difficulty = difficulty, gv
     elevation_gain = round(lv * 10 * gv) if lv and gv else 0
 
-    return {"rank": rank, "name": name, "difficulty_points": difficulty,
+    return {"rank": rank, "name": name, "score": difficulty,
             "length_km": lv, "avg_gradient_pct": gv, "elevation_gain_m": elevation_gain}
 
 
@@ -484,10 +499,10 @@ def _extract_from_context(link_element, name):
             if gr > 20 and diff <= 20:
                 gr, diff = diff, gr
             return {"rank": nums[0], "name": name, "length_km": 0,
-                    "avg_gradient_pct": gr, "difficulty_points": diff,
+                    "avg_gradient_pct": gr, "score": diff,
                     "elevation_gain_m": 0}
         parent = parent.parent
-    return {"rank": 0, "name": name, "difficulty_points": 0,
+    return {"rank": 0, "name": name, "score": 0,
             "length_km": 0, "avg_gradient_pct": 0, "elevation_gain_m": 0}
 
 
@@ -520,6 +535,14 @@ with st.sidebar:
     custom_id = st.text_input("Or enter Region ID directly", placeholder="e.g. 288")
 
     st.markdown("---")
+    sort_mode = st.radio(
+        "Ranking type",
+        options=["popular", "cotacol"],
+        format_func=lambda x: "Populairste klimmen" if x == "popular" else "Moeilijkste klimmen (Cotacol)",
+        index=0,
+    )
+
+    st.markdown("---")
     col1, col2 = st.columns(2)
     start_page = col1.number_input("Start page", min_value=1, value=1)
     end_page = col2.number_input("End page", min_value=1, value=5)
@@ -542,7 +565,8 @@ if fetch_btn:
             total_pages = end_page - start_page + 1
 
             method = "playwright" if playwright_available() else "requests"
-            st.info(f"Scraping region **{region_id}** — pages {start_page}–{end_page} via {method}")
+            sort_label = "populairste" if sort_mode == "popular" else "moeilijkste (cotacol)"
+            st.info(f"Scraping **{sort_label}** klimmen voor regio **{region_id}** — pagina's {start_page}–{end_page} via {method}")
 
             progress_bar = st.progress(0)
             all_climbs = []
@@ -552,7 +576,7 @@ if fetch_btn:
                 pct = int(((page_num - start_page) / total_pages) * 100)
                 progress_bar.progress(pct, text=f"Fetching page {page_num - start_page + 1} of {total_pages}...")
 
-                page_climbs, err = scrape_page(region_id, page_num)
+                page_climbs, err = scrape_page(region_id, page_num, sort_mode)
                 if err:
                     errors.append(f"Page {page_num}: {err}")
                     break
@@ -575,9 +599,10 @@ if fetch_btn:
             if all_climbs:
                 df = pd.DataFrame(all_climbs)
                 # Show only the 5 relevant columns in the correct order
-                display_cols = ["length_km", "name", "avg_gradient_pct", "difficulty_points", "elevation_gain_m"]
+                display_cols = ["length_km", "name", "avg_gradient_pct", "score", "elevation_gain_m"]
                 df_display = df[display_cols].copy()
-                df_display.columns = ["Length (km)", "Climb Name", "Avg Gradient (%)", "Difficulty Points", "Elev. Gain (m)"]
+                score_label = "Populariteit" if sort_mode == "popular" else "Cotacol score"
+                df_display.columns = ["Lengte (km)", "Klim", "Gem. stijging (%)", score_label, "Hoogtemeters (m)"]
 
                 st.dataframe(df_display, use_container_width=True, hide_index=True)
 
@@ -587,14 +612,15 @@ if fetch_btn:
                 # Excel export
                 excel_buf = io.BytesIO()
                 df_display.to_excel(excel_buf, index=False, sheet_name="Rankings")
+                filename_prefix = f"Climbfinder_{sort_mode.capitalize()}"
                 col_a.download_button("Download Excel", data=excel_buf.getvalue(),
-                                      file_name="Climbfinder_Rankings.xlsx",
+                                      file_name=f"{filename_prefix}_Rankings.xlsx",
                                       mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
                 # CSV export
                 csv_data = df_display.to_csv(index=False)
                 col_b.download_button("Download CSV", data=csv_data,
-                                      file_name="Climbfinder_Rankings.csv",
+                                      file_name=f"{filename_prefix}_Rankings.csv",
                                       mime="text/csv")
 
                 # Store in session state for persistence

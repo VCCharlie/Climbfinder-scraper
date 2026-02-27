@@ -83,7 +83,7 @@
             gap: 1.25rem;
         }
         @media (min-width: 900px) {
-            .form-grid { grid-template-columns: 1fr 2fr 1fr auto; align-items: end; }
+            .form-grid { grid-template-columns: 1fr 2fr 1fr 1fr auto; align-items: end; }
         }
 
         /* === Form elements === */
@@ -500,6 +500,15 @@
                 </div>
             </div>
 
+            <!-- Ranking type -->
+            <div>
+                <label>Ranking Type</label>
+                <select id="sortMode">
+                    <option value="popular" selected>Populairste klimmen</option>
+                    <option value="cotacol">Moeilijkste (Cotacol)</option>
+                </select>
+            </div>
+
             <!-- Page range -->
             <div>
                 <label>Page Range</label>
@@ -565,7 +574,7 @@
                         <th>Length (km)</th>
                         <th>Climb Name</th>
                         <th>Avg Gradient (%)</th>
-                        <th>Difficulty Points</th>
+                        <th id="scoreColHeader">Populariteit</th>
                         <th>Elev. Gain (m)</th>
                     </tr>
                 </thead>
@@ -837,11 +846,16 @@ $(document).ready(function () {
 
         var startPage = parseInt($('#startPage').val(), 10) || 1;
         var endPage = parseInt($('#endPage').val(), 10) || 1;
+        var sortMode = $('#sortMode').val() || 'popular';
 
         if (endPage < startPage) {
             showStatus('warning', 'End page must be greater than or equal to start page.');
             return;
         }
+
+        // Update score column header based on ranking type
+        var scoreLabel = sortMode === 'popular' ? 'Populariteit' : 'Cotacol score';
+        $('#scoreColHeader').text(scoreLabel);
 
         var $btn = $('#scrapeBtn');
         $btn.prop('disabled', true).html('<span class="spinner"></span> Scraping...');
@@ -869,7 +883,8 @@ $(document).ready(function () {
             data: JSON.stringify({
                 region_id: regionId,
                 start_page: startPage,
-                end_page: endPage
+                end_page: endPage,
+                sort_mode: sortMode
             }),
             success: function (response) {
                 currentData = response.data || [];
@@ -947,7 +962,7 @@ $(document).ready(function () {
                     }
                 },
                 {
-                    data: 'difficulty_points',
+                    data: 'score',
                     className: 'dt-body-center',
                     render: function (val) {
                         var cls = 'diff-easy';
@@ -1019,7 +1034,8 @@ $(document).ready(function () {
     $('#googleSheetsBtn').on('click', function () {
         if (!currentData.length) return;
 
-        var headers = ['Length (km)', 'Climb Name', 'Avg Gradient (%)', 'Difficulty Points', 'Elevation Gain (m)'];
+        var scoreColLabel = $('#scoreColHeader').text() || 'Score';
+        var headers = ['Length (km)', 'Climb Name', 'Avg Gradient (%)', scoreColLabel, 'Elevation Gain (m)'];
         var rows = [headers.join(',')];
 
         currentData.forEach(function (c) {
@@ -1027,7 +1043,7 @@ $(document).ready(function () {
                 c.length_km,
                 '"' + (c.name || '').replace(/"/g, '""') + '"',
                 c.avg_gradient_pct,
-                c.difficulty_points,
+                c.score,
                 c.elevation_gain_m || 0
             ].join(','));
         });
@@ -1048,7 +1064,8 @@ $(document).ready(function () {
     $('#copyTsvBtn').on('click', function () {
         if (!currentData.length) return;
 
-        var headers = ['Length (km)', 'Climb Name', 'Avg Gradient (%)', 'Difficulty Points', 'Elevation Gain (m)'];
+        var scoreColLabel = $('#scoreColHeader').text() || 'Score';
+        var headers = ['Length (km)', 'Climb Name', 'Avg Gradient (%)', scoreColLabel, 'Elevation Gain (m)'];
         var rows = [headers.join('\t')];
 
         currentData.forEach(function (c) {
@@ -1056,7 +1073,7 @@ $(document).ready(function () {
                 c.length_km,
                 c.name || '',
                 c.avg_gradient_pct,
-                c.difficulty_points,
+                c.score,
                 c.elevation_gain_m || 0
             ].join('\t'));
         });
