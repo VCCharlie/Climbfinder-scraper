@@ -248,20 +248,33 @@ def _scrape_with_playwright(url, page_number):
             browser.close()
 
         # ── Choose best data source ───────────────────────────────────────
+        global _debug_info
+        _debug_info = {
+            "dom_table_found": dom_table is not None,
+            "dom_table_headers": dom_table.get("headers", []) if dom_table else [],
+            "dom_table_rows": len(dom_table.get("rows", [])) if dom_table else 0,
+            "api_responses": len(captured_json),
+            "path": "none",
+        }
+
         # 1. DOM table with real column headers (Playwright rendered the page)
         if dom_table and dom_table.get("rows"):
             climbs = _parse_dom_table(dom_table, page_number)
             if climbs:
+                _debug_info["path"] = "dom_table"
                 return climbs, None
+            _debug_info["dom_table_parse_result"] = "0 climbs extracted"
 
         # 2. Intercepted API JSON responses
         for resp_info in captured_json:
             climbs = _find_ranking_data(resp_info["data"])
             if climbs:
+                _debug_info["path"] = f"api:{resp_info['url']}"
                 print(f"  Page {page_number}: {len(climbs)} climbs from API {resp_info['url']}")
                 return climbs, None
 
         # 3. Full HTML fallback (also handles __NEXT_DATA__ if present)
+        _debug_info["path"] = "html_fallback"
         return _parse_html(html, page_number)
 
     except Exception as exc:
@@ -386,6 +399,7 @@ def _scrape_with_requests(url, page_number):
 # Module-level storage so the Streamlit debug expander can read it
 # after a scrape without changing the function return signatures.
 _debug_raw_sample: list = []   # raw dicts of first 3 climb objects found
+_debug_info: dict = {}          # scrape path metadata (updated each scrape)
 
 
 def _normalize_climb(d, idx):
@@ -835,25 +849,57 @@ if fetch_btn:
                 clean_climbs = [{k: v for k, v in c.items() if k != "_debug"}
                                 for c in all_climbs]
                 df = pd.DataFrame(clean_climbs)
-                # Show only the 5 relevant columns in the correct order
-                display_cols = ["length_km", "name", "avg_gradient_pct", "score", "elevation_gain_m"]
+                # Build display columns; drop Lengte if the ranking table doesn't expose it
+                has_length = df["length_km"].astype(float).gt(0).any()
+                if has_length:
+                    display_cols = ["length_km", "name", "avg_gradient_pct", "score", "elevation_gain_m"]
+                    col_labels   = ["Lengte (km)", "Klim", "Gem. stijging (%)", "Moeilijkheid (punten)", "Hoogtemeters (m)"]
+                else:
+                    display_cols = ["name", "avg_gradient_pct", "score"]
+                    col_labels   = ["Klim", "Gem. stijging (%)", "Moeilijkheid (punten)"]
                 df_display = df[display_cols].copy()
-                score_label = "Populariteit" if sort_mode == "popular" else "Cotacol score"
-                df_display.columns = ["Lengte (km)", "Klim", "Gem. stijging (%)", score_label, "Hoogtemeters (m)"]
+                df_display.columns = col_labels
 
                 # Save to session state BEFORE any export calls that might crash
                 st.session_state["last_results"] = df_display
                 st.session_state["_debug_raw_sample"] = _debug_raw_sample[:]
+                st.session_state["_debug_info"] = dict(_debug_info)
 
                 st.dataframe(df_display, use_container_width=True, hide_index=True)
 
                 # ---- Debug expander ----------------------------------------
                 with st.expander("🔍 Debug: bekijk exacte tabel-kolommen (eerste 3 klimmen)"):
                     st.caption(
-                        "Dit toont de exacte kolomnamen en waarden zoals Playwright ze "
-                        "uit de gerenderde DOM-tabel heeft gelezen.  "
+                        "Kolomnamen en waarden zoals gelezen uit de gerenderde DOM-tabel of HTML.  "
                         "Deel deze output als de kolommen nog steeds verkeerd staan."
                     )
+
+                    # Always show scrape-path metadata
+                    info = _debug_info
+                    path = info.get("path", "onbekend")
+                    path_labels = {
+                        "dom_table": "DOM-tabel (Playwright evaluate)",
+                        "html_fallback": "HTML-fallback (BeautifulSoup tabel of links)",
+                    }
+                    if path.startswith("api:"):
+                        path_label = f"API-respons: {path[4:]}"
+                    else:
+                        path_label = path_labels.get(path, path)
+
+                    st.markdown(f"**Scrape-pad:** `{path_label}`")
+                    if info.get("dom_table_found"):
+                        dom_hdrs = info.get("dom_table_headers", [])
+                        dom_rows = info.get("dom_table_rows", 0)
+                        st.markdown(
+                            f"**DOM-tabel headers** ({dom_rows} rijen gevonden):  \n"
+                            f"`{dom_hdrs}`"
+                        )
+                        if info.get("dom_table_parse_result"):
+                            st.warning(f"DOM-tabel parsing: {info['dom_table_parse_result']}")
+                    else:
+                        st.warning("Geen DOM-tabel gevonden door Playwright.")
+
+                    # Raw sample rows
                     debug_rows = []
                     for i, raw in enumerate(_debug_raw_sample[:3]):
                         for field, val in raw.items():
@@ -864,19 +910,19 @@ if fetch_btn:
                                     "waarde": str(val)[:120],
                                 })
                     if debug_rows:
+                        st.markdown("**Eerste 3 ruwe rijen:**")
                         st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
                     else:
-                        st.info("Geen ruwe debug-data beschikbaar. Probeer opnieuw te scrapen.")
+                        st.info(
+                            "Geen ruwe rij-data beschikbaar.  \n"
+                            "Kijk naar DOM-tabel headers hierboven voor de kolomstructuur."
+                        )
 
-                    # Show parsing method used
+                    # Stats-field info from JSON path
                     first_debug = all_climbs[0].get("_debug", {}) if all_climbs else {}
                     sf = first_debug.get("stats_field")
                     if sf:
-                        st.success(f"Stats gevonden in veld: **{sf!r}** — patroon `LENGTH km GRADIENT % SCORE`")
-                    elif _debug_raw_sample and "_link" in (_debug_raw_sample[0] if _debug_raw_sample else {}):
-                        st.success("Data gelezen uit gerenderde DOM-tabel (Playwright).")
-                    else:
-                        st.info("Data gelezen via DOM-tabel of API-respons.")
+                        st.success(f"Stats-veld: **{sf!r}** — patroon `LENGTH km GRADIENT % SCORE`")
                 # ------------------------------------------------------------
 
                 # Export buttons
@@ -904,33 +950,45 @@ elif "last_results" in st.session_state:
     df_display = st.session_state["last_results"]
     st.dataframe(df_display, use_container_width=True, hide_index=True)
 
-    # Debug expander — uses sample saved in session state from last scrape
-    saved_sample = st.session_state.get("_debug_raw_sample", [])
-    if saved_sample:
-        with st.expander("🔍 Debug: bekijk exacte tabel-kolommen (eerste 3 klimmen)"):
-            st.caption(
-                "Dit toont de exacte kolomnamen en waarden zoals Playwright ze "
-                "uit de gerenderde DOM-tabel heeft gelezen.  "
-                "Deel deze output als de kolommen nog steeds verkeerd staan."
+    # Debug expander — uses data saved in session state from last scrape
+    with st.expander("🔍 Debug: bekijk exacte tabel-kolommen (eerste 3 klimmen)"):
+        saved_info = st.session_state.get("_debug_info", {})
+        if saved_info:
+            path = saved_info.get("path", "onbekend")
+            path_labels = {
+                "dom_table": "DOM-tabel (Playwright evaluate)",
+                "html_fallback": "HTML-fallback (BeautifulSoup tabel of links)",
+            }
+            path_label = (
+                f"API-respons: {path[4:]}" if path.startswith("api:")
+                else path_labels.get(path, path)
             )
-            debug_rows = []
-            for i, raw in enumerate(saved_sample[:3]):
-                for field, val in raw.items():
-                    if not isinstance(val, (dict, list)):
-                        debug_rows.append({
-                            "klimnr": i + 1,
-                            "veldnaam": field,
-                            "waarde": str(val)[:120],
-                        })
-            if debug_rows:
-                st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
+            st.markdown(f"**Scrape-pad:** `{path_label}`")
+            if saved_info.get("dom_table_found"):
+                st.markdown(
+                    f"**DOM-tabel headers** ({saved_info.get('dom_table_rows', 0)} rijen):  \n"
+                    f"`{saved_info.get('dom_table_headers', [])}`"
+                )
+        saved_sample = st.session_state.get("_debug_raw_sample", [])
+        debug_rows = []
+        for i, raw in enumerate(saved_sample[:3]):
+            for field, val in raw.items():
+                if not isinstance(val, (dict, list)):
+                    debug_rows.append({"klimnr": i + 1, "veldnaam": field, "waarde": str(val)[:120]})
+        if debug_rows:
+            st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
+        elif not saved_info:
+            st.info("Geen debug-data beschikbaar. Scrape opnieuw om de analyse te zien.")
 
     col_a, col_b = st.columns(2)
-    excel_buf = io.BytesIO()
-    df_display.to_excel(excel_buf, index=False, sheet_name="Rankings")
-    col_a.download_button("Download Excel", data=excel_buf.getvalue(),
-                          file_name="Climbfinder_Rankings.xlsx",
-                          mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    try:
+        excel_buf = io.BytesIO()
+        df_display.to_excel(excel_buf, index=False, sheet_name="Rankings")
+        col_a.download_button("Download Excel", data=excel_buf.getvalue(),
+                              file_name="Climbfinder_Rankings.xlsx",
+                              mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    except ImportError:
+        col_a.error("Excel vereist openpyxl:  \n`pip install openpyxl`")
     csv_data = df_display.to_csv(index=False)
     col_b.download_button("Download CSV", data=csv_data,
                           file_name="Climbfinder_Rankings.csv", mime="text/csv")
