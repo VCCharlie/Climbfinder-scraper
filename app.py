@@ -257,12 +257,14 @@ def _check_playwright():
 PLAYWRIGHT_AVAILABLE = _check_playwright()
 
 
-def scrape_page(region_id, page_number):
+def scrape_page(region_id, page_number, sort_mode="popular"):
     """
     Scrape a single ranking page.  Uses Playwright if available, otherwise
     falls back to requests + BeautifulSoup.
+
+    sort_mode: "popular" (default) or "cotacol" (hardest climbs).
     """
-    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
+    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}&s={sort_mode}"
 
     if PLAYWRIGHT_AVAILABLE:
         return _scrape_with_playwright(url, page_number)
@@ -427,16 +429,38 @@ def _extract_from_next_data(soup):
 def _find_ranking_data(obj, depth=0):
     """
     Recursively search a nested JSON structure for arrays of objects
-    that look like climb ranking entries.  Collects ALL candidates and
-    returns the largest one (the actual ranking typically has ~25 items
-    per page, while spurious matches are smaller).
+    that look like climb ranking entries.
+
+    Selection strategy:
+    1. Prefer candidates where most items have a stats-format "name" field
+       (e.g. "34.8 km 6 % 1556") — these are the real ranking rows.
+    2. Break ties by array length (larger = more complete ranking page).
+
+    This avoids accidentally picking a "related climbs" or "similar climbs"
+    array that may be larger but uses actual climb names and mismatched fields
+    (causing length/gradient/score values to be swapped).
     """
     candidates = []
     _collect_ranking_candidates(obj, candidates)
     if not candidates:
         return []
-    # Pick the largest candidate — the real ranking data
-    candidates.sort(key=len, reverse=True)
+
+    def _stats_name_count(candidate):
+        """Count items whose 'name' field looks like a stats string,
+        e.g. '34.8 km 6 % 1556' — the format Climbfinder uses in ranking rows."""
+        count = 0
+        for item in candidate:
+            if isinstance(item, dict):
+                name = item.get("name", "")
+                if isinstance(name, str) and re.search(
+                    r'[\d]+[.,]?[\d]*\s*km', name
+                ):
+                    count += 1
+        return count
+
+    # Primary sort key: number of stats-format names (higher = real ranking).
+    # Secondary sort key: array length (larger = more entries on this page).
+    candidates.sort(key=lambda c: (_stats_name_count(c), len(c)), reverse=True)
     best = candidates[0]
     return [_normalize_climb(item, idx) for idx, item in enumerate(best)
             if isinstance(item, dict)]
@@ -560,7 +584,7 @@ def _normalize_climb(d, idx):
     return {
         "rank": clean_number(rank),
         "name": name,
-        "difficulty_points": difficulty_val,
+        "score": difficulty_val,
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,
@@ -690,7 +714,7 @@ def _parse_table_row(cells, col_map=None):
     return {
         "rank": rank,
         "name": name,
-        "difficulty_points": difficulty,
+        "score": difficulty,
         "length_km": length_val,
         "avg_gradient_pct": gradient_val,
         "elevation_gain_m": elevation_gain,
@@ -720,14 +744,14 @@ def _extract_climb_from_context(link_element, name):
             return {
                 "rank": rank,
                 "name": name,
-                "difficulty_points": difficulty,
+                "score": difficulty,
                 "length_km": length_km,
                 "avg_gradient_pct": gradient,
                 "elevation_gain_m": elevation_gain,
             }
         parent = parent.parent
 
-    return {"rank": 0, "name": name, "difficulty_points": 0,
+    return {"rank": 0, "name": name, "score": 0,
             "length_km": 0, "avg_gradient_pct": 0, "elevation_gain_m": 0}
 
 
@@ -782,11 +806,14 @@ def api_debug_raw():
     data = request.get_json(force=True)
     region_id = data.get("region_id")
     page_number = int(data.get("page", 1))
+    sort_mode = data.get("sort_mode", "popular")
+    if sort_mode not in ("popular", "cotacol"):
+        sort_mode = "popular"
 
     if not region_id:
         return jsonify({"status": "error", "message": "region_id is required"}), 400
 
-    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}"
+    url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}&s={sort_mode}"
 
     try:
         if PLAYWRIGHT_AVAILABLE:
@@ -842,12 +869,16 @@ def api_debug_raw():
 def api_scrape():
     """
     Scrape one or more pages of rankings for a given region.
-    Expects JSON: { region_id, start_page, end_page }
+    Expects JSON: { region_id, start_page, end_page, sort_mode }
+    sort_mode: "popular" (default) or "cotacol"
     """
     data = request.get_json(force=True)
     region_id = data.get("region_id")
     start_page = max(1, int(data.get("start_page", 1)))
     end_page = max(start_page, int(data.get("end_page", 1)))
+    sort_mode = data.get("sort_mode", "popular")
+    if sort_mode not in ("popular", "cotacol"):
+        sort_mode = "popular"
 
     if not region_id:
         return jsonify({"status": "error", "message": "region_id is required"}), 400
@@ -861,11 +892,11 @@ def api_scrape():
     pages_scraped = 0
 
     method = "playwright" if PLAYWRIGHT_AVAILABLE else "requests"
-    print(f"[SCRAPE] region={region_id} pages={start_page}-{end_page} method={method}")
+    print(f"[SCRAPE] region={region_id} pages={start_page}-{end_page} sort={sort_mode} method={method}")
 
     for page in range(start_page, end_page + 1):
         print(f"  Scraping region={region_id} page={page} ...")
-        page_climbs, err = scrape_page(region_id, page)
+        page_climbs, err = scrape_page(region_id, page, sort_mode)
 
         if err:
             errors.append(f"Page {page}: {err}")

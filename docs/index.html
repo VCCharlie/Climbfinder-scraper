@@ -64,7 +64,7 @@
 
         .form-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
         @media (min-width: 900px) {
-            .form-grid { grid-template-columns: 1fr 2fr 1fr auto; align-items: end; }
+            .form-grid { grid-template-columns: 1fr 2fr 1fr 1fr auto; align-items: end; }
         }
 
         label {
@@ -276,6 +276,13 @@
                 </div>
             </div>
             <div>
+                <label>Ranking Type</label>
+                <select id="sortMode">
+                    <option value="popular" selected>Populairste klimmen</option>
+                    <option value="cotacol">Moeilijkste (Cotacol)</option>
+                </select>
+            </div>
+            <div>
                 <label>Page Range</label>
                 <div class="page-range">
                     <input type="number" id="startPage" value="1" min="1">
@@ -328,7 +335,7 @@
                         <th>Length (km)</th>
                         <th>Climb Name</th>
                         <th>Avg Gradient (%)</th>
-                        <th>Difficulty Points</th>
+                        <th id="scoreColHeader">Populariteit</th>
                         <th>Elev. Gain (m)</th>
                     </tr>
                 </thead>
@@ -491,8 +498,13 @@ $(document).ready(function () {
 
         var startPage = parseInt($('#startPage').val(), 10) || 1;
         var endPage = parseInt($('#endPage').val(), 10) || 1;
+        var sortMode = $('#sortMode').val() || 'popular';
         if (endPage < startPage) { showStatus('warning', 'End page must be &ge; start page.'); return; }
         if (endPage - startPage > 19) endPage = startPage + 19;
+
+        // Update score column header based on ranking type
+        var scoreLabel = sortMode === 'popular' ? 'Populariteit' : 'Cotacol score';
+        $('#scoreColHeader').text(scoreLabel);
 
         var $btn = $('#scrapeBtn');
         $btn.prop('disabled', true).html('<span class="spinner"></span> Scraping...');
@@ -501,7 +513,7 @@ $(document).ready(function () {
         showStatus('info', '<span class="spinner" style="border-color:rgba(30,64,175,0.3);border-top-color:#1e40af;width:0.85rem;height:0.85rem"></span> Fetching pages ' + startPage + '\u2013' + endPage + ' for region ' + regionId + '...');
         $('#resultsContainer').addClass('hidden');
 
-        scrapePages(regionId, startPage, endPage, function (allClimbs, pagesScraped, errors) {
+        scrapePages(regionId, startPage, endPage, sortMode, function (allClimbs, pagesScraped, errors) {
             showProgress('Complete!', 100);
             setTimeout(hideProgress, 600);
             currentData = allClimbs;
@@ -522,7 +534,7 @@ $(document).ready(function () {
         });
     });
 
-    function scrapePages(regionId, startPage, endPage, callback) {
+    function scrapePages(regionId, startPage, endPage, sortMode, callback) {
         var allClimbs = [];
         var errors = [];
         var pagesScraped = 0;
@@ -534,7 +546,7 @@ $(document).ready(function () {
             var pct = Math.round(((currentPage - startPage) / totalPages) * 85) + 5;
             showProgress('Fetching page ' + (currentPage - startPage + 1) + ' of ' + totalPages + '...', pct);
 
-            fetchAndParsePage(regionId, currentPage, function (climbs, err) {
+            fetchAndParsePage(regionId, currentPage, sortMode, function (climbs, err) {
                 if (err) { errors.push('Page ' + currentPage + ': ' + err); callback(allClimbs, pagesScraped, errors); return; }
                 if (climbs.length === 0) { callback(allClimbs, pagesScraped, errors); return; }
                 allClimbs = allClimbs.concat(climbs);
@@ -547,8 +559,8 @@ $(document).ready(function () {
         next();
     }
 
-    function fetchAndParsePage(regionId, pageNum, callback) {
-        var targetUrl = 'https://climbfinder.com/en/ranking?l=' + regionId + '&p=' + pageNum;
+    function fetchAndParsePage(regionId, pageNum, sortMode, callback) {
+        var targetUrl = 'https://climbfinder.com/en/ranking?l=' + regionId + '&p=' + pageNum + '&s=' + sortMode;
         tryProxies(targetUrl, 0, function (html, err) {
             if (err) { callback([], err); return; }
             var climbs = parseClimbfinderHtml(html);
@@ -617,12 +629,31 @@ $(document).ready(function () {
     }
 
     function findRankingData(obj) {
-        // Collect ALL candidate arrays, then pick the largest one
-        // (real ranking data has ~25 items; spurious matches are smaller)
         var candidates = [];
         collectRankingCandidates(obj, candidates, 0);
         if (candidates.length === 0) return [];
-        candidates.sort(function(a,b){return b.length - a.length;});
+
+        // Count items whose 'name' field looks like a stats string, e.g. '34.8 km 6 % 1556'.
+        // Real ranking rows use this format; spurious arrays (related climbs, etc.) use actual names.
+        function statsNameCount(candidate) {
+            var count = 0;
+            for (var i = 0; i < candidate.length; i++) {
+                var item = candidate[i];
+                if (item && typeof item === 'object') {
+                    var name = item.name;
+                    if (typeof name === 'string' && /[\d]+[.,]?[\d]*\s*km/.test(name)) count++;
+                }
+            }
+            return count;
+        }
+
+        // Primary sort key: stats-name count (higher = real ranking).
+        // Secondary sort key: array length.
+        candidates.sort(function(a, b) {
+            var sa = statsNameCount(a), sb = statsNameCount(b);
+            if (sb !== sa) return sb - sa;
+            return b.length - a.length;
+        });
         return candidates[0].map(function(item, idx){return normalizeClimb(item, idx);});
     }
 
@@ -713,7 +744,7 @@ $(document).ready(function () {
         return {
             rank: cleanNum(lc.rank || lc.position || lc.ranking || (idx+1)),
             name: bestName(lc),
-            difficulty_points: difficultyVal,
+            score: difficultyVal,
             length_km: lengthVal,
             avg_gradient_pct: gradientVal,
             elevation_gain_m: elevGain
@@ -771,7 +802,7 @@ $(document).ready(function () {
         // Sanity check: avg_gradient > 20% is virtually impossible for a real climb
         if (gradient > 20 && difficulty <= 20) { var tmp = gradient; gradient = difficulty; difficulty = tmp; }
         var elevGain = (lengthKm && gradient) ? Math.round(lengthKm * 10 * gradient) : 0;
-        return { rank: rank, name: name, difficulty_points: difficulty, length_km: lengthKm, avg_gradient_pct: gradient, elevation_gain_m: elevGain };
+        return { rank: rank, name: name, score: difficulty, length_km: lengthKm, avg_gradient_pct: gradient, elevation_gain_m: elevGain };
     }
 
     function extractFromContext(linkEl, name) {
@@ -784,11 +815,11 @@ $(document).ready(function () {
                 var gr = nums[1]||0, diff = nums[2]||0;
                 // Sanity check
                 if (gr > 20 && diff <= 20) { var tmp = gr; gr = diff; diff = tmp; }
-                return { rank: nums[0]||0, name: name, length_km: 0, avg_gradient_pct: gr, difficulty_points: diff, elevation_gain_m: 0 };
+                return { rank: nums[0]||0, name: name, length_km: 0, avg_gradient_pct: gr, score: diff, elevation_gain_m: 0 };
             }
             parent = parent.parentElement;
         }
-        return { rank: 0, name: name, difficulty_points: 0, length_km: 0, avg_gradient_pct: 0, elevation_gain_m: 0 };
+        return { rank: 0, name: name, score: 0, length_km: 0, avg_gradient_pct: 0, elevation_gain_m: 0 };
     }
 
     function cleanNum(v) {
@@ -809,7 +840,7 @@ $(document).ready(function () {
                 { data: 'length_km', className: 'dt-body-center', render: function(v){return v+' km';} },
                 { data: 'name', render: function(v){return '<span class="climb-name">'+escapeHtml(v)+'</span>';} },
                 { data: 'avg_gradient_pct', className: 'dt-body-center', render: function(v){ var c='grad-low'; if(v>=10)c='grad-high'; else if(v>=6)c='grad-mid'; return '<span class="'+c+'">'+v+'%</span>';} },
-                { data: 'difficulty_points', className: 'dt-body-center', render: function(v){ var c='diff-easy'; if(v>=800)c='diff-extreme'; else if(v>=400)c='diff-hard'; else if(v>=150)c='diff-medium'; return '<span class="diff-badge '+c+'">'+v+'</span>';} },
+                { data: 'score', className: 'dt-body-center', render: function(v){ var c='diff-easy'; if(v>=800)c='diff-extreme'; else if(v>=400)c='diff-hard'; else if(v>=150)c='diff-medium'; return '<span class="diff-badge '+c+'">'+v+'</span>';} },
                 { data: 'elevation_gain_m', className: 'dt-body-center', render: function(v){return (v||0).toLocaleString()+' m';} }
             ],
             dom: 'Bfrtip',
@@ -825,9 +856,10 @@ $(document).ready(function () {
     // --- Google Sheets CSV ---
     $('#googleSheetsBtn').on('click', function () {
         if (!currentData.length) return;
-        var h=['Length (km)','Climb Name','Avg Gradient (%)','Difficulty Points','Elevation Gain (m)'];
+        var scoreColLabel = $('#scoreColHeader').text() || 'Score';
+        var h=['Length (km)','Climb Name','Avg Gradient (%)',scoreColLabel,'Elevation Gain (m)'];
         var rows=[h.join(',')];
-        currentData.forEach(function(c){rows.push([c.length_km,'"'+(c.name||'').replace(/"/g,'""')+'"',c.avg_gradient_pct,c.difficulty_points,c.elevation_gain_m||0].join(','));});
+        currentData.forEach(function(c){rows.push([c.length_km,'"'+(c.name||'').replace(/"/g,'""')+'"',c.avg_gradient_pct,c.score,c.elevation_gain_m||0].join(','));});
         var csv='\uFEFF'+rows.join('\r\n');
         var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
         var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Climbfinder_GoogleSheets.csv'; a.click();
@@ -836,9 +868,10 @@ $(document).ready(function () {
     // --- Copy TSV ---
     $('#copyTsvBtn').on('click', function () {
         if (!currentData.length) return;
-        var h=['Length (km)','Climb Name','Avg Gradient (%)','Difficulty Points','Elevation Gain (m)'];
+        var scoreColLabel = $('#scoreColHeader').text() || 'Score';
+        var h=['Length (km)','Climb Name','Avg Gradient (%)',scoreColLabel,'Elevation Gain (m)'];
         var rows=[h.join('\t')];
-        currentData.forEach(function(c){rows.push([c.length_km,c.name||'',c.avg_gradient_pct,c.difficulty_points,c.elevation_gain_m||0].join('\t'));});
+        currentData.forEach(function(c){rows.push([c.length_km,c.name||'',c.avg_gradient_pct,c.score,c.elevation_gain_m||0].join('\t'));});
         var tsv=rows.join('\n');
         navigator.clipboard.writeText(tsv).then(function(){showCopyFeedback('Copied '+currentData.length+' rows!');}).catch(function(){
             var $ta=$('<textarea>').val(tsv).appendTo('body').select();document.execCommand('copy');$ta.remove();
