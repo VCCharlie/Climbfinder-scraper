@@ -716,20 +716,27 @@ $(document).ready(function () {
         var lc = {};
         Object.keys(d).forEach(function(k){lc[k.toLowerCase()]=d[k];});
 
-        // Strategy A: parse from "name" field stats string
-        // Climbfinder stores formatted stats in the "name" field, e.g. "34.8 km 6 % 1556"
-        // Format: "LENGTH_KM km AVG_GRADIENT_PCT % DIFFICULTY_PTS"
+        // Strategy A: scan ALL string fields for "LENGTH km GRADIENT % SCORE".
+        // The field that carries the stats string differs between ranking modes,
+        // so we check every string value (starting with "name") until we find a match.
         var lengthVal = 0, gradientVal = 0, difficultyVal = 0;
-        var nameField = typeof lc.name === 'string' ? lc.name.trim() : '';
-        var statsMatch = nameField.match(/^([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)/);
-        if (statsMatch) {
-            lengthVal = cleanNum(statsMatch[1]);
-            gradientVal = cleanNum(statsMatch[2]);
+        var statsRe = /^([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)/;
+        var fieldOrder = ['name'].concat(Object.keys(lc).filter(function(k){return k !== 'name';}));
+        for (var fi = 0; fi < fieldOrder.length; fi++) {
+            var fv = lc[fieldOrder[fi]];
+            if (typeof fv !== 'string') continue;
+            var statsMatch = fv.trim().match(statsRe);
+            if (!statsMatch) continue;
+            var candLength = cleanNum(statsMatch[1]);
+            if (candLength < 0.3) continue;  // implausibly small — skip
+            lengthVal    = candLength;
+            gradientVal  = cleanNum(statsMatch[2]);
             difficultyVal = cleanNum(statsMatch[3]);
+            break;
         }
 
         // Strategy B: individual field lookups (fallback)
-        // Note: "score"/"rating" are user review scores, NOT difficulty points — excluded.
+        // Note: "score"/"rating" are user review scores, NOT ranking score — excluded.
         if (!lengthVal)    lengthVal    = cleanNum(lc.length || lc.distance || lc.km || lc.length_km || 0);
         if (!gradientVal)  gradientVal  = cleanNum(lc.gradient || lc.avg_gradient || lc.avggradient || lc.avg_gradient_pct || lc.averagegradient || 0);
         if (!difficultyVal) difficultyVal = cleanNum(lc.difficulty || lc.points || lc.difficultypoints || lc.difficulty_points || 0);

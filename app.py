@@ -511,74 +511,75 @@ def _looks_like_climb(d):
 def _normalize_climb(d, idx):
     """Convert a raw JSON climb object to our standard format.
 
-    Climbfinder's __NEXT_DATA__ JSON has a "name" field that contains
-    formatted stats rather than the climb name, e.g. "34.8 km 6 % 1556".
-    The actual climb name is in "title".  We parse the stats string first
-    to get reliable values, then fall back to individual field lookups.
+    Strategy A — scan ALL string fields for a stats pattern.
+    Climbfinder stores formatted stats (e.g. "34.8 km 6 % 1556") in one of
+    the JSON fields, but the field name varies by ranking mode:
+    - cotacol ranking  → typically the "name" field
+    - popular ranking  → may be a different field (label, subtitle, …)
+    We therefore scan every string value and pick the first plausible match.
 
-    Stats string format: "LENGTH_KM km AVG_GRADIENT_PCT % DIFFICULTY_PTS"
+    Stats string format: "LENGTH_KM km AVG_GRADIENT_PCT % SCORE"
 
-    Elevation gain is NOT directly available — we calculate it as
+    Strategy B — fall back to individual named-field lookups.
+
+    Elevation gain is NOT directly available — calculated as
     length (km) × 1000 × gradient (%) / 100.
     """
-    # Build a case-insensitive key map
     lc = {k.lower(): v for k, v in d.items()}
-
     name = _best_name(lc)
-
-    rank = (lc.get("rank") or lc.get("position") or lc.get("ranking")
-            or idx + 1)
+    rank = (lc.get("rank") or lc.get("position") or lc.get("ranking") or idx + 1)
 
     # ------------------------------------------------------------------
-    # Strategy A: parse the "name" field stats string
-    # e.g. "34.8 km 6 % 1556"  →  length=34.8, gradient=6, difficulty=1556
+    # Strategy A: scan ALL string fields for "LENGTH km GRADIENT % SCORE"
     # ------------------------------------------------------------------
+    _stats_re = re.compile(r'^\s*([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)')
     length_val = 0
     gradient_val = 0
     difficulty_val = 0
 
-    name_field = lc.get("name", "")
-    if isinstance(name_field, str):
-        m = re.match(
-            r'^\s*([\d.,]+)\s*km\s+([\d.,]+)\s*%\s+([\d.,]+)',
-            name_field.strip()
-        )
-        if m:
-            length_val = clean_number(m.group(1))
+    # Check "name" first (most common), then all other string fields
+    field_order = ["name"] + [k for k in lc if k != "name"]
+    for field_key in field_order:
+        field_val = lc.get(field_key, "")
+        if not isinstance(field_val, str):
+            continue
+        m = _stats_re.match(field_val.strip())
+        if not m:
+            continue
+        cand_length = clean_number(m.group(1))
+        # Reject implausibly small "length" — probably not a real km distance
+        if cand_length >= 0.3:
+            length_val = cand_length
             gradient_val = clean_number(m.group(2))
             difficulty_val = clean_number(m.group(3))
+            break
 
     # ------------------------------------------------------------------
     # Strategy B: individual field lookups (fallback)
-    # Note: "score" and "rating" are review scores — NOT difficulty points.
+    # Note: "score" and "rating" are user review scores — NOT ranking score.
     # ------------------------------------------------------------------
     if not length_val:
         length_val = clean_number(
             lc.get("length") or lc.get("distance") or lc.get("km")
             or lc.get("length_km") or 0
         )
-
     if not gradient_val:
         gradient_val = clean_number(
             lc.get("gradient") or lc.get("avg_gradient")
             or lc.get("avggradient") or lc.get("avg_gradient_pct")
             or lc.get("averagegradient") or 0
         )
-
     if not difficulty_val:
-        # Explicitly exclude "score"/"rating": those are user review scores
         difficulty_val = clean_number(
             lc.get("difficulty") or lc.get("points")
             or lc.get("difficultypoints") or lc.get("difficulty_points") or 0
         )
 
-    # Sanity check: avg_gradient > 20% is virtually impossible for a real climb.
-    # If we see this, gradient and difficulty are almost certainly swapped
-    # (the value that ended up in gradient is actually difficulty_points).
+    # Sanity check: avg_gradient > 20% is virtually impossible.
+    # If we see this and difficulty is small, the two values are swapped.
     if gradient_val > 20 and difficulty_val <= 20:
         gradient_val, difficulty_val = difficulty_val, gradient_val
 
-    # Elevation gain (m) = length (km) * 1000 * gradient (%) / 100
     elevation_gain = round(length_val * 10 * gradient_val) if length_val and gradient_val else 0
 
     return {
