@@ -149,14 +149,20 @@ def clean_number(text):
         return 0
 
 
+_playwright_error: str = ""   # set by _check_playwright so the UI can show it
+
+
 def _check_playwright():
+    global _playwright_error
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             browser.close()
+        _playwright_error = ""
         return True
-    except Exception:
+    except Exception as exc:
+        _playwright_error = str(exc)
         return False
 
 
@@ -169,7 +175,7 @@ def scrape_page(region_id, page_number, sort_mode="popular"):
     url = f"https://climbfinder.com/en/ranking?l={region_id}&p={page_number}&s={sort_mode}"
     if playwright_available():
         return _scrape_with_playwright(url, page_number)
-    return _scrape_with_requests(url, page_number)
+    return _scrape_with_requests(url, page_number, region_id=region_id, sort_mode=sort_mode)
 
 
 def _scrape_with_playwright(url, page_number):
@@ -405,7 +411,7 @@ def _parse_dom_table(dom_table, page_number):
     return climbs
 
 
-def _scrape_with_requests(url, page_number):
+def _scrape_with_requests(url, page_number, region_id=None, sort_mode=None):
     global _debug_info
     _debug_info = {
         "dom_table_found": False,
@@ -413,13 +419,54 @@ def _scrape_with_requests(url, page_number):
         "dom_table_rows": 0,
         "api_responses": 0,
         "path": "requests",
+        "playwright_error": _playwright_error,
     }
-    headers = {"User-Agent": USER_AGENT,
-               "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-               "Accept-Language": "en-US,en;q=0.9",
-               "Referer": "https://climbfinder.com/en/ranking"}
+
+    # ── Try the JSON API directly (works without JavaScript) ──────────────
+    # Climbfinder loads ranking data from uphill.climbfinder.com; try that
+    # endpoint directly with an Accept: application/json header.
+    if region_id:
+        api_url = (f"https://uphill.climbfinder.com/en/ranking"
+                   f"?l={region_id}&p={page_number}&s={sort_mode or 'popular'}")
+        try:
+            api_resp = requests.get(
+                api_url,
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "application/json, text/plain, */*",
+                    "Referer": "https://climbfinder.com/",
+                    "Origin": "https://climbfinder.com",
+                },
+                timeout=15,
+            )
+            if api_resp.status_code == 200:
+                ct = api_resp.headers.get("content-type", "")
+                _debug_info["api_status"] = api_resp.status_code
+                _debug_info["api_content_type"] = ct
+                _debug_info["api_url_tried"] = api_url
+                if "json" in ct:
+                    climbs = _find_ranking_data(api_resp.json())
+                    if climbs:
+                        _debug_info["path"] = "api_direct"
+                        return climbs, None
+                # Not JSON — store snippet for debugging
+                _debug_info["api_snippet"] = api_resp.text[:500]
+            else:
+                _debug_info["api_status"] = api_resp.status_code
+                _debug_info["api_url_tried"] = api_url
+        except requests.RequestException as exc:
+            _debug_info["api_error"] = str(exc)
+            _debug_info["api_url_tried"] = api_url
+
+    # ── Fall back to HTML page ─────────────────────────────────────────────
+    html_headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://climbfinder.com/en/ranking",
+    }
     try:
-        resp = requests.get(url, headers=headers, timeout=15)
+        resp = requests.get(url, headers=html_headers, timeout=15)
         resp.raise_for_status()
     except requests.RequestException as exc:
         return [], str(exc)
@@ -807,6 +854,19 @@ st.set_page_config(page_title="Climbfinder Aggregator", page_icon="⛰️", layo
 st.title("Climbfinder Ranking Aggregator")
 st.caption("Search regions, scrape climb rankings, and export to Excel or CSV.")
 
+# Playwright status banner — shown once at startup
+if not playwright_available():
+    _pw_err = _playwright_error or "onbekende fout"
+    st.error(
+        "**Playwright-browser niet beschikbaar** — volledige data vereist Playwright.\n\n"
+        f"Fout: `{_pw_err}`\n\n"
+        "Voer dit eenmalig uit in je terminal om de browser te installeren:\n"
+        "```\n"
+        r".\.venv\Scripts\python.exe -m playwright install chromium"
+        "\n```\n"
+        "Herstart daarna de app. Tot die tijd probeert de scraper de API direct te benaderen."
+    )
+
 # --- Sidebar: Region selection ---
 with st.sidebar:
     st.header("Region Selection")
@@ -919,15 +979,27 @@ if fetch_btn:
                     path_labels = {
                         "dom_table":    "DOM-tabel (Playwright evaluate)",
                         "html_fallback":"HTML-fallback (BeautifulSoup tabel of links)",
-                        "requests":     "Requests (geen Playwright) → HTML-fallback",
-                        "none":         "Geen pad bepaald (data niet gevonden?)",
+                        "api_direct":   "Directe API-call (uphill.climbfinder.com)",
+                        "requests":     "Requests (geen Playwright) → link-fallback",
+                        "none":         "Geen pad bepaald",
                     }
                     if path.startswith("api:"):
-                        path_label = f"API-respons: {path[4:]}"
+                        path_label = f"API-respons (Playwright): {path[4:]}"
                     else:
                         path_label = path_labels.get(path, path)
 
                     st.markdown(f"**Scrape-pad:** `{path_label}`")
+
+                    # Show API probe result when Playwright not available
+                    if info.get("api_url_tried"):
+                        st.markdown(f"**API geprobeerd:** `{info['api_url_tried']}`")
+                        st.markdown(f"HTTP status: `{info.get('api_status', '?')}` — "
+                                    f"Content-Type: `{info.get('api_content_type', '?')}`")
+                        if info.get("api_error"):
+                            st.error(f"API-fout: {info['api_error']}")
+                        if info.get("api_snippet"):
+                            with st.expander("API-respons snippet"):
+                                st.code(info["api_snippet"])
 
                     if info.get("dom_table_found"):
                         dom_hdrs = info.get("dom_table_headers", [])
