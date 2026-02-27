@@ -181,19 +181,193 @@ def _scrape_with_playwright(url, page_number):
                                           viewport={"width": 1280, "height": 900},
                                           locale="en-US")
             page = context.new_page()
-            page.goto(url, wait_until="domcontentloaded", timeout=20000)
+
+            # ── Network interception: capture API responses ───────────────
+            captured_json = []
+
+            def on_response(response):
+                try:
+                    if response.status != 200:
+                        return
+                    ct = response.headers.get("content-type", "")
+                    if "json" not in ct:
+                        return
+                    resp_url = response.url
+                    if "uphill.climbfinder.com" in resp_url or "/api/" in resp_url:
+                        data = response.json()
+                        captured_json.append({"url": resp_url, "data": data})
+                        print(f"[API] Captured: {resp_url}")
+                except Exception:
+                    pass
+
+            page.on("response", on_response)
+
+            page.goto(url, wait_until="domcontentloaded", timeout=25000)
+
+            # Wait for ranking rows to appear in the DOM
             try:
                 page.wait_for_selector(
                     "table tr td, a[href*='/climbs/'], a[href*='/cols/'], [class*='ranking']",
-                    timeout=10000)
-                page.wait_for_timeout(500)
+                    timeout=12000)
+                page.wait_for_timeout(800)
             except Exception:
                 pass
+
+            # ── DOM table extraction: headers + rows ─────────────────────
+            dom_table = None
+            try:
+                dom_table = page.evaluate("""
+                    () => {
+                        const table = document.querySelector('table');
+                        if (!table) return null;
+                        const ths = Array.from(table.querySelectorAll('th'));
+                        const headers = ths.map(th => th.innerText.trim());
+                        const bodyRows = Array.from(table.querySelectorAll('tbody tr'));
+                        const allRows = bodyRows.length > 0
+                            ? bodyRows
+                            : Array.from(table.querySelectorAll('tr')).slice(1);
+                        const rows = allRows.map(tr => {
+                            const tds = Array.from(tr.querySelectorAll('td'));
+                            if (tds.length < 2) return null;
+                            const linkEl = tr.querySelector(
+                                'a[href*="/climb"], a[href*="/col"]'
+                            );
+                            return {
+                                cells: tds.map(td => td.innerText.trim()),
+                                link: linkEl ? linkEl.href : null,
+                                linkText: linkEl ? linkEl.innerText.trim() : null
+                            };
+                        }).filter(r => r !== null && r.cells.some(c => c.length > 0));
+                        return { headers: headers, rows: rows };
+                    }
+                """)
+            except Exception as e:
+                print(f"[DOM] evaluate failed: {e}")
+
             html = page.content()
             browser.close()
+
+        # ── Choose best data source ───────────────────────────────────────
+        # 1. DOM table with real column headers (Playwright rendered the page)
+        if dom_table and dom_table.get("rows"):
+            climbs = _parse_dom_table(dom_table, page_number)
+            if climbs:
+                return climbs, None
+
+        # 2. Intercepted API JSON responses
+        for resp_info in captured_json:
+            climbs = _find_ranking_data(resp_info["data"])
+            if climbs:
+                print(f"  Page {page_number}: {len(climbs)} climbs from API {resp_info['url']}")
+                return climbs, None
+
+        # 3. Full HTML fallback (also handles __NEXT_DATA__ if present)
         return _parse_html(html, page_number)
+
     except Exception as exc:
+        print(f"[ERROR] Playwright failed for page {page_number}: {exc}")
         return [], str(exc)
+
+
+def _parse_dom_table(dom_table, page_number):
+    """Parse a table structure extracted from the DOM via page.evaluate().
+
+    This is the most reliable source when Playwright has rendered the page:
+    we get the exact column headers and cell text, so no guessing needed.
+    """
+    global _debug_raw_sample
+
+    headers_raw = dom_table.get("headers", [])
+    rows = dom_table.get("rows", [])
+    headers = [h.lower() for h in headers_raw]
+
+    print(f"  [DOM] headers={headers_raw!r}  rows={len(rows)}")
+
+    # Map headers to semantic column roles
+    col_map = {}
+    for idx, h in enumerate(headers):
+        if "rank" not in col_map and any(k in h for k in ["#", "rank", "pos", "nr"]):
+            col_map["rank"] = idx
+        elif "length" not in col_map and any(k in h for k in ["length", "dist", "km", "lengte", "afstand"]):
+            col_map["length"] = idx
+        elif "gradient" not in col_map and any(k in h for k in ["grad", "avg", "slope", "%", "stijg", "gemiddeld"]):
+            col_map["gradient"] = idx
+        elif "name" not in col_map and any(k in h for k in ["name", "climb", "klim", "col ", "naam", "parcours"]):
+            col_map["name"] = idx
+        elif "difficulty" not in col_map and any(k in h for k in ["diff", "point", "punten", "moeilijk", "cotacol", "popular", "score"]):
+            col_map["difficulty"] = idx
+        elif "review" not in col_map and any(k in h for k in ["rating", "review", "beoordeling", "cijfer", "stars"]):
+            col_map["review"] = idx
+
+    print(f"  [DOM] col_map={col_map}")
+
+    # Store first 3 rows as debug sample (with header labels)
+    _debug_raw_sample = []
+    for row in rows[:3]:
+        sample = {}
+        for i, cell in enumerate(row.get("cells", [])):
+            label = headers_raw[i] if i < len(headers_raw) else f"col_{i}"
+            sample[label] = cell
+        sample["_link"] = row.get("link")
+        _debug_raw_sample.append(sample)
+
+    climbs = []
+    for row in rows:
+        cells = row.get("cells", [])
+        link_text = (row.get("linkText") or "").strip()
+        if not cells:
+            continue
+
+        # Determine climb name
+        if "name" in col_map and col_map["name"] < len(cells):
+            name = link_text or cells[col_map["name"]]
+        else:
+            name = link_text or next(
+                (c for c in cells if re.search(r'[a-zA-ZÀ-ÿ]{3,}', c) and len(c) > 3), ""
+            )
+        if not name:
+            continue
+
+        def _cell(key):
+            i = col_map.get(key)
+            return clean_number(cells[i]) if i is not None and i < len(cells) else 0
+
+        if len(col_map) >= 2:
+            rank = _cell("rank")
+            length_km = _cell("length")
+            gradient = _cell("gradient")
+            difficulty = _cell("difficulty")
+        else:
+            # No headers — positional fallback.
+            # Climbfinder ranking table order after name:
+            #   avg_gradient | score | review  (no length column)
+            name_idx = next(
+                (i for i, c in enumerate(cells) if c == link_text and link_text), 1
+            )
+            rank = clean_number(cells[0]) if name_idx > 0 and cells[0] else 0
+            rest = cells[name_idx + 1:]
+            gradient = clean_number(rest[0]) if len(rest) > 0 else 0
+            difficulty = clean_number(rest[1]) if len(rest) > 1 else 0
+            length_km = 0
+
+        # Sanity check: avg gradient > 30% is virtually impossible
+        if gradient > 30 and difficulty <= 30:
+            gradient, difficulty = difficulty, gradient
+
+        elevation_gain = round(length_km * 10 * gradient) if length_km and gradient else 0
+
+        climbs.append({
+            "rank": rank,
+            "name": name,
+            "length_km": length_km,
+            "avg_gradient_pct": gradient,
+            "score": difficulty,
+            "elevation_gain_m": elevation_gain,
+        })
+
+    if climbs:
+        print(f"  Page {page_number}: {len(climbs)} climbs from DOM table")
+    return climbs
 
 
 def _scrape_with_requests(url, page_number):
@@ -650,11 +824,11 @@ if fetch_btn:
                 st.dataframe(df_display, use_container_width=True, hide_index=True)
 
                 # ---- Debug expander ----------------------------------------
-                with st.expander("🔍 Debug: bekijk ruwe JSON-velden (eerste 3 klimmen)"):
+                with st.expander("🔍 Debug: bekijk exacte tabel-kolommen (eerste 3 klimmen)"):
                     st.caption(
-                        "Dit toont de exacte veldnamen en waarden zoals Climbfinder ze "
-                        "aanlevert in __NEXT_DATA__.  Deel deze output als de kolommen "
-                        "nog steeds verkeerd staan."
+                        "Dit toont de exacte kolomnamen en waarden zoals Playwright ze "
+                        "uit de gerenderde DOM-tabel heeft gelezen.  "
+                        "Deel deze output als de kolommen nog steeds verkeerd staan."
                     )
                     debug_rows = []
                     for i, raw in enumerate(_debug_raw_sample[:3]):
@@ -670,16 +844,15 @@ if fetch_btn:
                     else:
                         st.info("Geen ruwe debug-data beschikbaar. Probeer opnieuw te scrapen.")
 
-                    # Also show which field held the stats string
+                    # Show parsing method used
                     first_debug = all_climbs[0].get("_debug", {}) if all_climbs else {}
                     sf = first_debug.get("stats_field")
                     if sf:
                         st.success(f"Stats gevonden in veld: **{sf!r}** — patroon `LENGTH km GRADIENT % SCORE`")
+                    elif _debug_raw_sample and "_link" in (_debug_raw_sample[0] if _debug_raw_sample else {}):
+                        st.success("Data gelezen uit gerenderde DOM-tabel (Playwright).")
                     else:
-                        st.warning(
-                            "Geen stats-patroon (`X km Y % Z`) gevonden in enig tekstveld. "
-                            "Individuele veldnamen worden gebruikt als fallback."
-                        )
+                        st.info("Data gelezen via DOM-tabel of API-respons.")
                 # ------------------------------------------------------------
 
                 # Export buttons
@@ -707,6 +880,27 @@ if fetch_btn:
 elif "last_results" in st.session_state:
     df_display = st.session_state["last_results"]
     st.dataframe(df_display, use_container_width=True, hide_index=True)
+
+    # Debug expander — uses sample saved in session state from last scrape
+    saved_sample = st.session_state.get("_debug_raw_sample", [])
+    if saved_sample:
+        with st.expander("🔍 Debug: bekijk exacte tabel-kolommen (eerste 3 klimmen)"):
+            st.caption(
+                "Dit toont de exacte kolomnamen en waarden zoals Playwright ze "
+                "uit de gerenderde DOM-tabel heeft gelezen.  "
+                "Deel deze output als de kolommen nog steeds verkeerd staan."
+            )
+            debug_rows = []
+            for i, raw in enumerate(saved_sample[:3]):
+                for field, val in raw.items():
+                    if not isinstance(val, (dict, list)):
+                        debug_rows.append({
+                            "klimnr": i + 1,
+                            "veldnaam": field,
+                            "waarde": str(val)[:120],
+                        })
+            if debug_rows:
+                st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
 
     col_a, col_b = st.columns(2)
     excel_buf = io.BytesIO()
