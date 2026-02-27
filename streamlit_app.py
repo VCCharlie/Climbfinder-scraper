@@ -708,6 +708,27 @@ elif "last_results" in st.session_state:
     df_display = st.session_state["last_results"]
     st.dataframe(df_display, use_container_width=True, hide_index=True)
 
+    # Debug expander — uses sample saved in session state from last scrape
+    saved_sample = st.session_state.get("_debug_raw_sample", [])
+    if saved_sample:
+        with st.expander("🔍 Debug: bekijk ruwe JSON-velden (eerste 3 klimmen)"):
+            st.caption(
+                "Dit toont de exacte veldnamen en waarden zoals Climbfinder ze "
+                "aanlevert in __NEXT_DATA__.  Deel deze output als de kolommen "
+                "nog steeds verkeerd staan."
+            )
+            debug_rows = []
+            for i, raw in enumerate(saved_sample[:3]):
+                for field, val in raw.items():
+                    if not isinstance(val, (dict, list)):
+                        debug_rows.append({
+                            "klimnr": i + 1,
+                            "veldnaam": field,
+                            "waarde": str(val)[:120],
+                        })
+            if debug_rows:
+                st.dataframe(pd.DataFrame(debug_rows), use_container_width=True, hide_index=True)
+
     col_a, col_b = st.columns(2)
     excel_buf = io.BytesIO()
     df_display.to_excel(excel_buf, index=False, sheet_name="Rankings")
