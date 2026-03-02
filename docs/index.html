@@ -121,7 +121,14 @@
             }
         }
 
-        // Gebruik /raw in plaats van de JSON wrapper voor betrouwbaardere HTML
+        // Hulpfunctie om HTML netjes op te schonen (vervangt <br> met spaties)
+        function cleanHTMLText(element) {
+            const tempDiv = document.createElement('div');
+            // Vervang line-breaks door spaties zodat woorden niet vastplakken
+            tempDiv.innerHTML = element.innerHTML.replace(/<br\s*[\/]?>/gi, ' ');
+            return tempDiv.textContent.replace(/\s+/g, ' ').trim();
+        }
+
         const CORS_PROXIES = [
             url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
             url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
@@ -147,7 +154,6 @@
             let success = false;
             let finalDoc = null;
 
-            // Probeer proxies opeenvolgend
             for (let i = 0; i < CORS_PROXIES.length; i++) {
                 try {
                     const proxyUrl = CORS_PROXIES[i](url);
@@ -156,7 +162,6 @@
                     
                     htmlContent = await response.text(); 
                     
-                    // Parse direct met DOMParser (negeert hoofdletters/kleine letters in tags)
                     const parser = new DOMParser();
                     finalDoc = parser.parseFromString(htmlContent, 'text/html');
                     
@@ -182,7 +187,6 @@
             try {
                 const tables = Array.from(finalDoc.querySelectorAll('table'));
                 
-                // Pak de grootste tabel (meeste rijen) -> dit is vrijwel altijd de hoofdranglijst
                 const targetTable = tables.reduce((prev, current) => 
                     (prev.querySelectorAll('tr').length > current.querySelectorAll('tr').length) ? prev : current
                 );
@@ -195,40 +199,42 @@
                 const ths = targetTable.querySelectorAll('th');
                 
                 if (ths.length > 0) {
-                    // Pak textContent (en zet <br> om in spaties indien nodig)
-                    headers = Array.from(ths).map(th => th.textContent.replace(/\n/g, ' ').trim());
+                    // Gebruik de nieuwe clean functie
+                    headers = Array.from(ths).map(th => cleanHTMLText(th));
                     startIndex = rows.findIndex(row => row.querySelector('td'));
                     if (startIndex === -1) startIndex = 1;
                 } else {
-                    headers = Array.from(rows[0].querySelectorAll('td')).map(td => td.textContent.trim());
+                    headers = Array.from(rows[0].querySelectorAll('td')).map(td => cleanHTMLText(td));
                 }
 
-                // Genereer fallback namen voor lege headers en voorkom duplicaten
+                // Genereer fallback namen voor lege headers
                 headers = headers.map((h, i) => h || `Kolom ${i + 1}`);
 
+                // We gebruiken nu Arrays i.p.v. Objecten, dit voorkomt het DataTables punt (.) probleem
                 const tableData = [];
+                
                 for (let i = startIndex; i < rows.length; i++) {
                     const cells = Array.from(rows[i].querySelectorAll('td'));
                     if (cells.length === 0) continue; 
                     
-                    let rowData = {};
+                    let rowArray = [];
                     let hasData = false;
 
-                    cells.forEach((cell, index) => {
-                        if (index < headers.length) {
-                            let val = cell.textContent.replace(/\n/g, ' ').trim();
+                    for (let j = 0; j < headers.length; j++) {
+                        let val = "";
+                        if (j < cells.length) {
+                            val = cleanHTMLText(cells[j]);
                             
-                            // Als NL notatie aan staat, verander komma's naar punten voor getallen
+                            // Check op Nederlandse notatie
                             if (isDutch && /^[\d\s]+,\d+\s*(%|km|m|pt)?$/i.test(val)) {
                                 val = val.replace(',', '.');
                             }
-                            
-                            rowData[headers[index]] = val;
                             if (val) hasData = true;
                         }
-                    });
+                        rowArray.push(val);
+                    }
 
-                    if (hasData) tableData.push(rowData);
+                    if (hasData) tableData.push(rowArray);
                 }
 
                 status.className = "mt-4 text-sm font-semibold text-green-600 block";
@@ -247,28 +253,18 @@
             }
         }
 
-        function renderTable(columns, data) {
+        function renderTable(headers, data) {
             if (table) {
                 table.destroy();
                 $('#resultsTable').empty();
             }
 
-            // Wees er zeker van dat kolomnamen uniek zijn, anders crasht DataTables
-            const uniqueCols = [];
-            const tableHeaders = columns.map(col => {
-                let safeCol = col;
-                let counter = 1;
-                while(uniqueCols.includes(safeCol)) {
-                    safeCol = `${col} (${counter})`;
-                    counter++;
-                }
-                uniqueCols.push(safeCol);
-                return { title: safeCol, data: col };
-            });
+            // Omdat we arrays gebruiken voor de data, hoeven we alleen de 'title' mee te geven aan DataTables
+            const tableColumns = headers.map(h => ({ title: h }));
 
             table = $('#resultsTable').DataTable({
                 data: data,
-                columns: tableHeaders,
+                columns: tableColumns,
                 dom: 'Bfrtip',
                 buttons: [
                     { extend: 'excelHtml5', text: '📥 Export naar Excel', className: 'dt-button' },
