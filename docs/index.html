@@ -41,13 +41,12 @@
             border-radius: 0.375rem !important;
             padding: 0.5rem 1rem !important;
             margin-right: 0.5rem !important;
-            font-family: 'Barlow', sans-serif !important; /* Zorg dat knoppen ook Barlow pakken */
+            font-family: 'Barlow', sans-serif !important;
         }
         .dt-button:hover { background-color: #0d9488 !important; }
         .spinner { border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid #fff; border-radius: 50%; width: 1rem; height: 1rem; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 0.5rem; }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Zorg dat DataTables tabellen ook de nieuwe font forceren */
         table.dataTable, table.dataTable th, table.dataTable td {
             font-family: 'Barlow', sans-serif !important;
         }
@@ -122,8 +121,10 @@
             }
         }
 
+        // Gebruik /raw in plaats van de JSON wrapper voor betrouwbaardere HTML
         const CORS_PROXIES = [
-            url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+            url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+            url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
             url => `https://corsproxy.io/?${encodeURIComponent(url)}`
         ];
 
@@ -144,19 +145,22 @@
 
             let htmlContent = null;
             let success = false;
+            let finalDoc = null;
 
+            // Probeer proxies opeenvolgend
             for (let i = 0; i < CORS_PROXIES.length; i++) {
                 try {
                     const proxyUrl = CORS_PROXIES[i](url);
                     const response = await fetch(proxyUrl);
-                    if (!response.ok) throw new Error('Proxy response niet ok');
+                    if (!response.ok) continue;
                     
-                    const data = await response.json();
-                    htmlContent = data.contents; 
-                    if (!htmlContent && typeof data === 'string') htmlContent = data; 
-                    if (!htmlContent) htmlContent = await response.text(); 
-
-                    if (htmlContent && htmlContent.includes('<table')) {
+                    htmlContent = await response.text(); 
+                    
+                    // Parse direct met DOMParser (negeert hoofdletters/kleine letters in tags)
+                    const parser = new DOMParser();
+                    finalDoc = parser.parseFromString(htmlContent, 'text/html');
+                    
+                    if (finalDoc.querySelectorAll('table').length > 0) {
                         success = true;
                         break;
                     }
@@ -165,7 +169,7 @@
                 }
             }
 
-            if (!success || !htmlContent) {
+            if (!success || !finalDoc) {
                 status.className = "mt-4 text-sm font-semibold text-red-600 block";
                 status.innerText = "❌ Fout: Kon pagina niet ophalen of er staan geen HTML tabellen op deze pagina.";
                 btn.disabled = false;
@@ -176,14 +180,9 @@
             status.innerText = "Tabel verwerken...";
             
             try {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlContent, 'text/html');
-                const tables = Array.from(doc.querySelectorAll('table'));
+                const tables = Array.from(finalDoc.querySelectorAll('table'));
                 
-                if (tables.length === 0) {
-                    throw new Error("Geen <table> elementen gevonden.");
-                }
-
+                // Pak de grootste tabel (meeste rijen) -> dit is vrijwel altijd de hoofdranglijst
                 const targetTable = tables.reduce((prev, current) => 
                     (prev.querySelectorAll('tr').length > current.querySelectorAll('tr').length) ? prev : current
                 );
@@ -196,13 +195,15 @@
                 const ths = targetTable.querySelectorAll('th');
                 
                 if (ths.length > 0) {
-                    headers = Array.from(ths).map(th => th.textContent.trim());
+                    // Pak textContent (en zet <br> om in spaties indien nodig)
+                    headers = Array.from(ths).map(th => th.textContent.replace(/\n/g, ' ').trim());
                     startIndex = rows.findIndex(row => row.querySelector('td'));
                     if (startIndex === -1) startIndex = 1;
                 } else {
                     headers = Array.from(rows[0].querySelectorAll('td')).map(td => td.textContent.trim());
                 }
 
+                // Genereer fallback namen voor lege headers en voorkom duplicaten
                 headers = headers.map((h, i) => h || `Kolom ${i + 1}`);
 
                 const tableData = [];
@@ -215,10 +216,13 @@
 
                     cells.forEach((cell, index) => {
                         if (index < headers.length) {
-                            let val = cell.textContent.trim();
+                            let val = cell.textContent.replace(/\n/g, ' ').trim();
+                            
+                            // Als NL notatie aan staat, verander komma's naar punten voor getallen
                             if (isDutch && /^[\d\s]+,\d+\s*(%|km|m|pt)?$/i.test(val)) {
                                 val = val.replace(',', '.');
                             }
+                            
                             rowData[headers[index]] = val;
                             if (val) hasData = true;
                         }
@@ -249,7 +253,18 @@
                 $('#resultsTable').empty();
             }
 
-            const tableHeaders = columns.map(col => ({ title: col, data: col }));
+            // Wees er zeker van dat kolomnamen uniek zijn, anders crasht DataTables
+            const uniqueCols = [];
+            const tableHeaders = columns.map(col => {
+                let safeCol = col;
+                let counter = 1;
+                while(uniqueCols.includes(safeCol)) {
+                    safeCol = `${col} (${counter})`;
+                    counter++;
+                }
+                uniqueCols.push(safeCol);
+                return { title: safeCol, data: col };
+            });
 
             table = $('#resultsTable').DataTable({
                 data: data,
