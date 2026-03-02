@@ -31,17 +31,38 @@
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans p-8">
+<body class="bg-slate-50 text-slate-800 font-sans p-4 md:p-8">
 
     <div class="max-w-6xl mx-auto">
         <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-teal-700 mb-2">FietsKlim HTML Scraper</h1>
-            <p class="text-slate-500">Haal data van sites met HTML-tabellen (zoals cyclingup.eu of heuvelsfietsen.nl) direct in je browser.</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-teal-700 mb-2">FietsKlim HTML Scraper</h1>
+            <p class="text-slate-500">Haal direct tabellen van sites zoals cyclingup.eu en heuvelsfietsen.nl</p>
         </header>
 
-        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
-            <label class="block text-sm font-semibold text-slate-700 mb-2">URL van de ranglijst:</label>
-            <div class="flex gap-4">
+        <div class="bg-white p-4 md:p-6 rounded-lg shadow-md mb-8">
+            
+            <div class="mb-6">
+                <label class="block text-sm font-semibold text-slate-700 mb-2" for="regionSelect">Snelkeuze Regio:</label>
+                <select id="regionSelect" onchange="updateUrlFromSelect()" class="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-teal-500 outline-none bg-slate-50 cursor-pointer">
+                    <option value="">-- Typ zelf een URL (hieronder) of kies een regio --</option>
+                    <option value="https://cyclingup.eu/nederlands/zwaarte.php">🌍 Algemeen (Europa - Zwaarte Ranglijst)</option>
+                    <option value="https://cyclingup.eu/nederlands/France_Alps.php">🇫🇷 Franse Alpen</option>
+                    <option value="https://cyclingup.eu/nederlands/Switzerland.php">🇨🇭 Zwitserland</option>
+                    <option value="https://cyclingup.eu/nederlands/Austria.php">🇦🇹 Oostenrijk</option>
+                    <option value="https://cyclingup.eu/nederlands/Italy_Alps.php">🇮🇹 Italiaanse Alpen</option>
+                    <option value="https://cyclingup.eu/nederlands/France_Pyrenees.php">🇫🇷 Franse Pyreneeën</option>
+                    <option value="https://cyclingup.eu/nederlands/Spain.php">🇪🇸 Spanje</option>
+                    <option value="https://cyclingup.eu/nederlands/Gran_Canaria.php">🇮🇨 Gran Canaria</option>
+                    <option value="https://cyclingup.eu/nederlands/Vosges.php">🇫🇷 Vogezen</option>
+                    <option value="https://cyclingup.eu/nederlands/Black_Forest.php">🇩🇪 Zwarte Woud</option>
+                    <option value="https://cyclingup.eu/nederlands/Brocken.php">🇩🇪 Brocken, Duitsland</option>
+                    <option value="https://cyclingup.eu/nederlands/Ardennes.php">🇧🇪 Ardennen</option>
+                    <option value="https://heuvelsfietsen.nl/Zuid-Limburg.php">🇳🇱 Nederland (Zuid-Limburg)</option>
+                </select>
+            </div>
+
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Webpagina URL:</label>
+            <div class="flex flex-col md:flex-row gap-4">
                 <input type="text" id="urlInput" value="https://cyclingup.eu/nederlands/zwaarte.php" 
                        class="flex-1 p-3 border border-slate-300 rounded focus:ring-2 focus:ring-teal-500 outline-none">
                 <button onclick="fetchData()" id="scrapeBtn"
@@ -51,14 +72,14 @@
             </div>
             
             <div class="mt-4 flex items-center gap-2">
-                <input type="checkbox" id="nlFormat" checked class="w-4 h-4 text-teal-600">
-                <label for="nlFormat" class="text-sm text-slate-600">Converteer NL notatie (bijv. 8,5 naar 8.5 voor Excel)</label>
+                <input type="checkbox" id="nlFormat" checked class="w-5 h-5 text-teal-600 cursor-pointer">
+                <label for="nlFormat" class="text-sm text-slate-600 cursor-pointer">Converteer NL getalnotatie (bijv. 8,5 naar 8.5 voor Excel rekensommen)</label>
             </div>
             
             <p id="statusMsg" class="mt-4 text-sm font-semibold hidden"></p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md hidden" id="resultsContainer">
+        <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hidden" id="resultsContainer">
             <h2 class="text-xl font-bold mb-4">Resultaten <span id="resultCount" class="text-sm font-normal text-slate-500 ml-2"></span></h2>
             
             <div class="overflow-x-auto">
@@ -70,6 +91,15 @@
 
     <script>
         let table;
+
+        // Vul het URL veld in als de gebruiker iets in de dropdown kiest
+        function updateUrlFromSelect() {
+            const selectBox = document.getElementById('regionSelect');
+            const urlInput = document.getElementById('urlInput');
+            if (selectBox.value !== "") {
+                urlInput.value = selectBox.value;
+            }
+        }
 
         // CORS proxy om cross-origin restricties in de browser te omzeilen
         const CORS_PROXIES = [
@@ -89,7 +119,7 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner"></span> Bezig...';
             status.className = "mt-4 text-sm font-semibold text-blue-600 block";
-            status.innerText = "Pagina ophalen via proxy...";
+            status.innerText = "Pagina ophalen...";
             container.classList.add('hidden');
 
             let htmlContent = null;
@@ -136,7 +166,7 @@
                     throw new Error("Geen <table> elementen gevonden.");
                 }
 
-                // Pak de grootste tabel (meeste rijen)
+                // Pak de grootste tabel (meeste rijen) -> dit is vrijwel altijd de hoofdranglijst
                 const targetTable = tables.reduce((prev, current) => 
                     (prev.querySelectorAll('tr').length > current.querySelectorAll('tr').length) ? prev : current
                 );
@@ -151,7 +181,7 @@
                 
                 if (ths.length > 0) {
                     headers = Array.from(ths).map(th => th.textContent.trim());
-                    // Soms staan th's in de rows, we slaan rijen over die alleen th's bevatten
+                    // Soms staan er th's in gewone rijen, we beginnen bij de eerste rij die td's heeft
                     startIndex = rows.findIndex(row => row.querySelector('td'));
                     if (startIndex === -1) startIndex = 1;
                 } else {
@@ -173,7 +203,7 @@
                     cells.forEach((cell, index) => {
                         if (index < headers.length) {
                             let val = cell.textContent.trim();
-                            // Als NL notatie aan staat, verander komma's naar punten voor getallen (behalve data/tekst)
+                            // Als NL notatie aan staat, verander komma's naar punten voor getallen
                             if (isDutch && /^[\d\s]+,\d+\s*(%|km|m|pt)?$/i.test(val)) {
                                 val = val.replace(',', '.');
                             }
