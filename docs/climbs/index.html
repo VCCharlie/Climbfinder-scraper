@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FietsKlim Database — kaart &amp; profiel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <header class="app-header">
+      <div>
+        <h1>FietsKlim Database</h1>
+        <p id="datasetMeta">Laden…</p>
+      </div>
+      <div>
+        <a href="../index.html" style="font-size:0.85rem;color:#0f766e;">← HTML Scraper</a>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="sidebar-tools">
+        <div class="field">
+          <label for="regionSelect">Regio-dataset (JSON)</label>
+          <select id="regionSelect"></select>
+        </div>
+        <div class="field">
+          <label for="searchInput">Zoeken</label>
+          <input id="searchInput" type="search" placeholder="Naam, regio, tag…" />
+        </div>
+      </div>
+      <div id="climbList" class="climb-list"></div>
+    </aside>
+
+    <main class="map-panel">
+      <div id="map"></div>
+    </main>
+
+    <section class="profile-panel">
+      <div class="profile-head">
+        <h2 id="profileTitle">Hoogteprofiel</h2>
+        <div id="profileStats" class="stats"></div>
+      </div>
+      <canvas id="profileChart"></canvas>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
