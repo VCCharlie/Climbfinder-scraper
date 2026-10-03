@@ -7,6 +7,15 @@ A web application that lets you search climbing regions, scrape multi-page ranki
 - **Streamlit** (lightweight Python) — runs anywhere Python runs, including NAS/Docker
 - **Flask + Playwright** (Codespaces / local) — headless browser for maximum reliability
 
+## FietsKlim Database (kaart + JSON)
+
+Naast scrapers bevat dit repo een **herbruikbare klimdatabase** (polyline, hoogteprofiel, statistieken) die je op andere sites kunt inladen:
+
+- Explorer (GitHub Pages): `/docs/climbs/` → live op `https://<username>.github.io/Climbfinder-scraper/climbs/`
+- JSON datasets: `docs/climbs/data/*.json` (schema in `docs/climbs/data/schema.json`)
+- Integratie & embed: zie [`docs/climbs/INTEGRATIE.md`](docs/climbs/INTEGRATIE.md)
+- Data bouwen: `python scripts/climb_builder.py` (start/eind) of `python scripts/gpx_to_climb_json.py` (GPX)
+
 ## Features
 
 - **Region Discovery** — Country dropdown + autocomplete search across 15+ countries and 120+ regions. Enter a custom region ID for unlisted areas.

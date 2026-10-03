@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/VCCharlie/Climbfinder-scraper/climbs/schema.json",
+  "title": "FietsKlim database region bundle",
+  "type": "object",
+  "required": ["schema_version", "meta", "climbs"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "meta": {
+      "type": "object",
+      "required": ["id", "title", "country", "updated_at", "count"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "country": { "type": "string", "minLength": 2, "maxLength": 2 },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "climbs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/climb" }
+    }
+  },
+  "$defs": {
+    "climb": {
+      "type": "object",
+      "required": ["id", "name", "geometry", "profile", "stats"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "region": { "type": "string" },
+        "country": { "type": "string" },
+        "difficulty_score": { "type": ["number", "null"] },
+        "stats": {
+          "type": "object",
+          "required": [
+            "length_m",
+            "elevation_gain_m",
+            "avg_gradient_pct",
+            "max_gradient_pct"
+          ],
+          "properties": {
+            "length_m": { "type": "integer" },
+            "elevation_gain_m": { "type": "integer" },
+            "elevation_loss_m": { "type": "integer" },
+            "avg_gradient_pct": { "type": "number" },
+            "max_gradient_pct": { "type": "number" }
+          }
+        },
+        "geometry": {
+          "type": "object",
+          "required": ["type", "coordinates"],
+          "properties": {
+            "type": { "const": "LineString" },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": { "type": "number" }
+              }
+            }
+          }
+        },
+        "profile": {
+          "type": "object",
+          "required": ["distances_m", "elevations_m"],
+          "properties": {
+            "distances_m": { "type": "array", "items": { "type": "number" } },
+            "elevations_m": { "type": "array", "items": { "type": "number" } }
+          }
+        },
+        "bbox": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "type": "number" }
+        },
+        "start": {
+          "type": "object",
+          "properties": {
+            "lng": { "type": "number" },
+            "lat": { "type": "number" }
+          }
+        },
+        "summit": {
+          "type": "object",
+          "properties": {
+            "lng": { "type": "number" },
+            "lat": { "type": "number" }
+          }
+        },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string" },
+              "path": { "type": "string" },
+              "note": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
