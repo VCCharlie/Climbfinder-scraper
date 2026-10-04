@@ -66,13 +66,21 @@ await FietsKlimDB.render(document.getElementById("cauberg-widget"), {
 
    Voeg het object toe aan `climbs[]` in je regio-JSON (of schrijf een klein merge-script).
 
-2. **Start/eindpunt (snelle stub via OSRM + hoogte-API):**
+2. **Climbfinder (aanbevolen — echte route + profiel):**
+
+   ```bash
+   pip install playwright
+   playwright install chromium
+   python scripts/climbfinder_import.py --pages 2 --limit 35
+   ```
+
+   Dit leest de ranking rond Valkenburg (`g=5.83I50.86`, +25 km) en importeert per klim de **Climbfinder-polyline** en het **officiële hoogteprofiel** (decoded `pathElevationsEnc`).
+
+3. **Start/eindpunt (alleen fallback, geen Climbfinder-geometrie):**
 
    ```bash
    python scripts/climb_builder.py --out docs/climbs/data/nl-limburg.json
    ```
-
-   Pas waypoints aan in `scripts/climb_builder.py` (`LIMBURG_CLIMBS`).
 
 3. **Ranking-scraper → stubs:** gebruik de bestaande scraper (`docs/index.html` / Streamlit) om namen en statistieken te verzamelen, koppel daarna GPX of handmatige polyline.
 

@@ -53,13 +53,21 @@
 
     if (window.Chart) {
       const canvas = container.querySelector(".fk-embed-profile");
+      const elev = climb.profile.elevations_m;
+      const minE = Math.min(...elev);
+      const maxE = Math.max(...elev);
+      const pad = Math.max(5, (maxE - minE) * 0.08);
+      const points = climb.profile.distances_m.map((d, i) => ({
+        x: d / 1000,
+        y: elev[i],
+      }));
       new Chart(canvas.getContext("2d"), {
         type: "line",
         data: {
-          labels: climb.profile.distances_m.map((d) => (d / 1000).toFixed(2)),
           datasets: [
             {
-              data: climb.profile.elevations_m,
+              data: points,
+              parsing: false,
               borderColor: "#0f766e",
               backgroundColor: "rgba(15,118,110,0.12)",
               fill: true,
@@ -71,10 +79,15 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          animation: false,
           plugins: { legend: { display: false } },
           scales: {
-            x: { display: false },
-            y: { ticks: { maxTicksLimit: 4 } },
+            x: { type: "linear", display: false },
+            y: {
+              min: Math.floor(minE - pad),
+              max: Math.ceil(maxE + pad),
+              ticks: { maxTicksLimit: 4 },
+            },
           },
         },
       });
