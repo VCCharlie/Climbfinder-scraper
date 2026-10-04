@@ -1,4 +1,4 @@
-/* FietsKlim database explorer — map + elevation profile */
+/* FietsKlim database explorer — map + elevation profile (Climbfinder JSON) */
 
 (function () {
   const state = {
@@ -9,7 +9,8 @@
     routeLayer: null,
     markers: [],
     chart: null,
-    markerOnChart: null,
+    hoverMarker: null,
+    activeClimb: null,
   };
 
   function $(id) {
@@ -34,6 +35,19 @@
     return climb.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
   }
 
+  function profilePoints(climb) {
+    const dist = climb.profile.distances_m;
+    const elev = climb.profile.elevations_m;
+    return dist.map((d, i) => ({ x: d / 1000, y: elev[i] }));
+  }
+
+  function yAxisBounds(values) {
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const pad = Math.max(5, (max - min) * 0.08);
+    return { min: Math.floor(min - pad), max: Math.ceil(max + pad) };
+  }
+
   function renderList(filterText) {
     const list = $("climbList");
     const q = (filterText || "").trim().toLowerCase();
@@ -55,12 +69,18 @@
         .slice(0, 3)
         .map((t) => `<span class="badge">${t}</span>`)
         .join("");
+      const cf = climb.climbfinder?.url
+        ? `<a href="${climb.climbfinder.url}" target="_blank" rel="noopener" class="text-teal-700 text-xs">Climbfinder</a>`
+        : "";
       el.innerHTML = `
         <h3>${climb.name}</h3>
         <div class="meta">${formatKm(climb.stats.length_m)} · ${climb.stats.avg_gradient_pct}% gem. · +${formatM(climb.stats.elevation_gain_m)} · ${climb.region || ""}</div>
-        <div>${tags}</div>
+        <div>${tags} ${cf}</div>
       `;
-      el.addEventListener("click", () => selectClimb(climb.id));
+      el.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") return;
+        selectClimb(climb.id);
+      });
       list.appendChild(el);
     }
   }
@@ -72,65 +92,92 @@
     }
     for (const m of state.markers) state.map.removeLayer(m);
     state.markers = [];
+    if (state.hoverMarker) {
+      state.map.removeLayer(state.hoverMarker);
+      state.hoverMarker = null;
+    }
+  }
+
+  function geometryIndexForProfile(climb, profileIndex) {
+    const coords = climb.geometry.coordinates;
+    const dist = climb.profile.distances_m;
+    if (!coords.length || !dist.length) return 0;
+    const targetM = dist[profileIndex] ?? dist[dist.length - 1];
+    const total = dist[dist.length - 1] || 1;
+    const ratio = targetM / total;
+    return Math.min(coords.length - 1, Math.max(0, Math.round(ratio * (coords.length - 1))));
   }
 
   function updateChart(climb) {
-    const dist = climb.profile.distances_m.map((d) => d / 1000);
-    const elev = climb.profile.elevations_m;
+    state.activeClimb = climb;
+    const points = profilePoints(climb);
+    const elevValues = points.map((p) => p.y);
+    const bounds = yAxisBounds(elevValues);
 
-    if (state.chart) state.chart.destroy();
+    if (state.chart) {
+      state.chart.destroy();
+      state.chart = null;
+    }
 
     const ctx = $("profileChart").getContext("2d");
     state.chart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: dist,
         datasets: [
           {
             label: "Hoogte (m)",
-            data: elev,
+            data: points,
+            parsing: false,
             borderColor: "#0f766e",
             backgroundColor: "rgba(15,118,110,0.15)",
             fill: true,
             pointRadius: 0,
             borderWidth: 2,
-            tension: 0.15,
+            tension: 0.12,
           },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        interaction: { mode: "index", intersect: false },
+        animation: false,
+        interaction: { mode: "nearest", axis: "x", intersect: false },
         plugins: {
           legend: { display: false },
           tooltip: {
             callbacks: {
-              title: (items) => `${items[0].label} km`,
-              label: (item) => `${item.raw} m`,
+              title: (items) => `${items[0].parsed.x.toFixed(2)} km`,
+              label: (item) => `${item.parsed.y.toFixed(1)} m`,
             },
           },
         },
         scales: {
           x: {
+            type: "linear",
             title: { display: true, text: "Afstand (km)" },
             ticks: { maxTicksLimit: 8 },
           },
-          y: { title: { display: true, text: "Hoogte (m)" } },
+          y: {
+            type: "linear",
+            min: bounds.min,
+            max: bounds.max,
+            title: { display: true, text: "Hoogte (m)" },
+          },
         },
         onHover: (_evt, elements) => {
-          if (!elements.length || !state.routeLayer) return;
+          if (!elements.length || !state.routeLayer || !state.activeClimb) return;
           const idx = elements[0].index;
-          const [lng, lat] = climb.geometry.coordinates[idx];
-          if (!state.markerOnChart) {
-            state.markerOnChart = L.circleMarker([lat, lng], {
+          const geoIdx = geometryIndexForProfile(state.activeClimb, idx);
+          const [lng, lat] = state.activeClimb.geometry.coordinates[geoIdx];
+          if (!state.hoverMarker) {
+            state.hoverMarker = L.circleMarker([lat, lng], {
               radius: 7,
               color: "#b45309",
               fillColor: "#f59e0b",
               fillOpacity: 1,
             }).addTo(state.map);
           } else {
-            state.markerOnChart.setLatLng([lat, lng]);
+            state.hoverMarker.setLatLng([lat, lng]);
           }
         },
       },
@@ -150,14 +197,10 @@
     const latlngs = latLngsFromClimb(climb);
     state.routeLayer = L.polyline(latlngs, { color: "#0f766e", weight: 5, opacity: 0.9 }).addTo(state.map);
     state.markers.push(
-      L.marker(latlngs[0], { title: "Start" }).addTo(state.map),
-      L.marker(latlngs[latlngs.length - 1], { title: "Top" }).addTo(state.map)
+      L.circleMarker(latlngs[0], { radius: 6, color: "#0369a1", fillColor: "#0ea5e9", fillOpacity: 1 }).addTo(state.map),
+      L.circleMarker(latlngs[latlngs.length - 1], { radius: 6, color: "#15803d", fillColor: "#22c55e", fillOpacity: 1 }).addTo(state.map)
     );
     state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
-    if (state.markerOnChart) {
-      state.map.removeLayer(state.markerOnChart);
-      state.markerOnChart = null;
-    }
     updateChart(climb);
 
     if (window.location.hash !== `#${id}`) {
@@ -184,14 +227,14 @@
       const opt = document.createElement("option");
       opt.value = region.url;
       opt.textContent = `${region.title} (${region.count})`;
-      opt.dataset.regionId = region.id;
       select.appendChild(opt);
     }
 
     async function loadRegion(url) {
       state.bundle = await loadJson(url);
       state.climbs = state.bundle.climbs || [];
-      $("datasetMeta").textContent = `${state.bundle.meta.title} · ${state.climbs.length} klimmen · bijgewerkt ${state.bundle.meta.updated_at}`;
+      const src = state.bundle.meta?.source?.name || "onbekend";
+      $("datasetMeta").textContent = `${state.bundle.meta.title} · ${state.climbs.length} klimmen · bron: ${src} · ${state.bundle.meta.updated_at}`;
       renderList("");
       if (state.climbs.length) {
         const hash = window.location.hash.replace("#", "");
