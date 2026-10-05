@@ -3,26 +3,67 @@
 Import climbs from Climbfinder into docs/climbs/data/*.json
 
 Uses:
-  - Ranking (Playwright): geo filter g=LONIlAT (+25 km), same as the website
+  - Ranking (Playwright): locality l=ID and/or geo g=LONIlAT (+25 km)
   - Climb page HTML: embedded climbgeojson + encoded elevation profile (cfDecode)
 
 Usage:
-  python scripts/climbfinder_import.py
-  python scripts/climbfinder_import.py --pages 2 --limit 30
+  python scripts/climbfinder_import.py --preset nl-limburg
+  python scripts/climbfinder_import.py --preset fr-alps --pages 2 --limit 80
+  python scripts/climbfinder_import.py --locality 288 --pages 3 --meta-id fr-test ...
 """
 
 from __future__ import annotations
 
 import argparse
 import base64
+import html
 import json
-import math
 import re
 import urllib.request
 from datetime import datetime, timezone
 from typing import Any
 
 USER_AGENT = "Mozilla/5.0 (compatible; FietsKlimDB/1.0)"
+
+PRESETS: dict[str, dict[str, Any]] = {
+    "nl-limburg": {
+        "meta_id": "nl-limburg",
+        "title": "Zuid-Limburg beklimmingen (Climbfinder)",
+        "country": "NL",
+        "region_label": "Zuid-Limburg",
+        "tags": ["climbfinder", "zuid-limburg"],
+        "geo": "5.83I50.86",
+        "localities": [],
+        "out": "docs/climbs/data/nl-limburg.json",
+        "default_pages": 2,
+        "default_limit": 35,
+    },
+    "fr-alps": {
+        "meta_id": "fr-alps",
+        "title": "Franse Alpen (Climbfinder)",
+        "country": "FR",
+        "region_label": "Alpes",
+        "tags": ["climbfinder", "fr-alps"],
+        "geo": None,
+        "localities": [
+            288,  # Haute-Savoie
+            957,  # Savoie
+            192,  # Hautes-Alpes
+            290,  # Alpes-de-Haute-Provence
+            379,  # Alpes-Maritimes
+        ],
+        "locality_labels": {
+            "288": "Haute-Savoie",
+            "957": "Savoie",
+            "192": "Hautes-Alpes",
+            "290": "Alpes-de-Haute-Provence",
+            "379": "Alpes-Maritimes",
+        },
+        "out": "docs/climbs/data/fr-alps.json",
+        "default_pages": 2,
+        "default_limit": 80,
+    },
+}
 
 
 def cf_decode(b64: str, scale: float, seed: int) -> list[float]:
@@ -77,21 +118,37 @@ def extract_coordinates_array(text: str, marker: str = '"coordinates":') -> list
     raise ValueError("unclosed coordinates array")
 
 
+def _parse_difficulty(category: str | None) -> float | None:
+    if not category:
+        return None
+    try:
+        return float(category)
+    except ValueError:
+        return None
+
+
 def fetch_html(url: str) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.read().decode("utf-8", errors="replace")
 
 
-def parse_climb_page(html: str, url: str) -> dict[str, Any]:
-    m_id = re.search(r"climbId\s*=\s*(\d+)", html)
-    m_slug = re.search(r'/en/climbs/([a-z0-9-]+)', url)
+def parse_climb_page(
+    page_html: str,
+    url: str,
+    *,
+    region_label: str,
+    country: str,
+    tags: list[str],
+) -> dict[str, Any]:
+    m_id = re.search(r"climbId\s*=\s*(\d+)", page_html)
+    m_slug = re.search(r"/en/climbs/([a-z0-9-]+)", url)
     climb_id = int(m_id.group(1)) if m_id else None
     slug = m_slug.group(1) if m_slug else None
 
-    geo_start = html.find("const climbgeojson")
-    geo_end = html.find("const finishgeojson", geo_start)
-    geo_chunk = html[geo_start:geo_end] if geo_start >= 0 and geo_end > geo_start else html
+    geo_start = page_html.find("const climbgeojson")
+    geo_end = page_html.find("const finishgeojson", geo_start)
+    geo_chunk = page_html[geo_start:geo_end] if geo_start >= 0 and geo_end > geo_start else page_html
     coordinates = extract_coordinates_array(geo_chunk)
     geometry = {"type": "LineString", "coordinates": coordinates}
 
@@ -105,12 +162,13 @@ def parse_climb_page(html: str, url: str) -> dict[str, Any]:
         r'pathInterval:\s*(\d+),\s*'
         r'pathElevationsEnc:\s*"([^"]+)",\s*'
         r'length:\s*(\d+)',
-        html,
+        page_html,
         re.DOTALL,
     )
     if not m_data:
         raise ValueError("No DATA block with profile encoding")
     name, category, sd, _graph_interval, _grad_enc, path_interval, elev_enc, length_m = m_data.groups()
+    name = html.unescape(name)
     sd_i = int(sd)
     path_interval_i = int(path_interval)
     length_i = int(length_m)
@@ -136,8 +194,8 @@ def parse_climb_page(html: str, url: str) -> dict[str, Any]:
     return {
         "id": slug_id,
         "name": name,
-        "region": "Zuid-Limburg",
-        "country": "NL",
+        "region": region_label,
+        "country": country,
         "climbfinder": {
             "id": climb_id,
             "slug": slug,
@@ -151,7 +209,7 @@ def parse_climb_page(html: str, url: str) -> dict[str, Any]:
             "avg_gradient_pct": round(avg_grad, 1),
             "max_gradient_pct": round(max(gradients), 1) if gradients else 0.0,
         },
-        "difficulty_score": float(category) if category else None,
+        "difficulty_score": _parse_difficulty(category),
         "geometry": {"type": "LineString", "coordinates": coords},
         "profile": {
             "distances_m": distances_m,
@@ -161,7 +219,7 @@ def parse_climb_page(html: str, url: str) -> dict[str, Any]:
         "bbox": [min(lons), min(lats), max(lons), max(lats)],
         "start": {"lng": coords[0][0], "lat": coords[0][1]},
         "summit": {"lng": coords[-1][0], "lat": coords[-1][1]},
-        "tags": ["climbfinder", "zuid-limburg"],
+        "tags": list(tags),
         "sources": [
             {
                 "name": "climbfinder",
@@ -172,29 +230,47 @@ def parse_climb_page(html: str, url: str) -> dict[str, Any]:
     }
 
 
-def ranking_slugs_playwright(geo: str, pages: int) -> list[str]:
+def _collect_slugs_from_page(page, ranking_url: str) -> list[str]:
+    page.goto(ranking_url, wait_until="networkidle", timeout=120000)
+    page.wait_for_timeout(1200)
+    hrefs = page.eval_on_selector_all(
+        "a.ranking-item-link",
+        "els => els.map(e => e.getAttribute('href')).filter(Boolean)",
+    )
+    slugs: list[str] = []
+    for href in hrefs:
+        m = re.search(r"/climbs/([a-z0-9-]+)", href)
+        if m:
+            slugs.append(m.group(1))
+    return slugs
+
+
+def ranking_slugs_playwright(
+    *,
+    geo: str | None,
+    localities: list[int],
+    pages: int,
+) -> list[str]:
     from playwright.sync_api import sync_playwright
 
     slugs: list[str] = []
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
-        for page_num in range(1, pages + 1):
-            url = f"https://climbfinder.com/en/ranking?g={geo}&p={page_num}&s=popular"
-            page.goto(url, wait_until="networkidle", timeout=120000)
-            page.wait_for_timeout(1500)
-            hrefs = page.eval_on_selector_all(
-                "a.ranking-item-link",
-                "els => els.map(e => e.getAttribute('href')).filter(Boolean)",
-            )
-            for href in hrefs:
-                m = re.search(r"/climbs/([a-z0-9-]+)", href)
-                if m:
-                    slugs.append(m.group(1))
+        if geo:
+            for page_num in range(1, pages + 1):
+                url = f"https://climbfinder.com/en/ranking?g={geo}&p={page_num}&s=popular"
+                print(f"  ranking {url}")
+                slugs.extend(_collect_slugs_from_page(page, url))
+        for locality in localities:
+            for page_num in range(1, pages + 1):
+                url = f"https://climbfinder.com/en/ranking?l={locality}&p={page_num}&s=popular"
+                print(f"  ranking {url}")
+                slugs.extend(_collect_slugs_from_page(page, url))
         browser.close()
-    # preserve order, unique
-    seen = set()
-    out = []
+
+    seen: set[str] = set()
+    out: list[str] = []
     for s in slugs:
         if s not in seen:
             seen.add(s)
@@ -205,58 +281,106 @@ def ranking_slugs_playwright(geo: str, pages: int) -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--geo",
-        default="5.83I50.86",
-        help="Climbfinder g= param (lonIlat), default Valkenburg area +25km",
+        "--preset",
+        choices=sorted(PRESETS.keys()),
+        help="Built-in region bundle (overrides meta/out defaults)",
     )
-    parser.add_argument("--pages", type=int, default=2, help="Ranking pages (25 climbs each)")
-    parser.add_argument("--limit", type=int, default=40, help="Max climbs to import")
     parser.add_argument(
-        "--out",
-        default="docs/climbs/data/nl-limburg.json",
+        "--geo",
+        default=None,
+        help="Climbfinder g= param (lonIlat), +25 km radius ranking",
     )
+    parser.add_argument(
+        "--locality",
+        type=int,
+        action="append",
+        default=[],
+        help="Climbfinder locality id (l=), repeatable",
+    )
+    parser.add_argument("--pages", type=int, default=None, help="Ranking pages per source")
+    parser.add_argument("--limit", type=int, default=None, help="Max climbs to import")
+    parser.add_argument("--out", default=None)
+    parser.add_argument("--meta-id", default=None)
+    parser.add_argument("--title", default=None)
+    parser.add_argument("--country", default=None)
+    parser.add_argument("--region-label", default=None)
+    parser.add_argument("--tag", action="append", default=[])
     args = parser.parse_args()
 
-    print(f"Fetching ranking slugs (g={args.geo}, pages={args.pages})…")
-    slugs = ranking_slugs_playwright(args.geo, args.pages)[: args.limit]
-    print(f"Found {len(slugs)} unique slugs")
+    cfg: dict[str, Any] = {}
+    if args.preset:
+        cfg = dict(PRESETS[args.preset])
+
+    geo = args.geo if args.geo is not None else cfg.get("geo")
+    localities = args.locality or cfg.get("localities") or []
+    pages = args.pages if args.pages is not None else cfg.get("default_pages", 2)
+    limit = args.limit if args.limit is not None else cfg.get("default_limit", 40)
+    out_path = args.out or cfg.get("out", "docs/climbs/data/climbs.json")
+    meta_id = args.meta_id or cfg.get("meta_id", "region")
+    title = args.title or cfg.get("title", meta_id)
+    country = args.country or cfg.get("country", "XX")
+    region_label = args.region_label or cfg.get("region_label", title)
+    tags = args.tag or cfg.get("tags") or ["climbfinder"]
+
+    if not geo and not localities:
+        raise SystemExit("Specify --geo, --locality, or --preset with a defined source.")
+
+    print(f"Fetching ranking slugs (geo={geo!r}, localities={localities}, pages={pages})…")
+    slugs = ranking_slugs_playwright(geo=geo, localities=localities, pages=pages)[:limit]
+    print(f"Found {len(slugs)} unique slugs (limit {limit})")
 
     climbs: list[dict[str, Any]] = []
     errors: list[str] = []
+    seen_ids: set[str] = set()
     for slug in slugs:
         url = f"https://climbfinder.com/en/climbs/{slug}"
         try:
-            html = fetch_html(url)
-            climb = parse_climb_page(html, url)
+            page_html = fetch_html(url)
+            climb = parse_climb_page(
+                page_html,
+                url,
+                region_label=region_label,
+                country=country,
+                tags=tags,
+            )
+            if climb["id"] in seen_ids:
+                continue
+            seen_ids.add(climb["id"])
             climbs.append(climb)
             print(f"  OK {climb['name']} ({climb['stats']['length_m']} m)")
         except Exception as exc:
             errors.append(f"{slug}: {exc}")
             print(f"  SKIP {slug}: {exc}")
 
+    source_meta: dict[str, Any] = {"name": "climbfinder"}
+    if geo:
+        source_meta["ranking_geo"] = geo
+        source_meta["ranking_url"] = f"https://climbfinder.com/en/ranking?g={geo}&s=popular"
+    if localities:
+        labels = cfg.get("locality_labels") or {}
+        source_meta["localities"] = [
+            {"id": lid, "label": labels.get(str(lid), str(lid))} for lid in localities
+        ]
+
     payload = {
         "schema_version": "1.0",
         "meta": {
-            "id": "nl-limburg",
-            "title": "Zuid-Limburg beklimmingen (Climbfinder)",
-            "country": "NL",
+            "id": meta_id,
+            "title": title,
+            "country": country,
             "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "count": len(climbs),
-            "source": {
-                "name": "climbfinder",
-                "ranking_geo": args.geo,
-                "ranking_url": f"https://climbfinder.com/en/ranking?g={args.geo}&s=popular",
-            },
+            "source": source_meta,
             "import_errors": errors,
         },
         "climbs": climbs,
     }
 
-    with open(args.out, "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
-    print(f"Wrote {len(climbs)} climbs to {args.out}")
+    print(f"Wrote {len(climbs)} climbs to {out_path}")
     if errors:
         print(f"{len(errors)} slugs skipped")
 

@@ -236,6 +236,30 @@
       const src = state.bundle.meta?.source?.name || "onbekend";
       $("datasetMeta").textContent = `${state.bundle.meta.title} · ${state.climbs.length} klimmen · bron: ${src} · ${state.bundle.meta.updated_at}`;
       renderList("");
+      if (state.climbs.length > 1) {
+        const b = state.climbs.reduce(
+          (acc, c) => {
+            const [w, s, e, n] = c.bbox || [];
+            if (w == null) return acc;
+            return {
+              minLng: Math.min(acc.minLng, w),
+              minLat: Math.min(acc.minLat, s),
+              maxLng: Math.max(acc.maxLng, e),
+              maxLat: Math.max(acc.maxLat, n),
+            };
+          },
+          { minLng: Infinity, minLat: Infinity, maxLng: -Infinity, maxLat: -Infinity }
+        );
+        if (Number.isFinite(b.minLng)) {
+          state.map.fitBounds(
+            [
+              [b.minLat, b.minLng],
+              [b.maxLat, b.maxLng],
+            ],
+            { padding: [24, 24] }
+          );
+        }
+      }
       if (state.climbs.length) {
         const hash = window.location.hash.replace("#", "");
         selectClimb(state.climbs.some((c) => c.id === hash) ? hash : state.climbs[0].id);
