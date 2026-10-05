@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       pages:
-        description: "Popular ranking pages (1–2 typical)"
+        description: "Popular ranking pages (25 climbs each; 2 pages ≈ 50 max)"
         required: false
         default: "2"
         type: string
