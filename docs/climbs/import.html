@@ -54,7 +54,7 @@
       </div>
 
       <div id="panelRegion" class="panel active">
-        <p class="hint">Zelfde lijst als Climbfinder <em>Popular</em>, pagina 1 en 2 (±50 klimmen). Slugs staan op GitHub Pages; ververs lokaal met <code>python scripts/refresh_ranking_slugs.py --locality ID</code>.</p>
+        <p class="hint">Zelfde lijst als Climbfinder <em>Popular</em>, pagina 1–2 (±50 klimmen). <strong>Profielen ophalen in de browser</strong> gaat via publieke CORS-proxies en faalt vaak (<em>Failed to fetch</em>). Voor betrouwbare import (zoals Franse Alpen in de repo): lokaal <code>python scripts/climbfinder_import.py --locality 288 --pages 2 --meta-id haute-savoie --title "Haute-Savoie" --country FR --region-label "Haute-Savoie" --out docs/climbs/data/haute-savoie.json</code>.</p>
         <div class="grid2">
           <div>
             <label for="countrySelect">Land</label>
@@ -179,8 +179,7 @@
         const opt = document.createElement("option");
         opt.value = String(r.id);
         opt.textContent = `${r.name} (l=${r.id})`;
-        opt._region = r;
-        opt._country = country;
+        opt._region = { ...r, country, country_iso: r.country_iso || null };
         regionSel.appendChild(opt);
       }
       regionSel.disabled = false;
@@ -196,7 +195,14 @@
       meta.textContent = "Ranking-slugs laden…";
       try {
         const ranking = await ClimbfinderBrowser.loadPopularRankingSlugs(selectedRegion.id);
-        meta.innerHTML = `${ranking.count} klimmen in cache · bijgewerkt ${ranking.updated_at || "?"} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
+        let warn = "";
+        const expectIso = selectedRegion.country_iso;
+        if (expectIso && ranking.country_iso && expectIso !== ranking.country_iso) {
+          warn = ` · <strong style="color:#b91c1c">ID l=${selectedRegion.id} hoort bij ${ranking.country_iso}, niet ${expectIso} — kies andere regio of ververs catalogus</strong>`;
+        } else if (ranking.country_iso) {
+          warn = ` · climbs: ${ranking.country_iso}`;
+        }
+        meta.innerHTML = `${ranking.count} klimmen in cache · bijgewerkt ${ranking.updated_at || "?"}${warn} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
       } catch (e) {
         meta.textContent = e.message;
       }

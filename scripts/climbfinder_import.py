@@ -245,6 +245,51 @@ def _collect_slugs_from_page(page, ranking_url: str) -> list[str]:
     return slugs
 
 
+def ranking_slugs_api(
+    *,
+    localities: list[int],
+    pages: int,
+    per_page: int = 25,
+    sort: str = "popular",
+) -> list[str]:
+    import time
+    import urllib.parse
+    import urllib.request
+
+    api = "https://uphill.climbfinder.com/v2/climbs"
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "application/json",
+        "Referer": "https://climbfinder.com/",
+        "Origin": "https://climbfinder.com",
+    }
+    slugs: list[str] = []
+    seen: set[str] = set()
+    for locality in localities:
+        for page_num in range(pages):
+            offset = page_num * per_page
+            q = urllib.parse.urlencode(
+                {
+                    "language": "en",
+                    "offset": offset,
+                    "limit": per_page,
+                    "sort": sort,
+                    "locality": locality,
+                    "radius": 25,
+                }
+            )
+            req = urllib.request.Request(f"{api}?{q}", headers=headers)
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.loads(resp.read().decode())
+            for row in data.get("data") or []:
+                slug = row.get("slug")
+                if slug and slug not in seen:
+                    seen.add(slug)
+                    slugs.append(slug)
+            time.sleep(0.2)
+    return slugs
+
+
 def ranking_slugs_playwright(
     *,
     geo: str | None,
@@ -326,7 +371,10 @@ def main() -> None:
         raise SystemExit("Specify --geo, --locality, or --preset with a defined source.")
 
     print(f"Fetching ranking slugs (geo={geo!r}, localities={localities}, pages={pages})…")
-    slugs = ranking_slugs_playwright(geo=geo, localities=localities, pages=pages)[:limit]
+    if localities and not geo:
+        slugs = ranking_slugs_api(localities=localities, pages=pages)[:limit]
+    else:
+        slugs = ranking_slugs_playwright(geo=geo, localities=localities, pages=pages)[:limit]
     print(f"Found {len(slugs)} unique slugs (limit {limit})")
 
     climbs: list[dict[str, Any]] = []

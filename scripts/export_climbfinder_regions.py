@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Write docs/climbs/data/climbfinder-regions.json from streamlit region catalog."""
+"""
+DEPRECATED: streamlit IDs often mismatch Climbfinder (e.g. Andorra 180 → Denmark).
+
+Use: python scripts/build_climbfinder_regions.py
+"""
 
 from __future__ import annotations
 
