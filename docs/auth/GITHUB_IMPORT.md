@@ -4,7 +4,13 @@ De browser kan Climbfinder **niet** betrouwbaar ophalen (CORS). Wel:
 
 1. Jij kiest regio op **Climbfinder import** (`climbs/import.html`).
 2. **GitHub Actions** draait `scripts/climbfinder_import.py` op GitHub (zelfde als lokaal / agent).
-3. Met **`publish_to_site: true`** (standaard) commit de workflow automatisch naar `docs/climbs/data/` + **`index.json`** → na ~1 min staat de dataset op de **kaart** (GitHub Pages). Geen zip uitpakken nodig.
+3. Met **`publish_to_site: true`** (standaard) commit de workflow automatisch naar `docs/climbs/data/` → **`index.json` wordt automatisch gegenereerd** → na ~1 min op de **kaart**. Geen zip uitpakken nodig.
+
+### Alleen JSON uploaden (zonder index handmatig te editen)
+
+1. Zet je `.json` in **`docs/climbs/data/`** op `main` (bestandsnaam = `meta.id` + `.json` is het handigst).
+2. Workflow **Rebuild climb index** maakt **`index.json`** bij en pusht die (of lokaal: `python scripts/rebuild_climb_index.py` + commit).
+3. Hard refresh op de kaart.
 4. Artifact blijft beschikbaar als backup download.
 
 ## Optie A — GitHub (aanbevolen)

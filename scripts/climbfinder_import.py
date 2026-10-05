@@ -376,7 +376,13 @@ def main() -> None:
         slugs = ranking_slugs_api(localities=localities, pages=pages)[:limit]
     else:
         slugs = ranking_slugs_playwright(geo=geo, localities=localities, pages=pages)[:limit]
-    print(f"Found {len(slugs)} unique slugs (limit {limit})")
+    max_from_pages = pages * 25 * max(1, len(localities) or 1)
+    print(f"Found {len(slugs)} unique slugs (limit {limit}, max ~{max_from_pages} from {pages} ranking page(s) × 25)")
+    if limit > max_from_pages:
+        print(
+            f"Note: --limit {limit} is higher than ranking pages can provide; "
+            f"use --pages {-(limit // -25)} or more for up to ~{limit} slugs."
+        )
 
     climbs: list[dict[str, Any]] = []
     errors: list[str] = []
