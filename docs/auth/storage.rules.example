@@ -1,0 +1,10 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /climbs/data/{file} {
+      allow read: if request.auth != null
+        && request.auth.token.email == 'vr.deruiter@gmail.com';
+      allow write: if false;
+    }
+  }
+}
