@@ -22,6 +22,17 @@ Vul in `firebase-config.js` je `apiKey`, `authDomain`, `projectId`, enz.
 
 **GitHub Pages:** dit bestand moet **wel** op de gepubliceerde site staan (Firebase web keys zijn bedoeld om public te zijn). Je kunt het committen na invullen, of via een deploy-stap toevoegen. Het staat in `.gitignore` zolang je lokaal test; voor Pages: tijdelijk committen of `.gitignore`-regel verwijderen.
 
+## Kaart blijft leeg na login?
+
+1. **`useStorage` moet `false` zijn** zolang JSON op GitHub Pages staat (jouw config is goed).
+2. **JSON op de live site:** open in de browser (ingelogd):
+   - `…/climbs/data/index.json`
+   - `…/climbs/data/nl-limburg.json`  
+   Krijg je **404**? Merge/push dan de branch met `docs/climbs/data/*.json` naar `main` en wacht op Pages-deploy.
+3. **F12 → Network:** filter op `index.json` / `nl-limburg.json` — status moet **200** zijn.
+4. **Hard refresh** (Ctrl+Shift+R) na deploy van de nieuwste `app.js` / `gate.js`.
+5. **`storageBucket`:** mag `….appspot.com` of `….firebasestorage.app` zijn; alleen relevant als `useStorage: true`.
+
 ## 3. Lokaal testen
 
 ```bash
