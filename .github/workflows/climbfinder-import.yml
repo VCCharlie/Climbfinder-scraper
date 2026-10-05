@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       pages:
-        description: "Popular ranking pages (25 climbs each; 2 pages ≈ 50 max)"
+        description: "Ranking pages (25 each), or all for complete Popular list (e.g. l=27 ≈688)"
         required: false
         default: "2"
         type: string
@@ -33,7 +33,7 @@ on:
         required: true
         type: string
       limit:
-        description: "Max climbs to import (capped by pages×25; need pages=4 for ~100)"
+        description: "Max climbs to import (use 700+ with pages=all for full South Limburg)"
         required: false
         default: "50"
         type: string
@@ -75,9 +75,15 @@ jobs:
           if [ -n "${{ inputs.limit }}" ]; then
             LIMIT_ARGS=(--limit "${{ inputs.limit }}")
           fi
+          PAGE_ARGS=()
+          if [ "${{ inputs.pages }}" = "all" ] || [ "${{ inputs.pages }}" = "0" ]; then
+            PAGE_ARGS=(--all-pages)
+          else
+            PAGE_ARGS=(--pages "${{ inputs.pages }}")
+          fi
           python scripts/climbfinder_import.py \
             --locality "${{ inputs.locality }}" \
-            --pages "${{ inputs.pages }}" \
+            "${PAGE_ARGS[@]}" \
             --meta-id "${{ inputs.meta_id }}" \
             --title "${{ inputs.title }}" \
             --country "${{ inputs.country }}" \

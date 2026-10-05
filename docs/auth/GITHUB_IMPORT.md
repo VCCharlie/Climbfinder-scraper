@@ -33,9 +33,32 @@ python scripts/merge_climb_bundles.py --into nl-limburg --title "Zuid-Limburg (s
 
 Verwijder daarna het **overbodige** JSON-bestand op GitHub en push (index rebuildt automatisch als workflow actief is).
 
-### “150 klimmen”?
+### “150 klimmen” terwijl Climbfinder ~688 toont?
 
-Climbfinder levert **25 per rankingpagina**. `limit=150` importeert hoogstens **`pages × 25`** (bijv. 6 pagina’s = 150). Zonder genoeg `pages` blijft het max ~50.
+Climbfinder levert **25 slugs per rankingpagina**. De import stopt na **`pages`** pagina’s, daarna pas **`limit`**.
+
+| Instelling | Effect |
+|------------|--------|
+| `pages=6`, `limit=280` | **150** klimmen (6×25) — de limit helpt niet als er maar 150 slugs zijn opgehaald |
+| `pages=all`, `limit=700` | Volledige Popular-lijst tot de API leeg is |
+
+**Zuid-Limburg:** gebruik **`locality=27`** (zelfde als [ranking?l=27&s=popular](https://climbfinder.com/en/ranking?l=27&s=popular), ~688 klimmen). **`l=280`** is een andere regio (“Limburg” provincie), niet de 688-lijst.
+
+Voorbeeld volledige Zuid-Limburg:
+
+```bash
+gh workflow run climbfinder-import.yml \
+  -f locality=27 \
+  -f pages=all \
+  -f meta_id=nl-limburg \
+  -f title="Zuid-Limburg — Climbfinder Popular (~688)" \
+  -f country=NL \
+  -f region_label="Zuid-Limburg" \
+  -f limit=700 \
+  -f publish_to_site=true
+```
+
+De run duurt lang (~688 climb-pagina’s ophalen); timeout workflow is 45 min.
 
 ### Lokaal met GitHub CLI
 

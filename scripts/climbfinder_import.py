@@ -29,15 +29,16 @@ USER_AGENT = "Mozilla/5.0 (compatible; FietsKlimDB/1.0)"
 PRESETS: dict[str, dict[str, Any]] = {
     "nl-limburg": {
         "meta_id": "nl-limburg",
-        "title": "Zuid-Limburg beklimmingen (Climbfinder)",
+        "title": "Zuid-Limburg beklimmingen (Climbfinder Popular)",
         "country": "NL",
         "region_label": "Zuid-Limburg",
         "tags": ["climbfinder", "zuid-limburg"],
-        "geo": "5.83I50.86",
-        "localities": [],
+        # Climbfinder URL: …/ranking?l=27&s=popular (≈688). l=280 is provincie Limburg (ander, kleiner).
+        "geo": None,
+        "localities": [27],
         "out": "docs/climbs/data/nl-limburg.json",
         "default_pages": 2,
-        "default_limit": 35,
+        "default_limit": 688,
     },
     "fr-alps": {
         "meta_id": "fr-alps",
@@ -246,15 +247,43 @@ def _collect_slugs_from_page(page, ranking_url: str) -> list[str]:
     return slugs
 
 
+def _fetch_ranking_slugs_page(
+    *,
+    locality: int,
+    offset: int,
+    per_page: int,
+    sort: str,
+    headers: dict[str, str],
+    api: str,
+) -> list[str]:
+    import urllib.parse
+    import urllib.request
+
+    q = urllib.parse.urlencode(
+        {
+            "language": "en",
+            "offset": offset,
+            "limit": per_page,
+            "sort": sort,
+            "locality": locality,
+            "radius": 25,
+        }
+    )
+    req = urllib.request.Request(f"{api}?{q}", headers=headers)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        data = json.loads(resp.read().decode())
+    return [r["slug"] for r in (data.get("data") or []) if r.get("slug")]
+
+
 def ranking_slugs_api(
     *,
     localities: list[int],
     pages: int,
     per_page: int = 25,
     sort: str = "popular",
+    all_pages: bool = False,
 ) -> list[str]:
     import time
-    import urllib.parse
     import urllib.request
 
     api = "https://uphill.climbfinder.com/v2/climbs"
@@ -267,27 +296,32 @@ def ranking_slugs_api(
     slugs: list[str] = []
     seen: set[str] = set()
     for locality in localities:
-        for page_num in range(pages):
+        page_num = 0
+        while True:
+            if not all_pages and page_num >= pages:
+                break
+            if all_pages and page_num >= 200:
+                print(f"  warn: stopped at 200 pages for locality {locality}")
+                break
             offset = page_num * per_page
-            q = urllib.parse.urlencode(
-                {
-                    "language": "en",
-                    "offset": offset,
-                    "limit": per_page,
-                    "sort": sort,
-                    "locality": locality,
-                    "radius": 25,
-                }
+            batch = _fetch_ranking_slugs_page(
+                locality=locality,
+                offset=offset,
+                per_page=per_page,
+                sort=sort,
+                headers=headers,
+                api=api,
             )
-            req = urllib.request.Request(f"{api}?{q}", headers=headers)
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                data = json.loads(resp.read().decode())
-            for row in data.get("data") or []:
-                slug = row.get("slug")
-                if slug and slug not in seen:
+            if not batch:
+                break
+            for slug in batch:
+                if slug not in seen:
                     seen.add(slug)
                     slugs.append(slug)
+            page_num += 1
             time.sleep(0.2)
+        if all_pages:
+            print(f"  locality {locality}: {len(slugs)} slugs from {page_num} API page(s)")
     return slugs
 
 
@@ -343,7 +377,17 @@ def main() -> None:
         default=[],
         help="Climbfinder locality id (l=), repeatable",
     )
-    parser.add_argument("--pages", type=int, default=None, help="Ranking pages per source")
+    parser.add_argument(
+        "--pages",
+        type=int,
+        default=None,
+        help="Ranking pages per source (25 slugs each). Ignored if --all-pages.",
+    )
+    parser.add_argument(
+        "--all-pages",
+        action="store_true",
+        help="Fetch Popular ranking until API returns no more (e.g. ~688 for l=27)",
+    )
     parser.add_argument("--limit", type=int, default=None, help="Max climbs to import")
     parser.add_argument("--out", default=None)
     parser.add_argument("--meta-id", default=None)
@@ -371,18 +415,28 @@ def main() -> None:
     if not geo and not localities:
         raise SystemExit("Specify --geo, --locality, or --preset with a defined source.")
 
-    print(f"Fetching ranking slugs (geo={geo!r}, localities={localities}, pages={pages})…")
+    mode = "all API pages" if args.all_pages else f"{pages} page(s)"
+    print(f"Fetching ranking slugs (geo={geo!r}, localities={localities}, {mode})…")
     if localities and not geo:
-        slugs = ranking_slugs_api(localities=localities, pages=pages)[:limit]
+        slugs = ranking_slugs_api(
+            localities=localities,
+            pages=pages,
+            all_pages=args.all_pages,
+        )[:limit]
     else:
+        if args.all_pages:
+            raise SystemExit("--all-pages only works with --locality (not --geo / Playwright).")
         slugs = ranking_slugs_playwright(geo=geo, localities=localities, pages=pages)[:limit]
-    max_from_pages = pages * 25 * max(1, len(localities) or 1)
-    print(f"Found {len(slugs)} unique slugs (limit {limit}, max ~{max_from_pages} from {pages} ranking page(s) × 25)")
-    if limit > max_from_pages:
-        print(
-            f"Note: --limit {limit} is higher than ranking pages can provide; "
-            f"use --pages {-(limit // -25)} or more for up to ~{limit} slugs."
-        )
+    if args.all_pages:
+        print(f"Found {len(slugs)} unique slugs (limit {limit}, fetched until API exhausted)")
+    else:
+        max_from_pages = pages * 25 * max(1, len(localities) or 1)
+        print(f"Found {len(slugs)} unique slugs (limit {limit}, max ~{max_from_pages} from {pages} page(s) × 25)")
+        if limit > max_from_pages:
+            print(
+                f"Note: --limit {limit} > {max_from_pages} from {pages} pages; "
+                f"use --pages {-(limit // -25)} or --all-pages for full region (e.g. l=27 ≈ 688)."
+            )
 
     climbs: list[dict[str, Any]] = []
     errors: list[str] = []
