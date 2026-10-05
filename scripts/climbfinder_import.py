@@ -129,6 +129,31 @@ def _parse_difficulty(category: str | None) -> float | None:
         return None
 
 
+def steepest_gradient_pct(
+    distances_m: list[float] | list[int],
+    elevations_m: list[float],
+    window_m: float,
+) -> float:
+    """Max average gradient over any contiguous segment of at least window_m."""
+    n = len(distances_m)
+    best = 0.0
+    for i in range(n):
+        for j in range(i + 1, n):
+            d = float(distances_m[j]) - float(distances_m[i])
+            if d < window_m:
+                continue
+            g = 100.0 * (elevations_m[j] - elevations_m[i]) / d
+            if g > best:
+                best = g
+            break
+    return round(best, 1)
+
+
+def decode_graph_gradients_pct(grad_enc: str, sd: int) -> list[float]:
+    """graphGradientsEnc uses the same cfDecode stream with scale 100 → %."""
+    return [round(x, 1) for x in cf_decode(grad_enc, 100, sd)]
+
+
 def fetch_html(url: str) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -169,14 +194,20 @@ def parse_climb_page(
     )
     if not m_data:
         raise ValueError("No DATA block with profile encoding")
-    name, category, sd, _graph_interval, _grad_enc, path_interval, elev_enc, length_m = m_data.groups()
+    name, category, sd, graph_interval, grad_enc, path_interval, elev_enc, length_m = m_data.groups()
     name = html.unescape(name)
     sd_i = int(sd)
+    graph_interval_i = int(graph_interval)
     path_interval_i = int(path_interval)
     length_i = int(length_m)
     elevations = cf_decode(elev_enc, 10, sd_i)
     n = len(elevations)
     distances_m = [min(i * path_interval_i, length_i) for i in range(n)]
+
+    graph_gradients_pct = decode_graph_gradients_pct(grad_enc, sd_i)
+    graph_distances_m = [
+        min(i * graph_interval_i, length_i) for i in range(len(graph_gradients_pct))
+    ]
 
     coords = geometry["coordinates"]
     gain = sum(max(0.0, elevations[i] - elevations[i - 1]) for i in range(1, n))
@@ -187,6 +218,9 @@ def parse_climb_page(
         d = distances_m[i] - distances_m[i - 1]
         if d > 0:
             gradients.append(100.0 * (elevations[i] - elevations[i - 1]) / d)
+
+    steepest_100m = steepest_gradient_pct(distances_m, elevations, 100.0)
+    steepest_1km = steepest_gradient_pct(distances_m, elevations, 1000.0)
 
     lons = [c[0] for c in coords]
     lats = [c[1] for c in coords]
@@ -210,6 +244,8 @@ def parse_climb_page(
             "elevation_loss_m": round(loss),
             "avg_gradient_pct": round(avg_grad, 1),
             "max_gradient_pct": round(max(gradients), 1) if gradients else 0.0,
+            "steepest_100m_pct": steepest_100m,
+            "steepest_1km_pct": steepest_1km,
         },
         "difficulty_score": _parse_difficulty(category),
         "geometry": {"type": "LineString", "coordinates": coords},
@@ -217,6 +253,9 @@ def parse_climb_page(
             "distances_m": distances_m,
             "elevations_m": [round(e, 1) for e in elevations],
             "path_interval_m": path_interval_i,
+            "graph_interval_m": graph_interval_i,
+            "graph_distances_m": graph_distances_m,
+            "graph_gradients_pct": graph_gradients_pct,
         },
         "bbox": [min(lons), min(lats), max(lons), max(lats)],
         "start": {"lng": coords[0][0], "lat": coords[0][1]},

@@ -115,6 +115,23 @@ header.app-header p {
   color: var(--slate-600);
 }
 
+.climb-item .dataset-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--teal-700);
+  margin-bottom: 0.15rem;
+}
+
+.list-hint {
+  padding: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--slate-600);
+}
+
+.map-panel .leaflet-top.leaflet-right {
+  z-index: 800;
+}
+
 .map-panel {
   position: relative;
   min-height: 0;
