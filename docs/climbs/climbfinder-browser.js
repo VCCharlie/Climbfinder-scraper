@@ -97,10 +97,23 @@
     const name = dataM[1].replace(/&#039;/g, "'").replace(/&amp;/g, "&");
     const category = dataM[2];
     const sd = parseInt(dataM[3], 10);
+    const graphInterval = parseInt(dataM[4], 10);
+    const gradEnc = dataM[5];
     const pathInterval = parseInt(dataM[6], 10);
     const lengthM = parseInt(dataM[8], 10);
     const elevations = cfDecode(dataM[7], 10, sd);
     const distances = elevations.map((_, i) => Math.min(i * pathInterval, lengthM));
+
+    const graphGradientsPct = cfDecode(gradEnc, 100, sd).map((g) => Math.round(g * 10) / 10);
+    const graphDistances = graphGradientsPct.map((_, i) => Math.min(i * graphInterval, lengthM));
+
+    const steepest =
+      typeof ClimbMetrics !== "undefined"
+        ? {
+            steepest_100m_pct: ClimbMetrics.steepestGradientPct(distances, elevations, 100),
+            steepest_1km_pct: ClimbMetrics.steepestGradientPct(distances, elevations, 1000),
+          }
+        : { steepest_100m_pct: 0, steepest_1km_pct: 0 };
 
     let gain = 0;
     let loss = 0;
@@ -132,6 +145,8 @@
         elevation_loss_m: Math.round(loss),
         avg_gradient_pct: lengthM ? Math.round((100 * gain) / lengthM * 10) / 10 : 0,
         max_gradient_pct: gradients.length ? Math.round(Math.max(...gradients) * 10) / 10 : 0,
+        steepest_100m_pct: steepest.steepest_100m_pct,
+        steepest_1km_pct: steepest.steepest_1km_pct,
       },
       difficulty_score: parseDifficulty(category),
       geometry: { type: "LineString", coordinates },
@@ -139,6 +154,9 @@
         distances_m: distances,
         elevations_m: elevations.map((e) => Math.round(e * 10) / 10),
         path_interval_m: pathInterval,
+        graph_interval_m: graphInterval,
+        graph_distances_m: graphDistances,
+        graph_gradients_pct: graphGradientsPct,
       },
       bbox: [Math.min(...lons), Math.min(...lats), Math.max(...lons), Math.max(...lats)],
       start: { lng: coordinates[0][0], lat: coordinates[0][1] },
