@@ -7,12 +7,15 @@
  *   localhost
  */
 window.FIETSKLIM_AUTH_CONFIG = {
+  /** Paste the full object from Firebase Console; extra keys are fine. */
   firebase: {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
     projectId: "YOUR_PROJECT_ID",
     storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
     appId: "YOUR_APP_ID",
+    measurementId: "G-XXXXXXXXXX",
   },
   /** Only these Google accounts may use the site (personal use). */
   allowedEmails: ["vr.deruiter@gmail.com"],
