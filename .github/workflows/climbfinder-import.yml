@@ -33,7 +33,7 @@ on:
         required: true
         type: string
       limit:
-        description: "Max climbs (empty = default 50)"
+        description: "Max climbs to import (capped by pages×25; need pages=4 for ~100)"
         required: false
         default: "50"
         type: string
@@ -95,6 +95,7 @@ jobs:
           python scripts/publish_climb_json.py \
             --bundle "out/${{ inputs.meta_id }}.json" \
             "${MERGE_ARGS[@]}"
+          python scripts/rebuild_climb_index.py
 
       - name: Commit and push dataset
         if: inputs.publish_to_site == 'true'

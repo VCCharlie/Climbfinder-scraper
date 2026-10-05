@@ -121,16 +121,11 @@ def main() -> None:
         publish_count = len(incoming)
         filename = f"{meta_id}.json"
 
-    update_index(
-        Path(args.index),
-        meta_id=publish_id,
-        title=publish_title,
-        country=country,
-        count=publish_count,
-        filename=filename,
-    )
     print(f"Published {publish_count} climbs → {dest.relative_to(ROOT)}")
-    print(f"Updated index → {Path(args.index).relative_to(ROOT)}")
+    import subprocess
+    import sys
+
+    subprocess.check_call([sys.executable, str(ROOT / "scripts/rebuild_climb_index.py")])
 
 
 if __name__ == "__main__":
