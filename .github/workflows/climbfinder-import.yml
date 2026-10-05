@@ -57,6 +57,7 @@ jobs:
 
       - name: Run climbfinder_import.py
         run: |
+          mkdir -p out
           LIMIT_ARGS=()
           if [ -n "${{ inputs.limit }}" ]; then
             LIMIT_ARGS=(--limit "${{ inputs.limit }}")
