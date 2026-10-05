@@ -2,8 +2,16 @@
 
 (function () {
   const MIN_ZOOM_NEARBY_ROUTES = 12;
-  const MAX_NEARBY_ROUTES = 32;
+  const MAX_NEARBY_ROUTES = 40;
+  const MAX_DIM_ROUTES = 35;
   const LOCAL_ZOOM_OUT_STEPS = 2;
+
+  /** Goed zichtbaar op groen OSM-terrein (niet teal). */
+  const ROUTE_STYLE = {
+    active: { color: "#6d28d9", weight: 4, opacity: 0.92 },
+    detail: { color: "#5b21b6", weight: 5, opacity: 0.95 },
+    dim: { color: "#64748b", weight: 2, opacity: 0.38 },
+  };
 
   const state = {
     bundle: null,
@@ -156,14 +164,28 @@
     return `${entry.regionUrl}::${entry.climb.id}`;
   }
 
-  function entriesForMapView() {
+  /** Kaart: standaard alle regio’s; alleen zoekterm filtert weg. */
+  function mapVisibleEntries() {
     const q = state.searchQuery.trim().toLowerCase();
-    let list = state.globalEntries;
-    if (q) list = list.filter(({ climb }) => climbMatchesQuery(climb, q));
-    else if (state.currentRegionUrl) {
-      list = list.filter(({ regionUrl }) => regionUrl === state.currentRegionUrl);
+    if (!q) return state.globalEntries;
+    return state.globalEntries.filter(({ climb }) => climbMatchesQuery(climb, q));
+  }
+
+  /** Geselecteerde regio = highlight; andere klimmen blijven zichtbaar (gedimd). */
+  function isEntryMapActive(entry) {
+    const q = state.searchQuery.trim().toLowerCase();
+    if (q) return climbMatchesQuery(entry.climb, q);
+    if (state.currentRegionUrl) return entry.regionUrl === state.currentRegionUrl;
+    return true;
+  }
+
+  function boundsForEntries(entries) {
+    const bounds = [];
+    for (const entry of entries) {
+      const ll = climbLatLng(entry.climb);
+      if (ll) bounds.push(ll);
     }
-    return list;
+    return bounds;
   }
 
   function updateSearchHint() {
@@ -175,10 +197,14 @@
       el.textContent = `${n} treffer in alle regio’s — klik kaart of lijst.`;
     } else {
       const n = state.globalEntries.length;
+      const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
+      const regN = reg
+        ? state.globalEntries.filter((e) => e.regionUrl === state.currentRegionUrl).length
+        : 0;
       el.textContent =
         n > 0
-          ? `${n} klimmen op overzichtskaart — zoek wereldwijd of kies een regio.`
-          : "Leeg = overzichtskaart. Typ om in alle regio’s te zoeken.";
+          ? `Kaart: ${n} klimmen (alle regio’s). Lijst: ${reg ? reg.title : "regio"} (${regN}). Regio wisselen = highlight op kaart.`
+          : "Leeg = alle klimmen op kaart. Typ om te filteren.";
     }
   }
 
@@ -237,7 +263,7 @@
   function entriesInMapBounds(pad = 0.12) {
     if (!state.map) return [];
     const bounds = state.map.getBounds().pad(pad);
-    return entriesForMapView().filter(({ climb }) => {
+    return mapVisibleEntries().filter(({ climb }) => {
       const ll = climbLatLng(climb);
       if (ll && bounds.contains(ll)) return true;
       const b = climb.bbox;
@@ -268,25 +294,22 @@
     clearViewportLayers();
 
     const entries = entriesInMapBounds();
+    const activeEntries = entries.filter((e) => isEntryMapActive(e));
+    const inactiveEntries = entries.filter((e) => !isEntryMapActive(e));
     const withRouteKeys = new Set();
 
-    if (zoom >= MIN_ZOOM_NEARBY_ROUTES) {
-      const withRoutes = entries.slice(0, MAX_NEARBY_ROUTES);
-      for (const entry of withRoutes) {
-        const latlngs = latLngsFromClimb(entry.climb);
-        if (latlngs.length < 2) continue;
-        withRouteKeys.add(entryKey(entry));
-        const line = L.polyline(latlngs, {
-          color: "#0f766e",
-          weight: 3,
-          opacity: 0.5,
-        });
-        line.bindTooltip(entry.climb.name, { sticky: true });
-        line.on("click", (e) => {
-          L.DomEvent.stopPropagation(e);
-          void selectClimbFromList(entry.climb.id, entry.regionUrl);
-        });
-        state.viewportRoutesLayer.addLayer(line);
+    const addRoute = (entry, style) => {
+      const latlngs = latLngsFromClimb(entry.climb);
+      if (latlngs.length < 2) return;
+      withRouteKeys.add(entryKey(entry));
+      const line = L.polyline(latlngs, style);
+      line.bindTooltip(entry.climb.name, { sticky: true });
+      line.on("click", (e) => {
+        L.DomEvent.stopPropagation(e);
+        void selectClimbFromList(entry.climb.id, entry.regionUrl);
+      });
+      state.viewportRoutesLayer.addLayer(line);
+      if (style !== ROUTE_STYLE.dim) {
         addClimbStartEndMarkers(latlngs, {
           size: "sm",
           layer: state.viewportLayer,
@@ -294,21 +317,42 @@
           onClick: () => void selectClimbFromList(entry.climb.id, entry.regionUrl),
         });
       }
+    };
+
+    if (zoom >= MIN_ZOOM_NEARBY_ROUTES) {
+      for (const entry of inactiveEntries.slice(0, MAX_DIM_ROUTES)) {
+        addRoute(entry, ROUTE_STYLE.dim);
+      }
+      for (const entry of activeEntries.slice(0, MAX_NEARBY_ROUTES)) {
+        addRoute(entry, ROUTE_STYLE.active);
+      }
     }
 
-    for (const entry of entries) {
-      if (withRouteKeys.has(entryKey(entry))) continue;
+    const addStartMarker = (entry, dimmed) => {
+      if (withRouteKeys.has(entryKey(entry))) return;
       const latlngs = latLngsFromClimb(entry.climb);
       const start = latlngs[0] || climbLatLng(entry.climb);
-      if (!start) continue;
-      const marker = L.circleMarker(start, climbEndpointStyles("sm").start);
-      marker.bindTooltip(`${entry.climb.name} (start)`, { direction: "top", sticky: true });
+      if (!start) return;
+      const style = { ...climbEndpointStyles("sm").start };
+      if (dimmed) {
+        style.fillColor = "#cbd5e1";
+        style.color = "#94a3b8";
+        style.fillOpacity = 0.75;
+      }
+      const marker = L.circleMarker(start, style);
+      marker.bindTooltip(`${entry.climb.name}${dimmed ? " (andere regio)" : ""}`, {
+        direction: "top",
+        sticky: true,
+      });
       marker.on("click", (e) => {
         L.DomEvent.stopPropagation(e);
         void selectClimbFromList(entry.climb.id, entry.regionUrl);
       });
       state.viewportLayer.addLayer(marker);
-    }
+    };
+
+    for (const entry of inactiveEntries) addStartMarker(entry, true);
+    for (const entry of activeEntries) addStartMarker(entry, false);
   }
 
   function scheduleViewportRefresh() {
@@ -391,28 +435,35 @@
       state.overviewCluster.addTo(state.map);
     }
     state.overviewCluster.clearLayers();
-    const entries = entriesForMapView();
-    const bounds = [];
+    const entries = mapVisibleEntries();
+    const fitBounds = [];
+    if (fit && state.currentRegionUrl && !state.searchQuery.trim()) {
+      const regionEntries = entries.filter((e) => e.regionUrl === state.currentRegionUrl);
+      fitBounds.push(...boundsForEntries(regionEntries));
+    } else {
+      fitBounds.push(...boundsForEntries(entries));
+    }
     for (const entry of entries) {
       const latlng = climbLatLng(entry.climb);
       if (!latlng) continue;
-      bounds.push(latlng);
+      const active = isEntryMapActive(entry);
       const marker = L.circleMarker(latlng, {
-        radius: 5,
-        color: "#334155",
-        weight: 1,
-        fillColor: "#0f766e",
-        fillOpacity: 0.85,
+        radius: active ? 6 : 4,
+        color: active ? "#5b21b6" : "#94a3b8",
+        weight: active ? 2 : 1,
+        fillColor: active ? "#7c3aed" : "#cbd5e1",
+        fillOpacity: active ? 0.9 : 0.55,
       });
-      marker.bindTooltip(entry.climb.name, { direction: "top", sticky: true });
+      const reg = entry.regionTitle ? ` · ${entry.regionTitle}` : "";
+      marker.bindTooltip(`${entry.climb.name}${reg}`, { direction: "top", sticky: true });
       marker.on("click", (e) => {
         L.DomEvent.stopPropagation(e);
         void selectClimbFromList(entry.climb.id, entry.regionUrl);
       });
       state.overviewCluster.addLayer(marker);
     }
-    if (fit && bounds.length) {
-      state.map.fitBounds(bounds, { padding: [36, 36], maxZoom: 14 });
+    if (fit && fitBounds.length) {
+      state.map.fitBounds(fitBounds, { padding: [36, 36], maxZoom: 14 });
     }
     refreshViewportClimbs();
     updateSearchHint();
@@ -721,17 +772,11 @@
     if (state.overviewCluster) state.overviewCluster.clearLayers();
     clearMapLayers();
     const latlngs = latLngsFromClimb(climb);
-    state.routeLayer = L.polyline(latlngs, { color: "#0f766e", weight: 5, opacity: 0.9 }).addTo(state.map);
+    state.routeLayer = L.polyline(latlngs, ROUTE_STYLE.detail).addTo(state.map);
     state.routeLayer.on("click", (e) => {
       L.DomEvent.stopPropagation(e);
     });
-    state.markers.push(
-      ...addClimbStartEndMarkers(latlngs, {
-        size: "md",
-        tooltip: climb.name,
-        onClick: () => {},
-      })
-    );
+    state.markers.push(...addClimbStartEndMarkers(latlngs, { size: "md", tooltip: climb.name }));
     state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
     updateChart(climb);
 
@@ -838,7 +883,13 @@
     }
 
     select.addEventListener("change", () => {
-      void loadRegion(select.value);
+      void loadRegion(select.value).then(() => {
+        if (state.globalSearchReady && state.mapMode === "overview") {
+          syncOverviewMarkers({ fit: true });
+        } else if (state.mapMode === "local") {
+          refreshViewportClimbs();
+        }
+      });
     });
 
     const searchInput = $("searchInput");
