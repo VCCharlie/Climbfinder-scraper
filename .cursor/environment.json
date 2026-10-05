@@ -1,0 +1,3 @@
+{
+  "install": "pip install --upgrade pip && pip install -r requirements.txt && python3 -m playwright install chromium && python3 -m playwright install-deps chromium"
+}

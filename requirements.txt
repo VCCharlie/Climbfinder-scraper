@@ -1,4 +1,13 @@
-Flask
-requests
-pandas
-lxml
+# Web apps
+Flask>=3.0,<4
+streamlit>=1.28,<2
+
+# Scraping & data
+requests>=2.31,<3
+beautifulsoup4>=4.12,<5
+lxml>=5.0,<7
+pandas>=2.0,<3
+openpyxl>=3.1,<4
+
+# Climbfinder ranking / HTML import (Chromium installed via environment install)
+playwright>=1.40,<2

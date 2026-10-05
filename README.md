@@ -70,6 +70,10 @@ Access at `http://<nas-ip>:8501`. Add Playwright for better reliability:
 pip install playwright && playwright install --with-deps chromium
 ```
 
+## Cursor Cloud Agents / environment
+
+Repository-managed setup lives in [`.cursor/environment.json`](.cursor/environment.json): it installs `requirements.txt` and Playwright Chromium. Point your Cursor environment at this repo to match the dashboard install.
+
 ## Option 3: GitHub Codespaces / Local (Flask + Playwright)
 
 For maximum reliability, the Flask backend uses **Playwright** (headless Chromium) to fully render the JavaScript-heavy Climbfinder pages.
@@ -81,8 +85,8 @@ For maximum reliability, the Flask backend uses **Playwright** (headless Chromiu
 
 ```bash
 pip install -r requirements.txt
-playwright install chromium
-playwright install-deps chromium
+python -m playwright install chromium
+python -m playwright install-deps chromium
 python app.py
 ```
 
