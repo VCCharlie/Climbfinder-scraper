@@ -1,0 +1,54 @@
+# Fast check that GitHub Pages source (docs/) is valid — runs on our runner even when
+# the managed "pages build and deployment" job is stuck in the runner queue.
+
+name: Validate docs site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "scripts/rebuild_climb_index.py"
+  pull_request:
+    paths:
+      - "docs/**"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Required Pages paths
+        run: |
+          test -f docs/climbs/index.html
+          test -f docs/climbs/import.html
+          test -f docs/index.html
+
+      - name: Parse climb JSON datasets
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = Path("docs/climbs/data")
+          for path in sorted(data.glob("*.json")):
+              if path.name == "schema.json":
+                  continue
+              with path.open(encoding="utf-8") as f:
+                  json.load(f)
+              print("ok", path.name)
+          PY
+
+      - name: Rebuild index (dry check)
+        run: |
+          python3 scripts/rebuild_climb_index.py
+          git diff --exit-code docs/climbs/data/index.json || (
+            echo "::warning::index.json is out of sync with datasets; run rebuild_climb_index.py"
+            exit 1
+          )
