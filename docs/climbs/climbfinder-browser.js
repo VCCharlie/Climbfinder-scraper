@@ -191,14 +191,23 @@
     throw lastErr || new Error(`Geen klim gevonden voor "${raw}" — gebruik de slug uit de Climbfinder-URL`);
   }
 
+  function resolveClimbsDataUrl(relativePath) {
+    return new URL(relativePath, window.location.href).href;
+  }
+
   async function loadRegionsCatalog() {
-    const res = await fetch("data/climbfinder-regions.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("Regio-lijst niet gevonden (climbfinder-regions.json)");
+    const url = resolveClimbsDataUrl("data/climbfinder-regions.json");
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`Regio-lijst HTTP ${res.status} — ${url}`);
+    }
     return res.json();
   }
 
   async function loadPopularRankingSlugs(localityId) {
-    const res = await fetch(`data/rankings/${localityId}-popular-slugs.json`, { cache: "no-store" });
+    const res = await fetch(resolveClimbsDataUrl(`data/rankings/${localityId}-popular-slugs.json`), {
+      cache: "no-store",
+    });
     if (!res.ok) {
       throw new Error(
         `Geen ranking-slugs voor regio ${localityId}. Lokaal: python scripts/refresh_ranking_slugs.py --locality ${localityId}`
