@@ -132,7 +132,7 @@
       return null;
     }
 
-    function selectInDropdowns(localityId) {
+    function selectInDropdowns(localityId, goToImportTab = false) {
       const region = findRegionInCatalog(localityId);
       if (!region) return;
       if (countrySel && countrySel.value !== region.country) {
@@ -144,7 +144,7 @@
           regionSel.value = String(localityId);
           regionSel.dispatchEvent(new Event("change"));
         }
-        opts.onRegionChosen?.();
+        if (goToImportTab) opts.onRegionChosen?.();
       });
     }
 
@@ -229,7 +229,7 @@
           mk.setPopupContent(html);
           const popEl = mk.getPopup()?.getElement();
           popEl?.querySelector(".cf-pick-region")?.addEventListener("click", () => {
-            selectInDropdowns(r.id);
+            selectInDropdowns(r.id, true);
             highlightMarker(r.id);
             map.closePopup();
           });
@@ -248,27 +248,58 @@
       if (sel) highlightMarker(sel);
     }
 
-    function bindSearch() {
-      if (!searchEl || !bootCatalog) return;
-      searchEl.addEventListener("input", () => {
-        const q = searchEl.value.trim().toLowerCase();
-        if (!q) return;
-        for (const block of bootCatalog.countries) {
-          for (const r of block.regions) {
-            const label = `${r.name} ${r.id} l=${r.id}`.toLowerCase();
-            if (label.includes(q) || q === String(r.id)) {
-              countrySel.value = block.country;
-              countrySel.dispatchEvent(new Event("change"));
-              selectInDropdowns(r.id);
-              highlightMarker(r.id);
-              const g = geo.regions[String(r.id)];
-              if (g) map.setView([g.lat, g.lon], 11);
-              const mk = markersById[r.id];
-              mk?.openPopup();
-              return;
-            }
+    let searchBound = false;
+
+    function findRegionsMatchingQuery(q) {
+      const query = q.trim().toLowerCase();
+      if (!query || !bootCatalog) return [];
+      const idQuery = /^\d+$/.test(query) ? Number(query) : null;
+      const matches = [];
+      for (const block of bootCatalog.countries) {
+        for (const r of block.regions) {
+          if (idQuery != null && Number(r.id) === idQuery) {
+            matches.push({ block, r, score: 100 });
+            continue;
           }
+          if (idQuery != null) continue;
+          const name = r.name.toLowerCase();
+          if (name === query) matches.push({ block, r, score: 90 });
+          else if (name.startsWith(query)) matches.push({ block, r, score: 70 });
+          else if (name.includes(query)) matches.push({ block, r, score: 40 });
         }
+      }
+      matches.sort((a, b) => b.score - a.score || a.r.name.localeCompare(b.r.name));
+      return matches;
+    }
+
+    async function focusRegionOnMap(block, r) {
+      if (countrySel && countrySel.value !== block.country) {
+        countrySel.value = block.country;
+        countrySel.dispatchEvent(new Event("change"));
+        await drawForCountry(block.country);
+      }
+      selectInDropdowns(r.id, false);
+      highlightMarker(r.id);
+      const g = geo.regions[String(r.id)];
+      if (g) map.setView([g.lat, g.lon], 11);
+      const mk = markersById[r.id];
+      mk?.openPopup();
+    }
+
+    function bindSearch() {
+      if (!searchEl || !bootCatalog || searchBound) return;
+      searchBound = true;
+      searchEl.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") ev.preventDefault();
+      });
+      searchEl.addEventListener("input", () => {
+        const q = searchEl.value.trim();
+        if (!q) return;
+        const minLen = /^\d+$/.test(q) ? 1 : 2;
+        if (q.length < minLen) return;
+        const matches = findRegionsMatchingQuery(q);
+        if (!matches.length) return;
+        focusRegionOnMap(matches[0].block, matches[0].r);
       });
     }
 
