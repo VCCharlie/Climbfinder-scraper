@@ -71,10 +71,15 @@ await FietsKlimDB.render(document.getElementById("cauberg-widget"), {
    ```bash
    pip install playwright
    playwright install chromium
-   python scripts/climbfinder_import.py --pages 2 --limit 35
+   python scripts/climbfinder_import.py --preset nl-limburg
+   python scripts/climbfinder_import.py --preset fr-alps --pages 2 --limit 80
    ```
 
-   Dit leest de ranking rond Valkenburg (`g=5.83I50.86`, +25 km) en importeert per klim de **Climbfinder-polyline** en het **officiële hoogteprofiel** (decoded `pathElevationsEnc`).
+   Presets:
+   - **nl-limburg** — ranking rond Valkenburg (`g=5.83I50.86`)
+   - **fr-alps** — Climbfinder-localities Haute-Savoie, Savoie, Hautes-Alpes, Alpes-de-Haute-Provence, Alpes-Maritimes
+
+   Per klim: **Climbfinder-polyline** + **officieel hoogteprofiel** (`pathElevationsEnc`).
 
 3. **Start/eindpunt (alleen fallback, geen Climbfinder-geometrie):**
 
