@@ -58,7 +58,7 @@
       </div>
 
       <div id="panelRegion" class="panel active">
-        <p class="hint"><strong>Aanbevolen:</strong> import via <strong>GitHub Actions</strong> (zelfde Python als Franse Alpen in de repo). Kies regio → start workflow → download <em>Artifact</em> op GitHub. Browser-import werkt niet betrouwbaar (CORS). Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
+        <p class="hint"><strong>Aanbevolen:</strong> <strong>GitHub Actions</strong> met <code>publish_to_site=true</code> (standaard): na de run staat JSON automatisch op de kaart — geen zip/upload. Optioneel <code>merge_into=nl-popular</code> om meerdere imports samen te voegen. Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
         <div class="grid2">
           <div>
             <label for="countrySelect">Land</label>
@@ -154,7 +154,8 @@
         `  ${f("title", payload.title)} \\\n` +
         `  ${f("country", payload.country)} \\\n` +
         `  ${f("region_label", payload.region_label)} \\\n` +
-        `  ${f("limit", payload.limit)}`
+        `  ${f("limit", payload.limit)} \\\n` +
+        `  -f publish_to_site=true`
       );
     }
 

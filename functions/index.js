@@ -77,6 +77,8 @@ exports.requestClimbfinderImport = functions.https.onCall(async (data, context) 
         country,
         region_label: regionLabel,
         limit,
+        publish_to_site: String(data.publish_to_site != null ? data.publish_to_site : "true"),
+        merge_into: String(data.merge_into || ""),
       },
     }),
   });
