@@ -17,6 +17,10 @@
     return document.getElementById(id);
   }
 
+  function resolveDataUrl(url) {
+    return new URL(url, window.location.href).href;
+  }
+
   async function loadJson(url) {
     const cfg = window.FIETSKLIM_AUTH_CONFIG;
     if (cfg?.useStorage) {
@@ -30,8 +34,13 @@
       if (!res.ok) throw new Error(`Kon dataset niet laden uit Storage (${res.status})`);
       return res.json();
     }
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Kon dataset niet laden (${res.status})`);
+    const fullUrl = resolveDataUrl(url);
+    const res = await fetch(fullUrl, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(
+        `HTTP ${res.status} voor ${fullUrl} — staat dit JSON-bestand op GitHub Pages (map docs/climbs/data/)?`
+      );
+    }
     return res.json();
   }
 
@@ -221,6 +230,10 @@
   }
 
   function initMap() {
+    if (state.map) return;
+    if (typeof L === "undefined") {
+      throw new Error("Leaflet (kaart) is niet geladen. Check netwerk/adblocker.");
+    }
     state.map = L.map("map", { zoomControl: true });
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -292,35 +305,60 @@
     }
   }
 
+  function isUnlocked() {
+    return (
+      window.__FIETSKLIM_AUTH_READY === true ||
+      document.body.classList.contains("fietsklim-unlocked")
+    );
+  }
+
   function bootExplorer() {
+    if (!isUnlocked()) return;
     if (window.__fietsklimExplorerBooted) return;
     window.__fietsklimExplorerBooted = true;
+    const meta = $("datasetMeta");
+    if (meta) meta.textContent = "Dataset laden…";
     init()
       .then(() => {
         requestAnimationFrame(() => {
-          setTimeout(refreshMapSize, 50);
+          setTimeout(refreshMapSize, 100);
+          setTimeout(refreshMapSize, 500);
         });
       })
       .catch((err) => {
         window.__fietsklimExplorerBooted = false;
         console.error(err);
-        const meta = $("datasetMeta");
         if (meta) {
           meta.textContent = `Fout bij laden: ${err.message}`;
         }
         alert(
           err.message.includes("Storage")
-            ? "Dataset laden mislukt. Staat useStorage op true? Zet useStorage: false in firebase-config.js of upload JSON naar Firebase Storage."
-            : "Kon de klimdatabase niet laden. Zie console voor details."
+            ? "Dataset laden mislukt. Zet useStorage: false of upload JSON naar Firebase Storage."
+            : err.message
         );
       });
   }
 
   window.FietsKlimExplorer = { init, selectClimb, loadJson, bootExplorer };
 
-  document.addEventListener("fietsklim-authenticated", bootExplorer);
+  document.addEventListener("fietsklim-authenticated", () => {
+    setTimeout(bootExplorer, 0);
+  });
 
-  if (window.__FIETSKLIM_AUTH_READY || document.body.classList.contains("fietsklim-unlocked")) {
-    bootExplorer();
+  if (isUnlocked()) {
+    setTimeout(bootExplorer, 0);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries += 1;
+        if (isUnlocked()) {
+          clearInterval(timer);
+          bootExplorer();
+        } else if (tries > 40) {
+          clearInterval(timer);
+        }
+      }, 250);
+    });
   }
 })();
