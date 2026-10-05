@@ -1,0 +1,79 @@
+# Run Climbfinder import server-side (same as scripts/climbfinder_import.py).
+# Trigger: GitHub → Actions → Climbfinder import → Run workflow
+# Or: site import page → "Start serverimport" (Firebase Function) / gh workflow run …
+
+name: Climbfinder import
+
+on:
+  workflow_dispatch:
+    inputs:
+      locality:
+        description: "Climbfinder locality id (l=), e.g. 277 for South Holland"
+        required: true
+        type: string
+      pages:
+        description: "Popular ranking pages (1–2 typical)"
+        required: false
+        default: "2"
+        type: string
+      meta_id:
+        description: "JSON meta.id / filename stem"
+        required: true
+        type: string
+      title:
+        description: "Dataset title"
+        required: true
+        type: string
+      country:
+        description: "ISO country code (NL, FR, …)"
+        required: true
+        type: string
+      region_label:
+        description: "Region label stored on each climb"
+        required: true
+        type: string
+      limit:
+        description: "Max climbs (empty = default 50)"
+        required: false
+        default: "50"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements-climbimport.txt
+
+      - name: Run climbfinder_import.py
+        run: |
+          LIMIT_ARGS=()
+          if [ -n "${{ inputs.limit }}" ]; then
+            LIMIT_ARGS=(--limit "${{ inputs.limit }}")
+          fi
+          python scripts/climbfinder_import.py \
+            --locality "${{ inputs.locality }}" \
+            --pages "${{ inputs.pages }}" \
+            --meta-id "${{ inputs.meta_id }}" \
+            --title "${{ inputs.title }}" \
+            --country "${{ inputs.country }}" \
+            --region-label "${{ inputs.region_label }}" \
+            --out "out/${{ inputs.meta_id }}.json" \
+            "${LIMIT_ARGS[@]}"
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: climbfinder-${{ inputs.meta_id }}
+          path: out/${{ inputs.meta_id }}.json
+          if-no-files-found: error

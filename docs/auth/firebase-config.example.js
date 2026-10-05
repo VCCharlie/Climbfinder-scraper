@@ -26,4 +26,13 @@ window.FIETSKLIM_AUTH_CONFIG = {
    */
   useStorage: false,
   storageDataPrefix: "climbs/data",
+  /**
+   * Optional: one-click GitHub Actions import from climbs/import.html.
+   * Requires deployed Firebase Function requestClimbfinderImport — see docs/auth/GITHUB_IMPORT.md
+   */
+  githubImport: {
+    enabled: false,
+    repo: "VCCharlie/Climbfinder-scraper",
+    region: "europe-west1",
+  },
 };

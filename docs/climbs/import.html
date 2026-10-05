@@ -30,6 +30,10 @@
     .panel { display: none; }
     .panel.active { display: block; }
     #rankingMeta { font-size: 0.85rem; color: #64748b; margin-top: 0.35rem; }
+    #ghCmd { min-height: 72px; font-size: 0.75rem; margin-top: 0.5rem; }
+    .actions-links { font-size: 0.85rem; margin-top: 0.5rem; }
+    .actions-links a { color: #0f766e; }
+    details.browser-exp { margin-top: 1rem; font-size: 0.85rem; color: #64748b; }
   </style>
 </head>
 <body class="fietsklim-locked">
@@ -54,7 +58,7 @@
       </div>
 
       <div id="panelRegion" class="panel active">
-        <p class="hint">Zelfde lijst als Climbfinder <em>Popular</em>, pagina 1–2 (±50 klimmen). <strong>Profielen ophalen in de browser</strong> gaat via publieke CORS-proxies en faalt vaak (<em>Failed to fetch</em>). Voor betrouwbare import (zoals Franse Alpen in de repo): lokaal <code>python scripts/climbfinder_import.py --locality 288 --pages 2 --meta-id haute-savoie --title "Haute-Savoie" --country FR --region-label "Haute-Savoie" --out docs/climbs/data/haute-savoie.json</code>.</p>
+        <p class="hint"><strong>Aanbevolen:</strong> import via <strong>GitHub Actions</strong> (zelfde Python als Franse Alpen in de repo). Kies regio → start workflow → download <em>Artifact</em> op GitHub. Browser-import werkt niet betrouwbaar (CORS). Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
         <div class="grid2">
           <div>
             <label for="countrySelect">Land</label>
@@ -66,7 +70,15 @@
           </div>
         </div>
         <p id="rankingMeta"></p>
-        <button type="button" id="runRegionBtn">Importeer Popular (2 pagina’s)</button>
+        <button type="button" id="startGithubBtn">Start serverimport (GitHub Actions)</button>
+        <button type="button" id="copyGhBtn" class="secondary">Kopieer gh-commando</button>
+        <label for="ghCmd" style="margin-top:0.75rem">Workflow (handmatig op GitHub of met <code>gh</code> CLI)</label>
+        <textarea id="ghCmd" readonly></textarea>
+        <p class="actions-links"><a id="actionsLink" href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/climbfinder-import.yml" target="_blank" rel="noopener">Open Actions → Climbfinder import</a></p>
+        <details class="browser-exp">
+          <summary>Browser-import (experimenteel, vaak Failed to fetch)</summary>
+          <button type="button" id="runRegionBtn">Importeer Popular in browser</button>
+        </details>
       </div>
 
       <div id="panelManual" class="panel">
@@ -89,6 +101,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-functions-compat.js"></script>
   <script src="../auth/firebase-config.js"></script>
   <script src="../auth/gate.js"></script>
   <script src="climbfinder-browser.js"></script>
@@ -104,14 +117,54 @@
       el.scrollTop = el.scrollHeight;
     }
 
-    function countryCode(countryName) {
+    const GITHUB_REPO = (window.FIETSKLIM_AUTH_CONFIG?.githubImport?.repo) || "VCCharlie/Climbfinder-scraper";
+
+    function countryCode(region) {
+      if (region.country_iso) return region.country_iso;
       const map = {
         France: "FR", Italy: "IT", Spain: "ES", Netherlands: "NL", Belgium: "BE",
         Switzerland: "CH", Austria: "AT", Germany: "DE", "United Kingdom": "GB",
         Portugal: "PT", Andorra: "AD", Slovenia: "SI", Croatia: "HR", Norway: "NO",
-        USA: "US", Colombia: "CO",
+        USA: "US", Colombia: "CO", Denmark: "DK",
       };
-      return map[countryName] || "XX";
+      return map[region.country] || "XX";
+    }
+
+    function workflowPayload(region) {
+      const metaId = metaIdFromRegion(region);
+      const cc = countryCode(region);
+      return {
+        locality: String(region.id),
+        pages: "2",
+        meta_id: metaId,
+        title: `${region.name} (Climbfinder Popular)`,
+        country: cc,
+        region_label: region.name,
+        limit: "50",
+      };
+    }
+
+    function ghWorkflowCommand(payload) {
+      const f = (k, v) => `-f ${k}=${JSON.stringify(String(v))}`;
+      return (
+        `gh workflow run climbfinder-import.yml \\\n` +
+        `  ${f("locality", payload.locality)} \\\n` +
+        `  ${f("pages", payload.pages)} \\\n` +
+        `  ${f("meta_id", payload.meta_id)} \\\n` +
+        `  ${f("title", payload.title)} \\\n` +
+        `  ${f("country", payload.country)} \\\n` +
+        `  ${f("region_label", payload.region_label)} \\\n` +
+        `  ${f("limit", payload.limit)}`
+      );
+    }
+
+    function refreshGhCommand() {
+      const ta = document.getElementById("ghCmd");
+      if (!selectedRegion) {
+        ta.value = "# Kies een regio…";
+        return;
+      }
+      ta.value = ghWorkflowCommand(workflowPayload(selectedRegion));
     }
 
     function metaIdFromRegion(r) {
@@ -190,7 +243,7 @@
       const regionSel = document.getElementById("regionSelect");
       const opt = regionSel.selectedOptions[0];
       if (!opt || !opt._region) return;
-      selectedRegion = { ...opt._region, country: opt._country };
+      selectedRegion = { ...opt._region };
       const meta = document.getElementById("rankingMeta");
       meta.textContent = "Ranking-slugs laden…";
       try {
@@ -206,6 +259,7 @@
       } catch (e) {
         meta.textContent = e.message;
       }
+      refreshGhCommand();
     }
 
     async function loadPresetSlugs(preset) {
@@ -230,6 +284,46 @@
       document.getElementById("downloadBtn").disabled = false;
     }
 
+    document.getElementById("copyGhBtn").addEventListener("click", () => {
+      const ta = document.getElementById("ghCmd");
+      ta.select();
+      navigator.clipboard?.writeText(ta.value);
+      log("gh-commando gekopieerd.");
+    });
+
+    document.getElementById("startGithubBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("startGithubBtn");
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
+      if (!selectedRegion) return;
+      btn.disabled = true;
+      document.getElementById("log").textContent = "";
+      const payload = workflowPayload(selectedRegion);
+      const cfg = window.FIETSKLIM_AUTH_CONFIG?.githubImport;
+      try {
+        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.functions) {
+          const fn = firebase.app().functions(cfg.region || "europe-west1").httpsCallable("requestClimbfinderImport");
+          const res = await fn(payload);
+          log(res.data.message || "Workflow gestart.");
+          if (res.data.actionsUrl) log(res.data.actionsUrl);
+        } else {
+          log("Firebase Function niet actief — start handmatig op GitHub:");
+          log("");
+          log(document.getElementById("ghCmd").value);
+          log("");
+          log("→ Actions → Climbfinder import → Run workflow (zelfde velden invullen)");
+          log("→ Of: gh auth login && plak het commando hierboven");
+          window.open(document.getElementById("actionsLink").href, "_blank", "noopener");
+        }
+      } catch (e) {
+        log("FOUT: " + (e.message || e));
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
     document.getElementById("runRegionBtn").addEventListener("click", async () => {
       const btn = document.getElementById("runRegionBtn");
       if (!isUnlocked()) {
@@ -242,7 +336,7 @@
         const ranking = await ClimbfinderBrowser.loadPopularRankingSlugs(selectedRegion.id);
         if (!ranking.slugs?.length) throw new Error("Geen slugs in ranking-cache voor deze regio");
         log(`Regio ${selectedRegion.name}: ${ranking.slugs.length} slugs (Popular, ${ranking.pages} pag.)`);
-        const cc = countryCode(selectedRegion.country);
+        const cc = countryCode(selectedRegion);
         await runImport(ranking.slugs, {
           metaId: metaIdFromRegion(selectedRegion),
           title: `${selectedRegion.name} (Climbfinder Popular)`,
