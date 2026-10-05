@@ -96,6 +96,7 @@
     let lastBundle = null;
     let regionsCatalog = null;
     let selectedRegion = null;
+    let regionsBooted = false;
 
     function log(msg) {
       const el = document.getElementById("log");
@@ -127,9 +128,32 @@
     document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
 
+    function isUnlocked() {
+      return (
+        window.__FIETSKLIM_AUTH_READY === true ||
+        document.body.classList.contains("fietsklim-unlocked")
+      );
+    }
+
     async function initRegions() {
-      regionsCatalog = await ClimbfinderBrowser.loadRegionsCatalog();
+      if (regionsBooted) return;
+      regionsBooted = true;
       const countrySel = document.getElementById("countrySelect");
+      try {
+        if (typeof ClimbfinderBrowser === "undefined") {
+          throw new Error("climbfinder-browser.js niet geladen");
+        }
+        regionsCatalog = await ClimbfinderBrowser.loadRegionsCatalog();
+      } catch (e) {
+        regionsBooted = false;
+        countrySel.innerHTML = "";
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = `Fout: ${e.message}`;
+        countrySel.appendChild(opt);
+        log("FOUT regio’s: " + e.message);
+        throw e;
+      }
       countrySel.innerHTML = "";
       for (const block of regionsCatalog.countries) {
         const opt = document.createElement("option");
@@ -202,6 +226,10 @@
 
     document.getElementById("runRegionBtn").addEventListener("click", async () => {
       const btn = document.getElementById("runRegionBtn");
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
       if (!selectedRegion) return;
       btn.disabled = true;
       try {
@@ -233,6 +261,10 @@
 
     document.getElementById("runManualBtn").addEventListener("click", async () => {
       const btn = document.getElementById("runManualBtn");
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
       btn.disabled = true;
       try {
         let lines = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
@@ -275,10 +307,32 @@
       a.click();
     });
 
-    document.addEventListener("fietsklim-authenticated", () => initRegions().catch((e) => log("FOUT regio’s: " + e.message)));
-    if (window.__FIETSKLIM_AUTH_READY || document.body.classList.contains("fietsklim-unlocked")) {
-      initRegions().catch((e) => log("FOUT regio’s: " + e.message));
+    function bootImportPage() {
+      initRegions().catch(() => {});
     }
+
+    document.addEventListener("fietsklim-authenticated", () => bootImportPage());
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bootImportPage);
+    } else {
+      bootImportPage();
+    }
+
+    /* Regio-JSON is publiek; herhaal als eerste fetch te vroeg was */
+    let regionRetries = 0;
+    const regionTimer = setInterval(() => {
+      regionRetries += 1;
+      if (regionsBooted && regionsCatalog) {
+        clearInterval(regionTimer);
+        return;
+      }
+      if (regionRetries > 24) {
+        clearInterval(regionTimer);
+        return;
+      }
+      bootImportPage();
+    }, 500);
   </script>
 </body>
 </html>
