@@ -1,0 +1,711 @@
+{
+  "schema_version": "1.0",
+  "source": "climbfinder_locality_ids",
+  "countries": [
+    {
+      "country": "Andorra",
+      "regions": [
+        {
+          "id": 180,
+          "name": "Andorra",
+          "label": "Andorra, Andorra"
+        }
+      ]
+    },
+    {
+      "country": "Austria",
+      "regions": [
+        {
+          "id": 358,
+          "name": "Tyrol",
+          "label": "Tyrol, Austria"
+        },
+        {
+          "id": 359,
+          "name": "Salzburg",
+          "label": "Salzburg, Austria"
+        },
+        {
+          "id": 360,
+          "name": "Vorarlberg",
+          "label": "Vorarlberg, Austria"
+        },
+        {
+          "id": 361,
+          "name": "Carinthia",
+          "label": "Carinthia, Austria"
+        },
+        {
+          "id": 362,
+          "name": "Styria",
+          "label": "Styria, Austria"
+        },
+        {
+          "id": 363,
+          "name": "Upper Austria",
+          "label": "Upper Austria, Austria"
+        },
+        {
+          "id": 364,
+          "name": "Lower Austria",
+          "label": "Lower Austria, Austria"
+        }
+      ]
+    },
+    {
+      "country": "Belgium",
+      "regions": [
+        {
+          "id": 239,
+          "name": "Ardennes",
+          "label": "Ardennes, Belgium"
+        },
+        {
+          "id": 240,
+          "name": "Liège",
+          "label": "Liège, Belgium"
+        },
+        {
+          "id": 241,
+          "name": "Namur",
+          "label": "Namur, Belgium"
+        },
+        {
+          "id": 242,
+          "name": "Luxembourg (BE)",
+          "label": "Luxembourg (BE), Belgium"
+        },
+        {
+          "id": 243,
+          "name": "Hainaut",
+          "label": "Hainaut, Belgium"
+        },
+        {
+          "id": 244,
+          "name": "East Flanders",
+          "label": "East Flanders, Belgium"
+        },
+        {
+          "id": 245,
+          "name": "West Flanders",
+          "label": "West Flanders, Belgium"
+        },
+        {
+          "id": 246,
+          "name": "Flemish Brabant",
+          "label": "Flemish Brabant, Belgium"
+        },
+        {
+          "id": 247,
+          "name": "Antwerp",
+          "label": "Antwerp, Belgium"
+        }
+      ]
+    },
+    {
+      "country": "Colombia",
+      "regions": [
+        {
+          "id": 420,
+          "name": "Boyacá",
+          "label": "Boyacá, Colombia"
+        },
+        {
+          "id": 421,
+          "name": "Antioquia",
+          "label": "Antioquia, Colombia"
+        }
+      ]
+    },
+    {
+      "country": "Croatia",
+      "regions": [
+        {
+          "id": 395,
+          "name": "Croatia",
+          "label": "Croatia, Croatia"
+        }
+      ]
+    },
+    {
+      "country": "France",
+      "regions": [
+        {
+          "id": 288,
+          "name": "Haute-Savoie",
+          "label": "Haute-Savoie, France"
+        },
+        {
+          "id": 957,
+          "name": "Savoie",
+          "label": "Savoie, France"
+        },
+        {
+          "id": 192,
+          "name": "Hautes-Alpes",
+          "label": "Hautes-Alpes, France"
+        },
+        {
+          "id": 290,
+          "name": "Alpes-de-Haute-Provence",
+          "label": "Alpes-de-Haute-Provence, France"
+        },
+        {
+          "id": 379,
+          "name": "Alpes-Maritimes",
+          "label": "Alpes-Maritimes, France"
+        },
+        {
+          "id": 291,
+          "name": "Isère",
+          "label": "Isère, France"
+        },
+        {
+          "id": 292,
+          "name": "Drôme",
+          "label": "Drôme, France"
+        },
+        {
+          "id": 295,
+          "name": "Vosges",
+          "label": "Vosges, France"
+        },
+        {
+          "id": 186,
+          "name": "Pyrénées-Atlantiques",
+          "label": "Pyrénées-Atlantiques, France"
+        },
+        {
+          "id": 187,
+          "name": "Hautes-Pyrénées",
+          "label": "Hautes-Pyrénées, France"
+        },
+        {
+          "id": 188,
+          "name": "Pyrénées-Orientales",
+          "label": "Pyrénées-Orientales, France"
+        },
+        {
+          "id": 189,
+          "name": "Ariège",
+          "label": "Ariège, France"
+        },
+        {
+          "id": 190,
+          "name": "Haute-Garonne",
+          "label": "Haute-Garonne, France"
+        },
+        {
+          "id": 191,
+          "name": "Aude",
+          "label": "Aude, France"
+        },
+        {
+          "id": 193,
+          "name": "Hérault",
+          "label": "Hérault, France"
+        },
+        {
+          "id": 194,
+          "name": "Gard",
+          "label": "Gard, France"
+        },
+        {
+          "id": 195,
+          "name": "Ardèche",
+          "label": "Ardèche, France"
+        },
+        {
+          "id": 196,
+          "name": "Loire",
+          "label": "Loire, France"
+        },
+        {
+          "id": 197,
+          "name": "Puy-de-Dôme",
+          "label": "Puy-de-Dôme, France"
+        },
+        {
+          "id": 198,
+          "name": "Cantal",
+          "label": "Cantal, France"
+        },
+        {
+          "id": 199,
+          "name": "Aveyron",
+          "label": "Aveyron, France"
+        },
+        {
+          "id": 200,
+          "name": "Lozère",
+          "label": "Lozère, France"
+        },
+        {
+          "id": 380,
+          "name": "Var",
+          "label": "Var, France"
+        },
+        {
+          "id": 381,
+          "name": "Vaucluse",
+          "label": "Vaucluse, France"
+        },
+        {
+          "id": 382,
+          "name": "Bouches-du-Rhône",
+          "label": "Bouches-du-Rhône, France"
+        },
+        {
+          "id": 293,
+          "name": "Ain",
+          "label": "Ain, France"
+        },
+        {
+          "id": 294,
+          "name": "Jura",
+          "label": "Jura, France"
+        },
+        {
+          "id": 296,
+          "name": "Doubs",
+          "label": "Doubs, France"
+        },
+        {
+          "id": 297,
+          "name": "Bas-Rhin",
+          "label": "Bas-Rhin, France"
+        },
+        {
+          "id": 298,
+          "name": "Haut-Rhin",
+          "label": "Haut-Rhin, France"
+        },
+        {
+          "id": 383,
+          "name": "Corse-du-Sud",
+          "label": "Corse-du-Sud, France"
+        },
+        {
+          "id": 384,
+          "name": "Haute-Corse",
+          "label": "Haute-Corse, France"
+        }
+      ]
+    },
+    {
+      "country": "Germany",
+      "regions": [
+        {
+          "id": 340,
+          "name": "Bavaria",
+          "label": "Bavaria, Germany"
+        },
+        {
+          "id": 341,
+          "name": "Baden-Württemberg",
+          "label": "Baden-Württemberg, Germany"
+        },
+        {
+          "id": 342,
+          "name": "Hesse",
+          "label": "Hesse, Germany"
+        },
+        {
+          "id": 343,
+          "name": "Rhineland-Palatinate",
+          "label": "Rhineland-Palatinate, Germany"
+        },
+        {
+          "id": 344,
+          "name": "Saarland",
+          "label": "Saarland, Germany"
+        },
+        {
+          "id": 345,
+          "name": "North Rhine-Westphalia",
+          "label": "North Rhine-Westphalia, Germany"
+        },
+        {
+          "id": 346,
+          "name": "Thuringia",
+          "label": "Thuringia, Germany"
+        },
+        {
+          "id": 347,
+          "name": "Saxony",
+          "label": "Saxony, Germany"
+        }
+      ]
+    },
+    {
+      "country": "Italy",
+      "regions": [
+        {
+          "id": 123,
+          "name": "Dolomites",
+          "label": "Dolomites, Italy"
+        },
+        {
+          "id": 317,
+          "name": "Aosta Valley",
+          "label": "Aosta Valley, Italy"
+        },
+        {
+          "id": 318,
+          "name": "Lombardy",
+          "label": "Lombardy, Italy"
+        },
+        {
+          "id": 319,
+          "name": "Piedmont",
+          "label": "Piedmont, Italy"
+        },
+        {
+          "id": 320,
+          "name": "Trentino",
+          "label": "Trentino, Italy"
+        },
+        {
+          "id": 321,
+          "name": "South Tyrol (Alto Adige)",
+          "label": "South Tyrol (Alto Adige), Italy"
+        },
+        {
+          "id": 322,
+          "name": "Veneto",
+          "label": "Veneto, Italy"
+        },
+        {
+          "id": 323,
+          "name": "Friuli Venezia Giulia",
+          "label": "Friuli Venezia Giulia, Italy"
+        },
+        {
+          "id": 324,
+          "name": "Liguria",
+          "label": "Liguria, Italy"
+        },
+        {
+          "id": 325,
+          "name": "Tuscany",
+          "label": "Tuscany, Italy"
+        },
+        {
+          "id": 326,
+          "name": "Emilia-Romagna",
+          "label": "Emilia-Romagna, Italy"
+        },
+        {
+          "id": 327,
+          "name": "Lazio",
+          "label": "Lazio, Italy"
+        },
+        {
+          "id": 328,
+          "name": "Sardinia",
+          "label": "Sardinia, Italy"
+        },
+        {
+          "id": 329,
+          "name": "Sicily",
+          "label": "Sicily, Italy"
+        },
+        {
+          "id": 330,
+          "name": "Campania",
+          "label": "Campania, Italy"
+        }
+      ]
+    },
+    {
+      "country": "Netherlands",
+      "regions": [
+        {
+          "id": 233,
+          "name": "Limburg",
+          "label": "Limburg, Netherlands"
+        },
+        {
+          "id": 230,
+          "name": "Gelderland",
+          "label": "Gelderland, Netherlands"
+        },
+        {
+          "id": 231,
+          "name": "Utrecht",
+          "label": "Utrecht, Netherlands"
+        },
+        {
+          "id": 232,
+          "name": "Overijssel",
+          "label": "Overijssel, Netherlands"
+        },
+        {
+          "id": 234,
+          "name": "North Brabant",
+          "label": "North Brabant, Netherlands"
+        }
+      ]
+    },
+    {
+      "country": "Norway",
+      "regions": [
+        {
+          "id": 400,
+          "name": "Western Norway",
+          "label": "Western Norway, Norway"
+        },
+        {
+          "id": 401,
+          "name": "Northern Norway",
+          "label": "Northern Norway, Norway"
+        }
+      ]
+    },
+    {
+      "country": "Portugal",
+      "regions": [
+        {
+          "id": 170,
+          "name": "Algarve",
+          "label": "Algarve, Portugal"
+        },
+        {
+          "id": 171,
+          "name": "Serra da Estrela",
+          "label": "Serra da Estrela, Portugal"
+        },
+        {
+          "id": 172,
+          "name": "Minho",
+          "label": "Minho, Portugal"
+        },
+        {
+          "id": 173,
+          "name": "Madeira",
+          "label": "Madeira, Portugal"
+        }
+      ]
+    },
+    {
+      "country": "Slovenia",
+      "regions": [
+        {
+          "id": 390,
+          "name": "Slovenia",
+          "label": "Slovenia, Slovenia"
+        },
+        {
+          "id": 391,
+          "name": "Julian Alps",
+          "label": "Julian Alps, Slovenia"
+        }
+      ]
+    },
+    {
+      "country": "Spain",
+      "regions": [
+        {
+          "id": 153,
+          "name": "Mallorca",
+          "label": "Mallorca, Spain"
+        },
+        {
+          "id": 156,
+          "name": "Tenerife",
+          "label": "Tenerife, Spain"
+        },
+        {
+          "id": 150,
+          "name": "Catalonia",
+          "label": "Catalonia, Spain"
+        },
+        {
+          "id": 151,
+          "name": "Andalusia",
+          "label": "Andalusia, Spain"
+        },
+        {
+          "id": 152,
+          "name": "Basque Country",
+          "label": "Basque Country, Spain"
+        },
+        {
+          "id": 154,
+          "name": "Asturias",
+          "label": "Asturias, Spain"
+        },
+        {
+          "id": 155,
+          "name": "Cantabria",
+          "label": "Cantabria, Spain"
+        },
+        {
+          "id": 157,
+          "name": "Valencia",
+          "label": "Valencia, Spain"
+        },
+        {
+          "id": 158,
+          "name": "Aragon",
+          "label": "Aragon, Spain"
+        },
+        {
+          "id": 159,
+          "name": "Navarra",
+          "label": "Navarra, Spain"
+        },
+        {
+          "id": 160,
+          "name": "Castilla y León",
+          "label": "Castilla y León, Spain"
+        },
+        {
+          "id": 161,
+          "name": "Gran Canaria",
+          "label": "Gran Canaria, Spain"
+        },
+        {
+          "id": 162,
+          "name": "La Palma",
+          "label": "La Palma, Spain"
+        },
+        {
+          "id": 163,
+          "name": "Girona",
+          "label": "Girona, Spain"
+        }
+      ]
+    },
+    {
+      "country": "Switzerland",
+      "regions": [
+        {
+          "id": 365,
+          "name": "Valais",
+          "label": "Valais, Switzerland"
+        },
+        {
+          "id": 366,
+          "name": "Graubünden",
+          "label": "Graubünden, Switzerland"
+        },
+        {
+          "id": 367,
+          "name": "Ticino",
+          "label": "Ticino, Switzerland"
+        },
+        {
+          "id": 368,
+          "name": "Bern",
+          "label": "Bern, Switzerland"
+        },
+        {
+          "id": 369,
+          "name": "Uri",
+          "label": "Uri, Switzerland"
+        },
+        {
+          "id": 370,
+          "name": "Schwyz",
+          "label": "Schwyz, Switzerland"
+        },
+        {
+          "id": 371,
+          "name": "Lucerne",
+          "label": "Lucerne, Switzerland"
+        },
+        {
+          "id": 372,
+          "name": "Vaud",
+          "label": "Vaud, Switzerland"
+        },
+        {
+          "id": 373,
+          "name": "Fribourg",
+          "label": "Fribourg, Switzerland"
+        },
+        {
+          "id": 374,
+          "name": "Glarus",
+          "label": "Glarus, Switzerland"
+        },
+        {
+          "id": 375,
+          "name": "St. Gallen",
+          "label": "St. Gallen, Switzerland"
+        },
+        {
+          "id": 376,
+          "name": "Obwalden",
+          "label": "Obwalden, Switzerland"
+        },
+        {
+          "id": 377,
+          "name": "Nidwalden",
+          "label": "Nidwalden, Switzerland"
+        }
+      ]
+    },
+    {
+      "country": "USA",
+      "regions": [
+        {
+          "id": 410,
+          "name": "California",
+          "label": "California, USA"
+        },
+        {
+          "id": 411,
+          "name": "Colorado",
+          "label": "Colorado, USA"
+        },
+        {
+          "id": 412,
+          "name": "Utah",
+          "label": "Utah, USA"
+        }
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "regions": [
+        {
+          "id": 77,
+          "name": "England",
+          "label": "England, United Kingdom"
+        },
+        {
+          "id": 78,
+          "name": "Wales",
+          "label": "Wales, United Kingdom"
+        },
+        {
+          "id": 79,
+          "name": "Scotland",
+          "label": "Scotland, United Kingdom"
+        },
+        {
+          "id": 80,
+          "name": "Yorkshire",
+          "label": "Yorkshire, United Kingdom"
+        },
+        {
+          "id": 81,
+          "name": "Lake District",
+          "label": "Lake District, United Kingdom"
+        },
+        {
+          "id": 82,
+          "name": "Peak District",
+          "label": "Peak District, United Kingdom"
+        },
+        {
+          "id": 83,
+          "name": "Surrey Hills",
+          "label": "Surrey Hills, United Kingdom"
+        }
+      ]
+    }
+  ]
+}
