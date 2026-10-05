@@ -1,14 +1,50 @@
 {
-  "schema_version": "1.0",
-  "source": "climbfinder_locality_ids",
+  "schema_version": "2.0",
+  "source": "climbfinder_scan",
+  "updated_at": "2026-10-05T11:05:55Z",
   "countries": [
+    {
+      "country": "AL",
+      "regions": [
+        {
+          "id": 548,
+          "name": "Albania",
+          "label": "Albania (l=548)",
+          "country_iso": "AL"
+        }
+      ]
+    },
+    {
+      "country": "AU",
+      "regions": [
+        {
+          "id": 876,
+          "name": "Australia",
+          "label": "Australia (l=876)",
+          "country_iso": "AU"
+        }
+      ]
+    },
     {
       "country": "Andorra",
       "regions": [
         {
-          "id": 180,
+          "id": 71,
           "name": "Andorra",
-          "label": "Andorra, Andorra"
+          "label": "Andorra (l=71)",
+          "country_iso": "AD"
+        },
+        {
+          "id": 81,
+          "name": "Andorra Pyrenees",
+          "label": "Andorra Pyrenees (l=81)",
+          "country_iso": "AD"
+        },
+        {
+          "id": 608,
+          "name": "Parishes of Andorra",
+          "label": "Parishes of Andorra (l=608)",
+          "country_iso": "AD"
         }
       ]
     },
@@ -16,39 +52,116 @@
       "country": "Austria",
       "regions": [
         {
-          "id": 358,
-          "name": "Tyrol",
-          "label": "Tyrol, Austria"
+          "id": 73,
+          "name": "Austria",
+          "label": "Austria (l=73)",
+          "country_iso": "AT"
         },
         {
-          "id": 359,
-          "name": "Salzburg",
-          "label": "Salzburg, Austria"
+          "id": 87,
+          "name": "Austrian Alps",
+          "label": "Austrian Alps (l=87)",
+          "country_iso": "AT"
         },
         {
-          "id": 360,
-          "name": "Vorarlberg",
-          "label": "Vorarlberg, Austria"
+          "id": 313,
+          "name": "Burgenland",
+          "label": "Burgenland (l=313)",
+          "country_iso": "AT"
         },
         {
-          "id": 361,
+          "id": 305,
           "name": "Carinthia",
-          "label": "Carinthia, Austria"
+          "label": "Carinthia (l=305)",
+          "country_iso": "AT"
         },
         {
-          "id": 362,
-          "name": "Styria",
-          "label": "Styria, Austria"
+          "id": 346,
+          "name": "Chiemgau Alps",
+          "label": "Chiemgau Alps (l=346)",
+          "country_iso": "AT"
         },
         {
-          "id": 363,
-          "name": "Upper Austria",
-          "label": "Upper Austria, Austria"
+          "id": 345,
+          "name": "Karwendel",
+          "label": "Karwendel (l=345)",
+          "country_iso": "AT"
         },
         {
-          "id": 364,
+          "id": 308,
           "name": "Lower Austria",
-          "label": "Lower Austria, Austria"
+          "label": "Lower Austria (l=308)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 293,
+          "name": "Salzburg",
+          "label": "Salzburg (l=293)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 472,
+          "name": "South-Moravian Carpathians",
+          "label": "South-Moravian Carpathians (l=472)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 306,
+          "name": "Styria",
+          "label": "Styria (l=306)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 292,
+          "name": "Tyrol",
+          "label": "Tyrol (l=292)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 307,
+          "name": "Upper Austria",
+          "label": "Upper Austria (l=307)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 309,
+          "name": "Vienna",
+          "label": "Vienna (l=309)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 291,
+          "name": "Vorarlberg",
+          "label": "Vorarlberg (l=291)",
+          "country_iso": "AT"
+        },
+        {
+          "id": 343,
+          "name": "Wetterstein",
+          "label": "Wetterstein (l=343)",
+          "country_iso": "AT"
+        }
+      ]
+    },
+    {
+      "country": "BA",
+      "regions": [
+        {
+          "id": 519,
+          "name": "Bosnia and Herzegovina",
+          "label": "Bosnia and Herzegovina (l=519)",
+          "country_iso": "BA"
+        }
+      ]
+    },
+    {
+      "country": "BG",
+      "regions": [
+        {
+          "id": 544,
+          "name": "Bulgaria",
+          "label": "Bulgaria (l=544)",
+          "country_iso": "BG"
         }
       ]
     },
@@ -56,64 +169,535 @@
       "country": "Belgium",
       "regions": [
         {
-          "id": 239,
+          "id": 296,
+          "name": "Antwerp Province",
+          "label": "Antwerp Province (l=296)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 49,
           "name": "Ardennes",
-          "label": "Ardennes, Belgium"
+          "label": "Ardennes (l=49)",
+          "country_iso": "BE"
         },
         {
-          "id": 240,
-          "name": "Liège",
-          "label": "Liège, Belgium"
+          "id": 96,
+          "name": "Ardennes Brabançonnes",
+          "label": "Ardennes Brabançonnes (l=96)",
+          "country_iso": "BE"
         },
         {
-          "id": 241,
-          "name": "Namur",
-          "label": "Namur, Belgium"
+          "id": 85,
+          "name": "Belgian Ardennes",
+          "label": "Belgian Ardennes (l=85)",
+          "country_iso": "BE"
         },
         {
-          "id": 242,
-          "name": "Luxembourg (BE)",
-          "label": "Luxembourg (BE), Belgium"
+          "id": 361,
+          "name": "Belgian Lorraine",
+          "label": "Belgian Lorraine (l=361)",
+          "country_iso": "BE"
         },
         {
-          "id": 243,
-          "name": "Hainaut",
-          "label": "Hainaut, Belgium"
+          "id": 315,
+          "name": "Belgian Luxembourg",
+          "label": "Belgian Luxembourg (l=315)",
+          "country_iso": "BE"
         },
         {
-          "id": 244,
+          "id": 99,
+          "name": "Belgian Picardy",
+          "label": "Belgian Picardy (l=99)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 43,
+          "name": "Belgium",
+          "label": "Belgium (l=43)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 124,
+          "name": "Belgium Coast",
+          "label": "Belgium Coast (l=124)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 302,
+          "name": "Belgium Limburg",
+          "label": "Belgium Limburg (l=302)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 131,
+          "name": "Borinage and Center",
+          "label": "Borinage and Center (l=131)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 127,
+          "name": "Brabantic Hesbaye",
+          "label": "Brabantic Hesbaye (l=127)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 126,
+          "name": "Brabantse Kouters",
+          "label": "Brabantse Kouters (l=126)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 314,
+          "name": "Brussels-Capital Region",
+          "label": "Brussels-Capital Region (l=314)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 128,
+          "name": "Condroz - Famenne",
+          "label": "Condroz - Famenne (l=128)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 356,
+          "name": "Denderland",
+          "label": "Denderland (l=356)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 332,
+          "name": "Dijleland",
+          "label": "Dijleland (l=332)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 358,
+          "name": "Druivenstreek",
+          "label": "Druivenstreek (l=358)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 298,
           "name": "East Flanders",
-          "label": "East Flanders, Belgium"
+          "label": "East Flanders (l=298)",
+          "country_iso": "BE"
         },
         {
-          "id": 245,
-          "name": "West Flanders",
-          "label": "West Flanders, Belgium"
+          "id": 129,
+          "name": "Fagne",
+          "label": "Fagne (l=129)",
+          "country_iso": "BE"
         },
         {
-          "id": 246,
+          "id": 370,
+          "name": "Flanders",
+          "label": "Flanders (l=370)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 50,
+          "name": "Flemish Ardennes",
+          "label": "Flemish Ardennes (l=50)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 301,
           "name": "Flemish Brabant",
-          "label": "Flemish Brabant, Belgium"
+          "label": "Flemish Brabant (l=301)",
+          "country_iso": "BE"
         },
         {
-          "id": 247,
-          "name": "Antwerp",
-          "label": "Antwerp, Belgium"
+          "id": 363,
+          "name": "Forest of Saint-Hubert",
+          "label": "Forest of Saint-Hubert (l=363)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 360,
+          "name": "Gaume",
+          "label": "Gaume (l=360)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 97,
+          "name": "Hageland",
+          "label": "Hageland (l=97)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 300,
+          "name": "Hainaut Province",
+          "label": "Hainaut Province (l=300)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 98,
+          "name": "Haspengouw",
+          "label": "Haspengouw (l=98)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 380,
+          "name": "Haute Ardenne",
+          "label": "Haute Ardenne (l=380)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 362,
+          "name": "Haute-Sûre Forêt d'Anlier",
+          "label": "Haute-Sûre Forêt d'Anlier (l=362)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 364,
+          "name": "Hauts-Pays",
+          "label": "Hauts-Pays (l=364)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 135,
+          "name": "Heart of the Ardennes",
+          "label": "Heart of the Ardennes (l=135)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 133,
+          "name": "High Fens & East Cantons",
+          "label": "High Fens & East Cantons (l=133)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 138,
+          "name": "Hinterland of Bruges",
+          "label": "Hinterland of Bruges (l=138)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 134,
+          "name": "Kempens Plateau",
+          "label": "Kempens Plateau (l=134)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 359,
+          "name": "Land of Arlon",
+          "label": "Land of Arlon (l=359)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 125,
+          "name": "Leiestreek",
+          "label": "Leiestreek (l=125)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 137,
+          "name": "Lesse Valley",
+          "label": "Lesse Valley (l=137)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 304,
+          "name": "Liège Province",
+          "label": "Liège Province (l=304)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 121,
+          "name": "Meetjesland",
+          "label": "Meetjesland (l=121)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 331,
+          "name": "Namur Province",
+          "label": "Namur Province (l=331)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 354,
+          "name": "Oost-Vlaamse bloemenstreek",
+          "label": "Oost-Vlaamse bloemenstreek (l=354)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 77,
+          "name": "Pajottenland",
+          "label": "Pajottenland (l=77)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 376,
+          "name": "Pays de Charleroi",
+          "label": "Pays de Charleroi (l=376)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 48,
+          "name": "Pays de Herve",
+          "label": "Pays de Herve (l=48)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 378,
+          "name": "Pays de Liège",
+          "label": "Pays de Liège (l=378)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 67,
+          "name": "Pays des Collines",
+          "label": "Pays des Collines (l=67)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 120,
+          "name": "Plateau of Tielt",
+          "label": "Plateau of Tielt (l=120)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 119,
+          "name": "Plateau of Wijnendale",
+          "label": "Plateau of Wijnendale (l=119)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 123,
+          "name": "Rivierenland",
+          "label": "Rivierenland (l=123)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 118,
+          "name": "Rug van Westrozebeke",
+          "label": "Rug van Westrozebeke (l=118)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 366,
+          "name": "Rupelstreek",
+          "label": "Rupelstreek (l=366)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 367,
+          "name": "Sambre-Orneau",
+          "label": "Sambre-Orneau (l=367)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 333,
+          "name": "Schelde-Durme",
+          "label": "Schelde-Durme (l=333)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 132,
+          "name": "Semois Valley",
+          "label": "Semois Valley (l=132)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 377,
+          "name": "Thudinie",
+          "label": "Thudinie (l=377)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 130,
+          "name": "Valleys of the Meuse, Sambre and Orneau",
+          "label": "Valleys of the Meuse, Sambre and Orneau (l=130)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 136,
+          "name": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
+          "label": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe (l=136)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 368,
+          "name": "Vallées de la Burdinale et de la Mehaigne",
+          "label": "Vallées de la Burdinale et de la Mehaigne (l=368)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 357,
+          "name": "Voer-Region",
+          "label": "Voer-Region (l=357)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 122,
+          "name": "Waasland",
+          "label": "Waasland (l=122)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 371,
+          "name": "Wallonia",
+          "label": "Wallonia (l=371)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 303,
+          "name": "Walloon Brabant",
+          "label": "Walloon Brabant (l=303)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 299,
+          "name": "West Flanders",
+          "label": "West Flanders (l=299)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 51,
+          "name": "West-Flemish Hills",
+          "label": "West-Flemish Hills (l=51)",
+          "country_iso": "BE"
+        },
+        {
+          "id": 382,
+          "name": "Westhoek",
+          "label": "Westhoek (l=382)",
+          "country_iso": "BE"
         }
       ]
     },
     {
-      "country": "Colombia",
+      "country": "CA",
       "regions": [
         {
-          "id": 420,
-          "name": "Boyacá",
-          "label": "Boyacá, Colombia"
+          "id": 965,
+          "name": "Canada",
+          "label": "Canada (l=965)",
+          "country_iso": "CA"
         },
         {
-          "id": 421,
-          "name": "Antioquia",
-          "label": "Antioquia, Colombia"
+          "id": 960,
+          "name": "North America",
+          "label": "North America (l=960)",
+          "country_iso": "CA"
+        }
+      ]
+    },
+    {
+      "country": "CY",
+      "regions": [
+        {
+          "id": 268,
+          "name": "Cyprus",
+          "label": "Cyprus (l=268)",
+          "country_iso": "CY"
+        }
+      ]
+    },
+    {
+      "country": "CZ",
+      "regions": [
+        {
+          "id": 636,
+          "name": "Central Bohemian Region",
+          "label": "Central Bohemian Region (l=636)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 471,
+          "name": "Central Moravian Carpathians",
+          "label": "Central Moravian Carpathians (l=471)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 89,
+          "name": "Czechia",
+          "label": "Czechia (l=89)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 630,
+          "name": "Hradec Králové Region",
+          "label": "Hradec Králové Region (l=630)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 633,
+          "name": "Karlovy Vary Region",
+          "label": "Karlovy Vary Region (l=633)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 631,
+          "name": "Liberec Region",
+          "label": "Liberec Region (l=631)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 624,
+          "name": "Moravian-Silesian Region",
+          "label": "Moravian-Silesian Region (l=624)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 626,
+          "name": "Olomouc Region",
+          "label": "Olomouc Region (l=626)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 629,
+          "name": "Pardubice Region",
+          "label": "Pardubice Region (l=629)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 634,
+          "name": "Plzeň Region",
+          "label": "Plzeň Region (l=634)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 637,
+          "name": "Prague",
+          "label": "Prague (l=637)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 470,
+          "name": "Slovak-Moravian Carpathians",
+          "label": "Slovak-Moravian Carpathians (l=470)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 635,
+          "name": "South Bohemian Region",
+          "label": "South Bohemian Region (l=635)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 627,
+          "name": "South Moravian Region",
+          "label": "South Moravian Region (l=627)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 628,
+          "name": "Vysočina Region",
+          "label": "Vysočina Region (l=628)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 625,
+          "name": "Zlín Region",
+          "label": "Zlín Region (l=625)",
+          "country_iso": "CZ"
+        },
+        {
+          "id": 632,
+          "name": "Ústecký Region",
+          "label": "Ústecký Region (l=632)",
+          "country_iso": "CZ"
         }
       ]
     },
@@ -121,9 +705,504 @@
       "country": "Croatia",
       "regions": [
         {
-          "id": 395,
+          "id": 455,
           "name": "Croatia",
-          "label": "Croatia, Croatia"
+          "label": "Croatia (l=455)",
+          "country_iso": "HR"
+        },
+        {
+          "id": 655,
+          "name": "Dinaric Alps",
+          "label": "Dinaric Alps (l=655)",
+          "country_iso": "HR"
+        }
+      ]
+    },
+    {
+      "country": "Denmark",
+      "regions": [
+        {
+          "id": 178,
+          "name": "Bornholm",
+          "label": "Bornholm (l=178)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 421,
+          "name": "Capital Region",
+          "label": "Capital Region (l=421)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 418,
+          "name": "Central Denmark",
+          "label": "Central Denmark (l=418)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 167,
+          "name": "Denmark",
+          "label": "Denmark (l=167)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 437,
+          "name": "Djursland",
+          "label": "Djursland (l=437)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 374,
+          "name": "Horsens Fjord",
+          "label": "Horsens Fjord (l=374)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 373,
+          "name": "Kronjylland",
+          "label": "Kronjylland (l=373)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 180,
+          "name": "Lillebælt / Little Belt",
+          "label": "Lillebælt / Little Belt (l=180)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 417,
+          "name": "North Jutland",
+          "label": "North Jutland (l=417)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 419,
+          "name": "Southern Denmark",
+          "label": "Southern Denmark (l=419)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 176,
+          "name": "Søhøjlandet",
+          "label": "Søhøjlandet (l=176)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 168,
+          "name": "Vejle Fjord",
+          "label": "Vejle Fjord (l=168)",
+          "country_iso": "DK"
+        },
+        {
+          "id": 420,
+          "name": "Zealand",
+          "label": "Zealand (l=420)",
+          "country_iso": "DK"
+        }
+      ]
+    },
+    {
+      "country": "EN",
+      "regions": [
+        {
+          "id": 839,
+          "name": "Bedfordshire",
+          "label": "Bedfordshire (l=839)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 832,
+          "name": "Berkshire",
+          "label": "Berkshire (l=832)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 823,
+          "name": "Bristol",
+          "label": "Bristol (l=823)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 834,
+          "name": "Buckinghamshire",
+          "label": "Buckinghamshire (l=834)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 840,
+          "name": "Cambridgeshire",
+          "label": "Cambridgeshire (l=840)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 853,
+          "name": "Cheshire",
+          "label": "Cheshire (l=853)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 645,
+          "name": "Cornwall",
+          "label": "Cornwall (l=645)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 866,
+          "name": "Cotswolds",
+          "label": "Cotswolds (l=866)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 857,
+          "name": "Cumbria",
+          "label": "Cumbria (l=857)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 867,
+          "name": "Dartmoor",
+          "label": "Dartmoor (l=867)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 845,
+          "name": "Derbyshire",
+          "label": "Derbyshire (l=845)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 820,
+          "name": "Devon",
+          "label": "Devon (l=820)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 821,
+          "name": "Dorset",
+          "label": "Dorset (l=821)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 862,
+          "name": "Durham",
+          "label": "Durham (l=862)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 396,
+          "name": "East Midlands",
+          "label": "East Midlands (l=396)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 398,
+          "name": "East of England",
+          "label": "East of England (l=398)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 860,
+          "name": "East Riding of Yorkshire",
+          "label": "East Riding of Yorkshire (l=860)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 829,
+          "name": "East Sussex",
+          "label": "East Sussex (l=829)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 158,
+          "name": "England",
+          "label": "England (l=158)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 835,
+          "name": "Essex",
+          "label": "Essex (l=835)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 825,
+          "name": "Gloucestershire",
+          "label": "Gloucestershire (l=825)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 399,
+          "name": "Greater London",
+          "label": "Greater London (l=399)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 855,
+          "name": "Greater Manchester",
+          "label": "Greater Manchester (l=855)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 827,
+          "name": "Hampshire",
+          "label": "Hampshire (l=827)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 850,
+          "name": "Herefordshire",
+          "label": "Herefordshire (l=850)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 838,
+          "name": "Hertfordshire",
+          "label": "Hertfordshire (l=838)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 826,
+          "name": "Isle of Wight",
+          "label": "Isle of Wight (l=826)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 831,
+          "name": "Kent",
+          "label": "Kent (l=831)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 643,
+          "name": "Lake District",
+          "label": "Lake District (l=643)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 856,
+          "name": "Lancashire",
+          "label": "Lancashire (l=856)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 846,
+          "name": "Leicestershire",
+          "label": "Leicestershire (l=846)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 843,
+          "name": "Lincolnshire",
+          "label": "Lincolnshire (l=843)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 854,
+          "name": "Merseyside",
+          "label": "Merseyside (l=854)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 837,
+          "name": "Norfolk",
+          "label": "Norfolk (l=837)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 393,
+          "name": "North East England",
+          "label": "North East England (l=393)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 869,
+          "name": "North Wessex Downs",
+          "label": "North Wessex Downs (l=869)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 394,
+          "name": "North West England",
+          "label": "North West England (l=394)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 861,
+          "name": "North Yorkshire",
+          "label": "North Yorkshire (l=861)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 841,
+          "name": "Northamptonshire",
+          "label": "Northamptonshire (l=841)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 864,
+          "name": "Northumberland",
+          "label": "Northumberland (l=864)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 844,
+          "name": "Nottinghamshire",
+          "label": "Nottinghamshire (l=844)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 833,
+          "name": "Oxfordshire",
+          "label": "Oxfordshire (l=833)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 644,
+          "name": "Peak District",
+          "label": "Peak District (l=644)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 842,
+          "name": "Rutland",
+          "label": "Rutland (l=842)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 851,
+          "name": "Shropshire",
+          "label": "Shropshire (l=851)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 822,
+          "name": "Somerset",
+          "label": "Somerset (l=822)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 400,
+          "name": "South East England",
+          "label": "South East England (l=400)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 401,
+          "name": "South West England",
+          "label": "South West England (l=401)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 858,
+          "name": "South Yorkshire",
+          "label": "South Yorkshire (l=858)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 852,
+          "name": "Staffordshire",
+          "label": "Staffordshire (l=852)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 836,
+          "name": "Suffolk",
+          "label": "Suffolk (l=836)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 830,
+          "name": "Surrey",
+          "label": "Surrey (l=830)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 868,
+          "name": "The Chilterns",
+          "label": "The Chilterns (l=868)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 863,
+          "name": "Tyne and Wear",
+          "label": "Tyne and Wear (l=863)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 847,
+          "name": "Warwickshire",
+          "label": "Warwickshire (l=847)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 397,
+          "name": "West Midlands",
+          "label": "West Midlands (l=397)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 848,
+          "name": "West Midlands",
+          "label": "West Midlands (l=848)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 828,
+          "name": "West Sussex",
+          "label": "West Sussex (l=828)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 859,
+          "name": "West Yorkshire",
+          "label": "West Yorkshire (l=859)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 824,
+          "name": "Wiltshire",
+          "label": "Wiltshire (l=824)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 849,
+          "name": "Worcestershire",
+          "label": "Worcestershire (l=849)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 395,
+          "name": "Yorkshire and the Humber",
+          "label": "Yorkshire and the Humber (l=395)",
+          "country_iso": "EN"
+        },
+        {
+          "id": 865,
+          "name": "Yorkshire Dales",
+          "label": "Yorkshire Dales (l=865)",
+          "country_iso": "EN"
+        }
+      ]
+    },
+    {
+      "country": "FI",
+      "regions": [
+        {
+          "id": 173,
+          "name": "Finland",
+          "label": "Finland (l=173)",
+          "country_iso": "FI"
+        }
+      ]
+    },
+    {
+      "country": "FO",
+      "regions": [
+        {
+          "id": 518,
+          "name": "Faroe Islands",
+          "label": "Faroe Islands (l=518)",
+          "country_iso": "FO"
         }
       ]
     },
@@ -131,164 +1210,865 @@
       "country": "France",
       "regions": [
         {
-          "id": 288,
-          "name": "Haute-Savoie",
-          "label": "Haute-Savoie, France"
+          "id": 193,
+          "name": "Ain",
+          "label": "Ain (l=193)",
+          "country_iso": "FR"
         },
         {
-          "id": 957,
-          "name": "Savoie",
-          "label": "Savoie, France"
+          "id": 413,
+          "name": "Aisne",
+          "label": "Aisne (l=413)",
+          "country_iso": "FR"
         },
         {
-          "id": 192,
-          "name": "Hautes-Alpes",
-          "label": "Hautes-Alpes, France"
+          "id": 416,
+          "name": "Allier",
+          "label": "Allier (l=416)",
+          "country_iso": "FR"
         },
         {
           "id": 290,
           "name": "Alpes-de-Haute-Provence",
-          "label": "Alpes-de-Haute-Provence, France"
+          "label": "Alpes-de-Haute-Provence (l=290)",
+          "country_iso": "FR"
         },
         {
           "id": 379,
           "name": "Alpes-Maritimes",
-          "label": "Alpes-Maritimes, France"
+          "label": "Alpes-Maritimes (l=379)",
+          "country_iso": "FR"
         },
         {
-          "id": 291,
-          "name": "Isère",
-          "label": "Isère, France"
+          "id": 36,
+          "name": "Alps",
+          "label": "Alps (l=36)",
+          "country_iso": "FR"
         },
         {
-          "id": 292,
-          "name": "Drôme",
-          "label": "Drôme, France"
+          "id": 65,
+          "name": "Annecy",
+          "label": "Annecy (l=65)",
+          "country_iso": "FR"
         },
         {
-          "id": 295,
-          "name": "Vosges",
-          "label": "Vosges, France"
+          "id": 422,
+          "name": "Ardennes (France)",
+          "label": "Ardennes (France) (l=422)",
+          "country_iso": "FR"
         },
         {
-          "id": 186,
-          "name": "Pyrénées-Atlantiques",
-          "label": "Pyrénées-Atlantiques, France"
-        },
-        {
-          "id": 187,
-          "name": "Hautes-Pyrénées",
-          "label": "Hautes-Pyrénées, France"
-        },
-        {
-          "id": 188,
-          "name": "Pyrénées-Orientales",
-          "label": "Pyrénées-Orientales, France"
-        },
-        {
-          "id": 189,
-          "name": "Ariège",
-          "label": "Ariège, France"
-        },
-        {
-          "id": 190,
-          "name": "Haute-Garonne",
-          "label": "Haute-Garonne, France"
-        },
-        {
-          "id": 191,
-          "name": "Aude",
-          "label": "Aude, France"
-        },
-        {
-          "id": 193,
-          "name": "Hérault",
-          "label": "Hérault, France"
-        },
-        {
-          "id": 194,
-          "name": "Gard",
-          "label": "Gard, France"
-        },
-        {
-          "id": 195,
+          "id": 57,
           "name": "Ardèche",
-          "label": "Ardèche, France"
+          "label": "Ardèche (l=57)",
+          "country_iso": "FR"
         },
         {
-          "id": 196,
-          "name": "Loire",
-          "label": "Loire, France"
+          "id": 900,
+          "name": "Ardèche",
+          "label": "Ardèche (l=900)",
+          "country_iso": "FR"
         },
         {
-          "id": 197,
-          "name": "Puy-de-Dôme",
-          "label": "Puy-de-Dôme, France"
+          "id": 423,
+          "name": "Ariège",
+          "label": "Ariège (l=423)",
+          "country_iso": "FR"
         },
         {
-          "id": 198,
-          "name": "Cantal",
-          "label": "Cantal, France"
+          "id": 350,
+          "name": "Armorican Massif",
+          "label": "Armorican Massif (l=350)",
+          "country_iso": "FR"
         },
         {
-          "id": 199,
+          "id": 425,
+          "name": "Aube",
+          "label": "Aube (l=425)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 426,
+          "name": "Aude",
+          "label": "Aude (l=426)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 61,
+          "name": "Auvergne",
+          "label": "Auvergne (l=61)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 445,
+          "name": "Auvergne-Rhône-Alpes",
+          "label": "Auvergne-Rhône-Alpes (l=445)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 427,
           "name": "Aveyron",
-          "label": "Aveyron, France"
+          "label": "Aveyron (l=427)",
+          "country_iso": "FR"
         },
         {
-          "id": 200,
-          "name": "Lozère",
-          "label": "Lozère, France"
+          "id": 144,
+          "name": "Beaujolais",
+          "label": "Beaujolais (l=144)",
+          "country_iso": "FR"
         },
         {
-          "id": 380,
-          "name": "Var",
-          "label": "Var, France"
-        },
-        {
-          "id": 381,
-          "name": "Vaucluse",
-          "label": "Vaucluse, France"
-        },
-        {
-          "id": 382,
+          "id": 415,
           "name": "Bouches-du-Rhône",
-          "label": "Bouches-du-Rhône, France"
+          "label": "Bouches-du-Rhône (l=415)",
+          "country_iso": "FR"
         },
         {
-          "id": 293,
-          "name": "Ain",
-          "label": "Ain, France"
+          "id": 42,
+          "name": "Briançon",
+          "label": "Briançon (l=42)",
+          "country_iso": "FR"
         },
         {
-          "id": 294,
-          "name": "Jura",
-          "label": "Jura, France"
+          "id": 446,
+          "name": "Brittany",
+          "label": "Brittany (l=446)",
+          "country_iso": "FR"
         },
         {
-          "id": 296,
+          "id": 435,
+          "name": "Burgundy-Franche-Comté",
+          "label": "Burgundy-Franche-Comté (l=435)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 429,
+          "name": "Calvados",
+          "label": "Calvados (l=429)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 430,
+          "name": "Cantal",
+          "label": "Cantal (l=430)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 152,
+          "name": "Caps et Marais d'Opale",
+          "label": "Caps et Marais d'Opale (l=152)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 447,
+          "name": "Centre-Val de Loire",
+          "label": "Centre-Val de Loire (l=447)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 431,
+          "name": "Charente",
+          "label": "Charente (l=431)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 432,
+          "name": "Charente-Maritime",
+          "label": "Charente-Maritime (l=432)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 433,
+          "name": "Cher",
+          "label": "Cher (l=433)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 434,
+          "name": "Corrèze",
+          "label": "Corrèze (l=434)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 80,
+          "name": "Corsica",
+          "label": "Corsica (l=80)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 439,
+          "name": "Creuse",
+          "label": "Creuse (l=439)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 145,
+          "name": "Cévennes",
+          "label": "Cévennes (l=145)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 436,
+          "name": "Côte-d'Or",
+          "label": "Côte-d'Or (l=436)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 438,
+          "name": "Côtes-d'Armor",
+          "label": "Côtes-d'Armor (l=438)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 903,
+          "name": "Deux-Sèvres",
+          "label": "Deux-Sèvres (l=903)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 440,
+          "name": "Dordogne",
+          "label": "Dordogne (l=440)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 441,
           "name": "Doubs",
-          "label": "Doubs, France"
+          "label": "Doubs (l=441)",
+          "country_iso": "FR"
         },
         {
-          "id": 297,
-          "name": "Bas-Rhin",
-          "label": "Bas-Rhin, France"
+          "id": 442,
+          "name": "Drôme",
+          "label": "Drôme (l=442)",
+          "country_iso": "FR"
         },
         {
-          "id": 298,
-          "name": "Haut-Rhin",
-          "label": "Haut-Rhin, France"
+          "id": 914,
+          "name": "Essonne",
+          "label": "Essonne (l=914)",
+          "country_iso": "FR"
         },
         {
-          "id": 383,
-          "name": "Corse-du-Sud",
-          "label": "Corse-du-Sud, France"
+          "id": 443,
+          "name": "Eure",
+          "label": "Eure (l=443)",
+          "country_iso": "FR"
         },
         {
-          "id": 384,
-          "name": "Haute-Corse",
-          "label": "Haute-Corse, France"
+          "id": 444,
+          "name": "Eure-et-Loir",
+          "label": "Eure-et-Loir (l=444)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 25,
+          "name": "Europe",
+          "label": "Europe (l=25)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 148,
+          "name": "Euskal Herria",
+          "label": "Euskal Herria (l=148)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 915,
+          "name": "Finistère",
+          "label": "Finistère (l=915)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 44,
+          "name": "France",
+          "label": "France (l=44)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 37,
+          "name": "French Alps",
+          "label": "French Alps (l=37)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 84,
+          "name": "French Ardennes",
+          "label": "French Ardennes (l=84)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 82,
+          "name": "French Pyrenees",
+          "label": "French Pyrenees (l=82)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 916,
+          "name": "Gard",
+          "label": "Gard (l=916)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 666,
+          "name": "Gers",
+          "label": "Gers (l=666)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 917,
+          "name": "Gironde",
+          "label": "Gironde (l=917)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 448,
+          "name": "Grand Est",
+          "label": "Grand Est (l=448)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 64,
+          "name": "Grenoble",
+          "label": "Grenoble (l=64)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 288,
+          "name": "Haute Savoie",
+          "label": "Haute Savoie (l=288)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 873,
+          "name": "Haute-Garonne",
+          "label": "Haute-Garonne (l=873)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 925,
+          "name": "Haute-Loire",
+          "label": "Haute-Loire (l=925)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 940,
+          "name": "Haute-Marne",
+          "label": "Haute-Marne (l=940)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 954,
+          "name": "Haute-Saône",
+          "label": "Haute-Saône (l=954)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 910,
+          "name": "Haute-Vienne",
+          "label": "Haute-Vienne (l=910)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 192,
+          "name": "Hautes Alpes",
+          "label": "Hautes Alpes (l=192)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 899,
+          "name": "Hautes-Pyrénées",
+          "label": "Hautes-Pyrénées (l=899)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 449,
+          "name": "Hauts-de-France",
+          "label": "Hauts-de-France (l=449)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 929,
+          "name": "Hauts-de-Seine",
+          "label": "Hauts-de-Seine (l=929)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 897,
+          "name": "Hérault",
+          "label": "Hérault (l=897)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 918,
+          "name": "Ille-et-Vilaine",
+          "label": "Ille-et-Vilaine (l=918)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 922,
+          "name": "Indre",
+          "label": "Indre (l=922)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 919,
+          "name": "Indre-et-Loire",
+          "label": "Indre-et-Loire (l=919)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 289,
+          "name": "Isère",
+          "label": "Isère (l=289)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 55,
+          "name": "Jura",
+          "label": "Jura (l=55)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 920,
+          "name": "Jura",
+          "label": "Jura (l=920)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 63,
+          "name": "La Maurienne",
+          "label": "La Maurienne (l=63)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 921,
+          "name": "Landes",
+          "label": "Landes (l=921)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 923,
+          "name": "Loir-et-Cher",
+          "label": "Loir-et-Cher (l=923)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 924,
+          "name": "Loire",
+          "label": "Loire (l=924)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 411,
+          "name": "Loire-Atlantique",
+          "label": "Loire-Atlantique (l=411)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 933,
+          "name": "Loiret",
+          "label": "Loiret (l=933)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 935,
+          "name": "Lot-et-Garonne",
+          "label": "Lot-et-Garonne (l=935)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 931,
+          "name": "Lower Rhine",
+          "label": "Lower Rhine (l=931)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 937,
+          "name": "Lozère",
+          "label": "Lozère (l=937)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 938,
+          "name": "Maine-et-Loire",
+          "label": "Maine-et-Loire (l=938)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 351,
+          "name": "Manche",
+          "label": "Manche (l=351)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 939,
+          "name": "Marne",
+          "label": "Marne (l=939)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 54,
+          "name": "Massif Central",
+          "label": "Massif Central (l=54)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 941,
+          "name": "Mayenne",
+          "label": "Mayenne (l=941)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 942,
+          "name": "Meurthe-et-Moselle",
+          "label": "Meurthe-et-Moselle (l=942)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 943,
+          "name": "Meuse",
+          "label": "Meuse (l=943)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 154,
+          "name": "Monts du Forez",
+          "label": "Monts du Forez (l=154)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 157,
+          "name": "Monts du Lyonnais",
+          "label": "Monts du Lyonnais (l=157)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 945,
+          "name": "Morbihan",
+          "label": "Morbihan (l=945)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 174,
+          "name": "Morvan",
+          "label": "Morvan (l=174)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 946,
+          "name": "Moselle",
+          "label": "Moselle (l=946)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 953,
+          "name": "Métropole de Lyon",
+          "label": "Métropole de Lyon (l=953)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 947,
+          "name": "Nièvre",
+          "label": "Nièvre (l=947)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 948,
+          "name": "Nord",
+          "label": "Nord (l=948)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 451,
+          "name": "Normandy",
+          "label": "Normandy (l=451)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 452,
+          "name": "Nouvelle-Aquitaine",
+          "label": "Nouvelle-Aquitaine (l=452)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 453,
+          "name": "Occitania",
+          "label": "Occitania (l=453)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 949,
+          "name": "Oise",
+          "label": "Oise (l=949)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 950,
+          "name": "Orne",
+          "label": "Orne (l=950)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 241,
+          "name": "Palatinate Forest / Haardt",
+          "label": "Palatinate Forest / Haardt (l=241)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 959,
+          "name": "Paris",
+          "label": "Paris (l=959)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 153,
+          "name": "Pas-de-Calais",
+          "label": "Pas-de-Calais (l=153)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 454,
+          "name": "Pays de la Loire",
+          "label": "Pays de la Loire (l=454)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 646,
+          "name": "Provence",
+          "label": "Provence (l=646)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 58,
+          "name": "Provence-Alpes-Côte d'Azur",
+          "label": "Provence-Alpes-Côte d'Azur (l=58)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 951,
+          "name": "Puy-de-Dôme",
+          "label": "Puy-de-Dôme (l=951)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 53,
+          "name": "Pyrenees",
+          "label": "Pyrenees (l=53)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 898,
+          "name": "Pyrénées-Atlantiques",
+          "label": "Pyrénées-Atlantiques (l=898)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 952,
+          "name": "Pyrénées-Orientales",
+          "label": "Pyrénées-Orientales (l=952)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 930,
+          "name": "Rhône",
+          "label": "Rhône (l=930)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 956,
+          "name": "Sarthe",
+          "label": "Sarthe (l=956)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 957,
+          "name": "Savoie",
+          "label": "Savoie (l=957)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 955,
+          "name": "Saône-et-Loire",
+          "label": "Saône-et-Loire (l=955)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 927,
+          "name": "Seine-et-Marne",
+          "label": "Seine-et-Marne (l=927)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 926,
+          "name": "Seine-Maritime",
+          "label": "Seine-Maritime (l=926)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 928,
+          "name": "Seine-Saint-Denis",
+          "label": "Seine-Saint-Denis (l=928)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 39,
+          "name": "Serre Ponçon",
+          "label": "Serre Ponçon (l=39)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 904,
+          "name": "Somme",
+          "label": "Somme (l=904)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 905,
+          "name": "Tarn",
+          "label": "Tarn (l=905)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 906,
+          "name": "Tarn-et-Garonne",
+          "label": "Tarn-et-Garonne (l=906)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 913,
+          "name": "Territoire de Belfort",
+          "label": "Territoire de Belfort (l=913)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 932,
+          "name": "Upper Rhine",
+          "label": "Upper Rhine (l=932)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 958,
+          "name": "Val-d'Oise",
+          "label": "Val-d'Oise (l=958)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 907,
+          "name": "Var",
+          "label": "Var (l=907)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 654,
+          "name": "Vaucluse",
+          "label": "Vaucluse (l=654)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 908,
+          "name": "Vendée",
+          "label": "Vendée (l=908)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 874,
+          "name": "Vercors",
+          "label": "Vercors (l=874)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 909,
+          "name": "Vienne",
+          "label": "Vienne (l=909)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 52,
+          "name": "Vosges",
+          "label": "Vosges (l=52)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 911,
+          "name": "Vosges",
+          "label": "Vosges (l=911)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 349,
+          "name": "Westrich Plateau",
+          "label": "Westrich Plateau (l=349)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 1,
+          "name": "World",
+          "label": "World (l=1)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 912,
+          "name": "Yonne",
+          "label": "Yonne (l=912)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 902,
+          "name": "Yvelines",
+          "label": "Yvelines (l=902)",
+          "country_iso": "FR"
+        },
+        {
+          "id": 450,
+          "name": "Île-de-France",
+          "label": "Île-de-France (l=450)",
+          "country_iso": "FR"
+        }
+      ]
+    },
+    {
+      "country": "GG",
+      "regions": [
+        {
+          "id": 617,
+          "name": "Guernsey",
+          "label": "Guernsey (l=617)",
+          "country_iso": "GG"
+        }
+      ]
+    },
+    {
+      "country": "GI",
+      "regions": [
+        {
+          "id": 169,
+          "name": "Gibraltar",
+          "label": "Gibraltar (l=169)",
+          "country_iso": "GI"
+        }
+      ]
+    },
+    {
+      "country": "GR",
+      "regions": [
+        {
+          "id": 179,
+          "name": "Crete",
+          "label": "Crete (l=179)",
+          "country_iso": "GR"
+        },
+        {
+          "id": 170,
+          "name": "Greece",
+          "label": "Greece (l=170)",
+          "country_iso": "GR"
+        },
+        {
+          "id": 641,
+          "name": "Peloponnese",
+          "label": "Peloponnese (l=641)",
+          "country_iso": "GR"
         }
       ]
     },
@@ -296,44 +2076,684 @@
       "country": "Germany",
       "regions": [
         {
-          "id": 340,
-          "name": "Bavaria",
-          "label": "Bavaria, Germany"
-        },
-        {
           "id": 341,
-          "name": "Baden-Württemberg",
-          "label": "Baden-Württemberg, Germany"
+          "name": "Allgäu Alps",
+          "label": "Allgäu Alps (l=341)",
+          "country_iso": "DE"
         },
         {
           "id": 342,
-          "name": "Hesse",
-          "label": "Hesse, Germany"
+          "name": "Ammergau Alps",
+          "label": "Ammergau Alps (l=342)",
+          "country_iso": "DE"
         },
         {
-          "id": 343,
-          "name": "Rhineland-Palatinate",
-          "label": "Rhineland-Palatinate, Germany"
+          "id": 894,
+          "name": "Arnsberg",
+          "label": "Arnsberg (l=894)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 223,
+          "name": "Baden-Württemberg",
+          "label": "Baden-Württemberg (l=223)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 238,
+          "name": "Baumberge",
+          "label": "Baumberge (l=238)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 230,
+          "name": "Bavaria",
+          "label": "Bavaria (l=230)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 348,
+          "name": "Bavarian Alps",
+          "label": "Bavarian Alps (l=348)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 250,
+          "name": "Bavarian Forest",
+          "label": "Bavarian Forest (l=250)",
+          "country_iso": "DE"
         },
         {
           "id": 344,
-          "name": "Saarland",
-          "label": "Saarland, Germany"
-        },
-        {
-          "id": 345,
-          "name": "North Rhine-Westphalia",
-          "label": "North Rhine-Westphalia, Germany"
-        },
-        {
-          "id": 346,
-          "name": "Thuringia",
-          "label": "Thuringia, Germany"
+          "name": "Bavarian Prealps",
+          "label": "Bavarian Prealps (l=344)",
+          "country_iso": "DE"
         },
         {
           "id": 347,
+          "name": "Berchtesgaden Alps",
+          "label": "Berchtesgaden Alps (l=347)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 261,
+          "name": "Bergisch-Märkisches Hügelland",
+          "label": "Bergisch-Märkisches Hügelland (l=261)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 242,
+          "name": "Bergisches Land",
+          "label": "Bergisches Land (l=242)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 232,
+          "name": "Berlin",
+          "label": "Berlin (l=232)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 74,
+          "name": "Black Forest",
+          "label": "Black Forest (l=74)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 236,
+          "name": "Brandenburg",
+          "label": "Brandenburg (l=236)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 231,
+          "name": "Bremen",
+          "label": "Bremen (l=231)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 893,
+          "name": "Cologne",
+          "label": "Cologne (l=893)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 888,
+          "name": "Darmstadt",
+          "label": "Darmstadt (l=888)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 895,
+          "name": "Detmold",
+          "label": "Detmold (l=895)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 892,
+          "name": "Düsseldorf",
+          "label": "Düsseldorf (l=892)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 106,
+          "name": "Eifel",
+          "label": "Eifel (l=106)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 285,
+          "name": "Elbe Sandstone Mountains",
+          "label": "Elbe Sandstone Mountains (l=285)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 252,
+          "name": "Fichtel Mountains",
+          "label": "Fichtel Mountains (l=252)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 896,
+          "name": "Franconian Forest",
+          "label": "Franconian Forest (l=896)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 248,
+          "name": "Franconian Jura",
+          "label": "Franconian Jura (l=248)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 336,
+          "name": "Franconian Keuper-Lias Plains",
+          "label": "Franconian Keuper-Lias Plains (l=336)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 886,
+          "name": "Freiburg",
+          "label": "Freiburg (l=886)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 69,
+          "name": "Germany",
+          "label": "Germany (l=69)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 889,
+          "name": "Giessen",
+          "label": "Giessen (l=889)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 335,
+          "name": "Gäu Plateaus",
+          "label": "Gäu Plateaus (l=335)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 224,
+          "name": "Hamburg",
+          "label": "Hamburg (l=224)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 245,
+          "name": "Harz",
+          "label": "Harz (l=245)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 234,
+          "name": "Hesse",
+          "label": "Hesse (l=234)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 239,
+          "name": "Hunsrück",
+          "label": "Hunsrück (l=239)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 875,
+          "name": "Kaiserstuhl",
+          "label": "Kaiserstuhl (l=875)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 887,
+          "name": "Karlsruhe",
+          "label": "Karlsruhe (l=887)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 890,
+          "name": "Kassel",
+          "label": "Kassel (l=890)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 878,
+          "name": "Lower Bavaria",
+          "label": "Lower Bavaria (l=878)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 881,
+          "name": "Lower Franconia",
+          "label": "Lower Franconia (l=881)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 256,
+          "name": "Lower Saxony",
+          "label": "Lower Saxony (l=256)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 334,
+          "name": "Mainfränkische Platten",
+          "label": "Mainfränkische Platten (l=334)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 235,
+          "name": "Mecklenburg-Western Pomerania",
+          "label": "Mecklenburg-Western Pomerania (l=235)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 882,
+          "name": "Middle Franconia",
+          "label": "Middle Franconia (l=882)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 31,
+          "name": "Montferland",
+          "label": "Montferland (l=31)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 891,
+          "name": "Münster",
+          "label": "Münster (l=891)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 352,
+          "name": "Münsterland & Hohe Mark Nature Park",
+          "label": "Münsterland & Hohe Mark Nature Park (l=352)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 226,
+          "name": "North Rhine-Westphalia",
+          "label": "North Rhine-Westphalia (l=226)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 262,
+          "name": "Odenwald",
+          "label": "Odenwald (l=262)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 251,
+          "name": "Ore Mountains",
+          "label": "Ore Mountains (l=251)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 282,
+          "name": "Osthessisches Bergland",
+          "label": "Osthessisches Bergland (l=282)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 227,
+          "name": "Rhineland-Palatinate",
+          "label": "Rhineland-Palatinate (l=227)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 260,
+          "name": "Rhön Mountains",
+          "label": "Rhön Mountains (l=260)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 240,
+          "name": "Saar-Nahe Uplands",
+          "label": "Saar-Nahe Uplands (l=240)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 225,
+          "name": "Saarland",
+          "label": "Saarland (l=225)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 257,
+          "name": "Sauerland",
+          "label": "Sauerland (l=257)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 339,
+          "name": "Saxon Hills",
+          "label": "Saxon Hills (l=339)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 338,
+          "name": "Saxon Uplands",
+          "label": "Saxon Uplands (l=338)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 228,
           "name": "Saxony",
-          "label": "Saxony, Germany"
+          "label": "Saxony (l=228)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 229,
+          "name": "Saxony-Anhalt",
+          "label": "Saxony-Anhalt (l=229)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 237,
+          "name": "Schleswig-Holstein",
+          "label": "Schleswig-Holstein (l=237)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 247,
+          "name": "Spessart",
+          "label": "Spessart (l=247)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 884,
+          "name": "Stuttgart",
+          "label": "Stuttgart (l=884)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 883,
+          "name": "Swabia",
+          "label": "Swabia (l=883)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 249,
+          "name": "Swabian Jura",
+          "label": "Swabian Jura (l=249)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 337,
+          "name": "Swabian Keuper-Lias Plains",
+          "label": "Swabian Keuper-Lias Plains (l=337)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 244,
+          "name": "Taunus",
+          "label": "Taunus (l=244)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 78,
+          "name": "Teutoburg Forest",
+          "label": "Teutoburg Forest (l=78)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 233,
+          "name": "Thuringia",
+          "label": "Thuringia (l=233)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 263,
+          "name": "Thuringian Basin",
+          "label": "Thuringian Basin (l=263)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 254,
+          "name": "Thuringian Forest",
+          "label": "Thuringian Forest (l=254)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 255,
+          "name": "Thuringian-Franconian Highlands",
+          "label": "Thuringian-Franconian Highlands (l=255)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 885,
+          "name": "Tübingen",
+          "label": "Tübingen (l=885)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 877,
+          "name": "Upper Bavaria",
+          "label": "Upper Bavaria (l=877)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 880,
+          "name": "Upper Franconia",
+          "label": "Upper Franconia (l=880)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 284,
+          "name": "Upper Lusatia",
+          "label": "Upper Lusatia (l=284)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 879,
+          "name": "Upper Palatinate",
+          "label": "Upper Palatinate (l=879)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 253,
+          "name": "Upper Palatine Forest",
+          "label": "Upper Palatine Forest (l=253)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 246,
+          "name": "Vogelsberg",
+          "label": "Vogelsberg (l=246)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 340,
+          "name": "Vogtland",
+          "label": "Vogtland (l=340)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 265,
+          "name": "West Hesse Highlands",
+          "label": "West Hesse Highlands (l=265)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 243,
+          "name": "Westerwald",
+          "label": "Westerwald (l=243)",
+          "country_iso": "DE"
+        },
+        {
+          "id": 283,
+          "name": "Wiehen Hills",
+          "label": "Wiehen Hills (l=283)",
+          "country_iso": "DE"
+        }
+      ]
+    },
+    {
+      "country": "HU",
+      "regions": [
+        {
+          "id": 266,
+          "name": "Hungary",
+          "label": "Hungary (l=266)",
+          "country_iso": "HU"
+        },
+        {
+          "id": 469,
+          "name": "North Hungarian Mountains",
+          "label": "North Hungarian Mountains (l=469)",
+          "country_iso": "HU"
+        }
+      ]
+    },
+    {
+      "country": "IE",
+      "regions": [
+        {
+          "id": 670,
+          "name": "Carlow",
+          "label": "Carlow (l=670)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 672,
+          "name": "Clare",
+          "label": "Clare (l=672)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 696,
+          "name": "Connaught",
+          "label": "Connaught (l=696)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 673,
+          "name": "Cork",
+          "label": "Cork (l=673)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 674,
+          "name": "Donegal",
+          "label": "Donegal (l=674)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 675,
+          "name": "Dublin",
+          "label": "Dublin (l=675)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 676,
+          "name": "Galway",
+          "label": "Galway (l=676)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 162,
+          "name": "Ireland",
+          "label": "Ireland (l=162)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 677,
+          "name": "Kerry",
+          "label": "Kerry (l=677)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 679,
+          "name": "Kilkenny",
+          "label": "Kilkenny (l=679)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 680,
+          "name": "Laois",
+          "label": "Laois (l=680)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 698,
+          "name": "Leinster",
+          "label": "Leinster (l=698)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 682,
+          "name": "Limerick",
+          "label": "Limerick (l=682)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 684,
+          "name": "Louth",
+          "label": "Louth (l=684)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 685,
+          "name": "Mayo",
+          "label": "Mayo (l=685)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 686,
+          "name": "Meath",
+          "label": "Meath (l=686)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 697,
+          "name": "Munster",
+          "label": "Munster (l=697)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 688,
+          "name": "Offaly",
+          "label": "Offaly (l=688)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 690,
+          "name": "Sligo",
+          "label": "Sligo (l=690)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 691,
+          "name": "Tipperary",
+          "label": "Tipperary (l=691)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 699,
+          "name": "Ulster",
+          "label": "Ulster (l=699)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 692,
+          "name": "Waterford",
+          "label": "Waterford (l=692)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 694,
+          "name": "Wexford",
+          "label": "Wexford (l=694)",
+          "country_iso": "IE"
+        },
+        {
+          "id": 695,
+          "name": "Wicklow",
+          "label": "Wicklow (l=695)",
+          "country_iso": "IE"
+        }
+      ]
+    },
+    {
+      "country": "IM",
+      "regions": [
+        {
+          "id": 287,
+          "name": "Isle of Man",
+          "label": "Isle of Man (l=287)",
+          "country_iso": "IM"
+        }
+      ]
+    },
+    {
+      "country": "IS",
+      "regions": [
+        {
+          "id": 177,
+          "name": "Iceland",
+          "label": "Iceland (l=177)",
+          "country_iso": "IS"
         }
       ]
     },
@@ -341,79 +2761,991 @@
       "country": "Italy",
       "regions": [
         {
-          "id": 123,
-          "name": "Dolomites",
-          "label": "Dolomites, Italy"
+          "id": 325,
+          "name": "Abruzzo",
+          "label": "Abruzzo (l=325)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 791,
+          "name": "Agrigento",
+          "label": "Agrigento (l=791)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 778,
+          "name": "Alessandria",
+          "label": "Alessandria (l=778)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 770,
+          "name": "Ancona",
+          "label": "Ancona (l=770)",
+          "country_iso": "IT"
         },
         {
           "id": 317,
           "name": "Aosta Valley",
-          "label": "Aosta Valley, Italy"
+          "label": "Aosta Valley (l=317)",
+          "country_iso": "IT"
         },
         {
-          "id": 318,
-          "name": "Lombardy",
-          "label": "Lombardy, Italy"
-        },
-        {
-          "id": 319,
-          "name": "Piedmont",
-          "label": "Piedmont, Italy"
-        },
-        {
-          "id": 320,
-          "name": "Trentino",
-          "label": "Trentino, Italy"
-        },
-        {
-          "id": 321,
-          "name": "South Tyrol (Alto Adige)",
-          "label": "South Tyrol (Alto Adige), Italy"
-        },
-        {
-          "id": 322,
-          "name": "Veneto",
-          "label": "Veneto, Italy"
-        },
-        {
-          "id": 323,
-          "name": "Friuli Venezia Giulia",
-          "label": "Friuli Venezia Giulia, Italy"
-        },
-        {
-          "id": 324,
-          "name": "Liguria",
-          "label": "Liguria, Italy"
-        },
-        {
-          "id": 325,
-          "name": "Tuscany",
-          "label": "Tuscany, Italy"
-        },
-        {
-          "id": 326,
-          "name": "Emilia-Romagna",
-          "label": "Emilia-Romagna, Italy"
+          "id": 166,
+          "name": "Apennines",
+          "label": "Apennines (l=166)",
+          "country_iso": "IT"
         },
         {
           "id": 327,
-          "name": "Lazio",
-          "label": "Lazio, Italy"
+          "name": "Apulia",
+          "label": "Apulia (l=327)",
+          "country_iso": "IT"
         },
         {
-          "id": 328,
-          "name": "Sardinia",
-          "label": "Sardinia, Italy"
+          "id": 800,
+          "name": "Arezzo",
+          "label": "Arezzo (l=800)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 771,
+          "name": "Ascoli Piceno",
+          "label": "Ascoli Piceno (l=771)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 779,
+          "name": "Asti",
+          "label": "Asti (l=779)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 732,
+          "name": "Avellino",
+          "label": "Avellino (l=732)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 716,
+          "name": "Bari",
+          "label": "Bari (l=716)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 717,
+          "name": "Barletta-Andria-Trani",
+          "label": "Barletta-Andria-Trani (l=717)",
+          "country_iso": "IT"
         },
         {
           "id": 329,
-          "name": "Sicily",
-          "label": "Sicily, Italy"
+          "name": "Basilicata",
+          "label": "Basilicata (l=329)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 813,
+          "name": "Belluno",
+          "label": "Belluno (l=813)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 733,
+          "name": "Benevento",
+          "label": "Benevento (l=733)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 759,
+          "name": "Bergamo",
+          "label": "Bergamo (l=759)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 780,
+          "name": "Biella",
+          "label": "Biella (l=780)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 736,
+          "name": "Bologna",
+          "label": "Bologna (l=736)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 809,
+          "name": "Bolzano",
+          "label": "Bolzano (l=809)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 760,
+          "name": "Brescia",
+          "label": "Brescia (l=760)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 718,
+          "name": "Brindisi",
+          "label": "Brindisi (l=718)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 785,
+          "name": "Cagliari",
+          "label": "Cagliari (l=785)",
+          "country_iso": "IT"
         },
         {
           "id": 330,
+          "name": "Calabria",
+          "label": "Calabria (l=330)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 792,
+          "name": "Caltanissetta",
+          "label": "Caltanissetta (l=792)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 326,
           "name": "Campania",
-          "label": "Campania, Italy"
+          "label": "Campania (l=326)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 775,
+          "name": "Campobasso",
+          "label": "Campobasso (l=775)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 734,
+          "name": "Caserta",
+          "label": "Caserta (l=734)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 793,
+          "name": "Catania",
+          "label": "Catania (l=793)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 726,
+          "name": "Catanzaro",
+          "label": "Catanzaro (l=726)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 715,
+          "name": "Chieti",
+          "label": "Chieti (l=715)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 724,
+          "name": "Colli Berici",
+          "label": "Colli Berici (l=724)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 761,
+          "name": "Como",
+          "label": "Como (l=761)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 727,
+          "name": "Cosenza",
+          "label": "Cosenza (l=727)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 728,
+          "name": "Crotone",
+          "label": "Crotone (l=728)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 781,
+          "name": "Cuneo",
+          "label": "Cuneo (l=781)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 60,
+          "name": "Dolomites",
+          "label": "Dolomites (l=60)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 819,
+          "name": "Elba",
+          "label": "Elba (l=819)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 323,
+          "name": "Emilia-Romagna",
+          "label": "Emilia-Romagna (l=323)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 794,
+          "name": "Enna",
+          "label": "Enna (l=794)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 772,
+          "name": "Fermo",
+          "label": "Fermo (l=772)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 799,
+          "name": "Florence",
+          "label": "Florence (l=799)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 719,
+          "name": "Foggia",
+          "label": "Foggia (l=719)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 738,
+          "name": "Forlì-Cesena",
+          "label": "Forlì-Cesena (l=738)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 322,
+          "name": "Friuli Venezia Giulia",
+          "label": "Friuli Venezia Giulia (l=322)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 750,
+          "name": "Frosinone",
+          "label": "Frosinone (l=750)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 754,
+          "name": "Genoa",
+          "label": "Genoa (l=754)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 745,
+          "name": "Gorizia",
+          "label": "Gorizia (l=745)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 801,
+          "name": "Grosseto",
+          "label": "Grosseto (l=801)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 755,
+          "name": "Imperia",
+          "label": "Imperia (l=755)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 776,
+          "name": "Isernia",
+          "label": "Isernia (l=776)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 59,
+          "name": "Italian Alps",
+          "label": "Italian Alps (l=59)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 47,
+          "name": "Italy",
+          "label": "Italy (l=47)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 712,
+          "name": "L'Aquila",
+          "label": "L'Aquila (l=712)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 756,
+          "name": "La Spezia",
+          "label": "La Spezia (l=756)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 751,
+          "name": "Latina",
+          "label": "Latina (l=751)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 316,
+          "name": "Lazio",
+          "label": "Lazio (l=316)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 720,
+          "name": "Lecce",
+          "label": "Lecce (l=720)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 763,
+          "name": "Lecco",
+          "label": "Lecco (l=763)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 319,
+          "name": "Liguria",
+          "label": "Liguria (l=319)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 802,
+          "name": "Livorno",
+          "label": "Livorno (l=802)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 375,
+          "name": "Lombardy",
+          "label": "Lombardy (l=375)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 803,
+          "name": "Lucca",
+          "label": "Lucca (l=803)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 773,
+          "name": "Macerata",
+          "label": "Macerata (l=773)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 765,
+          "name": "Mantua",
+          "label": "Mantua (l=765)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 182,
+          "name": "Marche",
+          "label": "Marche (l=182)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 804,
+          "name": "Massa-Carrara",
+          "label": "Massa-Carrara (l=804)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 723,
+          "name": "Matera",
+          "label": "Matera (l=723)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 795,
+          "name": "Messina",
+          "label": "Messina (l=795)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 758,
+          "name": "Milan",
+          "label": "Milan (l=758)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 739,
+          "name": "Modena",
+          "label": "Modena (l=739)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 328,
+          "name": "Molise",
+          "label": "Molise (l=328)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 725,
+          "name": "Montello",
+          "label": "Montello (l=725)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 766,
+          "name": "Monza and Brianza",
+          "label": "Monza and Brianza (l=766)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 731,
+          "name": "Naples",
+          "label": "Naples (l=731)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 782,
+          "name": "Novara",
+          "label": "Novara (l=782)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 786,
+          "name": "Nuoro",
+          "label": "Nuoro (l=786)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 787,
+          "name": "Oristano",
+          "label": "Oristano (l=787)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 814,
+          "name": "Padua",
+          "label": "Padua (l=814)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 790,
+          "name": "Palermo",
+          "label": "Palermo (l=790)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 740,
+          "name": "Parma",
+          "label": "Parma (l=740)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 767,
+          "name": "Pavia",
+          "label": "Pavia (l=767)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 810,
+          "name": "Perugia",
+          "label": "Perugia (l=810)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 774,
+          "name": "Pesaro and Urbino",
+          "label": "Pesaro and Urbino (l=774)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 714,
+          "name": "Pescara",
+          "label": "Pescara (l=714)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 741,
+          "name": "Piacenza",
+          "label": "Piacenza (l=741)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 318,
+          "name": "Piedmont",
+          "label": "Piedmont (l=318)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 805,
+          "name": "Pisa",
+          "label": "Pisa (l=805)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 806,
+          "name": "Pistoia",
+          "label": "Pistoia (l=806)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 746,
+          "name": "Pordenone",
+          "label": "Pordenone (l=746)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 722,
+          "name": "Potenza",
+          "label": "Potenza (l=722)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 807,
+          "name": "Prato",
+          "label": "Prato (l=807)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 796,
+          "name": "Ragusa",
+          "label": "Ragusa (l=796)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 742,
+          "name": "Ravenna",
+          "label": "Ravenna (l=742)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 729,
+          "name": "Reggio Calabria",
+          "label": "Reggio Calabria (l=729)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 743,
+          "name": "Reggio Emilia",
+          "label": "Reggio Emilia (l=743)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 752,
+          "name": "Rieti",
+          "label": "Rieti (l=752)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 744,
+          "name": "Rimini",
+          "label": "Rimini (l=744)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 749,
+          "name": "Rome",
+          "label": "Rome (l=749)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 735,
+          "name": "Salerno",
+          "label": "Salerno (l=735)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 141,
+          "name": "Sardinia",
+          "label": "Sardinia (l=141)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 788,
+          "name": "Sassari",
+          "label": "Sassari (l=788)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 757,
+          "name": "Savona",
+          "label": "Savona (l=757)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 142,
+          "name": "Sicily",
+          "label": "Sicily (l=142)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 149,
+          "name": "Siena",
+          "label": "Siena (l=149)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 768,
+          "name": "Sondrio",
+          "label": "Sondrio (l=768)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 789,
+          "name": "South Sardinia",
+          "label": "South Sardinia (l=789)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 797,
+          "name": "Syracuse",
+          "label": "Syracuse (l=797)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 721,
+          "name": "Taranto",
+          "label": "Taranto (l=721)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 713,
+          "name": "Teramo",
+          "label": "Teramo (l=713)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 811,
+          "name": "Terni",
+          "label": "Terni (l=811)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 798,
+          "name": "Trapani",
+          "label": "Trapani (l=798)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 320,
+          "name": "Trentino-South Tyrol",
+          "label": "Trentino-South Tyrol (l=320)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 808,
+          "name": "Trento",
+          "label": "Trento (l=808)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 816,
+          "name": "Treviso",
+          "label": "Treviso (l=816)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 747,
+          "name": "Trieste",
+          "label": "Trieste (l=747)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 777,
+          "name": "Turin",
+          "label": "Turin (l=777)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 164,
+          "name": "Tuscany",
+          "label": "Tuscany (l=164)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 748,
+          "name": "Udine",
+          "label": "Udine (l=748)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 324,
+          "name": "Umbria",
+          "label": "Umbria (l=324)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 769,
+          "name": "Varese",
+          "label": "Varese (l=769)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 321,
+          "name": "Veneto",
+          "label": "Veneto (l=321)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 783,
+          "name": "Verbano-Cusio-Ossola",
+          "label": "Verbano-Cusio-Ossola (l=783)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 784,
+          "name": "Vercelli",
+          "label": "Vercelli (l=784)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 817,
+          "name": "Verona",
+          "label": "Verona (l=817)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 730,
+          "name": "Vibo Valentia",
+          "label": "Vibo Valentia (l=730)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 818,
+          "name": "Vicenza",
+          "label": "Vicenza (l=818)",
+          "country_iso": "IT"
+        },
+        {
+          "id": 753,
+          "name": "Viterbo",
+          "label": "Viterbo (l=753)",
+          "country_iso": "IT"
+        }
+      ]
+    },
+    {
+      "country": "JE",
+      "regions": [
+        {
+          "id": 372,
+          "name": "Jersey",
+          "label": "Jersey (l=372)",
+          "country_iso": "JE"
+        }
+      ]
+    },
+    {
+      "country": "JP",
+      "regions": [
+        {
+          "id": 962,
+          "name": "Asia",
+          "label": "Asia (l=962)",
+          "country_iso": "JP"
+        }
+      ]
+    },
+    {
+      "country": "LI",
+      "regions": [
+        {
+          "id": 139,
+          "name": "Liechtenstein",
+          "label": "Liechtenstein (l=139)",
+          "country_iso": "LI"
+        },
+        {
+          "id": 143,
+          "name": "Liechtenstein Alps",
+          "label": "Liechtenstein Alps (l=143)",
+          "country_iso": "LI"
+        },
+        {
+          "id": 270,
+          "name": "Oberland",
+          "label": "Oberland (l=270)",
+          "country_iso": "LI"
+        },
+        {
+          "id": 269,
+          "name": "Unterland",
+          "label": "Unterland (l=269)",
+          "country_iso": "LI"
+        }
+      ]
+    },
+    {
+      "country": "LU",
+      "regions": [
+        {
+          "id": 412,
+          "name": "Attert Valley",
+          "label": "Attert Valley (l=412)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 402,
+          "name": "Gutland",
+          "label": "Gutland (l=402)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 70,
+          "name": "Luxembourg",
+          "label": "Luxembourg (l=70)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 414,
+          "name": "Luxembourg plateau",
+          "label": "Luxembourg plateau (l=414)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 406,
+          "name": "Luxembourg's Moselle Valley",
+          "label": "Luxembourg's Moselle Valley (l=406)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 86,
+          "name": "Luxembourgian Ardennes",
+          "label": "Luxembourgian Ardennes (l=86)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 403,
+          "name": "Mullerthal / Little Switzerland",
+          "label": "Mullerthal / Little Switzerland (l=403)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 408,
+          "name": "Nature Park of the Upper Sûre",
+          "label": "Nature Park of the Upper Sûre (l=408)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 409,
+          "name": "Nature Park Our",
+          "label": "Nature Park Our (l=409)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 404,
+          "name": "Nordstad",
+          "label": "Nordstad (l=404)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 407,
+          "name": "Red Lands",
+          "label": "Red Lands (l=407)",
+          "country_iso": "LU"
+        },
+        {
+          "id": 410,
+          "name": "Valleys of the Mamer and Eisch / Valley of the Seven Castles",
+          "label": "Valleys of the Mamer and Eisch / Valley of the Seven Castles (l=410)",
+          "country_iso": "LU"
+        }
+      ]
+    },
+    {
+      "country": "MC",
+      "regions": [
+        {
+          "id": 286,
+          "name": "Monaco",
+          "label": "Monaco (l=286)",
+          "country_iso": "MC"
+        }
+      ]
+    },
+    {
+      "country": "ME",
+      "regions": [
+        {
+          "id": 545,
+          "name": "Montenegro",
+          "label": "Montenegro (l=545)",
+          "country_iso": "ME"
+        }
+      ]
+    },
+    {
+      "country": "MK",
+      "regions": [
+        {
+          "id": 549,
+          "name": "North Macedonia",
+          "label": "North Macedonia (l=549)",
+          "country_iso": "MK"
+        }
+      ]
+    },
+    {
+      "country": "MT",
+      "regions": [
+        {
+          "id": 550,
+          "name": "Malta",
+          "label": "Malta (l=550)",
+          "country_iso": "MT"
+        }
+      ]
+    },
+    {
+      "country": "NH",
+      "regions": [
+        {
+          "id": 700,
+          "name": "Antrim",
+          "label": "Antrim (l=700)",
+          "country_iso": "NH"
+        },
+        {
+          "id": 701,
+          "name": "Armagh",
+          "label": "Armagh (l=701)",
+          "country_iso": "NH"
+        },
+        {
+          "id": 702,
+          "name": "Down",
+          "label": "Down (l=702)",
+          "country_iso": "NH"
+        },
+        {
+          "id": 703,
+          "name": "Fermanagh",
+          "label": "Fermanagh (l=703)",
+          "country_iso": "NH"
+        },
+        {
+          "id": 704,
+          "name": "Londonderry",
+          "label": "Londonderry (l=704)",
+          "country_iso": "NH"
+        },
+        {
+          "id": 161,
+          "name": "Northern Ireland",
+          "label": "Northern Ireland (l=161)",
+          "country_iso": "NH"
+        },
+        {
+          "id": 705,
+          "name": "Tyrone",
+          "label": "Tyrone (l=705)",
+          "country_iso": "NH"
         }
       ]
     },
@@ -421,29 +3753,178 @@
       "country": "Netherlands",
       "regions": [
         {
-          "id": 233,
-          "name": "Limburg",
-          "label": "Limburg, Netherlands"
+          "id": 297,
+          "name": "Achterhoek",
+          "label": "Achterhoek (l=297)",
+          "country_iso": "NL"
         },
         {
-          "id": 230,
+          "id": 35,
+          "name": "Arnhem",
+          "label": "Arnhem (l=35)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 281,
+          "name": "Brabantse Wal",
+          "label": "Brabantse Wal (l=281)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 259,
+          "name": "Drenthe",
+          "label": "Drenthe (l=259)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 114,
+          "name": "Ede & Wageningen",
+          "label": "Ede & Wageningen (l=114)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 272,
+          "name": "Friesland",
+          "label": "Friesland (l=272)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 274,
           "name": "Gelderland",
-          "label": "Gelderland, Netherlands"
+          "label": "Gelderland (l=274)",
+          "country_iso": "NL"
         },
         {
-          "id": 231,
-          "name": "Utrecht",
-          "label": "Utrecht, Netherlands"
+          "id": 542,
+          "name": "Gooi",
+          "label": "Gooi (l=542)",
+          "country_iso": "NL"
         },
         {
-          "id": 232,
-          "name": "Overijssel",
-          "label": "Overijssel, Netherlands"
+          "id": 150,
+          "name": "Hoge Veluwe",
+          "label": "Hoge Veluwe (l=150)",
+          "country_iso": "NL"
         },
         {
-          "id": 234,
+          "id": 116,
+          "name": "Kop van de Veluwe",
+          "label": "Kop van de Veluwe (l=116)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 117,
+          "name": "Kroondomein Het Loo",
+          "label": "Kroondomein Het Loo (l=117)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 280,
+          "name": "Limburg",
+          "label": "Limburg (l=280)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 26,
+          "name": "Netherlands",
+          "label": "Netherlands (l=26)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 90,
+          "name": "Niederrheinischer Höhenzug",
+          "label": "Niederrheinischer Höhenzug (l=90)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 279,
           "name": "North Brabant",
-          "label": "North Brabant, Netherlands"
+          "label": "North Brabant (l=279)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 276,
+          "name": "North Holland",
+          "label": "North Holland (l=276)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 115,
+          "name": "Oldenzaalse Stuwwal",
+          "label": "Oldenzaalse Stuwwal (l=115)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 271,
+          "name": "Overijssel",
+          "label": "Overijssel (l=271)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 33,
+          "name": "Rijk van Nijmegen",
+          "label": "Rijk van Nijmegen (l=33)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 29,
+          "name": "Salland Ridge",
+          "label": "Salland Ridge (l=29)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 277,
+          "name": "South Holland",
+          "label": "South Holland (l=277)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 27,
+          "name": "South Limburg",
+          "label": "South Limburg (l=27)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 175,
+          "name": "Süchtelner Höhen",
+          "label": "Süchtelner Höhen (l=175)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 113,
+          "name": "Uelsener Berge",
+          "label": "Uelsener Berge (l=113)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 275,
+          "name": "Utrecht",
+          "label": "Utrecht (l=275)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 28,
+          "name": "Utrecht Hill Ridge",
+          "label": "Utrecht Hill Ridge (l=28)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 30,
+          "name": "Veluwe",
+          "label": "Veluwe (l=30)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 34,
+          "name": "Veluwezoom",
+          "label": "Veluwezoom (l=34)",
+          "country_iso": "NL"
+        },
+        {
+          "id": 278,
+          "name": "Zeeland",
+          "label": "Zeeland (l=278)",
+          "country_iso": "NL"
         }
       ]
     },
@@ -451,14 +3932,189 @@
       "country": "Norway",
       "regions": [
         {
-          "id": 400,
-          "name": "Western Norway",
-          "label": "Western Norway, Norway"
+          "id": 68,
+          "name": "Norway",
+          "label": "Norway (l=68)",
+          "country_iso": "NO"
         },
         {
-          "id": 401,
-          "name": "Northern Norway",
-          "label": "Northern Norway, Norway"
+          "id": 640,
+          "name": "Norwegian Fjords",
+          "label": "Norwegian Fjords (l=640)",
+          "country_iso": "NO"
+        },
+        {
+          "id": 151,
+          "name": "Senja",
+          "label": "Senja (l=151)",
+          "country_iso": "NO"
+        }
+      ]
+    },
+    {
+      "country": "PL",
+      "regions": [
+        {
+          "id": 459,
+          "name": "Beskid Mountains",
+          "label": "Beskid Mountains (l=459)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 460,
+          "name": "Bieszczady Mountains",
+          "label": "Bieszczady Mountains (l=460)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 475,
+          "name": "Central Beskids",
+          "label": "Central Beskids (l=475)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 477,
+          "name": "Eastern Beskids",
+          "label": "Eastern Beskids (l=477)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 464,
+          "name": "Eastern Carpathians",
+          "label": "Eastern Carpathians (l=464)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 457,
+          "name": "Giant Mountains",
+          "label": "Giant Mountains (l=457)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 622,
+          "name": "Greater Poland",
+          "label": "Greater Poland (l=622)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 620,
+          "name": "Holy Cross",
+          "label": "Holy Cross (l=620)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 591,
+          "name": "Kuyavia-Pomerania",
+          "label": "Kuyavia-Pomerania (l=591)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 595,
+          "name": "Lesser Poland",
+          "label": "Lesser Poland (l=595)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 590,
+          "name": "Lower Silesia",
+          "label": "Lower Silesia (l=590)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 592,
+          "name": "Lublin",
+          "label": "Lublin (l=592)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 593,
+          "name": "Lubusz",
+          "label": "Lubusz (l=593)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 596,
+          "name": "Masovia",
+          "label": "Masovia (l=596)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 597,
+          "name": "Opole",
+          "label": "Opole (l=597)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 474,
+          "name": "Podhôľno-magurská oblasť",
+          "label": "Podhôľno-magurská oblasť (l=474)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 599,
+          "name": "Podlaskie",
+          "label": "Podlaskie (l=599)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 88,
+          "name": "Poland",
+          "label": "Poland (l=88)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 618,
+          "name": "Pomerania",
+          "label": "Pomerania (l=618)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 619,
+          "name": "Silesia",
+          "label": "Silesia (l=619)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 598,
+          "name": "Subcarpathia",
+          "label": "Subcarpathia (l=598)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 458,
+          "name": "Sudetes",
+          "label": "Sudetes (l=458)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 621,
+          "name": "Warmia-Masuria",
+          "label": "Warmia-Masuria (l=621)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 623,
+          "name": "West Pomerania",
+          "label": "West Pomerania (l=623)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 476,
+          "name": "Western Beskids",
+          "label": "Western Beskids (l=476)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 466,
+          "name": "Western Carpathians",
+          "label": "Western Carpathians (l=466)",
+          "country_iso": "PL"
+        },
+        {
+          "id": 594,
+          "name": "Łódź",
+          "label": "Łódź (l=594)",
+          "country_iso": "PL"
         }
       ]
     },
@@ -466,24 +4122,501 @@
       "country": "Portugal",
       "regions": [
         {
-          "id": 170,
+          "id": 486,
           "name": "Algarve",
-          "label": "Algarve, Portugal"
+          "label": "Algarve (l=486)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 488,
+          "name": "Alto Alentejo",
+          "label": "Alto Alentejo (l=488)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 494,
+          "name": "Azores",
+          "label": "Azores (l=494)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 487,
+          "name": "Baixo Alentejo",
+          "label": "Baixo Alentejo (l=487)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 489,
+          "name": "Beira Alta",
+          "label": "Beira Alta (l=489)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 490,
+          "name": "Beira Litoral",
+          "label": "Beira Litoral (l=490)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 491,
+          "name": "Beira-Baixa-province",
+          "label": "Beira-Baixa-province (l=491)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 663,
+          "name": "Corvo Island",
+          "label": "Corvo Island (l=663)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 387,
+          "name": "Douro Litoral",
+          "label": "Douro Litoral (l=387)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 492,
+          "name": "Estremadura",
+          "label": "Estremadura (l=492)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 661,
+          "name": "Faial Island",
+          "label": "Faial Island (l=661)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 662,
+          "name": "Flores Island",
+          "label": "Flores Island (l=662)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 658,
+          "name": "Graciosa Island",
+          "label": "Graciosa Island (l=658)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 665,
+          "name": "Madeira Archipelago",
+          "label": "Madeira Archipelago (l=665)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 165,
+          "name": "Madeira Island",
+          "label": "Madeira Island (l=165)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 385,
+          "name": "Minho",
+          "label": "Minho (l=385)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 660,
+          "name": "Pico Island",
+          "label": "Pico Island (l=660)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 664,
+          "name": "Porto Santo",
+          "label": "Porto Santo (l=664)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 146,
+          "name": "Portugal",
+          "label": "Portugal (l=146)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 493,
+          "name": "Ribatejo",
+          "label": "Ribatejo (l=493)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 656,
+          "name": "Santa Maria Island",
+          "label": "Santa Maria Island (l=656)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 616,
+          "name": "Serra da Estrela",
+          "label": "Serra da Estrela (l=616)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 659,
+          "name": "São Jorge Island",
+          "label": "São Jorge Island (l=659)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 657,
+          "name": "Terceira Island",
+          "label": "Terceira Island (l=657)",
+          "country_iso": "PT"
+        },
+        {
+          "id": 388,
+          "name": "Trás-os-Montes e Alto Douro",
+          "label": "Trás-os-Montes e Alto Douro (l=388)",
+          "country_iso": "PT"
+        }
+      ]
+    },
+    {
+      "country": "RE",
+      "regions": [
+        {
+          "id": 963,
+          "name": "Africa",
+          "label": "Africa (l=963)",
+          "country_iso": "RE"
+        }
+      ]
+    },
+    {
+      "country": "RO",
+      "regions": [
+        {
+          "id": 478,
+          "name": "Apuseni Mountains",
+          "label": "Apuseni Mountains (l=478)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 480,
+          "name": "Banat Mountains",
+          "label": "Banat Mountains (l=480)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 485,
+          "name": "Carpathian Mountains",
+          "label": "Carpathian Mountains (l=485)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 481,
+          "name": "Carpathians of Maramureș and Bucovina",
+          "label": "Carpathians of Maramureș and Bucovina (l=481)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 482,
+          "name": "Carpathians of Moldavia and Transylvania",
+          "label": "Carpathians of Moldavia and Transylvania (l=482)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 483,
+          "name": "Curvature Carpathians",
+          "label": "Curvature Carpathians (l=483)",
+          "country_iso": "RO"
         },
         {
           "id": 171,
-          "name": "Serra da Estrela",
-          "label": "Serra da Estrela, Portugal"
+          "name": "Romania",
+          "label": "Romania (l=171)",
+          "country_iso": "RO"
         },
+        {
+          "id": 462,
+          "name": "Transylvanian Alps",
+          "label": "Transylvanian Alps (l=462)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 465,
+          "name": "Transylvanian Plateau",
+          "label": "Transylvanian Plateau (l=465)",
+          "country_iso": "RO"
+        },
+        {
+          "id": 463,
+          "name": "Western Romanian Carpathians",
+          "label": "Western Romanian Carpathians (l=463)",
+          "country_iso": "RO"
+        }
+      ]
+    },
+    {
+      "country": "RS",
+      "regions": [
+        {
+          "id": 547,
+          "name": "Serbia",
+          "label": "Serbia (l=547)",
+          "country_iso": "RS"
+        }
+      ]
+    },
+    {
+      "country": "SE",
+      "regions": [
         {
           "id": 172,
-          "name": "Minho",
-          "label": "Minho, Portugal"
+          "name": "Sweden",
+          "label": "Sweden (l=172)",
+          "country_iso": "SE"
+        }
+      ]
+    },
+    {
+      "country": "SK",
+      "regions": [
+        {
+          "id": 473,
+          "name": "Lučensko-košická zníženina",
+          "label": "Lučensko-košická zníženina (l=473)",
+          "country_iso": "SK"
         },
         {
-          "id": 173,
-          "name": "Madeira",
-          "label": "Madeira, Portugal"
+          "id": 468,
+          "name": "Slovak Central Mountains",
+          "label": "Slovak Central Mountains (l=468)",
+          "country_iso": "SK"
+        },
+        {
+          "id": 467,
+          "name": "Slovak Ore Mountains",
+          "label": "Slovak Ore Mountains (l=467)",
+          "country_iso": "SK"
+        },
+        {
+          "id": 428,
+          "name": "Slovakia",
+          "label": "Slovakia (l=428)",
+          "country_iso": "SK"
+        },
+        {
+          "id": 461,
+          "name": "Tatra-Fatra Belt",
+          "label": "Tatra-Fatra Belt (l=461)",
+          "country_iso": "SK"
+        }
+      ]
+    },
+    {
+      "country": "SM",
+      "regions": [
+        {
+          "id": 95,
+          "name": "San Marino",
+          "label": "San Marino (l=95)",
+          "country_iso": "SM"
+        }
+      ]
+    },
+    {
+      "country": "SU",
+      "regions": [
+        {
+          "id": 556,
+          "name": "Aberdeenshire",
+          "label": "Aberdeenshire (l=556)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 567,
+          "name": "Angus",
+          "label": "Angus (l=567)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 577,
+          "name": "Argyll and Bute",
+          "label": "Argyll and Bute (l=577)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 871,
+          "name": "Cairngorms",
+          "label": "Cairngorms (l=871)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 552,
+          "name": "City of Edinburgh",
+          "label": "City of Edinburgh (l=552)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 579,
+          "name": "Clackmannanshire",
+          "label": "Clackmannanshire (l=579)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 563,
+          "name": "Dumfries and Galloway",
+          "label": "Dumfries and Galloway (l=563)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 564,
+          "name": "Dundee City",
+          "label": "Dundee City (l=564)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 566,
+          "name": "East Ayrshire",
+          "label": "East Ayrshire (l=566)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 570,
+          "name": "East Dunbartonshire",
+          "label": "East Dunbartonshire (l=570)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 571,
+          "name": "East Lothian",
+          "label": "East Lothian (l=571)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 573,
+          "name": "East Renfrewshire",
+          "label": "East Renfrewshire (l=573)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 561,
+          "name": "Falkirk",
+          "label": "Falkirk (l=561)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 553,
+          "name": "Fife",
+          "label": "Fife (l=553)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 551,
+          "name": "Glasgow City",
+          "label": "Glasgow City (l=551)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 557,
+          "name": "Highland",
+          "label": "Highland (l=557)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 578,
+          "name": "Inverclyde",
+          "label": "Inverclyde (l=578)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 575,
+          "name": "midlothian",
+          "label": "midlothian (l=575)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 572,
+          "name": "Moray",
+          "label": "Moray (l=572)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 565,
+          "name": "North Ayrshire",
+          "label": "North Ayrshire (l=565)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 554,
+          "name": "North Lanarkshire",
+          "label": "North Lanarkshire (l=554)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 582,
+          "name": "Orkney Islands",
+          "label": "Orkney Islands (l=582)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 580,
+          "name": "Outer Hebrides",
+          "label": "Outer Hebrides (l=580)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 562,
+          "name": "Perth and Kinross",
+          "label": "Perth and Kinross (l=562)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 560,
+          "name": "Renfrewshire",
+          "label": "Renfrewshire (l=560)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 159,
+          "name": "Scotland",
+          "label": "Scotland (l=159)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 568,
+          "name": "Scottish Borders",
+          "label": "Scottish Borders (l=568)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 581,
+          "name": "Shetland Islands",
+          "label": "Shetland Islands (l=581)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 569,
+          "name": "South Ayrshire",
+          "label": "South Ayrshire (l=569)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 555,
+          "name": "South Lanarkshire",
+          "label": "South Lanarkshire (l=555)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 574,
+          "name": "Stirling",
+          "label": "Stirling (l=574)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 576,
+          "name": "West Dunbartonshire",
+          "label": "West Dunbartonshire (l=576)",
+          "country_iso": "SU"
+        },
+        {
+          "id": 559,
+          "name": "West Lothian",
+          "label": "West Lothian (l=559)",
+          "country_iso": "SU"
         }
       ]
     },
@@ -491,14 +4624,10 @@
       "country": "Slovenia",
       "regions": [
         {
-          "id": 390,
+          "id": 140,
           "name": "Slovenia",
-          "label": "Slovenia, Slovenia"
-        },
-        {
-          "id": 391,
-          "name": "Julian Alps",
-          "label": "Julian Alps, Slovenia"
+          "label": "Slovenia (l=140)",
+          "country_iso": "SI"
         }
       ]
     },
@@ -506,74 +4635,316 @@
       "country": "Spain",
       "regions": [
         {
-          "id": 153,
-          "name": "Mallorca",
-          "label": "Mallorca, Spain"
-        },
-        {
-          "id": 156,
-          "name": "Tenerife",
-          "label": "Tenerife, Spain"
-        },
-        {
-          "id": 150,
-          "name": "Catalonia",
-          "label": "Catalonia, Spain"
-        },
-        {
-          "id": 151,
-          "name": "Andalusia",
-          "label": "Andalusia, Spain"
-        },
-        {
-          "id": 152,
-          "name": "Basque Country",
-          "label": "Basque Country, Spain"
-        },
-        {
-          "id": 154,
-          "name": "Asturias",
-          "label": "Asturias, Spain"
-        },
-        {
-          "id": 155,
-          "name": "Cantabria",
-          "label": "Cantabria, Spain"
-        },
-        {
-          "id": 157,
-          "name": "Valencia",
-          "label": "Valencia, Spain"
-        },
-        {
-          "id": 158,
-          "name": "Aragon",
-          "label": "Aragon, Spain"
-        },
-        {
-          "id": 159,
-          "name": "Navarra",
-          "label": "Navarra, Spain"
-        },
-        {
-          "id": 160,
-          "name": "Castilla y León",
-          "label": "Castilla y León, Spain"
-        },
-        {
-          "id": 161,
-          "name": "Gran Canaria",
-          "label": "Gran Canaria, Spain"
-        },
-        {
-          "id": 162,
-          "name": "La Palma",
-          "label": "La Palma, Spain"
-        },
-        {
           "id": 163,
-          "name": "Girona",
-          "label": "Girona, Spain"
+          "name": "Andalusia",
+          "label": "Andalusia (l=163)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 186,
+          "name": "Aragon",
+          "label": "Aragon (l=186)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 189,
+          "name": "Asturias",
+          "label": "Asturias (l=189)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 294,
+          "name": "Balearic Islands",
+          "label": "Balearic Islands (l=294)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 221,
+          "name": "Basque Country",
+          "label": "Basque Country (l=221)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 222,
+          "name": "Basque Mountains",
+          "label": "Basque Mountains (l=222)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 295,
+          "name": "Canary Islands",
+          "label": "Canary Islands (l=295)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 190,
+          "name": "Cantabria",
+          "label": "Cantabria (l=190)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 103,
+          "name": "Cantabrian Mountains",
+          "label": "Cantabrian Mountains (l=103)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 196,
+          "name": "Castile and León",
+          "label": "Castile and León (l=196)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 195,
+          "name": "Castile–La Mancha",
+          "label": "Castile–La Mancha (l=195)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 197,
+          "name": "Catalan Coastal Range",
+          "label": "Catalan Coastal Range (l=197)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 147,
+          "name": "Catalonia",
+          "label": "Catalonia (l=147)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 651,
+          "name": "Costa Blanca",
+          "label": "Costa Blanca (l=651)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 648,
+          "name": "Costa Brava",
+          "label": "Costa Brava (l=648)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 649,
+          "name": "Costa del Azahar",
+          "label": "Costa del Azahar (l=649)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 652,
+          "name": "Costa del Sol",
+          "label": "Costa del Sol (l=652)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 650,
+          "name": "Costa Dorada",
+          "label": "Costa Dorada (l=650)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 107,
+          "name": "El Hierro",
+          "label": "El Hierro (l=107)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 187,
+          "name": "Extremadura",
+          "label": "Extremadura (l=187)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 109,
+          "name": "Fuerteventura",
+          "label": "Fuerteventura (l=109)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 188,
+          "name": "Galicia",
+          "label": "Galicia (l=188)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 92,
+          "name": "Gran Canaria",
+          "label": "Gran Canaria (l=92)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 101,
+          "name": "Ibiza",
+          "label": "Ibiza (l=101)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 100,
+          "name": "La Gomera",
+          "label": "La Gomera (l=100)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 94,
+          "name": "La Palma",
+          "label": "La Palma (l=94)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 191,
+          "name": "La Rioja",
+          "label": "La Rioja (l=191)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 108,
+          "name": "Lanzarote",
+          "label": "Lanzarote (l=108)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 194,
+          "name": "Madrid",
+          "label": "Madrid (l=194)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 93,
+          "name": "Mallorca",
+          "label": "Mallorca (l=93)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 102,
+          "name": "Menorca",
+          "label": "Menorca (l=102)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 104,
+          "name": "Montes de León",
+          "label": "Montes de León (l=104)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 208,
+          "name": "Montes de Toledo",
+          "label": "Montes de Toledo (l=208)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 184,
+          "name": "Murcia",
+          "label": "Murcia (l=184)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 220,
+          "name": "Navarre",
+          "label": "Navarre (l=220)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 105,
+          "name": "Picos de Europa",
+          "label": "Picos de Europa (l=105)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 639,
+          "name": "Serra de Tramuntana",
+          "label": "Serra de Tramuntana (l=639)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 615,
+          "name": "Sierra de Ayllón",
+          "label": "Sierra de Ayllón (l=615)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 613,
+          "name": "Sierra de Béjar",
+          "label": "Sierra de Béjar (l=613)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 614,
+          "name": "Sierra de Francia",
+          "label": "Sierra de Francia (l=614)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 200,
+          "name": "Sierra de Gata",
+          "label": "Sierra de Gata (l=200)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 199,
+          "name": "Sierra de Gredos",
+          "label": "Sierra de Gredos (l=199)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 206,
+          "name": "Sierra de Guadalupe",
+          "label": "Sierra de Guadalupe (l=206)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 111,
+          "name": "Sierra de Guadarrama",
+          "label": "Sierra de Guadarrama (l=111)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 198,
+          "name": "Sierra de Somosierra",
+          "label": "Sierra de Somosierra (l=198)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 209,
+          "name": "Sierra Morena",
+          "label": "Sierra Morena (l=209)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 212,
+          "name": "Sierra Nevada",
+          "label": "Sierra Nevada (l=212)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 110,
+          "name": "Sistema Central",
+          "label": "Sistema Central (l=110)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 72,
+          "name": "Spain",
+          "label": "Spain (l=72)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 83,
+          "name": "Spanish Pyrenees",
+          "label": "Spanish Pyrenees (l=83)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 91,
+          "name": "Tenerife",
+          "label": "Tenerife (l=91)",
+          "country_iso": "ES"
+        },
+        {
+          "id": 185,
+          "name": "Valencia",
+          "label": "Valencia (l=185)",
+          "country_iso": "ES"
         }
       ]
     },
@@ -581,69 +4952,154 @@
       "country": "Switzerland",
       "regions": [
         {
+          "id": 507,
+          "name": "Appenzell",
+          "label": "Appenzell (l=507)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 503,
+          "name": "Argovia",
+          "label": "Argovia (l=503)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 504,
+          "name": "Basle-Country & City",
+          "label": "Basle-Country & City (l=504)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 499,
+          "name": "Bern",
+          "label": "Bern (l=499)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 500,
+          "name": "Fribourg",
+          "label": "Fribourg (l=500)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 66,
+          "name": "Geneva",
+          "label": "Geneva (l=66)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 508,
+          "name": "Glarus",
+          "label": "Glarus (l=508)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 506,
+          "name": "Grisons",
+          "label": "Grisons (l=506)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 496,
+          "name": "Kanton Jura",
+          "label": "Kanton Jura (l=496)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 505,
+          "name": "Lucerne",
+          "label": "Lucerne (l=505)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 497,
+          "name": "Neuchatel",
+          "label": "Neuchatel (l=497)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 509,
+          "name": "Nidwald & Obwald",
+          "label": "Nidwald & Obwald (l=509)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 512,
+          "name": "Saint Gallen",
+          "label": "Saint Gallen (l=512)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 510,
+          "name": "Schaffhausen",
+          "label": "Schaffhausen (l=510)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 511,
+          "name": "Schwyz",
+          "label": "Schwyz (l=511)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 502,
+          "name": "Solothurn",
+          "label": "Solothurn (l=502)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 56,
+          "name": "Swiss Alps",
+          "label": "Swiss Alps (l=56)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 45,
+          "name": "Switzerland",
+          "label": "Switzerland (l=45)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 514,
+          "name": "Tessin",
+          "label": "Tessin (l=514)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 513,
+          "name": "Thurgovia",
+          "label": "Thurgovia (l=513)",
+          "country_iso": "CH"
+        },
+        {
+          "id": 515,
+          "name": "Uri",
+          "label": "Uri (l=515)",
+          "country_iso": "CH"
+        },
+        {
           "id": 365,
           "name": "Valais",
-          "label": "Valais, Switzerland"
+          "label": "Valais (l=365)",
+          "country_iso": "CH"
         },
         {
-          "id": 366,
-          "name": "Graubünden",
-          "label": "Graubünden, Switzerland"
-        },
-        {
-          "id": 367,
-          "name": "Ticino",
-          "label": "Ticino, Switzerland"
-        },
-        {
-          "id": 368,
-          "name": "Bern",
-          "label": "Bern, Switzerland"
-        },
-        {
-          "id": 369,
-          "name": "Uri",
-          "label": "Uri, Switzerland"
-        },
-        {
-          "id": 370,
-          "name": "Schwyz",
-          "label": "Schwyz, Switzerland"
-        },
-        {
-          "id": 371,
-          "name": "Lucerne",
-          "label": "Lucerne, Switzerland"
-        },
-        {
-          "id": 372,
+          "id": 405,
           "name": "Vaud",
-          "label": "Vaud, Switzerland"
+          "label": "Vaud (l=405)",
+          "country_iso": "CH"
         },
         {
-          "id": 373,
-          "name": "Fribourg",
-          "label": "Fribourg, Switzerland"
+          "id": 516,
+          "name": "Zug",
+          "label": "Zug (l=516)",
+          "country_iso": "CH"
         },
         {
-          "id": 374,
-          "name": "Glarus",
-          "label": "Glarus, Switzerland"
-        },
-        {
-          "id": 375,
-          "name": "St. Gallen",
-          "label": "St. Gallen, Switzerland"
-        },
-        {
-          "id": 376,
-          "name": "Obwalden",
-          "label": "Obwalden, Switzerland"
-        },
-        {
-          "id": 377,
-          "name": "Nidwalden",
-          "label": "Nidwalden, Switzerland"
+          "id": 517,
+          "name": "Zürich",
+          "label": "Zürich (l=517)",
+          "country_iso": "CH"
         }
       ]
     },
@@ -651,59 +5107,355 @@
       "country": "USA",
       "regions": [
         {
-          "id": 410,
+          "id": 967,
+          "name": "Alabama",
+          "label": "Alabama (l=967)",
+          "country_iso": "US"
+        },
+        {
+          "id": 968,
+          "name": "Alaska",
+          "label": "Alaska (l=968)",
+          "country_iso": "US"
+        },
+        {
+          "id": 969,
+          "name": "Arizona",
+          "label": "Arizona (l=969)",
+          "country_iso": "US"
+        },
+        {
+          "id": 970,
+          "name": "Arkansas",
+          "label": "Arkansas (l=970)",
+          "country_iso": "US"
+        },
+        {
+          "id": 971,
           "name": "California",
-          "label": "California, USA"
+          "label": "California (l=971)",
+          "country_iso": "US"
         },
         {
-          "id": 411,
+          "id": 972,
           "name": "Colorado",
-          "label": "Colorado, USA"
+          "label": "Colorado (l=972)",
+          "country_iso": "US"
         },
         {
-          "id": 412,
-          "name": "Utah",
-          "label": "Utah, USA"
+          "id": 973,
+          "name": "Connecticut",
+          "label": "Connecticut (l=973)",
+          "country_iso": "US"
+        },
+        {
+          "id": 975,
+          "name": "Florida",
+          "label": "Florida (l=975)",
+          "country_iso": "US"
+        },
+        {
+          "id": 976,
+          "name": "Georgia",
+          "label": "Georgia (l=976)",
+          "country_iso": "US"
+        },
+        {
+          "id": 977,
+          "name": "Hawaii",
+          "label": "Hawaii (l=977)",
+          "country_iso": "US"
+        },
+        {
+          "id": 978,
+          "name": "Idaho",
+          "label": "Idaho (l=978)",
+          "country_iso": "US"
+        },
+        {
+          "id": 983,
+          "name": "Kentucky",
+          "label": "Kentucky (l=983)",
+          "country_iso": "US"
+        },
+        {
+          "id": 985,
+          "name": "Maine",
+          "label": "Maine (l=985)",
+          "country_iso": "US"
+        },
+        {
+          "id": 986,
+          "name": "Maryland",
+          "label": "Maryland (l=986)",
+          "country_iso": "US"
+        },
+        {
+          "id": 987,
+          "name": "Massachusetts",
+          "label": "Massachusetts (l=987)",
+          "country_iso": "US"
+        },
+        {
+          "id": 988,
+          "name": "Michigan",
+          "label": "Michigan (l=988)",
+          "country_iso": "US"
+        },
+        {
+          "id": 992,
+          "name": "Montana",
+          "label": "Montana (l=992)",
+          "country_iso": "US"
+        },
+        {
+          "id": 994,
+          "name": "Nevada",
+          "label": "Nevada (l=994)",
+          "country_iso": "US"
+        },
+        {
+          "id": 995,
+          "name": "New Hampshire",
+          "label": "New Hampshire (l=995)",
+          "country_iso": "US"
+        },
+        {
+          "id": 996,
+          "name": "New Jersey",
+          "label": "New Jersey (l=996)",
+          "country_iso": "US"
+        },
+        {
+          "id": 997,
+          "name": "New Mexico",
+          "label": "New Mexico (l=997)",
+          "country_iso": "US"
+        },
+        {
+          "id": 998,
+          "name": "New York",
+          "label": "New York (l=998)",
+          "country_iso": "US"
+        },
+        {
+          "id": 999,
+          "name": "North Carolina",
+          "label": "North Carolina (l=999)",
+          "country_iso": "US"
+        },
+        {
+          "id": 964,
+          "name": "Oceania",
+          "label": "Oceania (l=964)",
+          "country_iso": "US"
+        },
+        {
+          "id": 966,
+          "name": "United States",
+          "label": "United States (l=966)",
+          "country_iso": "US"
         }
       ]
     },
     {
-      "country": "United Kingdom",
+      "country": "VE",
       "regions": [
         {
-          "id": 77,
-          "name": "England",
-          "label": "England, United Kingdom"
+          "id": 961,
+          "name": "South America",
+          "label": "South America (l=961)",
+          "country_iso": "VE"
+        }
+      ]
+    },
+    {
+      "country": "WL",
+      "regions": [
+        {
+          "id": 530,
+          "name": "Anglesey",
+          "label": "Anglesey (l=530)",
+          "country_iso": "WL"
         },
         {
-          "id": 78,
+          "id": 520,
+          "name": "Blaenau Gwent",
+          "label": "Blaenau Gwent (l=520)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 870,
+          "name": "Brecon Beacons",
+          "label": "Brecon Beacons (l=870)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 521,
+          "name": "Bridgend",
+          "label": "Bridgend (l=521)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 522,
+          "name": "Caerphilly",
+          "label": "Caerphilly (l=522)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 523,
+          "name": "Cardiff",
+          "label": "Cardiff (l=523)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 524,
+          "name": "Carmarthenshire",
+          "label": "Carmarthenshire (l=524)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 525,
+          "name": "Ceredigion",
+          "label": "Ceredigion (l=525)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 607,
+          "name": "Clwyd",
+          "label": "Clwyd (l=607)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 526,
+          "name": "Conwy",
+          "label": "Conwy (l=526)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 527,
+          "name": "Denbighshire",
+          "label": "Denbighshire (l=527)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 606,
+          "name": "Dyfed",
+          "label": "Dyfed (l=606)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 528,
+          "name": "Flintshire",
+          "label": "Flintshire (l=528)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 603,
+          "name": "Glamorgan",
+          "label": "Glamorgan (l=603)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 602,
+          "name": "Gwent",
+          "label": "Gwent (l=602)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 529,
+          "name": "Gwynedd",
+          "label": "Gwynedd (l=529)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 531,
+          "name": "Merthyr Tydfil",
+          "label": "Merthyr Tydfil (l=531)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 532,
+          "name": "Monmouthshire",
+          "label": "Monmouthshire (l=532)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 533,
+          "name": "Neath Port Talbot",
+          "label": "Neath Port Talbot (l=533)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 534,
+          "name": "Newport",
+          "label": "Newport (l=534)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 535,
+          "name": "Pembrokeshire",
+          "label": "Pembrokeshire (l=535)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 536,
+          "name": "Powys",
+          "label": "Powys (l=536)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 537,
+          "name": "Rhondda Cynon Taf",
+          "label": "Rhondda Cynon Taf (l=537)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 647,
+          "name": "Snowdonia",
+          "label": "Snowdonia (l=647)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 538,
+          "name": "Swansea",
+          "label": "Swansea (l=538)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 539,
+          "name": "Torfaen",
+          "label": "Torfaen (l=539)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 540,
+          "name": "Vale of Glamorgan",
+          "label": "Vale of Glamorgan (l=540)",
+          "country_iso": "WL"
+        },
+        {
+          "id": 160,
           "name": "Wales",
-          "label": "Wales, United Kingdom"
+          "label": "Wales (l=160)",
+          "country_iso": "WL"
         },
         {
-          "id": 79,
-          "name": "Scotland",
-          "label": "Scotland, United Kingdom"
-        },
+          "id": 541,
+          "name": "Wrexham",
+          "label": "Wrexham (l=541)",
+          "country_iso": "WL"
+        }
+      ]
+    },
+    {
+      "country": "XK",
+      "regions": [
         {
-          "id": 80,
-          "name": "Yorkshire",
-          "label": "Yorkshire, United Kingdom"
-        },
-        {
-          "id": 81,
-          "name": "Lake District",
-          "label": "Lake District, United Kingdom"
-        },
-        {
-          "id": 82,
-          "name": "Peak District",
-          "label": "Peak District, United Kingdom"
-        },
-        {
-          "id": 83,
-          "name": "Surrey Hills",
-          "label": "Surrey Hills, United Kingdom"
+          "id": 546,
+          "name": "Kosovo",
+          "label": "Kosovo (l=546)",
+          "country_iso": "XK"
         }
       ]
     }

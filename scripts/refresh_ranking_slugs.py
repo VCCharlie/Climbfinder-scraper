@@ -32,7 +32,9 @@ HEADERS = {
 }
 
 
-def fetch_page(*, locality: int, offset: int, limit: int = 25, sort: str = "popular") -> list[str]:
+def fetch_page(
+    *, locality: int, offset: int, limit: int = 25, sort: str = "popular"
+) -> tuple[list[str], str | None]:
     q = urllib.parse.urlencode(
         {
             "language": "en",
@@ -49,20 +51,25 @@ def fetch_page(*, locality: int, offset: int, limit: int = 25, sort: str = "popu
     if "error" in data:
         raise RuntimeError(data["error"])
     rows = data.get("data") or []
-    return [r["slug"] for r in rows if r.get("slug")]
+    iso = rows[0].get("countryIso") if rows else None
+    return [r["slug"] for r in rows if r.get("slug")], iso
 
 
-def slugs_for_locality(locality: int, pages: int = 2, per_page: int = 25) -> list[str]:
+def slugs_for_locality(locality: int, pages: int = 2, per_page: int = 25) -> tuple[list[str], str | None]:
     seen: set[str] = set()
     out: list[str] = []
+    sample_iso: str | None = None
     for page in range(pages):
         offset = page * per_page
-        for slug in fetch_page(locality=locality, offset=offset, limit=per_page):
+        slugs, iso = fetch_page(locality=locality, offset=offset, limit=per_page)
+        if iso and not sample_iso:
+            sample_iso = iso
+        for slug in slugs:
             if slug not in seen:
                 seen.add(slug)
                 out.append(slug)
         time.sleep(0.25)
-    return out
+    return out, sample_iso
 
 
 def load_all_localities() -> list[tuple[int, str, str]]:
@@ -72,7 +79,7 @@ def load_all_localities() -> list[tuple[int, str, str]]:
     for block in catalog.get("countries", []):
         country = block["country"]
         for r in block.get("regions", []):
-            items.append((int(r["id"]), r["name"], country))
+            items.append((int(r["id"]), r["name"], r.get("country") or country))
     return items
 
 
@@ -84,6 +91,8 @@ def write_locality_file(
     *,
     pages: int,
     sort: str,
+    country_iso: str | None = None,
+    climbfinder_label: str | None = None,
 ) -> Path:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     path = OUT_DIR / f"{locality}-popular-slugs.json"
@@ -97,6 +106,8 @@ def write_locality_file(
         "ranking_url": f"https://climbfinder.com/en/ranking?l={locality}&s={sort}&p=1",
         "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "count": len(slugs),
+        "country_iso": country_iso,
+        "climbfinder_label": climbfinder_label,
         "slugs": slugs,
     }
     with path.open("w", encoding="utf-8") as f:
@@ -130,13 +141,21 @@ def main() -> None:
         name, country = meta_by_id.get(locality, (str(locality), "?"))
         print(f"Locality {locality} ({name}, {country})…")
         try:
-            slugs = slugs_for_locality(locality, pages=args.pages)
+            slugs, sample_iso = slugs_for_locality(locality, pages=args.pages)
         except (urllib.error.URLError, RuntimeError) as exc:
             print(f"  SKIP: {exc}")
             continue
         path = write_locality_file(
-            locality, name, country, slugs, pages=args.pages, sort=args.sort
+            locality,
+            name,
+            country,
+            slugs,
+            pages=args.pages,
+            sort=args.sort,
+            country_iso=sample_iso,
         )
+        if sample_iso:
+            print(f"  country_iso={sample_iso}")
         print(f"  → {len(slugs)} slugs → {path.relative_to(ROOT)}")
 
 

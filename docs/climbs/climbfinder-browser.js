@@ -6,7 +6,7 @@
 (function (global) {
   const CORS_PROXIES = [
     (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
   ];
 
   function cfDecode(b64, scale, seed) {
@@ -70,7 +70,10 @@
         lastErr = e;
       }
     }
-    throw lastErr || new Error("Kon Climbfinder-pagina niet ophalen (CORS/proxy)");
+    const msg =
+      lastErr?.message ||
+      "Kon Climbfinder-pagina niet ophalen (CORS/proxy). Gebruik lokaal: python scripts/climbfinder_import.py --locality …";
+    throw new Error(msg);
   }
 
   function parseDifficulty(category) {
