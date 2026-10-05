@@ -74,6 +74,53 @@
     return climb.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
   }
 
+  function climbEndpointStyles(size = "md") {
+    const r = size === "sm" ? 5 : 8;
+    return {
+      start: {
+        radius: r,
+        color: "#166534",
+        fillColor: "#4ade80",
+        weight: 2,
+        fillOpacity: 1,
+      },
+      end: {
+        radius: r,
+        color: "#9a3412",
+        fillColor: "#fca5a5",
+        weight: 2,
+        fillOpacity: 1,
+      },
+    };
+  }
+
+  /** Groen = start, zacht rood = finish (Climbfinder-achtig). */
+  function addClimbStartEndMarkers(latlngs, options = {}) {
+    const { size = "md", layer, onClick, tooltip } = options;
+    const styles = climbEndpointStyles(size);
+    const created = [];
+    if (!latlngs?.length) return created;
+
+    const attach = (marker, label) => {
+      if (tooltip) marker.bindTooltip(`${tooltip}${label ? ` (${label})` : ""}`, { direction: "top" });
+      if (onClick) {
+        marker.on("click", (e) => {
+          L.DomEvent.stopPropagation(e);
+          onClick(e);
+        });
+      }
+      if (layer) layer.addLayer(marker);
+      else marker.addTo(state.map);
+      created.push(marker);
+    };
+
+    attach(L.circleMarker(latlngs[0], styles.start), "start");
+    if (latlngs.length > 1) {
+      attach(L.circleMarker(latlngs[latlngs.length - 1], styles.end), "finish");
+    }
+    return created;
+  }
+
   function profilePoints(climb) {
     const dist = climb.profile.distances_m;
     const elev = climb.profile.elevations_m;
@@ -221,29 +268,14 @@
     clearViewportLayers();
 
     const entries = entriesInMapBounds();
-    for (const entry of entries) {
-      const latlng = climbLatLng(entry.climb);
-      if (!latlng) continue;
-      const marker = L.circleMarker(latlng, {
-        radius: 6,
-        color: "#334155",
-        weight: 1,
-        fillColor: "#0f766e",
-        fillOpacity: 0.9,
-      });
-      marker.bindTooltip(entry.climb.name, { direction: "top", sticky: true });
-      marker.on("click", (e) => {
-        L.DomEvent.stopPropagation(e);
-        void selectClimbFromList(entry.climb.id, entry.regionUrl);
-      });
-      state.viewportLayer.addLayer(marker);
-    }
+    const withRouteKeys = new Set();
 
     if (zoom >= MIN_ZOOM_NEARBY_ROUTES) {
       const withRoutes = entries.slice(0, MAX_NEARBY_ROUTES);
       for (const entry of withRoutes) {
         const latlngs = latLngsFromClimb(entry.climb);
         if (latlngs.length < 2) continue;
+        withRouteKeys.add(entryKey(entry));
         const line = L.polyline(latlngs, {
           color: "#0f766e",
           weight: 3,
@@ -255,7 +287,27 @@
           void selectClimbFromList(entry.climb.id, entry.regionUrl);
         });
         state.viewportRoutesLayer.addLayer(line);
+        addClimbStartEndMarkers(latlngs, {
+          size: "sm",
+          layer: state.viewportLayer,
+          tooltip: entry.climb.name,
+          onClick: () => void selectClimbFromList(entry.climb.id, entry.regionUrl),
+        });
       }
+    }
+
+    for (const entry of entries) {
+      if (withRouteKeys.has(entryKey(entry))) continue;
+      const latlngs = latLngsFromClimb(entry.climb);
+      const start = latlngs[0] || climbLatLng(entry.climb);
+      if (!start) continue;
+      const marker = L.circleMarker(start, climbEndpointStyles("sm").start);
+      marker.bindTooltip(`${entry.climb.name} (start)`, { direction: "top", sticky: true });
+      marker.on("click", (e) => {
+        L.DomEvent.stopPropagation(e);
+        void selectClimbFromList(entry.climb.id, entry.regionUrl);
+      });
+      state.viewportLayer.addLayer(marker);
     }
   }
 
@@ -674,8 +726,11 @@
       L.DomEvent.stopPropagation(e);
     });
     state.markers.push(
-      L.circleMarker(latlngs[0], { radius: 6, color: "#0369a1", fillColor: "#0ea5e9", fillOpacity: 1 }).addTo(state.map),
-      L.circleMarker(latlngs[latlngs.length - 1], { radius: 6, color: "#15803d", fillColor: "#22c55e", fillOpacity: 1 }).addTo(state.map)
+      ...addClimbStartEndMarkers(latlngs, {
+        size: "md",
+        tooltip: climb.name,
+        onClick: () => {},
+      })
     );
     state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
     updateChart(climb);
