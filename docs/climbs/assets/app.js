@@ -18,6 +18,20 @@
   }
 
   async function loadJson(url) {
+    const cfg = window.FIETSKLIM_AUTH_CONFIG;
+    if (
+      cfg?.useStorage &&
+      typeof firebase !== "undefined" &&
+      firebase.storage &&
+      cfg.storageDataPrefix
+    ) {
+      const rel = url.replace(/^\.\//, "").replace(/^data\//, "");
+      const path = `${cfg.storageDataPrefix}/${rel}`;
+      const snap = await firebase.storage().ref(path).getDownloadURL();
+      const res = await fetch(snap);
+      if (!res.ok) throw new Error(`Kon dataset niet laden uit Storage (${res.status})`);
+      return res.json();
+    }
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Kon dataset niet laden (${res.status})`);
     return res.json();
@@ -274,7 +288,7 @@
 
   window.FietsKlimExplorer = { init, selectClimb, loadJson };
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("fietsklim-authenticated", () => {
     init().catch((err) => {
       console.error(err);
       alert("Kon de klimdatabase niet laden. Zie console voor details.");

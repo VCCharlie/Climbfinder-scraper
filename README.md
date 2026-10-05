@@ -14,6 +14,8 @@ Naast scrapers bevat dit repo een **herbruikbare klimdatabase** (polyline, hoogt
 - Explorer (GitHub Pages): `/docs/climbs/` → live op `https://<username>.github.io/Climbfinder-scraper/climbs/`
 - JSON datasets: `docs/climbs/data/*.json` (schema in `docs/climbs/data/schema.json`)
 - Integratie & embed: zie [`docs/climbs/INTEGRATIE.md`](docs/climbs/INTEGRATIE.md)
+
+**Persoonlijke site (Google-login):** zie [`docs/auth/SETUP.md`](docs/auth/SETUP.md) — alleen `vr.deruiter@gmail.com` na Firebase-configuratie.
 - Data bouwen: `python scripts/climb_builder.py` (start/eind) of `python scripts/gpx_to_climb_json.py` (GPX)
 
 ## Features
