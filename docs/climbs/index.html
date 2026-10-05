@@ -49,6 +49,20 @@
           <select id="regionSelect"></select>
         </div>
       </div>
+
+      <div id="climbDetailPanel" class="climb-detail-panel" hidden>
+        <button type="button" id="profileExpandOpen" class="climb-detail-name" title="Profiel vergroten (Climbfinder-stijl)">
+          <span id="profileTitle">Klim</span>
+          <span class="climb-detail-chevron" aria-hidden="true">↗</span>
+        </button>
+        <p id="profileStats" class="climb-detail-stats"></p>
+        <div id="profileGradientStripMini" class="profile-gradient-strip profile-gradient-strip--mini" aria-hidden="true"></div>
+        <div class="profile-chart-wrap profile-chart-wrap--mini">
+          <canvas id="profileChartMini"></canvas>
+        </div>
+        <button type="button" id="profileExpandLink" class="link-expand">Profiel vergroten</button>
+      </div>
+
       <div id="climbList" class="climb-list"></div>
     </aside>
 
@@ -58,17 +72,19 @@
       </button>
       <div id="map"></div>
     </main>
+  </div>
 
-    <section class="profile-panel">
-      <div class="profile-head">
-        <h2 id="profileTitle">Hoogteprofiel</h2>
-        <div id="profileStats" class="stats"></div>
+  <div id="profileExpandOverlay" class="profile-expand-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="profileTitleFull">
+    <div class="profile-expand-backdrop" id="profileExpandBackdrop"></div>
+    <div class="profile-expand-card">
+      <button type="button" id="profileExpandClose" class="profile-expand-close" aria-label="Sluiten">×</button>
+      <h2 id="profileTitleFull" class="profile-expand-title"></h2>
+      <p id="profileStatsFull" class="profile-expand-stats"></p>
+      <div id="profileGradientStripFull" class="profile-gradient-strip" aria-label="Gemiddelde helling per segment"></div>
+      <div class="profile-chart-wrap profile-chart-wrap--full">
+        <canvas id="profileChartFull"></canvas>
       </div>
-      <div id="profileGradientStrip" class="profile-gradient-strip" aria-label="Gemiddelde helling per segment"></div>
-      <div class="profile-chart-wrap">
-        <canvas id="profileChart"></canvas>
-      </div>
-    </section>
+    </div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>

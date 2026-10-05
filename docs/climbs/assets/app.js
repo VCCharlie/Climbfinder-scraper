@@ -26,7 +26,10 @@
     viewportLayer: null,
     viewportRoutesLayer: null,
     viewportMoveTimer: null,
-    chart: null,
+    chartMini: null,
+    chartFull: null,
+    profileExpanded: false,
+    routeLayerOutline: null,
     hoverMarker: null,
     activeClimb: null,
     indexRegions: [],
@@ -208,8 +211,8 @@
     }
   }
 
-  function renderGradientStrip(buckets) {
-    const strip = $("profileGradientStrip");
+  function renderGradientStrip(buckets, stripId = "profileGradientStripMini") {
+    const strip = $(stripId);
     if (!strip) return;
     strip.innerHTML = "";
     if (!buckets?.length) return;
@@ -234,15 +237,67 @@
       state.mapMode === "detail" ? "← Overzichtskaart" : "← Heel overzicht";
   }
 
-  function resetProfilePanel() {
-    $("profileTitle").textContent = "Hoogteprofiel";
-    $("profileStats").textContent =
-      "Klik een klim op de kaart of in de lijst. Tip: na detail — klik naast de route voor buurtoverzicht.";
-    renderGradientStrip([]);
-    if (state.chart) {
-      state.chart.destroy();
-      state.chart = null;
+  function destroyProfileChart(key) {
+    if (state[key]) {
+      state[key].destroy();
+      state[key] = null;
     }
+  }
+
+  function setClimbDetailVisible(visible) {
+    const panel = $("climbDetailPanel");
+    const root = document.querySelector(".layout");
+    if (panel) panel.hidden = !visible;
+    if (root) root.classList.toggle("layout-has-climb", visible);
+  }
+
+  function closeProfileExpand() {
+    state.profileExpanded = false;
+    const overlay = $("profileExpandOverlay");
+    if (overlay) overlay.hidden = true;
+    destroyProfileChart("chartFull");
+  }
+
+  function openProfileExpand() {
+    if (!state.activeClimb) return;
+    state.profileExpanded = true;
+    const overlay = $("profileExpandOverlay");
+    if (overlay) overlay.hidden = false;
+    const st = state.activeClimb.stats || {};
+    $("profileTitleFull").textContent = state.activeClimb.name;
+    $("profileStatsFull").textContent = climbStatsLine(st, state.activeClimb);
+    const buckets =
+      typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(state.activeClimb) : [];
+    renderGradientStrip(buckets, "profileGradientStripFull");
+    mountProfileChart("profileChartFull", "chartFull", state.activeClimb, false);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        if (state.chartFull) state.chartFull.resize();
+      }, 50);
+    });
+  }
+
+  function resetProfilePanel() {
+    setClimbDetailVisible(false);
+    closeProfileExpand();
+    destroyProfileChart("chartMini");
+    renderGradientStrip([], "profileGradientStripMini");
+    renderGradientStrip([], "profileGradientStripFull");
+  }
+
+  function climbStatsLine(st, climb) {
+    const steep =
+      st.steepest_100m_pct != null
+        ? ` · steil 100 m ${st.steepest_100m_pct}% · steil 1 km ${st.steepest_1km_pct ?? "—"}%`
+        : steepestLabel(climb);
+    const bucketStepM =
+      typeof ClimbMetrics !== "undefined"
+        ? ClimbMetrics.profileBucketSizeM(
+            climb.profile?.distances_m?.slice(-1)[0] || st.length_m || 0
+          )
+        : 500;
+    const blockHint = bucketStepM >= 1000 ? "1 km" : bucketStepM >= 500 ? "500 m" : "100 m";
+    return `${formatKm(st.length_m)} · ${st.avg_gradient_pct}% gem. · max ${st.max_gradient_pct}%${steep} · +${formatM(st.elevation_gain_m)} · kleur per ${blockHint}`;
   }
 
   function clearViewportLayers() {
@@ -603,6 +658,10 @@
   }
 
   function clearMapLayers() {
+    if (state.routeLayerOutline) {
+      state.map.removeLayer(state.routeLayerOutline);
+      state.routeLayerOutline = null;
+    }
     if (state.routeLayer) {
       state.map.removeLayer(state.routeLayer);
       state.routeLayer = null;
@@ -651,28 +710,20 @@
     window.__fietsklimProfileFillRegistered = true;
   }
 
-  function updateChart(climb) {
-    state.activeClimb = climb;
+  function mountProfileChart(canvasId, chartKey, climb, compact) {
     ensureProfileChartPlugin();
+    const canvas = $(canvasId);
+    if (!canvas) return;
     const points = profilePoints(climb);
     const elevValues = points.map((p) => p.y);
     const bounds = yAxisBounds(elevValues);
     const segGrad = segmentGradientsForChart(climb);
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(climb) : [];
-    const bucketStepM =
-      typeof ClimbMetrics !== "undefined"
-        ? ClimbMetrics.profileBucketSizeM(climb.profile?.distances_m?.slice(-1)[0] || climb.stats?.length_m || 0)
-        : 500;
-    renderGradientStrip(buckets);
 
-    if (state.chart) {
-      state.chart.destroy();
-      state.chart = null;
-    }
+    destroyProfileChart(chartKey);
 
-    const ctx = $("profileChart").getContext("2d");
-    state.chart = new Chart(ctx, {
+    state[chartKey] = new Chart(canvas.getContext("2d"), {
       type: "line",
       data: {
         datasets: [
@@ -684,7 +735,7 @@
             backgroundColor: "transparent",
             fill: false,
             pointRadius: 0,
-            borderWidth: 1.5,
+            borderWidth: compact ? 1.25 : 1.5,
             tension: 0.12,
           },
         ],
@@ -722,14 +773,15 @@
         scales: {
           x: {
             type: "linear",
-            title: { display: true, text: "Afstand (km)" },
-            ticks: { maxTicksLimit: 8 },
+            title: { display: !compact, text: "Afstand (km)" },
+            ticks: { maxTicksLimit: compact ? 5 : 10 },
           },
           y: {
             type: "linear",
             min: bounds.min,
             max: bounds.max,
-            title: { display: true, text: "Hoogte (m)" },
+            title: { display: !compact, text: "Hoogte (m)" },
+            ticks: { maxTicksLimit: compact ? 5 : 8 },
           },
         },
         onHover: (_evt, elements) => {
@@ -750,15 +802,21 @@
         },
       },
     });
+  }
 
-    $("profileTitle").textContent = climb.name;
+  function updateChart(climb) {
+    state.activeClimb = climb;
+    setClimbDetailVisible(true);
+    closeProfileExpand();
+
     const st = climb.stats || {};
-    const steep =
-      st.steepest_100m_pct != null
-        ? ` · steil 100 m ${st.steepest_100m_pct}% · steil 1 km ${st.steepest_1km_pct ?? "—"}%`
-        : steepestLabel(climb);
-    const blockHint = bucketStepM >= 1000 ? "1 km" : bucketStepM >= 500 ? "500 m" : "100 m";
-    $("profileStats").textContent = `${formatKm(st.length_m)} · ${st.avg_gradient_pct}% gem. · max ${st.max_gradient_pct}%${steep} · +${formatM(st.elevation_gain_m)} · kleur per ${blockHint}`;
+    $("profileTitle").textContent = climb.name;
+    $("profileStats").textContent = climbStatsLine(st, climb);
+
+    const buckets =
+      typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(climb) : [];
+    renderGradientStrip(buckets, "profileGradientStripMini");
+    mountProfileChart("profileChartMini", "chartMini", climb, true);
   }
 
   function selectClimb(id) {
@@ -772,6 +830,13 @@
     if (state.overviewCluster) state.overviewCluster.clearLayers();
     clearMapLayers();
     const latlngs = latLngsFromClimb(climb);
+    state.routeLayerOutline = L.polyline(latlngs, {
+      color: "#ffffff",
+      weight: 9,
+      opacity: 0.95,
+      lineCap: "round",
+      lineJoin: "round",
+    }).addTo(state.map);
     state.routeLayer = L.polyline(latlngs, ROUTE_STYLE.detail).addTo(state.map);
     state.routeLayer.on("click", (e) => {
       L.DomEvent.stopPropagation(e);
@@ -922,7 +987,15 @@
     });
 
     $("mapBackOverview")?.addEventListener("click", () => returnToOverview());
+    $("profileExpandOpen")?.addEventListener("click", () => openProfileExpand());
+    $("profileExpandLink")?.addEventListener("click", () => openProfileExpand());
+    $("profileExpandClose")?.addEventListener("click", () => closeProfileExpand());
+    $("profileExpandBackdrop")?.addEventListener("click", () => closeProfileExpand());
     document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && state.profileExpanded) {
+        closeProfileExpand();
+        return;
+      }
       if (e.key !== "Escape") return;
       if (state.mapMode === "detail") returnToLocalView();
       else if (state.mapMode === "local") returnToOverview();
