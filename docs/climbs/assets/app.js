@@ -239,16 +239,30 @@
     return out;
   }
 
+  function bucketAtDistanceKm(buckets, km) {
+    if (!buckets?.length) return null;
+    return buckets.find((b) => km >= b.startKm && km <= b.endKm + 1e-6) || buckets[buckets.length - 1];
+  }
+
+  function ensureProfileChartPlugin() {
+    if (typeof ClimbMetrics === "undefined" || window.__fietsklimProfileFillRegistered) return;
+    Chart.register(ClimbMetrics.profileFillPlugin);
+    window.__fietsklimProfileFillRegistered = true;
+  }
+
   function updateChart(climb) {
     state.activeClimb = climb;
+    ensureProfileChartPlugin();
     const points = profilePoints(climb);
     const elevValues = points.map((p) => p.y);
     const bounds = yAxisBounds(elevValues);
     const segGrad = segmentGradientsForChart(climb);
-    const colorFn =
+    const buckets =
+      typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(climb) : [];
+    const bucketStepM =
       typeof ClimbMetrics !== "undefined"
-        ? (g) => ClimbMetrics.gradientColor(g)
-        : (g) => (g >= 9 ? "#ea580c" : "#0f766e");
+        ? ClimbMetrics.profileBucketSizeM(climb.profile?.distances_m?.slice(-1)[0] || climb.stats?.length_m || 0)
+        : 500;
 
     if (state.chart) {
       state.chart.destroy();
@@ -264,18 +278,12 @@
             label: "Hoogte (m)",
             data: points,
             parsing: false,
-            borderColor: "#0f766e",
-            backgroundColor: "rgba(15,118,110,0.12)",
-            fill: true,
+            borderColor: "rgba(15,23,42,0.35)",
+            backgroundColor: "transparent",
+            fill: false,
             pointRadius: 0,
-            borderWidth: 2.5,
+            borderWidth: 1.5,
             tension: 0.12,
-            segment: {
-              borderColor: (ctx) => {
-                const idx = ctx.p1DataIndex;
-                return colorFn(segGrad[idx] ?? segGrad[idx - 1] ?? 0);
-              },
-            },
           },
         ],
       },
@@ -286,6 +294,10 @@
         interaction: { mode: "nearest", axis: "x", intersect: false },
         plugins: {
           legend: { display: false },
+          fietsklimProfileFill: {
+            buckets,
+            profile: climb.profile,
+          },
           tooltip: {
             callbacks: {
               title: (items) => `${items[0].parsed.x.toFixed(2)} km`,
@@ -293,7 +305,13 @@
                 const idx = item.dataIndex;
                 const g = segGrad[idx];
                 const lines = [`${item.parsed.y.toFixed(1)} m hoogte`];
-                if (g != null && Number.isFinite(g)) lines.push(`${g.toFixed(1)}% helling`);
+                if (g != null && Number.isFinite(g)) lines.push(`${g.toFixed(1)}% helling (profiel)`);
+                const block = bucketAtDistanceKm(buckets, item.parsed.x);
+                if (block) {
+                  lines.push(
+                    `Blok ${block.startKm.toFixed(1)}–${block.endKm.toFixed(1)} km: gem. ${block.gradientPct}%`
+                  );
+                }
                 return lines;
               },
             },
@@ -337,7 +355,8 @@
       st.steepest_100m_pct != null
         ? ` · steil 100 m ${st.steepest_100m_pct}% · steil 1 km ${st.steepest_1km_pct ?? "—"}%`
         : steepestLabel(climb);
-    $("profileStats").textContent = `${formatKm(st.length_m)} · ${st.avg_gradient_pct}% gem. · max ${st.max_gradient_pct}%${steep} · +${formatM(st.elevation_gain_m)}`;
+    const blockHint = bucketStepM >= 1000 ? "1 km" : bucketStepM >= 500 ? "500 m" : "100 m";
+    $("profileStats").textContent = `${formatKm(st.length_m)} · ${st.avg_gradient_pct}% gem. · max ${st.max_gradient_pct}%${steep} · +${formatM(st.elevation_gain_m)} · kleur per ${blockHint}`;
   }
 
   function selectClimb(id) {

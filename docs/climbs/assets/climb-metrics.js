@@ -54,14 +54,145 @@
     return segmentGradients(dist, elev);
   }
 
+  /** Climbfinder-like ramp colours (filled profile blocks). */
   function gradientColor(pct) {
     const g = pct ?? 0;
-    if (g >= 12) return "#b91c1c";
-    if (g >= 9) return "#ea580c";
-    if (g >= 6) return "#d97706";
-    if (g >= 3) return "#65a30d";
-    return "#0d9488";
+    if (g < 0) return "#b8c9d9";
+    if (g <= 3) return "#fde68a";
+    if (g <= 6) return "#fdba74";
+    if (g <= 9) return "#fb923c";
+    if (g <= 12) return "#f87171";
+    if (g <= 16) return "#dc2626";
+    return "#7f1d1d";
   }
+
+  /** Long climbs: 1 km blocks; shorter: 500 m (≤ 2 km: 100 m like Climbfinder detail). */
+  function profileBucketSizeM(length_m, thresholdKm = 5) {
+    const len = length_m || 0;
+    if (len > thresholdKm * 1000) return 1000;
+    if (len > 2000) return 500;
+    return 100;
+  }
+
+  function elevationAtM(distances_m, elevations_m, targetM) {
+    if (!distances_m.length) return 0;
+    if (targetM <= distances_m[0]) return elevations_m[0];
+    const last = distances_m.length - 1;
+    if (targetM >= distances_m[last]) return elevations_m[last];
+    for (let i = 1; i < distances_m.length; i++) {
+      if (targetM <= distances_m[i]) {
+        const d0 = distances_m[i - 1];
+        const d1 = distances_m[i];
+        const t = d1 > d0 ? (targetM - d0) / (d1 - d0) : 0;
+        return elevations_m[i - 1] * (1 - t) + elevations_m[i] * t;
+      }
+    }
+    return elevations_m[last];
+  }
+
+  function averageGradientPct(distances_m, elevations_m, startM, endM) {
+    const span = endM - startM;
+    if (span <= 0) return 0;
+    const e0 = elevationAtM(distances_m, elevations_m, startM);
+    const e1 = elevationAtM(distances_m, elevations_m, endM);
+    return Math.round(((100 * (e1 - e0)) / span) * 10) / 10;
+  }
+
+  function profileBuckets(climb, thresholdKm = 5) {
+    const p = climb.profile || {};
+    const dist = p.distances_m;
+    const elev = p.elevations_m;
+    if (!dist?.length || !elev?.length) return [];
+    const totalM = dist[dist.length - 1] || climb.stats?.length_m || 0;
+    const step = profileBucketSizeM(totalM, thresholdKm);
+    const buckets = [];
+    for (let start = 0; start < totalM - 0.01; start += step) {
+      const end = Math.min(start + step, totalM);
+      const gradientPct = averageGradientPct(dist, elev, start, end);
+      buckets.push({
+        startM: start,
+        endM: end,
+        startKm: start / 1000,
+        endKm: end / 1000,
+        gradientPct,
+        color: gradientColor(gradientPct),
+        label: String(Math.round(gradientPct)),
+      });
+    }
+    return buckets;
+  }
+
+  function sliceProfilePoints(distances_m, elevations_m, startM, endM) {
+    const pts = [{ x: startM / 1000, y: elevationAtM(distances_m, elevations_m, startM) }];
+    for (let i = 0; i < distances_m.length; i++) {
+      const d = distances_m[i];
+      if (d > startM && d < endM) pts.push({ x: d / 1000, y: elevations_m[i] });
+    }
+    const endPt = { x: endM / 1000, y: elevationAtM(distances_m, elevations_m, endM) };
+    if (pts[pts.length - 1].x < endPt.x - 1e-6) pts.push(endPt);
+    else pts[pts.length - 1] = endPt;
+    return pts;
+  }
+
+  /** Filled vertical bands under the elevation line (Climbfinder-style). */
+  const profileFillPlugin = {
+    id: "fietsklimProfileFill",
+    beforeDatasetsDraw(chart) {
+      const buckets = chart.config.options?.plugins?.fietsklimProfileFill?.buckets;
+      const profile = chart.config.options?.plugins?.fietsklimProfileFill?.profile;
+      if (!buckets?.length || !profile?.distances_m) return;
+
+      const { ctx, chartArea, scales } = chart;
+      const xScale = scales.x;
+      const yScale = scales.y;
+      const bottom = chartArea.bottom;
+      const { distances_m, elevations_m } = profile;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+      ctx.clip();
+
+      for (const b of buckets) {
+        const slice = sliceProfilePoints(distances_m, elevations_m, b.startM, b.endM);
+        if (slice.length < 2) continue;
+        ctx.beginPath();
+        ctx.moveTo(xScale.getPixelForValue(slice[0].x), bottom);
+        for (const pt of slice) {
+          ctx.lineTo(xScale.getPixelForValue(pt.x), yScale.getPixelForValue(pt.y));
+        }
+        ctx.lineTo(xScale.getPixelForValue(slice[slice.length - 1].x), bottom);
+        ctx.closePath();
+        ctx.fillStyle = b.color;
+        ctx.fill();
+      }
+
+      ctx.strokeStyle = "rgba(255,255,255,0.85)";
+      ctx.lineWidth = 1;
+      for (let i = 1; i < buckets.length; i++) {
+        const x = xScale.getPixelForValue(buckets[i].startKm);
+        ctx.beginPath();
+        ctx.moveTo(x, chartArea.top);
+        ctx.lineTo(x, bottom);
+        ctx.stroke();
+      }
+
+      ctx.font = "600 11px Barlow, system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      for (const b of buckets) {
+        const midKm = (b.startKm + b.endKm) / 2;
+        const midElev = elevationAtM(distances_m, elevations_m, (b.startM + b.endM) / 2);
+        const px = xScale.getPixelForValue(midKm);
+        const py = yScale.getPixelForValue(midElev) - 14;
+        if (py < chartArea.top + 8) continue;
+        ctx.fillStyle = "rgba(255,255,255,0.95)";
+        ctx.fillText(b.label, px, py);
+      }
+
+      ctx.restore();
+    },
+  };
 
   global.ClimbMetrics = {
     segmentGradients,
@@ -69,5 +200,11 @@
     interpolateGraphGradients,
     gradientsForClimb,
     gradientColor,
+    profileBucketSizeM,
+    elevationAtM,
+    averageGradientPct,
+    profileBuckets,
+    sliceProfilePoints,
+    profileFillPlugin,
   };
 })(typeof window !== "undefined" ? window : globalThis);
