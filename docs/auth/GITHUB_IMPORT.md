@@ -126,3 +126,13 @@ Na login: **Start serverimport (GitHub Actions)** op de importpagina.
 ## Workflow-bestand
 
 `.github/workflows/climbfinder-import.yml` — inputs komen overeen met de velden op de importpagina.
+
+## Actions / Pages mislukt?
+
+| Symptoom | Oorzaak | Wat doen |
+|----------|---------|----------|
+| Job **~15 min**, log leeg, melding *“not acquired by Runner”* | GitHub-hosted runner kwam niet vrij (wachtrij/infra) | **Geen bug in import/script.** Open de run → **Re-run failed jobs** (of start import opnieuw). |
+| **pages build and deployment** idem | Zelfde runner-probleem bij GitHub Pages | Push naar `main` triggert opnieuw, of repo **Settings → Pages →** redeploy indien beschikbaar. |
+| Import **wel** gedraaid maar site oud | Pages-build faalde ná commit | Fix Pages-run; laatste **geslaagde** Pages-run bepaalt wat live staat. |
+
+Workflow **Validate docs site** (`.github/workflows/validate-docs-site.yml`) controleert JSON en `index.json` op een normale runner — handig als Pages even in de wachtrij hangt.

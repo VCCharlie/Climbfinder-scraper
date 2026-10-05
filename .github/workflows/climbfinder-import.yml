@@ -2,6 +2,9 @@
 # Trigger: GitHub → Actions → Climbfinder import → Run workflow
 # Or: site import page → "Start serverimport" (Firebase Function) / gh workflow run …
 
+# Runner queue: if the job never starts (~15 min) with "not acquired by Runner", re-run on GitHub
+# (Actions → run → Re-run failed jobs). That is infra, not the import script.
+
 name: Climbfinder import
 
 on:
@@ -54,11 +57,18 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: climbfinder-import-${{ github.repository }}
+  cancel-in-progress: false
+
 jobs:
   import:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 45
     steps:
+      - name: Runner check
+        run: echo "Job started on $(uname -a)"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
