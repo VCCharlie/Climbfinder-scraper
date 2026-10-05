@@ -146,12 +146,32 @@
   }
 
   function climbMatchesQuery(climb, q) {
+    const cat =
+      typeof ClimbMetrics !== "undefined" ? ClimbMetrics.climbCategory(climb) : climb.classification;
+    const catDesc =
+      cat && typeof ClimbMetrics !== "undefined" ? ClimbMetrics.categoryDescription(cat).toLowerCase() : "";
     return (
       climb.name.toLowerCase().includes(q) ||
       (climb.region || "").toLowerCase().includes(q) ||
       (climb.tags || []).some((t) => t.toLowerCase().includes(q)) ||
-      (climb.id || "").toLowerCase().includes(q)
+      (climb.id || "").toLowerCase().includes(q) ||
+      (cat && cat.toLowerCase() === q) ||
+      (catDesc && catDesc.includes(q)) ||
+      (q === "1e" && cat === "1") ||
+      (q === "2e" && cat === "2") ||
+      (q === "3e" && cat === "3")
     );
+  }
+
+  function categoryBadgeHtml(climb, size) {
+    if (typeof ClimbMetrics === "undefined") return "";
+    return ClimbMetrics.categoryBadgeHtml(climb, size);
+  }
+
+  function syncCategoryBadgeElement(climb, elId) {
+    const el = $(elId);
+    if (!el) return;
+    el.innerHTML = climb ? categoryBadgeHtml(climb, "md") : "";
   }
 
   function climbLatLng(climb) {
@@ -265,6 +285,7 @@
     if (overlay) overlay.hidden = false;
     const st = state.activeClimb.stats || {};
     $("profileTitleFull").textContent = state.activeClimb.name;
+    syncCategoryBadgeElement(state.activeClimb, "profileCategoryBadgeFull");
     $("profileStatsFull").textContent = climbStatsLine(st, state.activeClimb);
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(state.activeClimb) : [];
@@ -585,7 +606,7 @@
           ? `<div class="dataset-tag">${entry.regionTitle}</div>`
           : "";
       el.innerHTML = `
-        <h3>${climb.name}</h3>
+        <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
         ${datasetLine}
         <div class="meta">${formatKm(climb.stats.length_m)} · ${climb.stats.avg_gradient_pct}% gem. · +${formatM(climb.stats.elevation_gain_m)} · ${climb.region || ""}${steepestLabel(climb)}</div>
         <div>${tags} ${cf}</div>
@@ -811,6 +832,7 @@
 
     const st = climb.stats || {};
     $("profileTitle").textContent = climb.name;
+    syncCategoryBadgeElement(climb, "profileCategoryBadge");
     $("profileStats").textContent = climbStatsLine(st, climb);
 
     const buckets =

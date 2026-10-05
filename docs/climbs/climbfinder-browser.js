@@ -128,11 +128,17 @@
     const lons = coordinates.map((c) => c[0]);
     const lats = coordinates.map((c) => c[1]);
 
+    const classification =
+      typeof ClimbMetrics !== "undefined"
+        ? ClimbMetrics.climbCategory({ climbfinder: { category }, difficulty_score: parseDifficulty(category) })
+        : category && String(category).trim().toUpperCase() || null;
+
     return {
       id: slug,
       name,
       region: regionLabel,
       country,
+      classification,
       climbfinder: {
         id: idM ? parseInt(idM[1], 10) : null,
         slug,
@@ -147,6 +153,7 @@
         max_gradient_pct: gradients.length ? Math.round(Math.max(...gradients) * 10) / 10 : 0,
         steepest_100m_pct: steepest.steepest_100m_pct,
         steepest_1km_pct: steepest.steepest_1km_pct,
+        classification,
       },
       difficulty_score: parseDifficulty(category),
       geometry: { type: "LineString", coordinates },

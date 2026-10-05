@@ -41,7 +41,7 @@
       <div class="sidebar-tools">
         <div class="field">
           <label for="searchInput">Zoeken (alle regio’s)</label>
-          <input id="searchInput" type="search" placeholder="Naam, slug, regio, tag…" autocomplete="off" />
+          <input id="searchInput" type="search" placeholder="Naam, HC, 1e, regio, tag…" autocomplete="off" />
           <p id="searchHint" class="field-hint">Leeg = overzichtskaart met alle klimmen. Typ om te filteren.</p>
         </div>
         <div class="field">
@@ -52,7 +52,10 @@
 
       <div id="climbDetailPanel" class="climb-detail-panel" hidden>
         <button type="button" id="profileExpandOpen" class="climb-detail-name" title="Profiel vergroten (Climbfinder-stijl)">
-          <span id="profileTitle">Klim</span>
+          <span class="climb-detail-name-inner">
+            <span id="profileCategoryBadge"></span>
+            <span id="profileTitle">Klim</span>
+          </span>
           <span class="climb-detail-chevron" aria-hidden="true">↗</span>
         </button>
         <p id="profileStats" class="climb-detail-stats"></p>
@@ -78,7 +81,10 @@
     <div class="profile-expand-backdrop" id="profileExpandBackdrop"></div>
     <div class="profile-expand-card">
       <button type="button" id="profileExpandClose" class="profile-expand-close" aria-label="Sluiten">×</button>
-      <h2 id="profileTitleFull" class="profile-expand-title"></h2>
+      <div class="profile-expand-title-row">
+        <span id="profileCategoryBadgeFull"></span>
+        <h2 id="profileTitleFull" class="profile-expand-title"></h2>
+      </div>
       <p id="profileStatsFull" class="profile-expand-stats"></p>
       <div id="profileGradientStripFull" class="profile-gradient-strip" aria-label="Gemiddelde helling per segment"></div>
       <div class="profile-chart-wrap profile-chart-wrap--full">

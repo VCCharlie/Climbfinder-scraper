@@ -129,6 +129,18 @@ def _parse_difficulty(category: str | None) -> float | None:
         return None
 
 
+def normalize_climb_category(category: str | None) -> str | None:
+    """HC / SHC / 1–5 as on Climbfinder (Alpine-style classification)."""
+    if not category or not str(category).strip():
+        return None
+    c = str(category).strip().upper()
+    if c in ("HC", "SHC"):
+        return c
+    if c.isdigit() and 1 <= int(c) <= 5:
+        return c
+    return c if len(c) <= 4 else None
+
+
 def steepest_gradient_pct(
     distances_m: list[float] | list[int],
     elevations_m: list[float],
@@ -226,12 +238,14 @@ def parse_climb_page(
     lats = [c[1] for c in coords]
 
     slug_id = slug or re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+    classification = normalize_climb_category(category)
 
     return {
         "id": slug_id,
         "name": name,
         "region": region_label,
         "country": country,
+        "classification": classification,
         "climbfinder": {
             "id": climb_id,
             "slug": slug,
@@ -246,6 +260,7 @@ def parse_climb_page(
             "max_gradient_pct": round(max(gradients), 1) if gradients else 0.0,
             "steepest_100m_pct": steepest_100m,
             "steepest_1km_pct": steepest_1km,
+            "classification": classification,
         },
         "difficulty_score": _parse_difficulty(category),
         "geometry": {"type": "LineString", "coordinates": coords},

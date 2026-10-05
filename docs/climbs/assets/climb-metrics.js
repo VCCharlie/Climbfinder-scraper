@@ -197,6 +197,54 @@
     },
   };
 
+  /** Climbfinder category: HC, SHC, 1–5 (Alpine / UCI-style). */
+  function climbCategory(climb) {
+    const raw =
+      climb?.classification ??
+      climb?.climbfinder?.category ??
+      (climb?.difficulty_score != null && Number.isFinite(climb.difficulty_score)
+        ? String(Math.round(climb.difficulty_score))
+        : "");
+    const c = String(raw || "")
+      .trim()
+      .toUpperCase();
+    if (!c) return null;
+    if (c === "HC" || c === "SHC") return c;
+    if (/^[1-5]$/.test(c)) return c;
+    return c.length <= 4 ? c : null;
+  }
+
+  function categoryDescription(cat) {
+    const map = {
+      HC: "Hors catégorie",
+      SHC: "Super hors catégorie",
+      "1": "1e categorie",
+      "2": "2e categorie",
+      "3": "3e categorie",
+      "4": "4e categorie",
+      "5": "5e categorie",
+    };
+    return map[cat] || `Categorie ${cat}`;
+  }
+
+  function categoryBadgeClass(cat) {
+    if (cat === "HC") return "cat-hc";
+    if (cat === "SHC") return "cat-shc";
+    if (cat === "1") return "cat-1";
+    if (cat === "2") return "cat-2";
+    if (cat === "3") return "cat-3";
+    if (cat === "4") return "cat-4";
+    if (cat === "5") return "cat-5";
+    return "cat-unknown";
+  }
+
+  function categoryBadgeHtml(climb, size = "md") {
+    const cat = climbCategory(climb);
+    if (!cat) return "";
+    const sz = size === "sm" ? " climb-cat-badge--sm" : "";
+    return `<span class="climb-cat-badge ${categoryBadgeClass(cat)}${sz}" title="${categoryDescription(cat)}">${cat}</span>`;
+  }
+
   global.ClimbMetrics = {
     segmentGradients,
     steepestGradientPct,
@@ -209,5 +257,8 @@
     profileBuckets,
     sliceProfilePoints,
     profileFillPlugin,
+    climbCategory,
+    categoryDescription,
+    categoryBadgeHtml,
   };
 })(typeof window !== "undefined" ? window : globalThis);
