@@ -108,7 +108,7 @@ header.app-header p {
 
 .climb-detail-name {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   width: 100%;
@@ -181,9 +181,83 @@ header.app-header p {
   border-left: 3px solid var(--teal-600);
 }
 
-.climb-item h3 {
+.climb-item h3,
+.climb-item-title {
   margin: 0 0 0.25rem;
   font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  line-height: 1.25;
+}
+
+.climb-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 1.65rem;
+  height: 1.65rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.climb-cat-badge--sm {
+  min-width: 1.45rem;
+  height: 1.45rem;
+  font-size: 0.65rem;
+}
+
+.climb-cat-badge.cat-hc,
+.climb-cat-badge.cat-shc {
+  background: #1e1b4b;
+}
+
+.climb-cat-badge.cat-1 {
+  background: #b91c1c;
+}
+
+.climb-cat-badge.cat-2 {
+  background: #ea580c;
+}
+
+.climb-cat-badge.cat-3 {
+  background: #ca8a04;
+}
+
+.climb-cat-badge.cat-4 {
+  background: #65a30d;
+}
+
+.climb-cat-badge.cat-5 {
+  background: #0284c7;
+}
+
+.climb-cat-badge.cat-unknown {
+  background: #64748b;
+}
+
+.climb-detail-name-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.profile-expand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 2rem 0.35rem 0;
+}
+
+.profile-expand-title-row .profile-expand-title {
+  margin: 0;
 }
 
 .climb-item .meta {
