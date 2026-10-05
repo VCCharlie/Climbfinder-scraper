@@ -177,15 +177,18 @@
         ctx.stroke();
       }
 
-      ctx.font = "600 11px Barlow, system-ui, sans-serif";
+      ctx.font = "700 11px Barlow, system-ui, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       for (const b of buckets) {
         const midKm = (b.startKm + b.endKm) / 2;
-        const midElev = elevationAtM(distances_m, elevations_m, (b.startM + b.endM) / 2);
         const px = xScale.getPixelForValue(midKm);
-        const py = yScale.getPixelForValue(midElev) - 14;
-        if (py < chartArea.top + 8) continue;
+        const x0 = xScale.getPixelForValue(b.startKm);
+        const x1 = xScale.getPixelForValue(b.endKm);
+        if (x1 - x0 < 10) continue;
+        const midElev = elevationAtM(distances_m, elevations_m, (b.startM + b.endM) / 2);
+        const topY = yScale.getPixelForValue(midElev);
+        const py = Math.min(bottom - 12, Math.max(chartArea.top + 10, (topY + bottom) / 2));
         ctx.fillStyle = "rgba(255,255,255,0.95)";
         ctx.fillText(b.label, px, py);
       }
