@@ -43,6 +43,12 @@
     .cf-legend-item i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
     .cf-region-marker-wrap { background: transparent; border: none; }
     .cf-region-marker { display: block; width: 12px; height: 12px; border-radius: 50%; }
+    .region-toolbar { margin-bottom: 0.75rem; }
+    #mapSearchResults { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.35rem; max-height: 160px; overflow: auto; }
+    #mapSearchResults[hidden] { display: none !important; }
+    .cf-search-hit { text-align: left; background: #f1f5f9; color: #0f172a; border: 1px solid #e2e8f0; padding: 0.45rem 0.55rem; border-radius: 6px; margin: 0; font: inherit; cursor: pointer; width: 100%; }
+    .cf-search-hit:hover { background: #e2e8f0; }
+    .cf-search-hit .muted { color: #64748b; font-weight: 400; font-size: 0.85em; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 </head>
@@ -62,6 +68,18 @@
     <p class="links">Polyline + hoogteprofiel per klim. <a href="index.html">← Database</a> · <a href="../index.html">HTML Scraper</a></p>
 
     <div class="card">
+      <div class="grid2 region-toolbar">
+        <div>
+          <label for="countrySelect">Land</label>
+          <select id="countrySelect"><option value="">Laden…</option></select>
+        </div>
+        <div>
+          <label for="regionSelect">Climbfinder-regio</label>
+          <select id="regionSelect" disabled><option value="">Kies eerst een land</option></select>
+        </div>
+      </div>
+      <p id="rankingMeta"></p>
+
       <div class="tabs">
         <button type="button" id="tabRegion" class="active">Regio (GitHub import)</button>
         <button type="button" id="tabMap">Regio op kaart</button>
@@ -70,17 +88,6 @@
 
       <div id="panelRegion" class="panel active">
         <p class="hint"><strong>Aanbevolen:</strong> <strong>GitHub Actions</strong> met <code>publish_to_site=true</code> (standaard): na de run staat JSON automatisch op de kaart — geen zip/upload. Optioneel <code>merge_into=nl-popular</code> om meerdere imports samen te voegen. Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
-        <div class="grid2">
-          <div>
-            <label for="countrySelect">Land</label>
-            <select id="countrySelect"><option value="">Laden…</option></select>
-          </div>
-          <div>
-            <label for="regionSelect">Climbfinder-regio</label>
-            <select id="regionSelect" disabled><option value="">Kies eerst een land</option></select>
-          </div>
-        </div>
-        <p id="rankingMeta"></p>
         <button type="button" id="startGithubBtn">Start serverimport (GitHub Actions)</button>
         <button type="button" id="copyGhBtn" class="secondary">Kopieer gh-commando</button>
         <label for="ghCmd" style="margin-top:0.75rem">Workflow (handmatig op GitHub of met <code>gh</code> CLI)</label>
@@ -93,13 +100,14 @@
       </div>
 
       <div id="panelMap" class="panel">
-        <p class="hint">Weet je niet welke <code>l=</code>-regio je nodig hebt? Kies een <strong>land</strong> (zelfde dropdown als hierboven), zoom op de kaart, klik een stip. Kleur = status op de FietsKlim-kaart t.o.v. de lokale ranking-cache. Daarna start je de GitHub-import op tab 1.</p>
-        <div class="map-toolbar">
+        <p class="hint">Kies een <strong>land</strong> in de dropdown hierboven, zoom op de kaart, klik een stip — of zoek (min. 2 tekens, daarna Enter of klik in de lijst). Kleur = importstatus. <strong>Kies voor import</strong> opent tab GitHub-import.</p>
+        <form id="mapSearchForm" class="map-toolbar" action="#" autocomplete="off">
           <div class="grow">
             <label for="mapRegionSearch">Zoek regio of l=ID</label>
-            <input type="text" id="mapRegionSearch" placeholder="bv. Zuid-Limburg of 27" autocomplete="off" />
+            <input type="search" id="mapRegionSearch" name="q" placeholder="Typ min. 2 tekens, Enter of kies uit lijst" autocomplete="off" enterkeyhint="search" />
+            <div id="mapSearchResults" hidden></div>
           </div>
-        </div>
+        </form>
         <div id="regionMap" role="application" aria-label="Climbfinder-regio’s op kaart"></div>
         <div id="mapLegend" class="cf-legend"></div>
       </div>
@@ -129,7 +137,7 @@
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="assets/region-picker.js"></script>
+  <script src="assets/region-picker.js?v=20261005"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
@@ -137,6 +145,7 @@
     let selectedRegion = null;
     let regionsBooted = false;
     let regionPicker = null;
+    let activeImportTab = "region";
 
     function log(msg) {
       const el = document.getElementById("log");
@@ -215,6 +224,7 @@
     }
 
     function setTab(which) {
+      activeImportTab = which;
       document.getElementById("tabRegion").classList.toggle("active", which === "region");
       document.getElementById("tabMap").classList.toggle("active", which === "map");
       document.getElementById("tabManual").classList.toggle("active", which === "manual");
@@ -222,7 +232,18 @@
       document.getElementById("panelMap").classList.toggle("active", which === "map");
       document.getElementById("panelManual").classList.toggle("active", which === "manual");
       document.getElementById("fietsklim-app-root").classList.toggle("wide", which === "map");
-      if (which === "map") regionPicker?.invalidateSize();
+      const panelRegion = document.getElementById("panelRegion");
+      const panelMap = document.getElementById("panelMap");
+      const panelManual = document.getElementById("panelManual");
+      if (panelRegion) panelRegion.inert = which !== "region";
+      if (panelMap) panelMap.inert = which !== "map";
+      if (panelManual) panelManual.inert = which !== "manual";
+      if (which === "map") {
+        regionPicker?.onMapTabShown();
+        setTimeout(() => document.getElementById("mapRegionSearch")?.focus({ preventScroll: true }), 50);
+      } else {
+        regionPicker?.invalidateSize();
+      }
     }
 
     document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
@@ -264,7 +285,8 @@
       }
       countrySel.addEventListener("change", () => {
         fillRegionSelect();
-        regionPicker?.refreshCountry();
+        if (activeImportTab === "map") regionPicker?.onMapTabShown();
+        else regionPicker?.refreshCountry();
       });
       document.getElementById("regionSelect").addEventListener("change", () => {
         updateRankingMeta();
@@ -282,8 +304,11 @@
           countrySelectId: "countrySelect",
           regionSelectId: "regionSelect",
           searchId: "mapRegionSearch",
+          searchResultsId: "mapSearchResults",
           legendId: "mapLegend",
-          onRegionChosen: () => setTab("region"),
+          onRegionChosen: () => {
+            if (activeImportTab === "map") setTab("region");
+          },
         });
         regionPicker.setCatalog(regionsCatalog);
       } catch (e) {

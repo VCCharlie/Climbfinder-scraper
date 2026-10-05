@@ -93,6 +93,7 @@
    * @param {string} opts.countrySelectId
    * @param {string} opts.regionSelectId
    * @param {string} [opts.searchId]
+   * @param {string} [opts.searchResultsId]
    * @param {string} [opts.legendId]
    * @param {() => void} [opts.onRegionChosen]
    */
@@ -105,20 +106,29 @@
     const countrySel = document.getElementById(opts.countrySelectId);
     const regionSel = document.getElementById(opts.regionSelectId);
     const searchEl = opts.searchId ? document.getElementById(opts.searchId) : null;
+    const searchResultsEl = opts.searchResultsId ? document.getElementById(opts.searchResultsId) : null;
     const legendEl = opts.legendId ? document.getElementById(opts.legendId) : null;
 
     const [geo, publishedMap] = await Promise.all([loadGeo(), loadPublishedByLocality()]);
 
-    const map = L.map(mapEl, { scrollWheelZoom: true }).setView([50.5, 5.5], 5);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
-      maxZoom: 18,
-    }).addTo(map);
-
-    const layer = L.layerGroup().addTo(map);
+    let map = null;
+    let layer = null;
+    let mapReady = false;
     let markersById = {};
     let rankingCache = {};
     let bootCatalog = null;
+    let drawToken = 0;
+
+    async function ensureMap() {
+      if (mapReady) return;
+      map = L.map(mapEl, { scrollWheelZoom: true }).setView([50.5, 5.5], 5);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+        maxZoom: 18,
+      }).addTo(map);
+      layer = L.layerGroup().addTo(map);
+      mapReady = true;
+    }
 
     function findRegionInCatalog(localityId) {
       if (!bootCatalog) return null;
@@ -137,12 +147,12 @@
       if (!region) return;
       if (countrySel && countrySel.value !== region.country) {
         countrySel.value = region.country;
-        countrySel.dispatchEvent(new Event("change"));
+        countrySel.dispatchEvent(new Event("change", { bubbles: true }));
       }
       requestAnimationFrame(() => {
         if (regionSel) {
           regionSel.value = String(localityId);
-          regionSel.dispatchEvent(new Event("change"));
+          regionSel.dispatchEvent(new Event("change", { bubbles: true }));
         }
         if (goToImportTab) opts.onRegionChosen?.();
       });
@@ -187,6 +197,10 @@
     }
 
     async function drawForCountry(countryName) {
+      const token = ++drawToken;
+      await ensureMap();
+      if (token !== drawToken) return;
+
       layer.clearLayers();
       markersById = {};
       if (!bootCatalog || !countryName) {
@@ -202,6 +216,7 @@
           rankingCache[r.id] = await loadRankingCount(r.id);
         })
       );
+      if (token !== drawToken) return;
 
       const bounds = [];
       const iso = block.regions[0]?.country_iso || geo.regions[String(block.regions[0]?.id)]?.country_iso;
@@ -246,9 +261,9 @@
 
       const sel = regionSel?.value;
       if (sel) highlightMarker(sel);
-    }
 
-    let searchBound = false;
+      requestAnimationFrame(() => map.invalidateSize());
+    }
 
     function findRegionsMatchingQuery(q) {
       const query = q.trim().toLowerCase();
@@ -257,11 +272,11 @@
       const matches = [];
       for (const block of bootCatalog.countries) {
         for (const r of block.regions) {
-          if (idQuery != null && Number(r.id) === idQuery) {
-            matches.push({ block, r, score: 100 });
+          if (idQuery != null) {
+            if (Number(r.id) === idQuery) matches.push({ block, r, score: 100 });
+            else if (String(r.id).startsWith(query)) matches.push({ block, r, score: 50 });
             continue;
           }
-          if (idQuery != null) continue;
           const name = r.name.toLowerCase();
           if (name === query) matches.push({ block, r, score: 90 });
           else if (name.startsWith(query)) matches.push({ block, r, score: 70 });
@@ -269,37 +284,83 @@
         }
       }
       matches.sort((a, b) => b.score - a.score || a.r.name.localeCompare(b.r.name));
-      return matches;
+      return matches.slice(0, 12);
     }
 
-    async function focusRegionOnMap(block, r) {
+    function renderSearchResults(matches) {
+      if (!searchResultsEl) return;
+      if (!matches.length) {
+        searchResultsEl.innerHTML = "";
+        searchResultsEl.hidden = true;
+        return;
+      }
+      searchResultsEl.hidden = false;
+      searchResultsEl.innerHTML = matches
+        .map(
+          (m) =>
+            `<button type="button" class="cf-search-hit" data-l="${m.r.id}" data-country="${m.block.country.replace(/"/g, "&quot;")}">${m.r.name} <span class="muted">(${m.block.country}, l=${m.r.id})</span></button>`
+        )
+        .join("");
+      searchResultsEl.querySelectorAll(".cf-search-hit").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.getAttribute("data-l"));
+          const country = btn.getAttribute("data-country");
+          const block = bootCatalog.countries.find((c) => c.country === country);
+          if (block) applySearchPick(block, block.regions.find((r) => r.id === id));
+        });
+      });
+    }
+
+    async function applySearchPick(block, r) {
+      if (!block || !r) return;
+      await ensureMap();
       if (countrySel && countrySel.value !== block.country) {
         countrySel.value = block.country;
-        countrySel.dispatchEvent(new Event("change"));
+        countrySel.dispatchEvent(new Event("change", { bubbles: true }));
+        await drawForCountry(block.country);
+      } else {
         await drawForCountry(block.country);
       }
       selectInDropdowns(r.id, false);
       highlightMarker(r.id);
       const g = geo.regions[String(r.id)];
       if (g) map.setView([g.lat, g.lon], 11);
-      const mk = markersById[r.id];
-      mk?.openPopup();
+      markersById[r.id]?.openPopup();
+      if (searchResultsEl) {
+        searchResultsEl.innerHTML = "";
+        searchResultsEl.hidden = true;
+      }
     }
+
+    let searchBound = false;
 
     function bindSearch() {
       if (!searchEl || !bootCatalog || searchBound) return;
       searchBound = true;
-      searchEl.addEventListener("keydown", (ev) => {
-        if (ev.key === "Enter") ev.preventDefault();
+
+      const form = searchEl.closest("form");
+      form?.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        const matches = findRegionsMatchingQuery(searchEl.value);
+        if (matches.length) applySearchPick(matches[0].block, matches[0].r);
       });
+
+      searchEl.addEventListener("keydown", (ev) => {
+        ev.stopPropagation();
+        if (ev.key === "Enter") {
+          ev.preventDefault();
+          const matches = findRegionsMatchingQuery(searchEl.value);
+          if (matches.length) applySearchPick(matches[0].block, matches[0].r);
+        }
+      });
+
       searchEl.addEventListener("input", () => {
         const q = searchEl.value.trim();
-        if (!q) return;
-        const minLen = /^\d+$/.test(q) ? 1 : 2;
-        if (q.length < minLen) return;
-        const matches = findRegionsMatchingQuery(q);
-        if (!matches.length) return;
-        focusRegionOnMap(matches[0].block, matches[0].r);
+        if (q.length < 2) {
+          renderSearchResults([]);
+          return;
+        }
+        renderSearchResults(findRegionsMatchingQuery(q));
       });
     }
 
@@ -316,12 +377,16 @@
       setCatalog(catalog) {
         bootCatalog = catalog;
         bindSearch();
-        drawForCountry(countrySel?.value);
+      },
+      async onMapTabShown() {
+        await drawForCountry(countrySel?.value);
       },
       refreshCountry() {
+        if (!mapReady) return Promise.resolve();
         return drawForCountry(countrySel?.value);
       },
       syncFromDropdown() {
+        if (!mapReady) return;
         const id = regionSel?.value;
         if (!id) return;
         highlightMarker(id);
@@ -329,7 +394,8 @@
         if (g) map.setView([g.lat, g.lon], Math.max(map.getZoom(), 10));
       },
       invalidateSize() {
-        setTimeout(() => map.invalidateSize(), 100);
+        if (!mapReady) return;
+        setTimeout(() => map.invalidateSize(), 120);
       },
     };
   }
