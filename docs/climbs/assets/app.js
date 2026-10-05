@@ -1,6 +1,10 @@
 /* FietsKlim database explorer — map + elevation profile (Climbfinder JSON) */
 
 (function () {
+  const MIN_ZOOM_NEARBY_ROUTES = 12;
+  const MAX_NEARBY_ROUTES = 32;
+  const LOCAL_ZOOM_OUT_STEPS = 2;
+
   const state = {
     bundle: null,
     climbs: [],
@@ -11,6 +15,9 @@
     routeLayer: null,
     markers: [],
     overviewCluster: null,
+    viewportLayer: null,
+    viewportRoutesLayer: null,
+    viewportMoveTimer: null,
     chart: null,
     hoverMarker: null,
     activeClimb: null,
@@ -148,7 +155,113 @@
   function updateOverviewBackButton() {
     const btn = $("mapBackOverview");
     if (!btn) return;
-    btn.hidden = state.mapMode !== "detail";
+    const show = state.mapMode === "detail" || state.mapMode === "local";
+    btn.hidden = !show;
+    btn.textContent =
+      state.mapMode === "detail" ? "← Overzichtskaart" : "← Heel overzicht";
+  }
+
+  function resetProfilePanel() {
+    $("profileTitle").textContent = "Hoogteprofiel";
+    $("profileStats").textContent =
+      "Klik een klim op de kaart of in de lijst. Tip: na detail — klik naast de route voor buurtoverzicht.";
+    renderGradientStrip([]);
+    if (state.chart) {
+      state.chart.destroy();
+      state.chart = null;
+    }
+  }
+
+  function clearViewportLayers() {
+    if (state.viewportLayer) state.viewportLayer.clearLayers();
+    if (state.viewportRoutesLayer) state.viewportRoutesLayer.clearLayers();
+  }
+
+  function ensureViewportLayers() {
+    if (!state.map) return;
+    if (!state.viewportLayer) {
+      state.viewportLayer = L.layerGroup().addTo(state.map);
+    }
+    if (!state.viewportRoutesLayer) {
+      state.viewportRoutesLayer = L.layerGroup().addTo(state.map);
+    }
+  }
+
+  function entriesInMapBounds(pad = 0.12) {
+    if (!state.map) return [];
+    const bounds = state.map.getBounds().pad(pad);
+    return entriesForMapView().filter(({ climb }) => {
+      const ll = climbLatLng(climb);
+      if (ll && bounds.contains(ll)) return true;
+      const b = climb.bbox;
+      if (b && b.length >= 4) {
+        const cb = L.latLngBounds([b[1], b[0]], [b[3], b[2]]);
+        return bounds.intersects(cb);
+      }
+      return false;
+    });
+  }
+
+  function refreshViewportClimbs() {
+    if (!state.map || !state.globalSearchReady || state.mapMode === "detail") return;
+
+    const zoom = state.map.getZoom();
+    const useViewport = state.mapMode === "local" || zoom >= MIN_ZOOM_NEARBY_ROUTES;
+
+    if (!useViewport) {
+      clearViewportLayers();
+      if (state.mapMode === "overview" && state.overviewCluster) {
+        state.overviewCluster.addTo(state.map);
+      }
+      return;
+    }
+
+    if (state.overviewCluster) state.map.removeLayer(state.overviewCluster);
+    ensureViewportLayers();
+    clearViewportLayers();
+
+    const entries = entriesInMapBounds();
+    for (const entry of entries) {
+      const latlng = climbLatLng(entry.climb);
+      if (!latlng) continue;
+      const marker = L.circleMarker(latlng, {
+        radius: 6,
+        color: "#334155",
+        weight: 1,
+        fillColor: "#0f766e",
+        fillOpacity: 0.9,
+      });
+      marker.bindTooltip(entry.climb.name, { direction: "top", sticky: true });
+      marker.on("click", (e) => {
+        L.DomEvent.stopPropagation(e);
+        void selectClimbFromList(entry.climb.id, entry.regionUrl);
+      });
+      state.viewportLayer.addLayer(marker);
+    }
+
+    if (zoom >= MIN_ZOOM_NEARBY_ROUTES) {
+      const withRoutes = entries.slice(0, MAX_NEARBY_ROUTES);
+      for (const entry of withRoutes) {
+        const latlngs = latLngsFromClimb(entry.climb);
+        if (latlngs.length < 2) continue;
+        const line = L.polyline(latlngs, {
+          color: "#0f766e",
+          weight: 3,
+          opacity: 0.5,
+        });
+        line.bindTooltip(entry.climb.name, { sticky: true });
+        line.on("click", (e) => {
+          L.DomEvent.stopPropagation(e);
+          void selectClimbFromList(entry.climb.id, entry.regionUrl);
+        });
+        state.viewportRoutesLayer.addLayer(line);
+      }
+    }
+  }
+
+  function scheduleViewportRefresh() {
+    if (state.viewportMoveTimer) clearTimeout(state.viewportMoveTimer);
+    state.viewportMoveTimer = setTimeout(() => refreshViewportClimbs(), 120);
   }
 
   function clearDetailSelection() {
@@ -156,23 +269,44 @@
     state.activeClimb = null;
     state.mapMode = "overview";
     clearMapLayers();
-    $("profileTitle").textContent = "Hoogteprofiel";
-    $("profileStats").textContent = "Klik een klim op de overzichtskaart of in de lijst.";
-    renderGradientStrip([]);
-    if (state.chart) {
-      state.chart.destroy();
-      state.chart = null;
-    }
+    resetProfilePanel();
     updateOverviewBackButton();
+  }
+
+  function returnToLocalView() {
+    if (!state.map) return;
+    const center = state.map.getCenter();
+    const zoom = Math.max(state.map.getZoom() - LOCAL_ZOOM_OUT_STEPS, MIN_ZOOM_NEARBY_ROUTES - 1);
+
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    state.selectedId = null;
+    state.activeClimb = null;
+    state.mapMode = "local";
+    clearMapLayers();
+    resetProfilePanel();
+    updateOverviewBackButton();
+    renderList(state.searchQuery);
+
+    state.map.setView(center, zoom, { animate: true });
+    state.map.once("moveend", () => refreshViewportClimbs());
+    refreshViewportClimbs();
   }
 
   function returnToOverview() {
     if (window.location.hash) {
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
-    clearDetailSelection();
+    state.selectedId = null;
+    state.activeClimb = null;
+    state.mapMode = "overview";
+    clearMapLayers();
+    clearViewportLayers();
+    resetProfilePanel();
+    updateOverviewBackButton();
     renderList(state.searchQuery);
-    if (state.globalSearchReady) syncOverviewMarkers();
+    if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
     updateSearchHint();
   }
 
@@ -191,9 +325,19 @@
     state.map.addLayer(state.overviewCluster);
   }
 
-  function syncOverviewMarkers() {
+  function syncOverviewMarkers(options = {}) {
+    const { fit = false } = options;
     if (!state.map || !state.globalSearchReady) return;
+    if (state.mapMode !== "overview") {
+      refreshViewportClimbs();
+      return;
+    }
+
+    clearViewportLayers();
     ensureOverviewCluster();
+    if (!state.map.hasLayer(state.overviewCluster)) {
+      state.overviewCluster.addTo(state.map);
+    }
     state.overviewCluster.clearLayers();
     const entries = entriesForMapView();
     const bounds = [];
@@ -201,24 +345,24 @@
       const latlng = climbLatLng(entry.climb);
       if (!latlng) continue;
       bounds.push(latlng);
-      const selected =
-        state.selectedId === entry.climb.id && state.currentRegionUrl === entry.regionUrl;
       const marker = L.circleMarker(latlng, {
-        radius: selected ? 8 : 5,
-        color: selected ? "#0f766e" : "#334155",
-        weight: selected ? 2 : 1,
-        fillColor: selected ? "#14b8a6" : "#0f766e",
+        radius: 5,
+        color: "#334155",
+        weight: 1,
+        fillColor: "#0f766e",
         fillOpacity: 0.85,
       });
       marker.bindTooltip(entry.climb.name, { direction: "top", sticky: true });
-      marker.on("click", () => {
+      marker.on("click", (e) => {
+        L.DomEvent.stopPropagation(e);
         void selectClimbFromList(entry.climb.id, entry.regionUrl);
       });
       state.overviewCluster.addLayer(marker);
     }
-    if (state.mapMode === "overview" && bounds.length) {
+    if (fit && bounds.length) {
       state.map.fitBounds(bounds, { padding: [36, 36], maxZoom: 14 });
     }
+    refreshViewportClimbs();
     updateSearchHint();
   }
 
@@ -341,7 +485,7 @@
     }
     clearDetailSelection();
     renderList("");
-    if (state.globalSearchReady) syncOverviewMarkers();
+    if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
     updateSearchHint();
   }
 
@@ -366,6 +510,7 @@
       state.map.removeLayer(state.hoverMarker);
       state.hoverMarker = null;
     }
+    clearViewportLayers();
   }
 
   function geometryIndexForProfile(climb, profileIndex) {
@@ -525,6 +670,9 @@
     clearMapLayers();
     const latlngs = latLngsFromClimb(climb);
     state.routeLayer = L.polyline(latlngs, { color: "#0f766e", weight: 5, opacity: 0.9 }).addTo(state.map);
+    state.routeLayer.on("click", (e) => {
+      L.DomEvent.stopPropagation(e);
+    });
     state.markers.push(
       L.circleMarker(latlngs[0], { radius: 6, color: "#0369a1", fillColor: "#0ea5e9", fillOpacity: 1 }).addTo(state.map),
       L.circleMarker(latlngs[latlngs.length - 1], { radius: 6, color: "#15803d", fillColor: "#22c55e", fillOpacity: 1 }).addTo(state.map)
@@ -566,6 +714,15 @@
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
 
     state.map.setView([50.85, 5.88], 11);
+
+    state.map.on("click", () => {
+      if (state.mapMode === "detail") returnToLocalView();
+    });
+
+    state.map.on("moveend zoomend", () => {
+      if (state.mapMode === "detail") return;
+      scheduleViewportRefresh();
+    });
   }
 
   async function loadRegion(url, options = {}) {
@@ -606,7 +763,9 @@
     }
 
     clearDetailSelection();
-    if (state.globalSearchReady) syncOverviewMarkers();
+    if (state.globalSearchReady) {
+      syncOverviewMarkers({ fit: !pick && !state.searchQuery.trim() });
+    }
   }
 
   async function init() {
@@ -639,7 +798,7 @@
       }
       await ensureGlobalSearchIndex();
       clearDetailSelection();
-      syncOverviewMarkers();
+      syncOverviewMarkers({ fit: true });
       renderList(q);
       updateSearchHint();
     }
@@ -658,7 +817,9 @@
 
     $("mapBackOverview")?.addEventListener("click", () => returnToOverview());
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && state.mapMode === "detail") returnToOverview();
+      if (e.key !== "Escape") return;
+      if (state.mapMode === "detail") returnToLocalView();
+      else if (state.mapMode === "local") returnToOverview();
     });
 
     await ensureGlobalSearchIndex();
