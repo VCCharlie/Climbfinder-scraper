@@ -21,6 +21,7 @@ import json
 import re
 import urllib.request
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 USER_AGENT = "Mozilla/5.0 (compatible; FietsKlimDB/1.0)"
@@ -424,6 +425,7 @@ def main() -> None:
         "climbs": climbs,
     }
 
+    Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
