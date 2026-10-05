@@ -1,0 +1,7032 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-05T18:47:05Z",
+  "source": "enrich_region_centroids.py",
+  "countries": {
+    "NL": {
+      "lat": 52.15,
+      "lon": 5.35,
+      "zoom": 8
+    },
+    "BE": {
+      "lat": 50.55,
+      "lon": 4.75,
+      "zoom": 8
+    },
+    "FR": {
+      "lat": 46.6,
+      "lon": 2.4,
+      "zoom": 6
+    },
+    "DE": {
+      "lat": 51.1,
+      "lon": 10.4,
+      "zoom": 6
+    },
+    "IT": {
+      "lat": 42.8,
+      "lon": 12.5,
+      "zoom": 6
+    },
+    "ES": {
+      "lat": 40.2,
+      "lon": -3.5,
+      "zoom": 6
+    },
+    "CH": {
+      "lat": 46.8,
+      "lon": 8.2,
+      "zoom": 8
+    },
+    "AT": {
+      "lat": 47.6,
+      "lon": 14.1,
+      "zoom": 7
+    },
+    "GB": {
+      "lat": 54.0,
+      "lon": -2.5,
+      "zoom": 6
+    },
+    "PT": {
+      "lat": 39.5,
+      "lon": -8.0,
+      "zoom": 7
+    },
+    "AD": {
+      "lat": 42.55,
+      "lon": 1.58,
+      "zoom": 10
+    },
+    "SI": {
+      "lat": 46.1,
+      "lon": 14.8,
+      "zoom": 8
+    },
+    "HR": {
+      "lat": 45.1,
+      "lon": 15.2,
+      "zoom": 7
+    },
+    "NO": {
+      "lat": 61.0,
+      "lon": 8.0,
+      "zoom": 5
+    },
+    "US": {
+      "lat": 39.0,
+      "lon": -98.0,
+      "zoom": 4
+    },
+    "CO": {
+      "lat": 4.5,
+      "lon": -74.0,
+      "zoom": 6
+    },
+    "DK": {
+      "lat": 56.0,
+      "lon": 10.0,
+      "zoom": 7
+    },
+    "AL": {
+      "lat": 41.15,
+      "lon": 20.15,
+      "zoom": 8
+    },
+    "AU": {
+      "lat": -25.0,
+      "lon": 133.0,
+      "zoom": 4
+    }
+  },
+  "regions": {
+    "548": {
+      "lat": 41.15,
+      "lon": 20.15,
+      "source": "fallback",
+      "country_iso": "AL",
+      "name": "Albania",
+      "country": "AL"
+    },
+    "876": {
+      "lat": -25.0,
+      "lon": 133.0,
+      "source": "fallback",
+      "country_iso": "AU",
+      "name": "Australia",
+      "country": "AU"
+    },
+    "71": {
+      "lat": 42.906178,
+      "lon": 1.995919,
+      "source": "fallback",
+      "country_iso": "AD",
+      "name": "Andorra",
+      "country": "Andorra"
+    },
+    "81": {
+      "lat": 41.773383,
+      "lon": 1.718576,
+      "source": "fallback",
+      "country_iso": "AD",
+      "name": "Andorra Pyrenees",
+      "country": "Andorra"
+    },
+    "608": {
+      "lat": 43.432642,
+      "lon": 1.709586,
+      "source": "fallback",
+      "country_iso": "AD",
+      "name": "Parishes of Andorra",
+      "country": "Andorra"
+    },
+    "73": {
+      "lat": 47.710642,
+      "lon": 14.423266,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Austria",
+      "country": "Austria"
+    },
+    "87": {
+      "lat": 47.204685,
+      "lon": 13.841344,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Austrian Alps",
+      "country": "Austria"
+    },
+    "313": {
+      "lat": 47.750639,
+      "lon": 13.711187,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Burgenland",
+      "country": "Austria"
+    },
+    "305": {
+      "lat": 47.38028,
+      "lon": 14.501027,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Carinthia",
+      "country": "Austria"
+    },
+    "346": {
+      "lat": 47.565475,
+      "lon": 13.650477,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Chiemgau Alps",
+      "country": "Austria"
+    },
+    "345": {
+      "lat": 48.172221,
+      "lon": 14.369349,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Karwendel",
+      "country": "Austria"
+    },
+    "308": {
+      "lat": 46.889297,
+      "lon": 14.000962,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Lower Austria",
+      "country": "Austria"
+    },
+    "293": {
+      "lat": 48.082488,
+      "lon": 13.711352,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Salzburg",
+      "country": "Austria"
+    },
+    "472": {
+      "lat": 48.004731,
+      "lon": 14.546474,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "South-Moravian Carpathians",
+      "country": "Austria"
+    },
+    "306": {
+      "lat": 47.034464,
+      "lon": 13.71934,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Styria",
+      "country": "Austria"
+    },
+    "292": {
+      "lat": 48.414573,
+      "lon": 14.030912,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Tyrol",
+      "country": "Austria"
+    },
+    "307": {
+      "lat": 46.873896,
+      "lon": 14.387372,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Upper Austria",
+      "country": "Austria"
+    },
+    "309": {
+      "lat": 48.110918,
+      "lon": 13.631835,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Vienna",
+      "country": "Austria"
+    },
+    "291": {
+      "lat": 48.315473,
+      "lon": 14.447038,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Vorarlberg",
+      "country": "Austria"
+    },
+    "343": {
+      "lat": 46.706263,
+      "lon": 14.171473,
+      "source": "fallback",
+      "country_iso": "AT",
+      "name": "Wetterstein",
+      "country": "Austria"
+    },
+    "519": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "BA",
+      "name": "Bosnia and Herzegovina",
+      "country": "BA"
+    },
+    "544": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "BG",
+      "name": "Bulgaria",
+      "country": "BG"
+    },
+    "296": {
+      "lat": 50.504487,
+      "lon": 5.013828,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Antwerp Province",
+      "country": "Belgium"
+    },
+    "49": {
+      "lat": 50.286511,
+      "lon": 4.521555,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Ardennes",
+      "country": "Belgium"
+    },
+    "96": {
+      "lat": 50.923873,
+      "lon": 4.571915,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Ardennes Brabançonnes",
+      "country": "Belgium"
+    },
+    "85": {
+      "lat": 50.308018,
+      "lon": 5.017368,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgian Ardennes",
+      "country": "Belgium"
+    },
+    "361": {
+      "lat": 50.690608,
+      "lon": 4.444203,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgian Lorraine",
+      "country": "Belgium"
+    },
+    "315": {
+      "lat": 51.064822,
+      "lon": 4.729508,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgian Luxembourg",
+      "country": "Belgium"
+    },
+    "99": {
+      "lat": 50.021221,
+      "lon": 4.737968,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgian Picardy",
+      "country": "Belgium"
+    },
+    "43": {
+      "lat": 50.653845,
+      "lon": 4.412324,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgium",
+      "country": "Belgium"
+    },
+    "124": {
+      "lat": 50.574696,
+      "lon": 5.101092,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgium Coast",
+      "country": "Belgium"
+    },
+    "302": {
+      "lat": 49.989479,
+      "lon": 4.709758,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Belgium Limburg",
+      "country": "Belgium"
+    },
+    "131": {
+      "lat": 50.877098,
+      "lon": 4.449877,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Borinage and Center",
+      "country": "Belgium"
+    },
+    "127": {
+      "lat": 49.976531,
+      "lon": 4.82188,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Brabantic Hesbaye",
+      "country": "Belgium"
+    },
+    "126": {
+      "lat": 50.817153,
+      "lon": 4.412828,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Brabantse Kouters",
+      "country": "Belgium"
+    },
+    "314": {
+      "lat": 51.149002,
+      "lon": 4.795735,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Brussels-Capital Region",
+      "country": "Belgium"
+    },
+    "128": {
+      "lat": 50.164643,
+      "lon": 4.447737,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Condroz - Famenne",
+      "country": "Belgium"
+    },
+    "356": {
+      "lat": 50.955186,
+      "lon": 4.451145,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Denderland",
+      "country": "Belgium"
+    },
+    "332": {
+      "lat": 50.360784,
+      "lon": 5.131247,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Dijleland",
+      "country": "Belgium"
+    },
+    "358": {
+      "lat": 50.280805,
+      "lon": 4.383006,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Druivenstreek",
+      "country": "Belgium"
+    },
+    "298": {
+      "lat": 50.763785,
+      "lon": 5.136736,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "East Flanders",
+      "country": "Belgium"
+    },
+    "129": {
+      "lat": 49.974469,
+      "lon": 4.554293,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Fagne",
+      "country": "Belgium"
+    },
+    "370": {
+      "lat": 50.753023,
+      "lon": 4.350806,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Flanders",
+      "country": "Belgium"
+    },
+    "50": {
+      "lat": 50.283348,
+      "lon": 5.13885,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Flemish Ardennes",
+      "country": "Belgium"
+    },
+    "301": {
+      "lat": 49.900105,
+      "lon": 4.865127,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Flemish Brabant",
+      "country": "Belgium"
+    },
+    "363": {
+      "lat": 51.085799,
+      "lon": 5.017764,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Forest of Saint-Hubert",
+      "country": "Belgium"
+    },
+    "360": {
+      "lat": 49.97378,
+      "lon": 4.989443,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Gaume",
+      "country": "Belgium"
+    },
+    "97": {
+      "lat": 50.375316,
+      "lon": 4.322436,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Hageland",
+      "country": "Belgium"
+    },
+    "300": {
+      "lat": 51.227318,
+      "lon": 4.633292,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Hainaut Province",
+      "country": "Belgium"
+    },
+    "98": {
+      "lat": 49.841764,
+      "lon": 4.749305,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Haspengouw",
+      "country": "Belgium"
+    },
+    "380": {
+      "lat": 50.662943,
+      "lon": 4.301661,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Haute Ardenne",
+      "country": "Belgium"
+    },
+    "362": {
+      "lat": 50.052859,
+      "lon": 5.081641,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Haute-Sûre Forêt d'Anlier",
+      "country": "Belgium"
+    },
+    "364": {
+      "lat": 49.847071,
+      "lon": 4.867734,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Hauts-Pays",
+      "country": "Belgium"
+    },
+    "135": {
+      "lat": 51.273681,
+      "lon": 4.676087,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Heart of the Ardennes",
+      "country": "Belgium"
+    },
+    "133": {
+      "lat": 50.30791,
+      "lon": 5.193592,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "High Fens & East Cantons",
+      "country": "Belgium"
+    },
+    "138": {
+      "lat": 50.861925,
+      "lon": 4.320283,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Hinterland of Bruges",
+      "country": "Belgium"
+    },
+    "134": {
+      "lat": 51.173917,
+      "lon": 5.015054,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Kempens Plateau",
+      "country": "Belgium"
+    },
+    "359": {
+      "lat": 49.893637,
+      "lon": 4.511381,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Land of Arlon",
+      "country": "Belgium"
+    },
+    "125": {
+      "lat": 51.29312,
+      "lon": 4.643449,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Leiestreek",
+      "country": "Belgium"
+    },
+    "137": {
+      "lat": 50.223697,
+      "lon": 5.191286,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Lesse Valley",
+      "country": "Belgium"
+    },
+    "304": {
+      "lat": 50.089491,
+      "lon": 4.355674,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Liège Province",
+      "country": "Belgium"
+    },
+    "121": {
+      "lat": 51.327973,
+      "lon": 4.761261,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Meetjesland",
+      "country": "Belgium"
+    },
+    "331": {
+      "lat": 49.823231,
+      "lon": 4.935978,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Namur Province",
+      "country": "Belgium"
+    },
+    "354": {
+      "lat": 50.504527,
+      "lon": 4.249659,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Oost-Vlaamse bloemenstreek",
+      "country": "Belgium"
+    },
+    "77": {
+      "lat": 50.030881,
+      "lon": 5.131696,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Pajottenland",
+      "country": "Belgium"
+    },
+    "376": {
+      "lat": 50.526857,
+      "lon": 4.242478,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Pays de Charleroi",
+      "country": "Belgium"
+    },
+    "48": {
+      "lat": 51.319127,
+      "lon": 4.899147,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Pays de Herve",
+      "country": "Belgium"
+    },
+    "378": {
+      "lat": 50.725481,
+      "lon": 5.251912,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Pays de Liège",
+      "country": "Belgium"
+    },
+    "67": {
+      "lat": 49.9704,
+      "lon": 4.386722,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Pays des Collines",
+      "country": "Belgium"
+    },
+    "120": {
+      "lat": 51.351904,
+      "lon": 4.855905,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Plateau of Tielt",
+      "country": "Belgium"
+    },
+    "119": {
+      "lat": 49.922345,
+      "lon": 5.089133,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Plateau of Wijnendale",
+      "country": "Belgium"
+    },
+    "123": {
+      "lat": 51.142434,
+      "lon": 4.381801,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Rivierenland",
+      "country": "Belgium"
+    },
+    "118": {
+      "lat": 51.139216,
+      "lon": 5.12457,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Rug van Westrozebeke",
+      "country": "Belgium"
+    },
+    "366": {
+      "lat": 49.730573,
+      "lon": 4.637931,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Rupelstreek",
+      "country": "Belgium"
+    },
+    "367": {
+      "lat": 51.338352,
+      "lon": 4.560521,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Sambre-Orneau",
+      "country": "Belgium"
+    },
+    "333": {
+      "lat": 49.731707,
+      "lon": 4.890138,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Schelde-Durme",
+      "country": "Belgium"
+    },
+    "132": {
+      "lat": 50.185459,
+      "lon": 4.260636,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Semois Valley",
+      "country": "Belgium"
+    },
+    "377": {
+      "lat": 51.405505,
+      "lon": 4.777794,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Thudinie",
+      "country": "Belgium"
+    },
+    "130": {
+      "lat": 49.886158,
+      "lon": 5.098519,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Valleys of the Meuse, Sambre and Orneau",
+      "country": "Belgium"
+    },
+    "136": {
+      "lat": 51.338876,
+      "lon": 4.52363,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
+      "country": "Belgium"
+    },
+    "368": {
+      "lat": 50.49003,
+      "lon": 5.301497,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Vallées de la Burdinale et de la Mehaigne",
+      "country": "Belgium"
+    },
+    "357": {
+      "lat": 50.26116,
+      "lon": 4.225587,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Voer-Region",
+      "country": "Belgium"
+    },
+    "122": {
+      "lat": 51.382889,
+      "lon": 4.928037,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Waasland",
+      "country": "Belgium"
+    },
+    "371": {
+      "lat": 49.669831,
+      "lon": 4.795465,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Wallonia",
+      "country": "Belgium"
+    },
+    "303": {
+      "lat": 50.764423,
+      "lon": 4.20288,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Walloon Brabant",
+      "country": "Belgium"
+    },
+    "299": {
+      "lat": 51.370791,
+      "lon": 4.971261,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "West Flanders",
+      "country": "Belgium"
+    },
+    "51": {
+      "lat": 50.643692,
+      "lon": 4.183915,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "West-Flemish Hills",
+      "country": "Belgium"
+    },
+    "382": {
+      "lat": 51.423767,
+      "lon": 4.612936,
+      "source": "fallback",
+      "country_iso": "BE",
+      "name": "Westhoek",
+      "country": "Belgium"
+    },
+    "965": {
+      "lat": 20.647034,
+      "lon": 0.335318,
+      "source": "fallback",
+      "country_iso": "CA",
+      "name": "Canada",
+      "country": "CA"
+    },
+    "960": {
+      "lat": 19.596859,
+      "lon": -0.756133,
+      "source": "fallback",
+      "country_iso": "CA",
+      "name": "North America",
+      "country": "CA"
+    },
+    "268": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "CY",
+      "name": "Cyprus",
+      "country": "CY"
+    },
+    "636": {
+      "lat": 19.791844,
+      "lon": 0.40997,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Central Bohemian Region",
+      "country": "CZ"
+    },
+    "471": {
+      "lat": 19.476489,
+      "lon": 0.119154,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Central Moravian Carpathians",
+      "country": "CZ"
+    },
+    "89": {
+      "lat": 20.542829,
+      "lon": 0.19475,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Czechia",
+      "country": "CZ"
+    },
+    "630": {
+      "lat": 19.786251,
+      "lon": 0.543675,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Hradec Králové Region",
+      "country": "CZ"
+    },
+    "633": {
+      "lat": 20.075196,
+      "lon": -0.605071,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Karlovy Vary Region",
+      "country": "CZ"
+    },
+    "631": {
+      "lat": 20.554918,
+      "lon": 0.364008,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Liberec Region",
+      "country": "CZ"
+    },
+    "624": {
+      "lat": 19.817517,
+      "lon": 0.637891,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Moravian-Silesian Region",
+      "country": "CZ"
+    },
+    "626": {
+      "lat": 19.896335,
+      "lon": -0.676457,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Olomouc Region",
+      "country": "CZ"
+    },
+    "629": {
+      "lat": 20.278718,
+      "lon": 0.654482,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Pardubice Region",
+      "country": "CZ"
+    },
+    "634": {
+      "lat": 19.784994,
+      "lon": -0.696575,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Plzeň Region",
+      "country": "CZ"
+    },
+    "637": {
+      "lat": 20.335864,
+      "lon": -0.674438,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Prague",
+      "country": "CZ"
+    },
+    "470": {
+      "lat": 19.973975,
+      "lon": 0.762725,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Slovak-Moravian Carpathians",
+      "country": "CZ"
+    },
+    "635": {
+      "lat": 20.597483,
+      "lon": -0.542676,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "South Bohemian Region",
+      "country": "CZ"
+    },
+    "627": {
+      "lat": 20.814244,
+      "lon": 0.226319,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "South Moravian Region",
+      "country": "CZ"
+    },
+    "628": {
+      "lat": 19.168578,
+      "lon": 0.229782,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Vysočina Region",
+      "country": "CZ"
+    },
+    "625": {
+      "lat": 20.034566,
+      "lon": -0.829656,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Zlín Region",
+      "country": "CZ"
+    },
+    "632": {
+      "lat": 19.58961,
+      "lon": 0.752682,
+      "source": "fallback",
+      "country_iso": "CZ",
+      "name": "Ústecký Region",
+      "country": "CZ"
+    },
+    "455": {
+      "lat": 45.838909,
+      "lon": 15.2,
+      "source": "fallback",
+      "country_iso": "HR",
+      "name": "Croatia",
+      "country": "Croatia"
+    },
+    "655": {
+      "lat": 44.20435,
+      "lon": 15.137616,
+      "source": "fallback",
+      "country_iso": "HR",
+      "name": "Dinaric Alps",
+      "country": "Croatia"
+    },
+    "178": {
+      "lat": 56.029542,
+      "lon": 10.280532,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Bornholm",
+      "country": "Denmark"
+    },
+    "421": {
+      "lat": 55.437007,
+      "lon": 9.968935,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Capital Region",
+      "country": "Denmark"
+    },
+    "418": {
+      "lat": 56.252431,
+      "lon": 9.686885,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Central Denmark",
+      "country": "Denmark"
+    },
+    "167": {
+      "lat": 55.390899,
+      "lon": 10.134826,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Denmark",
+      "country": "Denmark"
+    },
+    "437": {
+      "lat": 55.964257,
+      "lon": 9.614061,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Djursland",
+      "country": "Denmark"
+    },
+    "374": {
+      "lat": 56.319561,
+      "lon": 10.363067,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Horsens Fjord",
+      "country": "Denmark"
+    },
+    "373": {
+      "lat": 55.262005,
+      "lon": 9.914714,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Kronjylland",
+      "country": "Denmark"
+    },
+    "180": {
+      "lat": 56.765591,
+      "lon": 9.912396,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Lillebælt / Little Belt",
+      "country": "Denmark"
+    },
+    "417": {
+      "lat": 56.701617,
+      "lon": 10.223674,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "North Jutland",
+      "country": "Denmark"
+    },
+    "419": {
+      "lat": 55.172881,
+      "lon": 9.94774,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Southern Denmark",
+      "country": "Denmark"
+    },
+    "176": {
+      "lat": 56.85514,
+      "lon": 10.020514,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Søhøjlandet",
+      "country": "Denmark"
+    },
+    "168": {
+      "lat": 55.130323,
+      "lon": 9.930857,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Vejle Fjord",
+      "country": "Denmark"
+    },
+    "420": {
+      "lat": 55.671543,
+      "lon": 9.531439,
+      "source": "fallback",
+      "country_iso": "DK",
+      "name": "Zealand",
+      "country": "Denmark"
+    },
+    "839": {
+      "lat": 20.161276,
+      "lon": 0.363695,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Bedfordshire",
+      "country": "EN"
+    },
+    "832": {
+      "lat": 19.669662,
+      "lon": 0.284367,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Berkshire",
+      "country": "EN"
+    },
+    "823": {
+      "lat": 20.323646,
+      "lon": -0.320285,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Bristol",
+      "country": "EN"
+    },
+    "834": {
+      "lat": 20.15281,
+      "lon": 0.436088,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Buckinghamshire",
+      "country": "EN"
+    },
+    "840": {
+      "lat": 19.973885,
+      "lon": -0.473858,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Cambridgeshire",
+      "country": "EN"
+    },
+    "853": {
+      "lat": 20.370426,
+      "lon": 0.342579,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Cheshire",
+      "country": "EN"
+    },
+    "645": {
+      "lat": 19.467008,
+      "lon": -0.017936,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Cornwall",
+      "country": "EN"
+    },
+    "866": {
+      "lat": 20.415538,
+      "lon": -0.332809,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Cotswolds",
+      "country": "EN"
+    },
+    "857": {
+      "lat": 19.601623,
+      "lon": 0.366994,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Cumbria",
+      "country": "EN"
+    },
+    "867": {
+      "lat": 19.752297,
+      "lon": -0.481492,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Dartmoor",
+      "country": "EN"
+    },
+    "845": {
+      "lat": 20.245755,
+      "lon": -0.493492,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Derbyshire",
+      "country": "EN"
+    },
+    "820": {
+      "lat": 20.079966,
+      "lon": 0.54934,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Devon",
+      "country": "EN"
+    },
+    "821": {
+      "lat": 19.609196,
+      "lon": -0.427619,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Dorset",
+      "country": "EN"
+    },
+    "862": {
+      "lat": 20.547129,
+      "lon": 0.251906,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Durham",
+      "country": "EN"
+    },
+    "396": {
+      "lat": 19.382399,
+      "lon": -0.029013,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "East Midlands",
+      "country": "EN"
+    },
+    "398": {
+      "lat": 20.587918,
+      "lon": -0.205231,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "East of England",
+      "country": "EN"
+    },
+    "860": {
+      "lat": 20.323836,
+      "lon": 0.514048,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "East Riding of Yorkshire",
+      "country": "EN"
+    },
+    "829": {
+      "lat": 20.04366,
+      "lon": -0.603758,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "East Sussex",
+      "country": "EN"
+    },
+    "158": {
+      "lat": 20.587989,
+      "lon": -0.264836,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "England",
+      "country": "EN"
+    },
+    "835": {
+      "lat": 19.654971,
+      "lon": 0.52858,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Essex",
+      "country": "EN"
+    },
+    "825": {
+      "lat": 20.205268,
+      "lon": -0.596892,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Gloucestershire",
+      "country": "EN"
+    },
+    "399": {
+      "lat": 19.949471,
+      "lon": 0.632527,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Greater London",
+      "country": "EN"
+    },
+    "855": {
+      "lat": 19.673653,
+      "lon": -0.563078,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Greater Manchester",
+      "country": "EN"
+    },
+    "827": {
+      "lat": 20.689457,
+      "lon": -0.003585,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Hampshire",
+      "country": "EN"
+    },
+    "850": {
+      "lat": 19.781152,
+      "lon": 0.621316,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Herefordshire",
+      "country": "EN"
+    },
+    "838": {
+      "lat": 19.823275,
+      "lon": -0.639709,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Hertfordshire",
+      "country": "EN"
+    },
+    "826": {
+      "lat": 20.522835,
+      "lon": 0.451471,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Isle of Wight",
+      "country": "EN"
+    },
+    "831": {
+      "lat": 19.522469,
+      "lon": -0.502165,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Kent",
+      "country": "EN"
+    },
+    "643": {
+      "lat": 20.444928,
+      "lon": -0.535703,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Lake District",
+      "country": "EN"
+    },
+    "856": {
+      "lat": 19.496841,
+      "lon": 0.496398,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Lancashire",
+      "country": "EN"
+    },
+    "846": {
+      "lat": 19.267151,
+      "lon": 0.061964,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Leicestershire",
+      "country": "EN"
+    },
+    "843": {
+      "lat": 20.490472,
+      "lon": 0.523179,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Lincolnshire",
+      "country": "EN"
+    },
+    "854": {
+      "lat": 19.271471,
+      "lon": 0.159583,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Merseyside",
+      "country": "EN"
+    },
+    "837": {
+      "lat": 19.945877,
+      "lon": -0.706745,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Norfolk",
+      "country": "EN"
+    },
+    "393": {
+      "lat": 20.693484,
+      "lon": 0.292057,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "North East England",
+      "country": "EN"
+    },
+    "869": {
+      "lat": 19.601633,
+      "lon": -0.614543,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "North Wessex Downs",
+      "country": "EN"
+    },
+    "394": {
+      "lat": 20.48323,
+      "lon": -0.565141,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "North West England",
+      "country": "EN"
+    },
+    "861": {
+      "lat": 20.17926,
+      "lon": 0.710593,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "North Yorkshire",
+      "country": "EN"
+    },
+    "841": {
+      "lat": 20.026292,
+      "lon": -0.735118,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Northamptonshire",
+      "country": "EN"
+    },
+    "864": {
+      "lat": 20.738062,
+      "lon": 0.260082,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Northumberland",
+      "country": "EN"
+    },
+    "844": {
+      "lat": 19.356401,
+      "lon": -0.436459,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Nottinghamshire",
+      "country": "EN"
+    },
+    "833": {
+      "lat": 19.693485,
+      "lon": -0.693444,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Oxfordshire",
+      "country": "EN"
+    },
+    "644": {
+      "lat": 20.102141,
+      "lon": 0.749759,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Peak District",
+      "country": "EN"
+    },
+    "842": {
+      "lat": 19.711029,
+      "lon": -0.710705,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Rutland",
+      "country": "EN"
+    },
+    "851": {
+      "lat": 20.797308,
+      "lon": -0.157956,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Shropshire",
+      "country": "EN"
+    },
+    "822": {
+      "lat": 19.903964,
+      "lon": 0.765218,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Somerset",
+      "country": "EN"
+    },
+    "400": {
+      "lat": 20.43247,
+      "lon": -0.660251,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "South East England",
+      "country": "EN"
+    },
+    "401": {
+      "lat": 20.018168,
+      "lon": 0.779833,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "South West England",
+      "country": "EN"
+    },
+    "858": {
+      "lat": 19.577778,
+      "lon": 0.676999,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "South Yorkshire",
+      "country": "EN"
+    },
+    "852": {
+      "lat": 20.690243,
+      "lon": -0.449806,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Staffordshire",
+      "country": "EN"
+    },
+    "836": {
+      "lat": 20.234427,
+      "lon": 0.762729,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Suffolk",
+      "country": "EN"
+    },
+    "830": {
+      "lat": 20.129651,
+      "lon": -0.78909,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Surrey",
+      "country": "EN"
+    },
+    "868": {
+      "lat": 20.58645,
+      "lon": 0.583961,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "The Chilterns",
+      "country": "EN"
+    },
+    "863": {
+      "lat": 19.381534,
+      "lon": 0.560459,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Tyne and Wear",
+      "country": "EN"
+    },
+    "847": {
+      "lat": 19.630404,
+      "lon": -0.73375,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Warwickshire",
+      "country": "EN"
+    },
+    "397": {
+      "lat": 20.292699,
+      "lon": 0.768424,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "West Midlands",
+      "country": "EN"
+    },
+    "848": {
+      "lat": 19.141995,
+      "lon": 0.152178,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "West Midlands",
+      "country": "EN"
+    },
+    "828": {
+      "lat": 20.87493,
+      "lon": 0.065752,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "West Sussex",
+      "country": "EN"
+    },
+    "859": {
+      "lat": 20.371797,
+      "lon": 0.751835,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "West Yorkshire",
+      "country": "EN"
+    },
+    "824": {
+      "lat": 19.571259,
+      "lon": -0.729397,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Wiltshire",
+      "country": "EN"
+    },
+    "849": {
+      "lat": 20.880305,
+      "lon": 0.130545,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Worcestershire",
+      "country": "EN"
+    },
+    "395": {
+      "lat": 19.18117,
+      "lon": 0.340951,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Yorkshire and the Humber",
+      "country": "EN"
+    },
+    "865": {
+      "lat": 20.61219,
+      "lon": -0.619929,
+      "source": "fallback",
+      "country_iso": "EN",
+      "name": "Yorkshire Dales",
+      "country": "EN"
+    },
+    "173": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "FI",
+      "name": "Finland",
+      "country": "FI"
+    },
+    "518": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "FO",
+      "name": "Faroe Islands",
+      "country": "FO"
+    },
+    "193": {
+      "lat": 46.491321,
+      "lon": 2.66247,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Ain",
+      "country": "France"
+    },
+    "413": {
+      "lat": 46.35368,
+      "lon": 2.16907,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Aisne",
+      "country": "France"
+    },
+    "416": {
+      "lat": 46.637741,
+      "lon": 2.104529,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Allier",
+      "country": "France"
+    },
+    "290": {
+      "lat": 46.592048,
+      "lon": 2.705241,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Alpes-de-Haute-Provence",
+      "country": "France"
+    },
+    "379": {
+      "lat": 46.20274,
+      "lon": 2.246938,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Alpes-Maritimes",
+      "country": "France"
+    },
+    "36": {
+      "lat": 46.805573,
+      "lon": 2.686979,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Alps",
+      "country": "France"
+    },
+    "65": {
+      "lat": 46.476745,
+      "lon": 2.715031,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Annecy",
+      "country": "France"
+    },
+    "422": {
+      "lat": 46.843941,
+      "lon": 2.113259,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Ardennes (France)",
+      "country": "France"
+    },
+    "57": {
+      "lat": 46.782603,
+      "lon": 2.713522,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Ardèche",
+      "country": "France"
+    },
+    "900": {
+      "lat": 46.104016,
+      "lon": 2.361495,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Ardèche",
+      "country": "France"
+    },
+    "423": {
+      "lat": 47.105954,
+      "lon": 2.414913,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Ariège",
+      "country": "France"
+    },
+    "350": {
+      "lat": 46.091737,
+      "lon": 2.350349,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Armorican Massif",
+      "country": "France"
+    },
+    "425": {
+      "lat": 46.833853,
+      "lon": 2.080848,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Aube",
+      "country": "France"
+    },
+    "426": {
+      "lat": 46.656343,
+      "lon": 2.75965,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Aude",
+      "country": "France"
+    },
+    "61": {
+      "lat": 46.146997,
+      "lon": 2.207477,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Auvergne",
+      "country": "France"
+    },
+    "445": {
+      "lat": 46.797355,
+      "lon": 2.055637,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Auvergne-Rhône-Alpes",
+      "country": "France"
+    },
+    "427": {
+      "lat": 46.148599,
+      "lon": 2.609159,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Aveyron",
+      "country": "France"
+    },
+    "144": {
+      "lat": 46.054315,
+      "lon": 2.352252,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Beaujolais",
+      "country": "France"
+    },
+    "415": {
+      "lat": 46.784117,
+      "lon": 2.760157,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Bouches-du-Rhône",
+      "country": "France"
+    },
+    "42": {
+      "lat": 46.306721,
+      "lon": 2.728521,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Briançon",
+      "country": "France"
+    },
+    "446": {
+      "lat": 46.586736,
+      "lon": 2.01113,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Brittany",
+      "country": "France"
+    },
+    "435": {
+      "lat": 46.837636,
+      "lon": 2.756895,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Burgundy-Franche-Comté",
+      "country": "France"
+    },
+    "429": {
+      "lat": 46.127037,
+      "lon": 2.626104,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Calvados",
+      "country": "France"
+    },
+    "430": {
+      "lat": 46.82052,
+      "lon": 2.03064,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Cantal",
+      "country": "France"
+    },
+    "152": {
+      "lat": 46.109724,
+      "lon": 2.6203,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Caps et Marais d'Opale",
+      "country": "France"
+    },
+    "447": {
+      "lat": 46.358154,
+      "lon": 2.029879,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Centre-Val de Loire",
+      "country": "France"
+    },
+    "431": {
+      "lat": 47.192275,
+      "lon": 2.360478,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Charente",
+      "country": "France"
+    },
+    "432": {
+      "lat": 46.130219,
+      "lon": 2.655959,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Charente-Maritime",
+      "country": "France"
+    },
+    "433": {
+      "lat": 46.793838,
+      "lon": 2.006968,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Cher",
+      "country": "France"
+    },
+    "434": {
+      "lat": 46.74868,
+      "lon": 2.805291,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Corrèze",
+      "country": "France"
+    },
+    "80": {
+      "lat": 45.989287,
+      "lon": 2.367094,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Corsica",
+      "country": "France"
+    },
+    "439": {
+      "lat": 47.079362,
+      "lon": 2.666676,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Creuse",
+      "country": "France"
+    },
+    "145": {
+      "lat": 46.497523,
+      "lon": 2.82078,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Cévennes",
+      "country": "France"
+    },
+    "436": {
+      "lat": 46.763184,
+      "lon": 1.985466,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Côte-d'Or",
+      "country": "France"
+    },
+    "438": {
+      "lat": 46.688696,
+      "lon": 2.82787,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Côtes-d'Armor",
+      "country": "France"
+    },
+    "903": {
+      "lat": 45.977677,
+      "lon": 2.320558,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Deux-Sèvres",
+      "country": "France"
+    },
+    "440": {
+      "lat": 47.21171,
+      "lon": 2.521794,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Dordogne",
+      "country": "France"
+    },
+    "441": {
+      "lat": 45.986317,
+      "lon": 2.526552,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Doubs",
+      "country": "France"
+    },
+    "442": {
+      "lat": 45.958223,
+      "lon": 2.359132,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Drôme",
+      "country": "France"
+    },
+    "914": {
+      "lat": 47.248111,
+      "lon": 2.410144,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Essonne",
+      "country": "France"
+    },
+    "443": {
+      "lat": 46.377691,
+      "lon": 2.821125,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Eure",
+      "country": "France"
+    },
+    "444": {
+      "lat": 46.453286,
+      "lon": 1.960938,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Eure-et-Loir",
+      "country": "France"
+    },
+    "25": {
+      "lat": 46.16894,
+      "lon": 2.742728,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Europe",
+      "country": "France"
+    },
+    "148": {
+      "lat": 45.981028,
+      "lon": 2.237074,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Euskal Herria",
+      "country": "France"
+    },
+    "915": {
+      "lat": 47.219874,
+      "lon": 2.231967,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Finistère",
+      "country": "France"
+    },
+    "44": {
+      "lat": 46.306589,
+      "lon": 2.813758,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "France",
+      "country": "France"
+    },
+    "37": {
+      "lat": 47.04385,
+      "lon": 2.05211,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "French Alps",
+      "country": "France"
+    },
+    "84": {
+      "lat": 47.113696,
+      "lon": 2.702713,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "French Ardennes",
+      "country": "France"
+    },
+    "82": {
+      "lat": 45.965573,
+      "lon": 2.568422,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "French Pyrenees",
+      "country": "France"
+    },
+    "916": {
+      "lat": 47.088614,
+      "lon": 2.071625,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Gard",
+      "country": "France"
+    },
+    "666": {
+      "lat": 46.898219,
+      "lon": 2.825088,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Gers",
+      "country": "France"
+    },
+    "917": {
+      "lat": 46.257825,
+      "lon": 1.988239,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Gironde",
+      "country": "France"
+    },
+    "448": {
+      "lat": 47.286331,
+      "lon": 2.467593,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Grand Est",
+      "country": "France"
+    },
+    "64": {
+      "lat": 45.960807,
+      "lon": 2.209785,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Grenoble",
+      "country": "France"
+    },
+    "288": {
+      "lat": 46.300623,
+      "lon": 1.965425,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Haute Savoie",
+      "country": "France"
+    },
+    "873": {
+      "lat": 47.250923,
+      "lon": 2.582316,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Haute-Garonne",
+      "country": "France"
+    },
+    "925": {
+      "lat": 45.937849,
+      "lon": 2.568421,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Haute-Loire",
+      "country": "France"
+    },
+    "940": {
+      "lat": 47.113947,
+      "lon": 2.064247,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Haute-Marne",
+      "country": "France"
+    },
+    "954": {
+      "lat": 46.432783,
+      "lon": 2.875707,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Haute-Saône",
+      "country": "France"
+    },
+    "910": {
+      "lat": 45.9029,
+      "lon": 2.28979,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Haute-Vienne",
+      "country": "France"
+    },
+    "192": {
+      "lat": 46.883894,
+      "lon": 2.853388,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Hautes Alpes",
+      "country": "France"
+    },
+    "899": {
+      "lat": 46.163622,
+      "lon": 2.794658,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Hautes-Pyrénées",
+      "country": "France"
+    },
+    "449": {
+      "lat": 47.092703,
+      "lon": 2.03519,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Hauts-de-France",
+      "country": "France"
+    },
+    "929": {
+      "lat": 46.717003,
+      "lon": 2.893208,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Hauts-de-Seine",
+      "country": "France"
+    },
+    "897": {
+      "lat": 45.911665,
+      "lon": 2.567508,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Hérault",
+      "country": "France"
+    },
+    "918": {
+      "lat": 47.308136,
+      "lon": 2.530453,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Ille-et-Vilaine",
+      "country": "France"
+    },
+    "922": {
+      "lat": 45.877531,
+      "lon": 2.303339,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Indre",
+      "country": "France"
+    },
+    "919": {
+      "lat": 46.965539,
+      "lon": 1.958781,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Indre-et-Loire",
+      "country": "France"
+    },
+    "289": {
+      "lat": 47.299623,
+      "lon": 2.569325,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Isère",
+      "country": "France"
+    },
+    "55": {
+      "lat": 45.91505,
+      "lon": 2.600617,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Jura",
+      "country": "France"
+    },
+    "920": {
+      "lat": 47.347027,
+      "lon": 2.416121,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Jura",
+      "country": "France"
+    },
+    "63": {
+      "lat": 45.957424,
+      "lon": 2.665995,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "La Maurienne",
+      "country": "France"
+    },
+    "921": {
+      "lat": 46.813094,
+      "lon": 1.903806,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Landes",
+      "country": "France"
+    },
+    "923": {
+      "lat": 47.162186,
+      "lon": 2.053014,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Loir-et-Cher",
+      "country": "France"
+    },
+    "924": {
+      "lat": 46.401145,
+      "lon": 2.902881,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Loire",
+      "country": "France"
+    },
+    "411": {
+      "lat": 47.090139,
+      "lon": 1.999886,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Loire-Atlantique",
+      "country": "France"
+    },
+    "933": {
+      "lat": 46.378644,
+      "lon": 2.902308,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Loiret",
+      "country": "France"
+    },
+    "935": {
+      "lat": 46.514614,
+      "lon": 1.876608,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Lot-et-Garonne",
+      "country": "France"
+    },
+    "931": {
+      "lat": 47.368388,
+      "lon": 2.424066,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Lower Rhine",
+      "country": "France"
+    },
+    "937": {
+      "lat": 46.829023,
+      "lon": 2.906431,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Lozère",
+      "country": "France"
+    },
+    "938": {
+      "lat": 46.005621,
+      "lon": 2.058869,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Maine-et-Loire",
+      "country": "France"
+    },
+    "351": {
+      "lat": 47.321141,
+      "lon": 2.201106,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Manche",
+      "country": "France"
+    },
+    "939": {
+      "lat": 45.965156,
+      "lon": 2.710981,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Marne",
+      "country": "France"
+    },
+    "54": {
+      "lat": 46.632696,
+      "lon": 1.862997,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Massif Central",
+      "country": "France"
+    },
+    "941": {
+      "lat": 46.752708,
+      "lon": 2.928929,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Mayenne",
+      "country": "France"
+    },
+    "942": {
+      "lat": 46.052194,
+      "lon": 2.011416,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Meurthe-et-Moselle",
+      "country": "France"
+    },
+    "943": {
+      "lat": 47.369509,
+      "lon": 2.522517,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Meuse",
+      "country": "France"
+    },
+    "154": {
+      "lat": 45.817459,
+      "lon": 2.314298,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Monts du Forez",
+      "country": "France"
+    },
+    "157": {
+      "lat": 46.09232,
+      "lon": 1.979713,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Monts du Lyonnais",
+      "country": "France"
+    },
+    "945": {
+      "lat": 46.671983,
+      "lon": 2.94566,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Morbihan",
+      "country": "France"
+    },
+    "174": {
+      "lat": 45.801885,
+      "lon": 2.363322,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Morvan",
+      "country": "France"
+    },
+    "946": {
+      "lat": 47.391447,
+      "lon": 2.490629,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Moselle",
+      "country": "France"
+    },
+    "953": {
+      "lat": 46.611006,
+      "lon": 2.952927,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Métropole de Lyon",
+      "country": "France"
+    },
+    "947": {
+      "lat": 46.929665,
+      "lon": 1.893705,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Nièvre",
+      "country": "France"
+    },
+    "948": {
+      "lat": 46.723362,
+      "lon": 2.949826,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Nord",
+      "country": "France"
+    },
+    "451": {
+      "lat": 45.799921,
+      "lon": 2.304379,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Normandy",
+      "country": "France"
+    },
+    "452": {
+      "lat": 47.349749,
+      "lon": 2.181343,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Nouvelle-Aquitaine",
+      "country": "France"
+    },
+    "453": {
+      "lat": 46.141622,
+      "lon": 2.864577,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Occitania",
+      "country": "France"
+    },
+    "949": {
+      "lat": 45.852969,
+      "lon": 2.631097,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Oise",
+      "country": "France"
+    },
+    "950": {
+      "lat": 47.046214,
+      "lon": 1.925982,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Orne",
+      "country": "France"
+    },
+    "241": {
+      "lat": 45.986177,
+      "lon": 2.777682,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Palatinate Forest / Haardt",
+      "country": "France"
+    },
+    "959": {
+      "lat": 47.0685,
+      "lon": 1.932325,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Paris",
+      "country": "France"
+    },
+    "153": {
+      "lat": 46.714646,
+      "lon": 2.963875,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Pas-de-Calais",
+      "country": "France"
+    },
+    "454": {
+      "lat": 46.169617,
+      "lon": 1.911604,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Pays de la Loire",
+      "country": "France"
+    },
+    "646": {
+      "lat": 47.413318,
+      "lon": 2.275471,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Provence",
+      "country": "France"
+    },
+    "58": {
+      "lat": 46.511667,
+      "lon": 2.970888,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Provence-Alpes-Côte d'Azur",
+      "country": "France"
+    },
+    "951": {
+      "lat": 45.790981,
+      "lon": 2.250285,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Puy-de-Dôme",
+      "country": "France"
+    },
+    "53": {
+      "lat": 47.270566,
+      "lon": 2.052258,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Pyrenees",
+      "country": "France"
+    },
+    "898": {
+      "lat": 46.447007,
+      "lon": 2.969168,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Pyrénées-Atlantiques",
+      "country": "France"
+    },
+    "952": {
+      "lat": 46.413201,
+      "lon": 1.834029,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Pyrénées-Orientales",
+      "country": "France"
+    },
+    "930": {
+      "lat": 46.844311,
+      "lon": 2.957144,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Rhône",
+      "country": "France"
+    },
+    "956": {
+      "lat": 45.870192,
+      "lon": 2.101785,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Sarthe",
+      "country": "France"
+    },
+    "957": {
+      "lat": 47.450754,
+      "lon": 2.378299,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Savoie",
+      "country": "France"
+    },
+    "955": {
+      "lat": 46.224079,
+      "lon": 2.926525,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Saône-et-Loire",
+      "country": "France"
+    },
+    "927": {
+      "lat": 46.10169,
+      "lon": 1.921989,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Seine-et-Marne",
+      "country": "France"
+    },
+    "926": {
+      "lat": 47.457279,
+      "lon": 2.423344,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Seine-Maritime",
+      "country": "France"
+    },
+    "928": {
+      "lat": 45.796841,
+      "lon": 2.611518,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Seine-Saint-Denis",
+      "country": "France"
+    },
+    "39": {
+      "lat": 46.282679,
+      "lon": 1.849091,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Serre Ponçon",
+      "country": "France"
+    },
+    "904": {
+      "lat": 46.550313,
+      "lon": 2.99299,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Somme",
+      "country": "France"
+    },
+    "905": {
+      "lat": 46.172305,
+      "lon": 1.882111,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Tarn",
+      "country": "France"
+    },
+    "906": {
+      "lat": 47.370189,
+      "lon": 2.676201,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Tarn-et-Garonne",
+      "country": "France"
+    },
+    "913": {
+      "lat": 46.340776,
+      "lon": 2.971279,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Territoire de Belfort",
+      "country": "France"
+    },
+    "932": {
+      "lat": 47.070082,
+      "lon": 1.894514,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Upper Rhine",
+      "country": "France"
+    },
+    "958": {
+      "lat": 46.750696,
+      "lon": 2.99234,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Val-d'Oise",
+      "country": "France"
+    },
+    "907": {
+      "lat": 46.004138,
+      "lon": 1.957597,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Var",
+      "country": "France"
+    },
+    "654": {
+      "lat": 47.128897,
+      "lon": 1.917275,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Vaucluse",
+      "country": "France"
+    },
+    "908": {
+      "lat": 45.822709,
+      "lon": 2.685653,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Vendée",
+      "country": "France"
+    },
+    "874": {
+      "lat": 45.853662,
+      "lon": 2.075036,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Vercors",
+      "country": "France"
+    },
+    "909": {
+      "lat": 46.806748,
+      "lon": 2.991712,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Vienne",
+      "country": "France"
+    },
+    "52": {
+      "lat": 46.468761,
+      "lon": 3.003247,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Vosges",
+      "country": "France"
+    },
+    "911": {
+      "lat": 46.232915,
+      "lon": 1.843084,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Vosges",
+      "country": "France"
+    },
+    "349": {
+      "lat": 46.162213,
+      "lon": 2.933873,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Westrich Plateau",
+      "country": "France"
+    },
+    "1": {
+      "lat": 45.756592,
+      "lon": 2.6035,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "World",
+      "country": "France"
+    },
+    "912": {
+      "lat": 47.148927,
+      "lon": 1.913481,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Yonne",
+      "country": "France"
+    },
+    "902": {
+      "lat": 46.232356,
+      "lon": 2.962907,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Yvelines",
+      "country": "France"
+    },
+    "450": {
+      "lat": 46.764823,
+      "lon": 1.79208,
+      "source": "fallback",
+      "country_iso": "FR",
+      "name": "Île-de-France",
+      "country": "France"
+    },
+    "617": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "GG",
+      "name": "Guernsey",
+      "country": "GG"
+    },
+    "169": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "GI",
+      "name": "Gibraltar",
+      "country": "GI"
+    },
+    "179": {
+      "lat": 19.927264,
+      "lon": 0.62355,
+      "source": "fallback",
+      "country_iso": "GR",
+      "name": "Crete",
+      "country": "GR"
+    },
+    "170": {
+      "lat": 19.32883,
+      "lon": 0.407494,
+      "source": "fallback",
+      "country_iso": "GR",
+      "name": "Greece",
+      "country": "GR"
+    },
+    "641": {
+      "lat": 20.619721,
+      "lon": -0.613286,
+      "source": "fallback",
+      "country_iso": "GR",
+      "name": "Peloponnese",
+      "country": "GR"
+    },
+    "341": {
+      "lat": 51.459667,
+      "lon": 10.52456,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Allgäu Alps",
+      "country": "Germany"
+    },
+    "342": {
+      "lat": 50.665161,
+      "lon": 10.419047,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Ammergau Alps",
+      "country": "Germany"
+    },
+    "894": {
+      "lat": 51.546421,
+      "lon": 10.455869,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Arnsberg",
+      "country": "Germany"
+    },
+    "223": {
+      "lat": 51.247458,
+      "lon": 10.681216,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Baden-Württemberg",
+      "country": "Germany"
+    },
+    "238": {
+      "lat": 50.778302,
+      "lon": 10.171397,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Baumberge",
+      "country": "Germany"
+    },
+    "230": {
+      "lat": 51.391983,
+      "lon": 10.653935,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bavaria",
+      "country": "Germany"
+    },
+    "348": {
+      "lat": 50.624196,
+      "lon": 10.283495,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bavarian Alps",
+      "country": "Germany"
+    },
+    "250": {
+      "lat": 51.113031,
+      "lon": 10.072437,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bavarian Forest",
+      "country": "Germany"
+    },
+    "344": {
+      "lat": 51.21233,
+      "lon": 10.726681,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bavarian Prealps",
+      "country": "Germany"
+    },
+    "347": {
+      "lat": 50.864073,
+      "lon": 10.093533,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Berchtesgaden Alps",
+      "country": "Germany"
+    },
+    "261": {
+      "lat": 51.41395,
+      "lon": 10.115314,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bergisch-Märkisches Hügelland",
+      "country": "Germany"
+    },
+    "242": {
+      "lat": 50.616698,
+      "lon": 10.578133,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bergisches Land",
+      "country": "Germany"
+    },
+    "232": {
+      "lat": 51.50912,
+      "lon": 10.151679,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Berlin",
+      "country": "Germany"
+    },
+    "74": {
+      "lat": 51.256877,
+      "lon": 10.748854,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Black Forest",
+      "country": "Germany"
+    },
+    "236": {
+      "lat": 50.624384,
+      "lon": 10.614143,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Brandenburg",
+      "country": "Germany"
+    },
+    "231": {
+      "lat": 51.692834,
+      "lon": 10.392669,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Bremen",
+      "country": "Germany"
+    },
+    "893": {
+      "lat": 50.740716,
+      "lon": 10.702093,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Cologne",
+      "country": "Germany"
+    },
+    "888": {
+      "lat": 50.609209,
+      "lon": 10.174976,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Darmstadt",
+      "country": "Germany"
+    },
+    "895": {
+      "lat": 51.397841,
+      "lon": 10.737705,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Detmold",
+      "country": "Germany"
+    },
+    "892": {
+      "lat": 50.488485,
+      "lon": 10.47012,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Düsseldorf",
+      "country": "Germany"
+    },
+    "106": {
+      "lat": 50.878991,
+      "lon": 10.030643,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Eifel",
+      "country": "Germany"
+    },
+    "285": {
+      "lat": 50.752643,
+      "lon": 10.73372,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Elbe Sandstone Mountains",
+      "country": "Germany"
+    },
+    "252": {
+      "lat": 50.47591,
+      "lon": 10.307368,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Fichtel Mountains",
+      "country": "Germany"
+    },
+    "896": {
+      "lat": 51.608987,
+      "lon": 10.651385,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Franconian Forest",
+      "country": "Germany"
+    },
+    "248": {
+      "lat": 51.32559,
+      "lon": 10.785272,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Franconian Jura",
+      "country": "Germany"
+    },
+    "336": {
+      "lat": 51.464834,
+      "lon": 10.054848,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Franconian Keuper-Lias Plains",
+      "country": "Germany"
+    },
+    "886": {
+      "lat": 51.762484,
+      "lon": 10.359597,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Freiburg",
+      "country": "Germany"
+    },
+    "69": {
+      "lat": 50.511588,
+      "lon": 10.603036,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Germany",
+      "country": "Germany"
+    },
+    "889": {
+      "lat": 51.421465,
+      "lon": 10.025796,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Giessen",
+      "country": "Germany"
+    },
+    "335": {
+      "lat": 50.718446,
+      "lon": 10.755484,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Gäu Plateaus",
+      "country": "Germany"
+    },
+    "224": {
+      "lat": 50.43259,
+      "lon": 10.294653,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Hamburg",
+      "country": "Germany"
+    },
+    "245": {
+      "lat": 51.558477,
+      "lon": 10.726815,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Harz",
+      "country": "Germany"
+    },
+    "234": {
+      "lat": 51.218379,
+      "lon": 10.832548,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Hesse",
+      "country": "Germany"
+    },
+    "239": {
+      "lat": 51.049458,
+      "lon": 9.958956,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Hunsrück",
+      "country": "Germany"
+    },
+    "875": {
+      "lat": 51.689673,
+      "lon": 10.647573,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Kaiserstuhl",
+      "country": "Germany"
+    },
+    "887": {
+      "lat": 50.42191,
+      "lon": 10.541251,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Karlsruhe",
+      "country": "Germany"
+    },
+    "890": {
+      "lat": 51.710347,
+      "lon": 10.160808,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Kassel",
+      "country": "Germany"
+    },
+    "878": {
+      "lat": 50.791949,
+      "lon": 10.811723,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Lower Bavaria",
+      "country": "Germany"
+    },
+    "881": {
+      "lat": 51.246029,
+      "lon": 9.951298,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Lower Franconia",
+      "country": "Germany"
+    },
+    "256": {
+      "lat": 51.577439,
+      "lon": 10.750203,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Lower Saxony",
+      "country": "Germany"
+    },
+    "334": {
+      "lat": 50.366506,
+      "lon": 10.34393,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Mainfränkische Platten",
+      "country": "Germany"
+    },
+    "235": {
+      "lat": 50.814755,
+      "lon": 9.968753,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Mecklenburg-Western Pomerania",
+      "country": "Germany"
+    },
+    "882": {
+      "lat": 50.712291,
+      "lon": 10.8019,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Middle Franconia",
+      "country": "Germany"
+    },
+    "31": {
+      "lat": 50.39694,
+      "lon": 10.230865,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Montferland",
+      "country": "Germany"
+    },
+    "891": {
+      "lat": 51.856839,
+      "lon": 10.381081,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Münster",
+      "country": "Germany"
+    },
+    "352": {
+      "lat": 51.26524,
+      "lon": 10.867084,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Münsterland & Hohe Mark Nature Park",
+      "country": "Germany"
+    },
+    "226": {
+      "lat": 50.882138,
+      "lon": 9.938588,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "North Rhine-Westphalia",
+      "country": "Germany"
+    },
+    "262": {
+      "lat": 51.870275,
+      "lon": 10.417872,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Odenwald",
+      "country": "Germany"
+    },
+    "251": {
+      "lat": 50.376933,
+      "lon": 10.575436,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Ore Mountains",
+      "country": "Germany"
+    },
+    "282": {
+      "lat": 51.851166,
+      "lon": 10.269276,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Osthessisches Bergland",
+      "country": "Germany"
+    },
+    "227": {
+      "lat": 51.057049,
+      "lon": 10.891427,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Rhineland-Palatinate",
+      "country": "Germany"
+    },
+    "260": {
+      "lat": 50.318066,
+      "lon": 10.461196,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Rhön Mountains",
+      "country": "Germany"
+    },
+    "240": {
+      "lat": 51.88416,
+      "lon": 10.470582,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Saar-Nahe Uplands",
+      "country": "Germany"
+    },
+    "225": {
+      "lat": 50.627292,
+      "lon": 10.802427,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Saarland",
+      "country": "Germany"
+    },
+    "257": {
+      "lat": 51.727947,
+      "lon": 10.088296,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Sauerland",
+      "country": "Germany"
+    },
+    "339": {
+      "lat": 51.885286,
+      "lon": 10.509799,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Saxon Hills",
+      "country": "Germany"
+    },
+    "338": {
+      "lat": 50.476683,
+      "lon": 10.723411,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Saxon Uplands",
+      "country": "Germany"
+    },
+    "228": {
+      "lat": 51.886042,
+      "lon": 10.270702,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Saxony",
+      "country": "Germany"
+    },
+    "229": {
+      "lat": 50.548835,
+      "lon": 10.778315,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Saxony-Anhalt",
+      "country": "Germany"
+    },
+    "237": {
+      "lat": 50.488691,
+      "lon": 10.056354,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Schleswig-Holstein",
+      "country": "Germany"
+    },
+    "247": {
+      "lat": 51.817256,
+      "lon": 10.144815,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Spessart",
+      "country": "Germany"
+    },
+    "884": {
+      "lat": 50.844421,
+      "lon": 10.894726,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Stuttgart",
+      "country": "Germany"
+    },
+    "883": {
+      "lat": 51.931964,
+      "lon": 10.409009,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Swabia",
+      "country": "Germany"
+    },
+    "249": {
+      "lat": 51.718843,
+      "lon": 10.752868,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Swabian Jura",
+      "country": "Germany"
+    },
+    "337": {
+      "lat": 51.18782,
+      "lon": 9.875604,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Swabian Keuper-Lias Plains",
+      "country": "Germany"
+    },
+    "244": {
+      "lat": 51.797089,
+      "lon": 10.698164,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Taunus",
+      "country": "Germany"
+    },
+    "78": {
+      "lat": 51.311933,
+      "lon": 10.915067,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Teutoburg Forest",
+      "country": "Germany"
+    },
+    "233": {
+      "lat": 51.825679,
+      "lon": 10.121039,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Thuringia",
+      "country": "Germany"
+    },
+    "263": {
+      "lat": 51.905982,
+      "lon": 10.578281,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Thuringian Basin",
+      "country": "Germany"
+    },
+    "254": {
+      "lat": 50.272705,
+      "lon": 10.256761,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Thuringian Forest",
+      "country": "Germany"
+    },
+    "255": {
+      "lat": 51.922112,
+      "lon": 10.237699,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Thuringian-Franconian Highlands",
+      "country": "Germany"
+    },
+    "885": {
+      "lat": 51.624685,
+      "lon": 10.832145,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Tübingen",
+      "country": "Germany"
+    },
+    "877": {
+      "lat": 50.643555,
+      "lon": 9.935683,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Upper Bavaria",
+      "country": "Germany"
+    },
+    "880": {
+      "lat": 51.720196,
+      "lon": 10.785358,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Upper Franconia",
+      "country": "Germany"
+    },
+    "284": {
+      "lat": 50.284704,
+      "lon": 10.198787,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Upper Lusatia",
+      "country": "Germany"
+    },
+    "879": {
+      "lat": 51.666347,
+      "lon": 9.977458,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Upper Palatinate",
+      "country": "Germany"
+    },
+    "253": {
+      "lat": 51.425854,
+      "lon": 10.915332,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Upper Palatine Forest",
+      "country": "Germany"
+    },
+    "246": {
+      "lat": 51.001259,
+      "lon": 9.846827,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Vogelsberg",
+      "country": "Germany"
+    },
+    "340": {
+      "lat": 51.608569,
+      "lon": 9.941466,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Vogtland",
+      "country": "Germany"
+    },
+    "265": {
+      "lat": 50.776381,
+      "lon": 10.922822,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "West Hesse Highlands",
+      "country": "Germany"
+    },
+    "243": {
+      "lat": 51.365905,
+      "lon": 9.862275,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Westerwald",
+      "country": "Germany"
+    },
+    "283": {
+      "lat": 51.342265,
+      "lon": 10.944306,
+      "source": "fallback",
+      "country_iso": "DE",
+      "name": "Wiehen Hills",
+      "country": "Germany"
+    },
+    "266": {
+      "lat": 20.394257,
+      "lon": 0.58725,
+      "source": "fallback",
+      "country_iso": "HU",
+      "name": "Hungary",
+      "country": "HU"
+    },
+    "469": {
+      "lat": 19.244058,
+      "lon": 0.458962,
+      "source": "fallback",
+      "country_iso": "HU",
+      "name": "North Hungarian Mountains",
+      "country": "HU"
+    },
+    "670": {
+      "lat": 20.177805,
+      "lon": 0.400972,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Carlow",
+      "country": "IE"
+    },
+    "672": {
+      "lat": 19.634871,
+      "lon": -0.332934,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Clare",
+      "country": "IE"
+    },
+    "696": {
+      "lat": 20.518953,
+      "lon": -0.154747,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Connaught",
+      "country": "IE"
+    },
+    "673": {
+      "lat": 19.508672,
+      "lon": 0.279848,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Cork",
+      "country": "IE"
+    },
+    "674": {
+      "lat": 20.262649,
+      "lon": -0.508012,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Donegal",
+      "country": "IE"
+    },
+    "675": {
+      "lat": 20.075677,
+      "lon": 0.582987,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Dublin",
+      "country": "IE"
+    },
+    "676": {
+      "lat": 19.832027,
+      "lon": 0.587167,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Galway",
+      "country": "IE"
+    },
+    "162": {
+      "lat": 20.33687,
+      "lon": -0.541553,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Ireland",
+      "country": "IE"
+    },
+    "677": {
+      "lat": 20.596654,
+      "lon": 0.319641,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Kerry",
+      "country": "IE"
+    },
+    "679": {
+      "lat": 19.299434,
+      "lon": -0.074383,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Kilkenny",
+      "country": "IE"
+    },
+    "680": {
+      "lat": 20.646906,
+      "lon": -0.302027,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Laois",
+      "country": "IE"
+    },
+    "698": {
+      "lat": 19.309179,
+      "lon": 0.246394,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Leinster",
+      "country": "IE"
+    },
+    "682": {
+      "lat": 19.971637,
+      "lon": -0.708769,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Limerick",
+      "country": "IE"
+    },
+    "684": {
+      "lat": 20.330246,
+      "lon": 0.653708,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Louth",
+      "country": "IE"
+    },
+    "685": {
+      "lat": 19.33255,
+      "lon": -0.387949,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Mayo",
+      "country": "IE"
+    },
+    "686": {
+      "lat": 20.798918,
+      "lon": -0.014783,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Meath",
+      "country": "IE"
+    },
+    "697": {
+      "lat": 19.629329,
+      "lon": 0.679834,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Munster",
+      "country": "IE"
+    },
+    "688": {
+      "lat": 20.324704,
+      "lon": -0.714019,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Offaly",
+      "country": "IE"
+    },
+    "690": {
+      "lat": 20.685591,
+      "lon": -0.455049,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Sligo",
+      "country": "IE"
+    },
+    "691": {
+      "lat": 19.682204,
+      "lon": 0.742919,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Tipperary",
+      "country": "IE"
+    },
+    "699": {
+      "lat": 20.720131,
+      "lon": -0.449417,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Ulster",
+      "country": "IE"
+    },
+    "692": {
+      "lat": 20.704288,
+      "lon": 0.490426,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Waterford",
+      "country": "IE"
+    },
+    "694": {
+      "lat": 19.135403,
+      "lon": -0.192034,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Wexford",
+      "country": "IE"
+    },
+    "695": {
+      "lat": 20.848019,
+      "lon": -0.283257,
+      "source": "fallback",
+      "country_iso": "IE",
+      "name": "Wicklow",
+      "country": "IE"
+    },
+    "287": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "IM",
+      "name": "Isle of Man",
+      "country": "IM"
+    },
+    "177": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "IS",
+      "name": "Iceland",
+      "country": "IS"
+    },
+    "325": {
+      "lat": 43.198614,
+      "lon": 12.5,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Abruzzo",
+      "country": "Italy"
+    },
+    "791": {
+      "lat": 42.612427,
+      "lon": 12.225299,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Agrigento",
+      "country": "Italy"
+    },
+    "778": {
+      "lat": 43.205642,
+      "lon": 12.613634,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Alessandria",
+      "country": "Italy"
+    },
+    "770": {
+      "lat": 42.866877,
+      "lon": 12.824454,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Ancona",
+      "country": "Italy"
+    },
+    "317": {
+      "lat": 42.558003,
+      "lon": 12.214084,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Aosta Valley",
+      "country": "Italy"
+    },
+    "166": {
+      "lat": 43.007143,
+      "lon": 12.8088,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Apennines",
+      "country": "Italy"
+    },
+    "327": {
+      "lat": 42.530302,
+      "lon": 12.790115,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Apulia",
+      "country": "Italy"
+    },
+    "800": {
+      "lat": 43.112923,
+      "lon": 12.225723,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Arezzo",
+      "country": "Italy"
+    },
+    "771": {
+      "lat": 43.058602,
+      "lon": 12.810415,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Ascoli Piceno",
+      "country": "Italy"
+    },
+    "779": {
+      "lat": 42.827034,
+      "lon": 12.130931,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Asti",
+      "country": "Italy"
+    },
+    "732": {
+      "lat": 43.257837,
+      "lon": 12.333096,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Avellino",
+      "country": "Italy"
+    },
+    "716": {
+      "lat": 42.870257,
+      "lon": 12.876858,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Bari",
+      "country": "Italy"
+    },
+    "717": {
+      "lat": 42.457774,
+      "lon": 12.207611,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Barletta-Andria-Trani",
+      "country": "Italy"
+    },
+    "329": {
+      "lat": 43.277644,
+      "lon": 12.671713,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Basilicata",
+      "country": "Italy"
+    },
+    "813": {
+      "lat": 42.274454,
+      "lon": 12.414601,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Belluno",
+      "country": "Italy"
+    },
+    "733": {
+      "lat": 43.155356,
+      "lon": 12.19734,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Benevento",
+      "country": "Italy"
+    },
+    "759": {
+      "lat": 42.816791,
+      "lon": 12.903686,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Bergamo",
+      "country": "Italy"
+    },
+    "780": {
+      "lat": 42.244225,
+      "lon": 12.516863,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Biella",
+      "country": "Italy"
+    },
+    "736": {
+      "lat": 43.275769,
+      "lon": 12.719356,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Bologna",
+      "country": "Italy"
+    },
+    "809": {
+      "lat": 42.503327,
+      "lon": 12.854882,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Bolzano",
+      "country": "Italy"
+    },
+    "760": {
+      "lat": 42.976128,
+      "lon": 12.1001,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Brescia",
+      "country": "Italy"
+    },
+    "718": {
+      "lat": 43.264406,
+      "lon": 12.752506,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Brindisi",
+      "country": "Italy"
+    },
+    "785": {
+      "lat": 42.232494,
+      "lon": 12.40158,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Cagliari",
+      "country": "Italy"
+    },
+    "330": {
+      "lat": 43.313447,
+      "lon": 12.289506,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Calabria",
+      "country": "Italy"
+    },
+    "792": {
+      "lat": 42.208607,
+      "lon": 12.532681,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Caltanissetta",
+      "country": "Italy"
+    },
+    "326": {
+      "lat": 42.268806,
+      "lon": 12.298664,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Campania",
+      "country": "Italy"
+    },
+    "775": {
+      "lat": 43.169288,
+      "lon": 12.849395,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Campobasso",
+      "country": "Italy"
+    },
+    "734": {
+      "lat": 42.201154,
+      "lon": 12.573821,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Caserta",
+      "country": "Italy"
+    },
+    "793": {
+      "lat": 42.592938,
+      "lon": 12.077602,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Catania",
+      "country": "Italy"
+    },
+    "726": {
+      "lat": 42.374962,
+      "lon": 12.827418,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Catanzaro",
+      "country": "Italy"
+    },
+    "715": {
+      "lat": 42.199832,
+      "lon": 12.616078,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Chieti",
+      "country": "Italy"
+    },
+    "724": {
+      "lat": 43.344666,
+      "lon": 12.724914,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Colli Berici",
+      "country": "Italy"
+    },
+    "761": {
+      "lat": 42.268535,
+      "lon": 12.747211,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Como",
+      "country": "Italy"
+    },
+    "727": {
+      "lat": 43.365733,
+      "lon": 12.290891,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Cosenza",
+      "country": "Italy"
+    },
+    "728": {
+      "lat": 43.435425,
+      "lon": 12.461374,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Crotone",
+      "country": "Italy"
+    },
+    "781": {
+      "lat": 42.291621,
+      "lon": 12.787287,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Cuneo",
+      "country": "Italy"
+    },
+    "60": {
+      "lat": 43.429867,
+      "lon": 12.395713,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Dolomites",
+      "country": "Italy"
+    },
+    "819": {
+      "lat": 43.236507,
+      "lon": 12.85306,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Elba",
+      "country": "Italy"
+    },
+    "323": {
+      "lat": 43.0361,
+      "lon": 12.052822,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Emilia-Romagna",
+      "country": "Italy"
+    },
+    "794": {
+      "lat": 43.382793,
+      "lon": 12.276719,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Enna",
+      "country": "Italy"
+    },
+    "772": {
+      "lat": 42.23654,
+      "lon": 12.753962,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Fermo",
+      "country": "Italy"
+    },
+    "799": {
+      "lat": 43.087062,
+      "lon": 12.05983,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Florence",
+      "country": "Italy"
+    },
+    "719": {
+      "lat": 43.194719,
+      "lon": 12.896122,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Foggia",
+      "country": "Italy"
+    },
+    "738": {
+      "lat": 42.559988,
+      "lon": 12.039089,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Forlì-Cesena",
+      "country": "Italy"
+    },
+    "322": {
+      "lat": 43.404562,
+      "lon": 12.722102,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Friuli Venezia Giulia",
+      "country": "Italy"
+    },
+    "750": {
+      "lat": 42.186607,
+      "lon": 12.71487,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Frosinone",
+      "country": "Italy"
+    },
+    "754": {
+      "lat": 42.182552,
+      "lon": 12.285296,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Genoa",
+      "country": "Italy"
+    },
+    "745": {
+      "lat": 43.439598,
+      "lon": 12.683603,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Gorizia",
+      "country": "Italy"
+    },
+    "801": {
+      "lat": 42.14121,
+      "lon": 12.348733,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Grosseto",
+      "country": "Italy"
+    },
+    "755": {
+      "lat": 42.769811,
+      "lon": 11.991457,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Imperia",
+      "country": "Italy"
+    },
+    "776": {
+      "lat": 42.430369,
+      "lon": 12.93372,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Isernia",
+      "country": "Italy"
+    },
+    "59": {
+      "lat": 42.452635,
+      "lon": 12.053618,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Italian Alps",
+      "country": "Italy"
+    },
+    "47": {
+      "lat": 43.424898,
+      "lon": 12.737749,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Italy",
+      "country": "Italy"
+    },
+    "712": {
+      "lat": 42.094634,
+      "lon": 12.462294,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "L'Aquila",
+      "country": "Italy"
+    },
+    "756": {
+      "lat": 42.496018,
+      "lon": 12.028785,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "La Spezia",
+      "country": "Italy"
+    },
+    "751": {
+      "lat": 42.686094,
+      "lon": 13.017018,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Latina",
+      "country": "Italy"
+    },
+    "316": {
+      "lat": 42.083099,
+      "lon": 12.50976,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Lazio",
+      "country": "Italy"
+    },
+    "720": {
+      "lat": 43.397591,
+      "lon": 12.20503,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Lecce",
+      "country": "Italy"
+    },
+    "763": {
+      "lat": 42.229324,
+      "lon": 12.826199,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Lecco",
+      "country": "Italy"
+    },
+    "319": {
+      "lat": 42.678044,
+      "lon": 11.974466,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Liguria",
+      "country": "Italy"
+    },
+    "802": {
+      "lat": 43.196391,
+      "lon": 12.949503,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Livorno",
+      "country": "Italy"
+    },
+    "375": {
+      "lat": 42.191457,
+      "lon": 12.200474,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Lombardy",
+      "country": "Italy"
+    },
+    "803": {
+      "lat": 43.498791,
+      "lon": 12.330798,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Lucca",
+      "country": "Italy"
+    },
+    "773": {
+      "lat": 42.918871,
+      "lon": 13.035098,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Macerata",
+      "country": "Italy"
+    },
+    "765": {
+      "lat": 42.753128,
+      "lon": 11.956707,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Mantua",
+      "country": "Italy"
+    },
+    "182": {
+      "lat": 43.149781,
+      "lon": 12.017416,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Marche",
+      "country": "Italy"
+    },
+    "804": {
+      "lat": 42.052302,
+      "lon": 12.486655,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Massa-Carrara",
+      "country": "Italy"
+    },
+    "723": {
+      "lat": 43.057118,
+      "lon": 11.982365,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Matera",
+      "country": "Italy"
+    },
+    "795": {
+      "lat": 43.542862,
+      "lon": 12.593943,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Messina",
+      "country": "Italy"
+    },
+    "758": {
+      "lat": 42.064061,
+      "lon": 12.62926,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Milan",
+      "country": "Italy"
+    },
+    "739": {
+      "lat": 43.544575,
+      "lon": 12.6104,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Modena",
+      "country": "Italy"
+    },
+    "328": {
+      "lat": 43.036538,
+      "lon": 13.031869,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Molise",
+      "country": "Italy"
+    },
+    "725": {
+      "lat": 42.890813,
+      "lon": 11.942403,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Montello",
+      "country": "Italy"
+    },
+    "766": {
+      "lat": 43.017235,
+      "lon": 13.040637,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Monza and Brianza",
+      "country": "Italy"
+    },
+    "731": {
+      "lat": 42.363839,
+      "lon": 12.966489,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Naples",
+      "country": "Italy"
+    },
+    "782": {
+      "lat": 42.565168,
+      "lon": 11.959014,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Novara",
+      "country": "Italy"
+    },
+    "786": {
+      "lat": 43.086593,
+      "lon": 13.029581,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Nuoro",
+      "country": "Italy"
+    },
+    "787": {
+      "lat": 42.16534,
+      "lon": 12.168128,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Oristano",
+      "country": "Italy"
+    },
+    "814": {
+      "lat": 43.581276,
+      "lon": 12.526131,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Padua",
+      "country": "Italy"
+    },
+    "790": {
+      "lat": 42.065519,
+      "lon": 12.702898,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Palermo",
+      "country": "Italy"
+    },
+    "740": {
+      "lat": 43.367714,
+      "lon": 12.099534,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Parma",
+      "country": "Italy"
+    },
+    "767": {
+      "lat": 43.533338,
+      "lon": 12.284011,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Pavia",
+      "country": "Italy"
+    },
+    "810": {
+      "lat": 42.086514,
+      "lon": 12.753762,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Perugia",
+      "country": "Italy"
+    },
+    "774": {
+      "lat": 43.414072,
+      "lon": 12.128891,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Pesaro and Urbino",
+      "country": "Italy"
+    },
+    "714": {
+      "lat": 42.137032,
+      "lon": 12.826151,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Pescara",
+      "country": "Italy"
+    },
+    "741": {
+      "lat": 42.016214,
+      "lon": 12.620562,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Piacenza",
+      "country": "Italy"
+    },
+    "318": {
+      "lat": 43.602006,
+      "lon": 12.535177,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Piedmont",
+      "country": "Italy"
+    },
+    "805": {
+      "lat": 42.036433,
+      "lon": 12.310561,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Pisa",
+      "country": "Italy"
+    },
+    "806": {
+      "lat": 42.186803,
+      "lon": 12.113236,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Pistoia",
+      "country": "Italy"
+    },
+    "746": {
+      "lat": 43.360245,
+      "lon": 12.93044,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Pordenone",
+      "country": "Italy"
+    },
+    "722": {
+      "lat": 42.051376,
+      "lon": 12.265963,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Potenza",
+      "country": "Italy"
+    },
+    "807": {
+      "lat": 42.981292,
+      "lon": 11.916025,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Prato",
+      "country": "Italy"
+    },
+    "796": {
+      "lat": 42.947939,
+      "lon": 13.0909,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Ragusa",
+      "country": "Italy"
+    },
+    "742": {
+      "lat": 42.0182,
+      "lon": 12.315302,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Ravenna",
+      "country": "Italy"
+    },
+    "729": {
+      "lat": 43.548786,
+      "lon": 12.247944,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Reggio Calabria",
+      "country": "Italy"
+    },
+    "743": {
+      "lat": 42.35616,
+      "lon": 13.011405,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Reggio Emilia",
+      "country": "Italy"
+    },
+    "752": {
+      "lat": 43.606313,
+      "lon": 12.359344,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Rieti",
+      "country": "Italy"
+    },
+    "744": {
+      "lat": 43.365533,
+      "lon": 12.947003,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Rimini",
+      "country": "Italy"
+    },
+    "749": {
+      "lat": 42.295543,
+      "lon": 12.012979,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Rome",
+      "country": "Italy"
+    },
+    "735": {
+      "lat": 43.636083,
+      "lon": 12.506932,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Salerno",
+      "country": "Italy"
+    },
+    "141": {
+      "lat": 41.962866,
+      "lon": 12.535875,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Sardinia",
+      "country": "Italy"
+    },
+    "788": {
+      "lat": 43.021748,
+      "lon": 11.90479,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Sassari",
+      "country": "Italy"
+    },
+    "757": {
+      "lat": 43.615886,
+      "lon": 12.656699,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Savona",
+      "country": "Italy"
+    },
+    "142": {
+      "lat": 42.36195,
+      "lon": 11.969159,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Sicily",
+      "country": "Italy"
+    },
+    "149": {
+      "lat": 43.435815,
+      "lon": 12.088141,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Siena",
+      "country": "Italy"
+    },
+    "768": {
+      "lat": 43.369754,
+      "lon": 12.963322,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Sondrio",
+      "country": "Italy"
+    },
+    "789": {
+      "lat": 42.687984,
+      "lon": 11.87965,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "South Sardinia",
+      "country": "Italy"
+    },
+    "797": {
+      "lat": 43.646534,
+      "lon": 12.410859,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Syracuse",
+      "country": "Italy"
+    },
+    "721": {
+      "lat": 42.068109,
+      "lon": 12.827898,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Taranto",
+      "country": "Italy"
+    },
+    "713": {
+      "lat": 43.574329,
+      "lon": 12.22568,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Teramo",
+      "country": "Italy"
+    },
+    "811": {
+      "lat": 43.306996,
+      "lon": 13.011669,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Terni",
+      "country": "Italy"
+    },
+    "798": {
+      "lat": 41.952845,
+      "lon": 12.373656,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Trapani",
+      "country": "Italy"
+    },
+    "320": {
+      "lat": 43.666173,
+      "lon": 12.476406,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Trentino-South Tyrol",
+      "country": "Italy"
+    },
+    "808": {
+      "lat": 42.986195,
+      "lon": 13.122842,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Trento",
+      "country": "Italy"
+    },
+    "816": {
+      "lat": 43.128384,
+      "lon": 11.907826,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Treviso",
+      "country": "Italy"
+    },
+    "747": {
+      "lat": 43.547658,
+      "lon": 12.831527,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Trieste",
+      "country": "Italy"
+    },
+    "777": {
+      "lat": 42.02071,
+      "lon": 12.206695,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Turin",
+      "country": "Italy"
+    },
+    "164": {
+      "lat": 43.522889,
+      "lon": 12.134272,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Tuscany",
+      "country": "Italy"
+    },
+    "748": {
+      "lat": 42.749403,
+      "lon": 13.144843,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Udine",
+      "country": "Italy"
+    },
+    "324": {
+      "lat": 42.937001,
+      "lon": 11.860307,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Umbria",
+      "country": "Italy"
+    },
+    "769": {
+      "lat": 43.479568,
+      "lon": 12.084312,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Varese",
+      "country": "Italy"
+    },
+    "321": {
+      "lat": 41.94299,
+      "lon": 12.667675,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Veneto",
+      "country": "Italy"
+    },
+    "783": {
+      "lat": 42.421753,
+      "lon": 11.909578,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Verbano-Cusio-Ossola",
+      "country": "Italy"
+    },
+    "784": {
+      "lat": 43.556251,
+      "lon": 12.846153,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Vercelli",
+      "country": "Italy"
+    },
+    "817": {
+      "lat": 42.311314,
+      "lon": 11.951144,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Verona",
+      "country": "Italy"
+    },
+    "730": {
+      "lat": 43.07264,
+      "lon": 11.873994,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Vibo Valentia",
+      "country": "Italy"
+    },
+    "818": {
+      "lat": 41.948626,
+      "lon": 12.709199,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Vicenza",
+      "country": "Italy"
+    },
+    "753": {
+      "lat": 43.236226,
+      "lon": 11.922397,
+      "source": "fallback",
+      "country_iso": "IT",
+      "name": "Viterbo",
+      "country": "Italy"
+    },
+    "372": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "JE",
+      "name": "Jersey",
+      "country": "JE"
+    },
+    "962": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "JP",
+      "name": "Asia",
+      "country": "JP"
+    },
+    "139": {
+      "lat": 20.036741,
+      "lon": 0.586292,
+      "source": "fallback",
+      "country_iso": "LI",
+      "name": "Liechtenstein",
+      "country": "LI"
+    },
+    "143": {
+      "lat": 19.455152,
+      "lon": 0.469025,
+      "source": "fallback",
+      "country_iso": "LI",
+      "name": "Liechtenstein Alps",
+      "country": "LI"
+    },
+    "270": {
+      "lat": 20.810378,
+      "lon": 0.151763,
+      "source": "fallback",
+      "country_iso": "LI",
+      "name": "Oberland",
+      "country": "LI"
+    },
+    "269": {
+      "lat": 19.319185,
+      "lon": 0.553136,
+      "source": "fallback",
+      "country_iso": "LI",
+      "name": "Unterland",
+      "country": "LI"
+    },
+    "412": {
+      "lat": 20.029908,
+      "lon": 0.477262,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Attert Valley",
+      "country": "LU"
+    },
+    "402": {
+      "lat": 19.832159,
+      "lon": -0.516337,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Gutland",
+      "country": "LU"
+    },
+    "70": {
+      "lat": 20.500086,
+      "lon": -0.352277,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Luxembourg",
+      "country": "LU"
+    },
+    "414": {
+      "lat": 19.379316,
+      "lon": 0.230876,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Luxembourg plateau",
+      "country": "LU"
+    },
+    "406": {
+      "lat": 19.45138,
+      "lon": -0.416098,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Luxembourg's Moselle Valley",
+      "country": "LU"
+    },
+    "86": {
+      "lat": 20.526637,
+      "lon": 0.487047,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Luxembourgian Ardennes",
+      "country": "LU"
+    },
+    "403": {
+      "lat": 19.800087,
+      "lon": 0.698819,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Mullerthal / Little Switzerland",
+      "country": "LU"
+    },
+    "408": {
+      "lat": 20.282218,
+      "lon": -0.702492,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Nature Park of the Upper Sûre",
+      "country": "LU"
+    },
+    "409": {
+      "lat": 20.174404,
+      "lon": 0.758989,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Nature Park Our",
+      "country": "LU"
+    },
+    "404": {
+      "lat": 19.169111,
+      "lon": 0.177455,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Nordstad",
+      "country": "LU"
+    },
+    "407": {
+      "lat": 20.78503,
+      "lon": -0.366515,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Red Lands",
+      "country": "LU"
+    },
+    "410": {
+      "lat": 19.310922,
+      "lon": 0.544025,
+      "source": "fallback",
+      "country_iso": "LU",
+      "name": "Valleys of the Mamer and Eisch / Valley of the Seven Castles",
+      "country": "LU"
+    },
+    "286": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "MC",
+      "name": "Monaco",
+      "country": "MC"
+    },
+    "545": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "ME",
+      "name": "Montenegro",
+      "country": "ME"
+    },
+    "549": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "MK",
+      "name": "North Macedonia",
+      "country": "MK"
+    },
+    "550": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "MT",
+      "name": "Malta",
+      "country": "MT"
+    },
+    "700": {
+      "lat": 19.847342,
+      "lon": 0.504227,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Antrim",
+      "country": "NH"
+    },
+    "701": {
+      "lat": 19.81187,
+      "lon": -0.578752,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Armagh",
+      "country": "NH"
+    },
+    "702": {
+      "lat": 20.062077,
+      "lon": -0.664683,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Down",
+      "country": "NH"
+    },
+    "703": {
+      "lat": 20.357745,
+      "lon": 0.636227,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Fermanagh",
+      "country": "NH"
+    },
+    "704": {
+      "lat": 19.289283,
+      "lon": -0.374509,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Londonderry",
+      "country": "NH"
+    },
+    "161": {
+      "lat": 20.827281,
+      "lon": 0.218025,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Northern Ireland",
+      "country": "NH"
+    },
+    "705": {
+      "lat": 19.375676,
+      "lon": 0.609149,
+      "source": "fallback",
+      "country_iso": "NH",
+      "name": "Tyrone",
+      "country": "NH"
+    },
+    "297": {
+      "lat": 52.026279,
+      "lon": 5.616838,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Achterhoek",
+      "country": "Netherlands"
+    },
+    "35": {
+      "lat": 51.795158,
+      "lon": 5.138728,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Arnhem",
+      "country": "Netherlands"
+    },
+    "281": {
+      "lat": 52.671796,
+      "lon": 5.305116,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Brabantse Wal",
+      "country": "Netherlands"
+    },
+    "259": {
+      "lat": 51.607787,
+      "lon": 5.420537,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Drenthe",
+      "country": "Netherlands"
+    },
+    "114": {
+      "lat": 52.3122,
+      "lon": 5.009352,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Ede & Wageningen",
+      "country": "Netherlands"
+    },
+    "272": {
+      "lat": 52.222671,
+      "lon": 5.715554,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Friesland",
+      "country": "Netherlands"
+    },
+    "274": {
+      "lat": 51.891106,
+      "lon": 5.695822,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Gelderland",
+      "country": "Netherlands"
+    },
+    "542": {
+      "lat": 52.698677,
+      "lon": 5.149181,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Gooi",
+      "country": "Netherlands"
+    },
+    "150": {
+      "lat": 52.179308,
+      "lon": 5.752361,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Hoge Veluwe",
+      "country": "Netherlands"
+    },
+    "116": {
+      "lat": 52.186117,
+      "lon": 4.937662,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Kop van de Veluwe",
+      "country": "Netherlands"
+    },
+    "117": {
+      "lat": 52.441918,
+      "lon": 4.967232,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Kroondomein Het Loo",
+      "country": "Netherlands"
+    },
+    "280": {
+      "lat": 51.611143,
+      "lon": 5.627793,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Limburg",
+      "country": "Netherlands"
+    },
+    "26": {
+      "lat": 51.528567,
+      "lon": 5.129024,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Netherlands",
+      "country": "Netherlands"
+    },
+    "90": {
+      "lat": 51.983966,
+      "lon": 5.787537,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Niederrheinischer Höhenzug",
+      "country": "Netherlands"
+    },
+    "279": {
+      "lat": 51.405373,
+      "lon": 5.327159,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "North Brabant",
+      "country": "Netherlands"
+    },
+    "276": {
+      "lat": 52.427917,
+      "lon": 4.916934,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "North Holland",
+      "country": "Netherlands"
+    },
+    "115": {
+      "lat": 51.510688,
+      "lon": 5.614544,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Oldenzaalse Stuwwal",
+      "country": "Netherlands"
+    },
+    "271": {
+      "lat": 52.333033,
+      "lon": 4.882669,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Overijssel",
+      "country": "Netherlands"
+    },
+    "33": {
+      "lat": 52.884557,
+      "lon": 5.536866,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Rijk van Nijmegen",
+      "country": "Netherlands"
+    },
+    "29": {
+      "lat": 51.728184,
+      "lon": 5.771964,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Salland Ridge",
+      "country": "Netherlands"
+    },
+    "277": {
+      "lat": 52.130834,
+      "lon": 4.848198,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "South Holland",
+      "country": "Netherlands"
+    },
+    "27": {
+      "lat": 52.941587,
+      "lon": 5.501177,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "South Limburg",
+      "country": "Netherlands"
+    },
+    "175": {
+      "lat": 51.376517,
+      "lon": 5.149283,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Süchtelner Höhen",
+      "country": "Netherlands"
+    },
+    "113": {
+      "lat": 52.989147,
+      "lon": 5.434396,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Uelsener Berge",
+      "country": "Netherlands"
+    },
+    "275": {
+      "lat": 52.307767,
+      "lon": 5.869151,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Utrecht",
+      "country": "Netherlands"
+    },
+    "28": {
+      "lat": 51.454067,
+      "lon": 5.028856,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Utrecht Hill Ridge",
+      "country": "Netherlands"
+    },
+    "30": {
+      "lat": 53.005624,
+      "lon": 5.478022,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Veluwe",
+      "country": "Netherlands"
+    },
+    "34": {
+      "lat": 51.272333,
+      "lon": 5.257812,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Veluwezoom",
+      "country": "Netherlands"
+    },
+    "278": {
+      "lat": 52.577303,
+      "lon": 4.863974,
+      "source": "fallback",
+      "country_iso": "NL",
+      "name": "Zeeland",
+      "country": "Netherlands"
+    },
+    "68": {
+      "lat": 61.584541,
+      "lon": 8.15629,
+      "source": "fallback",
+      "country_iso": "NO",
+      "name": "Norway",
+      "country": "Norway"
+    },
+    "640": {
+      "lat": 60.223383,
+      "lon": 8.091196,
+      "source": "fallback",
+      "country_iso": "NO",
+      "name": "Norwegian Fjords",
+      "country": "Norway"
+    },
+    "151": {
+      "lat": 61.891285,
+      "lon": 7.939425,
+      "source": "fallback",
+      "country_iso": "NO",
+      "name": "Senja",
+      "country": "Norway"
+    },
+    "459": {
+      "lat": 20.356739,
+      "lon": 0.266671,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Beskid Mountains",
+      "country": "PL"
+    },
+    "460": {
+      "lat": 19.502724,
+      "lon": -0.04611,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Bieszczady Mountains",
+      "country": "PL"
+    },
+    "475": {
+      "lat": 20.508352,
+      "lon": -0.151586,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Central Beskids",
+      "country": "PL"
+    },
+    "477": {
+      "lat": 19.5751,
+      "lon": 0.345215,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Eastern Beskids",
+      "country": "PL"
+    },
+    "464": {
+      "lat": 20.068051,
+      "lon": -0.54758,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Eastern Carpathians",
+      "country": "PL"
+    },
+    "457": {
+      "lat": 20.59315,
+      "lon": -0.130836,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Giant Mountains",
+      "country": "PL"
+    },
+    "622": {
+      "lat": 19.459535,
+      "lon": -0.304286,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Greater Poland",
+      "country": "PL"
+    },
+    "620": {
+      "lat": 20.557702,
+      "lon": -0.312603,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Holy Cross",
+      "country": "PL"
+    },
+    "591": {
+      "lat": 20.140893,
+      "lon": 0.613154,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Kuyavia-Pomerania",
+      "country": "PL"
+    },
+    "595": {
+      "lat": 19.80926,
+      "lon": -0.617957,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Lesser Poland",
+      "country": "PL"
+    },
+    "590": {
+      "lat": 20.671154,
+      "lon": -0.190349,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Lower Silesia",
+      "country": "PL"
+    },
+    "592": {
+      "lat": 19.451289,
+      "lon": 0.433205,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Lublin",
+      "country": "PL"
+    },
+    "593": {
+      "lat": 20.215101,
+      "lon": -0.657131,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Lubusz",
+      "country": "PL"
+    },
+    "596": {
+      "lat": 19.95469,
+      "lon": 0.699759,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Masovia",
+      "country": "PL"
+    },
+    "597": {
+      "lat": 19.627116,
+      "lon": -0.62224,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Opole",
+      "country": "PL"
+    },
+    "474": {
+      "lat": 20.595647,
+      "lon": -0.463543,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Podhôľno-magurská oblasť",
+      "country": "PL"
+    },
+    "599": {
+      "lat": 20.508128,
+      "lon": 0.564022,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Podlaskie",
+      "country": "PL"
+    },
+    "88": {
+      "lat": 20.054174,
+      "lon": -0.749155,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Poland",
+      "country": "PL"
+    },
+    "618": {
+      "lat": 20.749516,
+      "lon": 0.292004,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Pomerania",
+      "country": "PL"
+    },
+    "619": {
+      "lat": 19.190028,
+      "lon": 0.13898,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Silesia",
+      "country": "PL"
+    },
+    "598": {
+      "lat": 19.464973,
+      "lon": -0.602476,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Subcarpathia",
+      "country": "PL"
+    },
+    "458": {
+      "lat": 20.680091,
+      "lon": 0.473577,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Sudetes",
+      "country": "PL"
+    },
+    "621": {
+      "lat": 19.589806,
+      "lon": -0.707748,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Warmia-Masuria",
+      "country": "PL"
+    },
+    "623": {
+      "lat": 20.682692,
+      "lon": 0.504557,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "West Pomerania",
+      "country": "PL"
+    },
+    "476": {
+      "lat": 19.354974,
+      "lon": 0.561462,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Western Beskids",
+      "country": "PL"
+    },
+    "466": {
+      "lat": 20.49204,
+      "lon": -0.696575,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Western Carpathians",
+      "country": "PL"
+    },
+    "594": {
+      "lat": 20.424856,
+      "lon": 0.74556,
+      "source": "fallback",
+      "country_iso": "PL",
+      "name": "Łódź",
+      "country": "PL"
+    },
+    "486": {
+      "lat": 39.807037,
+      "lon": -7.735694,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Algarve",
+      "country": "Portugal"
+    },
+    "488": {
+      "lat": 39.041382,
+      "lon": -8.164165,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Alto Alentejo",
+      "country": "Portugal"
+    },
+    "494": {
+      "lat": 39.547256,
+      "lon": -8.415486,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Azores",
+      "country": "Portugal"
+    },
+    "487": {
+      "lat": 39.302465,
+      "lon": -7.58743,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Baixo Alentejo",
+      "country": "Portugal"
+    },
+    "489": {
+      "lat": 39.469177,
+      "lon": -8.459248,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Beira Alta",
+      "country": "Portugal"
+    },
+    "490": {
+      "lat": 39.862623,
+      "lon": -7.612482,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Beira Litoral",
+      "country": "Portugal"
+    },
+    "491": {
+      "lat": 38.902764,
+      "lon": -8.179694,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Beira-Baixa-province",
+      "country": "Portugal"
+    },
+    "663": {
+      "lat": 39.195282,
+      "lon": -8.452725,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Corvo Island",
+      "country": "Portugal"
+    },
+    "387": {
+      "lat": 39.198525,
+      "lon": -7.529681,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Douro Litoral",
+      "country": "Portugal"
+    },
+    "492": {
+      "lat": 39.420406,
+      "lon": -8.534965,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Estremadura",
+      "country": "Portugal"
+    },
+    "661": {
+      "lat": 40.039827,
+      "lon": -7.638432,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Faial Island",
+      "country": "Portugal"
+    },
+    "662": {
+      "lat": 38.776228,
+      "lon": -8.079403,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Flores Island",
+      "country": "Portugal"
+    },
+    "658": {
+      "lat": 39.719503,
+      "lon": -8.550643,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Graciosa Island",
+      "country": "Portugal"
+    },
+    "665": {
+      "lat": 40.256143,
+      "lon": -7.929889,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Madeira Archipelago",
+      "country": "Portugal"
+    },
+    "165": {
+      "lat": 38.840021,
+      "lon": -8.314997,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Madeira Island",
+      "country": "Portugal"
+    },
+    "385": {
+      "lat": 40.240553,
+      "lon": -8.212276,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Minho",
+      "country": "Portugal"
+    },
+    "660": {
+      "lat": 38.918295,
+      "lon": -7.572254,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Pico Island",
+      "country": "Portugal"
+    },
+    "664": {
+      "lat": 38.689853,
+      "lon": -8.07961,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Porto Santo",
+      "country": "Portugal"
+    },
+    "146": {
+      "lat": 40.297412,
+      "lon": -8.176245,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Portugal",
+      "country": "Portugal"
+    },
+    "493": {
+      "lat": 38.757681,
+      "lon": -8.306537,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Ribatejo",
+      "country": "Portugal"
+    },
+    "656": {
+      "lat": 39.762629,
+      "lon": -8.627101,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Santa Maria Island",
+      "country": "Portugal"
+    },
+    "616": {
+      "lat": 39.986849,
+      "lon": -7.447418,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Serra da Estrela",
+      "country": "Portugal"
+    },
+    "659": {
+      "lat": 38.957329,
+      "lon": -8.532134,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "São Jorge Island",
+      "country": "Portugal"
+    },
+    "657": {
+      "lat": 40.375538,
+      "lon": -8.118427,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Terceira Island",
+      "country": "Portugal"
+    },
+    "388": {
+      "lat": 38.626479,
+      "lon": -7.832786,
+      "source": "fallback",
+      "country_iso": "PT",
+      "name": "Trás-os-Montes e Alto Douro",
+      "country": "Portugal"
+    },
+    "963": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "RE",
+      "name": "Africa",
+      "country": "RE"
+    },
+    "478": {
+      "lat": 19.942912,
+      "lon": 0.489397,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Apuseni Mountains",
+      "country": "RO"
+    },
+    "480": {
+      "lat": 19.825898,
+      "lon": -0.535597,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Banat Mountains",
+      "country": "RO"
+    },
+    "485": {
+      "lat": 20.448435,
+      "lon": -0.443779,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Carpathian Mountains",
+      "country": "RO"
+    },
+    "481": {
+      "lat": 20.424599,
+      "lon": 0.520416,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Carpathians of Maramureș and Bucovina",
+      "country": "RO"
+    },
+    "482": {
+      "lat": 19.304151,
+      "lon": -0.233566,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Carpathians of Moldavia and Transylvania",
+      "country": "RO"
+    },
+    "483": {
+      "lat": 20.755493,
+      "lon": -0.166645,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Curvature Carpathians",
+      "country": "RO"
+    },
+    "171": {
+      "lat": 19.543479,
+      "lon": 0.62893,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Romania",
+      "country": "RO"
+    },
+    "462": {
+      "lat": 20.540433,
+      "lon": -0.606657,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Transylvanian Alps",
+      "country": "RO"
+    },
+    "465": {
+      "lat": 19.613502,
+      "lon": 0.734292,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Transylvanian Plateau",
+      "country": "RO"
+    },
+    "463": {
+      "lat": 19.478317,
+      "lon": -0.689152,
+      "source": "fallback",
+      "country_iso": "RO",
+      "name": "Western Romanian Carpathians",
+      "country": "RO"
+    },
+    "547": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "RS",
+      "name": "Serbia",
+      "country": "RS"
+    },
+    "172": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "SE",
+      "name": "Sweden",
+      "country": "SE"
+    },
+    "473": {
+      "lat": 20.397792,
+      "lon": 0.417015,
+      "source": "fallback",
+      "country_iso": "SK",
+      "name": "Lučensko-košická zníženina",
+      "country": "SK"
+    },
+    "468": {
+      "lat": 19.485427,
+      "lon": 0.442963,
+      "source": "fallback",
+      "country_iso": "SK",
+      "name": "Slovak Central Mountains",
+      "country": "SK"
+    },
+    "467": {
+      "lat": 20.668497,
+      "lon": 0.370353,
+      "source": "fallback",
+      "country_iso": "SK",
+      "name": "Slovak Ore Mountains",
+      "country": "SK"
+    },
+    "428": {
+      "lat": 19.176372,
+      "lon": 0.164089,
+      "source": "fallback",
+      "country_iso": "SK",
+      "name": "Slovakia",
+      "country": "SK"
+    },
+    "461": {
+      "lat": 19.659715,
+      "lon": -0.782943,
+      "source": "fallback",
+      "country_iso": "SK",
+      "name": "Tatra-Fatra Belt",
+      "country": "SK"
+    },
+    "95": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "SM",
+      "name": "San Marino",
+      "country": "SM"
+    },
+    "556": {
+      "lat": 19.951431,
+      "lon": 0.416367,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Aberdeenshire",
+      "country": "SU"
+    },
+    "567": {
+      "lat": 19.600027,
+      "lon": -0.258433,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Angus",
+      "country": "SU"
+    },
+    "577": {
+      "lat": 20.412736,
+      "lon": -0.290745,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Argyll and Bute",
+      "country": "SU"
+    },
+    "871": {
+      "lat": 20.329461,
+      "lon": 0.403808,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Cairngorms",
+      "country": "SU"
+    },
+    "552": {
+      "lat": 19.786722,
+      "lon": -0.49072,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "City of Edinburgh",
+      "country": "SU"
+    },
+    "579": {
+      "lat": 20.479293,
+      "lon": 0.314401,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Clackmannanshire",
+      "country": "SU"
+    },
+    "563": {
+      "lat": 19.514719,
+      "lon": 0.336833,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Dumfries and Galloway",
+      "country": "SU"
+    },
+    "564": {
+      "lat": 20.219256,
+      "lon": -0.545767,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Dundee City",
+      "country": "SU"
+    },
+    "566": {
+      "lat": 20.028452,
+      "lon": 0.598201,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "East Ayrshire",
+      "country": "SU"
+    },
+    "570": {
+      "lat": 19.925549,
+      "lon": -0.609396,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "East Dunbartonshire",
+      "country": "SU"
+    },
+    "571": {
+      "lat": 20.423852,
+      "lon": 0.484614,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "East Lothian",
+      "country": "SU"
+    },
+    "573": {
+      "lat": 20.092383,
+      "lon": 0.634643,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "East Renfrewshire",
+      "country": "SU"
+    },
+    "561": {
+      "lat": 19.547065,
+      "lon": -0.495602,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Falkirk",
+      "country": "SU"
+    },
+    "553": {
+      "lat": 20.406433,
+      "lon": 0.545031,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Fife",
+      "country": "SU"
+    },
+    "551": {
+      "lat": 19.284207,
+      "lon": 0.079772,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Glasgow City",
+      "country": "SU"
+    },
+    "557": {
+      "lat": 20.724925,
+      "lon": 0.101776,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Highland",
+      "country": "SU"
+    },
+    "578": {
+      "lat": 19.897927,
+      "lon": 0.693239,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Inverclyde",
+      "country": "SU"
+    },
+    "575": {
+      "lat": 19.3233,
+      "lon": -0.317163,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "midlothian",
+      "country": "SU"
+    },
+    "572": {
+      "lat": 20.543908,
+      "lon": -0.508619,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Moray",
+      "country": "SU"
+    },
+    "565": {
+      "lat": 19.323376,
+      "lon": 0.361184,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "North Ayrshire",
+      "country": "SU"
+    },
+    "554": {
+      "lat": 20.476434,
+      "lon": -0.590688,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "North Lanarkshire",
+      "country": "SU"
+    },
+    "582": {
+      "lat": 19.80779,
+      "lon": 0.728836,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Orkney Islands",
+      "country": "SU"
+    },
+    "580": {
+      "lat": 19.400331,
+      "lon": -0.51051,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Outer Hebrides",
+      "country": "SU"
+    },
+    "562": {
+      "lat": 20.543304,
+      "lon": -0.57594,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Perth and Kinross",
+      "country": "SU"
+    },
+    "560": {
+      "lat": 20.285992,
+      "lon": 0.730894,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Renfrewshire",
+      "country": "SU"
+    },
+    "159": {
+      "lat": 19.423776,
+      "lon": -0.572006,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Scotland",
+      "country": "SU"
+    },
+    "568": {
+      "lat": 20.40007,
+      "lon": 0.702064,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Scottish Borders",
+      "country": "SU"
+    },
+    "581": {
+      "lat": 19.191714,
+      "lon": -0.266576,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Shetland Islands",
+      "country": "SU"
+    },
+    "569": {
+      "lat": 20.841578,
+      "lon": -0.190257,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "South Ayrshire",
+      "country": "SU"
+    },
+    "555": {
+      "lat": 19.639405,
+      "lon": 0.748549,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "South Lanarkshire",
+      "country": "SU"
+    },
+    "574": {
+      "lat": 19.11963,
+      "lon": -0.064876,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "Stirling",
+      "country": "SU"
+    },
+    "576": {
+      "lat": 20.84425,
+      "lon": -0.269411,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "West Dunbartonshire",
+      "country": "SU"
+    },
+    "559": {
+      "lat": 20.152439,
+      "lon": 0.833504,
+      "source": "fallback",
+      "country_iso": "SU",
+      "name": "West Lothian",
+      "country": "SU"
+    },
+    "140": {
+      "lat": 46.1,
+      "lon": 14.8,
+      "source": "fallback",
+      "country_iso": "SI",
+      "name": "Slovenia",
+      "country": "Slovenia"
+    },
+    "163": {
+      "lat": 40.36396,
+      "lon": -3.199464,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Andalusia",
+      "country": "Spain"
+    },
+    "186": {
+      "lat": 39.743246,
+      "lon": -3.475666,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Aragon",
+      "country": "Spain"
+    },
+    "189": {
+      "lat": 40.659524,
+      "lon": -3.611377,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Asturias",
+      "country": "Spain"
+    },
+    "294": {
+      "lat": 39.880157,
+      "lon": -3.203937,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Balearic Islands",
+      "country": "Spain"
+    },
+    "221": {
+      "lat": 39.68741,
+      "lon": -3.569253,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Basque Country",
+      "country": "Spain"
+    },
+    "222": {
+      "lat": 40.69475,
+      "lon": -3.659126,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Basque Mountains",
+      "country": "Spain"
+    },
+    "295": {
+      "lat": 39.659624,
+      "lon": -3.585297,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Canary Islands",
+      "country": "Spain"
+    },
+    "190": {
+      "lat": 40.630559,
+      "lon": -3.78029,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Cantabria",
+      "country": "Spain"
+    },
+    "103": {
+      "lat": 39.786675,
+      "lon": -3.190509,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Cantabrian Mountains",
+      "country": "Spain"
+    },
+    "196": {
+      "lat": 39.623511,
+      "lon": -3.399925,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Castile and León",
+      "country": "Spain"
+    },
+    "195": {
+      "lat": 40.455564,
+      "lon": -3.917128,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Castile–La Mancha",
+      "country": "Spain"
+    },
+    "197": {
+      "lat": 40.180316,
+      "lon": -3.031109,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Catalan Coastal Range",
+      "country": "Spain"
+    },
+    "147": {
+      "lat": 39.971905,
+      "lon": -3.944446,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Catalonia",
+      "country": "Spain"
+    },
+    "651": {
+      "lat": 40.834637,
+      "lon": -3.523483,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Costa Blanca",
+      "country": "Spain"
+    },
+    "648": {
+      "lat": 39.793748,
+      "lon": -3.88304,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Costa Brava",
+      "country": "Spain"
+    },
+    "649": {
+      "lat": 40.822587,
+      "lon": -3.344362,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Costa del Azahar",
+      "country": "Spain"
+    },
+    "652": {
+      "lat": 40.538491,
+      "lon": -3.063265,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Costa del Sol",
+      "country": "Spain"
+    },
+    "650": {
+      "lat": 39.526984,
+      "lon": -3.478743,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Costa Dorada",
+      "country": "Spain"
+    },
+    "107": {
+      "lat": 40.856075,
+      "lon": -3.643535,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "El Hierro",
+      "country": "Spain"
+    },
+    "187": {
+      "lat": 39.664628,
+      "lon": -3.166203,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Extremadura",
+      "country": "Spain"
+    },
+    "109": {
+      "lat": 40.300774,
+      "lon": -4.028716,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Fuerteventura",
+      "country": "Spain"
+    },
+    "188": {
+      "lat": 40.494437,
+      "lon": -3.008428,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Galicia",
+      "country": "Spain"
+    },
+    "92": {
+      "lat": 39.552358,
+      "lon": -3.267189,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Gran Canaria",
+      "country": "Spain"
+    },
+    "101": {
+      "lat": 40.884497,
+      "lon": -3.320653,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Ibiza",
+      "country": "Spain"
+    },
+    "100": {
+      "lat": 39.587914,
+      "lon": -3.19426,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "La Gomera",
+      "country": "Spain"
+    },
+    "94": {
+      "lat": 39.692031,
+      "lon": -3.909863,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "La Palma",
+      "country": "Spain"
+    },
+    "191": {
+      "lat": 40.552308,
+      "lon": -2.997478,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "La Rioja",
+      "country": "Spain"
+    },
+    "108": {
+      "lat": 39.53955,
+      "lon": -3.222812,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Lanzarote",
+      "country": "Spain"
+    },
+    "194": {
+      "lat": 40.95694,
+      "lon": -3.442049,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Madrid",
+      "country": "Spain"
+    },
+    "93": {
+      "lat": 40.72384,
+      "lon": -3.071294,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Mallorca",
+      "country": "Spain"
+    },
+    "102": {
+      "lat": 40.215059,
+      "lon": -4.091571,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Menorca",
+      "country": "Spain"
+    },
+    "104": {
+      "lat": 40.622641,
+      "lon": -4.002046,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Montes de León",
+      "country": "Spain"
+    },
+    "208": {
+      "lat": 40.333493,
+      "lon": -2.906716,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Montes de Toledo",
+      "country": "Spain"
+    },
+    "184": {
+      "lat": 39.767242,
+      "lon": -4.009128,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Murcia",
+      "country": "Spain"
+    },
+    "220": {
+      "lat": 39.915864,
+      "lon": -2.927799,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Navarre",
+      "country": "Spain"
+    },
+    "105": {
+      "lat": 39.560148,
+      "lon": -3.123601,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Picos de Europa",
+      "country": "Spain"
+    },
+    "639": {
+      "lat": 40.472108,
+      "lon": -4.085914,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Serra de Tramuntana",
+      "country": "Spain"
+    },
+    "615": {
+      "lat": 40.253078,
+      "lon": -2.874872,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Ayllón",
+      "country": "Spain"
+    },
+    "613": {
+      "lat": 39.448362,
+      "lon": -3.76219,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Béjar",
+      "country": "Spain"
+    },
+    "614": {
+      "lat": 41.02362,
+      "lon": -3.592003,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Francia",
+      "country": "Spain"
+    },
+    "200": {
+      "lat": 39.485641,
+      "lon": -3.164832,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Gata",
+      "country": "Spain"
+    },
+    "199": {
+      "lat": 40.292948,
+      "lon": -4.140949,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Gredos",
+      "country": "Spain"
+    },
+    "206": {
+      "lat": 39.759513,
+      "lon": -2.944622,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Guadalupe",
+      "country": "Spain"
+    },
+    "111": {
+      "lat": 39.546369,
+      "lon": -3.92208,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Guadarrama",
+      "country": "Spain"
+    },
+    "198": {
+      "lat": 40.852439,
+      "lon": -3.92987,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra de Somosierra",
+      "country": "Spain"
+    },
+    "209": {
+      "lat": 40.388088,
+      "lon": -2.853327,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra Morena",
+      "country": "Spain"
+    },
+    "212": {
+      "lat": 39.815425,
+      "lon": -4.098515,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sierra Nevada",
+      "country": "Spain"
+    },
+    "110": {
+      "lat": 40.86678,
+      "lon": -3.063211,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Sistema Central",
+      "country": "Spain"
+    },
+    "72": {
+      "lat": 39.324178,
+      "lon": -3.591058,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Spain",
+      "country": "Spain"
+    },
+    "83": {
+      "lat": 40.722831,
+      "lon": -4.049475,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Spanish Pyrenees",
+      "country": "Spain"
+    },
+    "91": {
+      "lat": 40.92939,
+      "lon": -3.104259,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Tenerife",
+      "country": "Spain"
+    },
+    "185": {
+      "lat": 39.364203,
+      "lon": -3.754979,
+      "source": "fallback",
+      "country_iso": "ES",
+      "name": "Valencia",
+      "country": "Spain"
+    },
+    "507": {
+      "lat": 47.26,
+      "lon": 8.2,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Appenzell",
+      "country": "Switzerland"
+    },
+    "503": {
+      "lat": 46.437173,
+      "lon": 7.958994,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Argovia",
+      "country": "Switzerland"
+    },
+    "504": {
+      "lat": 47.330101,
+      "lon": 8.272319,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Basle-Country & City",
+      "country": "Switzerland"
+    },
+    "499": {
+      "lat": 46.694649,
+      "lon": 8.583469,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Bern",
+      "country": "Switzerland"
+    },
+    "500": {
+      "lat": 46.574668,
+      "lon": 7.822317,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Fribourg",
+      "country": "Switzerland"
+    },
+    "66": {
+      "lat": 47.370893,
+      "lon": 8.035435,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Geneva",
+      "country": "Switzerland"
+    },
+    "508": {
+      "lat": 46.532417,
+      "lon": 8.598758,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Glarus",
+      "country": "Switzerland"
+    },
+    "506": {
+      "lat": 47.460748,
+      "lon": 8.184686,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Grisons",
+      "country": "Switzerland"
+    },
+    "496": {
+      "lat": 47.326112,
+      "lon": 8.494917,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Kanton Jura",
+      "country": "Switzerland"
+    },
+    "505": {
+      "lat": 46.720406,
+      "lon": 7.725406,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Lucerne",
+      "country": "Switzerland"
+    },
+    "497": {
+      "lat": 47.377973,
+      "lon": 7.912061,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Neuchatel",
+      "country": "Switzerland"
+    },
+    "509": {
+      "lat": 46.776572,
+      "lon": 8.700182,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Nidwald & Obwald",
+      "country": "Switzerland"
+    },
+    "512": {
+      "lat": 46.647587,
+      "lon": 7.699672,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Saint Gallen",
+      "country": "Switzerland"
+    },
+    "510": {
+      "lat": 47.530305,
+      "lon": 8.347873,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Schaffhausen",
+      "country": "Switzerland"
+    },
+    "511": {
+      "lat": 46.055504,
+      "lon": 8.349891,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Schwyz",
+      "country": "Switzerland"
+    },
+    "502": {
+      "lat": 47.540553,
+      "lon": 8.011679,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Solothurn",
+      "country": "Switzerland"
+    },
+    "56": {
+      "lat": 46.958463,
+      "lon": 8.73926,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Swiss Alps",
+      "country": "Switzerland"
+    },
+    "45": {
+      "lat": 46.336074,
+      "lon": 7.739897,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Switzerland",
+      "country": "Switzerland"
+    },
+    "514": {
+      "lat": 47.566236,
+      "lon": 8.417464,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Tessin",
+      "country": "Switzerland"
+    },
+    "513": {
+      "lat": 46.067936,
+      "lon": 8.484674,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Thurgovia",
+      "country": "Switzerland"
+    },
+    "515": {
+      "lat": 47.315899,
+      "lon": 7.734052,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Uri",
+      "country": "Switzerland"
+    },
+    "365": {
+      "lat": 47.626822,
+      "lon": 8.376165,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Valais",
+      "country": "Switzerland"
+    },
+    "405": {
+      "lat": 45.954695,
+      "lon": 8.361324,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Vaud",
+      "country": "Switzerland"
+    },
+    "516": {
+      "lat": 47.677183,
+      "lon": 8.298422,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Zug",
+      "country": "Switzerland"
+    },
+    "517": {
+      "lat": 45.975011,
+      "lon": 8.44624,
+      "source": "fallback",
+      "country_iso": "CH",
+      "name": "Zürich",
+      "country": "Switzerland"
+    },
+    "967": {
+      "lat": 39.307037,
+      "lon": -97.733803,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Alabama",
+      "country": "USA"
+    },
+    "968": {
+      "lat": 38.512264,
+      "lon": -98.103417,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Alaska",
+      "country": "USA"
+    },
+    "969": {
+      "lat": 39.515208,
+      "lon": -98.127055,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Arizona",
+      "country": "USA"
+    },
+    "970": {
+      "lat": 38.637223,
+      "lon": -97.658327,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Arkansas",
+      "country": "USA"
+    },
+    "971": {
+      "lat": 39.069129,
+      "lon": -98.460027,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "California",
+      "country": "USA"
+    },
+    "972": {
+      "lat": 39.273544,
+      "lon": -97.568083,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Colorado",
+      "country": "USA"
+    },
+    "973": {
+      "lat": 38.450111,
+      "lon": -98.256039,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Connecticut",
+      "country": "USA"
+    },
+    "975": {
+      "lat": 38.695282,
+      "lon": -98.455964,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Florida",
+      "country": "USA"
+    },
+    "976": {
+      "lat": 39.590742,
+      "lon": -97.738269,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Georgia",
+      "country": "USA"
+    },
+    "977": {
+      "lat": 38.303223,
+      "lon": -97.969924,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Hawaii",
+      "country": "USA"
+    },
+    "978": {
+      "lat": 39.577973,
+      "lon": -98.326889,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Idaho",
+      "country": "USA"
+    },
+    "983": {
+      "lat": 38.369525,
+      "lon": -97.712418,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Kentucky",
+      "country": "USA"
+    },
+    "985": {
+      "lat": 39.442514,
+      "lon": -98.467329,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Maine",
+      "country": "USA"
+    },
+    "986": {
+      "lat": 38.953747,
+      "lon": -97.409232,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Maryland",
+      "country": "USA"
+    },
+    "987": {
+      "lat": 38.619224,
+      "lon": -98.525496,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Massachusetts",
+      "country": "USA"
+    },
+    "988": {
+      "lat": 38.898477,
+      "lon": -98.608855,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Michigan",
+      "country": "USA"
+    },
+    "992": {
+      "lat": 39.158463,
+      "lon": -97.387794,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Montana",
+      "country": "USA"
+    },
+    "994": {
+      "lat": 38.536074,
+      "lon": -98.522342,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Nevada",
+      "country": "USA"
+    },
+    "995": {
+      "lat": 39.766236,
+      "lon": -97.753119,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "New Hampshire",
+      "country": "USA"
+    },
+    "996": {
+      "lat": 38.17176,
+      "lon": -97.882468,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "New Jersey",
+      "country": "USA"
+    },
+    "997": {
+      "lat": 39.622449,
+      "lon": -98.454492,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "New Mexico",
+      "country": "USA"
+    },
+    "998": {
+      "lat": 38.791704,
+      "lon": -97.346793,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "New York",
+      "country": "USA"
+    },
+    "999": {
+      "lat": 38.715051,
+      "lon": -98.645023,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "North Carolina",
+      "country": "USA"
+    },
+    "964": {
+      "lat": 39.470113,
+      "lon": -98.586277,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "Oceania",
+      "country": "USA"
+    },
+    "966": {
+      "lat": 38.864044,
+      "lon": -97.308595,
+      "source": "fallback",
+      "country_iso": "US",
+      "name": "United States",
+      "country": "USA"
+    },
+    "961": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "VE",
+      "name": "South America",
+      "country": "VE"
+    },
+    "530": {
+      "lat": 19.950735,
+      "lon": 0.422336,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Anglesey",
+      "country": "WL"
+    },
+    "520": {
+      "lat": 19.635417,
+      "lon": 0.313846,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Blaenau Gwent",
+      "country": "WL"
+    },
+    "870": {
+      "lat": 20.453888,
+      "lon": 0.251458,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Brecon Beacons",
+      "country": "WL"
+    },
+    "521": {
+      "lat": 20.258939,
+      "lon": 0.460507,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Bridgend",
+      "country": "WL"
+    },
+    "522": {
+      "lat": 19.495529,
+      "lon": -0.265829,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Caerphilly",
+      "country": "WL"
+    },
+    "523": {
+      "lat": 20.598998,
+      "lon": -0.035261,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Cardiff",
+      "country": "WL"
+    },
+    "524": {
+      "lat": 19.501121,
+      "lon": 0.346272,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Carmarthenshire",
+      "country": "WL"
+    },
+    "525": {
+      "lat": 20.225639,
+      "lon": -0.561656,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Ceredigion",
+      "country": "WL"
+    },
+    "607": {
+      "lat": 19.811465,
+      "lon": 0.590821,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Clwyd",
+      "country": "WL"
+    },
+    "526": {
+      "lat": 19.45092,
+      "lon": -0.365637,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Conwy",
+      "country": "WL"
+    },
+    "527": {
+      "lat": 20.688102,
+      "lon": 0.027739,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Denbighshire",
+      "country": "WL"
+    },
+    "606": {
+      "lat": 19.393029,
+      "lon": 0.334769,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Dyfed",
+      "country": "WL"
+    },
+    "528": {
+      "lat": 20.211163,
+      "lon": -0.6451,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Flintshire",
+      "country": "WL"
+    },
+    "603": {
+      "lat": 20.594349,
+      "lon": 0.40175,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Glamorgan",
+      "country": "WL"
+    },
+    "602": {
+      "lat": 19.284737,
+      "lon": 0.197679,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Gwent",
+      "country": "WL"
+    },
+    "529": {
+      "lat": 20.745209,
+      "lon": -0.132996,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Gwynedd",
+      "country": "WL"
+    },
+    "531": {
+      "lat": 19.360688,
+      "lon": 0.405136,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Merthyr Tydfil",
+      "country": "WL"
+    },
+    "532": {
+      "lat": 20.307806,
+      "lon": -0.67686,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Monmouthshire",
+      "country": "WL"
+    },
+    "533": {
+      "lat": 20.56365,
+      "lon": -0.527081,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Neath Port Talbot",
+      "country": "WL"
+    },
+    "534": {
+      "lat": 19.828508,
+      "lon": 0.740771,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Newport",
+      "country": "WL"
+    },
+    "535": {
+      "lat": 19.712268,
+      "lon": -0.719576,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Pembrokeshire",
+      "country": "WL"
+    },
+    "536": {
+      "lat": 20.666091,
+      "lon": 0.463828,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Powys",
+      "country": "WL"
+    },
+    "537": {
+      "lat": 19.161915,
+      "lon": -0.050555,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Rhondda Cynon Taf",
+      "country": "WL"
+    },
+    "647": {
+      "lat": 20.804335,
+      "lon": 0.259279,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Snowdonia",
+      "country": "WL"
+    },
+    "538": {
+      "lat": 19.729558,
+      "lon": 0.767793,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Swansea",
+      "country": "WL"
+    },
+    "539": {
+      "lat": 19.781201,
+      "lon": -0.792009,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Torfaen",
+      "country": "WL"
+    },
+    "540": {
+      "lat": 20.648479,
+      "lon": 0.559966,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Vale of Glamorgan",
+      "country": "WL"
+    },
+    "160": {
+      "lat": 19.219618,
+      "lon": 0.402949,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Wales",
+      "country": "WL"
+    },
+    "541": {
+      "lat": 20.756695,
+      "lon": -0.457866,
+      "source": "fallback",
+      "country_iso": "WL",
+      "name": "Wrexham",
+      "country": "WL"
+    },
+    "546": {
+      "lat": 20.0,
+      "lon": 0.0,
+      "source": "fallback",
+      "country_iso": "XK",
+      "name": "Kosovo",
+      "country": "XK"
+    }
+  }
+}

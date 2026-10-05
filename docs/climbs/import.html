@@ -10,6 +10,7 @@
   <style>
     body { font-family: Barlow, system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 1.5rem; color: #0f172a; }
     .wrap { max-width: 820px; margin: 0 auto; }
+    .wrap.wide { max-width: 1080px; }
     h1 { color: #0f766e; margin: 0 0 0.25rem; }
     .card { background: #fff; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin: 1rem 0; }
     label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.35rem; }
@@ -34,7 +35,16 @@
     .actions-links { font-size: 0.85rem; margin-top: 0.5rem; }
     .actions-links a { color: #0f766e; }
     details.browser-exp { margin-top: 1rem; font-size: 0.85rem; color: #64748b; }
+    #regionMap { height: 420px; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 0.5rem; }
+    .map-toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; margin-top: 0.5rem; }
+    .map-toolbar .grow { flex: 1 1 200px; }
+    .cf-legend { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; font-size: 0.8rem; color: #475569; margin: 0.5rem 0 0; }
+    .cf-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .cf-legend-item i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .cf-region-marker-wrap { background: transparent; border: none; }
+    .cf-region-marker { display: block; width: 12px; height: 12px; border-radius: 50%; }
   </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -54,6 +64,7 @@
     <div class="card">
       <div class="tabs">
         <button type="button" id="tabRegion" class="active">Regio (GitHub import)</button>
+        <button type="button" id="tabMap">Regio op kaart</button>
         <button type="button" id="tabManual">Handmatig / preset</button>
       </div>
 
@@ -81,6 +92,18 @@
         </details>
       </div>
 
+      <div id="panelMap" class="panel">
+        <p class="hint">Weet je niet welke <code>l=</code>-regio je nodig hebt? Kies een <strong>land</strong> (zelfde dropdown als hierboven), zoom op de kaart, klik een stip. Kleur = status op de FietsKlim-kaart t.o.v. de lokale ranking-cache. Daarna start je de GitHub-import op tab 1.</p>
+        <div class="map-toolbar">
+          <div class="grow">
+            <label for="mapRegionSearch">Zoek regio of l=ID</label>
+            <input type="text" id="mapRegionSearch" placeholder="bv. Zuid-Limburg of 27" autocomplete="off" />
+          </div>
+        </div>
+        <div id="regionMap" role="application" aria-label="Climbfinder-regio’s op kaart"></div>
+        <div id="mapLegend" class="cf-legend"></div>
+      </div>
+
       <div id="panelManual" class="panel">
         <p class="hint">Gebruik de <strong>slug</strong> uit de URL (<code>…/climbs/cauberg</code>), geen vrije naam — tenzij die exact overeenkomt met de slug. Meerdere regels = meerdere klimmen.</p>
         <label for="preset">Preset (optioneel)</label>
@@ -105,12 +128,15 @@
   <script src="../auth/firebase-config.js"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-metrics.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="assets/region-picker.js"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
     let regionsCatalog = null;
     let selectedRegion = null;
     let regionsBooted = false;
+    let regionPicker = null;
 
     function log(msg) {
       const el = document.getElementById("log");
@@ -190,12 +216,17 @@
 
     function setTab(which) {
       document.getElementById("tabRegion").classList.toggle("active", which === "region");
+      document.getElementById("tabMap").classList.toggle("active", which === "map");
       document.getElementById("tabManual").classList.toggle("active", which === "manual");
       document.getElementById("panelRegion").classList.toggle("active", which === "region");
+      document.getElementById("panelMap").classList.toggle("active", which === "map");
       document.getElementById("panelManual").classList.toggle("active", which === "manual");
+      document.getElementById("fietsklim-app-root").classList.toggle("wide", which === "map");
+      if (which === "map") regionPicker?.invalidateSize();
     }
 
     document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
+    document.getElementById("tabMap").addEventListener("click", () => setTab("map"));
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
 
     function isUnlocked() {
@@ -231,9 +262,33 @@
         opt.textContent = `${block.country} (${block.regions.length})`;
         countrySel.appendChild(opt);
       }
-      countrySel.addEventListener("change", fillRegionSelect);
-      document.getElementById("regionSelect").addEventListener("change", updateRankingMeta);
+      countrySel.addEventListener("change", () => {
+        fillRegionSelect();
+        regionPicker?.refreshCountry();
+      });
+      document.getElementById("regionSelect").addEventListener("change", () => {
+        updateRankingMeta();
+        regionPicker?.syncFromDropdown();
+      });
       fillRegionSelect();
+      initRegionPicker();
+    }
+
+    async function initRegionPicker() {
+      if (regionPicker || typeof ClimbfinderRegionPicker === "undefined") return;
+      try {
+        regionPicker = await ClimbfinderRegionPicker.init({
+          mapId: "regionMap",
+          countrySelectId: "countrySelect",
+          regionSelectId: "regionSelect",
+          searchId: "mapRegionSearch",
+          legendId: "mapLegend",
+          onRegionChosen: () => setTab("region"),
+        });
+        regionPicker.setCatalog(regionsCatalog);
+      } catch (e) {
+        log("Kaart regio’s: " + e.message);
+      }
     }
 
     function fillRegionSelect() {

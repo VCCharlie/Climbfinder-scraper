@@ -2,7 +2,7 @@
 
 De browser kan Climbfinder **niet** betrouwbaar ophalen (CORS). Wel:
 
-1. Jij kiest regio op **Climbfinder import** (`climbs/import.html`).
+1. Jij kiest regio op **Climbfinder import** (`climbs/import.html`) — dropdown **of** tab **Regio op kaart** (land → klik stip → status op FietsKlim-kaart).
 2. **GitHub Actions** draait `scripts/climbfinder_import.py` op GitHub (zelfde als lokaal / agent).
 3. Met **`publish_to_site: true`** (standaard) commit de workflow automatisch naar `docs/climbs/data/` → **`index.json` wordt automatisch gegenereerd** → na ~1 min op de **kaart**. Geen zip uitpakken nodig.
 
