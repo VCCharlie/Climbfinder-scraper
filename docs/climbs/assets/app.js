@@ -10,6 +10,7 @@
     activeBaseLayer: null,
     routeLayer: null,
     markers: [],
+    overviewCluster: null,
     chart: null,
     hoverMarker: null,
     activeClimb: null,
@@ -19,6 +20,8 @@
     globalSearchReady: false,
     globalEntries: [],
     searchBusy: false,
+    searchQuery: "",
+    mapMode: "overview",
   };
 
   function $(id) {
@@ -84,6 +87,122 @@
       (climb.tags || []).some((t) => t.toLowerCase().includes(q)) ||
       (climb.id || "").toLowerCase().includes(q)
     );
+  }
+
+  function climbLatLng(climb) {
+    if (climb.start?.lat != null && climb.start?.lng != null) {
+      return [climb.start.lat, climb.start.lng];
+    }
+    const c0 = climb.geometry?.coordinates?.[0];
+    if (c0) return [c0[1], c0[0]];
+    return null;
+  }
+
+  function entryKey(entry) {
+    return `${entry.regionUrl}::${entry.climb.id}`;
+  }
+
+  function entriesForMapView() {
+    const q = state.searchQuery.trim().toLowerCase();
+    let list = state.globalEntries;
+    if (q) list = list.filter(({ climb }) => climbMatchesQuery(climb, q));
+    else if (state.currentRegionUrl) {
+      list = list.filter(({ regionUrl }) => regionUrl === state.currentRegionUrl);
+    }
+    return list;
+  }
+
+  function updateSearchHint() {
+    const el = $("searchHint");
+    if (!el) return;
+    const q = state.searchQuery.trim();
+    if (q) {
+      const n = state.globalEntries.filter(({ climb }) => climbMatchesQuery(climb, q.toLowerCase())).length;
+      el.textContent = `${n} treffer in alle regio’s — klik kaart of lijst.`;
+    } else {
+      const n = state.globalEntries.length;
+      el.textContent =
+        n > 0
+          ? `${n} klimmen op overzichtskaart — zoek wereldwijd of kies een regio.`
+          : "Leeg = overzichtskaart. Typ om in alle regio’s te zoeken.";
+    }
+  }
+
+  function renderGradientStrip(buckets) {
+    const strip = $("profileGradientStrip");
+    if (!strip) return;
+    strip.innerHTML = "";
+    if (!buckets?.length) return;
+    const totalKm = buckets[buckets.length - 1].endKm || 1;
+    for (const b of buckets) {
+      const seg = document.createElement("div");
+      seg.className = "profile-gradient-seg";
+      seg.style.flex = `${((b.endKm - b.startKm) / totalKm) * 100} 1 0`;
+      seg.style.backgroundColor = b.color;
+      seg.title = `${b.startKm.toFixed(1)}–${b.endKm.toFixed(1)} km: gem. ${b.gradientPct}%`;
+      seg.textContent = `${b.label}%`;
+      strip.appendChild(seg);
+    }
+  }
+
+  function clearDetailSelection() {
+    state.selectedId = null;
+    state.activeClimb = null;
+    state.mapMode = "overview";
+    clearMapLayers();
+    $("profileTitle").textContent = "Hoogteprofiel";
+    $("profileStats").textContent = "Klik een klim op de overzichtskaart of in de lijst.";
+    renderGradientStrip([]);
+    if (state.chart) {
+      state.chart.destroy();
+      state.chart = null;
+    }
+  }
+
+  function ensureOverviewCluster() {
+    if (state.overviewCluster) return;
+    if (typeof L.markerClusterGroup !== "function") {
+      state.overviewCluster = L.layerGroup();
+      state.map.addLayer(state.overviewCluster);
+      return;
+    }
+    state.overviewCluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 42,
+      spiderfyOnMaxZoom: true,
+    });
+    state.map.addLayer(state.overviewCluster);
+  }
+
+  function syncOverviewMarkers() {
+    if (!state.map || !state.globalSearchReady) return;
+    ensureOverviewCluster();
+    state.overviewCluster.clearLayers();
+    const entries = entriesForMapView();
+    const bounds = [];
+    for (const entry of entries) {
+      const latlng = climbLatLng(entry.climb);
+      if (!latlng) continue;
+      bounds.push(latlng);
+      const selected =
+        state.selectedId === entry.climb.id && state.currentRegionUrl === entry.regionUrl;
+      const marker = L.circleMarker(latlng, {
+        radius: selected ? 8 : 5,
+        color: selected ? "#0f766e" : "#334155",
+        weight: selected ? 2 : 1,
+        fillColor: selected ? "#14b8a6" : "#0f766e",
+        fillOpacity: 0.85,
+      });
+      marker.bindTooltip(entry.climb.name, { direction: "top", sticky: true });
+      marker.on("click", () => {
+        void selectClimbFromList(entry.climb.id, entry.regionUrl);
+      });
+      state.overviewCluster.addLayer(marker);
+    }
+    if (state.mapMode === "overview" && bounds.length) {
+      state.map.fitBounds(bounds, { padding: [36, 36], maxZoom: 14 });
+    }
+    updateSearchHint();
   }
 
   function steepestLabel(climb) {
@@ -167,10 +286,12 @@
   }
 
   async function ensureGlobalSearchIndex() {
-    if (state.globalSearchReady || state.searchBusy) return;
+    if (state.searchBusy) return;
+    if (state.globalSearchReady) return;
     state.searchBusy = true;
-    renderList($("searchInput").value);
+    renderList(state.searchQuery);
     try {
+      state.globalEntries = [];
       for (const r of state.indexRegions) {
         if (!state.regionCache.has(r.url)) {
           state.regionCache.set(r.url, await loadJson(r.url));
@@ -186,10 +307,25 @@
         }
       }
       state.globalSearchReady = true;
+      syncOverviewMarkers();
     } finally {
       state.searchBusy = false;
-      renderList($("searchInput").value);
+      renderList(state.searchQuery);
+      updateSearchHint();
     }
+  }
+
+  function resetSearchToOverview() {
+    state.searchQuery = "";
+    const input = $("searchInput");
+    if (input && input.value !== "") input.value = "";
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    clearDetailSelection();
+    renderList("");
+    if (state.globalSearchReady) syncOverviewMarkers();
+    updateSearchHint();
   }
 
   async function selectClimbFromList(id, regionUrl) {
@@ -263,6 +399,7 @@
       typeof ClimbMetrics !== "undefined"
         ? ClimbMetrics.profileBucketSizeM(climb.profile?.distances_m?.slice(-1)[0] || climb.stats?.length_m || 0)
         : 500;
+    renderGradientStrip(buckets);
 
     if (state.chart) {
       state.chart.destroy();
@@ -363,8 +500,10 @@
     const climb = state.climbs.find((c) => c.id === id);
     if (!climb) return;
     state.selectedId = id;
-    renderList($("searchInput").value);
+    state.mapMode = "detail";
+    renderList(state.searchQuery);
 
+    if (state.overviewCluster) state.overviewCluster.clearLayers();
     clearMapLayers();
     const latlngs = latLngsFromClimb(climb);
     state.routeLayer = L.polyline(latlngs, { color: "#0f766e", weight: 5, opacity: 0.9 }).addTo(state.map);
@@ -413,6 +552,7 @@
 
   async function loadRegion(url, options = {}) {
     const { keepSearch = false, selectId = null } = options;
+    const hashOnEntry = window.location.hash.replace("#", "");
     let bundle = state.regionCache.get(url);
     if (!bundle) {
       bundle = await loadJson(url);
@@ -425,43 +565,30 @@
     $("datasetMeta").textContent = `${state.bundle.meta.title} · ${state.climbs.length} klimmen · bron: ${src} · ${state.bundle.meta.updated_at}`;
 
     if (!keepSearch) {
-      $("searchInput").value = "";
-    }
-
-    renderList($("searchInput").value);
-
-    if (state.climbs.length > 1 && !selectId) {
-      const b = state.climbs.reduce(
-        (acc, c) => {
-          const [w, s, e, n] = c.bbox || [];
-          if (w == null) return acc;
-          return {
-            minLng: Math.min(acc.minLng, w),
-            minLat: Math.min(acc.minLat, s),
-            maxLng: Math.max(acc.maxLng, e),
-            maxLat: Math.max(acc.maxLat, n),
-          };
-        },
-        { minLng: Infinity, minLat: Infinity, maxLng: -Infinity, maxLat: -Infinity }
-      );
-      if (Number.isFinite(b.minLng)) {
-        state.map.fitBounds(
-          [
-            [b.minLat, b.minLng],
-            [b.maxLat, b.maxLng],
-          ],
-          { padding: [24, 24] }
-        );
+      state.searchQuery = "";
+      const input = $("searchInput");
+      if (input) input.value = "";
+      if (!hashOnEntry && !selectId) {
+        if (window.location.hash) {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+        clearDetailSelection();
       }
     }
 
-    if (state.climbs.length) {
-      const hash = window.location.hash.replace("#", "");
-      const pick = selectId || (state.climbs.some((c) => c.id === hash) ? hash : state.climbs[0].id);
+    renderList(state.searchQuery);
+
+    const pick =
+      selectId ||
+      (hashOnEntry && state.climbs.some((c) => c.id === hashOnEntry) ? hashOnEntry : null);
+
+    if (pick && state.climbs.some((c) => c.id === pick)) {
       selectClimb(pick);
-    } else {
-      clearMapLayers();
+      return;
     }
+
+    clearDetailSelection();
+    if (state.globalSearchReady) syncOverviewMarkers();
   }
 
   async function init() {
@@ -482,17 +609,43 @@
       void loadRegion(select.value);
     });
 
+    const searchInput = $("searchInput");
     let searchTimer = null;
-    $("searchInput").addEventListener("input", (e) => {
-      const q = e.target.value.trim();
+
+    async function applySearchQuery(raw) {
+      const q = raw.trim();
+      state.searchQuery = q;
+      if (!q) {
+        resetSearchToOverview();
+        return;
+      }
+      await ensureGlobalSearchIndex();
+      clearDetailSelection();
+      syncOverviewMarkers();
+      renderList(q);
+      updateSearchHint();
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      const q = e.target.value;
       if (searchTimer) clearTimeout(searchTimer);
       searchTimer = setTimeout(() => {
-        if (q) void ensureGlobalSearchIndex();
-        else renderList("");
-      }, q ? 180 : 0);
+        void applySearchQuery(q);
+      }, 180);
     });
 
+    searchInput.addEventListener("search", () => {
+      if (!searchInput.value.trim()) resetSearchToOverview();
+    });
+
+    await ensureGlobalSearchIndex();
     await loadRegion(select.value);
+
+    const deepLink = window.location.hash.replace("#", "");
+    if (deepLink && !state.selectedId) {
+      const hit = state.globalEntries.find(({ climb }) => climb.id === deepLink);
+      if (hit) await selectClimbFromList(hit.climb.id, hit.regionUrl);
+    }
   }
 
   function refreshMapSize() {

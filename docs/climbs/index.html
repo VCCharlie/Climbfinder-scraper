@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body class="fietsklim-locked">
@@ -38,12 +40,13 @@
     <aside class="sidebar">
       <div class="sidebar-tools">
         <div class="field">
-          <label for="regionSelect">Regio-dataset (JSON)</label>
-          <select id="regionSelect"></select>
+          <label for="searchInput">Zoeken (alle regio’s)</label>
+          <input id="searchInput" type="search" placeholder="Naam, slug, regio, tag…" autocomplete="off" />
+          <p id="searchHint" class="field-hint">Leeg = overzichtskaart met alle klimmen. Typ om te filteren.</p>
         </div>
         <div class="field">
-          <label for="searchInput">Zoeken</label>
-          <input id="searchInput" type="search" placeholder="Zoek in alle regio’s (naam, slug, tag…)" />
+          <label for="regionSelect">Regio-dataset (JSON)</label>
+          <select id="regionSelect"></select>
         </div>
       </div>
       <div id="climbList" class="climb-list"></div>
@@ -58,6 +61,7 @@
         <h2 id="profileTitle">Hoogteprofiel</h2>
         <div id="profileStats" class="stats"></div>
       </div>
+      <div id="profileGradientStrip" class="profile-gradient-strip" aria-label="Gemiddelde helling per segment"></div>
       <div class="profile-chart-wrap">
         <canvas id="profileChart"></canvas>
       </div>
@@ -70,6 +74,7 @@
   <script src="../auth/firebase-config.js"></script>
   <script src="../auth/gate.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/climb-metrics.js"></script>
   <script src="assets/app.js"></script>
