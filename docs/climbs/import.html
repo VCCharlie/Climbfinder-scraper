@@ -9,18 +9,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     body { font-family: Barlow, system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 1.5rem; color: #0f172a; }
-    .wrap { max-width: 720px; margin: 0 auto; }
+    .wrap { max-width: 820px; margin: 0 auto; }
     h1 { color: #0f766e; margin: 0 0 0.25rem; }
     .card { background: #fff; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin: 1rem 0; }
     label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.35rem; }
-    select, textarea { width: 100%; padding: 0.55rem; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
-    textarea { min-height: 100px; font-family: ui-monospace, monospace; font-size: 0.8rem; }
+    select, textarea, input[type="text"] { width: 100%; padding: 0.55rem; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; box-sizing: border-box; }
+    textarea { min-height: 90px; font-family: ui-monospace, monospace; font-size: 0.8rem; }
     button { background: #0f766e; color: #fff; border: none; padding: 0.65rem 1.1rem; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; margin-right: 0.5rem; margin-top: 0.5rem; }
     button:disabled { opacity: 0.55; cursor: wait; }
     button.secondary { background: #475569; }
-    #log { font-size: 0.8rem; color: #475569; max-height: 200px; overflow: auto; white-space: pre-wrap; margin-top: 0.75rem; }
+    #log { font-size: 0.8rem; color: #475569; max-height: 220px; overflow: auto; white-space: pre-wrap; margin-top: 0.75rem; }
     .links a { color: #0f766e; }
     .userbar { text-align: right; font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+    .hint { font-size: 0.85rem; color: #64748b; margin: 0.35rem 0 0; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .tabs button { margin: 0; background: #e2e8f0; color: #334155; }
+    .tabs button.active { background: #0f766e; color: #fff; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    #rankingMeta { font-size: 0.85rem; color: #64748b; margin-top: 0.35rem; }
   </style>
 </head>
 <body class="fietsklim-locked">
@@ -36,21 +45,43 @@
   <div id="fietsklim-app-root" class="wrap">
     <p class="userbar"><span id="fietsklim-auth-userbar"></span></p>
     <h1>Climbfinder → JSON</h1>
-    <p class="links">Zelfde data als Limburg / Franse Alpen: polyline + profiel per klimpagina. <a href="index.html">← Database</a> · <a href="../index.html">HTML Scraper</a></p>
+    <p class="links">Polyline + hoogteprofiel per klim. <a href="index.html">← Database</a> · <a href="../index.html">HTML Scraper</a></p>
 
     <div class="card">
-      <p style="font-size:0.9rem;color:#475569;margin-top:0">
-        <strong>Let op:</strong> Climbfinder-ranking (nieuwe lijst) werkt in de browser niet (JavaScript). Gebruik een <strong>preset</strong> (bekende slugs) of plak slugs handmatig. Voor een verse top-25 per departement: <code>python scripts/climbfinder_import.py --preset fr-alps</code> lokaal.
-      </p>
-      <label for="preset">Preset (slug-lijst)</label>
-      <select id="preset">
-        <option value="nl-limburg">Zuid-Limburg (Climbfinder, ~35)</option>
-        <option value="fr-alps">Franse Alpen (Climbfinder, ~80)</option>
-        <option value="custom">Eigen slugs (textarea)</option>
-      </select>
-      <label for="slugs" style="margin-top:0.75rem">Extra / eigen slugs (één per regel, optioneel bij preset)</label>
-      <textarea id="slugs" placeholder="cauberg&#10;col-du-galibier"></textarea>
-      <button type="button" id="runBtn">Start import</button>
+      <div class="tabs">
+        <button type="button" id="tabRegion" class="active">Regio (Popular p.1–2)</button>
+        <button type="button" id="tabManual">Handmatig / preset</button>
+      </div>
+
+      <div id="panelRegion" class="panel active">
+        <p class="hint">Zelfde lijst als Climbfinder <em>Popular</em>, pagina 1 en 2 (±50 klimmen). Slugs staan op GitHub Pages; ververs lokaal met <code>python scripts/refresh_ranking_slugs.py --locality ID</code>.</p>
+        <div class="grid2">
+          <div>
+            <label for="countrySelect">Land</label>
+            <select id="countrySelect"><option value="">Laden…</option></select>
+          </div>
+          <div>
+            <label for="regionSelect">Climbfinder-regio</label>
+            <select id="regionSelect" disabled><option value="">Kies eerst een land</option></select>
+          </div>
+        </div>
+        <p id="rankingMeta"></p>
+        <button type="button" id="runRegionBtn">Importeer Popular (2 pagina’s)</button>
+      </div>
+
+      <div id="panelManual" class="panel">
+        <p class="hint">Gebruik de <strong>slug</strong> uit de URL (<code>…/climbs/cauberg</code>), geen vrije naam — tenzij die exact overeenkomt met de slug. Meerdere regels = meerdere klimmen.</p>
+        <label for="preset">Preset (optioneel)</label>
+        <select id="preset">
+          <option value="">— geen preset —</option>
+          <option value="nl-limburg">Zuid-Limburg (legacy slug-lijst)</option>
+          <option value="fr-alps">Franse Alpen (legacy slug-lijst)</option>
+        </select>
+        <label for="slugs" style="margin-top:0.75rem">Slugs of Climbfinder-URL’s (één per regel)</label>
+        <textarea id="slugs" placeholder="cauberg&#10;https://climbfinder.com/en/climbs/col-du-galibier-le-gauche"></textarea>
+        <button type="button" id="runManualBtn">Start import</button>
+      </div>
+
       <button type="button" id="downloadBtn" class="secondary" disabled>Download JSON</button>
       <div id="log"></div>
     </div>
@@ -62,17 +93,89 @@
   <script src="../auth/gate.js"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
-    const PRESET_META = {
-      "nl-limburg": { metaId: "nl-limburg", title: "Zuid-Limburg beklimmingen (Climbfinder)", country: "NL", regionLabel: "Zuid-Limburg", tags: ["climbfinder", "zuid-limburg"] },
-      "fr-alps": { metaId: "fr-alps", title: "Franse Alpen (Climbfinder)", country: "FR", regionLabel: "Alpes", tags: ["climbfinder", "fr-alps"] },
-    };
-
     let lastBundle = null;
+    let regionsCatalog = null;
+    let selectedRegion = null;
 
     function log(msg) {
       const el = document.getElementById("log");
       el.textContent += msg + "\n";
       el.scrollTop = el.scrollHeight;
+    }
+
+    function countryCode(countryName) {
+      const map = {
+        France: "FR", Italy: "IT", Spain: "ES", Netherlands: "NL", Belgium: "BE",
+        Switzerland: "CH", Austria: "AT", Germany: "DE", "United Kingdom": "GB",
+        Portugal: "PT", Andorra: "AD", Slovenia: "SI", Croatia: "HR", Norway: "NO",
+        USA: "US", Colombia: "CO",
+      };
+      return map[countryName] || "XX";
+    }
+
+    function metaIdFromRegion(r) {
+      return `cf-l${r.id}-${r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+    }
+
+    function setTab(which) {
+      document.getElementById("tabRegion").classList.toggle("active", which === "region");
+      document.getElementById("tabManual").classList.toggle("active", which === "manual");
+      document.getElementById("panelRegion").classList.toggle("active", which === "region");
+      document.getElementById("panelManual").classList.toggle("active", which === "manual");
+    }
+
+    document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
+    document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
+
+    async function initRegions() {
+      regionsCatalog = await ClimbfinderBrowser.loadRegionsCatalog();
+      const countrySel = document.getElementById("countrySelect");
+      countrySel.innerHTML = "";
+      for (const block of regionsCatalog.countries) {
+        const opt = document.createElement("option");
+        opt.value = block.country;
+        opt.textContent = `${block.country} (${block.regions.length})`;
+        countrySel.appendChild(opt);
+      }
+      countrySel.addEventListener("change", fillRegionSelect);
+      document.getElementById("regionSelect").addEventListener("change", updateRankingMeta);
+      fillRegionSelect();
+    }
+
+    function fillRegionSelect() {
+      const country = document.getElementById("countrySelect").value;
+      const block = regionsCatalog.countries.find((c) => c.country === country);
+      const regionSel = document.getElementById("regionSelect");
+      regionSel.innerHTML = "";
+      regionSel.disabled = !block;
+      selectedRegion = null;
+      document.getElementById("rankingMeta").textContent = "";
+      if (!block) return;
+      for (const r of block.regions) {
+        const opt = document.createElement("option");
+        opt.value = String(r.id);
+        opt.textContent = `${r.name} (l=${r.id})`;
+        opt._region = r;
+        opt._country = country;
+        regionSel.appendChild(opt);
+      }
+      regionSel.disabled = false;
+      updateRankingMeta();
+    }
+
+    async function updateRankingMeta() {
+      const regionSel = document.getElementById("regionSelect");
+      const opt = regionSel.selectedOptions[0];
+      if (!opt || !opt._region) return;
+      selectedRegion = { ...opt._region, country: opt._country };
+      const meta = document.getElementById("rankingMeta");
+      meta.textContent = "Ranking-slugs laden…";
+      try {
+        const ranking = await ClimbfinderBrowser.loadPopularRankingSlugs(selectedRegion.id);
+        meta.innerHTML = `${ranking.count} klimmen in cache · bijgewerkt ${ranking.updated_at || "?"} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
+      } catch (e) {
+        meta.textContent = e.message;
+      }
     }
 
     async function loadPresetSlugs(preset) {
@@ -82,41 +185,79 @@
       return data.slugs || [];
     }
 
-    document.getElementById("runBtn").addEventListener("click", async () => {
-      const preset = document.getElementById("preset").value;
-      const btn = document.getElementById("runBtn");
-      const dl = document.getElementById("downloadBtn");
+    async function runImport(slugs, meta) {
       document.getElementById("log").textContent = "";
-      btn.disabled = true;
-      dl.disabled = true;
+      document.getElementById("downloadBtn").disabled = true;
       lastBundle = null;
+      lastBundle = await ClimbfinderBrowser.importSlugs(slugs, meta, (p) => {
+        if (p.status === "fetch") log(`[${p.i}/${p.total}] ${p.slug}…`);
+        else if (p.status === "ok") log(`  ✓ ${p.slug}`);
+        else if (p.status === "err") log(`  ✗ ${p.slug}: ${p.error}`);
+        else if (p.status === "resolve") log(`Zoek slug: ${p.line}…`);
+        else if (p.status === "resolve_err") log(`  ✗ ${p.line}: ${p.error}`);
+      });
+      log(`\nKlaar: ${lastBundle.climbs.length} klimmen, ${lastBundle.meta.import_errors.length} fouten.`);
+      document.getElementById("downloadBtn").disabled = false;
+    }
 
+    document.getElementById("runRegionBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("runRegionBtn");
+      if (!selectedRegion) return;
+      btn.disabled = true;
       try {
-        let slugs = [];
-        if (preset !== "custom") {
-          slugs = await loadPresetSlugs(preset);
-          log(`Preset ${preset}: ${slugs.length} slugs`);
-        }
-        const extra = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
-        slugs = [...new Set([...slugs, ...extra])];
-        if (!slugs.length) throw new Error("Geen slugs om te importeren");
+        const ranking = await ClimbfinderBrowser.loadPopularRankingSlugs(selectedRegion.id);
+        if (!ranking.slugs?.length) throw new Error("Geen slugs in ranking-cache voor deze regio");
+        log(`Regio ${selectedRegion.name}: ${ranking.slugs.length} slugs (Popular, ${ranking.pages} pag.)`);
+        const cc = countryCode(selectedRegion.country);
+        await runImport(ranking.slugs, {
+          metaId: metaIdFromRegion(selectedRegion),
+          title: `${selectedRegion.name} (Climbfinder Popular)`,
+          country: cc,
+          regionLabel: selectedRegion.name,
+          tags: ["climbfinder", "popular", `locality-${selectedRegion.id}`],
+          source: {
+            name: "climbfinder",
+            import: "browser",
+            locality_id: selectedRegion.id,
+            sort: "popular",
+            pages: ranking.pages,
+            ranking_url: ranking.ranking_url,
+          },
+        });
+      } catch (e) {
+        log("FOUT: " + e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
 
-        const meta = PRESET_META[preset] || {
-          metaId: "custom",
-          title: "Climbfinder import",
+    document.getElementById("runManualBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("runManualBtn");
+      btn.disabled = true;
+      try {
+        let lines = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+        const preset = document.getElementById("preset").value;
+        if (preset) {
+          const presetSlugs = await loadPresetSlugs(preset);
+          log(`Preset ${preset}: ${presetSlugs.length} slugs`);
+          lines = [...new Set([...presetSlugs, ...lines])];
+        }
+        if (!lines.length) throw new Error("Geen slugs of URL’s ingevuld");
+
+        log("Slugs controleren…");
+        const { slugs, errors } = await ClimbfinderBrowser.resolveLinesToSlugs(lines, (p) => {
+          if (p.status === "resolve_err") log(`  ✗ ${p.line}: ${p.error}`);
+        });
+        for (const e of errors) log(`  ✗ ${e}`);
+        if (!slugs.length) throw new Error("Geen geldige slugs — gebruik Climbfinder-URL of exacte slug");
+
+        await runImport(slugs, {
+          metaId: "custom-import",
+          title: "Climbfinder handmatige import",
           country: "XX",
           regionLabel: "Import",
           tags: ["climbfinder"],
-        };
-
-        lastBundle = await ClimbfinderBrowser.importSlugs(slugs, meta, (p) => {
-          if (p.status === "fetch") log(`[${p.i}/${p.total}] ${p.slug}…`);
-          else if (p.status === "ok") log(`  ✓ ${p.slug}`);
-          else if (p.status === "err") log(`  ✗ ${p.slug}: ${p.error}`);
         });
-
-        log(`\nKlaar: ${lastBundle.climbs.length} klimmen, ${lastBundle.meta.import_errors.length} fouten.`);
-        dl.disabled = false;
       } catch (e) {
         log("FOUT: " + e.message);
       } finally {
@@ -133,6 +274,11 @@
       a.download = name;
       a.click();
     });
+
+    document.addEventListener("fietsklim-authenticated", () => initRegions().catch((e) => log("FOUT regio’s: " + e.message)));
+    if (window.__FIETSKLIM_AUTH_READY || document.body.classList.contains("fietsklim-unlocked")) {
+      initRegions().catch((e) => log("FOUT regio’s: " + e.message));
+    }
   </script>
 </body>
 </html>

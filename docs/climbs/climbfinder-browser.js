@@ -1,6 +1,7 @@
 /**
  * Climbfinder climb page → JSON (browser, via CORS proxy).
- * Ranking lists need Playwright; use preset slug lists or paste slugs.
+ * Popular ranking slugs: prebuilt under data/rankings/{locality}-popular-slugs.json
+ * (refresh: python scripts/refresh_ranking_slugs.py --locality ID)
  */
 (function (global) {
   const CORS_PROXIES = [
@@ -150,8 +151,91 @@
     };
   }
 
+  function slugifyName(input) {
+    return input
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function extractSlugFromLine(line) {
+    const s = line.trim();
+    if (!s) return "";
+    const urlM = s.match(/climbfinder\.com\/(?:en\/)?climbs\/([a-z0-9-]+)/i);
+    if (urlM) return urlM[1];
+    if (/^[a-z0-9-]+$/i.test(s) && !s.includes(" ")) return s.toLowerCase();
+    return slugifyName(s);
+  }
+
+  async function resolveSlug(line) {
+    const raw = line.trim();
+    if (!raw) return null;
+    const candidates = [];
+    const fromUrl = extractSlugFromLine(raw);
+    if (fromUrl) candidates.push(fromUrl);
+    const slugified = slugifyName(raw);
+    if (slugified && !candidates.includes(slugified)) candidates.push(slugified);
+
+    let lastErr;
+    for (const slug of candidates) {
+      try {
+        const html = await fetchHtml(`https://climbfinder.com/en/climbs/${slug}`);
+        if (html.includes("pathElevationsEnc")) return slug;
+      } catch (e) {
+        lastErr = e;
+      }
+    }
+    throw lastErr || new Error(`Geen klim gevonden voor "${raw}" — gebruik de slug uit de Climbfinder-URL`);
+  }
+
+  async function loadRegionsCatalog() {
+    const res = await fetch("data/climbfinder-regions.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("Regio-lijst niet gevonden (climbfinder-regions.json)");
+    return res.json();
+  }
+
+  async function loadPopularRankingSlugs(localityId) {
+    const res = await fetch(`data/rankings/${localityId}-popular-slugs.json`, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(
+        `Geen ranking-slugs voor regio ${localityId}. Lokaal: python scripts/refresh_ranking_slugs.py --locality ${localityId}`
+      );
+    }
+    const data = await res.json();
+    return data;
+  }
+
+  async function resolveLinesToSlugs(lines, onProgress) {
+    const slugs = [];
+    const errors = [];
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (!line.trim()) continue;
+      onProgress?.({ i: i + 1, total: lines.length, line, status: "resolve" });
+      try {
+        const slug = await resolveSlug(line);
+        if (slug && !slugs.includes(slug)) slugs.push(slug);
+      } catch (e) {
+        errors.push(`${line}: ${e.message}`);
+        onProgress?.({ i: i + 1, total: lines.length, line, status: "resolve_err", error: e.message });
+      }
+      await new Promise((r) => setTimeout(r, 200));
+    }
+    return { slugs, errors };
+  }
+
   async function importSlugs(slugs, options, onProgress) {
-    const { regionLabel, country, metaId, title, tags = ["climbfinder"] } = options;
+    const {
+      regionLabel,
+      country,
+      metaId,
+      title,
+      tags = ["climbfinder"],
+      source = { name: "climbfinder", import: "browser" },
+    } = options;
     const climbs = [];
     const errors = [];
     for (let i = 0; i < slugs.length; i++) {
@@ -176,12 +260,20 @@
         country,
         updated_at: new Date().toISOString(),
         count: climbs.length,
-        source: { name: "climbfinder", import: "browser" },
+        source,
         import_errors: errors,
       },
       climbs,
     };
   }
 
-  global.ClimbfinderBrowser = { importSlugs, fetchHtml, parseClimbPage };
+  global.ClimbfinderBrowser = {
+    importSlugs,
+    fetchHtml,
+    parseClimbPage,
+    loadRegionsCatalog,
+    loadPopularRankingSlugs,
+    resolveLinesToSlugs,
+    extractSlugFromLine,
+  };
 })(window);
