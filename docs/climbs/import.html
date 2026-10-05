@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climbfinder import — FietsKlim</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../auth/gate.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: Barlow, system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 1.5rem; color: #0f172a; }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { color: #0f766e; margin: 0 0 0.25rem; }
+    .card { background: #fff; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin: 1rem 0; }
+    label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.35rem; }
+    select, textarea { width: 100%; padding: 0.55rem; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+    textarea { min-height: 100px; font-family: ui-monospace, monospace; font-size: 0.8rem; }
+    button { background: #0f766e; color: #fff; border: none; padding: 0.65rem 1.1rem; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; margin-right: 0.5rem; margin-top: 0.5rem; }
+    button:disabled { opacity: 0.55; cursor: wait; }
+    button.secondary { background: #475569; }
+    #log { font-size: 0.8rem; color: #475569; max-height: 200px; overflow: auto; white-space: pre-wrap; margin-top: 0.75rem; }
+    .links a { color: #0f766e; }
+    .userbar { text-align: right; font-size: 0.85rem; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body class="fietsklim-locked">
+  <div id="fietsklim-auth-gate">
+    <div class="fietsklim-auth-card">
+      <h1>FietsKlim — persoonlijk</h1>
+      <p>Log in om de importtool te gebruiken.</p>
+      <button type="button" id="fietsklim-google-btn" class="fietsklim-auth-btn">Inloggen met Google</button>
+      <div id="fietsklim-auth-error" class="fietsklim-auth-error" role="alert"></div>
+    </div>
+  </div>
+
+  <div id="fietsklim-app-root" class="wrap">
+    <p class="userbar"><span id="fietsklim-auth-userbar"></span></p>
+    <h1>Climbfinder → JSON</h1>
+    <p class="links">Zelfde data als Limburg / Franse Alpen: polyline + profiel per klimpagina. <a href="index.html">← Database</a> · <a href="../index.html">HTML Scraper</a></p>
+
+    <div class="card">
+      <p style="font-size:0.9rem;color:#475569;margin-top:0">
+        <strong>Let op:</strong> Climbfinder-ranking (nieuwe lijst) werkt in de browser niet (JavaScript). Gebruik een <strong>preset</strong> (bekende slugs) of plak slugs handmatig. Voor een verse top-25 per departement: <code>python scripts/climbfinder_import.py --preset fr-alps</code> lokaal.
+      </p>
+      <label for="preset">Preset (slug-lijst)</label>
+      <select id="preset">
+        <option value="nl-limburg">Zuid-Limburg (Climbfinder, ~35)</option>
+        <option value="fr-alps">Franse Alpen (Climbfinder, ~80)</option>
+        <option value="custom">Eigen slugs (textarea)</option>
+      </select>
+      <label for="slugs" style="margin-top:0.75rem">Extra / eigen slugs (één per regel, optioneel bij preset)</label>
+      <textarea id="slugs" placeholder="cauberg&#10;col-du-galibier"></textarea>
+      <button type="button" id="runBtn">Start import</button>
+      <button type="button" id="downloadBtn" class="secondary" disabled>Download JSON</button>
+      <div id="log"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+  <script src="../auth/firebase-config.js"></script>
+  <script src="../auth/gate.js"></script>
+  <script src="climbfinder-browser.js"></script>
+  <script>
+    const PRESET_META = {
+      "nl-limburg": { metaId: "nl-limburg", title: "Zuid-Limburg beklimmingen (Climbfinder)", country: "NL", regionLabel: "Zuid-Limburg", tags: ["climbfinder", "zuid-limburg"] },
+      "fr-alps": { metaId: "fr-alps", title: "Franse Alpen (Climbfinder)", country: "FR", regionLabel: "Alpes", tags: ["climbfinder", "fr-alps"] },
+    };
+
+    let lastBundle = null;
+
+    function log(msg) {
+      const el = document.getElementById("log");
+      el.textContent += msg + "\n";
+      el.scrollTop = el.scrollHeight;
+    }
+
+    async function loadPresetSlugs(preset) {
+      const res = await fetch(`data/presets/${preset}-slugs.json`);
+      if (!res.ok) throw new Error("Preset slug-lijst niet gevonden");
+      const data = await res.json();
+      return data.slugs || [];
+    }
+
+    document.getElementById("runBtn").addEventListener("click", async () => {
+      const preset = document.getElementById("preset").value;
+      const btn = document.getElementById("runBtn");
+      const dl = document.getElementById("downloadBtn");
+      document.getElementById("log").textContent = "";
+      btn.disabled = true;
+      dl.disabled = true;
+      lastBundle = null;
+
+      try {
+        let slugs = [];
+        if (preset !== "custom") {
+          slugs = await loadPresetSlugs(preset);
+          log(`Preset ${preset}: ${slugs.length} slugs`);
+        }
+        const extra = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+        slugs = [...new Set([...slugs, ...extra])];
+        if (!slugs.length) throw new Error("Geen slugs om te importeren");
+
+        const meta = PRESET_META[preset] || {
+          metaId: "custom",
+          title: "Climbfinder import",
+          country: "XX",
+          regionLabel: "Import",
+          tags: ["climbfinder"],
+        };
+
+        lastBundle = await ClimbfinderBrowser.importSlugs(slugs, meta, (p) => {
+          if (p.status === "fetch") log(`[${p.i}/${p.total}] ${p.slug}…`);
+          else if (p.status === "ok") log(`  ✓ ${p.slug}`);
+          else if (p.status === "err") log(`  ✗ ${p.slug}: ${p.error}`);
+        });
+
+        log(`\nKlaar: ${lastBundle.climbs.length} klimmen, ${lastBundle.meta.import_errors.length} fouten.`);
+        dl.disabled = false;
+      } catch (e) {
+        log("FOUT: " + e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      if (!lastBundle) return;
+      const name = (lastBundle.meta.id || "climbs") + ".json";
+      const blob = new Blob([JSON.stringify(lastBundle, null, 2) + "\n"], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+    });
+  </script>
+</body>
+</html>
