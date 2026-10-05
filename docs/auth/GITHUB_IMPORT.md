@@ -22,7 +22,20 @@ De browser kan Climbfinder **niet** betrouwbaar ophalen (CORS). Wel:
 
 ### Meerdere regio’s in één bestand (optioneel)
 
-Zet **merge_into** op bijv. `nl-popular`. Elke import voegt klimmen toe aan `docs/climbs/data/nl-popular.json` (dubbele id’s worden overschreven). Eén entry in de kaart-dropdown i.p.v. tien losse JSON-bestanden.
+Zet **merge_into** op bijv. `nl-limburg`. Elke import voegt klimmen toe aan dat bestand (zelfde **slug/id** = één klim, nieuwste wint). Eén dropdown-entry, geen overlap tussen oude Zuid-Limburg (35) en een nieuwe Limburg-import.
+
+### Bestaande twee JSON’s samenvoegen
+
+```bash
+python scripts/merge_climb_bundles.py --into nl-limburg --title "Zuid-Limburg (samengevoegd)" \
+  docs/climbs/data/nl-limburg.json docs/climbs/data/JOUW-NIEUWE-LIMBURG.json
+```
+
+Verwijder daarna het **overbodige** JSON-bestand op GitHub en push (index rebuildt automatisch als workflow actief is).
+
+### “150 klimmen”?
+
+Climbfinder levert **25 per rankingpagina**. `limit=150` importeert hoogstens **`pages × 25`** (bijv. 6 pagina’s = 150). Zonder genoeg `pages` blijft het max ~50.
 
 ### Lokaal met GitHub CLI
 

@@ -30,13 +30,21 @@ def save_json(path: Path, data: dict) -> None:
         f.write("\n")
 
 
+def _climb_dedupe_key(climb: dict) -> str | None:
+    cid = climb.get("id")
+    if cid:
+        return str(cid)
+    slug = (climb.get("climbfinder") or {}).get("slug")
+    return str(slug) if slug else None
+
+
 def merge_climbs(existing: list[dict], incoming: list[dict]) -> list[dict]:
-    by_id: dict[str, dict] = {}
+    by_key: dict[str, dict] = {}
     for c in existing + incoming:
-        cid = c.get("id")
-        if cid:
-            by_id[cid] = c
-    return sorted(by_id.values(), key=lambda x: x.get("name", "").lower())
+        key = _climb_dedupe_key(c)
+        if key:
+            by_key[key] = c
+    return sorted(by_key.values(), key=lambda x: x.get("name", "").lower())
 
 
 def update_index(index_path: Path, *, meta_id: str, title: str, country: str, count: int, filename: str) -> None:
