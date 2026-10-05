@@ -18,14 +18,21 @@
   }
 
   function hideGate() {
+    if (document.body.classList.contains("fietsklim-unlocked")) {
+      return;
+    }
     $("fietsklim-auth-gate")?.classList.add("fietsklim-auth-hidden");
     document.body.classList.remove("fietsklim-locked");
+    document.body.classList.add("fietsklim-unlocked");
+    window.__FIETSKLIM_AUTH_READY = true;
     window.dispatchEvent(new CustomEvent("fietsklim-authenticated"));
   }
 
   function showGate() {
     $("fietsklim-auth-gate")?.classList.remove("fietsklim-auth-hidden");
     document.body.classList.add("fietsklim-locked");
+    document.body.classList.remove("fietsklim-unlocked");
+    window.__FIETSKLIM_AUTH_READY = false;
   }
 
   function isEmailAllowed(email, allowed) {
@@ -89,7 +96,7 @@
             });
           }
           renderUserBar(result.user);
-          hideGate();
+          /* hideGate + app start via onAuthStateChanged (avoids double init) */
         })
         .catch(function (err) {
           showError(err.message || "Inloggen mislukt.");

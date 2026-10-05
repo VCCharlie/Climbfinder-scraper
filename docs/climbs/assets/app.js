@@ -19,16 +19,14 @@
 
   async function loadJson(url) {
     const cfg = window.FIETSKLIM_AUTH_CONFIG;
-    if (
-      cfg?.useStorage &&
-      typeof firebase !== "undefined" &&
-      firebase.storage &&
-      cfg.storageDataPrefix
-    ) {
+    if (cfg?.useStorage) {
+      if (typeof firebase === "undefined" || !firebase.storage || !cfg.storageDataPrefix) {
+        throw new Error("useStorage staat aan maar Firebase Storage is niet beschikbaar.");
+      }
       const rel = url.replace(/^\.\//, "").replace(/^data\//, "");
       const path = `${cfg.storageDataPrefix}/${rel}`;
-      const snap = await firebase.storage().ref(path).getDownloadURL();
-      const res = await fetch(snap);
+      const downloadUrl = await firebase.storage().ref(path).getDownloadURL();
+      const res = await fetch(downloadUrl);
       if (!res.ok) throw new Error(`Kon dataset niet laden uit Storage (${res.status})`);
       return res.json();
     }
@@ -286,12 +284,43 @@
     await loadRegion(select.value);
   }
 
-  window.FietsKlimExplorer = { init, selectClimb, loadJson };
+  function refreshMapSize() {
+    if (!state.map) return;
+    state.map.invalidateSize();
+    if (state.routeLayer) {
+      state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
+    }
+  }
 
-  document.addEventListener("fietsklim-authenticated", () => {
-    init().catch((err) => {
-      console.error(err);
-      alert("Kon de klimdatabase niet laden. Zie console voor details.");
-    });
-  });
+  function bootExplorer() {
+    if (window.__fietsklimExplorerBooted) return;
+    window.__fietsklimExplorerBooted = true;
+    init()
+      .then(() => {
+        requestAnimationFrame(() => {
+          setTimeout(refreshMapSize, 50);
+        });
+      })
+      .catch((err) => {
+        window.__fietsklimExplorerBooted = false;
+        console.error(err);
+        const meta = $("datasetMeta");
+        if (meta) {
+          meta.textContent = `Fout bij laden: ${err.message}`;
+        }
+        alert(
+          err.message.includes("Storage")
+            ? "Dataset laden mislukt. Staat useStorage op true? Zet useStorage: false in firebase-config.js of upload JSON naar Firebase Storage."
+            : "Kon de klimdatabase niet laden. Zie console voor details."
+        );
+      });
+  }
+
+  window.FietsKlimExplorer = { init, selectClimb, loadJson, bootExplorer };
+
+  document.addEventListener("fietsklim-authenticated", bootExplorer);
+
+  if (window.__FIETSKLIM_AUTH_READY || document.body.classList.contains("fietsklim-unlocked")) {
+    bootExplorer();
+  }
 })();
