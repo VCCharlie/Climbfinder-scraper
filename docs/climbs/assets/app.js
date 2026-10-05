@@ -145,6 +145,12 @@
     }
   }
 
+  function updateOverviewBackButton() {
+    const btn = $("mapBackOverview");
+    if (!btn) return;
+    btn.hidden = state.mapMode !== "detail";
+  }
+
   function clearDetailSelection() {
     state.selectedId = null;
     state.activeClimb = null;
@@ -157,6 +163,17 @@
       state.chart.destroy();
       state.chart = null;
     }
+    updateOverviewBackButton();
+  }
+
+  function returnToOverview() {
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    clearDetailSelection();
+    renderList(state.searchQuery);
+    if (state.globalSearchReady) syncOverviewMarkers();
+    updateSearchHint();
   }
 
   function ensureOverviewCluster() {
@@ -501,6 +518,7 @@
     if (!climb) return;
     state.selectedId = id;
     state.mapMode = "detail";
+    updateOverviewBackButton();
     renderList(state.searchQuery);
 
     if (state.overviewCluster) state.overviewCluster.clearLayers();
@@ -636,6 +654,11 @@
 
     searchInput.addEventListener("search", () => {
       if (!searchInput.value.trim()) resetSearchToOverview();
+    });
+
+    $("mapBackOverview")?.addEventListener("click", () => returnToOverview());
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && state.mapMode === "detail") returnToOverview();
     });
 
     await ensureGlobalSearchIndex();

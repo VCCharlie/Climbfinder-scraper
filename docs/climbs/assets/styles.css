@@ -144,6 +144,27 @@ header.app-header p {
   min-height: 0;
 }
 
+.map-back-overview {
+  position: absolute;
+  z-index: 900;
+  top: 0.65rem;
+  left: 0.65rem;
+  padding: 0.45rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--teal-700);
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.18);
+}
+
+.map-back-overview:hover {
+  background: #ecfeff;
+}
+
 #map {
   width: 100%;
   height: 100%;
