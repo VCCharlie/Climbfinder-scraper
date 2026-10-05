@@ -22,7 +22,43 @@ De browser kan Climbfinder **niet** betrouwbaar ophalen (CORS). Wel:
 
 ### Meerdere regio’s in één bestand (optioneel)
 
-Zet **merge_into** op bijv. `nl-popular`. Elke import voegt klimmen toe aan `docs/climbs/data/nl-popular.json` (dubbele id’s worden overschreven). Eén entry in de kaart-dropdown i.p.v. tien losse JSON-bestanden.
+Zet **merge_into** op bijv. `nl-limburg`. Elke import voegt klimmen toe aan dat bestand (zelfde **slug/id** = één klim, nieuwste wint). Eén dropdown-entry, geen overlap tussen oude Zuid-Limburg (35) en een nieuwe Limburg-import.
+
+### Bestaande twee JSON’s samenvoegen
+
+```bash
+python scripts/merge_climb_bundles.py --into nl-limburg --title "Zuid-Limburg (samengevoegd)" \
+  docs/climbs/data/nl-limburg.json docs/climbs/data/JOUW-NIEUWE-LIMBURG.json
+```
+
+Verwijder daarna het **overbodige** JSON-bestand op GitHub en push (index rebuildt automatisch als workflow actief is).
+
+### “150 klimmen” terwijl Climbfinder ~688 toont?
+
+Climbfinder levert **25 slugs per rankingpagina**. De import stopt na **`pages`** pagina’s, daarna pas **`limit`**.
+
+| Instelling | Effect |
+|------------|--------|
+| `pages=6`, `limit=280` | **150** klimmen (6×25) — de limit helpt niet als er maar 150 slugs zijn opgehaald |
+| `pages=all`, `limit=700` | Volledige Popular-lijst tot de API leeg is |
+
+**Zuid-Limburg:** gebruik **`locality=27`** (zelfde als [ranking?l=27&s=popular](https://climbfinder.com/en/ranking?l=27&s=popular), ~688 klimmen). **`l=280`** is een andere regio (“Limburg” provincie), niet de 688-lijst.
+
+Voorbeeld volledige Zuid-Limburg:
+
+```bash
+gh workflow run climbfinder-import.yml \
+  -f locality=27 \
+  -f pages=all \
+  -f meta_id=nl-limburg \
+  -f title="Zuid-Limburg — Climbfinder Popular (~688)" \
+  -f country=NL \
+  -f region_label="Zuid-Limburg" \
+  -f limit=700 \
+  -f publish_to_site=true
+```
+
+De run duurt lang (~688 climb-pagina’s ophalen); timeout workflow is 45 min.
 
 ### Lokaal met GitHub CLI
 

@@ -53,7 +53,7 @@
 
     <div class="card">
       <div class="tabs">
-        <button type="button" id="tabRegion" class="active">Regio (Popular p.1–2)</button>
+        <button type="button" id="tabRegion" class="active">Regio (GitHub import)</button>
         <button type="button" id="tabManual">Handmatig / preset</button>
       </div>
 
@@ -130,18 +130,32 @@
       return map[region.country] || "XX";
     }
 
+    /** GitHub Actions defaults: pages × 25 = max slugs (limit kan niet meer importeren dan dat). */
     function workflowPayload(region) {
-      const metaId = metaIdFromRegion(region);
       const cc = countryCode(region);
-      return {
+      const base = {
         locality: String(region.id),
         pages: "2",
-        meta_id: metaId,
+        meta_id: metaIdFromRegion(region),
         title: `${region.name} (Climbfinder Popular)`,
         country: cc,
         region_label: region.name,
         limit: "50",
+        publish_to_site: "true",
+        merge_into: "",
       };
+      // Zuid-Limburg op Climbfinder = l=27 (~688 Popular), niet l=280 (provincie Limburg).
+      if (region.id === 27) {
+        return {
+          ...base,
+          pages: "all",
+          limit: "700",
+          meta_id: "nl-limburg",
+          title: "Zuid-Limburg — Climbfinder Popular (~688)",
+          region_label: "Zuid-Limburg",
+        };
+      }
+      return base;
     }
 
     function ghWorkflowCommand(payload) {
@@ -155,7 +169,8 @@
         `  ${f("country", payload.country)} \\\n` +
         `  ${f("region_label", payload.region_label)} \\\n` +
         `  ${f("limit", payload.limit)} \\\n` +
-        `  -f publish_to_site=true`
+        `  -f publish_to_site=${JSON.stringify(String(payload.publish_to_site ?? "true"))}` +
+        (payload.merge_into ? ` \\\n  ${f("merge_into", payload.merge_into)}` : "")
       );
     }
 
@@ -256,7 +271,19 @@
         } else if (ranking.country_iso) {
           warn = ` · climbs: ${ranking.country_iso}`;
         }
-        meta.innerHTML = `${ranking.count} klimmen in cache · bijgewerkt ${ranking.updated_at || "?"}${warn} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
+        let pagesHint = "";
+        if (selectedRegion.id === 27) {
+          pagesHint =
+            ' · <strong>Climbfinder toont ~688 klimmen</strong> (l=27). Import: <code>pages=all</code>, <code>limit=700</code> — niet l=280. Zes pagina’s = max 150.';
+        } else if (selectedRegion.id === 280) {
+          pagesHint =
+            ' · <strong>l=280</strong> = provincie Limburg (ander dan Zuid-Limburg l=27 met ~688).';
+        } else {
+          pagesHint =
+            " · Serverimport haalt standaard 2 pag. (50 slugs) uit cache; voor meer: verhoog <code>pages</code> (×25) of <code>pages=all</code>.";
+        }
+        meta.innerHTML =
+          `${ranking.count} slugs in lokale cache (Popular p.1–2) · bijgewerkt ${ranking.updated_at || "?"}${warn}${pagesHint} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
       } catch (e) {
         meta.textContent = e.message;
       }
