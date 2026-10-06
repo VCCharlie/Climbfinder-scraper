@@ -31,6 +31,30 @@ jobs:
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Enable required Google APIs
+        run: |
+          gcloud services enable \
+            firebaseextensions.googleapis.com \
+            cloudfunctions.googleapis.com \
+            cloudbuild.googleapis.com \
+            artifactregistry.googleapis.com \
+            compute.googleapis.com \
+            appengine.googleapis.com \
+            --project climbfinder-scraper
+        continue-on-error: true
+
+      - name: Preflight (App Engine — vereist voor 1st Gen Functions)
+        run: |
+          if ! gcloud app describe --project climbfinder-scraper >/dev/null 2>&1; then
+            echo "::warning::Geen App Engine-app in dit project. 1st Gen Cloud Functions falen vaak zonder App Engine."
+            echo "Owner: https://console.cloud.google.com/appengine/start?project=climbfinder-scraper"
+            echo "Kies regio europe-west (past bij functions europe-west1), daarna workflow opnieuw."
+          else
+            gcloud app describe --project climbfinder-scraper --format='value(locationId,servingStatus)'
+          fi
+
       - name: Install function dependencies
         run: npm ci
         working-directory: functions
@@ -50,4 +74,14 @@ jobs:
             --project climbfinder-scraper
 
       - name: Deploy requestClimbfinderImport
-        run: firebase deploy --only functions:requestClimbfinderImport --project climbfinder-scraper --non-interactive
+        run: |
+          set -o pipefail
+          firebase deploy --only functions:requestClimbfinderImport \
+            --project climbfinder-scraper --non-interactive --debug 2>&1 | tee firebase-deploy.log
+
+      - name: Upload deploy log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firebase-deploy-log
+          path: firebase-deploy.log
