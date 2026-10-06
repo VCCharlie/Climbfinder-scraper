@@ -30,7 +30,11 @@ window.FIETSKLIM_AUTH_CONFIG = {
    * Optional: one-click GitHub Actions import from climbs/import.html.
    * Requires deployed Firebase Function requestClimbfinderImport — see docs/auth/GITHUB_IMPORT.md
    */
-  /** Climb “gedaan” logboek (climbs/index.html). Firestore + localStorage fallback. */
+  /**
+   * Climb “gedaan” logboek (climbs/index.html).
+   * useFirestore: true → Firestore **Native mode** (niet Datastore mode).
+   * false → alleen localStorage in deze browser.
+   */
   climbLog: {
     useFirestore: true,
   },

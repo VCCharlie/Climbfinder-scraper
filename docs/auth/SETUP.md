@@ -69,18 +69,34 @@ Op **FietsKlim Database** (`climbs/index.html`) kun je klimmen afvinken. Data st
 - **Firestore** (aanbevolen): `users/{uid}/climbLog/{datasetId__climbId}`
 - **Fallback:** `localStorage` in de browser als Firestore niet bereikbaar is
 
-### Firestore eenmalig inschakelen
+### Firestore eenmalig inschakelen (Native mode)
 
-1. Firebase Console → **Build** → **Firestore Database** → database aanmaken (production mode is oké voor persoonlijk gebruik).
-2. **Rules** → plak `docs/auth/firestore.rules.example` (alleen eigen `uid` mag lezen/schrijven).
-3. Zorg dat `firebase-firestore-compat.js` geladen wordt (staat al op `index.html`).
-4. Optioneel in `firebase-config.js`:
+Het logboek gebruikt de **Firebase-web-SDK** → dat vereist **Cloud Firestore in Native mode** (standaard in Firebase Console).
+
+1. Firebase Console → **Build** → **Firestore Database**.
+2. Bij **eerste** aanmaken: kies **Firestore in Native mode** — **niet** “Cloud Datastore mode”.
+3. **Rules** → plak `docs/auth/firestore.rules.example` (alleen eigen `uid` mag lezen/schrijven).
+4. In `firebase-config.js`:
 
    ```js
    climbLog: { useFirestore: true },
    ```
 
 Na deploy: hard refresh. Vinkjes in de lijst, filter **Nog niet gedaan / Al gedaan**, groene stippen op de kaart.
+
+#### Melding “Datastore mode” / alleen Google Cloud Console?
+
+Dan staat het project op **Firestore in Datastore mode** (legacy, voor App Engine). Die database werkt **niet** met `firebase.firestore()` op de website.
+
+| Optie | Wat |
+|--------|-----|
+| **A — Logboek zonder Firestore** | Zet `climbLog: { useFirestore: false }` → vinkjes in **localStorage** (per browser, geen sync telefoon ↔ pc). Werkt meteen. |
+| **B — Nieuw Firebase-project** | Nieuw project → Firestore **Native mode** → zelfde `firebaseConfig` in `firebase-config.js` (Auth + Firestore rules opnieuw). |
+| **C — Blijft Datastore** | Geen Firebase Console Firestore voor deze app; alleen optie A of later **Realtime Database** (andere code). |
+
+**Datastore → Native omzetten op hetzelfde project gaat meestal niet** (eenmalige keuze). Daarom optie A of B.
+
+Zonder Firestore toont de site onder het filter kort: *localStorage fallback* — dat is normaal.
 
 ## 5. Account wijzigen
 
