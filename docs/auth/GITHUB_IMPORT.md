@@ -90,14 +90,14 @@ GitHub staat **geen** PAT toe in de browser. Daarom: een kleine **Firebase Calla
 **Optie 1 — vanaf je pc**
 
 ```bash
-export GITHUB_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+write
+export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+write
 ./scripts/setup-one-click-import.sh
 ```
 
 **Optie 2 — alleen browser/GitHub (geen lokale Firebase CLI)**
 
 1. Maak een **service account** in GCP (project `climbfinder-scraper`) met rechten om Cloud Functions te deployen.
-2. Repo **Settings → Secrets → Actions**: `FIREBASE_SERVICE_ACCOUNT` (JSON), `GITHUB_IMPORT_PAT` (zelfde PAT als hieronder).
+2. Repo **Settings → Secrets → Actions**: `FIREBASE_SERVICE_ACCOUNT` (JSON), `CLIMBFINDER_IMPORT_PAT` (fine-grained PAT; mag **niet** met `GITHUB_` beginnen — GitHub-regel).
 3. **Actions → Deploy Climbfinder import function → Run workflow** (eenmalig).
 
 **Optie 3 — handmatig**

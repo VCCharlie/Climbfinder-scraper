@@ -1,7 +1,8 @@
 # One-time / occasional: deploy requestClimbfinderImport so import.html one-click works.
 # Repo secrets (Settings → Secrets → Actions):
 #   FIREBASE_SERVICE_ACCOUNT — JSON key for a Firebase/GCP service account with Functions Admin
-#   GITHUB_IMPORT_PAT — fine-grained PAT with Actions: Read and write on this repo
+#   CLIMBFINDER_IMPORT_PAT — fine-grained PAT with Actions: Read and write on this repo
+#   (GitHub forbids secret names starting with GITHUB_)
 name: Deploy Climbfinder import function
 
 on:
@@ -33,14 +34,14 @@ jobs:
 
       - name: Set Functions config (GitHub PAT)
         env:
-          GITHUB_IMPORT_PAT: ${{ secrets.GITHUB_IMPORT_PAT }}
+          CLIMBFINDER_IMPORT_PAT: ${{ secrets.CLIMBFINDER_IMPORT_PAT }}
         run: |
-          if [ -z "$GITHUB_IMPORT_PAT" ]; then
-            echo "::error::Secret GITHUB_IMPORT_PAT ontbreekt."
+          if [ -z "$CLIMBFINDER_IMPORT_PAT" ]; then
+            echo "::error::Secret CLIMBFINDER_IMPORT_PAT ontbreekt."
             exit 1
           fi
           firebase functions:config:set \
-            github.pat="$GITHUB_IMPORT_PAT" \
+            github.pat="$CLIMBFINDER_IMPORT_PAT" \
             github.repo="VCCharlie/Climbfinder-scraper" \
             github.ref="main" \
             --project climbfinder-scraper
