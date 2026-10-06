@@ -2,12 +2,14 @@
 """
 Build docs/climbs/data/climbfinder-regions-geo.json — lat/lon per Climbfinder locality.
 
-Uses Nominatim (optional, rate-limited) with a deterministic country-centre fallback
-so the import map always has markers.
+Uses (in order of preference):
+  1. Climbfinder uphill API — centroid of Popular climb markers (best for map)
+  2. Nominatim (optional, rate-limited)
+  3. Deterministic spiral around country centre (placeholder only)
 
-  python scripts/enrich_region_centroids.py
+  python scripts/enrich_region_centroids.py --climbfinder --all --merge
   python scripts/enrich_region_centroids.py --geocode --countries Netherlands,Belgium
-  python scripts/enrich_region_centroids.py --geocode --all
+  python scripts/enrich_region_centroids.py
 """
 
 from __future__ import annotations
@@ -27,6 +29,13 @@ REGIONS_FILE = ROOT / "docs/climbs/data/climbfinder-regions.json"
 OUT_FILE = ROOT / "docs/climbs/data/climbfinder-regions-geo.json"
 
 USER_AGENT = "FietsKlimDB/1.0 (github.com/VCCharlie/Climbfinder-scraper)"
+CLIMBFINDER_API = "https://uphill.climbfinder.com/v2/climbs"
+CLIMBFINDER_HEADERS = {
+    "User-Agent": USER_AGENT,
+    "Accept": "application/json",
+    "Referer": "https://climbfinder.com/",
+    "Origin": "https://climbfinder.com",
+}
 
 # Approximate map centres (lat, lon, default zoom when filtering country)
 COUNTRY_CENTRE: dict[str, tuple[float, float, int]] = {
@@ -99,6 +108,46 @@ def fallback_lat_lon(iso: str, index: int, total: int, region_id: int) -> tuple[
     return round(lat0 + dlat, 6), round(lon0 + dlon * scale_lon, 6)
 
 
+def climbfinder_popular_centroid(locality_id: int, *, limit: int = 25) -> dict | None:
+    """Mean lat/lon of climb finish markers on Popular page 1 for this locality."""
+    q = urllib.parse.urlencode(
+        {
+            "language": "en",
+            "offset": 0,
+            "limit": limit,
+            "sort": "popular",
+            "locality": locality_id,
+            "radius": 25,
+        }
+    )
+    req = urllib.request.Request(f"{CLIMBFINDER_API}?{q}", headers=CLIMBFINDER_HEADERS)
+    try:
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            data = json.loads(resp.read().decode())
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
+        return None
+    if data.get("error"):
+        return None
+    lats: list[float] = []
+    lons: list[float] = []
+    for row in data.get("data") or []:
+        marker = row.get("marker") or {}
+        coords = marker.get("coordinates")
+        if not coords or len(coords) < 2:
+            continue
+        lon, lat = float(coords[0]), float(coords[1])
+        if -90 <= lat <= 90 and -180 <= lon <= 180:
+            lons.append(lon)
+            lats.append(lat)
+    if not lats:
+        return None
+    return {
+        "lat": round(sum(lats) / len(lats), 6),
+        "lon": round(sum(lons) / len(lons), 6),
+        "sample_count": len(lats),
+    }
+
+
 def nominatim_search(query: str) -> dict | None:
     q = urllib.parse.urlencode({"q": query, "format": "json", "limit": "1"})
     req = urllib.request.Request(
@@ -147,6 +196,11 @@ def load_catalog() -> list[dict]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--climbfinder",
+        action="store_true",
+        help="Centroid from Climbfinder Popular climb markers (uphill API)",
+    )
+    parser.add_argument(
         "--geocode",
         action="store_true",
         help="Query Nominatim for each region (slow; respect --sleep)",
@@ -161,8 +215,18 @@ def main() -> None:
         default="",
         help="Comma-separated country names (catalog block names), e.g. Netherlands,Belgium",
     )
-    parser.add_argument("--sleep", type=float, default=1.15, help="Seconds between Nominatim calls")
-    parser.add_argument("--merge", action="store_true", help="Merge into existing geo file (keep prior nominatim hits)")
+    parser.add_argument(
+        "--sleep",
+        type=float,
+        default=1.15,
+        help="Seconds between API/Nominatim calls (use ~0.22 for --climbfinder)",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Refresh even if entry already has climbfinder/nominatim coords",
+    )
+    parser.add_argument("--merge", action="store_true", help="Merge into existing geo file (keep prior hits)")
     args = parser.parse_args()
 
     items = load_catalog()
@@ -175,25 +239,62 @@ def main() -> None:
     country_filter = {c.strip() for c in args.countries.split(",") if c.strip()}
     regions_out: dict[str, dict] = dict(existing)
     geocoded = 0
+    cf_hits = 0
+    refresh_sources = {"nominatim", "climbfinder_popular_centroid"}
 
     for item in items:
         rid = str(item["id"])
-        if rid in regions_out and regions_out[rid].get("source") == "nominatim" and not args.geocode:
+        prev = regions_out.get(rid)
+        if (
+            prev
+            and prev.get("source") in refresh_sources
+            and not args.force
+            and not args.geocode
+            and not args.climbfinder
+        ):
+            continue
+        if (
+            prev
+            and prev.get("source") in refresh_sources
+            and not args.force
+            and args.climbfinder
+            and prev.get("source") == "climbfinder_popular_centroid"
+        ):
             continue
 
         iso = item["country_iso"]
         lat, lon = fallback_lat_lon(iso, item["index_in_country"], item["total_in_country"], item["id"])
-        entry: dict = {
-            "lat": lat,
-            "lon": lon,
-            "source": "fallback",
-            "country_iso": iso,
-            "name": item["name"],
-            "country": item["country"],
-        }
+        entry: dict = dict(prev) if prev else {}
+        entry.update(
+            {
+                "lat": lat,
+                "lon": lon,
+                "source": "fallback",
+                "country_iso": iso,
+                "name": item["name"],
+                "country": item["country"],
+            }
+        )
+        for drop in ("display_name", "boundingbox", "geocode_query", "sample_count"):
+            entry.pop(drop, None)
 
-        do_geo = args.geocode and (args.all or not country_filter or item["country"] in country_filter)
-        if do_geo:
+        in_scope = args.all or not country_filter or item["country"] in country_filter
+        do_cf = args.climbfinder and in_scope
+        do_geo = args.geocode and in_scope
+
+        if do_cf:
+            hit = climbfinder_popular_centroid(item["id"])
+            time.sleep(args.sleep)
+            if hit:
+                entry["lat"] = hit["lat"]
+                entry["lon"] = hit["lon"]
+                entry["source"] = "climbfinder_popular_centroid"
+                entry["sample_count"] = hit["sample_count"]
+                cf_hits += 1
+            else:
+                entry["climbfinder_note"] = "no markers on Popular page 1"
+
+        elif do_geo:
             query = f"{item['name']}, {item['country']}"
             hit = nominatim_search(query)
             time.sleep(args.sleep)
@@ -227,7 +328,10 @@ def main() -> None:
     with OUT_FILE.open("w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
-    print(f"Wrote {OUT_FILE} ({len(regions_out)} regions, {geocoded} new nominatim hits this run)")
+    print(
+        f"Wrote {OUT_FILE} ({len(regions_out)} regions, "
+        f"{cf_hits} climbfinder centroids, {geocoded} nominatim hits this run)"
+    )
 
 
 if __name__ == "__main__":

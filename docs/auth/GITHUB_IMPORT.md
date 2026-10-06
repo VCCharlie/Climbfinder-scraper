@@ -6,6 +6,27 @@ De browser kan Climbfinder **niet** betrouwbaar ophalen (CORS). Wel:
 2. **GitHub Actions** draait `scripts/climbfinder_import.py` op GitHub (zelfde als lokaal / agent).
 3. Met **`publish_to_site: true`** (standaard) commit de workflow automatisch naar `docs/climbs/data/` → **`index.json` wordt automatisch gegenereerd** → na ~1 min op de **kaart**. Geen zip uitpakken nodig.
 
+### Regio-stippen op de importkaart
+
+Coördinaten staan in `docs/climbs/data/climbfinder-regions-geo.json`. Ververs (centroid van Popular-klimmen via Climbfinder API):
+
+```bash
+python scripts/enrich_region_centroids.py --climbfinder --all --merge --sleep 0.22 --force
+```
+
+Zonder `--climbfinder` krijg je alleen een **placeholder-spiraal** rond het landcentrum — onbruikbaar op de kaart.
+
+### Klim-zoekindex (naam → regio)
+
+Het veld **Zoek klim op naam** gebruikt `docs/climbs/data/climb-slug-search-index.json` (~Popular-ranking cache per regio, plus namen uit geïmporteerde JSON’s — niet de volledige Climbfinder-site).
+
+```bash
+# Optioneel eerst meer regio’s in ranking-cache:
+python scripts/refresh_ranking_slugs.py --all
+python scripts/build_climb_slug_search_index.py
+git add docs/climbs/data/climb-slug-search-index.json && git commit -m "Refresh climb search index"
+```
+
 ### Alleen JSON uploaden (zonder index handmatig te editen)
 
 1. Zet je `.json` in **`docs/climbs/data/`** op `main` (bestandsnaam = `meta.id` + `.json` is het handigst).
