@@ -24,6 +24,12 @@
     .userbar { text-align: right; font-size: 0.85rem; margin-bottom: 0.5rem; }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+    .region-toolbar.grid2 { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 641px) {
+      .region-toolbar.grid2 { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .import-limit-field input[type="number"] { max-width: 8rem; }
+    .import-limit-field .hint { margin-top: 0.25rem; margin-bottom: 0; }
     .hint { font-size: 0.85rem; color: #64748b; margin: 0.35rem 0 0; }
     .tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
     .tabs button { margin: 0; background: #e2e8f0; color: #334155; }
@@ -76,6 +82,11 @@
         <div>
           <label for="regionSelect">Climbfinder-regio</label>
           <select id="regionSelect" disabled><option value="">Kies eerst een land</option></select>
+        </div>
+        <div class="import-limit-field">
+          <label for="importClimbLimit">Aantal klimmen (Popular-ranking)</label>
+          <input type="number" id="importClimbLimit" min="1" max="2000" step="1" value="50" inputmode="numeric" />
+          <p class="hint" id="importLimitHint">Standaard 50. Climbfinder levert 25 slugs per pagina — <code>pages</code> en <code>limit</code> in het commando passen zich aan.</p>
         </div>
       </div>
       <p id="rankingMeta"></p>
@@ -207,29 +218,70 @@
       return map[region.country] || "XX";
     }
 
-    /** GitHub Actions defaults: pages × 25 = max slugs (limit kan niet meer importeren dan dat). */
+    const SLUGS_PER_RANKING_PAGE = 25;
+    const DEFAULT_IMPORT_LIMIT = 50;
+    /** Vanaf dit aantal: workflow gebruikt pages=all (volledige ranking scrapen tot limit). */
+    const USE_ALL_PAGES_FROM_LIMIT = 500;
+
+    function readImportLimit() {
+      const el = document.getElementById("importClimbLimit");
+      let n = parseInt(el?.value, 10);
+      if (!Number.isFinite(n) || n < 1) n = DEFAULT_IMPORT_LIMIT;
+      if (n > 2000) n = 2000;
+      if (el && String(n) !== el.value) el.value = String(n);
+      return n;
+    }
+
+    function pagesAndLimitForImport(limit, region) {
+      const lim = Math.max(1, Math.min(2000, limit));
+      if (lim >= USE_ALL_PAGES_FROM_LIMIT || (region?.id === 27 && lim >= 650)) {
+        return { pages: "all", limit: String(lim) };
+      }
+      const pages = Math.max(1, Math.ceil(lim / SLUGS_PER_RANKING_PAGE));
+      return { pages: String(pages), limit: String(lim) };
+    }
+
+    function refreshImportLimitHint() {
+      const hint = document.getElementById("importLimitHint");
+      if (!hint) return;
+      const limit = readImportLimit();
+      const { pages, limit: limStr } = pagesAndLimitForImport(limit, selectedRegion);
+      const slugCap = pages === "all" ? limStr : String(Number(pages) * SLUGS_PER_RANKING_PAGE);
+      hint.innerHTML =
+        `Import max. <strong>${limStr}</strong> klimmen · workflow: <code>pages=${pages}</code>, <code>limit=${limStr}</code>` +
+        (pages !== "all"
+          ? ` (tot ${slugCap} slugs ophalen uit ranking)`
+          : " (alle rankingpagina’s tot limit)");
+    }
+
+    /** GitHub Actions: pages × 25 = max slugs (limit kan niet meer importeren dan dat). */
     function workflowPayload(region) {
       const cc = countryCode(region);
+      const limit = readImportLimit();
+      const { pages, limit: limitStr } = pagesAndLimitForImport(limit, region);
       const base = {
         locality: String(region.id),
-        pages: "2",
+        pages,
         meta_id: metaIdFromRegion(region),
         title: `${region.name} (Climbfinder Popular)`,
         country: cc,
         region_label: region.name,
-        limit: "50",
+        limit: limitStr,
         publish_to_site: "true",
         merge_into: "",
       };
-      // Zuid-Limburg op Climbfinder = l=27 (~688 Popular), niet l=280 (provincie Limburg).
-      if (region.id === 27) {
+      // Zuid-Limburg volledig (~688): l=27 + hoge limit → vaste dataset-id op de kaart.
+      if (region.id === 27 && (pages === "all" || limit >= 650)) {
         return {
           ...base,
-          pages: "all",
-          limit: "700",
           meta_id: "nl-limburg",
-          title: "Zuid-Limburg — Climbfinder Popular (~688)",
+          title:
+            limit >= 680
+              ? "Zuid-Limburg — Climbfinder Popular (~688)"
+              : `${region.name} (Climbfinder Popular, limit ${limitStr})`,
           region_label: "Zuid-Limburg",
+          pages: "all",
+          limit: limitStr,
         };
       }
       return base;
@@ -252,6 +304,7 @@
     }
 
     function refreshGhCommand() {
+      refreshImportLimitHint();
       const ta = document.getElementById("ghCmd");
       if (!selectedRegion) {
         ta.value = "# Kies een regio…";
@@ -402,7 +455,7 @@
             ' · <strong>l=280</strong> = provincie Limburg (ander dan Zuid-Limburg l=27 met ~688).';
         } else {
           pagesHint =
-            " · Serverimport haalt standaard 2 pag. (50 slugs) uit cache; voor meer: verhoog <code>pages</code> (×25) of <code>pages=all</code>.";
+            " · Pas <strong>aantal klimmen</strong> hierboven aan (bijv. 200 → 8 pag.). Lokale cache toont alleen p.1–2.";
         }
         meta.innerHTML =
           `${ranking.count} slugs in lokale cache (Popular p.1–2) · bijgewerkt ${ranking.updated_at || "?"}${warn}${pagesHint} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
@@ -433,6 +486,9 @@
       log(`\nKlaar: ${lastBundle.climbs.length} klimmen, ${lastBundle.meta.import_errors.length} fouten.`);
       document.getElementById("downloadBtn").disabled = false;
     }
+
+    document.getElementById("importClimbLimit")?.addEventListener("input", () => refreshGhCommand());
+    document.getElementById("importClimbLimit")?.addEventListener("change", () => refreshGhCommand());
 
     document.getElementById("copyGhBtn").addEventListener("click", () => {
       const ta = document.getElementById("ghCmd");
@@ -570,6 +626,7 @@
 
     function bootImportPage() {
       refreshOneClickUi();
+      refreshImportLimitHint();
       initRegions().catch(() => {});
     }
 
