@@ -1084,9 +1084,9 @@
       for (const seg of segments) {
         const line = L.polyline(seg.latlngs, {
           color: seg.color,
-          weight: 6,
-          opacity: 0.98,
-          lineCap: "butt",
+          weight: 7,
+          opacity: 1,
+          lineCap: "round",
           lineJoin: "round",
         });
         line.bindTooltip(`${seg.gradientPct}% gem.`, { sticky: true, direction: "top" });
