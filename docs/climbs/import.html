@@ -132,7 +132,7 @@
       </div>
 
       <div id="panelMap" class="panel">
-        <p class="hint">Alle Climbfinder-<strong>regio’s</strong> (~866) staan op de kaart. Klik een stip → regio wordt gekozen (land + dropdown). Klik op lege kaart → weer overzicht. Kleur = importstatus op FietsKlim. <strong>Kies voor import</strong> opent tab GitHub-import. (Geen losse klimmen — per regio importeren.)</p>
+        <p class="hint">Alle Climbfinder-<strong>regio’s</strong> (~866) op de kaart. <strong>Dropdown</strong> (land/regio) past kaart mee aan; klik stip = zelfde keuze. Klik lege kaart = overzicht. Kleur = importstatus. Stippen zijn regio-centra (grote regio’s zoals “Alps” dekken meer dan alleen de bergen).</p>
         <form id="mapSearchForm" class="map-toolbar" action="#" autocomplete="off">
           <div class="grow">
             <label for="mapRegionSearch">Zoek regio of l=ID</label>
@@ -170,7 +170,7 @@
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
-  <script src="assets/region-picker.js?v=20261006b"></script>
+  <script src="assets/region-picker.js?v=20261006c"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
@@ -421,7 +421,13 @@
         countrySel.appendChild(opt);
       }
       countrySel.addEventListener("change", () => {
+        const prevRegion = document.getElementById("regionSelect").value;
         fillRegionSelect();
+        const regionSel = document.getElementById("regionSelect");
+        if (prevRegion && [...regionSel.options].some((o) => o.value === prevRegion)) {
+          regionSel.value = prevRegion;
+        }
+        updateRankingMeta();
         if (activeImportTab === "map") regionPicker?.onMapTabShown();
         else regionPicker?.refreshCountry();
       });

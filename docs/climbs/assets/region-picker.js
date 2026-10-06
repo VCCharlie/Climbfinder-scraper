@@ -233,6 +233,49 @@
       }
     }
 
+    function boundsForCountry(countryName) {
+      if (!bootCatalog || !countryName) return null;
+      const block = bootCatalog.countries.find((c) => c.country === countryName);
+      if (!block) return null;
+      const pts = [];
+      for (const r of block.regions) {
+        const g = geo.regions[String(r.id)];
+        if (g) pts.push([g.lat, g.lon]);
+      }
+      return pts.length ? L.latLngBounds(pts) : null;
+    }
+
+    function applySelectionFromDropdown({ openPopup = false, preferCountryView = false } = {}) {
+      if (!mapReady) return;
+      const id = regionSel?.value;
+      if (!id) return;
+
+      selectedLocalityId = Number(id);
+      highlightMarker(selectedLocalityId);
+
+      const mk = markersById[id];
+      const g = geo.regions[String(id)];
+      const countryName = countrySel?.value;
+
+      const afterVisible = () => {
+        if (preferCountryView && countryName) {
+          const cb = boundsForCountry(countryName);
+          if (cb) {
+            map.fitBounds(cb, { padding: [36, 36], maxZoom: 8 });
+          }
+        } else if (g) {
+          map.setView([g.lat, g.lon], Math.max(map.getZoom(), 9));
+        }
+        if (openPopup && mk) mk.openPopup();
+      };
+
+      if (mk && clusterLayer?.zoomToShowLayer) {
+        clusterLayer.zoomToShowLayer(mk, afterVisible);
+      } else {
+        afterVisible();
+      }
+    }
+
     async function popupHtml(localityId, regionName, countryName) {
       await loadPopularTotalsIndex();
       const cfTotal = climbfinderPopularTotal(localityId);
@@ -322,7 +365,8 @@
 
       if (bounds.length) {
         overviewBounds = L.latLngBounds(bounds);
-        if (selectedLocalityId == null) {
+        const dropdownId = regionSel?.value;
+        if (!dropdownId && selectedLocalityId == null) {
           map.fitBounds(overviewBounds, { padding: [28, 28], maxZoom: 6 });
         }
       } else {
@@ -330,7 +374,11 @@
         map.setView([50.5, 5.5], 5);
       }
 
-      if (selectedLocalityId != null) highlightMarker(selectedLocalityId);
+      if (regionSel?.value) {
+        applySelectionFromDropdown({ preferCountryView: true });
+      } else if (selectedLocalityId != null) {
+        highlightMarker(selectedLocalityId);
+      }
 
       requestAnimationFrame(() => map.invalidateSize());
     }
@@ -444,6 +492,9 @@
       },
       async onMapTabShown() {
         await drawAllRegions();
+        if (regionSel?.value) {
+          applySelectionFromDropdown({ preferCountryView: true, openPopup: false });
+        }
       },
       refreshCountry() {
         if (!mapReady) return Promise.resolve();
@@ -456,9 +507,7 @@
           clearSelection();
           return;
         }
-        highlightMarker(id);
-        const g = geo.regions[id];
-        if (g) map.setView([g.lat, g.lon], Math.max(map.getZoom(), 10));
+        applySelectionFromDropdown({ preferCountryView: true, openPopup: false });
       },
       clearSelection,
       invalidateSize() {
