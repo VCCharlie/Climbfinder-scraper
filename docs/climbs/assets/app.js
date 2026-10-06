@@ -216,6 +216,11 @@
     searchQuery: "",
     mapMode: "overview",
     doneFilter: "all",
+    geoWatchId: null,
+    geoMarker: null,
+    geoAccuracy: null,
+    geoFollow: false,
+    geoLocateBtn: null,
   };
 
   function entryDatasetId(entry) {
@@ -1538,6 +1543,142 @@
     }
   }
 
+  const GEO_LOCATE_SVG =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>';
+
+  function updateGeoLocateUi() {
+    const btn = state.geoLocateBtn;
+    if (!btn) return;
+    const on = state.geoWatchId != null;
+    btn.classList.toggle("is-active", on);
+    btn.classList.toggle("is-following", on && state.geoFollow);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.title = on
+      ? state.geoFollow
+        ? "Locatie volgen uit (tik opnieuw)"
+        : "Locatie getoond — tik om kaart weer te volgen"
+      : "Mijn locatie op de kaart (volgen)";
+  }
+
+  function stopGeoLocate() {
+    if (state.geoWatchId != null) {
+      navigator.geolocation.clearWatch(state.geoWatchId);
+      state.geoWatchId = null;
+    }
+    state.geoFollow = false;
+    if (state.geoMarker && state.map) {
+      state.map.removeLayer(state.geoMarker);
+      state.geoMarker = null;
+    }
+    if (state.geoAccuracy && state.map) {
+      state.map.removeLayer(state.geoAccuracy);
+      state.geoAccuracy = null;
+    }
+    updateGeoLocateUi();
+  }
+
+  function onGeoPosition(pos) {
+    if (!state.map) return;
+    const { latitude, longitude, accuracy } = pos.coords;
+    const latlng = L.latLng(latitude, longitude);
+    const acc = Math.max(accuracy || 25, 8);
+
+    if (!state.geoMarker) {
+      state.geoAccuracy = L.circle(latlng, {
+        radius: acc,
+        color: "#2563eb",
+        weight: 1,
+        fillColor: "#3b82f6",
+        fillOpacity: 0.15,
+        interactive: false,
+      }).addTo(state.map);
+      state.geoMarker = L.circleMarker(latlng, {
+        radius: 8,
+        color: "#fff",
+        weight: 2,
+        fillColor: "#2563eb",
+        fillOpacity: 1,
+        interactive: false,
+      }).addTo(state.map);
+    } else {
+      state.geoAccuracy.setLatLng(latlng).setRadius(acc);
+      state.geoMarker.setLatLng(latlng);
+    }
+
+    if (state.geoFollow) {
+      const z = Math.max(state.map.getZoom(), isMobileLayout() ? 14 : 13);
+      state.map.setView(latlng, z, { animate: !isCoarsePointer() });
+    }
+    updateGeoLocateUi();
+  }
+
+  function onGeoError(err) {
+    console.warn("Geolocatie:", err);
+    stopGeoLocate();
+    const msg =
+      err.code === 1
+        ? "Geen toestemming voor locatie. Sta locatie toe in Chrome (site-instellingen)."
+        : err.code === 2
+          ? "Locatie niet beschikbaar (GPS uit of geen signaal?)."
+          : "Locatie opvragen duurde te lang. Probeer opnieuw.";
+    alert(msg);
+  }
+
+  function toggleGeoLocate() {
+    if (!navigator.geolocation) {
+      alert("Geolocatie wordt niet ondersteund in deze browser.");
+      return;
+    }
+    if (state.geoWatchId != null) {
+      if (!state.geoFollow) {
+        state.geoFollow = true;
+        updateGeoLocateUi();
+        return;
+      }
+      stopGeoLocate();
+      return;
+    }
+    state.geoFollow = true;
+    state.geoWatchId = navigator.geolocation.watchPosition(onGeoPosition, onGeoError, {
+      enableHighAccuracy: true,
+      maximumAge: 8000,
+      timeout: 20000,
+    });
+    updateGeoLocateUi();
+  }
+
+  function initGeoLocateControl() {
+    if (!state.map || state.geoLocateBtn) return;
+
+    const LocateControl = L.Control.extend({
+      options: { position: "bottomright" },
+      onAdd() {
+        const wrap = L.DomUtil.create("div", "leaflet-bar leaflet-control fietsklim-locate-control");
+        const btn = L.DomUtil.create("button", "fietsklim-locate-btn", wrap);
+        btn.type = "button";
+        btn.innerHTML = GEO_LOCATE_SVG;
+        btn.setAttribute("aria-label", "Mijn locatie op de kaart");
+        btn.setAttribute("aria-pressed", "false");
+        L.DomEvent.disableClickPropagation(wrap);
+        L.DomEvent.on(btn, "click", (e) => {
+          L.DomEvent.preventDefault(e);
+          L.DomEvent.stopPropagation(e);
+          toggleGeoLocate();
+        });
+        state.geoLocateBtn = btn;
+        return wrap;
+      },
+    });
+    state.map.addControl(new LocateControl());
+
+    state.map.on("dragstart", () => {
+      if (state.geoWatchId != null && state.geoFollow) {
+        state.geoFollow = false;
+        updateGeoLocateUi();
+      }
+    });
+  }
+
   function initMap() {
     if (state.map) return;
     if (typeof L === "undefined") {
@@ -1579,6 +1720,8 @@
       if (state.mapMode === "detail") return;
       scheduleViewportRefresh();
     });
+
+    initGeoLocateControl();
   }
 
   async function loadRegion(url, options = {}) {
@@ -1659,6 +1802,7 @@
     $("doneFilter")?.addEventListener("change", (e) => {
       state.doneFilter = e.target.value || "all";
       renderList(state.searchQuery);
+      updateMobileFiltersSummary();
       if (state.globalSearchReady) {
         if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
         else refreshViewportClimbs();
