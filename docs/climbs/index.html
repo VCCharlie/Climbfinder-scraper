@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261006m" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -36,6 +36,11 @@
         <a href="../index.html" style="font-size:0.85rem;color:#0f766e;">← HTML Scraper</a>
       </div>
     </header>
+
+    <nav class="mobile-view-switch" aria-label="Weergave op mobiel">
+      <button type="button" id="mobileViewList" class="mobile-view-switch-btn is-active" aria-pressed="true">Lijst</button>
+      <button type="button" id="mobileViewMap" class="mobile-view-switch-btn" aria-pressed="false">Kaart</button>
+    </nav>
 
     <aside class="sidebar">
       <div class="sidebar-tools">
@@ -74,6 +79,13 @@
         ← Overzichtskaart
       </button>
       <div id="map"></div>
+      <div id="mapTouchSheet" class="map-touch-sheet" hidden>
+        <button type="button" id="mapTouchSheetClose" class="map-touch-sheet-close" aria-label="Sluiten">×</button>
+        <p class="map-touch-sheet-kicker">Geselecteerde klim</p>
+        <h2 id="mapTouchTitle" class="map-touch-sheet-title"></h2>
+        <p id="mapTouchStats" class="map-touch-sheet-stats"></p>
+        <button type="button" id="mapTouchOpenList" class="map-touch-sheet-action">Profiel in lijst</button>
+      </div>
     </main>
   </div>
 

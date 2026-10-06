@@ -5,6 +5,22 @@
   const MAX_NEARBY_ROUTES = 40;
   const MAX_DIM_ROUTES = 35;
   const LOCAL_ZOOM_OUT_STEPS = 2;
+  const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
+  const MOBILE_LAYOUT_MQ = window.matchMedia("(max-width: 900px)");
+  const ROUTE_HIT_WEIGHT_COARSE = 22;
+
+  function isCoarsePointer() {
+    return COARSE_POINTER_MQ.matches;
+  }
+
+  function isMobileLayout() {
+    return MOBILE_LAYOUT_MQ.matches;
+  }
+
+  function isMobileMapPaneActive() {
+    const root = document.querySelector(".layout");
+    return isMobileLayout() && root?.classList.contains("mobile-pane-map");
+  }
 
   /** Goed zichtbaar op groen OSM-terrein (niet teal). */
   const ROUTE_STYLE = {
@@ -359,8 +375,9 @@
       opacity: 0.96,
       lineCap: "round",
       lineJoin: "round",
+      interactive: false,
     }).addTo(state.hoverHighlightGroup);
-    L.polyline(latlngs, ROUTE_STYLE.hover).addTo(state.hoverHighlightGroup);
+    L.polyline(latlngs, { ...ROUTE_STYLE.hover, interactive: false }).addTo(state.hoverHighlightGroup);
     state.hoverHighlightGroup.addTo(state.map);
     state.hoverHighlightGroup.eachLayer((layer) => {
       if (layer.bringToFront) layer.bringToFront();
@@ -411,6 +428,94 @@
       L.DomEvent.stopPropagation(e);
       scheduleClearRouteHover(entry);
     });
+  }
+
+  function bindMapEntryInteraction(layer, entry) {
+    layer.on("click", (e) => {
+      L.DomEvent.stopPropagation(e);
+      void selectClimbFromList(entry.climb.id, entry.regionUrl);
+    });
+    if (!isCoarsePointer()) {
+      bindMapEntryHover(layer, entry);
+    }
+  }
+
+  function hideMapTouchSheet() {
+    const sheet = $("mapTouchSheet");
+    if (sheet) sheet.hidden = true;
+  }
+
+  function updateMapTouchSheet(climb) {
+    const sheet = $("mapTouchSheet");
+    if (!sheet || !climb) return;
+    if (!isMobileMapPaneActive()) {
+      sheet.hidden = true;
+      return;
+    }
+    const st = climb.stats || {};
+    $("mapTouchTitle").textContent = climb.name;
+    $("mapTouchStats").textContent = climbStatsLine(st, climb);
+    sheet.hidden = false;
+  }
+
+  function setMobilePane(pane) {
+    const root = document.querySelector(".layout");
+    if (!root || !isMobileLayout()) return;
+    const showMap = pane === "map";
+    root.classList.toggle("mobile-pane-map", showMap);
+    root.classList.toggle("mobile-pane-list", !showMap);
+    const listBtn = $("mobileViewList");
+    const mapBtn = $("mobileViewMap");
+    listBtn?.classList.toggle("is-active", !showMap);
+    mapBtn?.classList.toggle("is-active", showMap);
+    listBtn?.setAttribute("aria-pressed", String(!showMap));
+    mapBtn?.setAttribute("aria-pressed", String(showMap));
+    if (showMap) {
+      hideMapTouchSheet();
+      requestAnimationFrame(() => {
+        refreshMapSize();
+        setTimeout(refreshMapSize, 150);
+      });
+    } else if (state.activeClimb) {
+      $("climbDetailPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+
+  function initMobileViewSwitch() {
+    const root = document.querySelector(".layout");
+    if (!root) return;
+    const applyDefault = () => {
+      if (isMobileLayout()) {
+        if (!root.classList.contains("mobile-pane-map") && !root.classList.contains("mobile-pane-list")) {
+          setMobilePane("list");
+        }
+      } else {
+        root.classList.remove("mobile-pane-map", "mobile-pane-list");
+        hideMapTouchSheet();
+      }
+    };
+    applyDefault();
+    MOBILE_LAYOUT_MQ.addEventListener("change", applyDefault);
+    $("mobileViewList")?.addEventListener("click", () => setMobilePane("list"));
+    $("mobileViewMap")?.addEventListener("click", () => setMobilePane("map"));
+    $("mapTouchSheetClose")?.addEventListener("click", () => hideMapTouchSheet());
+    $("mapTouchOpenList")?.addEventListener("click", () => {
+      setMobilePane("list");
+      $("climbDetailPanel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  function afterClimbSelectedOnMobile(climb) {
+    if (!isMobileLayout()) return;
+    if (isMobileMapPaneActive()) {
+      updateMapTouchSheet(climb);
+      refreshMapSize();
+    } else {
+      hideMapTouchSheet();
+      requestAnimationFrame(() => {
+        $("climbDetailPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    }
   }
 
   function ensureViewportLayers() {
@@ -465,15 +570,26 @@
       const latlngs = latLngsFromClimb(entry.climb);
       if (latlngs.length < 2) return;
       withRouteKeys.add(entryKey(entry));
-      const line = L.polyline(latlngs, style);
-      line.bindTooltip(entry.climb.name, { sticky: true });
-      line.on("click", (e) => {
-        L.DomEvent.stopPropagation(e);
-        void selectClimbFromList(entry.climb.id, entry.regionUrl);
+      const line = L.polyline(latlngs, {
+        ...style,
+        interactive: !isCoarsePointer(),
       });
-      bindMapEntryHover(line, entry);
-      state.viewportRouteByKey.set(entryKey(entry), line);
+      line.bindTooltip(entry.climb.name, { sticky: true, interactive: !isCoarsePointer() });
       state.viewportRoutesLayer.addLayer(line);
+      if (isCoarsePointer()) {
+        const hit = L.polyline(latlngs, {
+          color: "#000000",
+          weight: ROUTE_HIT_WEIGHT_COARSE,
+          opacity: 0,
+          interactive: true,
+        });
+        bindMapEntryInteraction(hit, entry);
+        state.viewportRoutesLayer.addLayer(hit);
+        state.viewportRouteByKey.set(entryKey(entry), hit);
+      } else {
+        bindMapEntryInteraction(line, entry);
+        state.viewportRouteByKey.set(entryKey(entry), line);
+      }
       if (style !== ROUTE_STYLE.dim) {
         addClimbStartEndMarkers(latlngs, {
           size: "sm",
@@ -498,7 +614,7 @@
       const latlngs = latLngsFromClimb(entry.climb);
       const start = latlngs[0] || climbLatLng(entry.climb);
       if (!start) return;
-      const style = { ...climbEndpointStyles("sm").start };
+      const style = { ...climbEndpointStyles(isCoarsePointer() ? "md" : "sm").start };
       if (dimmed) {
         style.fillColor = "#cbd5e1";
         style.color = "#94a3b8";
@@ -508,12 +624,9 @@
       marker.bindTooltip(`${entry.climb.name}${dimmed ? " (andere regio)" : ""}`, {
         direction: "top",
         sticky: true,
+        interactive: !isCoarsePointer(),
       });
-      marker.on("click", (e) => {
-        L.DomEvent.stopPropagation(e);
-        void selectClimbFromList(entry.climb.id, entry.regionUrl);
-      });
-      bindMapEntryHover(marker, entry);
+      bindMapEntryInteraction(marker, entry);
       state.viewportLayer.addLayer(marker);
     };
 
@@ -532,6 +645,7 @@
     state.mapMode = "overview";
     clearMapLayers();
     resetProfilePanel();
+    hideMapTouchSheet();
     updateOverviewBackButton();
   }
 
@@ -613,20 +727,21 @@
       const latlng = climbLatLng(entry.climb);
       if (!latlng) continue;
       const active = isEntryMapActive(entry);
+      const touch = isCoarsePointer();
       const marker = L.circleMarker(latlng, {
-        radius: active ? 6 : 4,
+        radius: touch ? (active ? 9 : 7) : active ? 6 : 4,
         color: active ? "#5b21b6" : "#94a3b8",
         weight: active ? 2 : 1,
         fillColor: active ? "#7c3aed" : "#cbd5e1",
         fillOpacity: active ? 0.9 : 0.55,
       });
       const reg = entry.regionTitle ? ` · ${entry.regionTitle}` : "";
-      marker.bindTooltip(`${entry.climb.name}${reg}`, { direction: "top", sticky: true });
-      marker.on("click", (e) => {
-        L.DomEvent.stopPropagation(e);
-        void selectClimbFromList(entry.climb.id, entry.regionUrl);
+      marker.bindTooltip(`${entry.climb.name}${reg}`, {
+        direction: "top",
+        sticky: true,
+        interactive: !touch,
       });
-      bindMapEntryHover(marker, entry);
+      bindMapEntryInteraction(marker, entry);
       state.overviewCluster.addLayer(marker);
     }
     if (fit && fitBounds.length) {
@@ -706,11 +821,13 @@
         if (e.target.tagName === "A") return;
         void selectClimbFromList(climb.id, entry.regionUrl);
       });
-      el.addEventListener("mouseenter", () => {
-        if (state.mapMode === "detail") return;
-        onMapRouteHover(entry);
-      });
-      el.addEventListener("mouseleave", () => scheduleClearRouteHover(entry));
+      if (!isCoarsePointer()) {
+        el.addEventListener("mouseenter", () => {
+          if (state.mapMode === "detail") return;
+          onMapRouteHover(entry);
+        });
+        el.addEventListener("mouseleave", () => scheduleClearRouteHover(entry));
+      }
       list.appendChild(el);
     }
     if (q && state.globalEntries.length && items.length === 200) {
@@ -968,6 +1085,7 @@
     state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
     clearRouteHoverHighlight();
     updateChart(climb);
+    afterClimbSelectedOnMobile(climb);
 
     if (window.location.hash !== `#${id}`) {
       history.replaceState(null, "", `#${id}`);
@@ -979,7 +1097,10 @@
     if (typeof L === "undefined") {
       throw new Error("Leaflet (kaart) is niet geladen. Check netwerk/adblocker.");
     }
-    state.map = L.map("map", { zoomControl: true });
+    state.map = L.map("map", {
+      zoomControl: true,
+      tapTolerance: isCoarsePointer() ? 25 : 15,
+    });
 
     state.baseLayers = {
       OpenStreetMap: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -1110,6 +1231,7 @@
       if (!searchInput.value.trim()) resetSearchToOverview();
     });
 
+    initMobileViewSwitch();
     $("mapBackOverview")?.addEventListener("click", () => returnToOverview());
     $("profileExpandOpen")?.addEventListener("click", () => openProfileExpand());
     $("profileExpandLink")?.addEventListener("click", () => openProfileExpand());
