@@ -85,7 +85,22 @@ GitHub staat **geen** PAT toe in de browser. Daarom: een kleine **Firebase Calla
 - Firebase **Blaze** plan (Functions)
 - GitHub **fine-grained PAT** met **Actions: Read and write** op deze repo
 
-### Deploy (eenmalig)
+### Deploy (eenmalig) {#deploy-eenmalig}
+
+**Optie 1 — vanaf je pc**
+
+```bash
+export GITHUB_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+write
+./scripts/setup-one-click-import.sh
+```
+
+**Optie 2 — alleen browser/GitHub (geen lokale Firebase CLI)**
+
+1. Maak een **service account** in GCP (project `climbfinder-scraper`) met rechten om Cloud Functions te deployen.
+2. Repo **Settings → Secrets → Actions**: `FIREBASE_SERVICE_ACCOUNT` (JSON), `GITHUB_IMPORT_PAT` (zelfde PAT als hieronder).
+3. **Actions → Deploy Climbfinder import function → Run workflow** (eenmalig).
+
+**Optie 3 — handmatig**
 
 ```bash
 cd functions
@@ -122,8 +137,8 @@ Na login: **Start serverimport (GitHub Actions)** op de importpagina.
 
 | Situatie | Gedrag knop **Start serverimport** |
 |----------|-------------------------------------|
-| `githubImport.enabled` **false** of ontbreekt (standaard in repo) | Log: *Firebase Function niet actief* → opent GitHub Actions; jij vult **Run workflow** handmatig in (geen `gh` nodig). |
-| `enabled: true`, Function + PAT OK | Log: *Import gestart op GitHub Actions* + link naar Actions. Run draait op GitHub; bij `publish_to_site=true` komt JSON automatisch op de kaart. |
+| `githubImport.enabled` **false** of ontbreekt | Log: *Firebase Function niet actief* → opent GitHub Actions; jij vult **Run workflow** handmatig in (geen `gh` nodig). |
+| `enabled: true` (in repo), Function + PAT OK | Log: *Import gestart…* + **Actions-tab opent automatisch**. Geen terminal, geen formulier invullen. |
 | `enabled: true`, PAT ontbreekt | Foutmelding over PAT / failed-precondition. |
 
 **Verwachting:** één klik na regio-keuze = zelfde als **Run workflow** met de velden uit het workflow-veld op de importpagina. Geen terminal, geen `gh`, wel **Blaze + eenmalige** Function-deploy.

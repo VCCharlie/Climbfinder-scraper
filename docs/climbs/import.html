@@ -87,7 +87,8 @@
       </div>
 
       <div id="panelRegion" class="panel active">
-        <p class="hint"><strong>Aanbevolen:</strong> <strong>GitHub Actions</strong> met <code>publish_to_site=true</code> (standaard): na de run staat JSON automatisch op de kaart — geen zip/upload. Optioneel <code>merge_into=nl-popular</code> om meerdere imports samen te voegen. Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
+        <p class="hint" id="githubImportHint"><strong>Aanbevolen:</strong> <strong>GitHub Actions</strong> met <code>publish_to_site=true</code> (standaard): na de run staat JSON automatisch op de kaart — geen zip/upload. Optioneel <code>merge_into=nl-popular</code> om meerdere imports samen te voegen. Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
+        <p class="hint" id="oneClickStatus" hidden></p>
         <button type="button" id="startGithubBtn">Start serverimport (GitHub Actions)</button>
         <button type="button" id="copyGhBtn" class="secondary">Kopieer gh-commando</button>
         <label for="ghCmd" style="margin-top:0.75rem">Workflow (handmatig op GitHub of met <code>gh</code> CLI)</label>
@@ -154,6 +155,46 @@
     }
 
     const GITHUB_REPO = (window.FIETSKLIM_AUTH_CONFIG?.githubImport?.repo) || "VCCharlie/Climbfinder-scraper";
+
+    function githubImportConfig() {
+      return window.FIETSKLIM_AUTH_CONFIG?.githubImport;
+    }
+
+    function githubOneClickActive() {
+      const cfg = githubImportConfig();
+      return !!(cfg?.enabled && typeof firebase !== "undefined" && firebase.app);
+    }
+
+    function formatCallableError(e) {
+      if (!e) return "Onbekende fout";
+      const code = e.code ? String(e.code).replace(/^functions\//, "") : "";
+      const msg = e.message || String(e);
+      if (code && !msg.includes(code)) return `${msg} (${code})`;
+      return msg;
+    }
+
+    function refreshOneClickUi() {
+      const cfg = githubImportConfig();
+      const status = document.getElementById("oneClickStatus");
+      const btn = document.getElementById("startGithubBtn");
+      const hint = document.getElementById("githubImportHint");
+      if (!status || !btn) return;
+      if (cfg?.enabled) {
+        btn.textContent = "Start import (één klik → GitHub Actions)";
+        status.hidden = false;
+        status.innerHTML =
+          "Serverimport staat aan: kies regio → deze knop start de workflow (geen <code>gh</code>, geen handmatig invullen). " +
+          "Eerste keer: deploy Firebase Function — zie <a href=\"../auth/GITHUB_IMPORT.md#deploy-eenmalig\">GITHUB_IMPORT.md</a>.";
+        if (hint) {
+          hint.innerHTML =
+            "<strong>Één klik:</strong> na inloggen start de knop hieronder direct <code>climbfinder-import.yml</code> " +
+            "met de velden uit het workflow-veld hieronder. JSON komt automatisch op de kaart (<code>publish_to_site=true</code>).";
+        }
+      } else {
+        btn.textContent = "Start serverimport (GitHub Actions)";
+        status.hidden = true;
+      }
+    }
 
     function countryCode(region) {
       if (region.country_iso) return region.country_iso;
@@ -406,17 +447,24 @@
         log("FOUT: eerst inloggen.");
         return;
       }
-      if (!selectedRegion) return;
+      if (!selectedRegion) {
+        log("FOUT: kies eerst een regio (dropdown of kaart).");
+        return;
+      }
       btn.disabled = true;
       document.getElementById("log").textContent = "";
       const payload = workflowPayload(selectedRegion);
-      const cfg = window.FIETSKLIM_AUTH_CONFIG?.githubImport;
+      const cfg = githubImportConfig();
       try {
-        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.functions) {
+        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
+          log(`Start import: ${selectedRegion.name} (l=${payload.locality})…`);
           const fn = firebase.app().functions(cfg.region || "europe-west1").httpsCallable("requestClimbfinderImport");
           const res = await fn(payload);
           log(res.data.message || "Workflow gestart.");
-          if (res.data.actionsUrl) log(res.data.actionsUrl);
+          if (res.data.actionsUrl) {
+            log(res.data.actionsUrl);
+            window.open(res.data.actionsUrl, "_blank", "noopener");
+          }
         } else {
           log("Firebase Function niet actief — start handmatig op GitHub:");
           log("");
@@ -427,7 +475,11 @@
           window.open(document.getElementById("actionsLink").href, "_blank", "noopener");
         }
       } catch (e) {
-        log("FOUT: " + (e.message || e));
+        log("FOUT: " + formatCallableError(e));
+        if (String(e?.code || "").includes("failed-precondition")) {
+          log("");
+          log("Tip: eenmalig PAT + deploy — zie docs/auth/GITHUB_IMPORT.md (Optie B).");
+        }
       } finally {
         btn.disabled = false;
       }
@@ -517,6 +569,7 @@
     });
 
     function bootImportPage() {
+      refreshOneClickUi();
       initRegions().catch(() => {});
     }
 
