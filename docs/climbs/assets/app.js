@@ -11,6 +11,7 @@
     active: { color: "#6d28d9", weight: 4, opacity: 0.92 },
     detail: { color: "#5b21b6", weight: 5, opacity: 0.95 },
     dim: { color: "#64748b", weight: 2, opacity: 0.38 },
+    hover: { color: "#7c3aed", weight: 6, opacity: 1 },
   };
 
   const state = {
@@ -31,6 +32,10 @@
     profileExpanded: false,
     routeLayerOutline: null,
     hoverMarker: null,
+    hoverHighlightGroup: null,
+    hoveredEntryKey: null,
+    hoverPreviewTimer: null,
+    viewportRouteByKey: new Map(),
     activeClimb: null,
     indexRegions: [],
     currentRegionUrl: null,
@@ -324,6 +329,88 @@
   function clearViewportLayers() {
     if (state.viewportLayer) state.viewportLayer.clearLayers();
     if (state.viewportRoutesLayer) state.viewportRoutesLayer.clearLayers();
+    state.viewportRouteByKey.clear();
+  }
+
+  function syncListHoverHighlight(climbId) {
+    document.querySelectorAll(".climb-item").forEach((el) => {
+      el.classList.toggle("hover-preview", Boolean(climbId && el.dataset.id === climbId));
+    });
+  }
+
+  function clearRouteHoverHighlight() {
+    if (state.hoverHighlightGroup && state.map) {
+      state.map.removeLayer(state.hoverHighlightGroup);
+    }
+    state.hoverHighlightGroup = null;
+    state.hoveredEntryKey = null;
+  }
+
+  function applyRouteHoverHighlight(entry) {
+    if (!state.map || state.mapMode === "detail") return;
+    const latlngs = latLngsFromClimb(entry.climb);
+    if (latlngs.length < 2) return;
+    clearRouteHoverHighlight();
+    state.hoveredEntryKey = entryKey(entry);
+    state.hoverHighlightGroup = L.layerGroup();
+    L.polyline(latlngs, {
+      color: "#ffffff",
+      weight: 10,
+      opacity: 0.96,
+      lineCap: "round",
+      lineJoin: "round",
+    }).addTo(state.hoverHighlightGroup);
+    L.polyline(latlngs, ROUTE_STYLE.hover).addTo(state.hoverHighlightGroup);
+    state.hoverHighlightGroup.addTo(state.map);
+    state.hoverHighlightGroup.eachLayer((layer) => {
+      if (layer.bringToFront) layer.bringToFront();
+    });
+  }
+
+  function showClimbPreview(climb) {
+    if (!climb) return;
+    if (state.mapMode === "detail" && state.selectedId === climb.id) return;
+    updateChart(climb);
+    syncListHoverHighlight(climb.id);
+  }
+
+  function clearClimbPreview() {
+    if (state.mapMode === "detail") return;
+    syncListHoverHighlight(null);
+    if (state.selectedId) return;
+    resetProfilePanel();
+  }
+
+  function scheduleClearRouteHover(entry) {
+    if (state.hoverPreviewTimer) clearTimeout(state.hoverPreviewTimer);
+    const key = entryKey(entry);
+    state.hoverPreviewTimer = setTimeout(() => {
+      state.hoverPreviewTimer = null;
+      if (state.hoveredEntryKey !== key) return;
+      clearRouteHoverHighlight();
+      if (state.selectedId !== entry.climb.id) clearClimbPreview();
+    }, 50);
+  }
+
+  function onMapRouteHover(entry) {
+    if (state.mapMode === "detail") return;
+    if (state.hoverPreviewTimer) {
+      clearTimeout(state.hoverPreviewTimer);
+      state.hoverPreviewTimer = null;
+    }
+    applyRouteHoverHighlight(entry);
+    showClimbPreview(entry.climb);
+  }
+
+  function bindMapEntryHover(layer, entry) {
+    layer.on("mouseover", (e) => {
+      L.DomEvent.stopPropagation(e);
+      onMapRouteHover(entry);
+    });
+    layer.on("mouseout", (e) => {
+      L.DomEvent.stopPropagation(e);
+      scheduleClearRouteHover(entry);
+    });
   }
 
   function ensureViewportLayers() {
@@ -384,6 +471,8 @@
         L.DomEvent.stopPropagation(e);
         void selectClimbFromList(entry.climb.id, entry.regionUrl);
       });
+      bindMapEntryHover(line, entry);
+      state.viewportRouteByKey.set(entryKey(entry), line);
       state.viewportRoutesLayer.addLayer(line);
       if (style !== ROUTE_STYLE.dim) {
         addClimbStartEndMarkers(latlngs, {
@@ -424,6 +513,7 @@
         L.DomEvent.stopPropagation(e);
         void selectClimbFromList(entry.climb.id, entry.regionUrl);
       });
+      bindMapEntryHover(marker, entry);
       state.viewportLayer.addLayer(marker);
     };
 
@@ -536,6 +626,7 @@
         L.DomEvent.stopPropagation(e);
         void selectClimbFromList(entry.climb.id, entry.regionUrl);
       });
+      bindMapEntryHover(marker, entry);
       state.overviewCluster.addLayer(marker);
     }
     if (fit && fitBounds.length) {
@@ -615,6 +706,11 @@
         if (e.target.tagName === "A") return;
         void selectClimbFromList(climb.id, entry.regionUrl);
       });
+      el.addEventListener("mouseenter", () => {
+        if (state.mapMode === "detail") return;
+        onMapRouteHover(entry);
+      });
+      el.addEventListener("mouseleave", () => scheduleClearRouteHover(entry));
       list.appendChild(el);
     }
     if (q && state.globalEntries.length && items.length === 200) {
@@ -692,6 +788,11 @@
     if (state.hoverMarker) {
       state.map.removeLayer(state.hoverMarker);
       state.hoverMarker = null;
+    }
+    clearRouteHoverHighlight();
+    if (state.hoverPreviewTimer) {
+      clearTimeout(state.hoverPreviewTimer);
+      state.hoverPreviewTimer = null;
     }
     clearViewportLayers();
   }
@@ -865,6 +966,7 @@
     });
     state.markers.push(...addClimbStartEndMarkers(latlngs, { size: "md", tooltip: climb.name }));
     state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
+    clearRouteHoverHighlight();
     updateChart(climb);
 
     if (window.location.hash !== `#${id}`) {
