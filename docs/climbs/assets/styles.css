@@ -181,6 +181,11 @@ header.app-header p {
   border-left: 3px solid var(--teal-600);
 }
 
+.climb-item.hover-preview:not(.active) {
+  background: #f5f3ff;
+  border-left: 3px solid #7c3aed;
+}
+
 .climb-item h3,
 .climb-item-title {
   margin: 0 0 0.25rem;
