@@ -75,6 +75,8 @@
     .cf-search-hit .muted { color: #64748b; font-weight: 400; font-size: 0.85em; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -130,7 +132,7 @@
       </div>
 
       <div id="panelMap" class="panel">
-        <p class="hint">Kies een <strong>land</strong> in de dropdown hierboven, zoom op de kaart, klik een stip — of zoek (min. 2 tekens, daarna Enter of klik in de lijst). Kleur = importstatus. <strong>Kies voor import</strong> opent tab GitHub-import.</p>
+        <p class="hint">Alle Climbfinder-<strong>regio’s</strong> (~866) staan op de kaart. Klik een stip → regio wordt gekozen (land + dropdown). Klik op lege kaart → weer overzicht. Kleur = importstatus op FietsKlim. <strong>Kies voor import</strong> opent tab GitHub-import. (Geen losse klimmen — per regio importeren.)</p>
         <form id="mapSearchForm" class="map-toolbar" action="#" autocomplete="off">
           <div class="grow">
             <label for="mapRegionSearch">Zoek regio of l=ID</label>
@@ -167,7 +169,8 @@
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="assets/region-picker.js?v=20261006"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
+  <script src="assets/region-picker.js?v=20261006b"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
@@ -466,6 +469,10 @@
         opt._region = { ...r, country, country_iso: r.country_iso || null };
         regionSel.appendChild(opt);
       }
+      const emptyOpt = document.createElement("option");
+      emptyOpt.value = "";
+      emptyOpt.textContent = "— kies op kaart of hier —";
+      regionSel.insertBefore(emptyOpt, regionSel.firstChild);
       regionSel.disabled = false;
       updateRankingMeta();
     }
@@ -473,7 +480,13 @@
     async function updateRankingMeta() {
       const regionSel = document.getElementById("regionSelect");
       const opt = regionSel.selectedOptions[0];
-      if (!opt || !opt._region) return;
+      if (!opt || !opt.value || !opt._region) {
+        selectedRegion = null;
+        document.getElementById("rankingMeta").textContent = "";
+        refreshGhCommand();
+        refreshImportLimitHint();
+        return;
+      }
       selectedRegion = { ...opt._region };
       const meta = document.getElementById("rankingMeta");
       meta.textContent = "Ranking-slugs laden…";
