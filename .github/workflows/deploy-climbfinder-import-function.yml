@@ -1,8 +1,11 @@
 # One-time / occasional: deploy requestClimbfinderImport so import.html one-click works.
 # Repo secrets (Settings → Secrets → Actions):
-#   FIREBASE_SERVICE_ACCOUNT — JSON key for a Firebase/GCP service account with Functions Admin
+#   FIREBASE_SERVICE_ACCOUNT — JSON key for a GCP service account used only for deploy
 #   CLIMBFINDER_IMPORT_PAT — fine-grained PAT with Actions: Read and write on this repo
 #   (GitHub forbids secret names starting with GITHUB_)
+#
+# IAM (project climbfinder-scraper): deploy SA needs Firebase Admin (or Functions Admin + Build)
+# AND Service Account User on climbfinder-scraper@appspot.gserviceaccount.com — see docs/auth/GITHUB_IMPORT.md
 name: Deploy Climbfinder import function
 
 on:
