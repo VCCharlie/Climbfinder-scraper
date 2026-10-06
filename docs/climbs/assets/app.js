@@ -50,6 +50,10 @@
     hoverHighlightGroup: null,
     hoveredEntryKey: null,
     hoverPreviewTimer: null,
+    profileExpandMap: null,
+    profileExpandMarker: null,
+    profileExpandRouteLayer: null,
+    profileExpandMapClimbId: null,
     viewportRouteByKey: new Map(),
     activeClimb: null,
     indexRegions: [],
@@ -291,11 +295,92 @@
     if (root) root.classList.toggle("layout-has-climb", visible);
   }
 
+  const PROFILE_HOVER_MARKER = {
+    radius: 7,
+    color: "#b45309",
+    fillColor: "#f59e0b",
+    fillOpacity: 1,
+    weight: 2,
+  };
+
+  function teardownProfileExpandMap() {
+    if (state.profileExpandMap) {
+      state.profileExpandMap.remove();
+      state.profileExpandMap = null;
+    }
+    state.profileExpandMarker = null;
+    state.profileExpandRouteLayer = null;
+    state.profileExpandMapClimbId = null;
+  }
+
+  function mountProfileExpandMap(climb) {
+    const el = $("profileExpandMap");
+    if (!el || typeof L === "undefined") return;
+
+    const sameClimb = state.profileExpandMap && state.profileExpandMapClimbId === climb.id;
+    if (!sameClimb) {
+      teardownProfileExpandMap();
+      state.profileExpandMap = L.map(el, {
+        zoomControl: true,
+        attributionControl: true,
+        tapTolerance: isCoarsePointer() ? 25 : 15,
+      });
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap",
+      }).addTo(state.profileExpandMap);
+      state.profileExpandMapClimbId = climb.id;
+    }
+
+    const latlngs = latLngsFromClimb(climb);
+    if (!latlngs.length) return;
+
+    if (!sameClimb) {
+      if (state.profileExpandRouteLayer) {
+        state.profileExpandMap.removeLayer(state.profileExpandRouteLayer);
+      }
+      state.profileExpandRouteLayer = buildDetailRouteLayer(climb, latlngs);
+      state.profileExpandRouteLayer.addTo(state.profileExpandMap);
+      state.profileExpandMap.fitBounds(L.latLngBounds(latlngs), { padding: [14, 14] });
+    }
+
+    requestAnimationFrame(() => {
+      state.profileExpandMap?.invalidateSize();
+      setTimeout(() => state.profileExpandMap?.invalidateSize(), 120);
+    });
+  }
+
+  function setProfileHoverPosition(climb, profileIndex) {
+    if (!climb?.geometry?.coordinates?.length) return;
+    const geoIdx = geometryIndexForProfile(climb, profileIndex);
+    const [lng, lat] = climb.geometry.coordinates[geoIdx];
+
+    if (state.map) {
+      if (!state.hoverMarker) {
+        state.hoverMarker = L.circleMarker([lat, lng], PROFILE_HOVER_MARKER).addTo(state.map);
+      } else {
+        state.hoverMarker.setLatLng([lat, lng]);
+      }
+    }
+
+    if (state.profileExpandMap && state.profileExpanded) {
+      if (!state.profileExpandMarker) {
+        state.profileExpandMarker = L.circleMarker([lat, lng], {
+          ...PROFILE_HOVER_MARKER,
+          radius: 8,
+        }).addTo(state.profileExpandMap);
+      } else {
+        state.profileExpandMarker.setLatLng([lat, lng]);
+      }
+    }
+  }
+
   function closeProfileExpand() {
     state.profileExpanded = false;
     const overlay = $("profileExpandOverlay");
     if (overlay) overlay.hidden = true;
     destroyProfileChart("chartFull");
+    teardownProfileExpandMap();
   }
 
   function openProfileExpand() {
@@ -310,10 +395,12 @@
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(state.activeClimb) : [];
     renderGradientStrip(buckets, "profileGradientStripFull");
+    mountProfileExpandMap(state.activeClimb);
     mountProfileChart("profileChartFull", "chartFull", state.activeClimb, false);
     requestAnimationFrame(() => {
       setTimeout(() => {
         if (state.chartFull) state.chartFull.resize();
+        state.profileExpandMap?.invalidateSize();
       }, 50);
     });
   }
@@ -1027,20 +1114,8 @@
           },
         },
         onHover: (_evt, elements) => {
-          if (!elements.length || !state.routeLayer || !state.activeClimb) return;
-          const idx = elements[0].index;
-          const geoIdx = geometryIndexForProfile(state.activeClimb, idx);
-          const [lng, lat] = state.activeClimb.geometry.coordinates[geoIdx];
-          if (!state.hoverMarker) {
-            state.hoverMarker = L.circleMarker([lat, lng], {
-              radius: 7,
-              color: "#b45309",
-              fillColor: "#f59e0b",
-              fillOpacity: 1,
-            }).addTo(state.map);
-          } else {
-            state.hoverMarker.setLatLng([lat, lng]);
-          }
+          if (!elements.length || !state.activeClimb) return;
+          setProfileHoverPosition(state.activeClimb, elements[0].index);
         },
       },
     });
