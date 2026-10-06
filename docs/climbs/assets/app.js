@@ -31,6 +31,134 @@
     return region.displayTitle || displayRegionTitle(region.title || "");
   }
 
+  /** NL labels + EN/FR voor zoeken op land. */
+  const COUNTRY_LABELS = {
+    AT: ["Oostenrijk", "Austria", "Österreich"],
+    BE: ["België", "Belgium", "Belgique"],
+    CH: ["Zwitserland", "Switzerland", "Schweiz", "Suisse"],
+    DE: ["Duitsland", "Germany", "Deutschland"],
+    ES: ["Spanje", "Spain", "España"],
+    FR: ["Frankrijk", "France"],
+    GB: ["Verenigd Koninkrijk", "United Kingdom", "UK", "England"],
+    IT: ["Italië", "Italy", "Italia"],
+    LU: ["Luxemburg", "Luxembourg"],
+    NL: ["Nederland", "Netherlands"],
+  };
+
+  function countryDisplayLabel(code, regionCount) {
+    const c = String(code || "").toUpperCase();
+    const names = COUNTRY_LABELS[c];
+    const label = names ? `${names[0]} (${c})` : c;
+    return regionCount != null ? `${label} · ${regionCount} regio’s` : label;
+  }
+
+  function regionsForCountry(countryCode) {
+    const c = String(countryCode || "").toUpperCase();
+    return state.indexRegions
+      .filter((r) => String(r.country || "").toUpperCase() === c)
+      .slice()
+      .sort((a, b) => regionTitleFromIndexEntry(a).localeCompare(regionTitleFromIndexEntry(b), "nl"));
+  }
+
+  function uniqueCountryCodes() {
+    const set = new Set();
+    for (const r of state.indexRegions) {
+      if (r.country) set.add(String(r.country).toUpperCase());
+    }
+    return [...set].sort((a, b) => {
+      const la = COUNTRY_LABELS[a]?.[0] || a;
+      const lb = COUNTRY_LABELS[b]?.[0] || b;
+      return la.localeCompare(lb, "nl");
+    });
+  }
+
+  function regionShortDisambiguator(region) {
+    const m = String(region?.id || "").match(/^cf-l(\d+)/i);
+    if (m) return `L${m[1]}`;
+    const id = String(region?.id || "");
+    return id.length > 14 ? `${id.slice(0, 12)}…` : id;
+  }
+
+  function regionOptionLabel(region, pool) {
+    const title = regionTitleFromIndexEntry(region);
+    const base = `${title} (${region.count})`;
+    const dup = pool.filter((r) => regionTitleFromIndexEntry(r) === title).length > 1;
+    if (!dup) return base;
+    const tag = regionShortDisambiguator(region);
+    return tag ? `${base} · ${tag}` : base;
+  }
+
+  function fillCountrySelect() {
+    const countrySel = $("countrySelect");
+    if (!countrySel) return;
+    const prev = countrySel.value;
+    countrySel.innerHTML = "";
+    for (const code of uniqueCountryCodes()) {
+      const opt = document.createElement("option");
+      opt.value = code;
+      opt.textContent = countryDisplayLabel(code, regionsForCountry(code).length);
+      countrySel.appendChild(opt);
+    }
+    if (prev && [...countrySel.options].some((o) => o.value === prev)) {
+      countrySel.value = prev;
+    }
+  }
+
+  function fillRegionSelect(countryCode, preferredUrl) {
+    const regionSel = $("regionSelect");
+    if (!regionSel) return;
+    const pool = regionsForCountry(countryCode);
+    const prev = preferredUrl || regionSel.value;
+    regionSel.innerHTML = "";
+    for (const region of pool) {
+      const opt = document.createElement("option");
+      opt.value = region.url;
+      opt.textContent = regionOptionLabel(region, pool);
+      regionSel.appendChild(opt);
+    }
+    if (prev && pool.some((r) => r.url === prev)) {
+      regionSel.value = prev;
+    } else if (pool[0]) {
+      regionSel.value = pool[0].url;
+    }
+  }
+
+  function syncCountrySelectForRegionUrl(regionUrl) {
+    const countrySel = $("countrySelect");
+    if (!countrySel || !regionUrl) return;
+    const reg = state.indexRegions.find((r) => r.url === regionUrl);
+    if (!reg?.country) return;
+    const code = String(reg.country).toUpperCase();
+    if (countrySel.value !== code) {
+      countrySel.value = code;
+      fillRegionSelect(code, regionUrl);
+    } else {
+      fillRegionSelect(code, regionUrl);
+    }
+  }
+
+  function countrySearchTokens(countryCode) {
+    const c = String(countryCode || "").toUpperCase();
+    const out = new Set([c.toLowerCase()]);
+    for (const name of COUNTRY_LABELS[c] || []) {
+      out.add(name.toLowerCase());
+    }
+    return [...out];
+  }
+
+  function entryMatchesQuery(entry, q) {
+    if (!q) return true;
+    if (climbMatchesQuery(entry.climb, q)) return true;
+    const regionTitle = (entry.regionTitle || "").toLowerCase();
+    if (regionTitle.includes(q)) return true;
+    const regionId = (entry.regionId || "").toLowerCase();
+    if (regionId.includes(q)) return true;
+    for (const token of countrySearchTokens(entry.country)) {
+      if (token.includes(q) || q.includes(token)) return true;
+    }
+    return false;
+  }
+
   function isCoarsePointer() {
     return COARSE_POINTER_MQ.matches;
   }
@@ -320,14 +448,14 @@
     const q = state.searchQuery.trim().toLowerCase();
     let entries = !q
       ? state.globalEntries
-      : state.globalEntries.filter(({ climb }) => climbMatchesQuery(climb, q));
+      : state.globalEntries.filter((entry) => entryMatchesQuery(entry, q));
     return applyDoneFilter(entries);
   }
 
   /** Geselecteerde regio = highlight; andere klimmen blijven zichtbaar (gedimd). */
   function isEntryMapActive(entry) {
     const q = state.searchQuery.trim().toLowerCase();
-    if (q) return climbMatchesQuery(entry.climb, q);
+    if (q) return entryMatchesQuery(entry, q);
     if (state.currentRegionUrl) return entry.regionUrl === state.currentRegionUrl;
     return true;
   }
@@ -346,7 +474,7 @@
     if (!el) return;
     const q = state.searchQuery.trim();
     if (q) {
-      const n = state.globalEntries.filter(({ climb }) => climbMatchesQuery(climb, q.toLowerCase())).length;
+      const n = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q.toLowerCase())).length;
       el.textContent = `${n} treffer in alle regio’s — klik kaart of lijst.`;
     } else {
       const n = state.globalEntries.length;
@@ -994,9 +1122,7 @@
     list.innerHTML = "";
     let items;
     if (q) {
-      items = state.globalEntries
-        .filter(({ climb }) => climbMatchesQuery(climb, q))
-        .slice(0, 200);
+      items = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q)).slice(0, 200);
     } else {
       items = state.climbs.map((climb) => ({
         climb,
@@ -1098,8 +1224,9 @@
           state.globalEntries.push({
             climb: c,
             regionUrl: r.url,
-            regionTitle: r.displayTitle || displayRegionTitle(r.title),
+            regionTitle: regionTitleFromIndexEntry(r),
             regionId: r.id,
+            country: String(r.country || bundle.meta?.country || "").toUpperCase(),
           });
         }
       }
@@ -1127,6 +1254,7 @@
 
   async function selectClimbFromList(id, regionUrl) {
     if (regionUrl && regionUrl !== state.currentRegionUrl) {
+      syncCountrySelectForRegionUrl(regionUrl);
       const select = $("regionSelect");
       if (select.value !== regionUrl) select.value = regionUrl;
       await loadRegion(regionUrl, { keepSearch: true, selectId: id });
@@ -1410,6 +1538,7 @@
       state.regionCache.set(url, bundle);
     }
     state.currentRegionUrl = url;
+    syncCountrySelectForRegionUrl(url);
     state.bundle = bundle;
     state.climbs = bundle.climbs || [];
     const src = state.bundle.meta?.source?.name || "onbekend";
@@ -1452,14 +1581,27 @@
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
+    fillCountrySelect();
+    const countrySel = $("countrySelect");
     const select = $("regionSelect");
-    select.innerHTML = "";
-    for (const region of state.indexRegions) {
-      const opt = document.createElement("option");
-      opt.value = region.url;
-      opt.textContent = `${regionTitleFromIndexEntry(region)} (${region.count})`;
-      select.appendChild(opt);
+    if (countrySel?.options.length) {
+      fillRegionSelect(countrySel.value);
     }
+
+    countrySel?.addEventListener("change", () => {
+      const prevUrl = state.currentRegionUrl;
+      fillRegionSelect(countrySel.value, prevUrl);
+      const nextUrl = select.value;
+      if (nextUrl && nextUrl !== state.currentRegionUrl) {
+        void loadRegion(nextUrl).then(() => {
+          if (state.globalSearchReady && state.mapMode === "overview") {
+            syncOverviewMarkers({ fit: true });
+          } else if (state.mapMode === "local") {
+            refreshViewportClimbs();
+          }
+        });
+      }
+    });
 
     $("doneFilter")?.addEventListener("change", (e) => {
       state.doneFilter = e.target.value || "all";
@@ -1481,6 +1623,7 @@
     });
 
     select.addEventListener("change", () => {
+      syncCountrySelectForRegionUrl(select.value);
       void loadRegion(select.value).then(() => {
         if (state.globalSearchReady && state.mapMode === "overview") {
           syncOverviewMarkers({ fit: true });
@@ -1539,7 +1682,10 @@
     });
 
     await ensureGlobalSearchIndex();
-    await loadRegion(select.value);
+    if (select.value) {
+      syncCountrySelectForRegionUrl(select.value);
+      await loadRegion(select.value);
+    }
 
     const deepLink = window.location.hash.replace("#", "");
     if (deepLink && !state.selectedId) {
