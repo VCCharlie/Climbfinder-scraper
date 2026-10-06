@@ -12,14 +12,14 @@ fi
 echo "Firebase project: climbfinder-scraper (zie .firebaserc)"
 firebase use climbfinder-scraper
 
-if [ -z "${GITHUB_IMPORT_PAT:-}" ]; then
-  echo "Export GITHUB_IMPORT_PAT= (fine-grained PAT, Actions read+write op deze repo) en run opnieuw."
-  echo "Of gebruik GitHub Actions: Deploy Climbfinder import function (secrets FIREBASE_SERVICE_ACCOUNT + GITHUB_IMPORT_PAT)."
+if [ -z "${CLIMBFINDER_IMPORT_PAT:-}" ]; then
+  echo "Export CLIMBFINDER_IMPORT_PAT= (fine-grained PAT, Actions read+write op deze repo) en run opnieuw."
+  echo "Of gebruik GitHub Actions: Deploy Climbfinder import function (secrets FIREBASE_SERVICE_ACCOUNT + CLIMBFINDER_IMPORT_PAT)."
   exit 1
 fi
 
 firebase functions:config:set \
-  github.pat="$GITHUB_IMPORT_PAT" \
+  github.pat="$CLIMBFINDER_IMPORT_PAT" \
   github.repo="${GITHUB_REPO:-VCCharlie/Climbfinder-scraper}" \
   github.ref="${GITHUB_REF_NAME:-main}"
 
