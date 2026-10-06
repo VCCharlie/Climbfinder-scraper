@@ -53,6 +53,34 @@
     return out;
   }
 
+  let popularTotalsByLocality = null;
+
+  async function loadPopularTotalsIndex() {
+    if (popularTotalsByLocality) return popularTotalsByLocality;
+    try {
+      const url = new URL(
+        "data/climbfinder-region-popular-counts.json",
+        document.baseURI || location.href
+      ).href;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        popularTotalsByLocality = {};
+        return popularTotalsByLocality;
+      }
+      const data = await res.json();
+      popularTotalsByLocality = data.by_locality || {};
+    } catch {
+      popularTotalsByLocality = {};
+    }
+    return popularTotalsByLocality;
+  }
+
+  function climbfinderPopularTotal(localityId) {
+    const row = popularTotalsByLocality?.[String(localityId)];
+    const n = row?.popular_count;
+    return typeof n === "number" && n >= 0 ? n : null;
+  }
+
   async function loadRankingCount(localityId) {
     try {
       const url = new URL(
@@ -109,7 +137,11 @@
     const searchResultsEl = opts.searchResultsId ? document.getElementById(opts.searchResultsId) : null;
     const legendEl = opts.legendId ? document.getElementById(opts.legendId) : null;
 
-    const [geo, publishedMap] = await Promise.all([loadGeo(), loadPublishedByLocality()]);
+    const [geo, publishedMap] = await Promise.all([
+      loadGeo(),
+      loadPublishedByLocality(),
+      loadPopularTotalsIndex(),
+    ]);
 
     let map = null;
     let layer = null;
@@ -166,6 +198,8 @@
     }
 
     async function popupHtml(localityId, regionName, countryName) {
+      await loadPopularTotalsIndex();
+      const cfTotal = climbfinderPopularTotal(localityId);
       const pub = publishedMap[String(localityId)];
       let ranking = rankingCache[localityId];
       if (ranking === undefined) {
@@ -182,11 +216,11 @@
       if (pub) {
         lines.push(`Dataset <em>${pub.title || pub.datasetId}</em>: ${pub.count} klimmen`);
       }
+      if (cfTotal != null) {
+        lines.push(`Climbfinder Popular: <strong>${cfTotal}</strong> klimmen`);
+      }
       if (ranking) {
         lines.push(`Ranking-cache: ${ranking.count} slugs (${ranking.pages} pag.)`);
-        if (Number(localityId) === 27) {
-          lines.push("Climbfinder toont ~688 klimmen — gebruik <code>pages=all</code>");
-        }
       } else {
         lines.push('<span style="color:#64748b">Geen ranking-cache lokaal</span>');
       }
@@ -296,10 +330,11 @@
       }
       searchResultsEl.hidden = false;
       searchResultsEl.innerHTML = matches
-        .map(
-          (m) =>
-            `<button type="button" class="cf-search-hit" data-l="${m.r.id}" data-country="${m.block.country.replace(/"/g, "&quot;")}">${m.r.name} <span class="muted">(${m.block.country}, l=${m.r.id})</span></button>`
-        )
+        .map((m) => {
+          const total = climbfinderPopularTotal(m.r.id);
+          const countBit = total != null ? ` · ~${total} Popular` : "";
+          return `<button type="button" class="cf-search-hit" data-l="${m.r.id}" data-country="${m.block.country.replace(/"/g, "&quot;")}">${m.r.name} <span class="muted">(${m.block.country}, l=${m.r.id}${countBit})</span></button>`;
+        })
         .join("");
       searchResultsEl.querySelectorAll(".cf-search-hit").forEach((btn) => {
         btn.addEventListener("click", () => {

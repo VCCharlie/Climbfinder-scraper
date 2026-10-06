@@ -232,6 +232,22 @@
     return res.json();
   }
 
+  /** Prebuilt totals from scripts/refresh_region_popular_counts.py (Climbfinder Popular ranking). */
+  async function loadRegionPopularCounts() {
+    const url = resolveClimbsDataUrl("data/climbfinder-region-popular-counts.json");
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`Popular-tellingen HTTP ${res.status} — ${url}`);
+    }
+    return res.json();
+  }
+
+  function popularCountForLocality(countsIndex, localityId) {
+    const row = countsIndex?.by_locality?.[String(localityId)];
+    const n = row?.popular_count;
+    return typeof n === "number" && n >= 0 ? n : null;
+  }
+
   async function loadPopularRankingSlugs(localityId) {
     const res = await fetch(resolveClimbsDataUrl(`data/rankings/${localityId}-popular-slugs.json`), {
       cache: "no-store",
@@ -309,6 +325,8 @@
     fetchHtml,
     parseClimbPage,
     loadRegionsCatalog,
+    loadRegionPopularCounts,
+    popularCountForLocality,
     loadPopularRankingSlugs,
     resolveLinesToSlugs,
     extractSlugFromLine,
