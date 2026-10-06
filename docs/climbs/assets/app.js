@@ -1062,6 +1062,46 @@
     mountProfileChart("profileChartMini", "chartMini", climb, true);
   }
 
+  function stopRouteClickToMap(e) {
+    L.DomEvent.stopPropagation(e);
+  }
+
+  function buildDetailRouteLayer(climb, latlngs) {
+    const group = L.layerGroup();
+    L.polyline(latlngs, {
+      color: "#ffffff",
+      weight: 10,
+      opacity: 0.96,
+      lineCap: "round",
+      lineJoin: "round",
+      interactive: false,
+    }).addTo(group);
+
+    const segments =
+      typeof ClimbMetrics !== "undefined" ? ClimbMetrics.routeGradientSegments(climb) : [];
+
+    if (segments.length) {
+      for (const seg of segments) {
+        const line = L.polyline(seg.latlngs, {
+          color: seg.color,
+          weight: 6,
+          opacity: 0.98,
+          lineCap: "butt",
+          lineJoin: "round",
+        });
+        line.bindTooltip(`${seg.gradientPct}% gem.`, { sticky: true, direction: "top" });
+        line.on("click", stopRouteClickToMap);
+        line.addTo(group);
+      }
+    } else {
+      const fallback = L.polyline(latlngs, ROUTE_STYLE.detail);
+      fallback.on("click", stopRouteClickToMap);
+      fallback.addTo(group);
+    }
+
+    return group;
+  }
+
   function selectClimb(id) {
     const climb = state.climbs.find((c) => c.id === id);
     if (!climb) return;
@@ -1073,19 +1113,11 @@
     if (state.overviewCluster) state.overviewCluster.clearLayers();
     clearMapLayers();
     const latlngs = latLngsFromClimb(climb);
-    state.routeLayerOutline = L.polyline(latlngs, {
-      color: "#ffffff",
-      weight: 9,
-      opacity: 0.95,
-      lineCap: "round",
-      lineJoin: "round",
-    }).addTo(state.map);
-    state.routeLayer = L.polyline(latlngs, ROUTE_STYLE.detail).addTo(state.map);
-    state.routeLayer.on("click", (e) => {
-      L.DomEvent.stopPropagation(e);
-    });
+    state.routeLayerOutline = null;
+    state.routeLayer = buildDetailRouteLayer(climb, latlngs);
+    state.routeLayer.addTo(state.map);
     state.markers.push(...addClimbStartEndMarkers(latlngs, { size: "md", tooltip: climb.name }));
-    state.map.fitBounds(state.routeLayer.getBounds(), { padding: [30, 30] });
+    state.map.fitBounds(L.latLngBounds(latlngs), { padding: [30, 30] });
     clearRouteHoverHighlight();
     updateChart(climb);
     afterClimbSelectedOnMobile(climb);
