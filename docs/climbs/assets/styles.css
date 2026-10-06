@@ -45,6 +45,21 @@ header.app-header {
   min-width: 0;
 }
 
+.app-header-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.app-header-brand-row h1 {
+  min-width: 0;
+}
+
+.mobile-filters-toggle {
+  display: none;
+}
+
 .app-header-links {
   display: flex;
   flex-wrap: wrap;
@@ -672,6 +687,72 @@ header.app-header p#datasetMeta {
 
   header.app-header {
     grid-template-columns: 1fr;
+    padding: 0.45rem 0.75rem 0.5rem;
+  }
+
+  header.app-header p#datasetMeta {
+    display: none;
+  }
+
+  .mobile-filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    max-width: min(52vw, 14rem);
+    margin: 0;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    background: #f0fdfa;
+    color: var(--teal-700);
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.2;
+  }
+
+  .mobile-filters-summary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--slate-600);
+    min-width: 0;
+  }
+
+  .mobile-filters-toggle-label {
+    flex-shrink: 0;
+  }
+
+  .mobile-filters-chevron {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: transform 0.15s ease;
+  }
+
+  .app-header-filters.is-filters-open .mobile-filters-chevron {
+    transform: rotate(180deg);
+  }
+
+  .app-header-filters:not(.is-filters-open) .header-filters-panel {
+    display: none;
+  }
+
+  .app-header-filters.is-filters-open .header-filters-panel {
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--slate-200);
+  }
+
+  .app-header-links {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 0.75rem;
+    gap: 0.35rem 0.65rem;
+    padding-bottom: 0.15rem;
   }
 
   .header-filters-grid {
@@ -683,6 +764,10 @@ header.app-header p#datasetMeta {
   }
 
   .layout.mobile-pane-map .header-tools .field-hint:not(.field-hint--log) {
+    display: none;
+  }
+
+  .app-header-filters:not(.is-filters-open) .field-hint--log {
     display: none;
   }
 
