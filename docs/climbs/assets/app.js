@@ -118,7 +118,7 @@
     const el = $("climbLogSummary");
     if (!el) return;
     if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) {
-      el.textContent = "Logboek: inloggen + Firestore (of localStorage fallback).";
+      el.textContent = "Logboek: localStorage in deze browser (Firestore uit of Native mode vereist).";
       return;
     }
     const ds = state.bundle?.meta?.id;
