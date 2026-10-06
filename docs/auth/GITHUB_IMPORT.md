@@ -2,7 +2,7 @@
 
 De browser kan Climbfinder **niet** betrouwbaar ophalen (CORS). Wel:
 
-1. Jij kiest regio op **Climbfinder import** (`climbs/import.html`) — dropdown **of** tab **Regio op kaart** (land → klik stip → status op FietsKlim-kaart). In de regio-dropdown staat per regio **~N Popular** (Climbfinder-telling; ververs: `python scripts/refresh_region_popular_counts.py`).
+1. Jij kiest regio op **Climbfinder import** (`climbs/import.html`) — dropdown, **Zoek klim op naam** (bv. Ventoux → land/regio + kaart; meerdere treffers zoals Madeleine → keuzelijst), **of** tab **Regio op kaart** (land → klik stip → status op FietsKlim-kaart). In de regio-dropdown staat per regio **~N Popular** (Climbfinder-telling; ververs: `python scripts/refresh_region_popular_counts.py`).
 2. **GitHub Actions** draait `scripts/climbfinder_import.py` op GitHub (zelfde als lokaal / agent).
 3. Met **`publish_to_site: true`** (standaard) commit de workflow automatisch naar `docs/climbs/data/` → **`index.json` wordt automatisch gegenereerd** → na ~1 min op de **kaart**. Geen zip uitpakken nodig.
 

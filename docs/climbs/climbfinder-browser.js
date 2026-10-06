@@ -248,6 +248,75 @@
     return typeof n === "number" && n >= 0 ? n : null;
   }
 
+  let climbSlugSearchIndexPromise = null;
+
+  /** Lazy — ~7 MB; built from Popular ranking caches + imported bundles. */
+  async function loadClimbSlugSearchIndex() {
+    if (!climbSlugSearchIndexPromise) {
+      const url = resolveClimbsDataUrl("data/climb-slug-search-index.json");
+      climbSlugSearchIndexPromise = fetch(url, { cache: "no-store" }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error(
+            `Klim-zoekindex HTTP ${res.status} — lokaal: python scripts/build_climb_slug_search_index.py`
+          );
+        }
+        return res.json();
+      });
+    }
+    return climbSlugSearchIndexPromise;
+  }
+
+  function normalizeClimbSearchText(s) {
+    return String(s || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  /**
+   * @param {string} query
+   * @param {{ limit?: number, index?: { entries: object[] } }} [opts]
+   */
+  function searchClimbsByName(query, opts = {}) {
+    const limit = opts.limit ?? 18;
+    const entries = opts.index?.entries;
+    if (!entries?.length) return [];
+    const q = normalizeClimbSearchText(query);
+    if (q.length < 2) return [];
+    const tokens = q.split(/\s+/).filter(Boolean);
+    const out = [];
+
+    for (const entry of entries) {
+      const label = normalizeClimbSearchText(entry.label);
+      const slug = normalizeClimbSearchText(entry.slug);
+      const hay = `${label} ${slug}`;
+      let score = 0;
+
+      if (label === q || slug === q) score = 100;
+      else if (label.startsWith(q) || slug.startsWith(q)) score = 88;
+      else if (tokens.length === 1 && (label.includes(q) || slug.includes(q))) {
+        score = label.includes(q) ? 72 : 65;
+        if (slug.split("-").some((part) => part === q || part.startsWith(q))) score += 8;
+      } else if (tokens.every((t) => hay.includes(t))) {
+        score = 55 + Math.min(tokens.length * 4, 16);
+        if (label.includes(q)) score += 15;
+      } else {
+        continue;
+      }
+
+      out.push({ ...entry, score });
+    }
+
+    out.sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.label.localeCompare(b.label, "nl") ||
+        a.locality_id - b.locality_id
+    );
+    return out.slice(0, limit);
+  }
+
   async function loadPopularRankingSlugs(localityId) {
     const res = await fetch(resolveClimbsDataUrl(`data/rankings/${localityId}-popular-slugs.json`), {
       cache: "no-store",
@@ -327,6 +396,8 @@
     loadRegionsCatalog,
     loadRegionPopularCounts,
     popularCountForLocality,
+    loadClimbSlugSearchIndex,
+    searchClimbsByName,
     loadPopularRankingSlugs,
     resolveLinesToSlugs,
     extractSlugFromLine,

@@ -485,11 +485,22 @@
         .join("");
     }
 
+    async function pickLocality(localityId, { preferCountryView = true, openPopup = false } = {}) {
+      const region = findRegionInCatalog(localityId);
+      if (!region) return false;
+      await drawAllRegions();
+      selectInDropdowns(localityId, false);
+      highlightMarker(localityId);
+      applySelectionFromDropdown({ preferCountryView, openPopup });
+      return true;
+    }
+
     return {
       setCatalog(catalog) {
         bootCatalog = catalog;
         bindSearch();
       },
+      pickLocality,
       async onMapTabShown() {
         await drawAllRegions();
         if (regionSel?.value) {
