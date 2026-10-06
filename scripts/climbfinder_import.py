@@ -515,7 +515,7 @@ def main() -> None:
             errors.append(f"{slug}: {exc}")
             print(f"  SKIP {slug}: {exc}")
 
-    source_meta: dict[str, Any] = {"name": "climbfinder"}
+    source_meta: dict[str, Any] = {"name": "climbfinder", "sort": "popular"}
     if geo:
         source_meta["ranking_geo"] = geo
         source_meta["ranking_url"] = f"https://climbfinder.com/en/ranking?g={geo}&s=popular"
@@ -524,12 +524,15 @@ def main() -> None:
         source_meta["localities"] = [
             {"id": lid, "label": labels.get(str(lid), str(lid))} for lid in localities
         ]
+        if len(localities) == 1:
+            source_meta["locality_id"] = int(localities[0])
 
     payload = {
         "schema_version": "1.0",
         "meta": {
             "id": meta_id,
             "title": title,
+            "region_label": region_label,
             "country": country,
             "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "count": len(climbs),

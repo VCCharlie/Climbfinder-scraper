@@ -21,7 +21,21 @@ SKIP_NAMES = {
     "index.json",
     "schema.json",
     "climbfinder-regions.json",
+    "climbfinder-regions-geo.json",
+    "climbfinder-region-popular-counts.json",
+    "climb-slug-search-index.json",
 }
+
+
+def display_title(meta: dict) -> str:
+    raw = (meta.get("region_label") or meta.get("title") or "").strip()
+    import re
+
+    t = re.sub(r"\s*\(Climbfinder Popular[^)]*\)\s*$", "", raw, flags=re.I)
+    t = re.sub(r"\s*—\s*Climbfinder Popular[^)]*$", "", t, flags=re.I)
+    t = re.sub(r"\s*-\s*Climbfinder Popular.*$", "", t, flags=re.I)
+    t = re.sub(r"\s*\(Climbfinder\)\s*$", "", t, flags=re.I)
+    return t.strip() or raw
 
 
 def is_climb_bundle(path: Path) -> bool:
@@ -60,13 +74,14 @@ def main() -> None:
             {
                 "id": meta_id,
                 "title": meta["title"],
+                "displayTitle": display_title(meta),
                 "country": meta.get("country") or "XX",
                 "url": f"data/{path.name}",
                 "count": len(climbs),
             }
         )
 
-    regions.sort(key=lambda r: (r.get("country", ""), r.get("title", "")))
+    regions.sort(key=lambda r: (r.get("country", ""), r.get("displayTitle", r.get("title", ""))))
     payload = {"schema_version": "1.0", "regions": regions}
     INDEX.parent.mkdir(parents=True, exist_ok=True)
     with INDEX.open("w", encoding="utf-8") as f:
