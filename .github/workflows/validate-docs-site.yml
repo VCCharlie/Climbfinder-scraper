@@ -29,7 +29,20 @@ jobs:
         run: |
           test -f docs/climbs/index.html
           test -f docs/climbs/import.html
+          test -f docs/climbs/manifest.webmanifest
+          test -f docs/climbs/service-worker.js
+          test -f docs/climbs/icons/icon-192.png
+          test -f docs/climbs/icons/icon-512.png
           test -f docs/index.html
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m = json.loads(Path("docs/climbs/manifest.webmanifest").read_text(encoding="utf-8"))
+          assert m.get("start_url") and m.get("display") == "standalone"
+          icons = m.get("icons") or []
+          sizes = {i.get("sizes") for i in icons}
+          assert "192x192" in sizes and "512x512" in sizes
+          PY
 
       - name: Parse climb JSON datasets
         run: |
