@@ -4,7 +4,6 @@
   const MIN_ZOOM_NEARBY_ROUTES = 12;
   const MAX_NEARBY_ROUTES = 40;
   const MAX_DIM_ROUTES = 35;
-  const LOCAL_ZOOM_OUT_STEPS = 2;
   const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
   const MOBILE_LAYOUT_MQ = window.matchMedia("(max-width: 900px)");
   const ROUTE_HIT_WEIGHT_COARSE = 22;
