@@ -96,9 +96,26 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
 
 **Optie 2 — alleen browser/GitHub (geen lokale Firebase CLI)**
 
-1. Maak een **service account** in GCP (project `climbfinder-scraper`) met rechten om Cloud Functions te deployen.
-2. Repo **Settings → Secrets → Actions**: `FIREBASE_SERVICE_ACCOUNT` (JSON), `CLIMBFINDER_IMPORT_PAT` (fine-grained PAT; mag **niet** met `GITHUB_` beginnen — GitHub-regel).
-3. **Actions → Deploy Climbfinder import function → Run workflow** (eenmalig).
+1. Maak een **service account** voor GitHub Actions (bijv. `github-deploy-functions@climbfinder-scraper.iam.gserviceaccount.com`) en download een JSON-sleutel.
+2. Geef die service account **projectrollen** (IAM → project `climbfinder-scraper` → Grant access → principal = het SA-e-mailadres):
+
+   | Rol | Waarom |
+   |-----|--------|
+   | **Firebase Admin** | `functions:config:set` + deploy (eenvoudig; persoonlijk project) |
+   | *of* **Cloud Functions Admin** + **Cloud Build Editor** | Strakkere variant |
+
+3. **Belangrijk (veel deploy-fouten):** Firebase Functions draait als **`climbfinder-scraper@appspot.gserviceaccount.com`**. Je deploy-SA moet daar **Service Account User** op hebben (`iam.serviceAccounts.actAs`):
+
+   1. [Service accounts](https://console.cloud.google.com/iam-admin/serviceaccounts?project=climbfinder-scraper) → klik **`climbfinder-scraper@appspot.gserviceaccount.com`** (App Engine default).
+   2. Tab **Permissions** → **Grant access**.
+   3. **New principals:** het e-mailadres van **jouw GitHub-deploy service account** (niet je Gmail).
+   4. **Role:** **Service Account User**.
+   5. Save.
+
+   Zonder deze stap faalt deploy vaak met: *Missing permissions … ActAs on service account climbfinder-scraper@appspot.gserviceaccount.com*.
+
+4. Repo **Settings → Secrets → Actions**: `FIREBASE_SERVICE_ACCOUNT` (hele JSON), `CLIMBFINDER_IMPORT_PAT` (fine-grained PAT; mag **niet** met `GITHUB_` beginnen — GitHub-regel).
+5. **Actions → Deploy Climbfinder import function → Run workflow** (eenmalig). Bij IAM-fout: stap 3 controleren en workflow opnieuw runnen.
 
 **Optie 3 — handmatig**
 
@@ -161,5 +178,6 @@ Na login: **Start serverimport (GitHub Actions)** op de importpagina.
 | Job **~15 min**, log leeg, melding *“not acquired by Runner”* | GitHub-hosted runner kwam niet vrij (wachtrij/infra) | **Geen bug in import/script.** Open de run → **Re-run failed jobs** (of start import opnieuw). |
 | **pages build and deployment** idem | Zelfde runner-probleem bij GitHub Pages | Push naar `main` triggert opnieuw, of repo **Settings → Pages →** redeploy indien beschikbaar. |
 | Import **wel** gedraaid maar site oud | Pages-build faalde ná commit | Fix Pages-run; laatste **geslaagde** Pages-run bepaalt wat live staat. |
+| Deploy function: **ActAs** / **Service Account User** | GitHub-deploy-SA mag niet “als” App Engine-SA draaien | Zie Optie B stap 3: **Service Account User** op `…@appspot.gserviceaccount.com` voor je deploy-SA. |
 
 Workflow **Validate docs site** (`.github/workflows/validate-docs-site.yml`) controleert JSON en `index.json` op een normale runner — handig als Pages even in de wachtrij hangt.
