@@ -30,6 +30,10 @@ window.FIETSKLIM_AUTH_CONFIG = {
    * Optional: one-click GitHub Actions import from climbs/import.html.
    * Requires deployed Firebase Function requestClimbfinderImport — see docs/auth/GITHUB_IMPORT.md
    */
+  /** Climb “gedaan” logboek (climbs/index.html). Firestore + localStorage fallback. */
+  climbLog: {
+    useFirestore: true,
+  },
   githubImport: {
     /** Zet true na deploy van requestClimbfinderImport + github.pat in Functions config. */
     enabled: true,

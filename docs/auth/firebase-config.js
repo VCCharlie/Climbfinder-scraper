@@ -26,6 +26,9 @@ window.FIETSKLIM_AUTH_CONFIG = {
   useStorage: false,
   storageDataPrefix: "climbs/data",
   /** One-click GitHub Actions import (requires deployed requestClimbfinderImport + github.pat in Functions). */
+  climbLog: {
+    useFirestore: true,
+  },
   githubImport: {
     enabled: true,
     repo: "VCCharlie/Climbfinder-scraper",

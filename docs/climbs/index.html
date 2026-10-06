@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261006g" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261006j" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -53,9 +53,22 @@
           <label for="regionSelect">Regio-dataset (JSON)</label>
           <select id="regionSelect"></select>
         </div>
+        <div class="field">
+          <label for="doneFilter">Logboek (gedaan)</label>
+          <select id="doneFilter">
+            <option value="all">Alle klimmen</option>
+            <option value="todo">Nog niet gedaan</option>
+            <option value="done">Al gedaan</option>
+          </select>
+          <p id="climbLogSummary" class="field-hint"></p>
+        </div>
       </div>
 
       <div id="climbDetailPanel" class="climb-detail-panel" hidden>
+        <label class="climb-detail-done" id="climbDetailDoneWrap" hidden>
+          <input type="checkbox" id="climbDetailDone" />
+          <span>Gedaan</span>
+        </label>
         <button type="button" id="profileExpandOpen" class="climb-detail-name" title="Profiel vergroten (Climbfinder-stijl)">
           <span class="climb-detail-name-inner">
             <span id="profileCategoryBadge"></span>
@@ -114,12 +127,14 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
   <script src="../auth/firebase-config.js"></script>
   <script src="../auth/gate.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/climb-metrics.js?v=20261006h"></script>
-  <script src="assets/app.js?v=20261006i"></script>
+  <script src="assets/climb-log.js?v=20261006j"></script>
+  <script src="assets/app.js?v=20261006j"></script>
 </body>
 </html>

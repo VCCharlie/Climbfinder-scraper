@@ -87,7 +87,88 @@
     searchBusy: false,
     searchQuery: "",
     mapMode: "overview",
+    doneFilter: "all",
   };
+
+  function entryDatasetId(entry) {
+    if (entry?.regionId) return entry.regionId;
+    if (typeof FietsKlimClimbLog !== "undefined") {
+      return FietsKlimClimbLog.datasetIdFromRegionUrl(entry?.regionUrl);
+    }
+    const url = entry?.regionUrl || "";
+    const m = String(url).match(/data\/([^/?#]+)\.json/i);
+    return m ? m[1] : "";
+  }
+
+  function climbIsDone(entry) {
+    if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) return false;
+    return FietsKlimClimbLog.isDone(entryDatasetId(entry), entry.climb.id);
+  }
+
+  function applyDoneFilter(items) {
+    if (state.doneFilter === "all") return items;
+    if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) return items;
+    return items.filter((entry) => {
+      const done = climbIsDone(entry);
+      return state.doneFilter === "done" ? done : !done;
+    });
+  }
+
+  function updateClimbLogSummary() {
+    const el = $("climbLogSummary");
+    if (!el) return;
+    if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) {
+      el.textContent = "Logboek: inloggen + Firestore (of localStorage fallback).";
+      return;
+    }
+    const ds = state.bundle?.meta?.id;
+    const total = state.climbs?.length || 0;
+    if (ds && total) {
+      const done = FietsKlimClimbLog.countDoneForDataset(ds);
+      el.textContent = `${done} / ${total} gedaan in deze regio · ${FietsKlimClimbLog.totalDone()} totaal`;
+    } else {
+      el.textContent = `${FietsKlimClimbLog.totalDone()} klimmen afgevinkt (alle regio’s)`;
+    }
+  }
+
+  async function toggleClimbDone(entry, done) {
+    if (typeof FietsKlimClimbLog === "undefined") return;
+    const datasetId = entryDatasetId(entry);
+    if (!datasetId) return;
+    try {
+      await FietsKlimClimbLog.setDone(datasetId, entry.climb.id, done);
+    } catch (e) {
+      console.error(e);
+      alert("Logboek opslaan mislukt: " + (e.message || e));
+    }
+  }
+
+  function syncClimbDetailDoneToggle() {
+    const wrap = $("climbDetailDoneWrap");
+    const box = $("climbDetailDone");
+    if (!wrap || !box) return;
+    if (!state.activeClimb || !state.bundle?.meta?.id) {
+      wrap.hidden = true;
+      return;
+    }
+    wrap.hidden = false;
+    const entry = {
+      climb: state.activeClimb,
+      regionId: state.bundle.meta.id,
+      regionUrl: state.currentRegionUrl,
+    };
+    box.checked = climbIsDone(entry);
+    box.onchange = () => {
+      void toggleClimbDone(entry, box.checked).then(() => {
+        renderList(state.searchQuery);
+        updateClimbLogSummary();
+        if (state.globalSearchReady) {
+          if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+          else refreshViewportClimbs();
+        }
+      });
+    };
+  }
 
   function $(id) {
     return document.getElementById(id);
@@ -234,11 +315,13 @@
     return `${entry.regionUrl}::${entry.climb.id}`;
   }
 
-  /** Kaart: standaard alle regio’s; alleen zoekterm filtert weg. */
+  /** Kaart: alle regio’s; zoekterm + logboek-filter. */
   function mapVisibleEntries() {
     const q = state.searchQuery.trim().toLowerCase();
-    if (!q) return state.globalEntries;
-    return state.globalEntries.filter(({ climb }) => climbMatchesQuery(climb, q));
+    let entries = !q
+      ? state.globalEntries
+      : state.globalEntries.filter(({ climb }) => climbMatchesQuery(climb, q));
+    return applyDoneFilter(entries);
   }
 
   /** Geselecteerde regio = highlight; andere klimmen blijven zichtbaar (gedimd). */
@@ -856,13 +939,14 @@
       const latlng = climbLatLng(entry.climb);
       if (!latlng) continue;
       const active = isEntryMapActive(entry);
+      const done = climbIsDone(entry);
       const touch = isCoarsePointer();
       const marker = L.circleMarker(latlng, {
         radius: touch ? (active ? 9 : 7) : active ? 6 : 4,
-        color: active ? "#5b21b6" : "#94a3b8",
-        weight: active ? 2 : 1,
-        fillColor: active ? "#7c3aed" : "#cbd5e1",
-        fillOpacity: active ? 0.9 : 0.55,
+        color: done ? "#15803d" : active ? "#5b21b6" : "#94a3b8",
+        weight: active || done ? 2 : 1,
+        fillColor: done ? "#22c55e" : active ? "#7c3aed" : "#cbd5e1",
+        fillOpacity: active || done ? 0.9 : 0.55,
       });
       const reg = entry.regionTitle ? ` · ${displayRegionTitle(entry.regionTitle)}` : "";
       const activeTip = `${entry.climb.name}${reg}`;
@@ -918,18 +1002,33 @@
         climb,
         regionUrl: state.currentRegionUrl,
         regionTitle: state.bundle?.meta?.title || "",
+        regionId: state.bundle?.meta?.id || "",
       }));
     }
 
+    items = applyDoneFilter(items);
+
     if (q && !items.length) {
-      list.innerHTML = '<p class="list-hint">Geen klimmen gevonden in alle regio’s.</p>';
+      list.innerHTML =
+        state.doneFilter !== "all"
+          ? '<p class="list-hint">Geen klimmen voor dit logboek-filter.</p>'
+          : '<p class="list-hint">Geen klimmen gevonden in alle regio’s.</p>';
+      return;
+    }
+    if (!q && !items.length && state.doneFilter !== "all") {
+      list.innerHTML = '<p class="list-hint">Geen klimmen voor dit filter in deze regio.</p>';
+      updateClimbLogSummary();
       return;
     }
 
     for (const entry of items) {
       const climb = entry.climb;
+      const done = climbIsDone(entry);
       const el = document.createElement("div");
-      el.className = "climb-item" + (climb.id === state.selectedId ? " active" : "");
+      el.className =
+        "climb-item" +
+        (climb.id === state.selectedId ? " active" : "") +
+        (done ? " climb-item--done" : "");
       el.dataset.id = climb.id;
       const tags = (climb.tags || [])
         .slice(0, 3)
@@ -943,12 +1042,25 @@
           ? `<div class="dataset-tag">${displayRegionTitle(entry.regionTitle)}</div>`
           : "";
       el.innerHTML = `
-        <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
-        ${datasetLine}
-        <div class="meta">${formatKm(climb.stats.length_m)} · ${climb.stats.avg_gradient_pct}% gem. · +${formatM(climb.stats.elevation_gain_m)} · ${climb.region || ""}${steepestLabel(climb)}</div>
-        <div>${tags} ${cf}</div>
+        <label class="climb-done-toggle" title="Markeer als gedaan">
+          <input type="checkbox" class="climb-done-checkbox" ${done ? "checked" : ""} aria-label="Gedaan: ${climb.name.replace(/"/g, "&quot;")}" />
+        </label>
+        <div class="climb-item-body">
+          <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
+          ${datasetLine}
+          <div class="meta">${formatKm(climb.stats.length_m)} · ${climb.stats.avg_gradient_pct}% gem. · +${formatM(climb.stats.elevation_gain_m)} · ${climb.region || ""}${steepestLabel(climb)}</div>
+          <div>${tags} ${cf}</div>
+        </div>
       `;
+      el.querySelector(".climb-done-checkbox")?.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+      el.querySelector(".climb-done-checkbox")?.addEventListener("change", (e) => {
+        e.stopPropagation();
+        void toggleClimbDone(entry, e.target.checked);
+      });
       el.addEventListener("click", (e) => {
+        if (e.target.closest(".climb-done-toggle")) return;
         if (e.target.tagName === "A") return;
         void selectClimbFromList(climb.id, entry.regionUrl);
       });
@@ -961,6 +1073,7 @@
       }
       list.appendChild(el);
     }
+    updateClimbLogSummary();
     if (q && state.globalEntries.length && items.length === 200) {
       const hint = document.createElement("p");
       hint.className = "list-hint";
@@ -1238,6 +1351,7 @@
     clearRouteHoverHighlight();
     updateChart(climb);
     afterClimbSelectedOnMobile(climb);
+    syncClimbDetailDoneToggle();
 
     if (window.location.hash !== `#${id}`) {
       history.replaceState(null, "", `#${id}`);
@@ -1316,6 +1430,7 @@
     }
 
     renderList(state.searchQuery);
+    updateClimbLogSummary();
 
     const pick =
       selectId ||
@@ -1345,6 +1460,25 @@
       opt.textContent = `${regionTitleFromIndexEntry(region)} (${region.count})`;
       select.appendChild(opt);
     }
+
+    $("doneFilter")?.addEventListener("change", (e) => {
+      state.doneFilter = e.target.value || "all";
+      renderList(state.searchQuery);
+      if (state.globalSearchReady) {
+        if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+        else refreshViewportClimbs();
+      }
+    });
+
+    document.addEventListener("fietsklim-climb-log-changed", () => {
+      updateClimbLogSummary();
+      renderList(state.searchQuery);
+      syncClimbDetailDoneToggle();
+      if (state.globalSearchReady && state.mapMode !== "detail") {
+        if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+        else refreshViewportClimbs();
+      }
+    });
 
     select.addEventListener("change", () => {
       void loadRegion(select.value).then(() => {
@@ -1429,31 +1563,33 @@
     );
   }
 
-  function bootExplorer() {
+  async function bootExplorer() {
     if (!isUnlocked()) return;
     if (window.__fietsklimExplorerBooted) return;
     window.__fietsklimExplorerBooted = true;
     const meta = $("datasetMeta");
     if (meta) meta.textContent = "Dataset laden…";
-    init()
-      .then(() => {
-        requestAnimationFrame(() => {
-          setTimeout(refreshMapSize, 100);
-          setTimeout(refreshMapSize, 500);
-        });
-      })
-      .catch((err) => {
-        window.__fietsklimExplorerBooted = false;
-        console.error(err);
-        if (meta) {
-          meta.textContent = `Fout bij laden: ${err.message}`;
-        }
-        alert(
-          err.message.includes("Storage")
-            ? "Dataset laden mislukt. Zet useStorage: false of upload JSON naar Firebase Storage."
-            : err.message
-        );
+    try {
+      if (typeof FietsKlimClimbLog !== "undefined") {
+        await FietsKlimClimbLog.init();
+      }
+      await init();
+      requestAnimationFrame(() => {
+        setTimeout(refreshMapSize, 100);
+        setTimeout(refreshMapSize, 500);
       });
+    } catch (err) {
+      window.__fietsklimExplorerBooted = false;
+      console.error(err);
+      if (meta) {
+        meta.textContent = `Fout bij laden: ${err.message}`;
+      }
+      alert(
+        err.message.includes("Storage")
+          ? "Dataset laden mislukt. Zet useStorage: false of upload JSON naar Firebase Storage."
+          : err.message
+      );
+    }
   }
 
   window.FietsKlimExplorer = { init, selectClimb, loadJson, bootExplorer };

@@ -62,6 +62,26 @@ blijven **direct downloadbaar** zolang ze op GitHub Pages staan. Iemand die de U
 
 **Alternatief zonder Firebase Storage:** [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/policies/access/) voor je **hele domein** (Google login + e-mailbeleid) — sterkste optie voor statische GitHub/custom hosting.
 
-## 4. Account wijzigen
+## 4. Klim-logboek (Fase 1 — handmatig “gedaan”)
+
+Op **FietsKlim Database** (`climbs/index.html`) kun je klimmen afvinken. Data staat per Google-account:
+
+- **Firestore** (aanbevolen): `users/{uid}/climbLog/{datasetId__climbId}`
+- **Fallback:** `localStorage` in de browser als Firestore niet bereikbaar is
+
+### Firestore eenmalig inschakelen
+
+1. Firebase Console → **Build** → **Firestore Database** → database aanmaken (production mode is oké voor persoonlijk gebruik).
+2. **Rules** → plak `docs/auth/firestore.rules.example` (alleen eigen `uid` mag lezen/schrijven).
+3. Zorg dat `firebase-firestore-compat.js` geladen wordt (staat al op `index.html`).
+4. Optioneel in `firebase-config.js`:
+
+   ```js
+   climbLog: { useFirestore: true },
+   ```
+
+Na deploy: hard refresh. Vinkjes in de lijst, filter **Nog niet gedaan / Al gedaan**, groene stippen op de kaart.
+
+## 5. Account wijzigen
 
 Pas `allowedEmails` in `firebase-config.js` aan (niet alleen in de UI-tekst).
