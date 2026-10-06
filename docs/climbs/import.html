@@ -14,7 +14,18 @@
     h1 { color: #0f766e; margin: 0 0 0.25rem; }
     .card { background: #fff; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin: 1rem 0; }
     label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.35rem; }
-    select, textarea, input[type="text"] { width: 100%; padding: 0.55rem; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; box-sizing: border-box; }
+    select, textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.55rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font: inherit;
+      font-family: Barlow, system-ui, sans-serif;
+      box-sizing: border-box;
+    }
+    input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     textarea { min-height: 90px; font-family: ui-monospace, monospace; font-size: 0.8rem; }
     button { background: #0f766e; color: #fff; border: none; padding: 0.65rem 1.1rem; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; margin-right: 0.5rem; margin-top: 0.5rem; }
     button:disabled { opacity: 0.55; cursor: wait; }
@@ -28,8 +39,15 @@
     @media (min-width: 641px) {
       .region-toolbar.grid2 { grid-template-columns: 1fr 1fr 1fr; }
     }
-    .import-limit-field input[type="number"] { max-width: 8rem; }
-    .import-limit-field .hint { margin-top: 0.25rem; margin-bottom: 0; }
+    .region-toolbar > div { min-width: 0; }
+    .region-toolbar select,
+    .region-toolbar input[type="number"] {
+      display: block;
+      width: 100%;
+      min-height: 2.65rem;
+      line-height: 1.35;
+    }
+    #importLimitHint { margin-top: 0.35rem; margin-bottom: 0; }
     .hint { font-size: 0.85rem; color: #64748b; margin: 0.35rem 0 0; }
     .tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
     .tabs button { margin: 0; background: #e2e8f0; color: #334155; }
@@ -83,12 +101,12 @@
           <label for="regionSelect">Climbfinder-regio</label>
           <select id="regionSelect" disabled><option value="">Kies eerst een land</option></select>
         </div>
-        <div class="import-limit-field">
+        <div>
           <label for="importClimbLimit">Aantal klimmen (Popular-ranking)</label>
           <input type="number" id="importClimbLimit" min="1" max="2000" step="1" value="50" inputmode="numeric" />
-          <p class="hint" id="importLimitHint">Standaard 50. Climbfinder levert 25 slugs per pagina — <code>pages</code> en <code>limit</code> in het commando passen zich aan.</p>
         </div>
       </div>
+      <p class="hint" id="importLimitHint">Standaard 50. Climbfinder levert 25 slugs per pagina — <code>pages</code> en <code>limit</code> in het commando passen zich aan.</p>
       <p id="rankingMeta"></p>
 
       <div class="tabs">
