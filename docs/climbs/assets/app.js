@@ -651,23 +651,27 @@
 
   function returnToLocalView() {
     if (!state.map) return;
-    const center = state.map.getCenter();
-    const zoom = Math.max(state.map.getZoom() - LOCAL_ZOOM_OUT_STEPS, MIN_ZOOM_NEARBY_ROUTES - 1);
 
     if (window.location.hash) {
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
     state.selectedId = null;
     state.activeClimb = null;
-    state.mapMode = "local";
+    const zoom = state.map.getZoom();
+    state.mapMode = zoom >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
     clearMapLayers();
     resetProfilePanel();
+    hideMapTouchSheet();
     updateOverviewBackButton();
     renderList(state.searchQuery);
 
-    state.map.setView(center, zoom, { animate: true });
-    state.map.once("moveend", () => refreshViewportClimbs());
-    refreshViewportClimbs();
+    /* Geen zoom/center wijzigen — alleen contextlagen in huidige viewport herstellen. */
+    if (state.mapMode === "overview") {
+      if (state.globalSearchReady) syncOverviewMarkers({ fit: false });
+      updateSearchHint();
+    } else {
+      refreshViewportClimbs();
+    }
   }
 
   function returnToOverview() {
@@ -1232,7 +1236,10 @@
     });
 
     initMobileViewSwitch();
-    $("mapBackOverview")?.addEventListener("click", () => returnToOverview());
+    $("mapBackOverview")?.addEventListener("click", () => {
+      if (state.mapMode === "detail") returnToLocalView();
+      else returnToOverview();
+    });
     $("profileExpandOpen")?.addEventListener("click", () => openProfileExpand());
     $("profileExpandLink")?.addEventListener("click", () => openProfileExpand());
     $("profileExpandClose")?.addEventListener("click", () => closeProfileExpand());
