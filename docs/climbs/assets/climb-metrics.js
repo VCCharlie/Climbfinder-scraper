@@ -98,6 +98,54 @@
     return Math.round(((100 * (e1 - e0)) / span) * 10) / 10;
   }
 
+  /** Map distance along climb (m) to index in geometry.coordinates. */
+  function geometryIndexForDistanceM(climb, targetM) {
+    const dist = climb.profile?.distances_m;
+    const coords = climb.geometry?.coordinates;
+    if (!dist?.length || !coords?.length) return 0;
+    if (targetM <= dist[0]) return 0;
+    const last = dist.length - 1;
+    if (targetM >= dist[last]) return coords.length - 1;
+    for (let i = 1; i < dist.length; i++) {
+      if (targetM <= dist[i]) {
+        const d0 = dist[i - 1];
+        const d1 = dist[i];
+        const t = d1 > d0 ? (targetM - d0) / (d1 - d0) : 0;
+        const g0 = Math.min(i - 1, coords.length - 1);
+        const g1 = Math.min(i, coords.length - 1);
+        return Math.min(coords.length - 1, Math.max(0, Math.round(g0 * (1 - t) + g1 * t)));
+      }
+    }
+    return coords.length - 1;
+  }
+
+  /** Lat/lng pairs [lat,lng] for a distance range on the route (Leaflet order). */
+  function latLngSliceForDistanceRange(climb, startM, endM) {
+    const coords = climb.geometry?.coordinates;
+    if (!coords?.length) return [];
+    const i0 = geometryIndexForDistanceM(climb, startM);
+    const i1 = geometryIndexForDistanceM(climb, endM);
+    const a = Math.min(i0, i1);
+    const b = Math.max(i0, i1);
+    return coords.slice(a, b + 1).map(([lng, lat]) => [lat, lng]);
+  }
+
+  /** Coloured route segments aligned with profileBuckets (Climbfinder-style map line). */
+  function routeGradientSegments(climb, thresholdKm = 5) {
+    const buckets = profileBuckets(climb, thresholdKm);
+    if (!buckets.length) return [];
+    return buckets
+      .map((b) => ({
+        color: b.color,
+        label: b.label,
+        gradientPct: b.gradientPct,
+        startM: b.startM,
+        endM: b.endM,
+        latlngs: latLngSliceForDistanceRange(climb, b.startM, b.endM),
+      }))
+      .filter((s) => s.latlngs.length >= 2);
+  }
+
   function profileBuckets(climb, thresholdKm = 5) {
     const p = climb.profile || {};
     const dist = p.distances_m;
@@ -255,6 +303,9 @@
     elevationAtM,
     averageGradientPct,
     profileBuckets,
+    geometryIndexForDistanceM,
+    latLngSliceForDistanceRange,
+    routeGradientSegments,
     sliceProfilePoints,
     profileFillPlugin,
     climbCategory,
