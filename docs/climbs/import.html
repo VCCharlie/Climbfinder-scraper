@@ -309,7 +309,7 @@
         locality: String(region.id),
         pages,
         meta_id: metaIdFromRegion(region),
-        title: `${region.name} (Climbfinder Popular)`,
+        title: region.name,
         country: cc,
         region_label: region.name,
         limit: limitStr,
@@ -321,10 +321,7 @@
         return {
           ...base,
           meta_id: "nl-limburg",
-          title:
-            limit >= 680
-              ? "Zuid-Limburg — Climbfinder Popular (~688)"
-              : `${region.name} (Climbfinder Popular, limit ${limitStr})`,
+          title: "Zuid-Limburg",
           region_label: "Zuid-Limburg",
           pages: "all",
           limit: limitStr,
@@ -740,7 +737,7 @@
         const cc = countryCode(selectedRegion);
         await runImport(ranking.slugs, {
           metaId: metaIdFromRegion(selectedRegion),
-          title: `${selectedRegion.name} (Climbfinder Popular)`,
+          title: selectedRegion.name,
           country: cc,
           regionLabel: selectedRegion.name,
           tags: ["climbfinder", "popular", `locality-${selectedRegion.id}`],

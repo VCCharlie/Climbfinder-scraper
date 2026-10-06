@@ -530,6 +530,7 @@ def main() -> None:
         "meta": {
             "id": meta_id,
             "title": title,
+            "region_label": region_label,
             "country": country,
             "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "count": len(climbs),

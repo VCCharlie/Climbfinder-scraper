@@ -7,6 +7,29 @@
   const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
   const MOBILE_LAYOUT_MQ = window.matchMedia("(max-width: 900px)");
   const ROUTE_HIT_WEIGHT_COARSE = 22;
+  const ROUTE_HIT_WEIGHT_DIM = 16;
+
+  /** UI-label: geen “(Climbfinder Popular)” suffix in dropdown/headers. */
+  function displayRegionTitle(title) {
+    if (!title) return "";
+    let t = String(title).trim();
+    t = t.replace(/\s*\(Climbfinder Popular[^)]*\)\s*$/i, "");
+    t = t.replace(/\s*—\s*Climbfinder Popular[^)]*$/i, "");
+    t = t.replace(/\s*-\s*Climbfinder Popular.*$/i, "");
+    t = t.replace(/\s*\(Climbfinder\)\s*$/i, "");
+    return t.trim() || String(title).trim();
+  }
+
+  function regionTitleFromMeta(meta) {
+    if (!meta) return "";
+    if (meta.region_label) return String(meta.region_label).trim();
+    return displayRegionTitle(meta.title || "");
+  }
+
+  function regionTitleFromIndexEntry(region) {
+    if (!region) return "";
+    return region.displayTitle || displayRegionTitle(region.title || "");
+  }
 
   function isCoarsePointer() {
     return COARSE_POINTER_MQ.matches;
@@ -25,7 +48,7 @@
   const ROUTE_STYLE = {
     active: { color: "#6d28d9", weight: 4, opacity: 0.92 },
     detail: { color: "#5b21b6", weight: 5, opacity: 0.95 },
-    dim: { color: "#64748b", weight: 2, opacity: 0.38 },
+    dim: { color: "#475569", weight: 2.5, opacity: 0.52 },
     hover: { color: "#7c3aed", weight: 6, opacity: 1 },
   };
 
@@ -250,7 +273,7 @@
         : 0;
       el.textContent =
         n > 0
-          ? `Kaart: ${n} klimmen (alle regio’s). Lijst: ${reg ? reg.title : "regio"} (${regN}). Regio wisselen = highlight op kaart.`
+          ? `Kaart: ${n} klimmen (alle regio’s). Lijst: ${reg ? regionTitleFromIndexEntry(reg) : "regio"} (${regN}). Klik klim (ook grijs) = regio wisselt mee.`
           : "Leeg = alle klimmen op kaart. Typ om te filteren.";
     }
   }
@@ -656,19 +679,29 @@
       const latlngs = latLngsFromClimb(entry.climb);
       if (latlngs.length < 2) return;
       withRouteKeys.add(entryKey(entry));
+      const isDim = style === ROUTE_STYLE.dim;
+      const regLabel = regionTitleFromIndexEntry(
+        state.indexRegions.find((r) => r.url === entry.regionUrl)
+      );
+      const tip = regLabel ? `${entry.climb.name} · ${regLabel}` : entry.climb.name;
       const line = L.polyline(latlngs, {
         ...style,
-        interactive: !isCoarsePointer(),
+        interactive: !isCoarsePointer() && !isDim,
       });
-      line.bindTooltip(entry.climb.name, { sticky: true, interactive: !isCoarsePointer() });
+      line.bindTooltip(tip, { sticky: true, interactive: !isCoarsePointer() });
       state.viewportRoutesLayer.addLayer(line);
-      if (isCoarsePointer()) {
+      const needsHit = isCoarsePointer() || isDim;
+      if (needsHit) {
         const hit = L.polyline(latlngs, {
           color: "#000000",
-          weight: ROUTE_HIT_WEIGHT_COARSE,
+          weight: isDim ? ROUTE_HIT_WEIGHT_DIM : ROUTE_HIT_WEIGHT_COARSE,
           opacity: 0,
           interactive: true,
         });
+        hit.bindTooltip(
+          isDim ? `${tip} — klik om regio «${regLabel || "?"}» te kiezen` : tip,
+          { sticky: true, interactive: true }
+        );
         bindMapEntryInteraction(hit, entry);
         state.viewportRoutesLayer.addLayer(hit);
         state.viewportRouteByKey.set(entryKey(entry), hit);
@@ -707,7 +740,13 @@
         style.fillOpacity = 0.75;
       }
       const marker = L.circleMarker(start, style);
-      marker.bindTooltip(`${entry.climb.name}${dimmed ? " (andere regio)" : ""}`, {
+      const regLabel = regionTitleFromIndexEntry(
+        state.indexRegions.find((r) => r.url === entry.regionUrl)
+      );
+      const tip = dimmed
+        ? `${entry.climb.name} · ${regLabel || "andere regio"} — klik = regio kiezen`
+        : entry.climb.name;
+      marker.bindTooltip(tip, {
         direction: "top",
         sticky: true,
         interactive: !isCoarsePointer(),
@@ -825,8 +864,10 @@
         fillColor: active ? "#7c3aed" : "#cbd5e1",
         fillOpacity: active ? 0.9 : 0.55,
       });
-      const reg = entry.regionTitle ? ` · ${entry.regionTitle}` : "";
-      marker.bindTooltip(`${entry.climb.name}${reg}`, {
+      const reg = entry.regionTitle ? ` · ${displayRegionTitle(entry.regionTitle)}` : "";
+      const activeTip = `${entry.climb.name}${reg}`;
+      const dimTip = `${entry.climb.name}${reg}${reg ? " — klik = regio kiezen" : ""}`;
+      marker.bindTooltip(active ? activeTip : dimTip, {
         direction: "top",
         sticky: true,
         interactive: !touch,
@@ -899,7 +940,7 @@
         : "";
       const datasetLine =
         q && entry.regionTitle
-          ? `<div class="dataset-tag">${entry.regionTitle}</div>`
+          ? `<div class="dataset-tag">${displayRegionTitle(entry.regionTitle)}</div>`
           : "";
       el.innerHTML = `
         <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
@@ -944,7 +985,7 @@
           state.globalEntries.push({
             climb: c,
             regionUrl: r.url,
-            regionTitle: r.title,
+            regionTitle: r.displayTitle || displayRegionTitle(r.title),
             regionId: r.id,
           });
         }
@@ -976,6 +1017,7 @@
       const select = $("regionSelect");
       if (select.value !== regionUrl) select.value = regionUrl;
       await loadRegion(regionUrl, { keepSearch: true, selectId: id });
+      select.scrollIntoView?.({ behavior: "smooth", block: "nearest" });
     } else {
       selectClimb(id);
     }
@@ -1257,7 +1299,9 @@
     state.bundle = bundle;
     state.climbs = bundle.climbs || [];
     const src = state.bundle.meta?.source?.name || "onbekend";
-    $("datasetMeta").textContent = `${state.bundle.meta.title} · ${state.climbs.length} klimmen · bron: ${src} · ${state.bundle.meta.updated_at}`;
+    const label = regionTitleFromMeta(state.bundle.meta);
+    const sortTag = state.bundle.meta?.source?.sort ? ` · ${state.bundle.meta.source.sort}` : "";
+    $("datasetMeta").textContent = `${label} · ${state.climbs.length} klimmen · bron: ${src}${sortTag} · ${state.bundle.meta.updated_at}`;
 
     if (!keepSearch) {
       state.searchQuery = "";
@@ -1298,7 +1342,7 @@
     for (const region of state.indexRegions) {
       const opt = document.createElement("option");
       opt.value = region.url;
-      opt.textContent = `${region.title} (${region.count})`;
+      opt.textContent = `${regionTitleFromIndexEntry(region)} (${region.count})`;
       select.appendChild(opt);
     }
 
