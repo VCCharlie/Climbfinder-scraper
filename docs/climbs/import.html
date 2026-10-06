@@ -177,7 +177,7 @@
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
-  <script src="assets/region-picker.js?v=20261006d"></script>
+  <script src="assets/region-picker.js?v=20261006e"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
@@ -449,7 +449,7 @@
       }
       if (activeImportTab !== "map") setTab("map");
       if (!regionPicker) await initRegionPicker();
-      const ok = await regionPicker?.pickLocality(entry.locality_id, { preferCountryView: true });
+      const ok = await regionPicker?.pickLocality(entry.locality_id);
       if (!ok) {
         log(`FOUT: regio l=${entry.locality_id} niet in catalogus voor «${entry.label}».`);
         return;
