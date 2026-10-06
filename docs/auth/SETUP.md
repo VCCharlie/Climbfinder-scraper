@@ -101,3 +101,17 @@ Zonder Firestore toont de site onder het filter kort: *localStorage fallback* �
 ## 5. Account wijzigen
 
 Pas `allowedEmails` in `firebase-config.js` aan (niet alleen in de UI-tekst).
+
+## PWA installeren (Chrome Android)
+
+Open **`…/climbs/index.html`** (niet alleen de sitewortel). Menu → **App installeren** / **Toevoegen aan startscherm**.
+
+### Chrome zegt “App is al geïnstalleerd” maar je ziet hem niet?
+
+1. **App-lade controleren** — soms heet hij **FietsKlim** en staat hij in het app-overzicht, niet op het startscherm.
+2. **Oude “spook”-installatie** — een eerdere versie gebruikte een te generieke manifest-`id` (`./`). Na deploy van de fix (`id`: `fietsklim-database-climbs`):  
+   - Chrome → **Site-instellingen** voor `vccharlie.github.io` → **Opslag wissen** (of “Sitegegevens wissen”).  
+   - Of: **Instellingen → Apps → Chrome** → geïnstalleerde sites / web-apps → verwijder oude **FietsKlim**-vermelding.  
+   - Pagina hard verversen, opnieuw proberen.
+3. **Installeer vanaf de database-URL** — `…/climbs/` of `…/climbs/index.html`, niet `import.html`.
+4. **Geen incognito** — installatie werkt in een normaal Chrome-profiel.
