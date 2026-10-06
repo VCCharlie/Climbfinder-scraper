@@ -32,7 +32,7 @@ window.FIETSKLIM_AUTH_CONFIG = {
    */
   githubImport: {
     /** Zet true na deploy van requestClimbfinderImport + github.pat in Functions config. */
-    enabled: false,
+    enabled: true,
     repo: "VCCharlie/Climbfinder-scraper",
     region: "europe-west1",
   },

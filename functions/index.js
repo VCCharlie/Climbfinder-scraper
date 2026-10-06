@@ -22,7 +22,7 @@ function allowedEmail(email) {
   return email && list.includes(email.trim().toLowerCase());
 }
 
-exports.requestClimbfinderImport = functions.https.onCall(async (data, context) => {
+exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall(async (data, context) => {
   if (!context.auth?.token?.email) {
     throw new functions.https.HttpsError("unauthenticated", "Log in met Google.");
   }
@@ -89,9 +89,12 @@ exports.requestClimbfinderImport = functions.https.onCall(async (data, context) 
     throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
   }
 
+  const publish = String(data.publish_to_site != null ? data.publish_to_site : "true") !== "false";
   return {
     ok: true,
-    message: "Import gestart op GitHub Actions. Download JSON bij Artifacts wanneer de run klaar is.",
+    message: publish
+      ? "Import gestart op GitHub Actions. Bij publish_to_site=true komt JSON automatisch op de kaart na de run."
+      : "Import gestart. Download JSON bij Artifacts wanneer de run klaar is.",
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_FILE}`,
   };
 });
