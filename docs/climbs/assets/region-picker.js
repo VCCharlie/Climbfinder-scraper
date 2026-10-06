@@ -1,5 +1,5 @@
 /**
- * Climbfinder regio op kaart — koppel aan import.html (countrySelect / regionSelect).
+ * Climbfinder regio op kaart — import.html (wereldoverzicht → klik regio → import).
  */
 (function (global) {
   const STATUS = {
@@ -144,12 +144,15 @@
     ]);
 
     let map = null;
-    let layer = null;
+    let clusterLayer = null;
     let mapReady = false;
     let markersById = {};
     let rankingCache = {};
     let bootCatalog = null;
     let drawToken = 0;
+    let overviewBounds = null;
+    let selectedLocalityId = null;
+    let mapClickBound = false;
 
     async function ensureMap() {
       if (mapReady) return;
@@ -158,8 +161,22 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
         maxZoom: 18,
       }).addTo(map);
-      layer = L.layerGroup().addTo(map);
+      clusterLayer = L.markerClusterGroup({
+        maxClusterRadius: 40,
+        showCoverageOnHover: false,
+        spiderfyOnMaxZoom: true,
+      });
+      map.addLayer(clusterLayer);
       mapReady = true;
+    }
+
+    function bindMapDeselect() {
+      if (mapClickBound || !map) return;
+      mapClickBound = true;
+      map.on("click", () => {
+        if (selectedLocalityId == null) return;
+        clearSelection();
+      });
     }
 
     function findRegionInCatalog(localityId) {
@@ -191,9 +208,28 @@
     }
 
     function highlightMarker(localityId) {
+      selectedLocalityId = localityId != null && localityId !== "" ? Number(localityId) : null;
       for (const [id, mk] of Object.entries(markersById)) {
         const st = mk._cfStatus || "none";
-        mk.setIcon(markerIcon(st, Number(id) === Number(localityId)));
+        mk.setIcon(markerIcon(st, Number(id) === selectedLocalityId));
+      }
+    }
+
+    function clearSelection() {
+      selectedLocalityId = null;
+      highlightMarker(null);
+      if (regionSel) {
+        const empty = regionSel.querySelector('option[value=""]');
+        if (empty) {
+          regionSel.value = "";
+          regionSel.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      }
+      map.closePopup();
+      if (overviewBounds) {
+        map.fitBounds(overviewBounds, { padding: [28, 28], maxZoom: 6 });
+      } else {
+        map.setView([50.5, 5.5], 5);
       }
     }
 
@@ -214,7 +250,7 @@
         `<span style="color:${stMeta.color}">${stMeta.label}</span>`,
       ];
       if (pub) {
-        lines.push(`Dataset <em>${pub.title || pub.datasetId}</em>: ${pub.count} klimmen`);
+        lines.push(`Dataset <em>${pub.title || pub.datasetId}</em>: ${pub.count} klimmen op FietsKlim-kaart`);
       }
       if (cfTotal != null) {
         lines.push(`Climbfinder Popular: <strong>${cfTotal}</strong> klimmen`);
@@ -230,71 +266,71 @@
       return lines.join("<br/>");
     }
 
-    async function drawForCountry(countryName) {
+    function attachMarkerHandlers(mk, r, countryName) {
+      mk.on("click", (ev) => {
+        L.DomEvent.stopPropagation(ev);
+        highlightMarker(r.id);
+        selectInDropdowns(r.id, false);
+        const g = geo.regions[String(r.id)];
+        if (g) map.setView([g.lat, g.lon], Math.max(map.getZoom(), 10));
+      });
+      mk.on("popupopen", async () => {
+        const html = await popupHtml(r.id, r.name, countryName);
+        mk.setPopupContent(html);
+        const popEl = mk.getPopup()?.getElement();
+        popEl?.querySelector(".cf-pick-region")?.addEventListener("click", (ev) => {
+          L.DomEvent.stopPropagation(ev);
+          selectInDropdowns(r.id, true);
+          highlightMarker(r.id);
+          map.closePopup();
+        });
+      });
+    }
+
+    async function drawAllRegions() {
       const token = ++drawToken;
       await ensureMap();
+      bindMapDeselect();
       if (token !== drawToken) return;
 
-      layer.clearLayers();
+      clusterLayer.clearLayers();
       markersById = {};
-      if (!bootCatalog || !countryName) {
-        map.setView([50.5, 5.5], 4);
+      if (!bootCatalog) {
+        map.setView([50.5, 5.5], 5);
         return;
       }
-      const block = bootCatalog.countries.find((c) => c.country === countryName);
-      if (!block) return;
-
-      await Promise.all(
-        block.regions.map(async (r) => {
-          if (rankingCache[r.id] !== undefined) return;
-          rankingCache[r.id] = await loadRankingCount(r.id);
-        })
-      );
-      if (token !== drawToken) return;
 
       const bounds = [];
-      const iso = block.regions[0]?.country_iso || geo.regions[String(block.regions[0]?.id)]?.country_iso;
-      const countryCentre = iso && geo.countries?.[iso];
-      if (countryCentre) {
-        map.setView([countryCentre.lat, countryCentre.lon], countryCentre.zoom || 7);
-      }
+      for (const block of bootCatalog.countries) {
+        for (const r of block.regions) {
+          const g = geo.regions[String(r.id)];
+          if (!g) continue;
+          bounds.push([g.lat, g.lon]);
 
-      for (const r of block.regions) {
-        const g = geo.regions[String(r.id)];
-        if (!g) continue;
-        const lat = g.lat;
-        const lon = g.lon;
-        bounds.push([lat, lon]);
-
-        const pub = publishedMap[String(r.id)];
-        const ranking = rankingCache[r.id] ?? null;
-        const st = statusForRegion(pub, ranking);
-        const mk = L.marker([lat, lon], { icon: markerIcon(st, false) });
-        mk._cfStatus = st;
-        mk.bindPopup("Laden…");
-        mk.on("click", () => highlightMarker(r.id));
-        mk.on("popupopen", async () => {
-          const html = await popupHtml(r.id, r.name, countryName);
-          mk.setPopupContent(html);
-          const popEl = mk.getPopup()?.getElement();
-          popEl?.querySelector(".cf-pick-region")?.addEventListener("click", () => {
-            selectInDropdowns(r.id, true);
-            highlightMarker(r.id);
-            map.closePopup();
+          const pub = publishedMap[String(r.id)];
+          const st = statusForRegion(pub, null);
+          const mk = L.marker([g.lat, g.lon], {
+            icon: markerIcon(st, Number(r.id) === selectedLocalityId),
           });
-        });
-        mk.addTo(layer);
-        markersById[r.id] = mk;
+          mk._cfStatus = st;
+          mk.bindPopup("Laden…");
+          attachMarkerHandlers(mk, r, block.country);
+          clusterLayer.addLayer(mk);
+          markersById[r.id] = mk;
+        }
       }
 
-      if (bounds.length > 1) {
-        map.fitBounds(bounds, { padding: [36, 36], maxZoom: 10 });
-      } else if (bounds.length === 1) {
-        map.setView(bounds[0], 9);
+      if (bounds.length) {
+        overviewBounds = L.latLngBounds(bounds);
+        if (selectedLocalityId == null) {
+          map.fitBounds(overviewBounds, { padding: [28, 28], maxZoom: 6 });
+        }
+      } else {
+        overviewBounds = null;
+        map.setView([50.5, 5.5], 5);
       }
 
-      const sel = regionSel?.value;
-      if (sel) highlightMarker(sel);
+      if (selectedLocalityId != null) highlightMarker(selectedLocalityId);
 
       requestAnimationFrame(() => map.invalidateSize());
     }
@@ -348,14 +384,7 @@
 
     async function applySearchPick(block, r) {
       if (!block || !r) return;
-      await ensureMap();
-      if (countrySel && countrySel.value !== block.country) {
-        countrySel.value = block.country;
-        countrySel.dispatchEvent(new Event("change", { bubbles: true }));
-        await drawForCountry(block.country);
-      } else {
-        await drawForCountry(block.country);
-      }
+      await drawAllRegions();
       selectInDropdowns(r.id, false);
       highlightMarker(r.id);
       const g = geo.regions[String(r.id)];
@@ -414,20 +443,24 @@
         bindSearch();
       },
       async onMapTabShown() {
-        await drawForCountry(countrySel?.value);
+        await drawAllRegions();
       },
       refreshCountry() {
         if (!mapReady) return Promise.resolve();
-        return drawForCountry(countrySel?.value);
+        return drawAllRegions();
       },
       syncFromDropdown() {
         if (!mapReady) return;
         const id = regionSel?.value;
-        if (!id) return;
+        if (!id) {
+          clearSelection();
+          return;
+        }
         highlightMarker(id);
         const g = geo.regions[id];
         if (g) map.setView([g.lat, g.lon], Math.max(map.getZoom(), 10));
       },
+      clearSelection,
       invalidateSize() {
         if (!mapReady) return;
         setTimeout(() => map.invalidateSize(), 120);
