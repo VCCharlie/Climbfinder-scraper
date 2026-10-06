@@ -31,6 +31,18 @@ jobs:
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Enable required Google APIs
+        run: |
+          gcloud services enable \
+            firebaseextensions.googleapis.com \
+            cloudfunctions.googleapis.com \
+            cloudbuild.googleapis.com \
+            artifactregistry.googleapis.com \
+            --project climbfinder-scraper
+        continue-on-error: true
+
       - name: Install function dependencies
         run: npm ci
         working-directory: functions
