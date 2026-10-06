@@ -487,6 +487,57 @@
           ? `Kaart: ${n} klimmen (alle regio’s). Lijst: ${reg ? regionTitleFromIndexEntry(reg) : "regio"} (${regN}). Klik klim (ook grijs) = regio wisselt mee.`
           : "Leeg = alle klimmen op kaart. Typ om te filteren.";
     }
+    updateMobileFiltersSummary();
+  }
+
+  function setMobileFiltersOpen(open) {
+    const wrap = document.querySelector(".app-header-filters");
+    const btn = $("mobileFiltersToggle");
+    if (!wrap || !btn) return;
+    if (!isMobileLayout()) {
+      wrap.classList.add("is-filters-open");
+      btn.setAttribute("aria-expanded", "true");
+      return;
+    }
+    wrap.classList.toggle("is-filters-open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  function updateMobileFiltersSummary() {
+    const el = $("mobileFiltersSummary");
+    if (!el) return;
+    const parts = [];
+    const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
+    if (reg) parts.push(regionTitleFromIndexEntry(reg));
+    if (state.doneFilter === "todo") parts.push("open");
+    if (state.doneFilter === "done") parts.push("gedaan");
+    const q = state.searchQuery.trim();
+    if (q) parts.push(q.length > 20 ? `${q.slice(0, 18)}…` : q);
+    el.textContent = parts.join(" · ") || "tik om te filteren";
+  }
+
+  function initMobileFiltersCollapse() {
+    const wrap = document.querySelector(".app-header-filters");
+    const btn = $("mobileFiltersToggle");
+    if (!wrap || !btn) return;
+
+    btn.addEventListener("click", () => {
+      wrap.dataset.userToggled = "1";
+      setMobileFiltersOpen(!wrap.classList.contains("is-filters-open"));
+    });
+
+    const applyLayout = () => {
+      if (isMobileLayout()) {
+        if (!wrap.dataset.userToggled) setMobileFiltersOpen(false);
+      } else {
+        delete wrap.dataset.userToggled;
+        setMobileFiltersOpen(true);
+      }
+      updateMobileFiltersSummary();
+    };
+
+    MOBILE_LAYOUT_MQ.addEventListener("change", applyLayout);
+    applyLayout();
   }
 
   function renderGradientStrip(buckets, stripId = "profileGradientStripMini") {
@@ -791,6 +842,7 @@
     listBtn?.setAttribute("aria-pressed", String(!showMap));
     mapBtn?.setAttribute("aria-pressed", String(showMap));
     if (showMap) {
+      setMobileFiltersOpen(false);
       hideMapTouchSheet();
       requestAnimationFrame(() => {
         refreshMapSize();
@@ -1560,6 +1612,7 @@
 
     renderList(state.searchQuery);
     updateClimbLogSummary();
+    updateMobileFiltersSummary();
 
     const pick =
       selectId ||
@@ -1658,11 +1711,16 @@
       }, 180);
     });
 
+    searchInput.addEventListener("focus", () => {
+      if (isMobileLayout()) setMobileFiltersOpen(true);
+    });
+
     searchInput.addEventListener("search", () => {
       if (!searchInput.value.trim()) resetSearchToOverview();
     });
 
     initMobileViewSwitch();
+    initMobileFiltersCollapse();
     $("mapBackOverview")?.addEventListener("click", () => {
       if (state.mapMode === "detail") returnToLocalView();
       else returnToOverview();
