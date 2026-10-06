@@ -149,11 +149,12 @@
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="assets/region-picker.js?v=20261005"></script>
+  <script src="assets/region-picker.js?v=20261006"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
     let regionsCatalog = null;
+    let regionPopularCounts = null;
     let selectedRegion = null;
     let regionsBooted = false;
     let regionPicker = null;
@@ -207,6 +208,17 @@
       }
     }
 
+    function cfPopularCount(localityId) {
+      if (typeof ClimbfinderBrowser === "undefined") return null;
+      return ClimbfinderBrowser.popularCountForLocality(regionPopularCounts, localityId);
+    }
+
+    function regionSelectLabel(r) {
+      const total = cfPopularCount(r.id);
+      const suffix = total != null ? ` · ~${total}` : "";
+      return `${r.name} (l=${r.id}${suffix})`;
+    }
+
     function countryCode(region) {
       if (region.country_iso) return region.country_iso;
       const map = {
@@ -247,11 +259,15 @@
       const limit = readImportLimit();
       const { pages, limit: limStr } = pagesAndLimitForImport(limit, selectedRegion);
       const slugCap = pages === "all" ? limStr : String(Number(pages) * SLUGS_PER_RANKING_PAGE);
+      const cfTotal = selectedRegion ? cfPopularCount(selectedRegion.id) : null;
+      const cfNote =
+        cfTotal != null ? ` · Climbfinder Popular in regio: <strong>${cfTotal}</strong>` : "";
       hint.innerHTML =
         `Import max. <strong>${limStr}</strong> klimmen · workflow: <code>pages=${pages}</code>, <code>limit=${limStr}</code>` +
         (pages !== "all"
           ? ` (tot ${slugCap} slugs ophalen uit ranking)`
-          : " (alle rankingpagina’s tot limit)");
+          : " (alle rankingpagina’s tot limit)") +
+        cfNote;
     }
 
     /** GitHub Actions: pages × 25 = max slugs (limit kan niet meer importeren dan dat). */
@@ -360,6 +376,12 @@
           throw new Error("climbfinder-browser.js niet geladen");
         }
         regionsCatalog = await ClimbfinderBrowser.loadRegionsCatalog();
+        try {
+          regionPopularCounts = await ClimbfinderBrowser.loadRegionPopularCounts();
+        } catch (e) {
+          regionPopularCounts = null;
+          log("Popular-tellingen niet geladen: " + e.message);
+        }
       } catch (e) {
         regionsBooted = false;
         countrySel.innerHTML = "";
@@ -422,7 +444,7 @@
       for (const r of block.regions) {
         const opt = document.createElement("option");
         opt.value = String(r.id);
-        opt.textContent = `${r.name} (l=${r.id})`;
+        opt.textContent = regionSelectLabel(r);
         opt._region = { ...r, country, country_iso: r.country_iso || null };
         regionSel.appendChild(opt);
       }
@@ -446,16 +468,19 @@
         } else if (ranking.country_iso) {
           warn = ` · climbs: ${ranking.country_iso}`;
         }
+        const cfTotal = cfPopularCount(selectedRegion.id);
         let pagesHint = "";
-        if (selectedRegion.id === 27) {
-          pagesHint =
-            ' · <strong>Climbfinder toont ~688 klimmen</strong> (l=27). Import: <code>pages=all</code>, <code>limit=700</code> — niet l=280. Zes pagina’s = max 150.';
-        } else if (selectedRegion.id === 280) {
-          pagesHint =
-            ' · <strong>l=280</strong> = provincie Limburg (ander dan Zuid-Limburg l=27 met ~688).';
+        if (cfTotal != null) {
+          pagesHint = ` · <strong>Climbfinder Popular: ${cfTotal} klimmen</strong> (max downloadbaar met hoge limit)`;
+        }
+        if (selectedRegion.id === 280) {
+          pagesHint +=
+            ' · <strong>l=280</strong> = provincie Limburg (niet hetzelfde als Zuid-Limburg l=27).';
+        } else if (cfTotal == null) {
+          pagesHint +=
+            " · Pas <strong>aantal klimmen</strong> hierboven aan. Lokale cache toont alleen p.1–2.";
         } else {
-          pagesHint =
-            " · Pas <strong>aantal klimmen</strong> hierboven aan (bijv. 200 → 8 pag.). Lokale cache toont alleen p.1–2.";
+          pagesHint += " · Zet <strong>aantal klimmen</strong> tot max. Popular-telling hierboven.";
         }
         meta.innerHTML =
           `${ranking.count} slugs in lokale cache (Popular p.1–2) · bijgewerkt ${ranking.updated_at || "?"}${warn}${pagesHint} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
