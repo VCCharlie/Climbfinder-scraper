@@ -264,7 +264,7 @@
             map.fitBounds(cb, { padding: [36, 36], maxZoom: 8 });
           }
         } else if (g) {
-          map.setView([g.lat, g.lon], Math.max(map.getZoom(), 9));
+          map.setView([g.lat, g.lon], Math.max(map.getZoom(), 10));
         }
         if (openPopup && mk) mk.openPopup();
       };
@@ -375,9 +375,13 @@
       }
 
       if (regionSel?.value) {
-        applySelectionFromDropdown({ preferCountryView: true });
+        applySelectionFromDropdown({ preferCountryView: false });
       } else if (selectedLocalityId != null) {
         highlightMarker(selectedLocalityId);
+        applySelectionFromDropdown({ preferCountryView: false });
+      } else if (countrySel?.value) {
+        const cb = boundsForCountry(countrySel.value);
+        if (cb) map.fitBounds(cb, { padding: [36, 36], maxZoom: 8 });
       }
 
       requestAnimationFrame(() => map.invalidateSize());
@@ -432,12 +436,10 @@
 
     async function applySearchPick(block, r) {
       if (!block || !r) return;
-      await drawAllRegions();
       selectInDropdowns(r.id, false);
-      highlightMarker(r.id);
-      const g = geo.regions[String(r.id)];
-      if (g) map.setView([g.lat, g.lon], 11);
-      markersById[r.id]?.openPopup();
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      await drawAllRegions();
+      applySelectionFromDropdown({ preferCountryView: false, openPopup: true });
       if (searchResultsEl) {
         searchResultsEl.innerHTML = "";
         searchResultsEl.hidden = true;
@@ -485,15 +487,26 @@
         .join("");
     }
 
+    async function pickLocality(localityId, { preferCountryView = false, openPopup = false } = {}) {
+      const region = findRegionInCatalog(localityId);
+      if (!region) return false;
+      await drawAllRegions();
+      selectInDropdowns(localityId, false);
+      highlightMarker(localityId);
+      applySelectionFromDropdown({ preferCountryView, openPopup });
+      return true;
+    }
+
     return {
       setCatalog(catalog) {
         bootCatalog = catalog;
         bindSearch();
       },
+      pickLocality,
       async onMapTabShown() {
         await drawAllRegions();
         if (regionSel?.value) {
-          applySelectionFromDropdown({ preferCountryView: true, openPopup: false });
+          applySelectionFromDropdown({ preferCountryView: false, openPopup: false });
         }
       },
       refreshCountry() {
@@ -507,7 +520,7 @@
           clearSelection();
           return;
         }
-        applySelectionFromDropdown({ preferCountryView: true, openPopup: false });
+        applySelectionFromDropdown({ preferCountryView: false, openPopup: false });
       },
       clearSelection,
       invalidateSize() {

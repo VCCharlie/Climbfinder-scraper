@@ -68,8 +68,9 @@
     .cf-region-marker-wrap { background: transparent; border: none; }
     .cf-region-marker { display: block; width: 12px; height: 12px; border-radius: 50%; }
     .region-toolbar { margin-bottom: 0.75rem; }
-    #mapSearchResults { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.35rem; max-height: 160px; overflow: auto; }
-    #mapSearchResults[hidden] { display: none !important; }
+    .climb-search-block { grid-column: 1 / -1; }
+    #climbSearchResults, #mapSearchResults { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.35rem; max-height: 180px; overflow: auto; }
+    #climbSearchResults[hidden], #mapSearchResults[hidden] { display: none !important; }
     .cf-search-hit { text-align: left; background: #f1f5f9; color: #0f172a; border: 1px solid #e2e8f0; padding: 0.45rem 0.55rem; border-radius: 6px; margin: 0; font: inherit; cursor: pointer; width: 100%; }
     .cf-search-hit:hover { background: #e2e8f0; }
     .cf-search-hit .muted { color: #64748b; font-weight: 400; font-size: 0.85em; }
@@ -95,6 +96,12 @@
 
     <div class="card">
       <div class="grid2 region-toolbar">
+        <div class="climb-search-block">
+          <label for="climbNameSearch">Zoek klim op naam</label>
+          <input type="search" id="climbNameSearch" autocomplete="off" enterkeyhint="search" placeholder="bv. Ventoux, Galibier, Madeleine — kies uit lijst bij meerdere treffers" />
+          <div id="climbSearchResults" hidden></div>
+          <p class="hint" id="climbSearchHint">Koppelt land + regio en zoomt de kaart. Index = Popular-ranking cache (~50 klimmen/regio), niet de volledige Climbfinder-catalogus.</p>
+        </div>
         <div>
           <label for="countrySelect">Land</label>
           <select id="countrySelect"><option value="">Laden…</option></select>
@@ -170,7 +177,7 @@
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
-  <script src="assets/region-picker.js?v=20261006c"></script>
+  <script src="assets/region-picker.js?v=20261006e"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
@@ -180,6 +187,8 @@
     let regionsBooted = false;
     let regionPicker = null;
     let activeImportTab = "region";
+    let climbSlugSearchIndex = null;
+    let climbSearchIndexLoading = null;
 
     function log(msg) {
       const el = document.getElementById("log");
@@ -380,6 +389,119 @@
     document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
     document.getElementById("tabMap").addEventListener("click", () => setTab("map"));
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
+
+    function hideClimbSearchResults() {
+      const el = document.getElementById("climbSearchResults");
+      if (el) {
+        el.innerHTML = "";
+        el.hidden = true;
+      }
+    }
+
+    async function ensureClimbSearchIndex() {
+      if (climbSlugSearchIndex) return climbSlugSearchIndex;
+      if (!climbSearchIndexLoading) {
+        climbSearchIndexLoading = ClimbfinderBrowser.loadClimbSlugSearchIndex()
+          .then((idx) => {
+            climbSlugSearchIndex = idx;
+            return idx;
+          })
+          .catch((e) => {
+            climbSearchIndexLoading = null;
+            throw e;
+          });
+      }
+      return climbSearchIndexLoading;
+    }
+
+    function renderClimbSearchResults(matches) {
+      const box = document.getElementById("climbSearchResults");
+      if (!box) return;
+      if (!matches.length) {
+        hideClimbSearchResults();
+        return;
+      }
+      box.hidden = false;
+      box.innerHTML = matches
+        .map((m) => {
+          const region = m.region_name || `l=${m.locality_id}`;
+          const country = m.country || "?";
+          return `<button type="button" class="cf-search-hit" data-l="${m.locality_id}" data-slug="${String(m.slug).replace(/"/g, "&quot;")}">${m.label} <span class="muted">(${country} · ${region}, l=${m.locality_id})</span></button>`;
+        })
+        .join("");
+      box.querySelectorAll(".cf-search-hit").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const localityId = Number(btn.getAttribute("data-l"));
+          const slug = btn.getAttribute("data-slug");
+          const match = matches.find((x) => x.locality_id === localityId && x.slug === slug);
+          if (match) applyClimbSearchPick(match);
+        });
+      });
+    }
+
+    async function applyClimbSearchPick(entry) {
+      hideClimbSearchResults();
+      const input = document.getElementById("climbNameSearch");
+      if (input) input.value = entry.label;
+      if (!regionsCatalog) {
+        log("Wacht op regio-catalogus…");
+        await initRegions();
+      }
+      if (activeImportTab !== "map") setTab("map");
+      if (!regionPicker) await initRegionPicker();
+      const ok = await regionPicker?.pickLocality(entry.locality_id);
+      if (!ok) {
+        log(`FOUT: regio l=${entry.locality_id} niet in catalogus voor «${entry.label}».`);
+        return;
+      }
+      log(`Klim «${entry.label}» → ${entry.country}, ${entry.region_name} (l=${entry.locality_id}, slug ${entry.slug}).`);
+    }
+
+    function bindClimbNameSearch() {
+      const input = document.getElementById("climbNameSearch");
+      if (!input || input.dataset.bound) return;
+      input.dataset.bound = "1";
+
+      input.addEventListener("keydown", async (ev) => {
+        if (ev.key !== "Enter") return;
+        ev.preventDefault();
+        const q = input.value.trim();
+        if (q.length < 2) return;
+        try {
+          const idx = await ensureClimbSearchIndex();
+          const matches = ClimbfinderBrowser.searchClimbsByName(q, { index: idx, limit: 18 });
+          if (matches.length === 1) await applyClimbSearchPick(matches[0]);
+          else renderClimbSearchResults(matches);
+        } catch (e) {
+          log("Klim-zoeken: " + e.message);
+        }
+      });
+
+      let debounce = null;
+      input.addEventListener("input", () => {
+        clearTimeout(debounce);
+        const q = input.value.trim();
+        if (q.length < 2) {
+          hideClimbSearchResults();
+          return;
+        }
+        debounce = setTimeout(async () => {
+          try {
+            const idx = await ensureClimbSearchIndex();
+            renderClimbSearchResults(
+              ClimbfinderBrowser.searchClimbsByName(q, { index: idx, limit: 18 })
+            );
+          } catch (e) {
+            log("Klim-zoeken: " + e.message);
+            hideClimbSearchResults();
+          }
+        }, 180);
+      });
+
+      document.addEventListener("click", (ev) => {
+        if (!ev.target.closest(".climb-search-block")) hideClimbSearchResults();
+      });
+    }
 
     function isUnlocked() {
       return (
@@ -689,6 +811,7 @@
     function bootImportPage() {
       refreshOneClickUi();
       refreshImportLimitHint();
+      bindClimbNameSearch();
       initRegions().catch(() => {});
     }
 
