@@ -104,14 +104,18 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
    | **Firebase Admin** | `functions:config:set` + deploy (eenvoudig; persoonlijk project) |
    | *of* **Cloud Functions Admin** + **Cloud Build Editor** | Strakkere variant |
 
-3. **Belangrijk (veel deploy-fouten):** Firebase Functions draait als **`climbfinder-scraper@appspot.gserviceaccount.com`**. Je deploy-SA moet daar **Service Account User** op hebben (`iam.serviceAccounts.actAs`):
+3. **Belangrijk (veel deploy-fouten):** je **deploy-SA** moet **Service Account User** (`iam.serviceAccounts.actAs`) op **twee** runtime-accounts hebben — herhaal per account: tab **Principals with access** → **Grant access** → principal = deploy-SA (`client_email` uit JSON) → rol **Service Account User**:
 
-   1. [Service accounts](https://console.cloud.google.com/iam-admin/serviceaccounts?project=climbfinder-scraper) → klik **`climbfinder-scraper@appspot.gserviceaccount.com`** (App Engine default).
-   2. Tab **Principals with access** (niet “Manage access” op Permissions — dat is project-IAM voor de appspot-SA zelf).
-   3. **Grant access** → **New principals:** e-mail van **jouw GitHub-deploy service account** (`client_email` uit de JSON, niet je Gmail).
-   4. **Role:** **Service Account User** → Save.
+   | Service account | Wanneer nodig |
+   |-----------------|---------------|
+   | **`climbfinder-scraper@appspot.gserviceaccount.com`** | App Engine default |
+   | **`267954743255-compute@developer.gserviceaccount.com`** | Default Compute (1st Gen Functions gebruikt deze vaak bij *create*) |
 
-   Zonder deze stap faalt deploy vaak met: *Missing permissions … ActAs on service account climbfinder-scraper@appspot.gserviceaccount.com*.
+   [Alle service accounts](https://console.cloud.google.com/iam-admin/serviceaccounts?project=climbfinder-scraper) → klik het account → **Principals with access** (niet “Manage access” op Permissions — dat wijzigt projectrollen *van* die SA, niet wie hem mag impersonaten).
+
+   Typische fout na `@appspot` fix: *ActAs on **267954743255-compute@developer.gserviceaccount.com***.
+
+   **PAT:** deel deploy-logs (`--debug`) niet publiek — daarin kunnen `runtimeconfig`-waarden (GitHub PAT) staan. Log gelekt? PAT intrekken op GitHub en opnieuw zetten via workflow/`functions:config:set`.
 
 4. **API’s eenmalig inschakelen** (als project owner, in browser — deploy-SA mag dit vaak niet zelf):
 
