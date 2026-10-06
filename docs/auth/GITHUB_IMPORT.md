@@ -118,6 +118,18 @@ Voeg in `import.html` al geladen Firebase scripts toe (alleen als je Optie B geb
 
 Na login: **Start serverimport (GitHub Actions)** op de importpagina.
 
+### Wat je ziet (werkt het?)
+
+| Situatie | Gedrag knop **Start serverimport** |
+|----------|-------------------------------------|
+| `githubImport.enabled` **false** of ontbreekt (standaard in repo) | Log: *Firebase Function niet actief* → opent GitHub Actions; jij vult **Run workflow** handmatig in (geen `gh` nodig). |
+| `enabled: true`, Function + PAT OK | Log: *Import gestart op GitHub Actions* + link naar Actions. Run draait op GitHub; bij `publish_to_site=true` komt JSON automatisch op de kaart. |
+| `enabled: true`, PAT ontbreekt | Foutmelding over PAT / failed-precondition. |
+
+**Verwachting:** één klik na regio-keuze = zelfde als **Run workflow** met de velden uit het workflow-veld op de importpagina. Geen terminal, geen `gh`, wel **Blaze + eenmalige** Function-deploy.
+
+**Alleen Cursor + GitHub (browser):** zet `githubImport.enabled: true` in je **lokale** `firebase-config.js` (niet committen met secrets), deploy Function eenmalig vanaf pc, daarna op telefoon/pc alleen de knop gebruiken.
+
 ### PAT beveiliging
 
 - PAT **alleen** in Firebase Functions config, nooit in `firebase-config.js` of GitHub Pages.

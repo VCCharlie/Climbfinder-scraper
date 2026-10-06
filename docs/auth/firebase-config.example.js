@@ -31,6 +31,7 @@ window.FIETSKLIM_AUTH_CONFIG = {
    * Requires deployed Firebase Function requestClimbfinderImport — see docs/auth/GITHUB_IMPORT.md
    */
   githubImport: {
+    /** Zet true na deploy van requestClimbfinderImport + github.pat in Functions config. */
     enabled: false,
     repo: "VCCharlie/Climbfinder-scraper",
     region: "europe-west1",
