@@ -1,4 +1,7 @@
-# Regenerate data/index.json when climb datasets change (upload JSON only — no hand-edited index).
+# Regenerate docs/climbs/data/index.json when climb bundles change.
+# - push main: after import/manual JSON on main
+# - pull_request: auto-commit index on same-repo PRs (fixes validate dry-check)
+# Import workflow also runs rebuild_climb_index.py before its commit.
 
 name: Rebuild climb index
 
@@ -6,31 +9,64 @@ on:
   push:
     branches: [main]
     paths:
-      - "docs/climbs/data/*.json"
+      - "docs/climbs/data/**"
+      - "scripts/rebuild_climb_index.py"
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "docs/climbs/data/**"
+      - "scripts/rebuild_climb_index.py"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: rebuild-climb-index-${{ github.repository }}
-  cancel-in-progress: false
+  group: rebuild-climb-index-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   index:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && format('refs/heads/{0}', github.head_ref) || github.ref }}
+          fetch-depth: 0
+
+      - name: Skip when push only touched index.json
+        if: github.event_name == 'push'
+        id: bundle_change
+        run: |
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only "$BEFORE" "$AFTER" | grep '^docs/climbs/data/.*\.json$' | grep -v '/index\.json$' || true)
+          if [ -n "$CHANGED" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Bundle files changed:"
+            echo "$CHANGED"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No bundle JSON changes (only index or unrelated)."
+          fi
 
       - uses: actions/setup-python@v5
+        if: github.event_name != 'push' || steps.bundle_change.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
         with:
           python-version: "3.12"
 
       - name: Rebuild index.json from datasets
+        if: github.event_name != 'push' || steps.bundle_change.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
         run: python scripts/rebuild_climb_index.py
 
       - name: Commit index if changed
+        if: github.event_name != 'push' || steps.bundle_change.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -40,4 +76,8 @@ jobs:
             exit 0
           fi
           git commit -m "chore(climbs): rebuild data/index.json from datasets [skip ci]"
-          git push
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git push origin "HEAD:${{ github.head_ref }}"
+          else
+            git push
+          fi

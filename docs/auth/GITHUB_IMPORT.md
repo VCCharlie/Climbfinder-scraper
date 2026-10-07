@@ -29,10 +29,13 @@ git add docs/climbs/data/climb-slug-search-index.json && git commit -m "Refresh 
 
 ### Alleen JSON uploaden (zonder index handmatig te editen)
 
-1. Zet je `.json` in **`docs/climbs/data/`** op `main` (bestandsnaam = `meta.id` + `.json` is het handigst).
-2. Workflow **Rebuild climb index** maakt **`index.json`** bij en pusht die (of lokaal: `python scripts/rebuild_climb_index.py` + commit).
-3. Hard refresh op de kaart.
-4. Artifact blijft beschikbaar als backup download.
+1. Zet je `.json` in **`docs/climbs/data/`** (bestandsnaam = `meta.id` + `.json` is het handigst).
+2. **`index.json` hoef je niet zelf te editen:**
+   - **GitHub Actions import** (`publish_to_site: true`): `rebuild_climb_index.py` draait vóór de commit.
+   - **Push naar `main`** met nieuwe/gewijzigde bundle-JSON: workflow **Rebuild climb index** genereert en pusht `index.json`.
+   - **Pull request** met bundle-wijzigingen: dezelfde workflow commit **`index.json` automatisch op je PR-branch** (zelfde repo). Daarna eventueel **Validate docs site** opnieuw laten lopen.
+3. Lokaal altijd mogelijk: `python scripts/rebuild_climb_index.py` + commit.
+4. Hard refresh op de kaart na deploy.
 
 ## Optie A — GitHub (aanbevolen)
 
