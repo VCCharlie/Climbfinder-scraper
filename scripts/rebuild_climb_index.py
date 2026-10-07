@@ -29,6 +29,7 @@ SKIP_NAMES = {
     "published-duplicate-climbs.json",
     "region-hierarchy.json",
     "slug-smallest-locality.json",
+    "published-climbs-by-slug.json",
 }
 
 
@@ -85,6 +86,57 @@ def climb_slug(climb: dict) -> str | None:
         return str(slug)
     cid = climb.get("id")
     return str(cid) if cid else None
+
+
+def climb_start_latlng(climb: dict) -> tuple[float | None, float | None]:
+    geom = climb.get("geometry") if isinstance(climb.get("geometry"), dict) else {}
+    coords = geom.get("coordinates") if isinstance(geom, dict) else None
+    if not coords or not isinstance(coords, list):
+        return None, None
+    first = coords[0]
+    if not isinstance(first, (list, tuple)) or len(first) < 2:
+        return None, None
+    lng, lat = float(first[0]), float(first[1])
+    return lat, lng
+
+
+def write_published_climbs_by_slug(slug_copies: dict[str, list[dict]], slug_coords: dict[str, tuple]) -> None:
+    out_path = DATA / "published-climbs-by-slug.json"
+    by_slug: dict[str, dict] = {}
+    for slug, copies in slug_copies.items():
+        lat, lng = slug_coords.get(slug, (None, None))
+        name = copies[0].get("name") or slug if copies else slug
+        site_copies = []
+        for c in copies:
+            site_copies.append(
+                {
+                    "dataset_id": c.get("dataset_id"),
+                    "title": c.get("title"),
+                    "locality_id": c.get("locality_id"),
+                    "climb_region": c.get("climb_region"),
+                }
+            )
+        by_slug[slug] = {
+            "name": name,
+            "lat": lat,
+            "lng": lng,
+            "on_site": True,
+            "site_copies": site_copies,
+        }
+    payload = {
+        "schema_version": "1.0",
+        "updated_at": __import__("datetime")
+        .datetime.now(__import__("datetime").timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "count": len(by_slug),
+        "by_slug": by_slug,
+    }
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"Wrote published climb lookup ({len(by_slug)} slugs) → {out_path.relative_to(ROOT)}")
 
 
 def load_region_name_index() -> dict[int, str]:
@@ -194,6 +246,7 @@ def main() -> None:
     loc_slugs: dict[int, set[str]] = {}
     global_slugs: set[str] = set()
     slug_copies: dict[str, list[dict]] = defaultdict(list)
+    slug_coords: dict[str, tuple[float | None, float | None]] = {}
     for path in sorted(DATA.glob("*.json")):
         if not is_climb_bundle(path):
             continue
@@ -227,6 +280,9 @@ def main() -> None:
             global_slugs.add(s)
             if loc is not None:
                 bucket.add(s)
+            lat, lng = climb_start_latlng(c)
+            if s not in slug_coords and lat is not None and lng is not None:
+                slug_coords[s] = (lat, lng)
             slug_copies[s].append(
                 {
                     "dataset_id": meta_id,
@@ -235,6 +291,7 @@ def main() -> None:
                     "climb_id": c.get("id"),
                     "name": c.get("name") or s,
                     "region_count": region_count,
+                    "climb_region": c.get("region"),
                 }
             )
 
@@ -244,6 +301,7 @@ def main() -> None:
     duplicate_rows = total_climbs - unique_climbs
     write_locality_overlaps(loc_slugs, load_region_name_index())
     write_duplicate_climbs_report(slug_copies)
+    write_published_climbs_by_slug(slug_copies, slug_coords)
     payload = {
         "schema_version": "1.0",
         "total_climbs": total_climbs,
