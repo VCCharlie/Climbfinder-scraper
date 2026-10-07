@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "total_climbs": 14736,
+  "total_climbs": 14786,
   "unique_climbs": 14686,
-  "duplicate_rows_across_regions": 50,
-  "region_count": 34,
+  "duplicate_rows_across_regions": 100,
+  "region_count": 35,
   "regions": [
     {
       "id": "cf-l315-belgian-luxembourg",
@@ -192,6 +192,15 @@
       "url": "data/cf-l63-la-maurienne.json",
       "count": 84,
       "locality_id": 63
+    },
+    {
+      "id": "cf-l945-morbihan",
+      "title": "Morbihan",
+      "displayTitle": "Morbihan",
+      "country": "FR",
+      "url": "data/cf-l945-morbihan.json",
+      "count": 50,
+      "locality_id": 945
     },
     {
       "id": "cf-l959-paris",
