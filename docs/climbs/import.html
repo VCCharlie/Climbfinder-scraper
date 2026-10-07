@@ -105,6 +105,14 @@
     .dup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; align-items: center; }
     button.dup-danger { background: #9a3412; }
     button.dup-danger:hover { background: #7c2d12; }
+    #climbLookupPanel { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e2e8f0; }
+    #climbLookupPanel[hidden] { display: none !important; }
+    #climbLookupMap { height: 300px; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 0.65rem; }
+    #climbLookupRegionList { margin: 0.5rem 0 0; padding-left: 1.15rem; font-size: 0.85rem; color: #334155; max-height: 200px; overflow: auto; }
+    #climbLookupRegionList li { margin: 0.35rem 0; }
+    .climb-lookup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: flex-end; margin-top: 0.5rem; }
+    .climb-lookup-actions .grow { flex: 1 1 14rem; min-width: 0; }
+    .climb-lookup-actions button { margin-top: 0; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
@@ -129,10 +137,26 @@
     <div class="card">
       <div class="grid2 region-toolbar">
         <div class="climb-search-block">
-          <label for="climbNameSearch">Zoek klim op naam</label>
-          <input type="search" id="climbNameSearch" autocomplete="off" enterkeyhint="search" placeholder="bv. Ventoux, Galibier, Madeleine — kies uit lijst bij meerdere treffers" />
+          <label for="climbNameSearch">Zoek klim (naam, slug of Climbfinder-URL)</label>
+          <input type="search" id="climbNameSearch" autocomplete="off" enterkeyhint="search" placeholder="bv. Ventoux, mont-ventoux, of https://climbfinder.com/en/climbs/…" />
           <div id="climbSearchResults" hidden></div>
-          <p class="hint" id="climbSearchHint">Koppelt land + regio en zoomt de kaart. Index = Popular-ranking cache (~50 klimmen/regio), niet de volledige Climbfinder-catalogus.</p>
+          <div id="climbLookupPanel" hidden>
+            <div id="climbLookupSummary"></div>
+            <div class="climb-lookup-actions">
+              <div class="grow">
+                <label for="climbLookupRegionPick">Regio voor download (Climbfinder l=)</label>
+                <select id="climbLookupRegionPick"></select>
+              </div>
+              <button type="button" id="climbLookupSortBtn" class="secondary">Sorteer: klein → groot (Popular)</button>
+              <button type="button" id="climbLookupOpenMapTabBtn" class="secondary">Grote regiokaart</button>
+              <button type="button" id="climbLookupImportBtn">Download regio (GitHub)</button>
+              <button type="button" id="climbLookupManualBtn" class="secondary">Alleen deze klim (browser)</button>
+            </div>
+            <p class="hint">Regio’s: Popular-telling (klein = specifieker gebied). Groen op kaart = klim al in dataset; ring = Climbfinder-regio’s waar de slug in ranking-cache staat.</p>
+            <ol id="climbLookupRegionList"></ol>
+            <div id="climbLookupMap" role="application" aria-label="Klim en regio’s op kaart"></div>
+          </div>
+          <p class="hint" id="climbSearchHint">Toont importstatus op de site, regio’s (klein↔groot) en locatie op de kaart. Zoekindex = Popular-cache + geïmporteerde klimmen; geen volledige Climbfinder-catalogus.</p>
         </div>
         <div>
           <label for="countrySelect">Land</label>
@@ -270,6 +294,7 @@
   <script src="assets/duplicate-admin.js?v=20261007g"></script>
   <script src="assets/region-hierarchy-picker.js?v=20261007h"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
+  <script src="assets/climb-lookup.js?v=20261007i"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
@@ -486,17 +511,16 @@
     let duplicatesLoaded = false;
     let hierarchyInited = false;
 
-    function pickRegionForImport(localityId) {
-      if (!regionsCatalog) return false;
-      let found = null;
+    function findRegionInCatalog(localityId) {
+      if (!regionsCatalog) return null;
       for (const block of regionsCatalog.countries) {
         const r = block.regions.find((x) => x.id === localityId);
-        if (r) {
-          found = { ...r, country: block.country, country_iso: r.country_iso || null };
-          break;
-        }
+        if (r) return { ...r, country: block.country, country_iso: r.country_iso || null };
       }
-      if (!found) return false;
+      return null;
+    }
+
+    function applyRegionSelection(found, localityId) {
       const countrySel = document.getElementById("countrySelect");
       countrySel.value = found.country;
       fillRegionSelect();
@@ -504,10 +528,31 @@
       regionSel.value = String(localityId);
       selectedRegion = found;
       updateRankingMeta();
+      refreshGhCommand();
+    }
+
+    function pickRegionForImport(localityId) {
+      const found = findRegionInCatalog(localityId);
+      if (!found) return false;
+      applyRegionSelection(found, localityId);
       regionPicker?.syncFromDropdown?.();
       setTab("region");
-      refreshGhCommand();
       log(`Regio gekozen: ${found.name} (l=${localityId}) — start import op tab Regio.`);
+      return true;
+    }
+
+    async function pickLocalityOnMainMap(localityId, { quiet = false } = {}) {
+      const found = findRegionInCatalog(localityId);
+      if (!found) return false;
+      applyRegionSelection(found, localityId);
+      if (quiet) {
+        setTab("map");
+        if (!regionPicker) await initRegionPicker();
+        await regionPicker?.pickLocality(localityId);
+      } else {
+        regionPicker?.syncFromDropdown?.();
+        setTab("region");
+      }
       return true;
     }
 
@@ -626,26 +671,39 @@
       return climbSearchIndexLoading;
     }
 
+    function dedupeClimbMatchesBySlug(matches) {
+      const bySlug = new Map();
+      for (const m of matches) {
+        const prev = bySlug.get(m.slug);
+        if (!prev || (m.score ?? 0) > (prev.score ?? 0)) bySlug.set(m.slug, m);
+      }
+      return [...bySlug.values()].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+    }
+
     function renderClimbSearchResults(matches) {
       const box = document.getElementById("climbSearchResults");
       if (!box) return;
-      if (!matches.length) {
+      const list = dedupeClimbMatchesBySlug(matches);
+      if (!list.length) {
         hideClimbSearchResults();
         return;
       }
       box.hidden = false;
-      box.innerHTML = matches
+      box.innerHTML = list
         .map((m) => {
           const region = m.region_name || `l=${m.locality_id}`;
           const country = m.country || "?";
-          return `<button type="button" class="cf-search-hit" data-l="${m.locality_id}" data-slug="${String(m.slug).replace(/"/g, "&quot;")}">${m.label} <span class="muted">(${country} · ${region}, l=${m.locality_id})</span></button>`;
+          const multi =
+            matches.filter((x) => x.slug === m.slug).length > 1
+              ? ' <span class="muted">· meerdere regio’s</span>'
+              : "";
+          return `<button type="button" class="cf-search-hit" data-l="${m.locality_id}" data-slug="${String(m.slug).replace(/"/g, "&quot;")}">${m.label} <span class="muted">(${country} · ${m.slug}, l=${m.locality_id})</span>${multi}</button>`;
         })
         .join("");
       box.querySelectorAll(".cf-search-hit").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const localityId = Number(btn.getAttribute("data-l"));
           const slug = btn.getAttribute("data-slug");
-          const match = matches.find((x) => x.locality_id === localityId && x.slug === slug);
+          const match = matches.find((x) => x.slug === slug) || list.find((x) => x.slug === slug);
           if (match) applyClimbSearchPick(match);
         });
       });
@@ -659,14 +717,16 @@
         log("Wacht op regio-catalogus…");
         await initRegions();
       }
+      if (typeof FietsKlimClimbLookup !== "undefined") {
+        const idx = await ensureClimbSearchIndex();
+        await FietsKlimClimbLookup.showFromSearchEntry(entry, idx);
+        log(`Klim «${entry.label}» (${entry.slug}) — status, regio’s en kaart hierboven.`);
+        return;
+      }
       if (activeImportTab !== "map") setTab("map");
       if (!regionPicker) await initRegionPicker();
       const ok = await regionPicker?.pickLocality(entry.locality_id);
-      if (!ok) {
-        log(`FOUT: regio l=${entry.locality_id} niet in catalogus voor «${entry.label}».`);
-        return;
-      }
-      log(`Klim «${entry.label}» → ${entry.country}, ${entry.region_name} (l=${entry.locality_id}, slug ${entry.slug}).`);
+      if (!ok) log(`FOUT: regio l=${entry.locality_id} niet in catalogus.`);
     }
 
     function bindClimbNameSearch() {
@@ -680,8 +740,26 @@
         const q = input.value.trim();
         if (q.length < 2) return;
         try {
-          const idx = await ensureClimbSearchIndex();
-          const matches = ClimbfinderBrowser.searchClimbsByName(q, { index: idx, limit: 18 });
+          let idx = await ensureClimbSearchIndex();
+          let matches = ClimbfinderBrowser.searchClimbsByName(q, { index: idx, limit: 18 });
+          if (!matches.length && /climbfinder\.com|^\w[\w-]+$/i.test(q)) {
+            const { slugs } = await ClimbfinderBrowser.resolveLinesToSlugs([q]);
+            if (slugs.length) {
+              const slug = slugs[0];
+              matches = idx.entries.filter((e) => e.slug === slug).slice(0, 18);
+              if (!matches.length) {
+                await applyClimbSearchPick({
+                  slug,
+                  label: slug.replace(/-/g, " "),
+                  locality_id: 0,
+                  region_name: "",
+                  country: "?",
+                  country_iso: null,
+                });
+                return;
+              }
+            }
+          }
           if (matches.length === 1) await applyClimbSearchPick(matches[0]);
           else renderClimbSearchResults(matches);
         } catch (e) {
@@ -1033,6 +1111,28 @@
       refreshOneClickUi();
       refreshImportLimitHint();
       bindClimbNameSearch();
+      if (typeof FietsKlimClimbLookup !== "undefined") {
+        FietsKlimClimbLookup.init({
+          ensureSearchIndex: ensureClimbSearchIndex,
+          loadPopularCounts: () => ClimbfinderBrowser.loadRegionPopularCounts(),
+          getPublishedByLocality: () => publishedByLocality || {},
+          log,
+          pickLocalityOnMainMap,
+          async startRegionImport(localityId) {
+            if (!pickRegionForImport(localityId)) {
+              log(`FOUT: regio l=${localityId} niet in catalogus.`);
+              return;
+            }
+            document.getElementById("startGithubBtn")?.click();
+          },
+          openManualImport(slug, label) {
+            setTab("manual");
+            const ta = document.getElementById("slugs");
+            if (ta) ta.value = slug;
+            log(`Handmatig: «${label}» (${slug}) — Start import (browser) of gebruik GitHub-regio-import.`);
+          },
+        });
+      }
       initRegions().catch(() => {});
       if (typeof FietsKlimDuplicateAdminInit === "function") {
         FietsKlimDuplicateAdminInit({
