@@ -162,6 +162,27 @@ header.app-header p#datasetMeta {
   background: linear-gradient(180deg, #f0fdfa 0%, #fff 48%);
 }
 
+.climb-detail-preview-hint {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6d28d9;
+  line-height: 1.3;
+}
+
+.climb-detail-panel--preview {
+  background: linear-gradient(180deg, #f5f3ff 0%, #fff 52%);
+  border-bottom-color: #ddd6fe;
+}
+
+.climb-detail-panel--preview .profile-chart-wrap--mini {
+  height: 108px;
+}
+
+.climb-detail-panel--selected {
+  background: linear-gradient(180deg, #f0fdfa 0%, #fff 48%);
+}
+
 .climb-detail-name {
   display: flex;
   align-items: center;
@@ -214,12 +235,8 @@ header.app-header p#datasetMeta {
 
 .climb-list {
   overflow: auto;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
-}
-
-.layout.layout-has-climb .climb-list {
-  max-height: 38vh;
 }
 
 .climb-item {

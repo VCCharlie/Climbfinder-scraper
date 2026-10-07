@@ -322,7 +322,7 @@
     const wrap = $("climbDetailDoneWrap");
     const box = $("climbDetailDone");
     if (!wrap || !box) return;
-    if (!state.activeClimb || !state.bundle?.meta?.id) {
+    if (!state.activeClimb || !state.bundle?.meta?.id || state.mapMode !== "detail") {
       wrap.hidden = true;
       return;
     }
@@ -647,6 +647,23 @@
     const root = document.querySelector(".layout");
     if (panel) panel.hidden = !visible;
     if (root) root.classList.toggle("layout-has-climb", visible);
+    syncClimbDetailPanelMode();
+  }
+
+  function syncClimbDetailPanelMode() {
+    const panel = $("climbDetailPanel");
+    if (!panel || panel.hidden) {
+      panel?.classList.remove("climb-detail-panel--preview", "climb-detail-panel--selected");
+      const hint = $("climbDetailPreviewHint");
+      if (hint) hint.hidden = true;
+      return;
+    }
+    const isSelected = state.mapMode === "detail" && Boolean(state.selectedId);
+    const isPreview = Boolean(state.activeClimb && !isSelected);
+    panel.classList.toggle("climb-detail-panel--preview", isPreview);
+    panel.classList.toggle("climb-detail-panel--selected", isSelected);
+    const hint = $("climbDetailPreviewHint");
+    if (hint) hint.hidden = !isPreview;
   }
 
   const PROFILE_HOVER_MARKER = {
@@ -827,8 +844,12 @@
   function showClimbPreview(climb) {
     if (!climb) return;
     if (state.mapMode === "detail" && state.selectedId === climb.id) return;
-    updateChart(climb);
     syncListHoverHighlight(climb.id);
+    if (state.activeClimb?.id === climb.id && state.mapMode !== "detail") {
+      syncClimbDetailPanelMode();
+      return;
+    }
+    updateChart(climb);
   }
 
   function clearClimbPreview() {
@@ -846,7 +867,7 @@
       if (state.hoveredEntryKey !== key) return;
       clearRouteHoverHighlight();
       if (state.selectedId !== entry.climb.id) clearClimbPreview();
-    }, 50);
+    }, 160);
   }
 
   function onMapRouteHover(entry) {
@@ -1638,6 +1659,10 @@
   }
 
   function updateChart(climb) {
+    const list = $("climbList");
+    const scrollTop = list?.scrollTop ?? 0;
+    const sameClimb = state.activeClimb?.id === climb.id;
+
     state.activeClimb = climb;
     setClimbDetailVisible(true);
     closeProfileExpand();
@@ -1650,7 +1675,16 @@
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(climb) : [];
     renderGradientStrip(buckets, "profileGradientStripMini");
-    mountProfileChart("profileChartMini", "chartMini", climb, true);
+    if (!sameClimb) {
+      mountProfileChart("profileChartMini", "chartMini", climb, true);
+    } else if (state.chartMini) {
+      state.chartMini.resize();
+    }
+    syncClimbDetailDoneToggle();
+
+    requestAnimationFrame(() => {
+      if (list) list.scrollTop = scrollTop;
+    });
   }
 
   function stopRouteClickToMap(e) {
@@ -2074,6 +2108,24 @@
       if (e.key !== "Escape") return;
       if (state.mapMode === "detail") returnToLocalView();
       else if (state.mapMode === "local") returnToOverview();
+    });
+
+    $("climbDetailPanel")?.addEventListener("mouseenter", () => {
+      if (state.hoverPreviewTimer) {
+        clearTimeout(state.hoverPreviewTimer);
+        state.hoverPreviewTimer = null;
+      }
+    });
+    document.querySelector(".sidebar")?.addEventListener("mouseleave", (e) => {
+      if (state.mapMode === "detail") return;
+      const next = e.relatedTarget;
+      if (next && e.currentTarget.contains(next)) return;
+      if (state.hoverPreviewTimer) {
+        clearTimeout(state.hoverPreviewTimer);
+        state.hoverPreviewTimer = null;
+      }
+      clearRouteHoverHighlight();
+      if (!state.selectedId) clearClimbPreview();
     });
 
     fillRegionSelect(countrySel?.value || "", "");
