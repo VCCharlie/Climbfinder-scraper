@@ -193,7 +193,7 @@
         <p class="hint">
           Overzicht van belangrijke klimgebieden (NL, BE, FR, DE, IT, ES, CH, AT).
           Onder elk macro-gebied staan Climbfinder-regio’s die daar (volgens ranking-slugs) onder vallen.
-          <strong>Import</strong> opent de GitHub-import voor die regio. Nieuwe imports zetten elke klim op de
+          <strong>Import</strong> kiest de regio en start (met Firebase één-klik) direct <strong>Climbfinder import</strong> op GitHub; anders tab Regio + handmatig Run workflow. Nieuwe imports zetten elke klim op de
           <strong>weergave-regio</strong> (veld <code>region</code>: sub-land / Climbfinder-naam / Overig), ook bij import van een heel land.
         </p>
         <label for="hierCountrySelect">Land</label>
@@ -531,13 +531,61 @@
       refreshGhCommand();
     }
 
-    function pickRegionForImport(localityId) {
+    async function triggerGithubRegionImport() {
+      const btn = document.getElementById("startGithubBtn");
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
+      if (!selectedRegion) {
+        log("FOUT: kies eerst een regio (dropdown, kaart of Klimgebieden).");
+        return;
+      }
+      btn.disabled = true;
+      document.getElementById("log").textContent = "";
+      const payload = workflowPayload(selectedRegion);
+      const cfg = githubImportConfig();
+      try {
+        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
+          log(`Start import: ${selectedRegion.name} (l=${payload.locality})…`);
+          const fn = firebase
+            .app()
+            .functions(cfg.region || "europe-west1")
+            .httpsCallable("requestClimbfinderImport");
+          const res = await fn(payload);
+          log(res.data.message || "Workflow gestart.");
+          log("Controle: Climbfinder import-run op GitHub Actions (In progress binnen ~30 sec).");
+          if (res.data.actionsUrl) {
+            log(res.data.actionsUrl);
+            window.open(res.data.actionsUrl, "_blank", "noopener");
+          }
+        } else {
+          log("Firebase één-klik niet actief — regio staat klaar op tab Regio:");
+          log("");
+          log(document.getElementById("ghCmd").value);
+          log("");
+          log("→ Actions → Climbfinder import → Run workflow");
+          window.open(document.getElementById("actionsLink").href, "_blank", "noopener");
+        }
+      } catch (e) {
+        log("FOUT: " + formatCallableError(e));
+        if (String(e?.code || "").includes("failed-precondition")) {
+          log("");
+          log("Tip: eenmalig PAT + deploy — zie docs/auth/GITHUB_IMPORT.md (Optie B).");
+        }
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function pickRegionForImport(localityId, { startGithub = false } = {}) {
       const found = findRegionInCatalog(localityId);
       if (!found) return false;
       applyRegionSelection(found, localityId);
       regionPicker?.syncFromDropdown?.();
       setTab("region");
-      log(`Regio gekozen: ${found.name} (l=${localityId}) — start import op tab Regio.`);
+      log(`Regio gekozen: ${found.name} (l=${localityId})${startGithub ? " — GitHub import starten…" : " — tab Regio."}`);
+      if (startGithub) void triggerGithubRegionImport();
       return true;
     }
 
@@ -592,7 +640,7 @@
       if (which === "hierarchy" && !hierarchyInited && window.FietsKlimRegionHierarchy) {
         hierarchyInited = true;
         void window.FietsKlimRegionHierarchy.init({
-          onPickImport: (id) => pickRegionForImport(id),
+          onPickImport: (id) => pickRegionForImport(id, { startGithub: true }),
           publishedByLocality: () => publishedByLocality || {},
           importStatus: typeof FietsKlimImportStatus !== "undefined" ? FietsKlimImportStatus : undefined,
         });
@@ -980,48 +1028,8 @@
       log("gh-commando gekopieerd.");
     });
 
-    document.getElementById("startGithubBtn").addEventListener("click", async () => {
-      const btn = document.getElementById("startGithubBtn");
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      if (!selectedRegion) {
-        log("FOUT: kies eerst een regio (dropdown of kaart).");
-        return;
-      }
-      btn.disabled = true;
-      document.getElementById("log").textContent = "";
-      const payload = workflowPayload(selectedRegion);
-      const cfg = githubImportConfig();
-      try {
-        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-          log(`Start import: ${selectedRegion.name} (l=${payload.locality})…`);
-          const fn = firebase.app().functions(cfg.region || "europe-west1").httpsCallable("requestClimbfinderImport");
-          const res = await fn(payload);
-          log(res.data.message || "Workflow gestart.");
-          if (res.data.actionsUrl) {
-            log(res.data.actionsUrl);
-            window.open(res.data.actionsUrl, "_blank", "noopener");
-          }
-        } else {
-          log("Firebase Function niet actief — start handmatig op GitHub:");
-          log("");
-          log(document.getElementById("ghCmd").value);
-          log("");
-          log("→ Actions → Climbfinder import → Run workflow (zelfde velden invullen)");
-          log("→ Of: gh auth login && plak het commando hierboven");
-          window.open(document.getElementById("actionsLink").href, "_blank", "noopener");
-        }
-      } catch (e) {
-        log("FOUT: " + formatCallableError(e));
-        if (String(e?.code || "").includes("failed-precondition")) {
-          log("");
-          log("Tip: eenmalig PAT + deploy — zie docs/auth/GITHUB_IMPORT.md (Optie B).");
-        }
-      } finally {
-        btn.disabled = false;
-      }
+    document.getElementById("startGithubBtn").addEventListener("click", () => {
+      void triggerGithubRegionImport();
     });
 
     document.getElementById("runRegionBtn").addEventListener("click", async () => {
@@ -1119,11 +1127,9 @@
           log,
           pickLocalityOnMainMap,
           async startRegionImport(localityId) {
-            if (!pickRegionForImport(localityId)) {
+            if (!pickRegionForImport(localityId, { startGithub: true })) {
               log(`FOUT: regio l=${localityId} niet in catalogus.`);
-              return;
             }
-            document.getElementById("startGithubBtn")?.click();
           },
           openManualImport(slug, label) {
             setTab("manual");
