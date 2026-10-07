@@ -4,7 +4,7 @@
     "id": "cf-l289-is-re",
     "title": "Isère (Climbfinder Popular)",
     "country": "FR",
-    "updated_at": "2026-10-06T09:08:13Z",
+    "updated_at": "2026-10-07T13:18:59Z",
     "count": 439,
     "source": {
       "name": "climbfinder",
@@ -15,20 +15,24 @@
         }
       ]
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:18:59Z"
+    }
   },
   "climbs": [
     {
       "id": "alpe-d-huez",
       "name": "Alpe d'Huez",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 32,
         "slug": "alpe-d-huez",
         "url": "https://climbfinder.com/en/climbs/alpe-d-huez",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 13968,
@@ -1823,19 +1827,21 @@
           "url": "https://climbfinder.com/en/climbs/alpe-d-huez",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-la-croix-de-fer-barrage-du-verney",
       "name": "Col de la Croix-de-Fer from Allemont",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 69,
         "slug": "col-de-la-croix-de-fer-barrage-du-verney",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-de-fer-barrage-du-verney",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 29003,
@@ -3670,7 +3676,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-de-fer-barrage-du-verney",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-sarenne-lac-du-chambon",
@@ -3682,7 +3689,8 @@
         "id": 318,
         "slug": "col-de-sarenne-lac-du-chambon",
         "url": "https://climbfinder.com/en/climbs/col-de-sarenne-lac-du-chambon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 12836,
@@ -5335,7 +5343,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sarenne-lac-du-chambon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-du-lautaret-bourg-d-oisans",
@@ -5347,7 +5356,8 @@
         "id": 180,
         "slug": "col-du-lautaret-bourg-d-oisans",
         "url": "https://climbfinder.com/en/climbs/col-du-lautaret-bourg-d-oisans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 33682,
@@ -7462,19 +7472,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-lautaret-bourg-d-oisans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-du-sabot",
       "name": "Col du Sabot",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 646,
         "slug": "col-du-sabot",
         "url": "https://climbfinder.com/en/climbs/col-du-sabot",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 14578,
@@ -9315,19 +9327,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-sabot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-d-ornon",
       "name": "Col d'Ornon",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 407,
         "slug": "col-d-ornon",
         "url": "https://climbfinder.com/en/climbs/col-d-ornon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 10526,
@@ -10696,19 +10710,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-ornon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-glandon-barrage-du-verney",
       "name": "Col du Glandon from Barrage du Verney / Allemont",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 233,
         "slug": "col-du-glandon-barrage-du-verney",
         "url": "https://climbfinder.com/en/climbs/col-du-glandon-barrage-du-verney",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 26591,
@@ -12417,7 +12433,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-glandon-barrage-du-verney",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "la-berarde",
@@ -12429,7 +12446,8 @@
         "id": 181,
         "slug": "la-berarde",
         "url": "https://climbfinder.com/en/climbs/la-berarde",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 27259,
@@ -14182,19 +14200,21 @@
           "url": "https://climbfinder.com/en/climbs/la-berarde",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "alpe-d-huez-villard-reculas",
       "name": "Alpe d'Huez via Villard-Reculas & Pas de la Confession",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 243,
         "slug": "alpe-d-huez-villard-reculas",
         "url": "https://climbfinder.com/en/climbs/alpe-d-huez-villard-reculas",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 18390,
@@ -16499,7 +16519,8 @@
           "url": "https://climbfinder.com/en/climbs/alpe-d-huez-villard-reculas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "les-deux-alpes",
@@ -16511,7 +16532,8 @@
         "id": 182,
         "slug": "les-deux-alpes",
         "url": "https://climbfinder.com/en/climbs/les-deux-alpes",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 9015,
@@ -18774,19 +18796,21 @@
           "url": "https://climbfinder.com/en/climbs/les-deux-alpes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "bastille-de-grenoble",
       "name": "Bastille de Grenoble",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4241,
         "slug": "bastille-de-grenoble",
         "url": "https://climbfinder.com/en/climbs/bastille-de-grenoble",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 1994,
@@ -19365,7 +19389,8 @@
           "url": "https://climbfinder.com/en/climbs/bastille-de-grenoble",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-sarenne-alpe-d-huez",
@@ -19377,7 +19402,8 @@
         "id": 319,
         "slug": "col-de-sarenne-alpe-d-huez",
         "url": "https://climbfinder.com/en/climbs/col-de-sarenne-alpe-d-huez",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 8025,
@@ -21396,7 +21422,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sarenne-alpe-d-huez",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-du-galibier-le-clapier",
@@ -21408,7 +21435,8 @@
         "id": 18612,
         "slug": "col-du-galibier-le-clapier",
         "url": "https://climbfinder.com/en/climbs/col-du-galibier-le-clapier",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 42441,
@@ -24061,19 +24089,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-galibier-le-clapier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-de-porte",
       "name": "Col de Porte from Grenoble",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 631,
         "slug": "col-de-porte",
         "url": "https://climbfinder.com/en/climbs/col-de-porte",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 15049,
@@ -25970,19 +26000,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-porte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "chamrousse",
       "name": "Chamrousse",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 632,
         "slug": "chamrousse",
         "url": "https://climbfinder.com/en/climbs/chamrousse",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 19218,
@@ -28391,19 +28423,21 @@
           "url": "https://climbfinder.com/en/climbs/chamrousse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-solude-villard-notre-dame",
       "name": "Col du Solude from Le Bourg d'Oisans via Villard Notre Dame",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 479,
         "slug": "col-du-solude-villard-notre-dame",
         "url": "https://climbfinder.com/en/climbs/col-du-solude-villard-notre-dame",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 13020,
@@ -30056,19 +30090,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-solude-villard-notre-dame",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-la-morte-sechilienne",
       "name": "Col de la Morte from Sechilienne",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 324,
         "slug": "col-de-la-morte-sechilienne",
         "url": "https://climbfinder.com/en/climbs/col-de-la-morte-sechilienne",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 15346,
@@ -32001,19 +32037,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-morte-sechilienne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-solude-la-paute",
       "name": "Col du Solude",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 478,
         "slug": "col-du-solude-la-paute",
         "url": "https://climbfinder.com/en/climbs/col-du-solude-la-paute",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 13863,
@@ -33768,19 +33806,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-solude-la-paute",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "oulles",
       "name": "Oulles",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 652,
         "slug": "oulles",
         "url": "https://climbfinder.com/en/climbs/oulles",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 6361,
@@ -35395,19 +35435,21 @@
           "url": "https://climbfinder.com/en/climbs/oulles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-coq-saint-nazaire-les-eymes",
       "name": "Col du Coq from Saint-Nazaire-les-Eymes",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 4623,
         "slug": "col-du-coq-saint-nazaire-les-eymes",
         "url": "https://climbfinder.com/en/climbs/col-du-coq-saint-nazaire-les-eymes",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 12651,
@@ -37016,19 +37058,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-coq-saint-nazaire-les-eymes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "chamrousse-sechilienne",
       "name": "Chamrousse from Séchilienne",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 20693,
         "slug": "chamrousse-sechilienne",
         "url": "https://climbfinder.com/en/climbs/chamrousse-sechilienne",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 18374,
@@ -39333,7 +39377,8 @@
           "url": "https://climbfinder.com/en/climbs/chamrousse-sechilienne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-parquetout-valbonnais",
@@ -39345,7 +39390,8 @@
         "id": 4838,
         "slug": "col-de-parquetout-valbonnais",
         "url": "https://climbfinder.com/en/climbs/col-de-parquetout-valbonnais",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 7170,
@@ -41156,7 +41202,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-parquetout-valbonnais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "les-deux-alpes-bons",
@@ -41168,7 +41215,8 @@
         "id": 183,
         "slug": "les-deux-alpes-bons",
         "url": "https://climbfinder.com/en/climbs/les-deux-alpes-bons",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 10271,
@@ -42505,7 +42553,8 @@
           "url": "https://climbfinder.com/en/climbs/les-deux-alpes-bons",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-d-ornon-entraigues",
@@ -42517,7 +42566,8 @@
         "id": 408,
         "slug": "col-d-ornon-entraigues",
         "url": "https://climbfinder.com/en/climbs/col-d-ornon-entraigues",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 14560,
@@ -44358,19 +44408,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-ornon-entraigues",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-d-oz",
       "name": "Oz en Oisans from Barrage du Verney",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 146,
         "slug": "col-d-oz",
         "url": "https://climbfinder.com/en/climbs/col-d-oz",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 7618,
@@ -46291,19 +46343,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-oz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-mont-noir-cognin-les-gorges",
       "name": "Col du Mont Noir",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 1687,
         "slug": "col-du-mont-noir-cognin-les-gorges",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-cognin-les-gorges",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 15961,
@@ -48314,19 +48368,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-cognin-les-gorges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-du-luitel",
       "name": "Col du Luitel",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 402,
         "slug": "col-du-luitel",
         "url": "https://climbfinder.com/en/climbs/col-du-luitel",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 10087,
@@ -49619,19 +49675,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-luitel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-granier-chapareillan",
       "name": "Col du Granier from Chapareillan",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 5254,
         "slug": "col-du-granier-chapareillan",
         "url": "https://climbfinder.com/en/climbs/col-du-granier-chapareillan",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 10040,
@@ -50938,19 +50996,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-granier-chapareillan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "pas-de-la-confession-lac-du-verney",
       "name": "Pas de la Confession from Lac du Verney",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 14660,
         "slug": "pas-de-la-confession-lac-du-verney",
         "url": "https://climbfinder.com/en/climbs/pas-de-la-confession-lac-du-verney",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 12181,
@@ -52523,19 +52583,21 @@
           "url": "https://climbfinder.com/en/climbs/pas-de-la-confession-lac-du-verney",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "super-collet",
       "name": "Super Collet",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 821,
         "slug": "super-collet",
         "url": "https://climbfinder.com/en/climbs/super-collet",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 15639,
@@ -54504,19 +54566,21 @@
           "url": "https://climbfinder.com/en/climbs/super-collet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "auris-en-oisans-bourg-d-oisans",
       "name": "Auris-en-Oisans from Le Bourg d'Oisans",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 4239,
         "slug": "auris-en-oisans-bourg-d-oisans",
         "url": "https://climbfinder.com/en/climbs/auris-en-oisans-bourg-d-oisans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 13960,
@@ -56311,7 +56375,8 @@
           "url": "https://climbfinder.com/en/climbs/auris-en-oisans-bourg-d-oisans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "auris-en-oisans-le-freney-d-oisans",
@@ -56323,7 +56388,8 @@
         "id": 648,
         "slug": "auris-en-oisans-le-freney-d-oisans",
         "url": "https://climbfinder.com/en/climbs/auris-en-oisans-le-freney-d-oisans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 11827,
@@ -57852,19 +57918,21 @@
           "url": "https://climbfinder.com/en/climbs/auris-en-oisans-le-freney-d-oisans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "saint-nizier-du-moucherotte",
       "name": "Saint Nizier du Moucherotte from Seyssins",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 2802,
         "slug": "saint-nizier-du-moucherotte",
         "url": "https://climbfinder.com/en/climbs/saint-nizier-du-moucherotte",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 14403,
@@ -59687,19 +59755,21 @@
           "url": "https://climbfinder.com/en/climbs/saint-nizier-du-moucherotte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-la-charmette-saint-egreve",
       "name": "Col de la Charmette from Saint-Egrève",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 4427,
         "slug": "col-de-la-charmette-saint-egreve",
         "url": "https://climbfinder.com/en/climbs/col-de-la-charmette-saint-egreve",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 12986,
@@ -61344,19 +61414,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-charmette-saint-egreve",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "chamrousse-uriage",
       "name": "Chamrousse from Uriage",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 2310,
         "slug": "chamrousse-uriage",
         "url": "https://climbfinder.com/en/climbs/chamrousse-uriage",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 21710,
@@ -62767,19 +62839,21 @@
           "url": "https://climbfinder.com/en/climbs/chamrousse-uriage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "gorges-de-la-bourne-pont-en-royans",
       "name": "Villard-de-Lans from Pont-en-Royans via Gorges de la Bourne",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4083,
         "slug": "gorges-de-la-bourne-pont-en-royans",
         "url": "https://climbfinder.com/en/climbs/gorges-de-la-bourne-pont-en-royans",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 21750,
@@ -64190,19 +64264,21 @@
           "url": "https://climbfinder.com/en/climbs/gorges-de-la-bourne-pont-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "lac-besson-lac-noir-alpe-huez",
       "name": "Lac Besson & Lac Noir from Alpe d'Huez",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 18611,
         "slug": "lac-besson-lac-noir-alpe-huez",
         "url": "https://climbfinder.com/en/climbs/lac-besson-lac-noir-alpe-huez",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 4022,
@@ -65269,19 +65345,21 @@
           "url": "https://climbfinder.com/en/climbs/lac-besson-lac-noir-alpe-huez",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "tunnel-du-mortier-veurey-voroise",
       "name": "Col de Montaud / Tunnel du Mortier from Veurey-Voroize",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 5489,
         "slug": "tunnel-du-mortier-veurey-voroise",
         "url": "https://climbfinder.com/en/climbs/tunnel-du-mortier-veurey-voroise",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 18035,
@@ -67544,19 +67622,21 @@
           "url": "https://climbfinder.com/en/climbs/tunnel-du-mortier-veurey-voroise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-clemenciere-grenoble",
       "name": "Col de Clémencière from Grenoble",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4378,
         "slug": "col-de-clemenciere-grenoble",
         "url": "https://climbfinder.com/en/climbs/col-de-clemenciere-grenoble",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 5227,
@@ -68897,19 +68977,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-clemenciere-grenoble",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-porte-saint-laurent-du-pont",
       "name": "Col de Porte from Saint Laurent du Pont",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 2800,
         "slug": "col-de-porte-saint-laurent-du-pont",
         "url": "https://climbfinder.com/en/climbs/col-de-porte-saint-laurent-du-pont",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 18193,
@@ -71190,19 +71272,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-porte-saint-laurent-du-pont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-palaquit-saint-egreve",
       "name": "Col de Palaquit from Saint Egréve",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 622,
         "slug": "col-de-palaquit-saint-egreve",
         "url": "https://climbfinder.com/en/climbs/col-de-palaquit-saint-egreve",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 16619,
@@ -73293,19 +73377,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-palaquit-saint-egreve",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-chalais-voreppe",
       "name": "Col de Chalais / Abbaye de Notre Dame de Chalais from Voreppe",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 4372,
         "slug": "col-de-chalais-voreppe",
         "url": "https://climbfinder.com/en/climbs/col-de-chalais-voreppe",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 6516,
@@ -74958,19 +75044,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-chalais-voreppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-la-morte-la-valette",
       "name": "Col de la Morte from La Valette",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 383,
         "slug": "col-de-la-morte-la-valette",
         "url": "https://climbfinder.com/en/climbs/col-de-la-morte-la-valette",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 11828,
@@ -76499,19 +76587,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-morte-la-valette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-mont-noir-saint-gervais-col-de-romeyere",
       "name": "Col du Mont Noir from Saint-Gervais via Col de Romeyere",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 1688,
         "slug": "col-du-mont-noir-saint-gervais-col-de-romeyere",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-gervais-col-de-romeyere",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 18054,
@@ -78780,7 +78870,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-gervais-col-de-romeyere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-parmenie-tullins",
@@ -78792,7 +78883,8 @@
         "id": 10646,
         "slug": "col-de-parmenie-tullins",
         "url": "https://climbfinder.com/en/climbs/col-de-parmenie-tullins",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 289
       },
       "stats": {
         "length_m": 5153,
@@ -80145,19 +80237,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-parmenie-tullins",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 289
     },
     {
       "id": "col-du-coq-saint-brevardiere",
       "name": "Col du Coq from Brevardière",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4625,
         "slug": "col-du-coq-saint-brevardiere",
         "url": "https://climbfinder.com/en/climbs/col-du-coq-saint-brevardiere",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 9685,
@@ -82584,19 +82678,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-coq-saint-brevardiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-vence-grenoble-chantemerle",
       "name": "Col de Vence from Grenoble via Chantemerle",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 15906,
         "slug": "col-de-vence-grenoble-chantemerle",
         "url": "https://climbfinder.com/en/climbs/col-de-vence-grenoble-chantemerle",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 5470,
@@ -83991,19 +84087,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-vence-grenoble-chantemerle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "fort-des-quatres-seigneurs-gieres",
       "name": "Fort des Quatres Seigneurs from Gières",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 5365,
         "slug": "fort-des-quatres-seigneurs-gieres",
         "url": "https://climbfinder.com/en/climbs/fort-des-quatres-seigneurs-gieres",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 9365,
@@ -86350,19 +86448,21 @@
           "url": "https://climbfinder.com/en/climbs/fort-des-quatres-seigneurs-gieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-malissol-la-mure",
       "name": "Col de Malissol from La Mure",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 381,
         "slug": "col-de-malissol-la-mure",
         "url": "https://climbfinder.com/en/climbs/col-de-malissol-la-mure",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 5672,
@@ -87807,19 +87907,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-malissol-la-mure",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "lac-du-poursollet",
       "name": "Lac du Poursollet",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 325,
         "slug": "lac-du-poursollet",
         "url": "https://climbfinder.com/en/climbs/lac-du-poursollet",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 8492,
@@ -89952,19 +90054,21 @@
           "url": "https://climbfinder.com/en/climbs/lac-du-poursollet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-l-arzelier-le-gua",
       "name": "Col de l'Arzelier",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4418,
         "slug": "col-de-l-arzelier-le-gua",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-le-gua",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 11522,
@@ -91433,19 +91537,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-le-gua",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-des-mouilles-villard-bonnot",
       "name": "Col des Mouilles from Villard Bonnot",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 5065,
         "slug": "col-des-mouilles-villard-bonnot",
         "url": "https://climbfinder.com/en/climbs/col-des-mouilles-villard-bonnot",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 9501,
@@ -93830,19 +93936,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-mouilles-villard-bonnot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-barioz-goncelin",
       "name": "Col du Barioz",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 501,
         "slug": "col-du-barioz-goncelin",
         "url": "https://climbfinder.com/en/climbs/col-du-barioz-goncelin",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 13575,
@@ -95561,19 +95669,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-barioz-goncelin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-porte-col-de-clemenciere-col-de-vence",
       "name": "Col de Porte from Grenoble via Col de Clémencière & Col de Vence",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 18937,
         "slug": "col-de-porte-col-de-clemenciere-col-de-vence",
         "url": "https://climbfinder.com/en/climbs/col-de-porte-col-de-clemenciere-col-de-vence",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 17726,
@@ -97798,19 +97908,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-porte-col-de-clemenciere-col-de-vence",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "chalet-de-charmant-som",
       "name": "Chalet de Charmant Som from Col-de-Porte",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4248,
         "slug": "chalet-de-charmant-som",
         "url": "https://climbfinder.com/en/climbs/chalet-de-charmant-som",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 5466,
@@ -98221,7 +98333,8 @@
           "url": "https://climbfinder.com/en/climbs/chalet-de-charmant-som",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-des-pres-sales-corps",
@@ -100037,14 +100150,15 @@
     {
       "id": "mont-saint-martin-fontanil-cornillon",
       "name": "Mont Saint Martin from Fontanil-Cornillon",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 5359,
         "slug": "mont-saint-martin-fontanil-cornillon",
         "url": "https://climbfinder.com/en/climbs/mont-saint-martin-fontanil-cornillon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 7744,
@@ -101995,19 +102109,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-saint-martin-fontanil-cornillon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-mont-noir-saint-pierre-de-cherennes",
       "name": "Col du Mont Noir from Saint-Pierre de Chérennes",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 1689,
         "slug": "col-du-mont-noir-saint-pierre-de-cherennes",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-pierre-de-cherennes",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 17674,
@@ -104226,19 +104342,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-pierre-de-cherennes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "pipay-tencin",
       "name": "Pipay from Tencin",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 499,
         "slug": "pipay-tencin",
         "url": "https://climbfinder.com/en/climbs/pipay-tencin",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 18747,
@@ -106585,19 +106703,21 @@
           "url": "https://climbfinder.com/en/climbs/pipay-tencin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "prapoutel",
       "name": "Prapoutel",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 498,
         "slug": "prapoutel",
         "url": "https://climbfinder.com/en/climbs/prapoutel",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 15572,
@@ -108560,19 +108680,21 @@
           "url": "https://climbfinder.com/en/climbs/prapoutel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-du-barioz-tencin",
       "name": "Col du Barioz from Tencin",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 502,
         "slug": "col-du-barioz-tencin",
         "url": "https://climbfinder.com/en/climbs/col-du-barioz-tencin",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 11980,
@@ -110095,19 +110217,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-barioz-tencin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "fort-du-saint-eynard-pillonieres",
       "name": "Fort du Saint Eynard from La Pillonières",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 5367,
         "slug": "fort-du-saint-eynard-pillonieres",
         "url": "https://climbfinder.com/en/climbs/fort-du-saint-eynard-pillonieres",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 3585,
@@ -111066,19 +111190,21 @@
           "url": "https://climbfinder.com/en/climbs/fort-du-saint-eynard-pillonieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "col-de-la-croix-perrin-sassenage",
       "name": "Col de la Croix Perrin from Sassenage",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4477,
         "slug": "col-de-la-croix-perrin-sassenage",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-sassenage",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 21887,
@@ -112495,19 +112621,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-sassenage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "route-du-bessy-vaujany",
       "name": "Route du Bessy from Vaujany",
-      "region": "Isère",
+      "region": "Grenoble",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 5236,
         "slug": "route-du-bessy-vaujany",
         "url": "https://climbfinder.com/en/climbs/route-du-bessy-vaujany",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 64
       },
       "stats": {
         "length_m": 5271,
@@ -113854,7 +113982,8 @@
           "url": "https://climbfinder.com/en/climbs/route-du-bessy-vaujany",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 64
     },
     {
       "id": "ezy-noyarey",
@@ -142322,14 +142451,15 @@
     {
       "id": "col-de-pra-l-etang-pont-en-royans",
       "name": "Col de Pra l'Étang from Pont-en-Royans",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 4151,
         "slug": "col-de-pra-l-etang-pont-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-pra-l-etang-pont-en-royans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 16785,
@@ -144438,7 +144568,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-pra-l-etang-pont-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "laffrey-sechilienne",
@@ -149269,14 +149400,15 @@
     {
       "id": "col-d-herbouilly-villard-de-lans",
       "name": "Col d'Herbouilly from Villard de Lans",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 4310,
         "slug": "col-d-herbouilly-villard-de-lans",
         "url": "https://climbfinder.com/en/climbs/col-d-herbouilly-villard-de-lans",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 10500,
@@ -150617,7 +150749,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-herbouilly-villard-de-lans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-malissol-basse-valette",
@@ -151563,14 +151696,15 @@
     {
       "id": "col-de-romeyere-pont-en-royans",
       "name": "Col de Romeyère from Pont-en-Royans",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21350,
         "slug": "col-de-romeyere-pont-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-romeyere-pont-en-royans",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 19483,
@@ -154009,7 +154143,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-romeyere-pont-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "bastille-de-grenoblee-chemin-de-la-bastille",
@@ -154547,14 +154682,15 @@
     {
       "id": "col-de-la-croix-perrin-autrans",
       "name": "Col de la Croix Perrin from Autrans",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 4476,
         "slug": "col-de-la-croix-perrin-autrans",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-autrans",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5360,
@@ -154959,7 +155095,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-autrans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "mont-sec-sechilienne",
@@ -161490,14 +161627,15 @@
     {
       "id": "col-de-menee-chaffaud",
       "name": "Col de Menée from Chaffaud",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9097,
         "slug": "col-de-menee-chaffaud",
         "url": "https://climbfinder.com/en/climbs/col-de-menee-chaffaud",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12994,
@@ -163142,7 +163280,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-menee-chaffaud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "villard-notre-dame-le-bourg-d-oisans",
@@ -173898,14 +174037,15 @@
     {
       "id": "la-sierre-lans-en-vercors",
       "name": "La Sierre from Lans en Vercors",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 5522,
         "slug": "la-sierre-lans-en-vercors",
         "url": "https://climbfinder.com/en/climbs/la-sierre-lans-en-vercors",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5431,
@@ -175294,19 +175434,21 @@
           "url": "https://climbfinder.com/en/climbs/la-sierre-lans-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-l-arzelier-saint-guillaume",
       "name": "Col de l'Arzelier",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4417,
         "slug": "col-de-l-arzelier-saint-guillaume",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-saint-guillaume",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8665,
@@ -177483,7 +177625,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-saint-guillaume",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "chamrousse-murianette",
@@ -189460,14 +189603,15 @@
     {
       "id": "col-de-romeyere-st-gervais",
       "name": "Col de Romeyère from Saint Gervais",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 39957,
         "slug": "col-de-romeyere-st-gervais",
         "url": "https://climbfinder.com/en/climbs/col-de-romeyere-st-gervais",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 13175,
@@ -191138,7 +191282,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-romeyere-st-gervais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-parmenie-izeaux",
@@ -207386,14 +207531,15 @@
     {
       "id": "col-de-l-allimas-saint-michel-les-portes",
       "name": "Col de l'Allimas from Saint Michel les Portes",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4413,
         "slug": "col-de-l-allimas-saint-michel-les-portes",
         "url": "https://climbfinder.com/en/climbs/col-de-l-allimas-saint-michel-les-portes",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8056,
@@ -209424,7 +209570,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-allimas-saint-michel-les-portes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-pre-long-villard-bonnot",
@@ -212952,14 +213099,15 @@
     {
       "id": "montchardon-cognin-les-georges",
       "name": "Montchardon from Cognin-les-Georges",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 21477,
         "slug": "montchardon-cognin-les-georges",
         "url": "https://climbfinder.com/en/climbs/montchardon-cognin-les-georges",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5519,
@@ -214368,7 +214516,8 @@
           "url": "https://climbfinder.com/en/climbs/montchardon-cognin-les-georges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-d-hurtieres-froges",
@@ -231947,14 +232096,15 @@
     {
       "id": "montchardon-izeron",
       "name": "Montchardon from Izeron",
-      "region": "Isère",
+      "region": "Vercors",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21476,
         "slug": "montchardon-izeron",
         "url": "https://climbfinder.com/en/climbs/montchardon-izeron",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8533,
@@ -234101,7 +234251,8 @@
           "url": "https://climbfinder.com/en/climbs/montchardon-izeron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "sainte-marie-du-mont-la-flachere",

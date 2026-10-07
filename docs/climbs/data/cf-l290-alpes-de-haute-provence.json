@@ -5,7 +5,7 @@
     "title": "Alpes-de-Haute-Provence",
     "region_label": "Alpes-de-Haute-Provence",
     "country": "FR",
-    "updated_at": "2026-10-07T10:29:12Z",
+    "updated_at": "2026-10-07T13:18:59Z",
     "count": 193,
     "source": {
       "name": "climbfinder",
@@ -20,7 +20,10 @@
     },
     "import_errors": [
       "les-prats-les-thuiles: HTTP Error 502: Bad Gateway"
-    ]
+    ],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:18:59Z"
+    }
   },
   "climbs": [
     {
@@ -33,7 +36,8 @@
         "id": 490,
         "slug": "col-de-la-bonette-jausiers",
         "url": "https://climbfinder.com/en/climbs/col-de-la-bonette-jausiers",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 23262,
@@ -1538,7 +1542,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-bonette-jausiers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-la-cayolle-barcelonnette",
@@ -1550,7 +1555,8 @@
         "id": 511,
         "slug": "col-de-la-cayolle-barcelonnette",
         "url": "https://climbfinder.com/en/climbs/col-de-la-cayolle-barcelonnette",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 27015,
@@ -3263,7 +3269,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-cayolle-barcelonnette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "montagne-de-lure",
@@ -3275,7 +3282,8 @@
         "id": 1001,
         "slug": "montagne-de-lure",
         "url": "https://climbfinder.com/en/climbs/montagne-de-lure",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 17650,
@@ -5488,7 +5496,8 @@
           "url": "https://climbfinder.com/en/climbs/montagne-de-lure",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-d-allos",
@@ -5500,7 +5509,8 @@
         "id": 507,
         "slug": "col-d-allos",
         "url": "https://climbfinder.com/en/climbs/col-d-allos",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 16898,
@@ -7621,7 +7631,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-allos",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-du-parpaillon-la-condamine-chatelard",
@@ -7633,7 +7644,8 @@
         "id": 21832,
         "slug": "col-du-parpaillon-la-condamine-chatelard",
         "url": "https://climbfinder.com/en/climbs/col-du-parpaillon-la-condamine-chatelard",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 17547,
@@ -9834,7 +9846,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-parpaillon-la-condamine-chatelard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-vars-les-gleizolles",
@@ -9846,7 +9859,8 @@
         "id": 185,
         "slug": "col-de-vars-les-gleizolles",
         "url": "https://climbfinder.com/en/climbs/col-de-vars-les-gleizolles",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 14574,
@@ -11717,7 +11731,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-vars-les-gleizolles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-des-champs-colmars",
@@ -11729,7 +11744,8 @@
         "id": 509,
         "slug": "col-des-champs-colmars",
         "url": "https://climbfinder.com/en/climbs/col-des-champs-colmars",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 11515,
@@ -13222,7 +13238,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-champs-colmars",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-pontis-ubaye",
@@ -13234,7 +13251,8 @@
         "id": 504,
         "slug": "col-de-pontis-ubaye",
         "url": "https://climbfinder.com/en/climbs/col-de-pontis-ubaye",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 5229,
@@ -14607,7 +14625,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-pontis-ubaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "route-des-cretes-du-verdon-la-palud-sur-verdon",
@@ -14619,7 +14638,8 @@
         "id": 5799,
         "slug": "route-des-cretes-du-verdon-la-palud-sur-verdon",
         "url": "https://climbfinder.com/en/climbs/route-des-cretes-du-verdon-la-palud-sur-verdon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6404,
@@ -15478,7 +15498,8 @@
           "url": "https://climbfinder.com/en/climbs/route-des-cretes-du-verdon-la-palud-sur-verdon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-larche-les-gleizolles",
@@ -15490,7 +15511,8 @@
         "id": 6144,
         "slug": "col-de-larche-les-gleizolles",
         "url": "https://climbfinder.com/en/climbs/col-de-larche-les-gleizolles",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 16025,
@@ -17509,7 +17531,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-larche-les-gleizolles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "la-montagne-de-lure-valbelle",
@@ -17521,7 +17544,8 @@
         "id": 1012,
         "slug": "la-montagne-de-lure-valbelle",
         "url": "https://climbfinder.com/en/climbs/la-montagne-de-lure-valbelle",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 23828,
@@ -19062,7 +19086,8 @@
           "url": "https://climbfinder.com/en/climbs/la-montagne-de-lure-valbelle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "pra-loup",
@@ -19074,7 +19099,8 @@
         "id": 691,
         "slug": "pra-loup",
         "url": "https://climbfinder.com/en/climbs/pra-loup",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7442,
@@ -20951,7 +20977,8 @@
           "url": "https://climbfinder.com/en/climbs/pra-loup",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-d-allos-colmars",
@@ -20963,7 +20990,8 @@
         "id": 508,
         "slug": "col-d-allos-colmars",
         "url": "https://climbfinder.com/en/climbs/col-d-allos-colmars",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 22291,
@@ -22406,7 +22434,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-allos-colmars",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-saint-jean",
@@ -22418,7 +22447,8 @@
         "id": 514,
         "slug": "col-saint-jean",
         "url": "https://climbfinder.com/en/climbs/col-saint-jean",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 11788,
@@ -23941,7 +23971,8 @@
           "url": "https://climbfinder.com/en/climbs/col-saint-jean",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-des-legues-castellane",
@@ -23953,7 +23984,8 @@
         "id": 2004,
         "slug": "col-des-legues-castellane",
         "url": "https://climbfinder.com/en/climbs/col-des-legues-castellane",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7844,
@@ -25928,7 +25960,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-legues-castellane",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "super-sauze-barcelonette",
@@ -25940,7 +25973,8 @@
         "id": 6722,
         "slug": "super-sauze-barcelonette",
         "url": "https://climbfinder.com/en/climbs/super-sauze-barcelonette",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 8663,
@@ -28117,7 +28151,8 @@
           "url": "https://climbfinder.com/en/climbs/super-sauze-barcelonette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "sainte-anne-la-condamine",
@@ -28129,7 +28164,8 @@
         "id": 513,
         "slug": "sainte-anne-la-condamine",
         "url": "https://climbfinder.com/en/climbs/sainte-anne-la-condamine",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6619,
@@ -29806,7 +29842,8 @@
           "url": "https://climbfinder.com/en/climbs/sainte-anne-la-condamine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-corobin-digne-les-bains",
@@ -29818,7 +29855,8 @@
         "id": 5910,
         "slug": "col-de-corobin-digne-les-bains",
         "url": "https://climbfinder.com/en/climbs/col-de-corobin-digne-les-bains",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 14545,
@@ -31653,7 +31691,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-corobin-digne-les-bains",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-font-belle-sisteron",
@@ -31665,7 +31704,8 @@
         "id": 5929,
         "slug": "col-de-font-belle-sisteron",
         "url": "https://climbfinder.com/en/climbs/col-de-font-belle-sisteron",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 26268,
@@ -33356,7 +33396,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-font-belle-sisteron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-d-espinouse",
@@ -33368,7 +33409,8 @@
         "id": 5782,
         "slug": "col-d-espinouse",
         "url": "https://climbfinder.com/en/climbs/col-d-espinouse",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 5348,
@@ -34733,7 +34775,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-espinouse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-d-ayens-moustiers-sainte-marie",
@@ -34745,7 +34788,8 @@
         "id": 6972,
         "slug": "col-d-ayens-moustiers-sainte-marie",
         "url": "https://climbfinder.com/en/climbs/col-d-ayens-moustiers-sainte-marie",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 14488,
@@ -36574,7 +36618,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-ayens-moustiers-sainte-marie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-la-mort-d-imbert-manosque",
@@ -36586,7 +36631,8 @@
         "id": 6076,
         "slug": "col-de-la-mort-d-imbert-manosque",
         "url": "https://climbfinder.com/en/climbs/col-de-la-mort-d-imbert-manosque",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 5334,
@@ -37951,7 +37997,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-mort-d-imbert-manosque",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-toutes-aures-saint-julien-du-verdon",
@@ -37963,7 +38010,8 @@
         "id": 2095,
         "slug": "col-de-toutes-aures-saint-julien-du-verdon",
         "url": "https://climbfinder.com/en/climbs/col-de-toutes-aures-saint-julien-du-verdon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6176,
@@ -39536,7 +39584,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-toutes-aures-saint-julien-du-verdon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "le-collet",
@@ -39548,7 +39597,8 @@
         "id": 2471,
         "slug": "le-collet",
         "url": "https://climbfinder.com/en/climbs/le-collet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 14471,
@@ -41377,7 +41427,8 @@
           "url": "https://climbfinder.com/en/climbs/le-collet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "lac-d-allos-allos",
@@ -41389,7 +41440,8 @@
         "id": 6338,
         "slug": "lac-d-allos-allos",
         "url": "https://climbfinder.com/en/climbs/lac-d-allos-allos",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 10592,
@@ -42764,7 +42816,8 @@
           "url": "https://climbfinder.com/en/climbs/lac-d-allos-allos",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-st-barnabe-castellane",
@@ -42776,7 +42829,8 @@
         "id": 7039,
         "slug": "col-de-st-barnabe-castellane",
         "url": "https://climbfinder.com/en/climbs/col-de-st-barnabe-castellane",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 10274,
@@ -44113,7 +44167,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-st-barnabe-castellane",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-du-negron-col-de-la-pigiere",
@@ -44125,7 +44180,8 @@
         "id": 6190,
         "slug": "col-du-negron-col-de-la-pigiere",
         "url": "https://climbfinder.com/en/climbs/col-du-negron-col-de-la-pigiere",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 3496,
@@ -45060,7 +45116,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-negron-col-de-la-pigiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-du-fanget-auzet",
@@ -45072,7 +45129,8 @@
         "id": 6152,
         "slug": "col-du-fanget-auzet",
         "url": "https://climbfinder.com/en/climbs/col-du-fanget-auzet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7613,
@@ -46993,7 +47051,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-fanget-auzet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "le-sauze-du-lac",
@@ -47005,7 +47064,8 @@
         "id": 515,
         "slug": "le-sauze-du-lac",
         "url": "https://climbfinder.com/en/climbs/le-sauze-du-lac",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 5854,
@@ -48498,7 +48558,8 @@
           "url": "https://climbfinder.com/en/climbs/le-sauze-du-lac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "maljasset-saint-paul-sur-ubaye",
@@ -48510,7 +48571,8 @@
         "id": 6327,
         "slug": "maljasset-saint-paul-sur-ubaye",
         "url": "https://climbfinder.com/en/climbs/maljasset-saint-paul-sur-ubaye",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 12794,
@@ -50131,7 +50193,8 @@
           "url": "https://climbfinder.com/en/climbs/maljasset-saint-paul-sur-ubaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "mont-chalvet-saint-andre-les-alpes",
@@ -50143,7 +50206,8 @@
         "id": 6515,
         "slug": "mont-chalvet-saint-andre-les-alpes",
         "url": "https://climbfinder.com/en/climbs/mont-chalvet-saint-andre-les-alpes",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6733,
@@ -51850,7 +51914,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-chalvet-saint-andre-les-alpes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-la-pigiere-sisteron",
@@ -51862,7 +51927,8 @@
         "id": 6137,
         "slug": "col-de-la-pigiere-sisteron",
         "url": "https://climbfinder.com/en/climbs/col-de-la-pigiere-sisteron",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 33489,
@@ -53965,7 +54031,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-pigiere-sisteron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-des-fillys-la-breole",
@@ -53977,7 +54044,8 @@
         "id": 9471,
         "slug": "col-des-fillys-la-breole",
         "url": "https://climbfinder.com/en/climbs/col-des-fillys-la-breole",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6515,
@@ -55630,7 +55698,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-fillys-la-breole",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-des-fillys-selonnet",
@@ -55642,7 +55711,8 @@
         "id": 9472,
         "slug": "col-des-fillys-selonnet",
         "url": "https://climbfinder.com/en/climbs/col-des-fillys-selonnet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 4293,
@@ -56777,7 +56847,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-fillys-selonnet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-des-leques-la-tuiliere",
@@ -56789,7 +56860,8 @@
         "id": 1984,
         "slug": "col-des-leques-la-tuiliere",
         "url": "https://climbfinder.com/en/climbs/col-des-leques-la-tuiliere",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6605,
@@ -58466,7 +58538,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-leques-la-tuiliere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-buis-les-venieres",
@@ -58478,7 +58551,8 @@
         "id": 15254,
         "slug": "col-de-buis-les-venieres",
         "url": "https://climbfinder.com/en/climbs/col-de-buis-les-venieres",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 3882,
@@ -59513,7 +59587,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-buis-les-venieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-du-fanget-seyne",
@@ -59525,7 +59600,8 @@
         "id": 6151,
         "slug": "col-du-fanget-seyne",
         "url": "https://climbfinder.com/en/climbs/col-du-fanget-seyne",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 4590,
@@ -60708,7 +60784,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-fanget-seyne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-l-aire-dei-masco-cereste",
@@ -60720,7 +60797,8 @@
         "id": 5940,
         "slug": "col-de-l-aire-dei-masco-cereste",
         "url": "https://climbfinder.com/en/climbs/col-de-l-aire-dei-masco-cereste",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6600,
@@ -62391,7 +62469,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-aire-dei-masco-cereste",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-font-belle-thoard",
@@ -62403,7 +62482,8 @@
         "id": 5930,
         "slug": "col-de-font-belle-thoard",
         "url": "https://climbfinder.com/en/climbs/col-de-font-belle-thoard",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 10918,
@@ -63820,7 +63900,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-font-belle-thoard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-felines-entrevaux",
@@ -63832,7 +63913,8 @@
         "id": 5912,
         "slug": "col-de-felines-entrevaux",
         "url": "https://climbfinder.com/en/climbs/col-de-felines-entrevaux",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7474,
@@ -65715,7 +65797,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-felines-entrevaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "le-petit-robion-castellane",
@@ -65727,7 +65810,8 @@
         "id": 7045,
         "slug": "le-petit-robion-castellane",
         "url": "https://climbfinder.com/en/climbs/le-petit-robion-castellane",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6140,
@@ -67288,7 +67372,8 @@
           "url": "https://climbfinder.com/en/climbs/le-petit-robion-castellane",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-puimichel-malijai",
@@ -67300,7 +67385,8 @@
         "id": 11746,
         "slug": "col-de-puimichel-malijai",
         "url": "https://climbfinder.com/en/climbs/col-de-puimichel-malijai",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7579,
@@ -69215,7 +69301,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-puimichel-malijai",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "colle-basse-annot",
@@ -69227,7 +69314,8 @@
         "id": 6282,
         "slug": "colle-basse-annot",
         "url": "https://climbfinder.com/en/climbs/colle-basse-annot",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 9948,
@@ -71714,7 +71802,8 @@
           "url": "https://climbfinder.com/en/climbs/colle-basse-annot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "fouillouze-saint-paul-sur-ubaye",
@@ -71726,7 +71815,8 @@
         "id": 6326,
         "slug": "fouillouze-saint-paul-sur-ubaye",
         "url": "https://climbfinder.com/en/climbs/fouillouze-saint-paul-sur-ubaye",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7865,
@@ -73707,7 +73797,8 @@
           "url": "https://climbfinder.com/en/climbs/fouillouze-saint-paul-sur-ubaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-du-pas-de-bonnet-digne-les-bains",
@@ -73719,7 +73810,8 @@
         "id": 6204,
         "slug": "col-du-pas-de-bonnet-digne-les-bains",
         "url": "https://climbfinder.com/en/climbs/col-du-pas-de-bonnet-digne-les-bains",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7380,
@@ -75584,7 +75676,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-pas-de-bonnet-digne-les-bains",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "bay-entrevaux",
@@ -75596,7 +75689,8 @@
         "id": 5622,
         "slug": "bay-entrevaux",
         "url": "https://climbfinder.com/en/climbs/bay-entrevaux",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 6295,
@@ -77193,7 +77287,8 @@
           "url": "https://climbfinder.com/en/climbs/bay-entrevaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-de-corobin-chaudon-norante",
@@ -77205,7 +77300,8 @@
         "id": 5909,
         "slug": "col-de-corobin-chaudon-norante",
         "url": "https://climbfinder.com/en/climbs/col-de-corobin-chaudon-norante",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7687,
@@ -79144,7 +79240,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-corobin-chaudon-norante",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "col-d-ayen-la-palud-sur-verdon",
@@ -79156,7 +79253,8 @@
         "id": 6974,
         "slug": "col-d-ayen-la-palud-sur-verdon",
         "url": "https://climbfinder.com/en/climbs/col-d-ayen-la-palud-sur-verdon",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 7182,
@@ -80109,7 +80207,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-ayen-la-palud-sur-verdon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "stade-de-neige-de-vaupane-col-de-st-barnabe",
@@ -80121,7 +80220,8 @@
         "id": 7042,
         "slug": "stade-de-neige-de-vaupane-col-de-st-barnabe",
         "url": "https://climbfinder.com/en/climbs/stade-de-neige-de-vaupane-col-de-st-barnabe",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 4221,
@@ -81212,7 +81312,8 @@
           "url": "https://climbfinder.com/en/climbs/stade-de-neige-de-vaupane-col-de-st-barnabe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "la-baume-castellane",
@@ -81224,7 +81325,8 @@
         "id": 7044,
         "slug": "la-baume-castellane",
         "url": "https://climbfinder.com/en/climbs/la-baume-castellane",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 290
       },
       "stats": {
         "length_m": 8184,
@@ -83285,7 +83387,8 @@
           "url": "https://climbfinder.com/en/climbs/la-baume-castellane",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 290
     },
     {
       "id": "colle-saint-michel-thorame-haute",

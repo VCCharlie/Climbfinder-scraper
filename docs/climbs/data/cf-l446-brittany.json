@@ -5,7 +5,7 @@
     "title": "Brittany",
     "region_label": "Brittany",
     "country": "FR",
-    "updated_at": "2026-10-07T04:49:30Z",
+    "updated_at": "2026-10-07T13:19:04Z",
     "count": 850,
     "source": {
       "name": "climbfinder",
@@ -18,20 +18,24 @@
       ],
       "locality_id": 446
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:19:04Z"
+    }
   },
   "climbs": [
     {
       "id": "mur-de-bretagne-mur-de-bretagne",
       "name": "Mur de Bretagne Guerlédan",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 1126,
         "slug": "mur-de-bretagne-mur-de-bretagne",
         "url": "https://climbfinder.com/en/climbs/mur-de-bretagne-mur-de-bretagne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 2125,
@@ -622,19 +626,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-bretagne-mur-de-bretagne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-du-village-de-mur-de-bretagne",
       "name": "Côte du village de Mûr de Bretagne",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11709,
         "slug": "cote-du-village-de-mur-de-bretagne",
         "url": "https://climbfinder.com/en/climbs/cote-du-village-de-mur-de-bretagne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1546,
@@ -1097,19 +1103,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-village-de-mur-de-bretagne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-la-fosse-aux-loups-landerneau",
       "name": "Côte de la Fosse aux Loups from Landerneau",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11546,
         "slug": "cote-de-la-fosse-aux-loups-landerneau",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-fosse-aux-loups-landerneau",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2822,
@@ -1876,19 +1884,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-fosse-aux-loups-landerneau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-cadoudal",
       "name": "Côte de Cadoudal",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11721,
         "slug": "cote-de-cadoudal",
         "url": "https://climbfinder.com/en/climbs/cote-de-cadoudal",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1841,
@@ -2429,19 +2439,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-cadoudal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "dinan",
       "name": "Côte de Dinan",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 22621,
         "slug": "dinan",
         "url": "https://climbfinder.com/en/climbs/dinan",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 605,
@@ -2676,19 +2688,21 @@
           "url": "https://climbfinder.com/en/climbs/dinan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-menez-hom-pentrez-plage",
       "name": "Côte de Menez - Hom from Pentrez Plage",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9572,
         "slug": "cote-de-menez-hom-pentrez-plage",
         "url": "https://climbfinder.com/en/climbs/cote-de-menez-hom-pentrez-plage",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 7041,
@@ -4469,19 +4483,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-menez-hom-pentrez-plage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-vieux-quimerch-pont-de-buis-les-quimerch",
       "name": "Côte du Vieux Quimerch from Pont-de-Buis-lès-Quimerch",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 25779,
         "slug": "cote-du-vieux-quimerch-pont-de-buis-les-quimerch",
         "url": "https://climbfinder.com/en/climbs/cote-du-vieux-quimerch-pont-de-buis-les-quimerch",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 4665,
@@ -5710,19 +5726,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-vieux-quimerch-pont-de-buis-les-quimerch",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "mont-dol",
       "name": "Mont Dol",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 20781,
         "slug": "mont-dol",
         "url": "https://climbfinder.com/en/climbs/mont-dol",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 440,
@@ -5907,19 +5925,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-dol",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "mont-bel-air-la-ville-moisan",
       "name": "Mont Bel Air from La Ville Moisan",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 22067,
         "slug": "mont-bel-air-la-ville-moisan",
         "url": "https://climbfinder.com/en/climbs/mont-bel-air-la-ville-moisan",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 4768,
@@ -7172,19 +7192,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-bel-air-la-ville-moisan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "menez-hom-plomodiern",
       "name": "Ménez Hom from Plomodiern",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 16681,
         "slug": "menez-hom-plomodiern",
         "url": "https://climbfinder.com/en/climbs/menez-hom-plomodiern",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 4404,
@@ -8351,19 +8373,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-hom-plomodiern",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-locronan",
       "name": "Côte de Locronan",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11702,
         "slug": "cote-de-locronan",
         "url": "https://climbfinder.com/en/climbs/cote-de-locronan",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 939,
@@ -8688,19 +8712,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-locronan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "menez-bre-kerhuel",
       "name": "Menez Bré from Kerhuel",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 17104,
         "slug": "menez-bre-kerhuel",
         "url": "https://climbfinder.com/en/climbs/menez-bre-kerhuel",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1260,
@@ -9091,19 +9117,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-bre-kerhuel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "menez-quelc-h-chateaulin",
       "name": "Menez Quelc'h from Châteaulin",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 26137,
         "slug": "menez-quelc-h-chateaulin",
         "url": "https://climbfinder.com/en/climbs/menez-quelc-h-chateaulin",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3157,
@@ -9956,19 +9984,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-quelc-h-chateaulin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "mont-bel-air-le-vau-bouyet",
       "name": "Mont Bel Air from Le Vau Bouyet",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 22068,
         "slug": "mont-bel-air-le-vau-bouyet",
         "url": "https://climbfinder.com/en/climbs/mont-bel-air-le-vau-bouyet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 4290,
@@ -11103,19 +11133,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-bel-air-le-vau-bouyet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-pont-rean",
       "name": "Côte de Pont-Réan",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 16906,
         "slug": "cote-de-pont-rean",
         "url": "https://climbfinder.com/en/climbs/cote-de-pont-rean",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1697,
@@ -11616,19 +11648,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-pont-rean",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-saint-brieuc",
       "name": "Côte de Saint Brieuc",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11711,
         "slug": "cote-de-saint-brieuc",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-brieuc",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1370,
@@ -12045,19 +12079,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-brieuc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "col-de-tredudon-la-feuillee",
       "name": "Ode Trédudon / Col de Trédudon from La Feuillée",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 9571,
         "slug": "col-de-tredudon-la-feuillee",
         "url": "https://climbfinder.com/en/climbs/col-de-tredudon-la-feuillee",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2739,
@@ -12804,19 +12840,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tredudon-la-feuillee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "menez-lokorn-locronan",
       "name": "Menez Lokorn from Locronan",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9954,
         "slug": "menez-lokorn-locronan",
         "url": "https://climbfinder.com/en/climbs/menez-lokorn-locronan",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2993,
@@ -13625,19 +13663,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-lokorn-locronan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-sainte-barbe",
       "name": "Côte de Sainte Barbe",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11715,
         "slug": "cote-de-sainte-barbe",
         "url": "https://climbfinder.com/en/climbs/cote-de-sainte-barbe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1227,
@@ -14046,19 +14086,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-sainte-barbe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-beg-menez-saint-laurent",
       "name": "Côte de Beg Menez from Saint Laurent",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 26132,
         "slug": "cote-de-beg-menez-saint-laurent",
         "url": "https://climbfinder.com/en/climbs/cote-de-beg-menez-saint-laurent",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 459,
@@ -14251,19 +14293,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-beg-menez-saint-laurent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "montagne-saint-michel-pennarous",
       "name": "Montagne Saint-Michel from Pennarous",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 25775,
         "slug": "montagne-saint-michel-pennarous",
         "url": "https://climbfinder.com/en/climbs/montagne-saint-michel-pennarous",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 5715,
@@ -15720,19 +15764,21 @@
           "url": "https://climbfinder.com/en/climbs/montagne-saint-michel-pennarous",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-laille-d39",
       "name": "Côte de Laillé via Les Vallées",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 16908,
         "slug": "cote-de-laille-d39",
         "url": "https://climbfinder.com/en/climbs/cote-de-laille-d39",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1598,
@@ -16207,19 +16253,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-laille-d39",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "menez-bre-hent-guer-meur",
       "name": "Menez Bré from Hent Guer Meur",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 17103,
         "slug": "menez-bre-hent-guer-meur",
         "url": "https://climbfinder.com/en/climbs/menez-bre-hent-guer-meur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 852,
@@ -16524,19 +16572,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-bre-hent-guer-meur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "menez-hom-tregarvan",
       "name": "Ménez Hom from Trégarvan",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 32354,
         "slug": "menez-hom-tregarvan",
         "url": "https://climbfinder.com/en/climbs/menez-hom-tregarvan",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 9981,
@@ -19035,19 +19085,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-hom-tregarvan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "col-de-toullaeron-gourin",
       "name": "Col de Toullaeron from Gourin",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 9570,
         "slug": "col-de-toullaeron-gourin",
         "url": "https://climbfinder.com/en/climbs/col-de-toullaeron-gourin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 4491,
@@ -20232,19 +20284,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-toullaeron-gourin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-du-vieux-quimerch",
       "name": "Côte du Vieux Quimerch",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 16682,
         "slug": "cote-du-vieux-quimerch",
         "url": "https://climbfinder.com/en/climbs/cote-du-vieux-quimerch",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1777,
@@ -20771,19 +20825,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-vieux-quimerch",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "mur-de-la-station-d-epuration-de-pontrieux",
       "name": "Mur de la Station d'Épuration de Pontrieux",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 16909,
         "slug": "mur-de-la-station-d-epuration-de-pontrieux",
         "url": "https://climbfinder.com/en/climbs/mur-de-la-station-d-epuration-de-pontrieux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 431,
@@ -20968,19 +21024,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-la-station-d-epuration-de-pontrieux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "col-de-tredudon-saint-rivoal",
       "name": "Ode Trédudon / Col de Trédudon from Saint-Rivoal",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 25777,
         "slug": "col-de-tredudon-saint-rivoal",
         "url": "https://climbfinder.com/en/climbs/col-de-tredudon-saint-rivoal",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 14801,
@@ -22851,19 +22909,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tredudon-saint-rivoal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-stang-ar-garront",
       "name": "Côte de Stang Ar Garront",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11707,
         "slug": "cote-de-stang-ar-garront",
         "url": "https://climbfinder.com/en/climbs/cote-de-stang-ar-garront",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2504,
@@ -23554,19 +23614,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-stang-ar-garront",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "mur-de-bretagne",
       "name": "Mur de Bretagne from Tour Houz via Le Cosquer Kerguillaume",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 38144,
         "slug": "mur-de-bretagne",
         "url": "https://climbfinder.com/en/climbs/mur-de-bretagne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1425,
@@ -23997,19 +24059,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-bretagne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-trebeolin-632358",
       "name": "Côte de Trébéolin",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11700,
         "slug": "cote-de-trebeolin-632358",
         "url": "https://climbfinder.com/en/climbs/cote-de-trebeolin-632358",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 917,
@@ -24328,19 +24392,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-trebeolin-632358",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "le-roc-h-cleguer",
       "name": "Le Roc'h Cléguer",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 23906,
         "slug": "le-roc-h-cleguer",
         "url": "https://climbfinder.com/en/climbs/le-roc-h-cleguer",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 7392,
@@ -26205,19 +26271,21 @@
           "url": "https://climbfinder.com/en/climbs/le-roc-h-cleguer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "menez-bre-le-manaty",
       "name": "Menez Bré from Le Manaty",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 17105,
         "slug": "menez-bre-le-manaty",
         "url": "https://climbfinder.com/en/climbs/menez-bre-le-manaty",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1501,
@@ -26674,19 +26742,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-bre-le-manaty",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-saint-rivoal",
       "name": "Côte de Saint Rivoal",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11706,
         "slug": "cote-de-saint-rivoal",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-rivoal",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2443,
@@ -27383,19 +27453,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-rivoal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-st-malo-de-phily-saint-malo-de-phily",
       "name": "Côte de Saint-Malo-de-Phily",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21327,
         "slug": "cote-de-st-malo-de-phily-saint-malo-de-phily",
         "url": "https://climbfinder.com/en/climbs/cote-de-st-malo-de-phily-saint-malo-de-phily",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2637,
@@ -28118,19 +28190,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-st-malo-de-phily-saint-malo-de-phily",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "les-bois",
       "name": "Les Bois via Roz-sur-Couesnon",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 24194,
         "slug": "les-bois",
         "url": "https://climbfinder.com/en/climbs/les-bois",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2959,
@@ -28933,19 +29007,21 @@
           "url": "https://climbfinder.com/en/climbs/les-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "montee-de-chanel-chanel",
       "name": "Montée de Chanel from Chanel",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21709,
         "slug": "montee-de-chanel-chanel",
         "url": "https://climbfinder.com/en/climbs/montee-de-chanel-chanel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 409,
@@ -29124,19 +29200,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-chanel-chanel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "montee-de-la-croix-baron-la-hautiere",
       "name": "Saint Potan from La Hautière via la Croix Baron",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 22029,
         "slug": "montee-de-la-croix-baron-la-hautiere",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-croix-baron-la-hautiere",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 6632,
@@ -30819,19 +30897,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-croix-baron-la-hautiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "mur-de-la-gare",
       "name": "Mur de la Gare",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 25460,
         "slug": "mur-de-la-gare",
         "url": "https://climbfinder.com/en/climbs/mur-de-la-gare",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 78,
@@ -30918,19 +30998,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-la-gare",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "menez-lokorn-plogonnec",
       "name": "Menez Lokorn from Plogonnec",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9953,
         "slug": "menez-lokorn-plogonnec",
         "url": "https://climbfinder.com/en/climbs/menez-lokorn-plogonnec",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3706,
@@ -31921,19 +32003,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-lokorn-plogonnec",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-rosnoen-le-trest",
       "name": "Côte de Rosnoën via Le Trest",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11704,
         "slug": "cote-de-rosnoen-le-trest",
         "url": "https://climbfinder.com/en/climbs/cote-de-rosnoen-le-trest",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3583,
@@ -32892,19 +32976,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-rosnoen-le-trest",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-rosnoen",
       "name": "Côte de Rosnoën",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11703,
         "slug": "cote-de-rosnoen",
         "url": "https://climbfinder.com/en/climbs/cote-de-rosnoen",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3130,
@@ -33751,19 +33837,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-rosnoen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "mur-de-briolet",
       "name": "Mur de Briolet",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22235,
         "slug": "mur-de-briolet",
         "url": "https://climbfinder.com/en/climbs/mur-de-briolet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 568,
@@ -33984,19 +34072,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-briolet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-chapelle-st-anne",
       "name": "Côte de la Chapelle St-Anne",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23246,
         "slug": "cote-de-la-chapelle-st-anne",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-chapelle-st-anne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 582,
@@ -34223,19 +34313,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-chapelle-st-anne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-la-foret-de-paimpont",
       "name": "Côte de la Forêt de Paimpont",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31053,
         "slug": "cote-de-la-foret-de-paimpont",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-foret-de-paimpont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1873,
@@ -34782,19 +34874,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-foret-de-paimpont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "ar-menez-cameros",
       "name": "Ar Ménez from Caméros",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 8294,
         "slug": "ar-menez-cameros",
         "url": "https://climbfinder.com/en/climbs/ar-menez-cameros",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3344,
@@ -35691,19 +35785,21 @@
           "url": "https://climbfinder.com/en/climbs/ar-menez-cameros",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "roche-du-feu-gouezec",
       "name": "Roche du Feu from Gouézec",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 24631,
         "slug": "roche-du-feu-gouezec",
         "url": "https://climbfinder.com/en/climbs/roche-du-feu-gouezec",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2909,
@@ -36494,19 +36590,21 @@
           "url": "https://climbfinder.com/en/climbs/roche-du-feu-gouezec",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-boel",
       "name": "Côte du Boël",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21687,
         "slug": "cote-du-boel",
         "url": "https://climbfinder.com/en/climbs/cote-du-boel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2673,
@@ -37235,19 +37333,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-boel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "hede",
       "name": "Côte du Chat from Hédé",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22579,
         "slug": "hede",
         "url": "https://climbfinder.com/en/climbs/hede",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1114,
@@ -37622,19 +37722,21 @@
           "url": "https://climbfinder.com/en/climbs/hede",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "becherel",
       "name": "Bécherel",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22634,
         "slug": "becherel",
         "url": "https://climbfinder.com/en/climbs/becherel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 742,
@@ -37903,19 +38005,21 @@
           "url": "https://climbfinder.com/en/climbs/becherel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "goven-la-cheviliere",
       "name": "Goven from La Chevilière",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22024,
         "slug": "goven-la-cheviliere",
         "url": "https://climbfinder.com/en/climbs/goven-la-cheviliere",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 5089,
@@ -39220,19 +39324,21 @@
           "url": "https://climbfinder.com/en/climbs/goven-la-cheviliere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "la-tourelle-quimper",
       "name": "La Tourelle from Quimper",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 26133,
         "slug": "la-tourelle-quimper",
         "url": "https://climbfinder.com/en/climbs/la-tourelle-quimper",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 621,
@@ -39467,19 +39573,21 @@
           "url": "https://climbfinder.com/en/climbs/la-tourelle-quimper",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "locunele-tallene",
       "name": "Locunelé from Tallené",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 18208,
         "slug": "locunele-tallene",
         "url": "https://climbfinder.com/en/climbs/locunele-tallene",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1899,
@@ -40032,19 +40140,21 @@
           "url": "https://climbfinder.com/en/climbs/locunele-tallene",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "saint-germain-sur-ille",
       "name": "Saint Germain sur Ille from Le Moulin Neuf",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 23964,
         "slug": "saint-germain-sur-ille",
         "url": "https://climbfinder.com/en/climbs/saint-germain-sur-ille",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 900,
@@ -40355,19 +40465,21 @@
           "url": "https://climbfinder.com/en/climbs/saint-germain-sur-ille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "vitre",
       "name": "Vitré",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23631,
         "slug": "vitre",
         "url": "https://climbfinder.com/en/climbs/vitre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 139,
@@ -40468,19 +40580,21 @@
           "url": "https://climbfinder.com/en/climbs/vitre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "menez-bre-traou-ar-voaz",
       "name": "Menez Bre from Traou ar Voaz",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 46990,
         "slug": "menez-bre-traou-ar-voaz",
         "url": "https://climbfinder.com/en/climbs/menez-bre-traou-ar-voaz",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1881,
@@ -41033,19 +41147,21 @@
           "url": "https://climbfinder.com/en/climbs/menez-bre-traou-ar-voaz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "goven-sud",
       "name": "Goven",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21645,
         "slug": "goven-sud",
         "url": "https://climbfinder.com/en/climbs/goven-sud",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 561,
@@ -41266,19 +41382,21 @@
           "url": "https://climbfinder.com/en/climbs/goven-sud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-st-potan-l-aulnay-du-bois",
       "name": "Côte de Saint Potan from L'Aulnay du bois",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 22028,
         "slug": "cote-de-st-potan-l-aulnay-du-bois",
         "url": "https://climbfinder.com/en/climbs/cote-de-st-potan-l-aulnay-du-bois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 3237,
@@ -42151,19 +42269,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-st-potan-l-aulnay-du-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-saint-barthelemy-les-forges",
       "name": "Côte de Saint Barthélémy from Les Forges",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 31054,
         "slug": "cote-de-saint-barthelemy-les-forges",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-barthelemy-les-forges",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 4003,
@@ -43230,19 +43350,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-barthelemy-les-forges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-du-quilio",
       "name": "Côte du Quilio",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 23021,
         "slug": "cote-du-quilio",
         "url": "https://climbfinder.com/en/climbs/cote-du-quilio",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 4437,
@@ -44415,19 +44537,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-quilio",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "mur-du-moulin-de-la-vache",
       "name": "Mur du Moulin de la Vache",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 16910,
         "slug": "mur-du-moulin-de-la-vache",
         "url": "https://climbfinder.com/en/climbs/mur-du-moulin-de-la-vache",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 698,
@@ -44682,19 +44806,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-du-moulin-de-la-vache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "trebeolin-stagmeur",
       "name": "Trébéolin via Stagmeur",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 11701,
         "slug": "trebeolin-stagmeur",
         "url": "https://climbfinder.com/en/climbs/trebeolin-stagmeur",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2055,
@@ -45293,19 +45419,21 @@
           "url": "https://climbfinder.com/en/climbs/trebeolin-stagmeur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "col-de-la-montagne-de-laz",
       "name": "Col de la Montagne de Laz",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23888,
         "slug": "col-de-la-montagne-de-laz",
         "url": "https://climbfinder.com/en/climbs/col-de-la-montagne-de-laz",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3296,
@@ -46190,19 +46318,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-montagne-de-laz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "col-de-keralvez-gourin",
       "name": "Col de Keralvez from Gourin",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 23887,
         "slug": "col-de-keralvez-gourin",
         "url": "https://climbfinder.com/en/climbs/col-de-keralvez-gourin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 4830,
@@ -47475,19 +47605,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-keralvez-gourin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-rue",
       "name": "Côte de la Rue from La Rue",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22638,
         "slug": "cote-de-la-rue",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-rue",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1097,
@@ -47854,19 +47986,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-rue",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "le-tertre",
       "name": "Le Tertre",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 17102,
         "slug": "le-tertre",
         "url": "https://climbfinder.com/en/climbs/le-tertre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1635,
@@ -48355,19 +48489,21 @@
           "url": "https://climbfinder.com/en/climbs/le-tertre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-la-gendarmerie",
       "name": "Côte de la Gendarmerie",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 16954,
         "slug": "cote-de-la-gendarmerie",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-gendarmerie",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 561,
@@ -48588,19 +48724,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-gendarmerie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "lescouet-jugon-des-lacs",
       "name": "Lescouët Jugon from Jugon des Lacs",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 38243,
         "slug": "lescouet-jugon-des-lacs",
         "url": "https://climbfinder.com/en/climbs/lescouet-jugon-des-lacs",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 494,
@@ -48799,19 +48937,21 @@
           "url": "https://climbfinder.com/en/climbs/lescouet-jugon-des-lacs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "ar-menez-argol",
       "name": "Ar Ménez from Argol",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 8293,
         "slug": "ar-menez-argol",
         "url": "https://climbfinder.com/en/climbs/ar-menez-argol",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1510,
@@ -49268,19 +49408,21 @@
           "url": "https://climbfinder.com/en/climbs/ar-menez-argol",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "la-fosse-aux-loups-landerneau-cote-de-l-hopital",
       "name": "La Fosse aux Loups from Landerneau via Côte de l'Hôpital",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 37674,
         "slug": "la-fosse-aux-loups-landerneau-cote-de-l-hopital",
         "url": "https://climbfinder.com/en/climbs/la-fosse-aux-loups-landerneau-cote-de-l-hopital",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3593,
@@ -50239,19 +50381,21 @@
           "url": "https://climbfinder.com/en/climbs/la-fosse-aux-loups-landerneau-cote-de-l-hopital",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-houlle",
       "name": "Côte du Houlle",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 22998,
         "slug": "cote-du-houlle",
         "url": "https://climbfinder.com/en/climbs/cote-du-houlle",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 994,
@@ -50590,19 +50734,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-houlle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "col-de-marhalla-boqueho",
       "name": "Col de Marhalla from Boqueho",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 39577,
         "slug": "col-de-marhalla-boqueho",
         "url": "https://climbfinder.com/en/climbs/col-de-marhalla-boqueho",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 3988,
@@ -51661,19 +51807,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-marhalla-boqueho",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-la-gendarmerie-guichen",
       "name": "Côte de la Gendarmerie from Guichen",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21772,
         "slug": "cote-de-la-gendarmerie-guichen",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-gendarmerie-guichen",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 336,
@@ -51830,19 +51978,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-gendarmerie-guichen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "montee-du-ruisseau-de-la-croix-mace",
       "name": "Montée du Ruisseau de la Croix Macé",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22026,
         "slug": "montee-du-ruisseau-de-la-croix-mace",
         "url": "https://climbfinder.com/en/climbs/montee-du-ruisseau-de-la-croix-mace",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 564,
@@ -52063,19 +52213,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-du-ruisseau-de-la-croix-mace",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-bon-repos",
       "name": "Côte de Bon Repos",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 38179,
         "slug": "cote-de-bon-repos",
         "url": "https://climbfinder.com/en/climbs/cote-de-bon-repos",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1771,
@@ -52596,19 +52748,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bon-repos",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-la-pellerine-la-selle-en-luitre",
       "name": "Côte de la Pellerine from La-Selle-en-Luitré",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23937,
         "slug": "cote-de-la-pellerine-la-selle-en-luitre",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-pellerine-la-selle-en-luitre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 7908,
@@ -54601,19 +54755,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-pellerine-la-selle-en-luitre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "mur-du-gravot-bain-de-bretagne",
       "name": "Mur du Gravot from Bain de Bretagne",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38755,
         "slug": "mur-du-gravot-bain-de-bretagne",
         "url": "https://climbfinder.com/en/climbs/mur-du-gravot-bain-de-bretagne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 370,
@@ -54778,19 +54934,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-du-gravot-bain-de-bretagne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "faux-plat-de-villeneuve-la-gretais",
       "name": "Faux-plat de Villeneuve from La Grétais",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22136,
         "slug": "faux-plat-de-villeneuve-la-gretais",
         "url": "https://climbfinder.com/en/climbs/faux-plat-de-villeneuve-la-gretais",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 5252,
@@ -56137,19 +56295,21 @@
           "url": "https://climbfinder.com/en/climbs/faux-plat-de-villeneuve-la-gretais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-plumelliau",
       "name": "Côte de Plumélliau",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 11722,
         "slug": "cote-de-plumelliau",
         "url": "https://climbfinder.com/en/climbs/cote-de-plumelliau",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2671,
@@ -56878,19 +57038,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-plumelliau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-pors-an-gosf-le-sulon",
       "name": "Côte de Pors an Goff from Le Sulon",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22069,
         "slug": "cote-de-pors-an-gosf-le-sulon",
         "url": "https://climbfinder.com/en/climbs/cote-de-pors-an-gosf-le-sulon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 939,
@@ -57215,19 +57377,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-pors-an-gosf-le-sulon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "becherel-linqueniac",
       "name": "Bécherel from Linquéniac",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22635,
         "slug": "becherel-linqueniac",
         "url": "https://climbfinder.com/en/climbs/becherel-linqueniac",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 672,
@@ -57476,19 +57640,21 @@
           "url": "https://climbfinder.com/en/climbs/becherel-linqueniac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "montee-de-la-noe-voisin",
       "name": "Montée de la Noë Voisin",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22149,
         "slug": "montee-de-la-noe-voisin",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-noe-voisin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2160,
@@ -58113,19 +58279,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-noe-voisin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "mur-de-la-perriere",
       "name": "Mur de la Perrière",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22983,
         "slug": "mur-de-la-perriere",
         "url": "https://climbfinder.com/en/climbs/mur-de-la-perriere",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 395,
@@ -58296,19 +58464,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-la-perriere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "la-basse-rue",
       "name": "Saint Germain sur Ille from La Basse Rue",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 25500,
         "slug": "la-basse-rue",
         "url": "https://climbfinder.com/en/climbs/la-basse-rue",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 569,
@@ -58529,19 +58699,21 @@
           "url": "https://climbfinder.com/en/climbs/la-basse-rue",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "la-grille-cardroc",
       "name": "La Grille from Cardroc",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22620,
         "slug": "la-grille-cardroc",
         "url": "https://climbfinder.com/en/climbs/la-grille-cardroc",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1091,
@@ -58908,19 +59080,21 @@
           "url": "https://climbfinder.com/en/climbs/la-grille-cardroc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-la-minaurais-la-gare-de-saint-malo-de-phily",
       "name": "Côte de la Richardière from La gare de Saint-Malo-de-Phily",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23936,
         "slug": "cote-de-la-minaurais-la-gare-de-saint-malo-de-phily",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-minaurais-la-gare-de-saint-malo-de-phily",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 3175,
@@ -59773,19 +59947,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-minaurais-la-gare-de-saint-malo-de-phily",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "le-petit-tetre",
       "name": "Le Petit Tetre",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 24192,
         "slug": "le-petit-tetre",
         "url": "https://climbfinder.com/en/climbs/le-petit-tetre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2590,
@@ -60494,19 +60670,21 @@
           "url": "https://climbfinder.com/en/climbs/le-petit-tetre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-botcoet",
       "name": "Côte de Botcoët",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 25486,
         "slug": "cote-de-botcoet",
         "url": "https://climbfinder.com/en/climbs/cote-de-botcoet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1202,
@@ -60909,19 +61087,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-botcoet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "la-ville-au-grand",
       "name": "La Ville au Grand",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 22253,
         "slug": "la-ville-au-grand",
         "url": "https://climbfinder.com/en/climbs/la-ville-au-grand",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 2532,
@@ -61618,19 +61798,21 @@
           "url": "https://climbfinder.com/en/climbs/la-ville-au-grand",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "goven-la-roche-du-bois",
       "name": "Goven from La Roche du bois",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22025,
         "slug": "goven-la-roche-du-bois",
         "url": "https://climbfinder.com/en/climbs/goven-la-roche-du-bois",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1528,
@@ -62093,19 +62275,21 @@
           "url": "https://climbfinder.com/en/climbs/goven-la-roche-du-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-kervalan",
       "name": "Côte de Kervalan",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 20744,
         "slug": "cote-de-kervalan",
         "url": "https://climbfinder.com/en/climbs/cote-de-kervalan",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1689,
@@ -62606,19 +62790,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-kervalan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-kerchouan-kerfagot",
       "name": "Côte de Kerchouan from Kerfagot",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22252,
         "slug": "cote-de-kerchouan-kerfagot",
         "url": "https://climbfinder.com/en/climbs/cote-de-kerchouan-kerfagot",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 2268,
@@ -63269,19 +63455,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-kerchouan-kerfagot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-kerglaz",
       "name": "Côte de Kerglaz",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 16950,
         "slug": "cote-de-kerglaz",
         "url": "https://climbfinder.com/en/climbs/cote-de-kerglaz",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1025,
@@ -63628,19 +63816,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-kerglaz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-la-fiolais-l-epinay",
       "name": "Côte de la Fiolais from L'Epinay",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21707,
         "slug": "cote-de-la-fiolais-l-epinay",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-fiolais-l-epinay",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2518,
@@ -64331,19 +64521,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-fiolais-l-epinay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-la-chapelle-de-la-lorette-plogonnec",
       "name": "Côte de la Chapelle de la Lorette from Plogonnec",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31066,
         "slug": "cote-de-la-chapelle-de-la-lorette-plogonnec",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-chapelle-de-la-lorette-plogonnec",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1023,
@@ -64690,19 +64882,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-chapelle-de-la-lorette-plogonnec",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-bramby",
       "name": "Côte de Bramby",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22233,
         "slug": "cote-de-bramby",
         "url": "https://climbfinder.com/en/climbs/cote-de-bramby",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1226,
@@ -65111,19 +65305,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bramby",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "montee-de-l-etang-d-andouille",
       "name": "Montée de l'Étang d'Andouillé",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 23026,
         "slug": "montee-de-l-etang-d-andouille",
         "url": "https://climbfinder.com/en/climbs/montee-de-l-etang-d-andouille",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 578,
@@ -65350,19 +65546,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-l-etang-d-andouille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "les-landettes-le-chateau-du-vau-de-quip",
       "name": "Les Landettes from Le Château du Vau de Quip",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22209,
         "slug": "les-landettes-le-chateau-du-vau-de-quip",
         "url": "https://climbfinder.com/en/climbs/les-landettes-le-chateau-du-vau-de-quip",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 997,
@@ -65701,19 +65899,21 @@
           "url": "https://climbfinder.com/en/climbs/les-landettes-le-chateau-du-vau-de-quip",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-ganchere",
       "name": "Côte de la Ganchère",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 17073,
         "slug": "cote-de-la-ganchere",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-ganchere",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 595,
@@ -65940,19 +66140,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-ganchere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "col-de-lanfains-quintin",
       "name": "Col de Lanfains from Quintin",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 50430,
         "slug": "col-de-lanfains-quintin",
         "url": "https://climbfinder.com/en/climbs/col-de-lanfains-quintin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 3000,
@@ -66761,19 +66963,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-lanfains-quintin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "montee-de-la-provotais-ruisseau-de-trehelu",
       "name": "Montée de La Provotais from Ruisseau de Tréhelu",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21688,
         "slug": "montee-de-la-provotais-ruisseau-de-trehelu",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-provotais-ruisseau-de-trehelu",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1849,
@@ -67314,19 +67518,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-provotais-ruisseau-de-trehelu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "le-pont-d-ohin",
       "name": "Le Pont d'Ohin",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22133,
         "slug": "le-pont-d-ohin",
         "url": "https://climbfinder.com/en/climbs/le-pont-d-ohin",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 706,
@@ -67589,19 +67795,21 @@
           "url": "https://climbfinder.com/en/climbs/le-pont-d-ohin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "le-croezou-kervouyen",
       "name": "Le Croëzou from Kervouyen",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 26135,
         "slug": "le-croezou-kervouyen",
         "url": "https://climbfinder.com/en/climbs/le-croezou-kervouyen",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 4426,
@@ -68774,19 +68982,21 @@
           "url": "https://climbfinder.com/en/climbs/le-croezou-kervouyen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "montee-d-ecures",
       "name": "Montée d'Ecures",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22137,
         "slug": "montee-d-ecures",
         "url": "https://climbfinder.com/en/climbs/montee-d-ecures",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2536,
@@ -69483,19 +69693,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-d-ecures",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-kaliforn-saint-goazec",
       "name": "Côte de Kaliforn from Saint-Goazec",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 31068,
         "slug": "cote-de-kaliforn-saint-goazec",
         "url": "https://climbfinder.com/en/climbs/cote-de-kaliforn-saint-goazec",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1583,
@@ -69970,19 +70182,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-kaliforn-saint-goazec",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "montee-de-la-benardiere",
       "name": "Montée de la Benardière",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22027,
         "slug": "montee-de-la-benardiere",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-benardiere",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 273,
@@ -70119,19 +70333,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-benardiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-la-marchandais-la-marchandais",
       "name": "Côte de La Marchandais from La Marchandais",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21690,
         "slug": "cote-de-la-marchandais-la-marchandais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-marchandais-la-marchandais",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 897,
@@ -70442,19 +70658,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-marchandais-la-marchandais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-kermaria-le-pont-martin",
       "name": "Côte de Kermaria from Le Pont Martin",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21744,
         "slug": "cote-de-kermaria-le-pont-martin",
         "url": "https://climbfinder.com/en/climbs/cote-de-kermaria-le-pont-martin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1985,
@@ -71033,19 +71251,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-kermaria-le-pont-martin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-du-cimetiere-bourd-de-lassy",
       "name": "Côte du Cimetière from Bourd de Lassy",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21567,
         "slug": "cote-du-cimetiere-bourd-de-lassy",
         "url": "https://climbfinder.com/en/climbs/cote-du-cimetiere-bourd-de-lassy",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 382,
@@ -71216,19 +71436,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-cimetiere-bourd-de-lassy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "goven-jeux",
       "name": "Goven from Jeux",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 17095,
         "slug": "goven-jeux",
         "url": "https://climbfinder.com/en/climbs/goven-jeux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 3179,
@@ -72087,19 +72309,21 @@
           "url": "https://climbfinder.com/en/climbs/goven-jeux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "le-couyer-saint-germain-sur-ille",
       "name": "Le Couyer from Saint Germain sur Ille",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22733,
         "slug": "le-couyer-saint-germain-sur-ille",
         "url": "https://climbfinder.com/en/climbs/le-couyer-saint-germain-sur-ille",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 879,
@@ -72410,19 +72634,21 @@
           "url": "https://climbfinder.com/en/climbs/le-couyer-saint-germain-sur-ille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-monmucon-jaunel",
       "name": "Côte de Monmuçon from Jaunel",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22020,
         "slug": "cote-de-monmucon-jaunel",
         "url": "https://climbfinder.com/en/climbs/cote-de-monmucon-jaunel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1723,
@@ -72931,19 +73157,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-monmucon-jaunel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-du-pont-de-la-perche",
       "name": "Côte du Pont de la Perche",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22629,
         "slug": "cote-du-pont-de-la-perche",
         "url": "https://climbfinder.com/en/climbs/cote-du-pont-de-la-perche",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 500,
@@ -73142,19 +73370,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-pont-de-la-perche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "becherel-la-barre",
       "name": "Bécherel from La Barre de Bécherel",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 23497,
         "slug": "becherel-la-barre",
         "url": "https://climbfinder.com/en/climbs/becherel-la-barre",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 877,
@@ -73465,19 +73695,21 @@
           "url": "https://climbfinder.com/en/climbs/becherel-la-barre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-du-chene",
       "name": "Côte du Chêne",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22144,
         "slug": "cote-du-chene",
         "url": "https://climbfinder.com/en/climbs/cote-du-chene",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1277,
@@ -73874,19 +74106,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-chene",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "mur-du-gourdillon",
       "name": "Mur du Gourdillon",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22251,
         "slug": "mur-du-gourdillon",
         "url": "https://climbfinder.com/en/climbs/mur-du-gourdillon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 386,
@@ -74057,19 +74291,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-du-gourdillon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "les-coulees-du-val",
       "name": "Les Coulées du Val",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22166,
         "slug": "les-coulees-du-val",
         "url": "https://climbfinder.com/en/climbs/les-coulees-du-val",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 656,
@@ -74318,19 +74554,21 @@
           "url": "https://climbfinder.com/en/climbs/les-coulees-du-val",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-du-vau",
       "name": "Côte du Vau",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22234,
         "slug": "cote-du-vau",
         "url": "https://climbfinder.com/en/climbs/cote-du-vau",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 639,
@@ -74571,19 +74809,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-vau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-du-rocher-de-l-imperatrice-mur-du-passage",
       "name": "Côte du Rocher de l'Impératrice - Mur du Passage",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 39080,
         "slug": "cote-du-rocher-de-l-imperatrice-mur-du-passage",
         "url": "https://climbfinder.com/en/climbs/cote-du-rocher-de-l-imperatrice-mur-du-passage",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 963,
@@ -74916,19 +75156,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-rocher-de-l-imperatrice-mur-du-passage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "allineuc",
       "name": "Allineuc from La Prise Mallard",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22631,
         "slug": "allineuc",
         "url": "https://climbfinder.com/en/climbs/allineuc",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 592,
@@ -75155,19 +75397,21 @@
           "url": "https://climbfinder.com/en/climbs/allineuc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-d-ilien",
       "name": "Côte d'Ilien",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23886,
         "slug": "cote-d-ilien",
         "url": "https://climbfinder.com/en/climbs/cote-d-ilien",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2158,
@@ -75792,19 +76036,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-d-ilien",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "montee-du-guereteau",
       "name": "Montée du Guéréteau",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22150,
         "slug": "montee-du-guereteau",
         "url": "https://climbfinder.com/en/climbs/montee-du-guereteau",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 957,
@@ -76137,19 +76383,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-du-guereteau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "saint-pern-plouasne",
       "name": "Saint Pern from Plouasne",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 23607,
         "slug": "saint-pern-plouasne",
         "url": "https://climbfinder.com/en/climbs/saint-pern-plouasne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 3017,
@@ -76966,19 +77214,21 @@
           "url": "https://climbfinder.com/en/climbs/saint-pern-plouasne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-la-jeussais-la-berraudais",
       "name": "Côte de la Jeussais from La Berraudais",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 23923,
         "slug": "cote-de-la-jeussais-la-berraudais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-jeussais-la-berraudais",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 887,
@@ -77289,19 +77539,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-jeussais-la-berraudais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "faux-plat-de-deil",
       "name": "Faux-plat de Deil",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22254,
         "slug": "faux-plat-de-deil",
         "url": "https://climbfinder.com/en/climbs/faux-plat-de-deil",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1624,
@@ -77784,19 +78036,21 @@
           "url": "https://climbfinder.com/en/climbs/faux-plat-de-deil",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-du-celar",
       "name": "Côte du Celar",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22752,
         "slug": "cote-du-celar",
         "url": "https://climbfinder.com/en/climbs/cote-du-celar",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 3820,
@@ -78813,19 +79067,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-celar",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-lassy-ruisseau-de-lampatre",
       "name": "Côte de Lassy from Ruisseau de Lampâtre",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21992,
         "slug": "cote-de-lassy-ruisseau-de-lampatre",
         "url": "https://climbfinder.com/en/climbs/cote-de-lassy-ruisseau-de-lampatre",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1121,
@@ -79200,19 +79456,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-lassy-ruisseau-de-lampatre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-brancheleux-le-plessis-rivault",
       "name": "Côte de Brancheleux from Le Plessis-Rivault",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22237,
         "slug": "cote-de-brancheleux-le-plessis-rivault",
         "url": "https://climbfinder.com/en/climbs/cote-de-brancheleux-le-plessis-rivault",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1770,
@@ -79733,19 +79991,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-brancheleux-le-plessis-rivault",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "montee-du-pont-de-lassy-le-pont-de-lassy",
       "name": "Montée du Pont de Lassy from Le Pont de Lassy",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 21568,
         "slug": "montee-du-pont-de-lassy-le-pont-de-lassy",
         "url": "https://climbfinder.com/en/climbs/montee-du-pont-de-lassy-le-pont-de-lassy",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 834,
@@ -80042,19 +80302,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-du-pont-de-lassy-le-pont-de-lassy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-de-keranhoat-pencran",
       "name": "Côte de Keranhoat from Pencran",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 31065,
         "slug": "cote-de-keranhoat-pencran",
         "url": "https://climbfinder.com/en/climbs/cote-de-keranhoat-pencran",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1521,
@@ -80511,19 +80773,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-keranhoat-pencran",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-peudu",
       "name": "Côte de Peudu",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22207,
         "slug": "cote-de-peudu",
         "url": "https://climbfinder.com/en/climbs/cote-de-peudu",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 811,
@@ -80814,19 +81078,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-peudu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "le-rocher-la-lande-du-bourg",
       "name": "Le Rocher from La Lande du Bourg",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 23360,
         "slug": "le-rocher-la-lande-du-bourg",
         "url": "https://climbfinder.com/en/climbs/le-rocher-la-lande-du-bourg",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 2514,
@@ -81517,19 +81783,21 @@
           "url": "https://climbfinder.com/en/climbs/le-rocher-la-lande-du-bourg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "cote-du-pont-du-prieur",
       "name": "Côte du Pont du Prieur",
-      "region": "Brittany",
+      "region": "Ille-et-Vilaine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21993,
         "slug": "cote-du-pont-du-prieur",
         "url": "https://climbfinder.com/en/climbs/cote-du-pont-du-prieur",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 918
       },
       "stats": {
         "length_m": 1085,
@@ -81896,19 +82164,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-pont-du-prieur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 918
     },
     {
       "id": "le-grand-chene-fumel",
       "name": "Le Grand Chêne Fumel",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22211,
         "slug": "le-grand-chene-fumel",
         "url": "https://climbfinder.com/en/climbs/le-grand-chene-fumel",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1227,
@@ -82317,7 +82587,8 @@
           "url": "https://climbfinder.com/en/climbs/le-grand-chene-fumel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-roche-pernel",
@@ -85234,14 +85505,15 @@
     {
       "id": "cote-de-saint-jean-la-poterie-rieux",
       "name": "Côte de Saint Jean la Poterie from Rieux",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38017,
         "slug": "cote-de-saint-jean-la-poterie-rieux",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-jean-la-poterie-rieux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 839,
@@ -85538,19 +85810,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-jean-la-poterie-rieux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "haut-de-pentrez-pentrez",
       "name": "Haut de Pentrez from Pentrez",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 26136,
         "slug": "haut-de-pentrez-pentrez",
         "url": "https://climbfinder.com/en/climbs/haut-de-pentrez-pentrez",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 355,
@@ -85715,19 +85989,21 @@
           "url": "https://climbfinder.com/en/climbs/haut-de-pentrez-pentrez",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-closet",
       "name": "Côte du Closet",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22181,
         "slug": "cote-du-closet",
         "url": "https://climbfinder.com/en/climbs/cote-du-closet",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1152,
@@ -86116,7 +86392,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-closet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-maltiere-la-chevilliere",
@@ -87308,14 +87585,15 @@
     {
       "id": "cote-de-pont-rous",
       "name": "Côte de Pont Rous",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 46840,
         "slug": "cote-de-pont-rous",
         "url": "https://climbfinder.com/en/climbs/cote-de-pont-rous",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 506,
@@ -87522,7 +87800,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-pont-rous",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "le-chattelier",
@@ -88075,14 +88354,15 @@
     {
       "id": "la-chaussee-olivier",
       "name": "La Chaussée Olivier",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22159,
         "slug": "la-chaussee-olivier",
         "url": "https://climbfinder.com/en/climbs/la-chaussee-olivier",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 357,
@@ -88247,19 +88527,21 @@
           "url": "https://climbfinder.com/en/climbs/la-chaussee-olivier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "mur-de-bosmeu",
       "name": "Mur de Bosmeu",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22628,
         "slug": "mur-de-bosmeu",
         "url": "https://climbfinder.com/en/climbs/mur-de-bosmeu",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 403,
@@ -88438,7 +88720,8 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-bosmeu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-saint-medard-sur-ille",
@@ -89484,14 +89767,15 @@
     {
       "id": "cote-de-la-brochardais",
       "name": "Côte de la Brochardais",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22236,
         "slug": "cote-de-la-brochardais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-brochardais",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1478,
@@ -89940,19 +90224,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-brochardais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "la-barriere-loperhet",
       "name": "La Barrière from Loperhet",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 37847,
         "slug": "la-barriere-loperhet",
         "url": "https://climbfinder.com/en/climbs/la-barriere-loperhet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1954,
@@ -90525,7 +90811,8 @@
           "url": "https://climbfinder.com/en/climbs/la-barriere-loperhet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-hillandais",
@@ -91452,14 +91739,15 @@
     {
       "id": "cote-de-boget-garnot",
       "name": "Côte de Boget from Garnot",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22210,
         "slug": "cote-de-boget-garnot",
         "url": "https://climbfinder.com/en/climbs/cote-de-boget-garnot",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2009,
@@ -92046,7 +92334,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-boget-garnot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-talensac",
@@ -93774,14 +94063,15 @@
     {
       "id": "cote-du-tranroue-d41",
       "name": "Côte du Tranroué",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22617,
         "slug": "cote-du-tranroue-d41",
         "url": "https://climbfinder.com/en/climbs/cote-du-tranroue-d41",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1838,
@@ -94322,7 +94612,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-tranroue-d41",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "hamonnier",
@@ -94622,14 +94913,15 @@
     {
       "id": "kerdiles-moulin-jet",
       "name": "Kerdilès from Moulin Jet",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 33699,
         "slug": "kerdiles-moulin-jet",
         "url": "https://climbfinder.com/en/climbs/kerdiles-moulin-jet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 727,
@@ -94898,7 +95190,8 @@
           "url": "https://climbfinder.com/en/climbs/kerdiles-moulin-jet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-chatelier",
@@ -95698,14 +95991,15 @@
     {
       "id": "col-de-trevezel",
       "name": "Col de Trevezel from Toulloulan",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 45926,
         "slug": "col-de-trevezel",
         "url": "https://climbfinder.com/en/climbs/col-de-trevezel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 4981,
@@ -97014,7 +97308,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-trevezel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-cannee-les-forges",
@@ -99599,14 +99894,15 @@
     {
       "id": "cote-des-bouessieres-saint-brieuc",
       "name": "Côte des Bouessières from Saint Brieuc",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 39571,
         "slug": "cote-des-bouessieres-saint-brieuc",
         "url": "https://climbfinder.com/en/climbs/cote-des-bouessieres-saint-brieuc",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 886,
@@ -99917,19 +100213,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-bouessieres-saint-brieuc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-penet-le-maupas",
       "name": "Côte de Penêt from Le Maupas",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22632,
         "slug": "cote-de-penet-le-maupas",
         "url": "https://climbfinder.com/en/climbs/cote-de-penet-le-maupas",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1275,
@@ -100320,19 +100618,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-penet-le-maupas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "montee-de-la-brousse",
       "name": "Montée de la Brousse",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22630,
         "slug": "montee-de-la-brousse",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-brousse",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1003,
@@ -100679,19 +100979,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-brousse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "le-buisson-guerin",
       "name": "Le Buisson Guérin",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22255,
         "slug": "le-buisson-guerin",
         "url": "https://climbfinder.com/en/climbs/le-buisson-guerin",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2114,
@@ -101304,7 +101606,8 @@
           "url": "https://climbfinder.com/en/climbs/le-buisson-guerin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "fortonnais",
@@ -103760,14 +104063,15 @@
     {
       "id": "cote-du-houel-le-houel",
       "name": "Côte du Houel / Le Chemin de la Vallée from Le Houel",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 26612,
         "slug": "cote-du-houel-le-houel",
         "url": "https://climbfinder.com/en/climbs/cote-du-houel-le-houel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 2583,
@@ -104476,7 +104780,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-houel-le-houel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-du-fougeray-les-nouettes",
@@ -104890,14 +105195,15 @@
     {
       "id": "bignat-le-sourn-le-ponto",
       "name": "Bignat from Le Ponto",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38156,
         "slug": "bignat-le-sourn-le-ponto",
         "url": "https://climbfinder.com/en/climbs/bignat-le-sourn-le-ponto",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1910,
@@ -105458,7 +105764,8 @@
           "url": "https://climbfinder.com/en/climbs/bignat-le-sourn-le-ponto",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "rue-sainte-croix",
@@ -106899,14 +107206,15 @@
     {
       "id": "mur-de-fonteny",
       "name": "Mur de Fonteny",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22623,
         "slug": "mur-de-fonteny",
         "url": "https://climbfinder.com/en/climbs/mur-de-fonteny",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 273,
@@ -107043,19 +107351,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-fonteny",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "coet-sulan",
       "name": "Coët Sulan",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 44527,
         "slug": "coet-sulan",
         "url": "https://climbfinder.com/en/climbs/coet-sulan",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 450,
@@ -107240,19 +107550,21 @@
           "url": "https://climbfinder.com/en/climbs/coet-sulan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-barazer-kerbiriou",
       "name": "Côte de Barazer from Kerbiriou",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 39451,
         "slug": "cote-de-barazer-kerbiriou",
         "url": "https://climbfinder.com/en/climbs/cote-de-barazer-kerbiriou",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 728,
@@ -107521,19 +107833,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-barazer-kerbiriou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-des-rochettes",
       "name": "Côte des Rochettes",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38240,
         "slug": "cote-des-rochettes",
         "url": "https://climbfinder.com/en/climbs/cote-des-rochettes",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 710,
@@ -107796,19 +108110,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-rochettes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-du-cimetiere-pontrieux",
       "name": "Côte du Cimetière from Pontrieux",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 35888,
         "slug": "cote-du-cimetiere-pontrieux",
         "url": "https://climbfinder.com/en/climbs/cote-du-cimetiere-pontrieux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 613,
@@ -108043,19 +108359,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-cimetiere-pontrieux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "route-de-kerlaran",
       "name": "Route de Kerlaran from Landerneau",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 37760,
         "slug": "route-de-kerlaran",
         "url": "https://climbfinder.com/en/climbs/route-de-kerlaran",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 824,
@@ -108346,19 +108664,21 @@
           "url": "https://climbfinder.com/en/climbs/route-de-kerlaran",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "beau-soleil-ayon",
       "name": "Beau Soleil from Ayon",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22148,
         "slug": "beau-soleil-ayon",
         "url": "https://climbfinder.com/en/climbs/beau-soleil-ayon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1861,
@@ -108905,19 +109225,21 @@
           "url": "https://climbfinder.com/en/climbs/beau-soleil-ayon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "pontigou",
       "name": "Pontigou",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38022,
         "slug": "pontigou",
         "url": "https://climbfinder.com/en/climbs/pontigou",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1286,
@@ -109314,19 +109636,21 @@
           "url": "https://climbfinder.com/en/climbs/pontigou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-menez-menez-prat-maur",
       "name": "Côte du Menez from Menez Prat Maur",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 33379,
         "slug": "cote-du-menez-menez-prat-maur",
         "url": "https://climbfinder.com/en/climbs/cote-du-menez-menez-prat-maur",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1392,
@@ -109749,19 +110073,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-menez-menez-prat-maur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "le-tranroue",
       "name": "Le Tranroué",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22624,
         "slug": "le-tranroue",
         "url": "https://climbfinder.com/en/climbs/le-tranroue",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 415,
@@ -109940,7 +110266,8 @@
           "url": "https://climbfinder.com/en/climbs/le-tranroue",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-du-moulin-neuf-saint-broladre-rue-de-la-poste",
@@ -110240,14 +110567,15 @@
     {
       "id": "cote-de-la-corniche-brehec",
       "name": "Côte de la Corniche from Brehec",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 46210,
         "slug": "cote-de-la-corniche-brehec",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-corniche-brehec",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 399,
@@ -110418,19 +110746,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-corniche-brehec",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-la-porte-d-ohain",
       "name": "Côte de la Porte d'Ohain",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22626,
         "slug": "cote-de-la-porte-d-ohain",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-porte-d-ohain",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1005,
@@ -110777,7 +111107,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-porte-d-ohain",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "tredouillac-la-piglais-grenedan",
@@ -111315,14 +111646,15 @@
     {
       "id": "la-ville-au-pourvoi",
       "name": "La Ville au Pourvoi",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 22616,
         "slug": "la-ville-au-pourvoi",
         "url": "https://climbfinder.com/en/climbs/la-ville-au-pourvoi",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1380,
@@ -111745,19 +112077,21 @@
           "url": "https://climbfinder.com/en/climbs/la-ville-au-pourvoi",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "montee-de-bosmeleac",
       "name": "Montée de Bosméléac",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 22627,
         "slug": "montee-de-bosmeleac",
         "url": "https://climbfinder.com/en/climbs/montee-de-bosmeleac",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 1599,
@@ -112232,7 +112566,8 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-bosmeleac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "mouaze-la-houssais",
@@ -113864,14 +114199,15 @@
     {
       "id": "cote-de-camarel-plouec-du-trieux",
       "name": "Côte de Camarel from Brélidy",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31160,
         "slug": "cote-de-camarel-plouec-du-trieux",
         "url": "https://climbfinder.com/en/climbs/cote-de-camarel-plouec-du-trieux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 714,
@@ -114134,7 +114470,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-camarel-plouec-du-trieux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-du-pont-de-l-edre",
@@ -115270,14 +115607,15 @@
     {
       "id": "cote-de-benodet",
       "name": "Côte de Benodet",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 38145,
         "slug": "cote-de-benodet",
         "url": "https://climbfinder.com/en/climbs/cote-de-benodet",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 175,
@@ -115386,7 +115724,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-benodet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "le-chesnaie-aux-butteaux-mouaze",
@@ -117953,14 +118292,15 @@
     {
       "id": "cote-du-chemin-de-troheir-moulin-de-la-lorette",
       "name": "Côte du Chemin de Trohéir from Moulin de la Lorette",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 74273,
         "slug": "cote-du-chemin-de-troheir-moulin-de-la-lorette",
         "url": "https://climbfinder.com/en/climbs/cote-du-chemin-de-troheir-moulin-de-la-lorette",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1400,
@@ -118383,7 +118723,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-chemin-de-troheir-moulin-de-la-lorette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "le-haut-placis-des-noes",
@@ -119410,14 +119751,15 @@
     {
       "id": "cote-de-bon-repos-rue-du-viaduc",
       "name": "Côte de Bon Repos from Rue du Viaduc",
-      "region": "Brittany",
+      "region": "Côtes-d'Armor",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 52858,
         "slug": "cote-de-bon-repos-rue-du-viaduc",
         "url": "https://climbfinder.com/en/climbs/cote-de-bon-repos-rue-du-viaduc",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 438
       },
       "stats": {
         "length_m": 625,
@@ -119652,19 +119994,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bon-repos-rue-du-viaduc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 438
     },
     {
       "id": "cote-de-fouesnant",
       "name": "Côte de Fouesnant",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 37991,
         "slug": "cote-de-fouesnant",
         "url": "https://climbfinder.com/en/climbs/cote-de-fouesnant",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 764,
@@ -119941,7 +120285,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-fouesnant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "vignoc-le-bas-vaugreux",
@@ -121707,14 +122052,15 @@
     {
       "id": "fouesnant",
       "name": "Fouesnant from Roz An Barz",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 38747,
         "slug": "fouesnant",
         "url": "https://climbfinder.com/en/climbs/fouesnant",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 538,
@@ -121927,7 +122273,8 @@
           "url": "https://climbfinder.com/en/climbs/fouesnant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-du-bourg-de-monterfil",
@@ -123101,14 +123448,15 @@
     {
       "id": "cote-de-lennon-lennon",
       "name": "Côte de Lennon from Lennon",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31067,
         "slug": "cote-de-lennon-lennon",
         "url": "https://climbfinder.com/en/climbs/cote-de-lennon-lennon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1534,
@@ -123571,7 +123919,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-lennon-lennon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "saint-pern",
@@ -125565,14 +125914,15 @@
     {
       "id": "cote-du-barrage-d-arzal-arzal",
       "name": "Côte du Barrage d'Arzal from Arzal",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 37669,
         "slug": "cote-du-barrage-d-arzal-arzal",
         "url": "https://climbfinder.com/en/climbs/cote-du-barrage-d-arzal-arzal",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1271,
@@ -125963,7 +126313,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-barrage-d-arzal-arzal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "keraofredou-koad-evenou",
@@ -128839,14 +129190,15 @@
     {
       "id": "font-faven-pontivy",
       "name": "Font Faven from Pontivy",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 38160,
         "slug": "font-faven-pontivy",
         "url": "https://climbfinder.com/en/climbs/font-faven-pontivy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2688,
@@ -129581,19 +129933,21 @@
           "url": "https://climbfinder.com/en/climbs/font-faven-pontivy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "le-moulin-de-cabossen",
       "name": "Bieuzy from Le Moulin de Cabossen",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 44606,
         "slug": "le-moulin-de-cabossen",
         "url": "https://climbfinder.com/en/climbs/le-moulin-de-cabossen",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 440,
@@ -129778,19 +130132,21 @@
           "url": "https://climbfinder.com/en/climbs/le-moulin-de-cabossen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-penze-penze",
       "name": "Côte de Penzé",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 51503,
         "slug": "cote-de-penze-penze",
         "url": "https://climbfinder.com/en/climbs/cote-de-penze-penze",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 1523,
@@ -130247,7 +130603,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-penze-penze",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-des-terres-neuvas-brehec",
@@ -131704,14 +132061,15 @@
     {
       "id": "cote-du-moulin-le-moulin-du-port",
       "name": "Côte du Moulin from Le Moulin du Port",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 38745,
         "slug": "cote-du-moulin-le-moulin-du-port",
         "url": "https://climbfinder.com/en/climbs/cote-du-moulin-le-moulin-du-port",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 752,
@@ -131988,19 +132346,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-moulin-le-moulin-du-port",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-penn-ar-menez-dineault",
       "name": "Côte de Penn Ar Menez from Dineault",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 37462,
         "slug": "cote-de-penn-ar-menez-dineault",
         "url": "https://climbfinder.com/en/climbs/cote-de-penn-ar-menez-dineault",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2576,
@@ -132709,19 +133069,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-penn-ar-menez-dineault",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "la-roche-du-feu-kreisker",
       "name": "La Roche du Feu from Kreisker",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 37954,
         "slug": "la-roche-du-feu-kreisker",
         "url": "https://climbfinder.com/en/climbs/la-roche-du-feu-kreisker",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 4332,
@@ -133868,19 +134230,21 @@
           "url": "https://climbfinder.com/en/climbs/la-roche-du-feu-kreisker",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "laz-rokinou",
       "name": "Laz from Rokinou",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 65130,
         "slug": "laz-rokinou",
         "url": "https://climbfinder.com/en/climbs/laz-rokinou",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 3629,
@@ -134853,7 +135217,8 @@
           "url": "https://climbfinder.com/en/climbs/laz-rokinou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "les-tertres-de-la-claye",
@@ -135498,14 +135863,15 @@
     {
       "id": "cote-de-castennec-st-nicolas-les-eaux-575799",
       "name": "Côte de Castennec from St Nicolas Les Eaux",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38155,
         "slug": "cote-de-castennec-st-nicolas-les-eaux-575799",
         "url": "https://climbfinder.com/en/climbs/cote-de-castennec-st-nicolas-les-eaux-575799",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2243,
@@ -136150,7 +136516,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-castennec-st-nicolas-les-eaux-575799",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "menez-hoguene-bel-air",
@@ -139256,14 +139623,15 @@
     {
       "id": "cote-du-vaubossard",
       "name": "Côte du Vaubossard",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31050,
         "slug": "cote-du-vaubossard",
         "url": "https://climbfinder.com/en/climbs/cote-du-vaubossard",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 3763,
@@ -140266,7 +140634,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-vaubossard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-boissiere",
@@ -141350,14 +141719,15 @@
     {
       "id": "cote-du-menez-landivigen-kerigou",
       "name": "Côte du Menez Landivigen from Kerigou",
-      "region": "Brittany",
+      "region": "Finistère",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 33487,
         "slug": "cote-du-menez-landivigen-kerigou",
         "url": "https://climbfinder.com/en/climbs/cote-du-menez-landivigen-kerigou",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 915
       },
       "stats": {
         "length_m": 2487,
@@ -142066,7 +142436,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-menez-landivigen-kerigou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 915
     },
     {
       "id": "cote-de-cannes",
@@ -145480,14 +145851,15 @@
     {
       "id": "kerscoulan-longeo-le-bas",
       "name": "Kerscoulan from Longeo le Bas",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38301,
         "slug": "kerscoulan-longeo-le-bas",
         "url": "https://climbfinder.com/en/climbs/kerscoulan-longeo-le-bas",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1318,
@@ -145892,7 +146264,8 @@
           "url": "https://climbfinder.com/en/climbs/kerscoulan-longeo-le-bas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "rochetain-saint-domineuc",
@@ -148383,14 +148756,15 @@
     {
       "id": "kerroch-le-sourn-kerdanet",
       "name": "Kerroc'h from Le Sourn Kerdanet",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38158,
         "slug": "kerroch-le-sourn-kerdanet",
         "url": "https://climbfinder.com/en/climbs/kerroch-le-sourn-kerdanet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2396,
@@ -149073,7 +149447,8 @@
           "url": "https://climbfinder.com/en/climbs/kerroch-le-sourn-kerdanet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "route-de-pont-coat-pont-coat",
@@ -149213,14 +149588,15 @@
     {
       "id": "cote-de-saint-degan-auray",
       "name": "Côte de Saint Degan from Auray",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 46843,
         "slug": "cote-de-saint-degan-auray",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-degan-auray",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 735,
@@ -149489,7 +149865,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-degan-auray",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "fry-quemper-kermodest",
@@ -149803,14 +150180,15 @@
     {
       "id": "cote-de-treorzan",
       "name": "Côte de Tréorzan",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38328,
         "slug": "cote-de-treorzan",
         "url": "https://climbfinder.com/en/climbs/cote-de-treorzan",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1303,
@@ -150215,7 +150593,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-treorzan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-la-voie-romaine-goaziou",
@@ -150958,14 +151337,15 @@
     {
       "id": "kerroc-h-le-sourn-rimaison",
       "name": "Kerroc'h from Le Sourn Rimaison",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38157,
         "slug": "kerroc-h-le-sourn-rimaison",
         "url": "https://climbfinder.com/en/climbs/kerroc-h-le-sourn-rimaison",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2171,
@@ -151590,7 +151970,8 @@
           "url": "https://climbfinder.com/en/climbs/kerroc-h-le-sourn-rimaison",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-traou-riou-coatascorn",
@@ -152019,14 +152400,15 @@
     {
       "id": "cote-du-maneguen-botruit",
       "name": "Côte du Manéguen from Botruit",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 37955,
         "slug": "cote-du-maneguen-botruit",
         "url": "https://climbfinder.com/en/climbs/cote-du-maneguen-botruit",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 937,
@@ -152351,7 +152733,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-maneguen-botruit",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-lancerf-plourivo",
@@ -152693,14 +153076,15 @@
     {
       "id": "locmaria-le-temple",
       "name": "Locmaria from Le Temple",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 44525,
         "slug": "locmaria-le-temple",
         "url": "https://climbfinder.com/en/climbs/locmaria-le-temple",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2688,
@@ -153435,19 +153819,21 @@
           "url": "https://climbfinder.com/en/climbs/locmaria-le-temple",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "route-des-poulains",
       "name": "Route des Poulains",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 44877,
         "slug": "route-des-poulains",
         "url": "https://climbfinder.com/en/climbs/route-des-poulains",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 330,
@@ -153604,7 +153990,8 @@
           "url": "https://climbfinder.com/en/climbs/route-des-poulains",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "tour-collet",
@@ -156777,14 +157164,15 @@
     {
       "id": "grand-champ-lopabu",
       "name": "Grand Champ from Lopabu",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 46846,
         "slug": "grand-champ-lopabu",
         "url": "https://climbfinder.com/en/climbs/grand-champ-lopabu",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2507,
@@ -157475,7 +157863,8 @@
           "url": "https://climbfinder.com/en/climbs/grand-champ-lopabu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "menez-hoguene-goaz-lann",
@@ -159415,14 +159804,15 @@
     {
       "id": "ligne-du-petit-bois",
       "name": "Ligne du Petit Bois from Camors",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 46841,
         "slug": "ligne-du-petit-bois",
         "url": "https://climbfinder.com/en/climbs/ligne-du-petit-bois",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 757,
@@ -159699,7 +160089,8 @@
           "url": "https://climbfinder.com/en/climbs/ligne-du-petit-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "menez-hoguene-loch-du",
@@ -160575,14 +160966,15 @@
     {
       "id": "grand-champ-kerherve",
       "name": "Grand Champ from Kerhervé",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 46865,
         "slug": "grand-champ-kerherve",
         "url": "https://climbfinder.com/en/climbs/grand-champ-kerherve",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2797,
@@ -161341,7 +161733,8 @@
           "url": "https://climbfinder.com/en/climbs/grand-champ-kerherve",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-de-kerbiriou",
@@ -162667,14 +163060,15 @@
     {
       "id": "bieuzy-prioldy",
       "name": "Bieuzy from Prioldy",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 44608,
         "slug": "bieuzy-prioldy",
         "url": "https://climbfinder.com/en/climbs/bieuzy-prioldy",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 902,
@@ -162993,19 +163387,21 @@
           "url": "https://climbfinder.com/en/climbs/bieuzy-prioldy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "bonalo-le-moulin-de-kernars",
       "name": "Bonalo from Le Moulin de Kernars",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 44532,
         "slug": "bonalo-le-moulin-de-kernars",
         "url": "https://climbfinder.com/en/climbs/bonalo-le-moulin-de-kernars",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1790,
@@ -163532,19 +163928,21 @@
           "url": "https://climbfinder.com/en/climbs/bonalo-le-moulin-de-kernars",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "bellevue-la-sarre",
       "name": "Bellevue from La Sarre",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 44528,
         "slug": "bellevue-la-sarre",
         "url": "https://climbfinder.com/en/climbs/bellevue-la-sarre",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1679,
@@ -164045,19 +164443,21 @@
           "url": "https://climbfinder.com/en/climbs/bellevue-la-sarre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "bonalo-kerfos",
       "name": "Bonalo from Kerfos",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 44533,
         "slug": "bonalo-kerfos",
         "url": "https://climbfinder.com/en/climbs/bonalo-kerfos",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 2148,
@@ -164676,19 +165076,21 @@
           "url": "https://climbfinder.com/en/climbs/bonalo-kerfos",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "cote-petit-kermaniec-st-nicolas-les-eaux",
       "name": "Côte Petit Kermaniec from St Nicolas Les Eaux",
-      "region": "Brittany",
+      "region": "Morbihan",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 38178,
         "slug": "cote-petit-kermaniec-st-nicolas-les-eaux",
         "url": "https://climbfinder.com/en/climbs/cote-petit-kermaniec-st-nicolas-les-eaux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 945
       },
       "stats": {
         "length_m": 1433,
@@ -165125,7 +165527,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-petit-kermaniec-st-nicolas-les-eaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 945
     },
     {
       "id": "kergall-moulin-de-quintin",

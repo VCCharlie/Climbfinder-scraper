@@ -175,6 +175,15 @@
         <label for="hierCountrySelect">Land</label>
         <select id="hierCountrySelect"></select>
         <div id="hierTree"></div>
+        <div class="dup-actions" style="margin-top:0.75rem">
+          <button type="button" id="backfillRegionsBtn" class="secondary">
+            Pas kleinste regio toe op alle klimmen (GitHub)
+          </button>
+        </div>
+        <p class="hint">
+          Eénmalig of na index-update: werkt bestaande JSON-bestanden bij (veld <code>region</code> op elke klim),
+          niet alleen nieuwe imports.
+        </p>
       </div>
 
       <div id="panelRegion" class="panel active">
@@ -550,6 +559,48 @@
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
     document.getElementById("tabDuplicates").addEventListener("click", () => setTab("duplicates"));
     document.getElementById("tabHierarchy").addEventListener("click", () => setTab("hierarchy"));
+
+    document.getElementById("backfillRegionsBtn")?.addEventListener("click", async () => {
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
+      if (
+        !confirm(
+          "Alle gepubliceerde klimmen bijwerken?\n\nElke klim krijgt region + resolved_locality_id volgens de kleinste Climbfinder-regio (slug-index). GitHub commit op main."
+        )
+      ) {
+        return;
+      }
+      const btn = document.getElementById("backfillRegionsBtn");
+      btn.disabled = true;
+      try {
+        const cfg = githubImportConfig();
+        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
+          log("Start backfill kleinste regio…");
+          const fn = firebase
+            .app()
+            .functions(cfg.region || "europe-west1")
+            .httpsCallable("requestClimbRegionBackfill");
+          const res = await fn({});
+          log(res.data.message || "Workflow gestart.");
+          if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
+        } else {
+          log("Firebase niet actief — start handmatig:");
+          log("gh workflow run backfill-climb-regions.yml");
+          log("→ Actions → Backfill climb regions");
+          window.open(
+            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml",
+            "_blank",
+            "noopener"
+          );
+        }
+      } catch (e) {
+        log("FOUT: " + formatCallableError(e));
+      } finally {
+        btn.disabled = false;
+      }
+    });
 
     function hideClimbSearchResults() {
       const el = document.getElementById("climbSearchResults");

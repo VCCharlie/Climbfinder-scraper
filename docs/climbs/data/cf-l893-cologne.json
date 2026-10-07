@@ -5,7 +5,7 @@
     "title": "Cologne",
     "region_label": "Cologne",
     "country": "DE",
-    "updated_at": "2026-10-06T13:19:07Z",
+    "updated_at": "2026-10-07T13:19:08Z",
     "count": 500,
     "source": {
       "name": "climbfinder",
@@ -18,20 +18,24 @@
       ],
       "locality_id": 893
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:19:08Z"
+    }
   },
   "climbs": [
     {
       "id": "drachenfels-konigswinter",
       "name": "Drachenfels from Königswinter",
-      "region": "Cologne",
+      "region": "Westerwald",
       "country": "DE",
       "classification": "3",
       "climbfinder": {
         "id": 6828,
         "slug": "drachenfels-konigswinter",
         "url": "https://climbfinder.com/en/climbs/drachenfels-konigswinter",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 243
       },
       "stats": {
         "length_m": 2364,
@@ -708,7 +712,8 @@
           "url": "https://climbfinder.com/en/climbs/drachenfels-konigswinter",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 243
     },
     {
       "id": "hammer-mauer",
@@ -720,7 +725,8 @@
         "id": 4650,
         "slug": "hammer-mauer",
         "url": "https://climbfinder.com/en/climbs/hammer-mauer",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2872,
@@ -1499,7 +1505,8 @@
           "url": "https://climbfinder.com/en/climbs/hammer-mauer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "orsbach",
@@ -1511,7 +1518,8 @@
         "id": 471,
         "slug": "orsbach",
         "url": "https://climbfinder.com/en/climbs/orsbach",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1046,
@@ -1864,7 +1872,8 @@
           "url": "https://climbfinder.com/en/climbs/orsbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "himmelsleiter",
@@ -1876,7 +1885,8 @@
         "id": 12200,
         "slug": "himmelsleiter",
         "url": "https://climbfinder.com/en/climbs/himmelsleiter",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2953,
@@ -2679,7 +2689,8 @@
           "url": "https://climbfinder.com/en/climbs/himmelsleiter",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "kesternich-rurberg",
@@ -2691,7 +2702,8 @@
         "id": 1214,
         "slug": "kesternich-rurberg",
         "url": "https://climbfinder.com/en/climbs/kesternich-rurberg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 5904,
@@ -4196,7 +4208,8 @@
           "url": "https://climbfinder.com/en/climbs/kesternich-rurberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "grunentalstrasse-widdau",
@@ -4208,7 +4221,8 @@
         "id": 6046,
         "slug": "grunentalstrasse-widdau",
         "url": "https://climbfinder.com/en/climbs/grunentalstrasse-widdau",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1969,
@@ -4781,7 +4795,8 @@
           "url": "https://climbfinder.com/en/climbs/grunentalstrasse-widdau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "widdauer-mauer",
@@ -4793,7 +4808,8 @@
         "id": 4654,
         "slug": "widdauer-mauer",
         "url": "https://climbfinder.com/en/climbs/widdauer-mauer",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2486,
@@ -5502,7 +5518,8 @@
           "url": "https://climbfinder.com/en/climbs/widdauer-mauer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "mariawald-heimbach",
@@ -5514,7 +5531,8 @@
         "id": 6088,
         "slug": "mariawald-heimbach",
         "url": "https://climbfinder.com/en/climbs/mariawald-heimbach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 4906,
@@ -6805,7 +6823,8 @@
           "url": "https://climbfinder.com/en/climbs/mariawald-heimbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "dreilandereck-punkt-vaalserquartier",
@@ -6817,7 +6836,8 @@
         "id": 2852,
         "slug": "dreilandereck-punkt-vaalserquartier",
         "url": "https://climbfinder.com/en/climbs/dreilandereck-punkt-vaalserquartier",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 3050,
@@ -7640,7 +7660,8 @@
           "url": "https://climbfinder.com/en/climbs/dreilandereck-punkt-vaalserquartier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "hillensberg-bergstrasse",
@@ -7652,7 +7673,8 @@
         "id": 2169,
         "slug": "hillensberg-bergstrasse",
         "url": "https://climbfinder.com/en/climbs/hillensberg-bergstrasse",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 982,
@@ -7991,7 +8013,8 @@
           "url": "https://climbfinder.com/en/climbs/hillensberg-bergstrasse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "vogelsang-victor-neels-brucke",
@@ -8003,7 +8026,8 @@
         "id": 10901,
         "slug": "vogelsang-victor-neels-brucke",
         "url": "https://climbfinder.com/en/climbs/vogelsang-victor-neels-brucke",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 3102,
@@ -8876,7 +8900,8 @@
           "url": "https://climbfinder.com/en/climbs/vogelsang-victor-neels-brucke",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "imgenbroich-monschau",
@@ -8888,7 +8913,8 @@
         "id": 5085,
         "slug": "imgenbroich-monschau",
         "url": "https://climbfinder.com/en/climbs/imgenbroich-monschau",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1988,
@@ -9467,19 +9493,21 @@
           "url": "https://climbfinder.com/en/climbs/imgenbroich-monschau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "petersberg-konigswinter",
       "name": "Petersberg from Königswinter",
-      "region": "Cologne",
+      "region": "Westerwald",
       "country": "DE",
       "classification": "3",
       "climbfinder": {
         "id": 6826,
         "slug": "petersberg-konigswinter",
         "url": "https://climbfinder.com/en/climbs/petersberg-konigswinter",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 243
       },
       "stats": {
         "length_m": 2358,
@@ -10156,7 +10184,8 @@
           "url": "https://climbfinder.com/en/climbs/petersberg-konigswinter",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 243
     },
     {
       "id": "schmidt-heimbach",
@@ -10168,7 +10197,8 @@
         "id": 10900,
         "slug": "schmidt-heimbach",
         "url": "https://climbfinder.com/en/climbs/schmidt-heimbach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 8035,
@@ -12193,7 +12223,8 @@
           "url": "https://climbfinder.com/en/climbs/schmidt-heimbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schmidt-nideggen",
@@ -12205,7 +12236,8 @@
         "id": 4653,
         "slug": "schmidt-nideggen",
         "url": "https://climbfinder.com/en/climbs/schmidt-nideggen",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 7431,
@@ -14082,7 +14114,8 @@
           "url": "https://climbfinder.com/en/climbs/schmidt-nideggen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "jagerhausstrasse-zweifall",
@@ -14094,7 +14127,8 @@
         "id": 4645,
         "slug": "jagerhausstrasse-zweifall",
         "url": "https://climbfinder.com/en/climbs/jagerhausstrasse-zweifall",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 7156,
@@ -15905,7 +15939,8 @@
           "url": "https://climbfinder.com/en/climbs/jagerhausstrasse-zweifall",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "steckenborn-woffelsbach",
@@ -15917,7 +15952,8 @@
         "id": 5086,
         "slug": "steckenborn-woffelsbach",
         "url": "https://climbfinder.com/en/climbs/steckenborn-woffelsbach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 4000,
@@ -16496,7 +16532,8 @@
           "url": "https://climbfinder.com/en/climbs/steckenborn-woffelsbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "vossenack",
@@ -16508,7 +16545,8 @@
         "id": 2171,
         "slug": "vossenack",
         "url": "https://climbfinder.com/en/climbs/vossenack",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 3846,
@@ -17531,7 +17569,8 @@
           "url": "https://climbfinder.com/en/climbs/vossenack",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "orsbach-mamelis",
@@ -17543,7 +17582,8 @@
         "id": 2892,
         "slug": "orsbach-mamelis",
         "url": "https://climbfinder.com/en/climbs/orsbach-mamelis",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1597,
@@ -18018,7 +18058,8 @@
           "url": "https://climbfinder.com/en/climbs/orsbach-mamelis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "kermeter-rurtalsperre",
@@ -18030,7 +18071,8 @@
         "id": 6090,
         "slug": "kermeter-rurtalsperre",
         "url": "https://climbfinder.com/en/climbs/kermeter-rurtalsperre",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 5415,
@@ -19447,7 +19489,8 @@
           "url": "https://climbfinder.com/en/climbs/kermeter-rurtalsperre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "aachener-wald-revierweg",
@@ -19459,7 +19502,8 @@
         "id": 12224,
         "slug": "aachener-wald-revierweg",
         "url": "https://climbfinder.com/en/climbs/aachener-wald-revierweg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2319,
@@ -20124,7 +20168,8 @@
           "url": "https://climbfinder.com/en/climbs/aachener-wald-revierweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "heidgen-monschau",
@@ -20136,7 +20181,8 @@
         "id": 12205,
         "slug": "heidgen-monschau",
         "url": "https://climbfinder.com/en/climbs/heidgen-monschau",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1448,
@@ -20573,7 +20619,8 @@
           "url": "https://climbfinder.com/en/climbs/heidgen-monschau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "dreilandereck-punkt-aachen-gemmenicherweg",
@@ -20585,7 +20632,8 @@
         "id": 13630,
         "slug": "dreilandereck-punkt-aachen-gemmenicherweg",
         "url": "https://climbfinder.com/en/climbs/dreilandereck-punkt-aachen-gemmenicherweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 3462,
@@ -21514,7 +21562,8 @@
           "url": "https://climbfinder.com/en/climbs/dreilandereck-punkt-aachen-gemmenicherweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "der-schmuggler-monschau",
@@ -21526,7 +21575,8 @@
         "id": 11832,
         "slug": "der-schmuggler-monschau",
         "url": "https://climbfinder.com/en/climbs/der-schmuggler-monschau",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 5269,
@@ -21925,7 +21975,8 @@
           "url": "https://climbfinder.com/en/climbs/der-schmuggler-monschau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "traumblick-monschau",
@@ -21937,7 +21988,8 @@
         "id": 2641,
         "slug": "traumblick-monschau",
         "url": "https://climbfinder.com/en/climbs/traumblick-monschau",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1350,
@@ -22348,7 +22400,8 @@
           "url": "https://climbfinder.com/en/climbs/traumblick-monschau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "wolfgarten-gemund",
@@ -22360,7 +22413,8 @@
         "id": 4655,
         "slug": "wolfgarten-gemund",
         "url": "https://climbfinder.com/en/climbs/wolfgarten-gemund",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 3960,
@@ -23413,7 +23467,8 @@
           "url": "https://climbfinder.com/en/climbs/wolfgarten-gemund",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "steckenborn-kierberg-woffelsbach",
@@ -23425,7 +23480,8 @@
         "id": 10936,
         "slug": "steckenborn-kierberg-woffelsbach",
         "url": "https://climbfinder.com/en/climbs/steckenborn-kierberg-woffelsbach",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 4207,
@@ -24542,7 +24598,8 @@
           "url": "https://climbfinder.com/en/climbs/steckenborn-kierberg-woffelsbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schlangenweg-aachen",
@@ -24554,7 +24611,8 @@
         "id": 2893,
         "slug": "schlangenweg-aachen",
         "url": "https://climbfinder.com/en/climbs/schlangenweg-aachen",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1125,
@@ -24929,7 +24987,8 @@
           "url": "https://climbfinder.com/en/climbs/schlangenweg-aachen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "jordansberg-stolberg",
@@ -24941,7 +25000,8 @@
         "id": 13638,
         "slug": "jordansberg-stolberg",
         "url": "https://climbfinder.com/en/climbs/jordansberg-stolberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 290,
@@ -25084,7 +25144,8 @@
           "url": "https://climbfinder.com/en/climbs/jordansberg-stolberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "dreilandereck-punkt-vaalserquartier-schmiedgasse",
@@ -25096,7 +25157,8 @@
         "id": 13628,
         "slug": "dreilandereck-punkt-vaalserquartier-schmiedgasse",
         "url": "https://climbfinder.com/en/climbs/dreilandereck-punkt-vaalserquartier-schmiedgasse",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2784,
@@ -25883,7 +25945,8 @@
           "url": "https://climbfinder.com/en/climbs/dreilandereck-punkt-vaalserquartier-schmiedgasse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "lousberg-kupferstrasse",
@@ -25895,7 +25958,8 @@
         "id": 11787,
         "slug": "lousberg-kupferstrasse",
         "url": "https://climbfinder.com/en/climbs/lousberg-kupferstrasse",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1649,
@@ -26384,7 +26448,8 @@
           "url": "https://climbfinder.com/en/climbs/lousberg-kupferstrasse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "waldsiedlung-mulartshutte",
@@ -26396,7 +26461,8 @@
         "id": 8588,
         "slug": "waldsiedlung-mulartshutte",
         "url": "https://climbfinder.com/en/climbs/waldsiedlung-mulartshutte",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 7231,
@@ -27355,7 +27421,8 @@
           "url": "https://climbfinder.com/en/climbs/waldsiedlung-mulartshutte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "simonskaller-strasse-simonskall",
@@ -27367,7 +27434,8 @@
         "id": 6477,
         "slug": "simonskaller-strasse-simonskall",
         "url": "https://climbfinder.com/en/climbs/simonskaller-strasse-simonskall",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2766,
@@ -28120,7 +28188,8 @@
           "url": "https://climbfinder.com/en/climbs/simonskaller-strasse-simonskall",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schneeberg-lemiers",
@@ -28132,7 +28201,8 @@
         "id": 5344,
         "slug": "schneeberg-lemiers",
         "url": "https://climbfinder.com/en/climbs/schneeberg-lemiers",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2101,
@@ -28745,7 +28815,8 @@
           "url": "https://climbfinder.com/en/climbs/schneeberg-lemiers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "kesternich-einruhr",
@@ -28757,7 +28828,8 @@
         "id": 6465,
         "slug": "kesternich-einruhr",
         "url": "https://climbfinder.com/en/climbs/kesternich-einruhr",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 6467,
@@ -30396,7 +30468,8 @@
           "url": "https://climbfinder.com/en/climbs/kesternich-einruhr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "langscheider-strasse-forsthaus-dedenborn",
@@ -30408,7 +30481,8 @@
         "id": 11850,
         "slug": "langscheider-strasse-forsthaus-dedenborn",
         "url": "https://climbfinder.com/en/climbs/langscheider-strasse-forsthaus-dedenborn",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 9975,
@@ -32901,7 +32975,8 @@
           "url": "https://climbfinder.com/en/climbs/langscheider-strasse-forsthaus-dedenborn",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "herhahn-einruhr",
@@ -32913,7 +32988,8 @@
         "id": 10905,
         "slug": "herhahn-einruhr",
         "url": "https://climbfinder.com/en/climbs/herhahn-einruhr",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 7201,
@@ -34736,7 +34812,8 @@
           "url": "https://climbfinder.com/en/climbs/herhahn-einruhr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "ochsenkopf-durenerstrasse",
@@ -34748,7 +34825,8 @@
         "id": 6047,
         "slug": "ochsenkopf-durenerstrasse",
         "url": "https://climbfinder.com/en/climbs/ochsenkopf-durenerstrasse",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 1105,
@@ -35101,7 +35179,8 @@
           "url": "https://climbfinder.com/en/climbs/ochsenkopf-durenerstrasse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "orsbach-bungartzweg",
@@ -35113,7 +35192,8 @@
         "id": 11224,
         "slug": "orsbach-bungartzweg",
         "url": "https://climbfinder.com/en/climbs/orsbach-bungartzweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2142,
@@ -35732,7 +35812,8 @@
           "url": "https://climbfinder.com/en/climbs/orsbach-bungartzweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "ruhrberg-einruhr",
@@ -35744,7 +35825,8 @@
         "id": 10935,
         "slug": "ruhrberg-einruhr",
         "url": "https://climbfinder.com/en/climbs/ruhrberg-einruhr",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 4960,
@@ -37047,7 +37129,8 @@
           "url": "https://climbfinder.com/en/climbs/ruhrberg-einruhr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "hauptstrasse-burtscheider-markt",
@@ -37059,7 +37142,8 @@
         "id": 15700,
         "slug": "hauptstrasse-burtscheider-markt",
         "url": "https://climbfinder.com/en/climbs/hauptstrasse-burtscheider-markt",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 323,
@@ -37210,7 +37294,8 @@
           "url": "https://climbfinder.com/en/climbs/hauptstrasse-burtscheider-markt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "glessener-hohe",
@@ -37222,7 +37307,8 @@
         "id": 10970,
         "slug": "glessener-hohe",
         "url": "https://climbfinder.com/en/climbs/glessener-hohe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2082,
@@ -37827,7 +37913,8 @@
           "url": "https://climbfinder.com/en/climbs/glessener-hohe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schleidener-strasse-monschau",
@@ -37839,7 +37926,8 @@
         "id": 2640,
         "slug": "schleidener-strasse-monschau",
         "url": "https://climbfinder.com/en/climbs/schleidener-strasse-monschau",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 3140,
@@ -38718,7 +38806,8 @@
           "url": "https://climbfinder.com/en/climbs/schleidener-strasse-monschau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "karlshohe-moresneter-weg",
@@ -38730,7 +38819,8 @@
         "id": 12223,
         "slug": "karlshohe-moresneter-weg",
         "url": "https://climbfinder.com/en/climbs/karlshohe-moresneter-weg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 2311,
@@ -39395,7 +39485,8 @@
           "url": "https://climbfinder.com/en/climbs/karlshohe-moresneter-weg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "eifeler-tor",
@@ -39407,7 +39498,8 @@
         "id": 11398,
         "slug": "eifeler-tor",
         "url": "https://climbfinder.com/en/climbs/eifeler-tor",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 932,
@@ -39732,7 +39824,8 @@
           "url": "https://climbfinder.com/en/climbs/eifeler-tor",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "ronheider-berg-aachen",
@@ -39744,7 +39837,8 @@
         "id": 12228,
         "slug": "ronheider-berg-aachen",
         "url": "https://climbfinder.com/en/climbs/ronheider-berg-aachen",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 940,
@@ -40069,7 +40163,8 @@
           "url": "https://climbfinder.com/en/climbs/ronheider-berg-aachen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schevenhuttener-strasse-gurzenich",
@@ -40081,7 +40176,8 @@
         "id": 11401,
         "slug": "schevenhuttener-strasse-gurzenich",
         "url": "https://climbfinder.com/en/climbs/schevenhuttener-strasse-gurzenich",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 8855,
@@ -41244,7 +41340,8 @@
           "url": "https://climbfinder.com/en/climbs/schevenhuttener-strasse-gurzenich",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "rohrberg-seffent",
@@ -41256,7 +41353,8 @@
         "id": 2894,
         "slug": "rohrberg-seffent",
         "url": "https://climbfinder.com/en/climbs/rohrberg-seffent",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 582,
@@ -41483,7 +41581,8 @@
           "url": "https://climbfinder.com/en/climbs/rohrberg-seffent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schmidt-mausbach",
@@ -41495,7 +41594,8 @@
         "id": 6682,
         "slug": "schmidt-mausbach",
         "url": "https://climbfinder.com/en/climbs/schmidt-mausbach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 5542,
@@ -42942,7 +43042,8 @@
           "url": "https://climbfinder.com/en/climbs/schmidt-mausbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "berescheid-schafbachmuhle",
@@ -42954,7 +43055,8 @@
         "id": 6091,
         "slug": "berescheid-schafbachmuhle",
         "url": "https://climbfinder.com/en/climbs/berescheid-schafbachmuhle",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 893
       },
       "stats": {
         "length_m": 739,
@@ -43223,7 +43325,8 @@
           "url": "https://climbfinder.com/en/climbs/berescheid-schafbachmuhle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 893
     },
     {
       "id": "schlangenweg-orsbach",
@@ -60142,14 +60245,15 @@
     {
       "id": "wupperberg-rodel",
       "name": "Wupperberg from Rödel",
-      "region": "Cologne",
+      "region": "Bergisches Land",
       "country": "DE",
       "classification": "4",
       "climbfinder": {
         "id": 10943,
         "slug": "wupperberg-rodel",
         "url": "https://climbfinder.com/en/climbs/wupperberg-rodel",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 242
       },
       "stats": {
         "length_m": 1102,
@@ -60524,7 +60628,8 @@
           "url": "https://climbfinder.com/en/climbs/wupperberg-rodel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 242
     },
     {
       "id": "klosterstrasse-wassenberg",
@@ -83649,14 +83754,15 @@
     {
       "id": "klingenring-parkplatz-wupperhof",
       "name": "Klingenring from Parkplatz Wupperhof",
-      "region": "Cologne",
+      "region": "Bergisches Land",
       "country": "DE",
       "classification": "4",
       "climbfinder": {
         "id": 10941,
         "slug": "klingenring-parkplatz-wupperhof",
         "url": "https://climbfinder.com/en/climbs/klingenring-parkplatz-wupperhof",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 242
       },
       "stats": {
         "length_m": 3087,
@@ -84491,7 +84597,8 @@
           "url": "https://climbfinder.com/en/climbs/klingenring-parkplatz-wupperhof",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 242
     },
     {
       "id": "postropsweg-klaranlage-herzogenrath-steinbusch",
@@ -94093,14 +94200,15 @@
     {
       "id": "bergstrasse-kurten",
       "name": "Bergstrasse from Kürten",
-      "region": "Cologne",
+      "region": "Bergisches Land",
       "country": "DE",
       "classification": "4",
       "climbfinder": {
         "id": 10972,
         "slug": "bergstrasse-kurten",
         "url": "https://climbfinder.com/en/climbs/bergstrasse-kurten",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 242
       },
       "stats": {
         "length_m": 1633,
@@ -94589,7 +94697,8 @@
           "url": "https://climbfinder.com/en/climbs/bergstrasse-kurten",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 242
     },
     {
       "id": "windhausen-windhausener-strasse",
@@ -154355,14 +154464,15 @@
     {
       "id": "schloss-drachenburg-konigswinter-drachenfelsstrasse",
       "name": "Schloss Drachenburg from Königswinter via Drachenfelsstrasse",
-      "region": "Cologne",
+      "region": "Westerwald",
       "country": "DE",
       "classification": "3",
       "climbfinder": {
         "id": 55031,
         "slug": "schloss-drachenburg-konigswinter-drachenfelsstrasse",
         "url": "https://climbfinder.com/en/climbs/schloss-drachenburg-konigswinter-drachenfelsstrasse",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 243
       },
       "stats": {
         "length_m": 1221,
@@ -154765,7 +154875,8 @@
           "url": "https://climbfinder.com/en/climbs/schloss-drachenburg-konigswinter-drachenfelsstrasse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 243
     },
     {
       "id": "krefelder-strasse-baal",

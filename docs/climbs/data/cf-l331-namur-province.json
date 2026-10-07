@@ -5,7 +5,7 @@
     "title": "Namur Province",
     "region_label": "Namur Province",
     "country": "BE",
-    "updated_at": "2026-10-07T09:42:26Z",
+    "updated_at": "2026-10-07T13:19:01Z",
     "count": 1003,
     "source": {
       "name": "climbfinder",
@@ -18,20 +18,24 @@
       ],
       "locality_id": 331
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:19:01Z"
+    }
   },
   "climbs": [
     {
       "id": "triple-mur-de-monty",
       "name": "Triple Mur des Monty",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 861,
         "slug": "triple-mur-de-monty",
         "url": "https://climbfinder.com/en/climbs/triple-mur-de-monty",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1908,
@@ -592,19 +596,21 @@
           "url": "https://climbfinder.com/en/climbs/triple-mur-de-monty",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "route-merveilleuse-citadelle-de-namur",
       "name": "Citadelle de Namur via Route Merveilleuse",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1238,
         "slug": "route-merveilleuse-citadelle-de-namur",
         "url": "https://climbfinder.com/en/climbs/route-merveilleuse-citadelle-de-namur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1938,
@@ -1171,19 +1177,21 @@
           "url": "https://climbfinder.com/en/climbs/route-merveilleuse-citadelle-de-namur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "montagne-de-la-croix-dinant",
       "name": "Montagne de la Croix from Dinant",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1267,
         "slug": "montagne-de-la-croix-dinant",
         "url": "https://climbfinder.com/en/climbs/montagne-de-la-croix-dinant",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1565,
@@ -1652,19 +1660,21 @@
           "url": "https://climbfinder.com/en/climbs/montagne-de-la-croix-dinant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-des-sept-meuses-east",
       "name": "Côte des Sept Meuses East",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1295,
         "slug": "cote-des-sept-meuses-east",
         "url": "https://climbfinder.com/en/climbs/cote-des-sept-meuses-east",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1610,
@@ -2147,19 +2157,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-sept-meuses-east",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "gayolle",
       "name": "Gayolle",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1260,
         "slug": "gayolle",
         "url": "https://climbfinder.com/en/climbs/gayolle",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1501,
@@ -2616,19 +2628,21 @@
           "url": "https://climbfinder.com/en/climbs/gayolle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "barrage-du-ry-de-rome-petigny",
       "name": "Barrage du Ry de Rome from Petigny",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1413,
         "slug": "barrage-du-ry-de-rome-petigny",
         "url": "https://climbfinder.com/en/climbs/barrage-du-ry-de-rome-petigny",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 5308,
@@ -4019,19 +4033,21 @@
           "url": "https://climbfinder.com/en/climbs/barrage-du-ry-de-rome-petigny",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "bois-de-wagne-heer-agimont",
       "name": "Bois de Wagne from Heer-Agimont",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1464,
         "slug": "bois-de-wagne-heer-agimont",
         "url": "https://climbfinder.com/en/climbs/bois-de-wagne-heer-agimont",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 944,
@@ -4356,19 +4372,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-wagne-heer-agimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "petit-poggio-eau-heure",
       "name": "Le Petit Poggio from Eau d'Heure",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3767,
         "slug": "petit-poggio-eau-heure",
         "url": "https://climbfinder.com/en/climbs/petit-poggio-eau-heure",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 716,
@@ -4631,19 +4649,21 @@
           "url": "https://climbfinder.com/en/climbs/petit-poggio-eau-heure",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-de-la-chapelle-vresse-sur-semois",
       "name": "Rue de la Chapelle from Vresse-sur-Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1426,
         "slug": "rue-de-la-chapelle-vresse-sur-semois",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-chapelle-vresse-sur-semois",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 2509,
@@ -5334,19 +5354,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-chapelle-vresse-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "rue-bourboux",
       "name": "Moulin de Mazée",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1333,
         "slug": "rue-bourboux",
         "url": "https://climbfinder.com/en/climbs/rue-bourboux",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2304,
@@ -6011,19 +6033,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-bourboux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "haut-bois",
       "name": "Côte de Haut-Bois",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 767,
         "slug": "haut-bois",
         "url": "https://climbfinder.com/en/climbs/haut-bois",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1604,
@@ -6506,19 +6530,21 @@
           "url": "https://climbfinder.com/en/climbs/haut-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "bohissau",
       "name": "Côte de Bohissau from Andenelle via Rue des Chalées",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 771,
         "slug": "bohissau",
         "url": "https://climbfinder.com/en/climbs/bohissau",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 4994,
@@ -7827,19 +7853,21 @@
           "url": "https://climbfinder.com/en/climbs/bohissau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "la-goulette-olloy-sur-viroin",
       "name": "La Goulette from Olloy-sur-Viroin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 23716,
         "slug": "la-goulette-olloy-sur-viroin",
         "url": "https://climbfinder.com/en/climbs/la-goulette-olloy-sur-viroin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 156,
@@ -7948,19 +7976,21 @@
           "url": "https://climbfinder.com/en/climbs/la-goulette-olloy-sur-viroin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "la-rochette-du-nouveau-monde-seilles",
       "name": "La Rochette du Nouveau Monde from Seilles",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3756,
         "slug": "la-rochette-du-nouveau-monde-seilles",
         "url": "https://climbfinder.com/en/climbs/la-rochette-du-nouveau-monde-seilles",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 199,
@@ -8075,19 +8105,21 @@
           "url": "https://climbfinder.com/en/climbs/la-rochette-du-nouveau-monde-seilles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-coutisse-andenne",
       "name": "Côte de Coutisse from Andenne",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3028,
         "slug": "cote-de-coutisse-andenne",
         "url": "https://climbfinder.com/en/climbs/cote-de-coutisse-andenne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 4950,
@@ -9384,19 +9416,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-coutisse-andenne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "citadelle-de-namur-rampe-verte",
       "name": "Citadelle de Namur via Rampe Verte",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20326,
         "slug": "citadelle-de-namur-rampe-verte",
         "url": "https://climbfinder.com/en/climbs/citadelle-de-namur-rampe-verte",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 768,
@@ -9673,19 +9707,21 @@
           "url": "https://climbfinder.com/en/climbs/citadelle-de-namur-rampe-verte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-d-evrehailles-yvoir",
       "name": "Côte d'Evrehailles from Yvoir",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1289,
         "slug": "cote-d-evrehailles-yvoir",
         "url": "https://climbfinder.com/en/climbs/cote-d-evrehailles-yvoir",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 3770,
@@ -10688,19 +10724,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-d-evrehailles-yvoir",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-de-la-prelle-treignes",
       "name": "Rue De La Prelle from Treignes",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1151,
         "slug": "rue-de-la-prelle-treignes",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-prelle-treignes",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2243,
@@ -11323,19 +11361,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-prelle-treignes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "hameau-de-conrad",
       "name": "Hameau de Conrad from Vresse-sur-Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1427,
         "slug": "hameau-de-conrad",
         "url": "https://climbfinder.com/en/climbs/hameau-de-conrad",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 5894,
@@ -12870,19 +12910,21 @@
           "url": "https://climbfinder.com/en/climbs/hameau-de-conrad",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "cornimont-mouzaive",
       "name": "Cornimont from Mouzaive",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1452,
         "slug": "cornimont-mouzaive",
         "url": "https://climbfinder.com/en/climbs/cornimont-mouzaive",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4813,
@@ -14149,19 +14191,21 @@
           "url": "https://climbfinder.com/en/climbs/cornimont-mouzaive",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "tienne-calbalasse-malonne",
       "name": "Tienne Calbalasse from Malonne",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 1572,
         "slug": "tienne-calbalasse-malonne",
         "url": "https://climbfinder.com/en/climbs/tienne-calbalasse-malonne",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 696,
@@ -14416,19 +14460,21 @@
           "url": "https://climbfinder.com/en/climbs/tienne-calbalasse-malonne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "bois-de-fays-mazee",
       "name": "Bois de Fays from Mazée",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3373,
         "slug": "bois-de-fays-mazee",
         "url": "https://climbfinder.com/en/climbs/bois-de-fays-mazee",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2489,
@@ -15113,19 +15159,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-fays-mazee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-de-chansin",
       "name": "Rue de Chansin",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1457,
         "slug": "rue-de-chansin",
         "url": "https://climbfinder.com/en/climbs/rue-de-chansin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1154,
@@ -15514,19 +15562,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-chansin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "lustin-rue-de-goffioul",
       "name": "Lustin via Rue de Goffioul",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14028,
         "slug": "lustin-rue-de-goffioul",
         "url": "https://climbfinder.com/en/climbs/lustin-rue-de-goffioul",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 3609,
@@ -16493,19 +16543,21 @@
           "url": "https://climbfinder.com/en/climbs/lustin-rue-de-goffioul",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "trou-du-diable-oignies-en-thierache",
       "name": "Trou du Diable from Oignies-en-Thiérache",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1339,
         "slug": "trou-du-diable-oignies-en-thierache",
         "url": "https://climbfinder.com/en/climbs/trou-du-diable-oignies-en-thierache",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1763,
@@ -17026,19 +17078,21 @@
           "url": "https://climbfinder.com/en/climbs/trou-du-diable-oignies-en-thierache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "trou-renard-faulx-les-tombes",
       "name": "Trou Renard from Faulx-les-Tombes",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1465,
         "slug": "trou-renard-faulx-les-tombes",
         "url": "https://climbfinder.com/en/climbs/trou-renard-faulx-les-tombes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2063,
@@ -17637,19 +17691,21 @@
           "url": "https://climbfinder.com/en/climbs/trou-renard-faulx-les-tombes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-des-sept-meuses-north",
       "name": "Côte des Sept Meuses North",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1299,
         "slug": "cote-des-sept-meuses-north",
         "url": "https://climbfinder.com/en/climbs/cote-des-sept-meuses-north",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2278,
@@ -18306,19 +18362,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-sept-meuses-north",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-des-quatre-chemins-heer-agimont",
       "name": "Côte Marie-Thérèse / Côte des Quatre Chemins from Heer-Agimont",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 11816,
         "slug": "cote-des-quatre-chemins-heer-agimont",
         "url": "https://climbfinder.com/en/climbs/cote-des-quatre-chemins-heer-agimont",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 4833,
@@ -19591,19 +19649,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-quatre-chemins-heer-agimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "cote-de-bohan-bohan-sur-semois",
       "name": "Côte de Bohan from Bohan sur Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1425,
         "slug": "cote-de-bohan-bohan-sur-semois",
         "url": "https://climbfinder.com/en/climbs/cote-de-bohan-bohan-sur-semois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4194,
@@ -20712,19 +20772,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bohan-bohan-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "durnal",
       "name": "Durnal",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1458,
         "slug": "durnal",
         "url": "https://climbfinder.com/en/climbs/durnal",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2053,
@@ -21323,19 +21385,21 @@
           "url": "https://climbfinder.com/en/climbs/durnal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "orchimont-vresse-sur-semois",
       "name": "Orchimont from Vresse-sur-Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1430,
         "slug": "orchimont-vresse-sur-semois",
         "url": "https://climbfinder.com/en/climbs/orchimont-vresse-sur-semois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 6649,
@@ -23018,19 +23082,21 @@
           "url": "https://climbfinder.com/en/climbs/orchimont-vresse-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "drehance-walzin",
       "name": "Dréhance via Walzin",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1382,
         "slug": "drehance-walzin",
         "url": "https://climbfinder.com/en/climbs/drehance-walzin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3726,
@@ -24027,19 +24093,21 @@
           "url": "https://climbfinder.com/en/climbs/drehance-walzin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "felenne",
       "name": "Moulin d'Olenne",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1416,
         "slug": "felenne",
         "url": "https://climbfinder.com/en/climbs/felenne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 5425,
@@ -25456,19 +25524,21 @@
           "url": "https://climbfinder.com/en/climbs/felenne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "cote-la-taille-des-agneaux-viroinval",
       "name": "Côte la Taille des Agneaux from Viroinval",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 11634,
         "slug": "cote-la-taille-des-agneaux-viroinval",
         "url": "https://climbfinder.com/en/climbs/cote-la-taille-des-agneaux-viroinval",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 6095,
@@ -27053,19 +27123,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-la-taille-des-agneaux-viroinval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "haut-bois-strud",
       "name": "Côte de Haut-Bois from Strud",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 768,
         "slug": "haut-bois-strud",
         "url": "https://climbfinder.com/en/climbs/haut-bois-strud",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1250,
@@ -27450,19 +27522,21 @@
           "url": "https://climbfinder.com/en/climbs/haut-bois-strud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "charreau-de-leffe",
       "name": "Charreau de Leffe",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 10125,
         "slug": "charreau-de-leffe",
         "url": "https://climbfinder.com/en/climbs/charreau-de-leffe",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 4495,
@@ -28647,19 +28721,21 @@
           "url": "https://climbfinder.com/en/climbs/charreau-de-leffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-marotelle-willerzie",
       "name": "La Croix Scaille from Willerzie via Rue Marotelle",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1454,
         "slug": "rue-marotelle-willerzie",
         "url": "https://climbfinder.com/en/climbs/rue-marotelle-willerzie",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 5004,
@@ -29376,19 +29452,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-marotelle-willerzie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "rue-du-sacre-coeur-alle",
       "name": "Rue du Sacré Coeur from Alle",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1377,
         "slug": "rue-du-sacre-coeur-alle",
         "url": "https://climbfinder.com/en/climbs/rue-du-sacre-coeur-alle",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 1161,
@@ -29777,19 +29855,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-sacre-coeur-alle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "fonds-de-lustin",
       "name": "Fonds de Lustin",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14029,
         "slug": "fonds-de-lustin",
         "url": "https://climbfinder.com/en/climbs/fonds-de-lustin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 3735,
@@ -30786,19 +30866,21 @@
           "url": "https://climbfinder.com/en/climbs/fonds-de-lustin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-thon",
       "name": "Côte de Thon",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1314,
         "slug": "cote-de-thon",
         "url": "https://climbfinder.com/en/climbs/cote-de-thon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2750,
@@ -31573,19 +31655,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-thon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "le-stampia",
       "name": "Le Stampia",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1300,
         "slug": "le-stampia",
         "url": "https://climbfinder.com/en/climbs/le-stampia",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1537,
@@ -32048,19 +32132,21 @@
           "url": "https://climbfinder.com/en/climbs/le-stampia",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "carriere-du-boltry-seilles",
       "name": "Carrière du Boltry from Seilles",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 9918,
         "slug": "carriere-du-boltry-seilles",
         "url": "https://climbfinder.com/en/climbs/carriere-du-boltry-seilles",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 4138,
@@ -33157,19 +33243,21 @@
           "url": "https://climbfinder.com/en/climbs/carriere-du-boltry-seilles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "rue-de-tremouroux-franiere",
       "name": "Rue de Trémouroux from Franière",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1484,
         "slug": "rue-de-tremouroux-franiere",
         "url": "https://climbfinder.com/en/climbs/rue-de-tremouroux-franiere",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 833,
@@ -33466,19 +33554,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-tremouroux-franiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "cote-de-bonneville",
       "name": "Côte de Bonneville / Côte d'Anton",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1311,
         "slug": "cote-de-bonneville",
         "url": "https://climbfinder.com/en/climbs/cote-de-bonneville",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1318,
@@ -33883,19 +33973,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bonneville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-solieres",
       "name": "Côte de Solières",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 847,
         "slug": "cote-de-solieres",
         "url": "https://climbfinder.com/en/climbs/cote-de-solieres",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1679,
@@ -34396,19 +34488,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-solieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "allee-de-l-air-pur-hastiere-lavaux",
       "name": "Allée de l'Air Pur from Hastière-Lavaux",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1409,
         "slug": "allee-de-l-air-pur-hastiere-lavaux",
         "url": "https://climbfinder.com/en/climbs/allee-de-l-air-pur-hastiere-lavaux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 942,
@@ -34733,19 +34827,21 @@
           "url": "https://climbfinder.com/en/climbs/allee-de-l-air-pur-hastiere-lavaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "tienne-aux-grives",
       "name": "Tienne aux Grives",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1309,
         "slug": "tienne-aux-grives",
         "url": "https://climbfinder.com/en/climbs/tienne-aux-grives",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1368,
@@ -35162,19 +35258,21 @@
           "url": "https://climbfinder.com/en/climbs/tienne-aux-grives",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "route-des-canons-rampe-verte",
       "name": "Route des Canons via Rampe Verte",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 20325,
         "slug": "route-des-canons-rampe-verte",
         "url": "https://climbfinder.com/en/climbs/route-des-canons-rampe-verte",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1302,
@@ -35579,19 +35677,21 @@
           "url": "https://climbfinder.com/en/climbs/route-des-canons-rampe-verte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "pied-de-la-montagne-pont-du-roi",
       "name": "Pied de la Montagne from Pont du Roi",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1414,
         "slug": "pied-de-la-montagne-pont-du-roi",
         "url": "https://climbfinder.com/en/climbs/pied-de-la-montagne-pont-du-roi",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2024,
@@ -36158,19 +36258,21 @@
           "url": "https://climbfinder.com/en/climbs/pied-de-la-montagne-pont-du-roi",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "tienne-aux-pierres-fo",
       "name": "Tienne aux Pierres from Fô",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 15220,
         "slug": "tienne-aux-pierres-fo",
         "url": "https://climbfinder.com/en/climbs/tienne-aux-pierres-fo",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 3101,
@@ -37011,19 +37113,21 @@
           "url": "https://climbfinder.com/en/climbs/tienne-aux-pierres-fo",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "lavis-malavisee-chateau-de-veves",
       "name": "Malavisée from Château de Vêves",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 2270,
         "slug": "lavis-malavisee-chateau-de-veves",
         "url": "https://climbfinder.com/en/climbs/lavis-malavisee-chateau-de-veves",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3449,
@@ -37946,19 +38050,21 @@
           "url": "https://climbfinder.com/en/climbs/lavis-malavisee-chateau-de-veves",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "rue-du-trou-perdu",
       "name": "Rue du Trou Perdu",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1307,
         "slug": "rue-du-trou-perdu",
         "url": "https://climbfinder.com/en/climbs/rue-du-trou-perdu",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 527,
@@ -38171,19 +38277,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-trou-perdu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "chemin-du-paradis-vierves-sur-viroin",
       "name": "Chemin du Paradis from Vierves-sur-Viroin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1376,
         "slug": "chemin-du-paradis-vierves-sur-viroin",
         "url": "https://climbfinder.com/en/climbs/chemin-du-paradis-vierves-sur-viroin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1961,
@@ -38756,19 +38864,21 @@
           "url": "https://climbfinder.com/en/climbs/chemin-du-paradis-vierves-sur-viroin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "warnant-anhee",
       "name": "Warnant",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1269,
         "slug": "warnant-anhee",
         "url": "https://climbfinder.com/en/climbs/warnant-anhee",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2827,
@@ -39569,19 +39679,21 @@
           "url": "https://climbfinder.com/en/climbs/warnant-anhee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-de-stud",
       "name": "Côte de Stud",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 810,
         "slug": "cote-de-stud",
         "url": "https://climbfinder.com/en/climbs/cote-de-stud",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1931,
@@ -40148,19 +40260,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-stud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "herissart-bohan-sur-semois",
       "name": "Hérissart from Bohan sur Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1419,
         "slug": "herissart-bohan-sur-semois",
         "url": "https://climbfinder.com/en/climbs/herissart-bohan-sur-semois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4442,
@@ -41333,19 +41447,21 @@
           "url": "https://climbfinder.com/en/climbs/herissart-bohan-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "tienne-de-boussu-couvin",
       "name": "Tienne-de-Boussu from Couvin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1656,
         "slug": "tienne-de-boussu-couvin",
         "url": "https://climbfinder.com/en/climbs/tienne-de-boussu-couvin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 319,
@@ -41496,19 +41612,21 @@
           "url": "https://climbfinder.com/en/climbs/tienne-de-boussu-couvin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "bellaire-haltinne",
       "name": "Côte de Bellaire from Haltinne",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 845,
         "slug": "bellaire-haltinne",
         "url": "https://climbfinder.com/en/climbs/bellaire-haltinne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 981,
@@ -41827,19 +41945,21 @@
           "url": "https://climbfinder.com/en/climbs/bellaire-haltinne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "les-deux-tiennes-wepion",
       "name": "Les Deux Tiennes from Wépion",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 15216,
         "slug": "les-deux-tiennes-wepion",
         "url": "https://climbfinder.com/en/climbs/les-deux-tiennes-wepion",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 3292,
@@ -42724,19 +42844,21 @@
           "url": "https://climbfinder.com/en/climbs/les-deux-tiennes-wepion",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "chemin-de-niersant-bauche",
       "name": "Chemin de Niersant from Bauche",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1266,
         "slug": "chemin-de-niersant-bauche",
         "url": "https://climbfinder.com/en/climbs/chemin-de-niersant-bauche",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1470,
@@ -43179,19 +43301,21 @@
           "url": "https://climbfinder.com/en/climbs/chemin-de-niersant-bauche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "fond-de-nimes",
       "name": "Fond de Nîmes",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14027,
         "slug": "fond-de-nimes",
         "url": "https://climbfinder.com/en/climbs/fond-de-nimes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 3071,
@@ -44020,19 +44144,21 @@
           "url": "https://climbfinder.com/en/climbs/fond-de-nimes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "rue-de-la-chapelle-vierves-sur-viroin",
       "name": "Rue de la Chapelle from Vierves-sur-Viroin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1335,
         "slug": "rue-de-la-chapelle-vierves-sur-viroin",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-chapelle-vierves-sur-viroin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 6030,
@@ -45569,19 +45695,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-chapelle-vierves-sur-viroin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "drehance-anseremme",
       "name": "Dréhance from Anseremme",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1381,
         "slug": "drehance-anseremme",
         "url": "https://climbfinder.com/en/climbs/drehance-anseremme",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3855,
@@ -46610,19 +46738,21 @@
           "url": "https://climbfinder.com/en/climbs/drehance-anseremme",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "tienne-saint-roch-floreffe",
       "name": "Tienne Saint-Roch from Floreffe",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1573,
         "slug": "tienne-saint-roch-floreffe",
         "url": "https://climbfinder.com/en/climbs/tienne-saint-roch-floreffe",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1606,
@@ -47105,19 +47235,21 @@
           "url": "https://climbfinder.com/en/climbs/tienne-saint-roch-floreffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "ferme-de-grange-anhee",
       "name": "Ferme de Grange from Anhée",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 11502,
         "slug": "ferme-de-grange-anhee",
         "url": "https://climbfinder.com/en/climbs/ferme-de-grange-anhee",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1523,
@@ -47604,19 +47736,21 @@
           "url": "https://climbfinder.com/en/climbs/ferme-de-grange-anhee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "fond-de-la-biche-godinne",
       "name": "Fond de la Biche from Godinne",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1503,
         "slug": "fond-de-la-biche-godinne",
         "url": "https://climbfinder.com/en/climbs/fond-de-la-biche-godinne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 930,
@@ -47941,19 +48075,21 @@
           "url": "https://climbfinder.com/en/climbs/fond-de-la-biche-godinne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-de-balart-namur",
       "name": "Rue de Balart from Namur",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1505,
         "slug": "rue-de-balart-namur",
         "url": "https://climbfinder.com/en/climbs/rue-de-balart-namur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 929,
@@ -48278,19 +48414,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-balart-namur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "rapaille-dinant",
       "name": "Rapaille from Dinant",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14238,
         "slug": "rapaille-dinant",
         "url": "https://climbfinder.com/en/climbs/rapaille-dinant",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2915,
@@ -49111,19 +49249,21 @@
           "url": "https://climbfinder.com/en/climbs/rapaille-dinant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-saint-jacques-dinant-rue-saint-jacques",
       "name": "Côte Saint-Jacques from Dinant",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 12360,
         "slug": "cote-saint-jacques-dinant-rue-saint-jacques",
         "url": "https://climbfinder.com/en/climbs/cote-saint-jacques-dinant-rue-saint-jacques",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2539,
@@ -49820,19 +49960,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-saint-jacques-dinant-rue-saint-jacques",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-de-lenne-waulsort",
       "name": "Côte de Lenne from Waulsort",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1278,
         "slug": "cote-de-lenne-waulsort",
         "url": "https://climbfinder.com/en/climbs/cote-de-lenne-waulsort",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2854,
@@ -50639,19 +50781,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-lenne-waulsort",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-de-blaimont-hastiere-par-dela",
       "name": "Côte de Blaimont from Hastière-par-delà",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20469,
         "slug": "cote-de-blaimont-hastiere-par-dela",
         "url": "https://climbfinder.com/en/climbs/cote-de-blaimont-hastiere-par-dela",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 8685,
@@ -52834,19 +52978,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-blaimont-hastiere-par-dela",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "la-croix-scaillex-louette-saint-pierre",
       "name": "La Croix Scaille from Louette-Saint-Pierre",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3384,
         "slug": "la-croix-scaillex-louette-saint-pierre",
         "url": "https://climbfinder.com/en/climbs/la-croix-scaillex-louette-saint-pierre",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 6052,
@@ -54389,19 +54535,21 @@
           "url": "https://climbfinder.com/en/climbs/la-croix-scaillex-louette-saint-pierre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "groynne",
       "name": "Côte de Groynne",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 769,
         "slug": "groynne",
         "url": "https://climbfinder.com/en/climbs/groynne",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2091,
@@ -54986,19 +55134,21 @@
           "url": "https://climbfinder.com/en/climbs/groynne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "le-grand-virage",
       "name": "Le Grand Virage",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 11653,
         "slug": "le-grand-virage",
         "url": "https://climbfinder.com/en/climbs/le-grand-virage",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1697,
@@ -55499,19 +55649,21 @@
           "url": "https://climbfinder.com/en/climbs/le-grand-virage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "sorinne-la-longue",
       "name": "Sorinne-la-Longue",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1466,
         "slug": "sorinne-la-longue",
         "url": "https://climbfinder.com/en/climbs/sorinne-la-longue",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1121,
@@ -55886,19 +56038,21 @@
           "url": "https://climbfinder.com/en/climbs/sorinne-la-longue",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-la-reine-houyet",
       "name": "Côte de la Reine from Houyet",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 7574,
         "slug": "cote-de-la-reine-houyet",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-reine-houyet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 2607,
@@ -56641,19 +56795,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-reine-houyet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "lenne-chateau-de-freyr",
       "name": "Côte de Lenne from Château de Freÿr",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1277,
         "slug": "lenne-chateau-de-freyr",
         "url": "https://climbfinder.com/en/climbs/lenne-chateau-de-freyr",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2197,
@@ -57284,19 +57440,21 @@
           "url": "https://climbfinder.com/en/climbs/lenne-chateau-de-freyr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "route-des-panoramas-namur",
       "name": "Route des Panoramas from Namur",
-      "region": "Namur Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14101,
         "slug": "route-des-panoramas-namur",
         "url": "https://climbfinder.com/en/climbs/route-des-panoramas-namur",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2385,
@@ -57979,19 +58137,21 @@
           "url": "https://climbfinder.com/en/climbs/route-des-panoramas-namur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-herhet-houyet",
       "name": "Côte de Herhet from Houyet",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3329,
         "slug": "cote-de-herhet-houyet",
         "url": "https://climbfinder.com/en/climbs/cote-de-herhet-houyet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 5515,
@@ -59432,19 +59592,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-herhet-houyet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "cul-des-sarts",
       "name": "Cul-des-Sarts via Rue des Parçonniers",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1598,
         "slug": "cul-des-sarts",
         "url": "https://climbfinder.com/en/climbs/cul-des-sarts",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 4672,
@@ -60673,19 +60835,21 @@
           "url": "https://climbfinder.com/en/climbs/cul-des-sarts",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "cote-de-blaimont-vieux-chemin-de-blaimont",
       "name": "Côte de Blaimont via Vieux Chemin de Blaimont",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20470,
         "slug": "cote-de-blaimont-vieux-chemin-de-blaimont",
         "url": "https://climbfinder.com/en/climbs/cote-de-blaimont-vieux-chemin-de-blaimont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 8562,
@@ -62838,19 +63002,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-blaimont-vieux-chemin-de-blaimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "bois-de-la-haute-marlagne-buzet",
       "name": "Bois de la Haute-Marlagne via Buzet",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13649,
         "slug": "bois-de-la-haute-marlagne-buzet",
         "url": "https://climbfinder.com/en/climbs/bois-de-la-haute-marlagne-buzet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 4012,
@@ -63917,7 +64083,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-la-haute-marlagne-buzet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "naninne-dave",
@@ -64851,14 +65018,15 @@
     {
       "id": "charreau-de-bonsecours-dinant",
       "name": "Charreau de Bonsecours from Dinant",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 12353,
         "slug": "charreau-de-bonsecours-dinant",
         "url": "https://climbfinder.com/en/climbs/charreau-de-bonsecours-dinant",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1465,
@@ -65331,19 +65499,21 @@
           "url": "https://climbfinder.com/en/climbs/charreau-de-bonsecours-dinant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-marie-therese-falmignoul",
       "name": "Côte Marie-Thérèse from Falmignoul",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1652,
         "slug": "cote-marie-therese-falmignoul",
         "url": "https://climbfinder.com/en/climbs/cote-marie-therese-falmignoul",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1408,
@@ -65774,7 +65944,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-marie-therese-falmignoul",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "sur-les-ternes-malonne",
@@ -66468,14 +66639,15 @@
     {
       "id": "rue-de-meez-bouvignes-sur-meuse",
       "name": "Rue de Meez from Bouvignes-sur-Meuse",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1406,
         "slug": "rue-de-meez-bouvignes-sur-meuse",
         "url": "https://climbfinder.com/en/climbs/rue-de-meez-bouvignes-sur-meuse",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1764,
@@ -66996,19 +67168,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-meez-bouvignes-sur-meuse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-marlaires-floreffe",
       "name": "Rue Marlaires from Floreffe",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1574,
         "slug": "rue-marlaires-floreffe",
         "url": "https://climbfinder.com/en/climbs/rue-marlaires-floreffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1400,
@@ -67431,19 +67605,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-marlaires-floreffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-de-vencimont-vencimont",
       "name": "Sart-Custinne / Rue de Vencimont from Vencimont",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1666,
         "slug": "rue-de-vencimont-vencimont",
         "url": "https://climbfinder.com/en/climbs/rue-de-vencimont-vencimont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 3264,
@@ -68322,19 +68498,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-vencimont-vencimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "gros-fays-mouzaive",
       "name": "Gros-Fays from Mouzaive",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1451,
         "slug": "gros-fays-mouzaive",
         "url": "https://climbfinder.com/en/climbs/gros-fays-mouzaive",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 3643,
@@ -69307,19 +69485,21 @@
           "url": "https://climbfinder.com/en/climbs/gros-fays-mouzaive",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "rue-du-gay-treignes",
       "name": "Rue du Gay from Treignes",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1334,
         "slug": "rue-du-gay-treignes",
         "url": "https://climbfinder.com/en/climbs/rue-du-gay-treignes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1222,
@@ -69698,19 +69878,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-gay-treignes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "le-plantis-du-vivroule-lavis",
       "name": "Le Plantis du Vivroule",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1410,
         "slug": "le-plantis-du-vivroule-lavis",
         "url": "https://climbfinder.com/en/climbs/le-plantis-du-vivroule-lavis",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 4748,
@@ -70957,7 +71139,8 @@
           "url": "https://climbfinder.com/en/climbs/le-plantis-du-vivroule-lavis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "cote-de-landenne-seilles",
@@ -72321,14 +72504,15 @@
     {
       "id": "cote-de-bourseigne",
       "name": "Côte de Bourseigne",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1246,
         "slug": "cote-de-bourseigne",
         "url": "https://climbfinder.com/en/climbs/cote-de-bourseigne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4908,
@@ -73619,7 +73803,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bourseigne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "fonds-delvaux",
@@ -74571,14 +74756,15 @@
     {
       "id": "cote-de-petite-somme-bonsin",
       "name": "Côte de Petite-Somme from Bonsin",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8934,
         "slug": "cote-de-petite-somme-bonsin",
         "url": "https://climbfinder.com/en/climbs/cote-de-petite-somme-bonsin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2080,
@@ -75183,7 +75369,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-petite-somme-bonsin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "tienne-hinraut-profondeville",
@@ -76153,14 +76340,15 @@
     {
       "id": "laforet-vresse-sur-semois",
       "name": "Laforêt from Vresse-sur-Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1433,
         "slug": "laforet-vresse-sur-semois",
         "url": "https://climbfinder.com/en/climbs/laforet-vresse-sur-semois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 2949,
@@ -76957,19 +77145,21 @@
           "url": "https://climbfinder.com/en/climbs/laforet-vresse-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "felenne-south",
       "name": "Felenne via Rue des Ardennes",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1418,
         "slug": "felenne-south",
         "url": "https://climbfinder.com/en/climbs/felenne-south",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3143,
@@ -77816,19 +78006,21 @@
           "url": "https://climbfinder.com/en/climbs/felenne-south",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "jassogne",
       "name": "Jassogne",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1470,
         "slug": "jassogne",
         "url": "https://climbfinder.com/en/climbs/jassogne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2745,
@@ -78603,7 +78795,8 @@
           "url": "https://climbfinder.com/en/climbs/jassogne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-edouard-biname-wepion",
@@ -79573,14 +79766,15 @@
     {
       "id": "cote-de-salet",
       "name": "Côte de Salet",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1284,
         "slug": "cote-de-salet",
         "url": "https://climbfinder.com/en/climbs/cote-de-salet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1896,
@@ -80133,19 +80327,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-salet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-de-blocqmont-houx",
       "name": "Rue de Blocqmont from Houx",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1255,
         "slug": "rue-de-blocqmont-houx",
         "url": "https://climbfinder.com/en/climbs/rue-de-blocqmont-houx",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1614,
@@ -80628,19 +80824,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-blocqmont-houx",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "la-sablonniere-matagne-la-grande",
       "name": "La Sablonnière from Matagne-la-Grande",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3371,
         "slug": "la-sablonniere-matagne-la-grande",
         "url": "https://climbfinder.com/en/climbs/la-sablonniere-matagne-la-grande",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1161,
@@ -81005,7 +81203,8 @@
           "url": "https://climbfinder.com/en/climbs/la-sablonniere-matagne-la-grande",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-antoine-nelis-namur",
@@ -82114,14 +82313,15 @@
     {
       "id": "route-de-neufchateau-celles",
       "name": "Route de Neufchâteau from Celles",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 11654,
         "slug": "route-de-neufchateau-celles",
         "url": "https://climbfinder.com/en/climbs/route-de-neufchateau-celles",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1256,
@@ -82512,19 +82712,21 @@
           "url": "https://climbfinder.com/en/climbs/route-de-neufchateau-celles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "cote-de-hubaille-celles",
       "name": "Côte de Hubaille from Celles",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1583,
         "slug": "cote-de-hubaille-celles",
         "url": "https://climbfinder.com/en/climbs/cote-de-hubaille-celles",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3261,
@@ -83403,7 +83605,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-hubaille-celles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "wartet-marche-les-dames-barriere-de-bayet",
@@ -84045,14 +84248,15 @@
     {
       "id": "cote-de-gochenee",
       "name": "Strépy Gochenée",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 13542,
         "slug": "cote-de-gochenee",
         "url": "https://climbfinder.com/en/climbs/cote-de-gochenee",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2153,
@@ -84677,7 +84881,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-gochenee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "chemin-des-mesanges",
@@ -86070,14 +86275,15 @@
     {
       "id": "vieille-route-laneffe",
       "name": "Vieille Route from Laneffe",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13998,
         "slug": "vieille-route-laneffe",
         "url": "https://climbfinder.com/en/climbs/vieille-route-laneffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 378,
@@ -86248,19 +86454,21 @@
           "url": "https://climbfinder.com/en/climbs/vieille-route-laneffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "foy-notre-dame",
       "name": "Côte de Foy-Notre-Dame",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1455,
         "slug": "foy-notre-dame",
         "url": "https://climbfinder.com/en/climbs/foy-notre-dame",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1425,
@@ -86691,7 +86899,8 @@
           "url": "https://climbfinder.com/en/climbs/foy-notre-dame",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "col-de-ronchinne-profondeville",
@@ -88158,14 +88367,15 @@
     {
       "id": "cote-saint-jacques-dinant",
       "name": "Côte Saint-Jacques via Chemin d'Herbuchenne",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1559,
         "slug": "cote-saint-jacques-dinant",
         "url": "https://climbfinder.com/en/climbs/cote-saint-jacques-dinant",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 3150,
@@ -89012,7 +89222,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-saint-jacques-dinant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "peu-d-eau",
@@ -91467,14 +91678,15 @@
     {
       "id": "rue-du-hestreux",
       "name": "Rue du Hestreux",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1646,
         "slug": "rue-du-hestreux",
         "url": "https://climbfinder.com/en/climbs/rue-du-hestreux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2644,
@@ -92223,7 +92435,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-hestreux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "chapelle-de-la-paix",
@@ -92573,14 +92786,15 @@
     {
       "id": "rue-de-waulx",
       "name": "Rue de Waulx",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1387,
         "slug": "rue-de-waulx",
         "url": "https://climbfinder.com/en/climbs/rue-de-waulx",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1150,
@@ -92939,19 +93153,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-waulx",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "chaussee-de-gramptinne-gesves",
       "name": "Chaussée de Gramptinne from Gesves",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 9240,
         "slug": "chaussee-de-gramptinne-gesves",
         "url": "https://climbfinder.com/en/climbs/chaussee-de-gramptinne-gesves",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 721,
@@ -93214,19 +93430,21 @@
           "url": "https://climbfinder.com/en/climbs/chaussee-de-gramptinne-gesves",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "col-du-marly-annevoie-rouillon",
       "name": "Col du Marly from Annevoie-Rouillon",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10128,
         "slug": "col-du-marly-annevoie-rouillon",
         "url": "https://climbfinder.com/en/climbs/col-du-marly-annevoie-rouillon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1969,
@@ -93799,7 +94017,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-marly-annevoie-rouillon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "chemin-des-melezes-namur",
@@ -94291,14 +94510,15 @@
     {
       "id": "cote-de-sovimont-floreffe",
       "name": "Côte de Sovimont from Floreffe",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13651,
         "slug": "cote-de-sovimont-floreffe",
         "url": "https://climbfinder.com/en/climbs/cote-de-sovimont-floreffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 812,
@@ -94589,7 +94809,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-sovimont-floreffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "tienne-aux-clochers-fo",
@@ -95511,14 +95732,15 @@
     {
       "id": "bois-de-behogne-rochefort",
       "name": "Bois de Behogne from Rochefort",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 7543,
         "slug": "bois-de-behogne-rochefort",
         "url": "https://climbfinder.com/en/climbs/bois-de-behogne-rochefort",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1433,
@@ -95955,19 +96177,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-behogne-rochefort",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "rue-de-la-gare-falaen-gare",
       "name": "Rue de la Gare from Falaën-Gare",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1280,
         "slug": "rue-de-la-gare-falaen-gare",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-gare-falaen-gare",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1373,
@@ -96384,19 +96608,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-gare-falaen-gare",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-de-hulsonniaux",
       "name": "Côte de Hulsonniaux",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 13957,
         "slug": "cote-de-hulsonniaux",
         "url": "https://climbfinder.com/en/climbs/cote-de-hulsonniaux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 5078,
@@ -97731,19 +97957,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-hulsonniaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "mur-de-purnode",
       "name": "Mur de Purnode",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 20720,
         "slug": "mur-de-purnode",
         "url": "https://climbfinder.com/en/climbs/mur-de-purnode",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 1588,
@@ -98250,19 +98478,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-purnode",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-d-anseremme",
       "name": "Côte d'Anseremme",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 12352,
         "slug": "cote-d-anseremme",
         "url": "https://climbfinder.com/en/climbs/cote-d-anseremme",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 2413,
@@ -98953,19 +99183,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-d-anseremme",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "maffe",
       "name": "Maffe",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8944,
         "slug": "maffe",
         "url": "https://climbfinder.com/en/climbs/maffe",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 709,
@@ -99228,19 +99460,21 @@
           "url": "https://climbfinder.com/en/climbs/maffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "bois-de-la-portalle-nettinne",
       "name": "Bois de la Portalle from Nettinne",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 8950,
         "slug": "bois-de-la-portalle-nettinne",
         "url": "https://climbfinder.com/en/climbs/bois-de-la-portalle-nettinne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 3889,
@@ -100275,19 +100509,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-la-portalle-nettinne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "les-monts-frasnes",
       "name": "Les Monts from Frasnes",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1582,
         "slug": "les-monts-frasnes",
         "url": "https://climbfinder.com/en/climbs/les-monts-frasnes",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 906,
@@ -100606,19 +100842,21 @@
           "url": "https://climbfinder.com/en/climbs/les-monts-frasnes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "durnal-crupet",
       "name": "Durnal from Crupet",
-      "region": "Namur Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1469,
         "slug": "durnal-crupet",
         "url": "https://climbfinder.com/en/climbs/durnal-crupet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2039,
@@ -101211,19 +101449,21 @@
           "url": "https://climbfinder.com/en/climbs/durnal-crupet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-de-oizy",
       "name": "Côte de Oizy",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3390,
         "slug": "cote-de-oizy",
         "url": "https://climbfinder.com/en/climbs/cote-de-oizy",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 2070,
@@ -101822,7 +102062,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-oizy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "tienne-de-mont-godinne",
@@ -102986,14 +103227,15 @@
     {
       "id": "les-strepys",
       "name": "Les Strépys",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14432,
         "slug": "les-strepys",
         "url": "https://climbfinder.com/en/climbs/les-strepys",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2686,
@@ -103728,7 +103970,8 @@
           "url": "https://climbfinder.com/en/climbs/les-strepys",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "bois-axhelet-nivoye",
@@ -104498,14 +104741,15 @@
     {
       "id": "gros-fays-cornimont",
       "name": "Gros-Fays from Cornimont",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1453,
         "slug": "gros-fays-cornimont",
         "url": "https://climbfinder.com/en/climbs/gros-fays-cornimont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 2367,
@@ -105182,19 +105426,21 @@
           "url": "https://climbfinder.com/en/climbs/gros-fays-cornimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "rue-du-timon-monceau-en-ardenne-vresse-sur-semois",
       "name": "Rue du Timon from Vresse-sur-Semois via Monceau-en-Ardenne",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20312,
         "slug": "rue-du-timon-monceau-en-ardenne-vresse-sur-semois",
         "url": "https://climbfinder.com/en/climbs/rue-du-timon-monceau-en-ardenne-vresse-sur-semois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 7808,
@@ -107163,7 +107409,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-timon-monceau-en-ardenne-vresse-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "cote-de-sommiere-anhee",
@@ -111421,14 +111668,15 @@
     {
       "id": "route-de-givet-houyet",
       "name": "Route de Givet from Houyet",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 13906,
         "slug": "route-de-givet-houyet",
         "url": "https://climbfinder.com/en/climbs/route-de-givet-houyet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 4015,
@@ -112495,7 +112743,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-givet-houyet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "les-trys-godinne",
@@ -115262,14 +115511,15 @@
     {
       "id": "cote-du-reservoir-heer",
       "name": "Côte du Réservoir from Heer",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13775,
         "slug": "cote-du-reservoir-heer",
         "url": "https://climbfinder.com/en/climbs/cote-du-reservoir-heer",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 828,
@@ -115566,7 +115816,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-reservoir-heer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "abbaye-de-maredsous",
@@ -116415,14 +116666,15 @@
     {
       "id": "rue-de-moustier-rue-de-spy",
       "name": "Rue de Moustier via Rue de Spy",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1564,
         "slug": "rue-de-moustier-rue-de-spy",
         "url": "https://climbfinder.com/en/climbs/rue-de-moustier-rue-de-spy",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1711,
@@ -116931,19 +117183,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-moustier-rue-de-spy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-des-sources",
       "name": "Rue des Sources",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10385,
         "slug": "rue-des-sources",
         "url": "https://climbfinder.com/en/climbs/rue-des-sources",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 896,
@@ -117254,7 +117508,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-sources",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "bois-lapson-chardeneux",
@@ -117832,14 +118087,15 @@
     {
       "id": "cote-de-maltournee-vresse-sur-semois",
       "name": "Côte de Maltournée from Vresse-sur-Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14132,
         "slug": "cote-de-maltournee-vresse-sur-semois",
         "url": "https://climbfinder.com/en/climbs/cote-de-maltournee-vresse-sur-semois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4115,
@@ -118930,19 +119186,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-maltournee-vresse-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "rue-de-soye-soye",
       "name": "Rue de Soye from Soye",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10366,
         "slug": "rue-de-soye-soye",
         "url": "https://climbfinder.com/en/climbs/rue-de-soye-soye",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 4465,
@@ -120121,7 +120379,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-soye-soye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "bois-de-foresse-loysse-sclaigneaux",
@@ -121342,14 +121601,15 @@
     {
       "id": "cote-de-custinne-route-de-ciney",
       "name": "Côte de Custinne from Route de Ciney",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1631,
         "slug": "cote-de-custinne-route-de-ciney",
         "url": "https://climbfinder.com/en/climbs/cote-de-custinne-route-de-ciney",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3641,
@@ -122322,19 +122582,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-custinne-route-de-ciney",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "tienne-du-long-pre-vencimont",
       "name": "Tienne du Long Pré from Vencimont",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1665,
         "slug": "tienne-du-long-pre-vencimont",
         "url": "https://climbfinder.com/en/climbs/tienne-du-long-pre-vencimont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4012,
@@ -123401,7 +123663,8 @@
           "url": "https://climbfinder.com/en/climbs/tienne-du-long-pre-vencimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "cote-de-vezin-sclaigneaux",
@@ -127227,14 +127490,15 @@
     {
       "id": "deminche-rue-du-calvaire",
       "name": "Deminche via Rue du Calvaire",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20709,
         "slug": "deminche-rue-du-calvaire",
         "url": "https://climbfinder.com/en/climbs/deminche-rue-du-calvaire",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1294,
@@ -127631,7 +127895,8 @@
           "url": "https://climbfinder.com/en/climbs/deminche-rue-du-calvaire",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "bois-de-lens-insemont",
@@ -129646,14 +129911,15 @@
     {
       "id": "sur-les-tiennes-jemeppe",
       "name": "Sur les Tiennes from Jemeppe",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1563,
         "slug": "sur-les-tiennes-jemeppe",
         "url": "https://climbfinder.com/en/climbs/sur-les-tiennes-jemeppe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1822,
@@ -130188,7 +130454,8 @@
           "url": "https://climbfinder.com/en/climbs/sur-les-tiennes-jemeppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "la-pairelle-rue-marcel-lecompte",
@@ -130948,14 +131215,15 @@
     {
       "id": "rue-haut-baty-sambreville",
       "name": "Rue Haut-Bâty from Sambreville",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1651,
         "slug": "rue-haut-baty-sambreville",
         "url": "https://climbfinder.com/en/climbs/rue-haut-baty-sambreville",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 2426,
@@ -131652,19 +131920,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-haut-baty-sambreville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-des-muriers",
       "name": "Rue des Mûriers",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1565,
         "slug": "rue-des-muriers",
         "url": "https://climbfinder.com/en/climbs/rue-des-muriers",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1608,
@@ -132147,7 +132417,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-muriers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "fond-de-rostenne-bouvignes-sur-meuse",
@@ -135213,14 +135484,15 @@
     {
       "id": "rue-de-la-liberation-hermeton-sur-meuse",
       "name": "Rue de la Libération from Hermeton-sur-Meuse",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20471,
         "slug": "rue-de-la-liberation-hermeton-sur-meuse",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-liberation-hermeton-sur-meuse",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2968,
@@ -136053,19 +136325,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-liberation-hermeton-sur-meuse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "cote-de-sart-saint-laurent",
       "name": "Côte de Sart-Saint-Laurent",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 20460,
         "slug": "cote-de-sart-saint-laurent",
         "url": "https://climbfinder.com/en/climbs/cote-de-sart-saint-laurent",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 3855,
@@ -137094,7 +137368,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-sart-saint-laurent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "chemin-des-censes",
@@ -137508,14 +137783,15 @@
     {
       "id": "mur-des-pelziats",
       "name": "Mur des Pelziats",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10382,
         "slug": "mur-des-pelziats",
         "url": "https://climbfinder.com/en/climbs/mur-des-pelziats",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 338,
@@ -137672,7 +137948,8 @@
           "url": "https://climbfinder.com/en/climbs/mur-des-pelziats",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-de-serville-weillen",
@@ -141478,14 +141755,15 @@
     {
       "id": "rue-de-la-consolation-couvin",
       "name": "Rue de la Consolation from Couvin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3380,
         "slug": "rue-de-la-consolation-couvin",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-consolation-couvin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2107,
@@ -142098,19 +142376,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-consolation-couvin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "le-wez-de-chine",
       "name": "Le Wez de Chine",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1641,
         "slug": "le-wez-de-chine",
         "url": "https://climbfinder.com/en/climbs/le-wez-de-chine",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 892,
@@ -142403,19 +142683,21 @@
           "url": "https://climbfinder.com/en/climbs/le-wez-de-chine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-auguste-filee-buzet",
       "name": "Rue Auguste Filée from Bûzet",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1576,
         "slug": "rue-auguste-filee-buzet",
         "url": "https://climbfinder.com/en/climbs/rue-auguste-filee-buzet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 469,
@@ -142608,7 +142890,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-auguste-filee-buzet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "cote-de-seilles",
@@ -143516,14 +143799,15 @@
     {
       "id": "bois-des-marechaux-hameau-du-feronval",
       "name": "Bois des Maréchaux via Hameau du Féronval",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16243,
         "slug": "bois-des-marechaux-hameau-du-feronval",
         "url": "https://climbfinder.com/en/climbs/bois-des-marechaux-hameau-du-feronval",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 804,
@@ -143814,7 +144098,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-des-marechaux-hameau-du-feronval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "bois-ossogne",
@@ -145492,14 +145777,15 @@
     {
       "id": "sur-sohere-han-sur-lesse",
       "name": "Côte du Belvédère / Sur Sohère from Han-sur-Lesse",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14273,
         "slug": "sur-sohere-han-sur-lesse",
         "url": "https://climbfinder.com/en/climbs/sur-sohere-han-sur-lesse",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 2415,
@@ -146190,7 +146476,8 @@
           "url": "https://climbfinder.com/en/climbs/sur-sohere-han-sur-lesse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "sorinnes-thynes",
@@ -147470,14 +147757,15 @@
     {
       "id": "rue-longue-haie-frasnes-lez-couvin",
       "name": "Rue Longue Haie from Frasnes-lez-Couvin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1655,
         "slug": "rue-longue-haie-frasnes-lez-couvin",
         "url": "https://climbfinder.com/en/climbs/rue-longue-haie-frasnes-lez-couvin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 610,
@@ -147712,7 +148000,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-longue-haie-frasnes-lez-couvin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "charrau-d-hayettes-montaigle",
@@ -151786,14 +152075,15 @@
     {
       "id": "rue-du-panorama-gonrieux",
       "name": "Rue du Panorama from Gonrieux",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3378,
         "slug": "rue-du-panorama-gonrieux",
         "url": "https://climbfinder.com/en/climbs/rue-du-panorama-gonrieux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1253,
@@ -152184,7 +152474,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-panorama-gonrieux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "cote-bonsin",
@@ -153253,14 +153544,15 @@
     {
       "id": "bois-de-stoumont",
       "name": "Bois de Stoûmont",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16361,
         "slug": "bois-de-stoumont",
         "url": "https://climbfinder.com/en/climbs/bois-de-stoumont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1179,
@@ -153655,19 +153947,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-stoumont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "col-des-fiances-du-chatelet-membre",
       "name": "Col des Fiances du Chatelet from Membre",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3387,
         "slug": "col-des-fiances-du-chatelet-membre",
         "url": "https://climbfinder.com/en/climbs/col-des-fiances-du-chatelet-membre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 1060,
@@ -154006,19 +154300,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-fiances-du-chatelet-membre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "fond-marie-vaucelles",
       "name": "Fond Marie from Vaucelles",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13660,
         "slug": "fond-marie-vaucelles",
         "url": "https://climbfinder.com/en/climbs/fond-marie-vaucelles",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1626,
@@ -154507,7 +154803,8 @@
           "url": "https://climbfinder.com/en/climbs/fond-marie-vaucelles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "lisogne-fonds-de-leffe",
@@ -156165,14 +156462,15 @@
     {
       "id": "bois-des-brules",
       "name": "Bois des Brûlés",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16240,
         "slug": "bois-des-brules",
         "url": "https://climbfinder.com/en/climbs/bois-des-brules",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 719,
@@ -156435,7 +156733,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-des-brules",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "la-spinette-aisemont",
@@ -156665,14 +156964,15 @@
     {
       "id": "rue-de-taravisee-franiere",
       "name": "Bois de Mouchaumont from Franière",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1482,
         "slug": "rue-de-taravisee-franiere",
         "url": "https://climbfinder.com/en/climbs/rue-de-taravisee-franiere",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 3552,
@@ -157625,19 +157925,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-taravisee-franiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "croix-des-dames-romedenne",
       "name": "Croix des Dames via Romedenne",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20274,
         "slug": "croix-des-dames-romedenne",
         "url": "https://climbfinder.com/en/climbs/croix-des-dames-romedenne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 8044,
@@ -159662,19 +159964,21 @@
           "url": "https://climbfinder.com/en/climbs/croix-des-dames-romedenne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "petit-mesnil-oignies-en-thierache",
       "name": "Le Petit Mesnil from Oignies-en-Thiérache",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3381,
         "slug": "petit-mesnil-oignies-en-thierache",
         "url": "https://climbfinder.com/en/climbs/petit-mesnil-oignies-en-thierache",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1168,
@@ -160063,7 +160367,8 @@
           "url": "https://climbfinder.com/en/climbs/petit-mesnil-oignies-en-thierache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "insemont-hastiere-lavaux",
@@ -161472,14 +161777,15 @@
     {
       "id": "rue-de-la-montagne-falisolle",
       "name": "Rue de la Montagne from Falisolle",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13607,
         "slug": "rue-de-la-montagne-falisolle",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-montagne-falisolle",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1249,
@@ -161888,19 +162194,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-montagne-falisolle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "cote-de-gochenee-heer-agimont",
       "name": "Côte de Gochenée from Heer-Agimont",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 13543,
         "slug": "cote-de-gochenee-heer-agimont",
         "url": "https://climbfinder.com/en/climbs/cote-de-gochenee-heer-agimont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 5408,
@@ -163317,7 +163625,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-gochenee-heer-agimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "parfondefosse-baillonville",
@@ -163757,14 +164066,15 @@
     {
       "id": "hameau-de-conrad-membre",
       "name": "Conrad from Membre",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1432,
         "slug": "hameau-de-conrad-membre",
         "url": "https://climbfinder.com/en/climbs/hameau-de-conrad-membre",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 3791,
@@ -164773,19 +165083,21 @@
           "url": "https://climbfinder.com/en/climbs/hameau-de-conrad-membre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "presgaux",
       "name": "Grand Pont",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1597,
         "slug": "presgaux",
         "url": "https://climbfinder.com/en/climbs/presgaux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1697,
@@ -165286,7 +165598,8 @@
           "url": "https://climbfinder.com/en/climbs/presgaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "ville-en-waret-marche-les-dames-rue-aux-pierres",
@@ -169050,14 +169363,15 @@
     {
       "id": "rue-du-fayt-jodion",
       "name": "Rue du Fayt from Jodion",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1560,
         "slug": "rue-du-fayt-jodion",
         "url": "https://climbfinder.com/en/climbs/rue-du-fayt-jodion",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1069,
@@ -169418,19 +169732,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-fayt-jodion",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-de-bohan",
       "name": "Rue de Bohan",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1431,
         "slug": "rue-de-bohan",
         "url": "https://climbfinder.com/en/climbs/rue-de-bohan",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 571,
@@ -169651,19 +169967,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-bohan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "regnissart-saint-joseph",
       "name": "Regnissart from Saint-Joseph",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 11633,
         "slug": "regnissart-saint-joseph",
         "url": "https://climbfinder.com/en/climbs/regnissart-saint-joseph",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 1729,
@@ -170178,19 +170496,21 @@
           "url": "https://climbfinder.com/en/climbs/regnissart-saint-joseph",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "cote-de-mahoux",
       "name": "Mur de Mahoux",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3330,
         "slug": "cote-de-mahoux",
         "url": "https://climbfinder.com/en/climbs/cote-de-mahoux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1418,
@@ -170649,7 +170969,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-mahoux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "allee-de-lairbois-yvoir",
@@ -171836,14 +172157,15 @@
     {
       "id": "bossiere-rue-des-forrieres",
       "name": "Bossière via Rue des Forrières",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10368,
         "slug": "bossiere-rue-des-forrieres",
         "url": "https://climbfinder.com/en/climbs/bossiere-rue-des-forrieres",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 2156,
@@ -172468,7 +172790,8 @@
           "url": "https://climbfinder.com/en/climbs/bossiere-rue-des-forrieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-du-travail-namur",
@@ -173026,14 +173349,15 @@
     {
       "id": "bourseigne-vieille-vencimont",
       "name": "Bourseigne-Vieille from Vencimont",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1664,
         "slug": "bourseigne-vieille-vencimont",
         "url": "https://climbfinder.com/en/climbs/bourseigne-vieille-vencimont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 4634,
@@ -174256,7 +174580,8 @@
           "url": "https://climbfinder.com/en/climbs/bourseigne-vieille-vencimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "li-voye-des-monnis-durnal",
@@ -175861,14 +176186,15 @@
     {
       "id": "le-mesnil-rue-de-oignies",
       "name": "Le Mesnil via Rue de Oignies",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3382,
         "slug": "le-mesnil-rue-de-oignies",
         "url": "https://climbfinder.com/en/climbs/le-mesnil-rue-de-oignies",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 836,
@@ -176165,7 +176491,8 @@
           "url": "https://climbfinder.com/en/climbs/le-mesnil-rue-de-oignies",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-du-suary-wepion",
@@ -178736,14 +179063,15 @@
     {
       "id": "rue-elie-delire-buzet",
       "name": "Rue Elie Delire from Bûzet",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1575,
         "slug": "rue-elie-delire-buzet",
         "url": "https://climbfinder.com/en/climbs/rue-elie-delire-buzet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 610,
@@ -178978,7 +179306,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-elie-delire-buzet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "croix-d-al-faux",
@@ -179881,14 +180210,15 @@
     {
       "id": "col-des-fiances-du-chatelet-bohan-sur-semois",
       "name": "Col des Fiances du Chatelet from Bohan sur Semois",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 4993,
         "slug": "col-des-fiances-du-chatelet-bohan-sur-semois",
         "url": "https://climbfinder.com/en/climbs/col-des-fiances-du-chatelet-bohan-sur-semois",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 1236,
@@ -180273,19 +180603,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-fiances-du-chatelet-bohan-sur-semois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "flache-floriffoux",
       "name": "Flache from Floriffoux",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13620,
         "slug": "flache-floriffoux",
         "url": "https://climbfinder.com/en/climbs/flache-floriffoux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1984,
@@ -180864,7 +181196,8 @@
           "url": "https://climbfinder.com/en/climbs/flache-floriffoux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "bois-de-lens-grand-trone-alouettes-hastiere",
@@ -184438,14 +184771,15 @@
     {
       "id": "bois-de-cerfontaine-culot-du-bois",
       "name": "Bois de Cerfontaine from Culot-du-Bois",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 12214,
         "slug": "bois-de-cerfontaine-culot-du-bois",
         "url": "https://climbfinder.com/en/climbs/bois-de-cerfontaine-culot-du-bois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 4299,
@@ -185580,7 +185914,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-cerfontaine-culot-du-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "chemin-des-trois-journaux-goesnes",
@@ -186813,14 +187148,15 @@
     {
       "id": "route-de-lavis-celles",
       "name": "Route de Lavis from Celles",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 11655,
         "slug": "route-de-lavis-celles",
         "url": "https://climbfinder.com/en/climbs/route-de-lavis-celles",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1654,
@@ -187315,19 +187651,21 @@
           "url": "https://climbfinder.com/en/climbs/route-de-lavis-celles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "bois-des-marechaux-silenrieux",
       "name": "Bois des Maréchaux from Silenrieux",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14427,
         "slug": "bois-des-marechaux-silenrieux",
         "url": "https://climbfinder.com/en/climbs/bois-des-marechaux-silenrieux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 988,
@@ -187666,19 +188004,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-des-marechaux-silenrieux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "cote-de-custinne-route-de-custinne",
       "name": "Côte de Custinne via Route de Custinne",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1632,
         "slug": "cote-de-custinne-route-de-custinne",
         "url": "https://climbfinder.com/en/climbs/cote-de-custinne-route-de-custinne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 4632,
@@ -188901,19 +189241,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-custinne-route-de-custinne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "relais-de-falemprise",
       "name": "Relais de Falemprise",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16238,
         "slug": "relais-de-falemprise",
         "url": "https://climbfinder.com/en/climbs/relais-de-falemprise",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 719,
@@ -189176,7 +189518,8 @@
           "url": "https://climbfinder.com/en/climbs/relais-de-falemprise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-de-la-rochette",
@@ -189462,14 +189805,15 @@
     {
       "id": "bossiere-rue-mautienne",
       "name": "Bossière via Rue Mautienne",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1653,
         "slug": "bossiere-rue-mautienne",
         "url": "https://climbfinder.com/en/climbs/bossiere-rue-mautienne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 880,
@@ -189780,7 +190124,8 @@
           "url": "https://climbfinder.com/en/climbs/bossiere-rue-mautienne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-joseph-waregne-flawinne",
@@ -190088,14 +190433,15 @@
     {
       "id": "hameau-de-famenne",
       "name": "Hameau de Famenne",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 7589,
         "slug": "hameau-de-famenne",
         "url": "https://climbfinder.com/en/climbs/hameau-de-famenne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1960,
@@ -190668,7 +191014,8 @@
           "url": "https://climbfinder.com/en/climbs/hameau-de-famenne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "cote-de-chevetogne",
@@ -191428,14 +191775,15 @@
     {
       "id": "bois-du-chateau-chateau-de-veves",
       "name": "Bois du Château from Château de Vêves",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 20741,
         "slug": "bois-du-chateau-chateau-de-veves",
         "url": "https://climbfinder.com/en/climbs/bois-du-chateau-chateau-de-veves",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 2799,
@@ -192194,7 +192542,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-du-chateau-chateau-de-veves",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "les-aloux-maffe",
@@ -192973,14 +193322,15 @@
     {
       "id": "bossiere-rue-de-la-croix-rouge",
       "name": "Bossière via Rue de la Croix Rouge",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10369,
         "slug": "bossiere-rue-de-la-croix-rouge",
         "url": "https://climbfinder.com/en/climbs/bossiere-rue-de-la-croix-rouge",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1655,
@@ -193475,7 +193825,8 @@
           "url": "https://climbfinder.com/en/climbs/bossiere-rue-de-la-croix-rouge",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "cote-de-somal",
@@ -193909,14 +194260,15 @@
     {
       "id": "thier-des-falises-rochefort",
       "name": "Thier des Falises from Rochefort",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14274,
         "slug": "thier-des-falises-rochefort",
         "url": "https://climbfinder.com/en/climbs/thier-des-falises-rochefort",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 1329,
@@ -194353,7 +194705,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-des-falises-rochefort",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "maizaret-rue-comte-d-ursel-antoine",
@@ -198536,14 +198889,15 @@
     {
       "id": "cote-de-petite-hour-houyet",
       "name": "Côte de Petite Hour from Houyet",
-      "region": "Namur Province",
+      "region": "Lesse Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 7581,
         "slug": "cote-de-petite-hour-houyet",
         "url": "https://climbfinder.com/en/climbs/cote-de-petite-hour-houyet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 137
       },
       "stats": {
         "length_m": 3883,
@@ -199578,7 +199932,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-petite-hour-houyet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 137
     },
     {
       "id": "sovet",
@@ -200223,14 +200578,15 @@
     {
       "id": "rue-du-timon-bellefontaine",
       "name": "Rue du Timon from Bellefontaine",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3389,
         "slug": "rue-du-timon-bellefontaine",
         "url": "https://climbfinder.com/en/climbs/rue-du-timon-bellefontaine",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 1392,
@@ -200653,7 +201009,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-timon-bellefontaine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "carrefour-de-six-bras-rue-de-la-pichelotte",
@@ -201321,14 +201678,15 @@
     {
       "id": "route-des-lacs-cerfontaine",
       "name": "Route des Lacs from Cerfontaine",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16234,
         "slug": "route-des-lacs-cerfontaine",
         "url": "https://climbfinder.com/en/climbs/route-des-lacs-cerfontaine",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 2146,
@@ -201947,7 +202305,8 @@
           "url": "https://climbfinder.com/en/climbs/route-des-lacs-cerfontaine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "rue-de-flun",
@@ -202241,14 +202600,15 @@
     {
       "id": "cote-de-patignies",
       "name": "Côte de Patignies",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14176,
         "slug": "cote-de-patignies",
         "url": "https://climbfinder.com/en/climbs/cote-de-patignies",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 2159,
@@ -202873,19 +203233,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-patignies",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "la-rouge-croix-vierves-sur-viroin",
       "name": "La Rouge Croix from Vierves-sur-Viroin",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14901,
         "slug": "la-rouge-croix-vierves-sur-viroin",
         "url": "https://climbfinder.com/en/climbs/la-rouge-croix-vierves-sur-viroin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 3035,
@@ -203738,7 +204100,8 @@
           "url": "https://climbfinder.com/en/climbs/la-rouge-croix-vierves-sur-viroin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "tige-de-ver-custinne",
@@ -205939,14 +206302,15 @@
     {
       "id": "rue-de-falemprise",
       "name": "Rue de Falemprise",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16239,
         "slug": "rue-de-falemprise",
         "url": "https://climbfinder.com/en/climbs/rue-de-falemprise",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 552,
@@ -206167,7 +206531,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-falemprise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "les-golettes-havenne",
@@ -207326,14 +207691,15 @@
     {
       "id": "rue-haut-comogne-jemeppe",
       "name": "Rue Haut Comogne from Jemeppe",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1562,
         "slug": "rue-haut-comogne-jemeppe",
         "url": "https://climbfinder.com/en/climbs/rue-haut-comogne-jemeppe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1598,
@@ -207808,7 +208174,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-haut-comogne-jemeppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "anthee-ostemeree",
@@ -208200,14 +208567,15 @@
     {
       "id": "route-des-fortes",
       "name": "Route des Fortes via Rue Clément Didriche",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1480,
         "slug": "route-des-fortes",
         "url": "https://climbfinder.com/en/climbs/route-des-fortes",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1796,
@@ -208734,7 +209102,8 @@
           "url": "https://climbfinder.com/en/climbs/route-des-fortes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "fond-barbette-flawinne",
@@ -209034,14 +209403,15 @@
     {
       "id": "tienne-de-lune-vencimont",
       "name": "Tienne de Lune from Vencimont",
-      "region": "Namur Province",
+      "region": "Semois Valley",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3385,
         "slug": "tienne-de-lune-vencimont",
         "url": "https://climbfinder.com/en/climbs/tienne-de-lune-vencimont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 132
       },
       "stats": {
         "length_m": 1839,
@@ -209582,7 +209952,8 @@
           "url": "https://climbfinder.com/en/climbs/tienne-de-lune-vencimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 132
     },
     {
       "id": "cote-de-sosoye-sosoye",
@@ -212806,14 +213177,15 @@
     {
       "id": "malcampe-cerfontaine",
       "name": "Malcampé from Cerfontaine",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16236,
         "slug": "malcampe-cerfontaine",
         "url": "https://climbfinder.com/en/climbs/malcampe-cerfontaine",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 440,
@@ -212998,7 +213370,8 @@
           "url": "https://climbfinder.com/en/climbs/malcampe-cerfontaine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "jassogne-rue-jassogne",
@@ -215193,14 +215566,15 @@
     {
       "id": "notre-dame-de-la-salette-corenne",
       "name": "Notre-Dame de la Salette from Corenne",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 20640,
         "slug": "notre-dame-de-la-salette-corenne",
         "url": "https://climbfinder.com/en/climbs/notre-dame-de-la-salette-corenne",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 564,
@@ -215421,7 +215795,8 @@
           "url": "https://climbfinder.com/en/climbs/notre-dame-de-la-salette-corenne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "route-ohey-evelette",
@@ -217387,14 +217762,15 @@
     {
       "id": "carrefour-des-sept-freres-cote-de-la-prise",
       "name": "Carrefour des Sept Frères / Côte de la Prise via Rue Eugène Magonet",
-      "region": "Namur Province",
+      "region": "Fagne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1617,
         "slug": "carrefour-des-sept-freres-cote-de-la-prise",
         "url": "https://climbfinder.com/en/climbs/carrefour-des-sept-freres-cote-de-la-prise",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 129
       },
       "stats": {
         "length_m": 3056,
@@ -218253,19 +218629,21 @@
           "url": "https://climbfinder.com/en/climbs/carrefour-des-sept-freres-cote-de-la-prise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 129
     },
     {
       "id": "haute-bise",
       "name": "Haute Bise",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10379,
         "slug": "haute-bise",
         "url": "https://climbfinder.com/en/climbs/haute-bise",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1616,
@@ -218748,19 +219126,21 @@
           "url": "https://climbfinder.com/en/climbs/haute-bise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "tongrinne-rue-de-tongrinne-rue-de-balatre",
       "name": "Rue de Tongrinne & Rue de Balâtre",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10373,
         "slug": "tongrinne-rue-de-tongrinne-rue-de-balatre",
         "url": "https://climbfinder.com/en/climbs/tongrinne-rue-de-tongrinne-rue-de-balatre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1510,
@@ -219217,7 +219597,8 @@
           "url": "https://climbfinder.com/en/climbs/tongrinne-rue-de-tongrinne-rue-de-balatre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "cote-de-vezin-driane-sclaigneaux-rue-du-baty",
@@ -231283,14 +231664,15 @@
     {
       "id": "chemin-de-la-fontaine",
       "name": "Chemin de la Fontaine",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 15812,
         "slug": "chemin-de-la-fontaine",
         "url": "https://climbfinder.com/en/climbs/chemin-de-la-fontaine",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1309,
@@ -231721,7 +232103,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-de-la-fontaine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "mur-de-franchimont",
@@ -236950,14 +237333,15 @@
     {
       "id": "rue-de-boignee-boignee",
       "name": "Rue de Boignée from Boignée",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10376,
         "slug": "rue-de-boignee-boignee",
         "url": "https://climbfinder.com/en/climbs/rue-de-boignee-boignee",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1130,
@@ -237338,7 +237722,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-boignee-boignee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-leuchere-flawinne-rue-clement-noel",
@@ -247333,14 +247718,15 @@
     {
       "id": "la-voie-qui-monte-buzet",
       "name": "La Voie qui Monte from Buzet",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 20434,
         "slug": "la-voie-qui-monte-buzet",
         "url": "https://climbfinder.com/en/climbs/la-voie-qui-monte-buzet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1579,
@@ -247847,19 +248233,21 @@
           "url": "https://climbfinder.com/en/climbs/la-voie-qui-monte-buzet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "tienne-jean-pierre-sovimont",
       "name": "Tienne Jean-Pierre via Sovimont",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13652,
         "slug": "tienne-jean-pierre-sovimont",
         "url": "https://climbfinder.com/en/climbs/tienne-jean-pierre-sovimont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1466,
@@ -248332,7 +248720,8 @@
           "url": "https://climbfinder.com/en/climbs/tienne-jean-pierre-sovimont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "la-chasse-gelbressee",
@@ -254746,14 +255135,15 @@
     {
       "id": "rue-try-baudine-lonzee",
       "name": "Rue Try Baudine from Lonzée",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10381,
         "slug": "rue-try-baudine-lonzee",
         "url": "https://climbfinder.com/en/climbs/rue-try-baudine-lonzee",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 740,
@@ -255022,7 +255412,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-try-baudine-lonzee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "try-gres",
@@ -258897,14 +259288,15 @@
     {
       "id": "rue-leopold-lenoble-sur-les-tiennes",
       "name": "Rue Léopold Lenoble from Sur les Tiennes",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10383,
         "slug": "rue-leopold-lenoble-sur-les-tiennes",
         "url": "https://climbfinder.com/en/climbs/rue-leopold-lenoble-sur-les-tiennes",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 421,
@@ -259083,7 +259475,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-leopold-lenoble-sur-les-tiennes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-du-cahoti-assesse",
@@ -259984,14 +260377,15 @@
     {
       "id": "rominet-auvelais",
       "name": "Rominet from Auvelais",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 11555,
         "slug": "rominet-auvelais",
         "url": "https://climbfinder.com/en/climbs/rominet-auvelais",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 2108,
@@ -260604,7 +260998,8 @@
           "url": "https://climbfinder.com/en/climbs/rominet-auvelais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "bois-des-marechaux-ri-jaune",
@@ -268483,14 +268878,15 @@
     {
       "id": "bossiere-rue-des-grands-hectares",
       "name": "Bossière via Rue des Grands Hectares",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10367,
         "slug": "bossiere-rue-des-grands-hectares",
         "url": "https://climbfinder.com/en/climbs/bossiere-rue-des-grands-hectares",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 810,
@@ -268781,7 +269177,8 @@
           "url": "https://climbfinder.com/en/climbs/bossiere-rue-des-grands-hectares",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "treton-andenne",
@@ -277352,14 +277749,15 @@
     {
       "id": "hameau-de-vaux-mont-serrat",
       "name": "Hameau de Vaux / Mont Serrat",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10384,
         "slug": "hameau-de-vaux-mont-serrat",
         "url": "https://climbfinder.com/en/climbs/hameau-de-vaux-mont-serrat",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 737,
@@ -277628,7 +278026,8 @@
           "url": "https://climbfinder.com/en/climbs/hameau-de-vaux-mont-serrat",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "wartet-gelbressee",
@@ -280651,14 +281050,15 @@
     {
       "id": "bois-du-trou-des-chats-rabot",
       "name": "Bois du Trou des Chats via Rabot",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13653,
         "slug": "bois-du-trou-des-chats-rabot",
         "url": "https://climbfinder.com/en/climbs/bois-du-trou-des-chats-rabot",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 2910,
@@ -281449,7 +281849,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-du-trou-des-chats-rabot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "aux-triches-cortil-wodon",
@@ -289602,14 +290003,15 @@
     {
       "id": "rue-du-rissart-floriffoux",
       "name": "Rue du Rissart from Floriffoux",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 20443,
         "slug": "rue-du-rissart-floriffoux",
         "url": "https://climbfinder.com/en/climbs/rue-du-rissart-floriffoux",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 598,
@@ -289836,7 +290238,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-rissart-floriffoux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "pre-des-vaux-ostemeree",
@@ -308661,14 +309064,15 @@
     {
       "id": "bois-de-chenemont-rue-de-mazy",
       "name": "Bois de Chenémont via Rue de Mazy",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10378,
         "slug": "bois-de-chenemont-rue-de-mazy",
         "url": "https://climbfinder.com/en/climbs/bois-de-chenemont-rue-de-mazy",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1507,
@@ -309125,7 +309529,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-chenemont-rue-de-mazy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "croix-des-dames-fond-de-vodelee",
@@ -313999,14 +314404,15 @@
     {
       "id": "rue-du-megornot",
       "name": "Rue du Mégornot",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1566,
         "slug": "rue-du-megornot",
         "url": "https://climbfinder.com/en/climbs/rue-du-megornot",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 949,
@@ -314331,7 +314737,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-megornot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "tienne-morainy-nismes",
@@ -322442,14 +322849,15 @@
     {
       "id": "rue-de-la-tannerie-spy",
       "name": "Rue de la Tannerie",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10387,
         "slug": "rue-de-la-tannerie-spy",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-tannerie-spy",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 952,
@@ -322782,7 +323190,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-tannerie-spy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "strevaux-mahoux",
@@ -326114,14 +326523,15 @@
     {
       "id": "rue-des-grands-ha-aux-trois-ponts",
       "name": "Rue des Grands-Ha from Aux Trois Ponts",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10380,
         "slug": "rue-des-grands-ha-aux-trois-ponts",
         "url": "https://climbfinder.com/en/climbs/rue-des-grands-ha-aux-trois-ponts",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 560,
@@ -326342,7 +326752,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-grands-ha-aux-trois-ponts",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "houssiere-barsy",
@@ -345834,14 +346245,15 @@
     {
       "id": "rue-des-sept-voleurs-mazy",
       "name": "Rue des Sept Voleurs from Mazy",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10372,
         "slug": "rue-des-sept-voleurs-mazy",
         "url": "https://climbfinder.com/en/climbs/rue-des-sept-voleurs-mazy",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 873,
@@ -346146,7 +346558,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-sept-voleurs-mazy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "petit-pourain",
@@ -348371,14 +348784,15 @@
     {
       "id": "rue-du-docq",
       "name": "Rue du Docq",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10374,
         "slug": "rue-du-docq",
         "url": "https://climbfinder.com/en/climbs/rue-du-docq",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1763,
@@ -348899,7 +349313,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-docq",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "beole-flostoy",
@@ -351279,14 +351694,15 @@
     {
       "id": "rue-du-laid-pas-spy",
       "name": "Rue du Laid Pas",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10386,
         "slug": "rue-du-laid-pas-spy",
         "url": "https://climbfinder.com/en/climbs/rue-du-laid-pas-spy",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 689,
@@ -351541,7 +351957,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-laid-pas-spy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-des-carrieres-emptinne",
@@ -360582,14 +360999,15 @@
     {
       "id": "rue-alvaux-mazy",
       "name": "Rue d'Alvaux from Mazy",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10377,
         "slug": "rue-alvaux-mazy",
         "url": "https://climbfinder.com/en/climbs/rue-alvaux-mazy",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1238,
@@ -360998,7 +361416,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-alvaux-mazy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-de-la-rocaille-flavion",
@@ -370399,14 +370818,15 @@
     {
       "id": "rue-try-alaude-golzinne",
       "name": "Rue Try d'Alaude from Golzinne",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10371,
         "slug": "rue-try-alaude-golzinne",
         "url": "https://climbfinder.com/en/climbs/rue-try-alaude-golzinne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 941,
@@ -370731,7 +371151,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-try-alaude-golzinne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "gueulette-bomel",
@@ -379831,14 +380252,15 @@
     {
       "id": "cote-de-la-grande-fontaine-auvelais",
       "name": "Côte de la Grande Fontaine from Auvelais",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 34843,
         "slug": "cote-de-la-grande-fontaine-auvelais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-grande-fontaine-auvelais",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 2197,
@@ -380469,7 +380891,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-grande-fontaine-auvelais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "route-de-tamines-fosses-la-ville",
@@ -382043,14 +382466,15 @@
     {
       "id": "cote-du-palton-ham-sur-sambre",
       "name": "Côte du Palton from Ham-sur-Sambre",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 34842,
         "slug": "cote-du-palton-ham-sur-sambre",
         "url": "https://climbfinder.com/en/climbs/cote-du-palton-ham-sur-sambre",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 3145,
@@ -382897,7 +383321,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-palton-ham-sur-sambre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-de-la-fontaine-maison",
@@ -384440,14 +384865,15 @@
     {
       "id": "rue-de-bothey-tongrenelle",
       "name": "Rue de Bothey from Tongrenelle",
-      "region": "Namur Province",
+      "region": "Sambre-Orneau",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 10375,
         "slug": "rue-de-bothey-tongrenelle",
         "url": "https://climbfinder.com/en/climbs/rue-de-bothey-tongrenelle",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 367
       },
       "stats": {
         "length_m": 1771,
@@ -384968,7 +385394,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-bothey-tongrenelle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 367
     },
     {
       "id": "rue-de-namur-berzee",

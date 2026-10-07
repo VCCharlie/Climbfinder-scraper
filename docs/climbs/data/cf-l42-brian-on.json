@@ -5,7 +5,7 @@
     "title": "Briançon",
     "region_label": "Briançon",
     "country": "FR",
-    "updated_at": "2026-10-07T06:54:53Z",
+    "updated_at": "2026-10-07T13:19:03Z",
     "count": 112,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 42
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:19:03Z"
+    }
   },
   "climbs": [
     {
@@ -31,7 +34,8 @@
         "id": 26,
         "slug": "col-d-izoard",
         "url": "https://climbfinder.com/en/climbs/col-d-izoard",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 14154,
@@ -1824,7 +1828,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-izoard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-granon",
@@ -1836,7 +1841,8 @@
         "id": 178,
         "slug": "col-du-granon",
         "url": "https://climbfinder.com/en/climbs/col-du-granon",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11305,
@@ -3303,7 +3309,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-granon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-agnel",
@@ -3315,7 +3322,8 @@
         "id": 36,
         "slug": "col-agnel",
         "url": "https://climbfinder.com/en/climbs/col-agnel",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 20688,
@@ -4658,7 +4666,8 @@
           "url": "https://climbfinder.com/en/climbs/col-agnel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-vars-guillestre",
@@ -4670,7 +4679,8 @@
         "id": 184,
         "slug": "col-de-vars-guillestre",
         "url": "https://climbfinder.com/en/climbs/col-de-vars-guillestre",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 18861,
@@ -7035,7 +7045,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-vars-guillestre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-galibier-briancon",
@@ -7047,7 +7058,8 @@
         "id": 10018,
         "slug": "col-du-galibier-briancon",
         "url": "https://climbfinder.com/en/climbs/col-du-galibier-briancon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 34789,
@@ -9230,7 +9242,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-galibier-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-d-izoard-briancon",
@@ -9242,7 +9255,8 @@
         "id": 30,
         "slug": "col-d-izoard-briancon",
         "url": "https://climbfinder.com/en/climbs/col-d-izoard-briancon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 19212,
@@ -11651,7 +11665,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-izoard-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-galibier-lautaret",
@@ -11663,7 +11678,8 @@
         "id": 186,
         "slug": "col-du-galibier-lautaret",
         "url": "https://climbfinder.com/en/climbs/col-du-galibier-lautaret",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8639,
@@ -13834,7 +13850,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-galibier-lautaret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-lautaret-briancon",
@@ -13846,7 +13863,8 @@
         "id": 179,
         "slug": "col-du-lautaret-briancon",
         "url": "https://climbfinder.com/en/climbs/col-du-lautaret-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 26283,
@@ -15511,7 +15529,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-lautaret-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-montgenevre-briancon",
@@ -15523,7 +15542,8 @@
         "id": 251,
         "slug": "col-de-montgenevre-briancon",
         "url": "https://climbfinder.com/en/climbs/col-de-montgenevre-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11170,
@@ -16950,7 +16970,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-montgenevre-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "mur-de-pallon",
@@ -16962,7 +16983,8 @@
         "id": 29,
         "slug": "mur-de-pallon",
         "url": "https://climbfinder.com/en/climbs/mur-de-pallon",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1705,
@@ -17471,7 +17493,8 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-pallon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "pre-de-madame-carle",
@@ -17483,7 +17506,8 @@
         "id": 33,
         "slug": "pre-de-madame-carle",
         "url": "https://climbfinder.com/en/climbs/pre-de-madame-carle",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 13232,
@@ -19160,7 +19184,8 @@
           "url": "https://climbfinder.com/en/climbs/pre-de-madame-carle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "colle-del-sestriere-cesana-torinese",
@@ -19172,7 +19197,8 @@
         "id": 2710,
         "slug": "colle-del-sestriere-cesana-torinese",
         "url": "https://climbfinder.com/en/climbs/colle-del-sestriere-cesana-torinese",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11369,
@@ -20623,7 +20649,8 @@
           "url": "https://climbfinder.com/en/climbs/colle-del-sestriere-cesana-torinese",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "risoul",
@@ -20635,7 +20662,8 @@
         "id": 237,
         "slug": "risoul",
         "url": "https://climbfinder.com/en/climbs/risoul",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 12675,
@@ -22244,7 +22272,8 @@
           "url": "https://climbfinder.com/en/climbs/risoul",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-l-echelle-bardonecchia",
@@ -22256,7 +22285,8 @@
         "id": 1909,
         "slug": "col-de-l-echelle-bardonecchia",
         "url": "https://climbfinder.com/en/climbs/col-de-l-echelle-bardonecchia",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11766,
@@ -23779,7 +23809,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-echelle-bardonecchia",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-l-echelle-nevache",
@@ -23791,7 +23822,8 @@
         "id": 252,
         "slug": "col-de-l-echelle-nevache",
         "url": "https://climbfinder.com/en/climbs/col-de-l-echelle-nevache",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 2596,
@@ -24500,7 +24532,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-echelle-nevache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-montgenevre-cesana-torinese",
@@ -24512,7 +24545,8 @@
         "id": 2713,
         "slug": "col-de-montgenevre-cesana-torinese",
         "url": "https://climbfinder.com/en/climbs/col-de-montgenevre-cesana-torinese",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8890,
@@ -26743,7 +26777,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-montgenevre-cesana-torinese",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "route-de-poet-ollagnier-briancon",
@@ -26755,7 +26790,8 @@
         "id": 1908,
         "slug": "route-de-poet-ollagnier-briancon",
         "url": "https://climbfinder.com/en/climbs/route-de-poet-ollagnier-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 4970,
@@ -28028,7 +28064,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-poet-ollagnier-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "ceillac",
@@ -28040,7 +28077,8 @@
         "id": 238,
         "slug": "ceillac",
         "url": "https://climbfinder.com/en/climbs/ceillac",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8029,
@@ -30065,7 +30103,8 @@
           "url": "https://climbfinder.com/en/climbs/ceillac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-saint-vincent",
@@ -30077,7 +30116,8 @@
         "id": 31,
         "slug": "puy-saint-vincent",
         "url": "https://climbfinder.com/en/climbs/puy-saint-vincent",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 9429,
@@ -32442,7 +32482,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-vincent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "route-de-la-viste",
@@ -32454,7 +32495,8 @@
         "id": 494,
         "slug": "route-de-la-viste",
         "url": "https://climbfinder.com/en/climbs/route-de-la-viste",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 2060,
@@ -33053,7 +33095,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-la-viste",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-saint-vincent-vallouise",
@@ -33065,7 +33108,8 @@
         "id": 35,
         "slug": "puy-saint-vincent-vallouise",
         "url": "https://climbfinder.com/en/climbs/puy-saint-vincent-vallouise",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7310,
@@ -34912,7 +34956,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-vincent-vallouise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "fregiusia-jafferau-bardonecchia",
@@ -34924,7 +34969,8 @@
         "id": 5368,
         "slug": "fregiusia-jafferau-bardonecchia",
         "url": "https://climbfinder.com/en/climbs/fregiusia-jafferau-bardonecchia",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7128,
@@ -36729,7 +36775,8 @@
           "url": "https://climbfinder.com/en/climbs/fregiusia-jafferau-bardonecchia",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-aillaud",
@@ -36741,7 +36788,8 @@
         "id": 34,
         "slug": "puy-aillaud",
         "url": "https://climbfinder.com/en/climbs/puy-aillaud",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5666,
@@ -38186,7 +38234,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-aillaud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "entre-les-aygues-vallouise",
@@ -38198,7 +38247,8 @@
         "id": 503,
         "slug": "entre-les-aygues-vallouise",
         "url": "https://climbfinder.com/en/climbs/entre-les-aygues-vallouise",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5705,
@@ -39655,7 +39705,8 @@
           "url": "https://climbfinder.com/en/climbs/entre-les-aygues-vallouise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "colle-de-sestriere-cesana-torinese-besse-basso",
@@ -39667,7 +39718,8 @@
         "id": 2711,
         "slug": "colle-de-sestriere-cesana-torinese-besse-basso",
         "url": "https://climbfinder.com/en/climbs/colle-de-sestriere-cesana-torinese-besse-basso",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 13606,
@@ -41392,7 +41444,8 @@
           "url": "https://climbfinder.com/en/climbs/colle-de-sestriere-cesana-torinese-besse-basso",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "fonts-de-cervieres-cervieres",
@@ -41404,7 +41457,8 @@
         "id": 2567,
         "slug": "fonts-de-cervieres-cervieres",
         "url": "https://climbfinder.com/en/climbs/fonts-de-cervieres-cervieres",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11500,
@@ -42889,7 +42943,8 @@
           "url": "https://climbfinder.com/en/climbs/fonts-de-cervieres-cervieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "risoul-guillestre-gaudissard",
@@ -42901,7 +42956,8 @@
         "id": 10304,
         "slug": "risoul-guillestre-gaudissard",
         "url": "https://climbfinder.com/en/climbs/risoul-guillestre-gaudissard",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 12890,
@@ -44534,7 +44590,8 @@
           "url": "https://climbfinder.com/en/climbs/risoul-guillestre-gaudissard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "saint-veran-chateau-ville-vieille",
@@ -44546,7 +44603,8 @@
         "id": 3449,
         "slug": "saint-veran-chateau-ville-vieille",
         "url": "https://climbfinder.com/en/climbs/saint-veran-chateau-ville-vieille",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 10312,
@@ -45869,7 +45927,8 @@
           "url": "https://climbfinder.com/en/climbs/saint-veran-chateau-ville-vieille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "chambran-pelvoux",
@@ -45881,7 +45940,8 @@
         "id": 1795,
         "slug": "chambran-pelvoux",
         "url": "https://climbfinder.com/en/climbs/chambran-pelvoux",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7157,
@@ -47692,7 +47752,8 @@
           "url": "https://climbfinder.com/en/climbs/chambran-pelvoux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "gros",
@@ -47704,7 +47765,8 @@
         "id": 506,
         "slug": "gros",
         "url": "https://climbfinder.com/en/climbs/gros",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7385,
@@ -49569,7 +49631,8 @@
           "url": "https://climbfinder.com/en/climbs/gros",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "mont-dauphin",
@@ -49581,7 +49644,8 @@
         "id": 633,
         "slug": "mont-dauphin",
         "url": "https://climbfinder.com/en/climbs/mont-dauphin",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1783,
@@ -50108,7 +50172,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-dauphin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "la-chaussee-briancon",
@@ -50120,7 +50185,8 @@
         "id": 11975,
         "slug": "la-chaussee-briancon",
         "url": "https://climbfinder.com/en/climbs/la-chaussee-briancon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 957,
@@ -50453,7 +50519,8 @@
           "url": "https://climbfinder.com/en/climbs/la-chaussee-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "chalets-de-laval-nevache",
@@ -50465,7 +50532,8 @@
         "id": 4268,
         "slug": "chalets-de-laval-nevache",
         "url": "https://climbfinder.com/en/climbs/chalets-de-laval-nevache",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 12040,
@@ -51996,7 +52064,8 @@
           "url": "https://climbfinder.com/en/climbs/chalets-de-laval-nevache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "les-esponces",
@@ -52008,7 +52077,8 @@
         "id": 9970,
         "slug": "les-esponces",
         "url": "https://climbfinder.com/en/climbs/les-esponces",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 3167,
@@ -52861,7 +52931,8 @@
           "url": "https://climbfinder.com/en/climbs/les-esponces",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "chanteloube",
@@ -52873,7 +52944,8 @@
         "id": 326,
         "slug": "chanteloube",
         "url": "https://climbfinder.com/en/climbs/chanteloube",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 3615,
@@ -53840,7 +53912,8 @@
           "url": "https://climbfinder.com/en/climbs/chanteloube",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-saint-andre-la-combe-briancon",
@@ -53852,7 +53925,8 @@
         "id": 2569,
         "slug": "puy-saint-andre-la-combe-briancon",
         "url": "https://climbfinder.com/en/climbs/puy-saint-andre-la-combe-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8974,
@@ -56101,7 +56175,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-andre-la-combe-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "montbardon",
@@ -56113,7 +56188,8 @@
         "id": 9992,
         "slug": "montbardon",
         "url": "https://climbfinder.com/en/climbs/montbardon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 2985,
@@ -56952,7 +57028,8 @@
           "url": "https://climbfinder.com/en/climbs/montbardon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "route-de-la-viste-maison-du-roy",
@@ -56964,7 +57041,8 @@
         "id": 495,
         "slug": "route-de-la-viste-maison-du-roy",
         "url": "https://climbfinder.com/en/climbs/route-de-la-viste-maison-du-roy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1550,
@@ -57427,7 +57505,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-la-viste-maison-du-roy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "valle-del-frejus-bardonecchia",
@@ -57439,7 +57518,8 @@
         "id": 5384,
         "slug": "valle-del-frejus-bardonecchia",
         "url": "https://climbfinder.com/en/climbs/valle-del-frejus-bardonecchia",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 6784,
@@ -59158,7 +59238,8 @@
           "url": "https://climbfinder.com/en/climbs/valle-del-frejus-bardonecchia",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "route-de-mikeou",
@@ -59170,7 +59251,8 @@
         "id": 645,
         "slug": "route-de-mikeou",
         "url": "https://climbfinder.com/en/climbs/route-de-mikeou",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5821,
@@ -60651,7 +60733,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-mikeou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "les-meyries-chateau-queyras",
@@ -60663,7 +60746,8 @@
         "id": 5558,
         "slug": "les-meyries-chateau-queyras",
         "url": "https://climbfinder.com/en/climbs/les-meyries-chateau-queyras",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 3945,
@@ -61710,7 +61794,8 @@
           "url": "https://climbfinder.com/en/climbs/les-meyries-chateau-queyras",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "chemin-vieux-briancon",
@@ -61722,7 +61807,8 @@
         "id": 11976,
         "slug": "chemin-vieux-briancon",
         "url": "https://climbfinder.com/en/climbs/chemin-vieux-briancon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 547,
@@ -61935,7 +62021,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-vieux-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "vallee-de-freissinieres-pallon",
@@ -61947,7 +62034,8 @@
         "id": 2076,
         "slug": "vallee-de-freissinieres-pallon",
         "url": "https://climbfinder.com/en/climbs/vallee-de-freissinieres-pallon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 10448,
@@ -63282,7 +63370,8 @@
           "url": "https://climbfinder.com/en/climbs/vallee-de-freissinieres-pallon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "l-echalp-ville-vieille",
@@ -63294,7 +63383,8 @@
         "id": 8523,
         "slug": "l-echalp-ville-vieille",
         "url": "https://climbfinder.com/en/climbs/l-echalp-ville-vieille",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 17505,
@@ -65495,7 +65585,8 @@
           "url": "https://climbfinder.com/en/climbs/l-echalp-ville-vieille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "souliers-chateau-queyras",
@@ -65507,7 +65598,8 @@
         "id": 5537,
         "slug": "souliers-chateau-queyras",
         "url": "https://climbfinder.com/en/climbs/souliers-chateau-queyras",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 4289,
@@ -66616,7 +66708,8 @@
           "url": "https://climbfinder.com/en/climbs/souliers-chateau-queyras",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "ponteil",
@@ -66628,7 +66721,8 @@
         "id": 403,
         "slug": "ponteil",
         "url": "https://climbfinder.com/en/climbs/ponteil",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 4195,
@@ -67737,7 +67831,8 @@
           "url": "https://climbfinder.com/en/climbs/ponteil",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-saint-pierre-puy-richard",
@@ -67749,7 +67844,8 @@
         "id": 2571,
         "slug": "puy-saint-pierre-puy-richard",
         "url": "https://climbfinder.com/en/climbs/puy-saint-pierre-puy-richard",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5414,
@@ -69132,7 +69228,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-pierre-puy-richard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "le-villard-saint-crepin",
@@ -69144,7 +69241,8 @@
         "id": 1794,
         "slug": "le-villard-saint-crepin",
         "url": "https://climbfinder.com/en/climbs/le-villard-saint-crepin",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5604,
@@ -70577,7 +70675,8 @@
           "url": "https://climbfinder.com/en/climbs/le-villard-saint-crepin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "eygliers-guil",
@@ -70589,7 +70688,8 @@
         "id": 11879,
         "slug": "eygliers-guil",
         "url": "https://climbfinder.com/en/climbs/eygliers-guil",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1559,
@@ -71058,7 +71158,8 @@
           "url": "https://climbfinder.com/en/climbs/eygliers-guil",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "risoul-le-plan-de-phazy",
@@ -71070,7 +71171,8 @@
         "id": 21108,
         "slug": "risoul-le-plan-de-phazy",
         "url": "https://climbfinder.com/en/climbs/risoul-le-plan-de-phazy",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 13900,
@@ -72825,7 +72927,8 @@
           "url": "https://climbfinder.com/en/climbs/risoul-le-plan-de-phazy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "mont-dauphin-west",

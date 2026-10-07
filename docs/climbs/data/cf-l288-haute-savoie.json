@@ -5,7 +5,7 @@
     "title": "Haute Savoie",
     "region_label": "Haute Savoie",
     "country": "FR",
-    "updated_at": "2026-10-06T17:19:17Z",
+    "updated_at": "2026-10-07T13:18:59Z",
     "count": 359,
     "source": {
       "name": "climbfinder",
@@ -18,20 +18,24 @@
       ],
       "locality_id": 288
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:18:59Z"
+    }
   },
   "climbs": [
     {
       "id": "col-de-la-forclaz-de-montmin-vesonne",
       "name": "Col de la Forclaz de Montmin",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 617,
         "slug": "col-de-la-forclaz-de-montmin-vesonne",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-de-montmin-vesonne",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9051,
@@ -2306,19 +2310,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-de-montmin-vesonne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "semnoz-annecy",
       "name": "Crêt de Châtillon / Semnoz",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 487,
         "slug": "semnoz-annecy",
         "url": "https://climbfinder.com/en/climbs/semnoz-annecy",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 16933,
@@ -4445,7 +4451,8 @@
           "url": "https://climbfinder.com/en/climbs/semnoz-annecy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-joux-plane-samoens",
@@ -4457,7 +4464,8 @@
         "id": 255,
         "slug": "col-de-joux-plane-samoens",
         "url": "https://climbfinder.com/en/climbs/col-de-joux-plane-samoens",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 11574,
@@ -5956,19 +5964,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-joux-plane-samoens",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-la-colombiere",
       "name": "Col de la Colombière from Le Grand Bornand",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 232,
         "slug": "col-de-la-colombiere",
         "url": "https://climbfinder.com/en/climbs/col-de-la-colombiere",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 11838,
@@ -7497,19 +7507,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-colombiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-aravis-thones",
       "name": "Col des Aravis",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 230,
         "slug": "col-des-aravis-thones",
         "url": "https://climbfinder.com/en/climbs/col-des-aravis-thones",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 17296,
@@ -9680,19 +9692,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-aravis-thones",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "semnoz-col-de-leschaux",
       "name": "Crêt de Châtillon / Semnoz from Col de Leschaux",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 488,
         "slug": "semnoz-col-de-leschaux",
         "url": "https://climbfinder.com/en/climbs/semnoz-col-de-leschaux",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 13520,
@@ -11433,7 +11447,8 @@
           "url": "https://climbfinder.com/en/climbs/semnoz-col-de-leschaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-solaison-thuet",
@@ -11445,7 +11460,8 @@
         "id": 5017,
         "slug": "col-de-solaison-thuet",
         "url": "https://climbfinder.com/en/climbs/col-de-solaison-thuet",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 11672,
@@ -12956,7 +12972,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-solaison-thuet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "cote-de-domancy-domancy",
@@ -12968,7 +12985,8 @@
         "id": 5356,
         "slug": "cote-de-domancy-domancy",
         "url": "https://climbfinder.com/en/climbs/cote-de-domancy-domancy",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 2552,
@@ -13671,7 +13689,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-domancy-domancy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-la-colombiere-scionzier",
@@ -13683,7 +13702,8 @@
         "id": 1714,
         "slug": "col-de-la-colombiere-scionzier",
         "url": "https://climbfinder.com/en/climbs/col-de-la-colombiere-scionzier",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 16237,
@@ -15758,19 +15778,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-colombiere-scionzier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-la-croix-fry-thones",
       "name": "Col de la Croix Fry from Thônes",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 485,
         "slug": "col-de-la-croix-fry-thones",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-fry-thones",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 11681,
@@ -17281,7 +17303,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-fry-thones",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-ramaz-mieussy",
@@ -17293,7 +17316,8 @@
         "id": 306,
         "slug": "col-de-la-ramaz-mieussy",
         "url": "https://climbfinder.com/en/climbs/col-de-la-ramaz-mieussy",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 13388,
@@ -18988,7 +19012,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-ramaz-mieussy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-joux-plane-morzine",
@@ -19000,7 +19025,8 @@
         "id": 256,
         "slug": "col-de-joux-plane-morzine",
         "url": "https://climbfinder.com/en/climbs/col-de-joux-plane-morzine",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 10599,
@@ -20375,19 +20401,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-joux-plane-morzine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-leschaux-sevrier",
       "name": "Col de Leschaux from Sévrier",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3165,
         "slug": "col-de-leschaux-sevrier",
         "url": "https://climbfinder.com/en/climbs/col-de-leschaux-sevrier",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 11803,
@@ -21916,7 +21944,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-leschaux-sevrier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "mont-saleve-collonges-sous-saleve",
@@ -21928,7 +21957,8 @@
         "id": 3031,
         "slug": "mont-saleve-collonges-sous-saleve",
         "url": "https://climbfinder.com/en/climbs/mont-saleve-collonges-sous-saleve",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 10335,
@@ -23271,19 +23301,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-saleve-collonges-sous-saleve",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-des-glieres-le-petit-bornand",
       "name": "Col des Glières from Le Petit Bornand",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 2803,
         "slug": "col-des-glieres-le-petit-bornand",
         "url": "https://climbfinder.com/en/climbs/col-des-glieres-le-petit-bornand",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9887,
@@ -25758,19 +25790,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-glieres-le-petit-bornand",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-forclaz-de-montmin-menthon-saint-bernard",
       "name": "Col de la Forclaz de Montmin from Menthon-Saint-Bernard",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 620,
         "slug": "col-de-la-forclaz-de-montmin-menthon-saint-bernard",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-de-montmin-menthon-saint-bernard",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 7279,
@@ -27611,7 +27645,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-de-montmin-menthon-saint-bernard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-joux-verte-avoriaz-morzine",
@@ -27623,7 +27658,8 @@
         "id": 4270,
         "slug": "col-de-la-joux-verte-avoriaz-morzine",
         "url": "https://climbfinder.com/en/climbs/col-de-la-joux-verte-avoriaz-morzine",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 10762,
@@ -29022,7 +29058,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-joux-verte-avoriaz-morzine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "flaine",
@@ -29034,7 +29071,8 @@
         "id": 594,
         "slug": "flaine",
         "url": "https://climbfinder.com/en/climbs/flaine",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 21139,
@@ -30409,7 +30447,8 @@
           "url": "https://climbfinder.com/en/climbs/flaine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "romme-sur-cluses",
@@ -30421,7 +30460,8 @@
         "id": 1715,
         "slug": "romme-sur-cluses",
         "url": "https://climbfinder.com/en/climbs/romme-sur-cluses",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 9314,
@@ -31640,19 +31680,21 @@
           "url": "https://climbfinder.com/en/climbs/romme-sur-cluses",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-des-annes-le-grand-bornand",
       "name": "Col des Annes from Le Grand Bornand",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 5020,
         "slug": "col-des-annes-le-grand-bornand",
         "url": "https://climbfinder.com/en/climbs/col-des-annes-le-grand-bornand",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 7060,
@@ -32593,7 +32635,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-annes-le-grand-bornand",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-montets-chamonix",
@@ -32605,7 +32648,8 @@
         "id": 593,
         "slug": "col-des-montets-chamonix",
         "url": "https://climbfinder.com/en/climbs/col-des-montets-chamonix",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 11702,
@@ -34098,19 +34142,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-montets-chamonix",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-la-forclaz-montmin-talloires",
       "name": "Col de la Forclaz Montmin from Talloires",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 33492,
         "slug": "col-de-la-forclaz-montmin-talloires",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-montmin-talloires",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9956,
@@ -36603,19 +36649,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-montmin-talloires",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-leschaux-saint-jorioz",
       "name": "Borny from Saint Jorioz via Le Cruet",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3167,
         "slug": "col-de-leschaux-saint-jorioz",
         "url": "https://climbfinder.com/en/climbs/col-de-leschaux-saint-jorioz",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 10838,
@@ -38020,7 +38068,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-leschaux-saint-jorioz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "plaine-joux-passy",
@@ -38032,7 +38081,8 @@
         "id": 3111,
         "slug": "plaine-joux-passy",
         "url": "https://climbfinder.com/en/climbs/plaine-joux-passy",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 12989,
@@ -39677,19 +39727,21 @@
           "url": "https://climbfinder.com/en/climbs/plaine-joux-passy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-tamie-faverges",
       "name": "Col de Tamié from Faverges",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 481,
         "slug": "col-de-tamie-faverges",
         "url": "https://climbfinder.com/en/climbs/col-de-tamie-faverges",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9732,
@@ -40958,7 +41010,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tamie-faverges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-joux-verte-avoriaz-montriond",
@@ -40970,7 +41023,8 @@
         "id": 4271,
         "slug": "col-de-la-joux-verte-avoriaz-montriond",
         "url": "https://climbfinder.com/en/climbs/col-de-la-joux-verte-avoriaz-montriond",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 13399,
@@ -42665,19 +42719,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-joux-verte-avoriaz-montriond",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-des-glieres-nant-sec",
       "name": "Col des Glières from Thorens-Glières",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 2804,
         "slug": "col-des-glieres-nant-sec",
         "url": "https://climbfinder.com/en/climbs/col-des-glieres-nant-sec",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 13620,
@@ -44430,19 +44486,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-glieres-nant-sec",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-l-epine-marlens",
       "name": "Col de l'Épine from Marlens",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 483,
         "slug": "col-de-l-epine-marlens",
         "url": "https://climbfinder.com/en/climbs/col-de-l-epine-marlens",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 6875,
@@ -46179,7 +46237,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-epine-marlens",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "plateau-des-saix-samoens",
@@ -46191,7 +46250,8 @@
         "id": 1721,
         "slug": "plateau-des-saix-samoens",
         "url": "https://climbfinder.com/en/climbs/plateau-des-saix-samoens",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 10046,
@@ -47498,7 +47558,8 @@
           "url": "https://climbfinder.com/en/climbs/plateau-des-saix-samoens",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-la-ramaz-taninges",
@@ -47510,7 +47571,8 @@
         "id": 307,
         "slug": "col-de-la-ramaz-taninges",
         "url": "https://climbfinder.com/en/climbs/col-de-la-ramaz-taninges",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 17139,
@@ -49663,19 +49725,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-ramaz-taninges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-cenise-le-petit-bornand-les-glieres",
       "name": "Col de Cenise from Le Petit Bornand les Glières",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 11930,
         "slug": "col-de-cenise-le-petit-bornand-les-glieres",
         "url": "https://climbfinder.com/en/climbs/col-de-cenise-le-petit-bornand-les-glieres",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 7920,
@@ -51668,7 +51732,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-cenise-le-petit-bornand-les-glieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-du-corbier-seytroux",
@@ -51680,7 +51745,8 @@
         "id": 257,
         "slug": "col-du-corbier-seytroux",
         "url": "https://climbfinder.com/en/climbs/col-du-corbier-seytroux",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 6000,
@@ -53239,19 +53305,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-corbier-seytroux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "semnoz-vieugy",
       "name": "Crêt de Châtillon / Semnoz from Vieugy",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 20694,
         "slug": "semnoz-vieugy",
         "url": "https://climbfinder.com/en/climbs/semnoz-vieugy",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 13505,
@@ -54992,7 +55060,8 @@
           "url": "https://climbfinder.com/en/climbs/semnoz-vieugy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "le-bettex-vervex-cupelin",
@@ -55004,7 +55073,8 @@
         "id": 3106,
         "slug": "le-bettex-vervex-cupelin",
         "url": "https://climbfinder.com/en/climbs/le-bettex-vervex-cupelin",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 9092,
@@ -57285,19 +57355,21 @@
           "url": "https://climbfinder.com/en/climbs/le-bettex-vervex-cupelin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-la-croix-fry-saint-jean-de-sixt",
       "name": "Col de la Croix Fry from Saint-Jean-de-Sixt",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 486,
         "slug": "col-de-la-croix-fry-saint-jean-de-sixt",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-fry-saint-jean-de-sixt",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9280,
@@ -59626,19 +59698,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-fry-saint-jean-de-sixt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-du-marais-saint-ferreol",
       "name": "Col du Marais from Saint Ferréol",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 5260,
         "slug": "col-du-marais-saint-ferreol",
         "url": "https://climbfinder.com/en/climbs/col-du-marais-saint-ferreol",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 10203,
@@ -60969,7 +61043,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-marais-saint-ferreol",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "mont-saleve-cruseilles",
@@ -60981,7 +61056,8 @@
         "id": 3032,
         "slug": "mont-saleve-cruseilles",
         "url": "https://climbfinder.com/en/climbs/mont-saleve-cruseilles",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 12074,
@@ -62542,7 +62618,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-saleve-cruseilles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-bassachaux",
@@ -62554,7 +62631,8 @@
         "id": 304,
         "slug": "col-de-bassachaux",
         "url": "https://climbfinder.com/en/climbs/col-de-bassachaux",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 17492,
@@ -64749,19 +64827,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bassachaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "chalets-des-auges-entremont",
       "name": "Chalets des Auges from Entremont",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 39600,
         "slug": "chalets-des-auges-entremont",
         "url": "https://climbfinder.com/en/climbs/chalets-des-auges-entremont",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 10617,
@@ -66142,7 +66222,8 @@
           "url": "https://climbfinder.com/en/climbs/chalets-des-auges-entremont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-cou-fessy",
@@ -66154,7 +66235,8 @@
         "id": 4381,
         "slug": "col-de-cou-fessy",
         "url": "https://climbfinder.com/en/climbs/col-de-cou-fessy",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 7025,
@@ -67929,19 +68011,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-cou-fessy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-plan-bois-les-clefs",
       "name": "Col de Plan Bois from Les Clefs",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 4844,
         "slug": "col-de-plan-bois-les-clefs",
         "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-les-clefs",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 6097,
@@ -69526,7 +69610,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-les-clefs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-l-encrenaz-essert-romand",
@@ -69538,7 +69623,8 @@
         "id": 4423,
         "slug": "col-de-l-encrenaz-essert-romand",
         "url": "https://climbfinder.com/en/climbs/col-de-l-encrenaz-essert-romand",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 7373,
@@ -71397,7 +71483,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-encrenaz-essert-romand",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "mont-saleve-annemasse-monetier",
@@ -71409,7 +71496,8 @@
         "id": 20314,
         "slug": "mont-saleve-annemasse-monetier",
         "url": "https://climbfinder.com/en/climbs/mont-saleve-annemasse-monetier",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 19708,
@@ -73878,7 +73966,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-saleve-annemasse-monetier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-du-feu-orcier",
@@ -73890,7 +73979,8 @@
         "id": 5245,
         "slug": "col-du-feu-orcier",
         "url": "https://climbfinder.com/en/climbs/col-du-feu-orcier",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 6139,
@@ -75451,7 +75541,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-feu-orcier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-du-corbier-la-solitude",
@@ -75463,7 +75554,8 @@
         "id": 258,
         "slug": "col-du-corbier-la-solitude",
         "url": "https://climbfinder.com/en/climbs/col-du-corbier-la-solitude",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 5500,
@@ -76898,7 +76990,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-corbier-la-solitude",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "altiport-megeve-megeve",
@@ -76910,7 +77003,8 @@
         "id": 5403,
         "slug": "altiport-megeve-megeve",
         "url": "https://climbfinder.com/en/climbs/altiport-megeve-megeve",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 7374,
@@ -78769,7 +78863,8 @@
           "url": "https://climbfinder.com/en/climbs/altiport-megeve-megeve",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "le-bettex-vervex",
@@ -78781,7 +78876,8 @@
         "id": 3104,
         "slug": "le-bettex-vervex",
         "url": "https://climbfinder.com/en/climbs/le-bettex-vervex",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 10091,
@@ -80094,19 +80190,21 @@
           "url": "https://climbfinder.com/en/climbs/le-bettex-vervex",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-bluffy-menthon-saint-bernard",
       "name": "Col de Bluffy from Menthon-Saint-Bernard",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 4367,
         "slug": "col-de-bluffy-menthon-saint-bernard",
         "url": "https://climbfinder.com/en/climbs/col-de-bluffy-menthon-saint-bernard",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 2258,
@@ -80757,7 +80855,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bluffy-menthon-saint-bernard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "vaudagne-servoz",
@@ -80769,7 +80868,8 @@
         "id": 9586,
         "slug": "vaudagne-servoz",
         "url": "https://climbfinder.com/en/climbs/vaudagne-servoz",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 4083,
@@ -81854,7 +81954,8 @@
           "url": "https://climbfinder.com/en/climbs/vaudagne-servoz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "col-de-jambaz-mieussy",
@@ -81866,7 +81967,8 @@
         "id": 4410,
         "slug": "col-de-jambaz-mieussy",
         "url": "https://climbfinder.com/en/climbs/col-de-jambaz-mieussy",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 288
       },
       "stats": {
         "length_m": 14559,
@@ -83707,7 +83809,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-jambaz-mieussy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 288
     },
     {
       "id": "mont-saleve-la-muraz",
@@ -86050,14 +86153,15 @@
     {
       "id": "col-du-marais-thones",
       "name": "Col du Marais from Thônes",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 5261,
         "slug": "col-du-marais-thones",
         "url": "https://climbfinder.com/en/climbs/col-du-marais-thones",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 6773,
@@ -87770,7 +87874,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-marais-thones",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-croisette-collonges-sous-saleve-route-du-fer-a-cheval",
@@ -89396,14 +89501,15 @@
     {
       "id": "chemin-des-riffroids",
       "name": "Chemin des Riffroids",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 15164,
         "slug": "chemin-des-riffroids",
         "url": "https://climbfinder.com/en/climbs/chemin-des-riffroids",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 385,
@@ -89574,19 +89680,21 @@
           "url": "https://climbfinder.com/en/climbs/chemin-des-riffroids",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-plainpalais-arith",
       "name": "Col de Plainpalais via Arith",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4842,
         "slug": "col-de-plainpalais-arith",
         "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-arith",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 13974,
@@ -91353,7 +91461,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-arith",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "mont-saleve-annemasse",
@@ -92243,14 +92352,15 @@
     {
       "id": "la-sambuy-faverges-le-villaret",
       "name": "La Sambuy from Faverges via le Villaret",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 15844,
         "slug": "la-sambuy-faverges-le-villaret",
         "url": "https://climbfinder.com/en/climbs/la-sambuy-faverges-le-villaret",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 8626,
@@ -94421,7 +94531,8 @@
           "url": "https://climbfinder.com/en/climbs/la-sambuy-faverges-le-villaret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-cou-draillant",
@@ -102511,14 +102622,15 @@
     {
       "id": "col-de-l-epine-serraval",
       "name": "Col de l'Épine from Serraval",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 484,
         "slug": "col-de-l-epine-serraval",
         "url": "https://climbfinder.com/en/climbs/col-de-l-epine-serraval",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 7051,
@@ -104305,7 +104417,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-epine-serraval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-montets",
@@ -108363,14 +108476,15 @@
     {
       "id": "col-du-clergeon-rumilly",
       "name": "Col du Clergeon",
-      "region": "Haute Savoie",
+      "region": "Jura",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 2262,
         "slug": "col-du-clergeon-rumilly",
         "url": "https://climbfinder.com/en/climbs/col-du-clergeon-rumilly",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 55
       },
       "stats": {
         "length_m": 14855,
@@ -110247,19 +110361,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-clergeon-rumilly",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 55
     },
     {
       "id": "col-des-fleuries-thorens-glieres",
       "name": "Col des Fleuries from Thorens Glières",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 2805,
         "slug": "col-des-fleuries-thorens-glieres",
         "url": "https://climbfinder.com/en/climbs/col-des-fleuries-thorens-glieres",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 5590,
@@ -111718,19 +111834,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-fleuries-thorens-glieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "les-confins-la-clusaz",
       "name": "Les Confins from La Clusaz",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 18027,
         "slug": "les-confins-la-clusaz",
         "url": "https://climbfinder.com/en/climbs/les-confins-la-clusaz",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 5626,
@@ -113169,7 +113287,8 @@
           "url": "https://climbfinder.com/en/climbs/les-confins-la-clusaz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "cordon-sallanches",
@@ -118647,14 +118766,15 @@
     {
       "id": "col-de-plan-bois-manigod",
       "name": "Col de Plan Bois from Manigod",
-      "region": "Haute Savoie",
+      "region": "Annecy",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4845,
         "slug": "col-de-plan-bois-manigod",
         "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-manigod",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 4899,
@@ -119027,7 +119147,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-manigod",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-du-merdassier-thones",

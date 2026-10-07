@@ -4,7 +4,7 @@
     "id": "cf-l192-hautes-alpes",
     "title": "Hautes Alpes (Climbfinder Popular)",
     "country": "FR",
-    "updated_at": "2026-10-06T08:45:24Z",
+    "updated_at": "2026-10-07T13:18:58Z",
     "count": 270,
     "source": {
       "name": "climbfinder",
@@ -15,20 +15,24 @@
         }
       ]
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:18:58Z"
+    }
   },
   "climbs": [
     {
       "id": "col-d-izoard",
       "name": "Col d'Izoard",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 26,
         "slug": "col-d-izoard",
         "url": "https://climbfinder.com/en/climbs/col-d-izoard",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 14154,
@@ -1821,19 +1825,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-izoard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-granon",
       "name": "Col du Granon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 178,
         "slug": "col-du-granon",
         "url": "https://climbfinder.com/en/climbs/col-du-granon",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11305,
@@ -3300,19 +3306,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-granon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-agnel",
       "name": "Col Agnel from Château-Ville-Vieille",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 36,
         "slug": "col-agnel",
         "url": "https://climbfinder.com/en/climbs/col-agnel",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 20688,
@@ -4655,19 +4663,21 @@
           "url": "https://climbfinder.com/en/climbs/col-agnel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-vars-guillestre",
       "name": "Col de Vars",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 184,
         "slug": "col-de-vars-guillestre",
         "url": "https://climbfinder.com/en/climbs/col-de-vars-guillestre",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 18861,
@@ -7032,19 +7042,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-vars-guillestre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-galibier-briancon",
       "name": "Col du Galibier from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 10018,
         "slug": "col-du-galibier-briancon",
         "url": "https://climbfinder.com/en/climbs/col-du-galibier-briancon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 34789,
@@ -9227,19 +9239,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-galibier-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-d-izoard-briancon",
       "name": "Col d'Izoard from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 30,
         "slug": "col-d-izoard-briancon",
         "url": "https://climbfinder.com/en/climbs/col-d-izoard-briancon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 19212,
@@ -11648,19 +11662,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-izoard-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-galibier-lautaret",
       "name": "Col du Galibier from Col du Lautaret",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 186,
         "slug": "col-du-galibier-lautaret",
         "url": "https://climbfinder.com/en/climbs/col-du-galibier-lautaret",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8639,
@@ -13831,7 +13847,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-galibier-lautaret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-noyer",
@@ -13843,7 +13860,8 @@
         "id": 660,
         "slug": "col-du-noyer",
         "url": "https://climbfinder.com/en/climbs/col-du-noyer",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 6063,
@@ -15386,19 +15404,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-noyer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "col-du-lautaret-briancon",
       "name": "Col du Lautaret from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 179,
         "slug": "col-du-lautaret-briancon",
         "url": "https://climbfinder.com/en/climbs/col-du-lautaret-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 26283,
@@ -17063,19 +17083,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-lautaret-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-montgenevre-briancon",
       "name": "Col de Montgenèvre from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 251,
         "slug": "col-de-montgenevre-briancon",
         "url": "https://climbfinder.com/en/climbs/col-de-montgenevre-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11170,
@@ -18502,19 +18524,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-montgenevre-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-parpaillon-crevoux",
       "name": "Col du Parpaillon from Crévoux",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 14689,
         "slug": "col-du-parpaillon-crevoux",
         "url": "https://climbfinder.com/en/climbs/col-du-parpaillon-crevoux",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 12048,
@@ -20069,19 +20093,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-parpaillon-crevoux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "mur-de-pallon",
       "name": "Mur du Pallon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 29,
         "slug": "mur-de-pallon",
         "url": "https://climbfinder.com/en/climbs/mur-de-pallon",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1705,
@@ -20590,19 +20616,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-pallon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "mont-colombis",
       "name": "Mont Colombis from La Plaine",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 254,
         "slug": "mont-colombis",
         "url": "https://climbfinder.com/en/climbs/mont-colombis",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 11395,
@@ -22075,19 +22103,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-colombis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "pre-de-madame-carle",
       "name": "Pré de Madame Carle from Vallouise",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 33,
         "slug": "pre-de-madame-carle",
         "url": "https://climbfinder.com/en/climbs/pre-de-madame-carle",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 13232,
@@ -23764,19 +23794,21 @@
           "url": "https://climbfinder.com/en/climbs/pre-de-madame-carle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "risoul",
       "name": "Risoul",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 237,
         "slug": "risoul",
         "url": "https://climbfinder.com/en/climbs/risoul",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 12675,
@@ -25385,19 +25417,21 @@
           "url": "https://climbfinder.com/en/climbs/risoul",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "les-orres",
       "name": "Les Orres",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 404,
         "slug": "les-orres",
         "url": "https://climbfinder.com/en/climbs/les-orres",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 15032,
@@ -27294,19 +27328,21 @@
           "url": "https://climbfinder.com/en/climbs/les-orres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-de-l-echelle-nevache",
       "name": "Col de l'Échelle from Névache",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 252,
         "slug": "col-de-l-echelle-nevache",
         "url": "https://climbfinder.com/en/climbs/col-de-l-echelle-nevache",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 2596,
@@ -28015,19 +28051,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-echelle-nevache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "orcieres-merlette-1850",
       "name": "Orcières Merlette 1850",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 689,
         "slug": "orcieres-merlette-1850",
         "url": "https://climbfinder.com/en/climbs/orcieres-merlette-1850",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 15292,
@@ -29954,19 +29992,21 @@
           "url": "https://climbfinder.com/en/climbs/orcieres-merlette-1850",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-bayard-gap",
       "name": "Col Bayard",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 235,
         "slug": "col-bayard-gap",
         "url": "https://climbfinder.com/en/climbs/col-bayard-gap",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 7740,
@@ -31917,19 +31957,21 @@
           "url": "https://climbfinder.com/en/climbs/col-bayard-gap",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-de-moissiere-la-batie-neuve",
       "name": "Col de Moissière",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 322,
         "slug": "col-de-moissiere-la-batie-neuve",
         "url": "https://climbfinder.com/en/climbs/col-de-moissiere-la-batie-neuve",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 9490,
@@ -34306,19 +34348,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-moissiere-la-batie-neuve",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "route-de-poet-ollagnier-briancon",
       "name": "Croix de Toulouse / Route de Poët Ollagnier from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1908,
         "slug": "route-de-poet-ollagnier-briancon",
         "url": "https://climbfinder.com/en/climbs/route-de-poet-ollagnier-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 4970,
@@ -35591,19 +35635,21 @@
           "url": "https://climbfinder.com/en/climbs/route-de-poet-ollagnier-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "ceillac",
       "name": "Ceillac",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 238,
         "slug": "ceillac",
         "url": "https://climbfinder.com/en/climbs/ceillac",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8029,
@@ -37628,19 +37674,21 @@
           "url": "https://climbfinder.com/en/climbs/ceillac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-saint-vincent",
       "name": "Puy Saint Vincent 1600 from Les Vigneaux",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 31,
         "slug": "puy-saint-vincent",
         "url": "https://climbfinder.com/en/climbs/puy-saint-vincent",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 9429,
@@ -40005,19 +40053,21 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-vincent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "route-de-la-viste",
       "name": "Route de la Viste from Guillestre",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 494,
         "slug": "route-de-la-viste",
         "url": "https://climbfinder.com/en/climbs/route-de-la-viste",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 2060,
@@ -40616,19 +40666,21 @@
           "url": "https://climbfinder.com/en/climbs/route-de-la-viste",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-pontis-savines-le-lac",
       "name": "Col de Pontis from Savines-le-Lac",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 505,
         "slug": "col-de-pontis-savines-le-lac",
         "url": "https://climbfinder.com/en/climbs/col-de-pontis-savines-le-lac",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 8812,
@@ -42841,19 +42893,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-pontis-savines-le-lac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "la-chalp",
       "name": "La Chalp from Embrun",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 635,
         "slug": "la-chalp",
         "url": "https://climbfinder.com/en/climbs/la-chalp",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 12576,
@@ -44450,19 +44504,21 @@
           "url": "https://climbfinder.com/en/climbs/la-chalp",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "puy-saint-vincent-vallouise",
       "name": "Puy Saint Vincent 1600 from Vallouise",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 35,
         "slug": "puy-saint-vincent-vallouise",
         "url": "https://climbfinder.com/en/climbs/puy-saint-vincent-vallouise",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7310,
@@ -46309,19 +46365,21 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-vincent-vallouise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-aillaud",
       "name": "Puy Aillaud",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 34,
         "slug": "puy-aillaud",
         "url": "https://climbfinder.com/en/climbs/puy-aillaud",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5666,
@@ -47766,19 +47824,21 @@
           "url": "https://climbfinder.com/en/climbs/puy-aillaud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "entre-les-aygues-vallouise",
       "name": "Entre les Aygues from Vallouise",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 503,
         "slug": "entre-les-aygues-vallouise",
         "url": "https://climbfinder.com/en/climbs/entre-les-aygues-vallouise",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5705,
@@ -49235,19 +49295,21 @@
           "url": "https://climbfinder.com/en/climbs/entre-les-aygues-vallouise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "fonts-de-cervieres-cervieres",
       "name": "Les Fonts de Cervières from Cervières",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2567,
         "slug": "fonts-de-cervieres-cervieres",
         "url": "https://climbfinder.com/en/climbs/fonts-de-cervieres-cervieres",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 11500,
@@ -50732,19 +50794,21 @@
           "url": "https://climbfinder.com/en/climbs/fonts-de-cervieres-cervieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-lebraut",
       "name": "Col Lebraut from Les Celliers",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 241,
         "slug": "col-lebraut",
         "url": "https://climbfinder.com/en/climbs/col-lebraut",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 10103,
@@ -52063,19 +52127,21 @@
           "url": "https://climbfinder.com/en/climbs/col-lebraut",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "risoul-guillestre-gaudissard",
       "name": "Risoul from Guillestre via Gaudissard",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 10304,
         "slug": "risoul-guillestre-gaudissard",
         "url": "https://climbfinder.com/en/climbs/risoul-guillestre-gaudissard",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 12890,
@@ -53708,19 +53774,21 @@
           "url": "https://climbfinder.com/en/climbs/risoul-guillestre-gaudissard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-lebraut",
       "name": "Col Lebraut",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 239,
         "slug": "col-de-lebraut",
         "url": "https://climbfinder.com/en/climbs/col-de-lebraut",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 5106,
@@ -55031,19 +55099,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-lebraut",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-de-manse",
       "name": "Col de Manse from La Bâtie Neuve",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 320,
         "slug": "col-de-manse",
         "url": "https://climbfinder.com/en/climbs/col-de-manse",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 7998,
@@ -57054,7 +57124,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-manse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-de-gleize",
@@ -57066,7 +57137,8 @@
         "id": 655,
         "slug": "col-de-gleize",
         "url": "https://climbfinder.com/en/climbs/col-de-gleize",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 4782,
@@ -58325,19 +58397,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-gleize",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "saint-apollinaire-serre-poncon",
       "name": "Saint Apollinaire from Serre Ponçon",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 5527,
         "slug": "saint-apollinaire-serre-poncon",
         "url": "https://climbfinder.com/en/climbs/saint-apollinaire-serre-poncon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 5982,
@@ -59860,7 +59934,8 @@
           "url": "https://climbfinder.com/en/climbs/saint-apollinaire-serre-poncon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "station-de-ceuse-manteyer",
@@ -59872,7 +59947,8 @@
         "id": 6567,
         "slug": "station-de-ceuse-manteyer",
         "url": "https://climbfinder.com/en/climbs/station-de-ceuse-manteyer",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 8999,
@@ -62127,19 +62203,21 @@
           "url": "https://climbfinder.com/en/climbs/station-de-ceuse-manteyer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "saint-veran-chateau-ville-vieille",
       "name": "Saint Veran",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3449,
         "slug": "saint-veran-chateau-ville-vieille",
         "url": "https://climbfinder.com/en/climbs/saint-veran-chateau-ville-vieille",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 10312,
@@ -63462,7 +63540,8 @@
           "url": "https://climbfinder.com/en/climbs/saint-veran-chateau-ville-vieille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-du-noyer-pont-de-giers",
@@ -63474,7 +63553,8 @@
         "id": 663,
         "slug": "col-du-noyer-pont-de-giers",
         "url": "https://climbfinder.com/en/climbs/col-du-noyer-pont-de-giers",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 6575,
@@ -65139,19 +65219,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-noyer-pont-de-giers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "boscodon-fontaine-de-l-ours-crots-d-embrun",
       "name": "Boscodon / Fontaine de l'Ours from Crots d'Embrun",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 6323,
         "slug": "boscodon-fontaine-de-l-ours-crots-d-embrun",
         "url": "https://climbfinder.com/en/climbs/boscodon-fontaine-de-l-ours-crots-d-embrun",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 8767,
@@ -67352,19 +67434,21 @@
           "url": "https://climbfinder.com/en/climbs/boscodon-fontaine-de-l-ours-crots-d-embrun",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "chambran-pelvoux",
       "name": "Chambran from Pelvoux",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1795,
         "slug": "chambran-pelvoux",
         "url": "https://climbfinder.com/en/climbs/chambran-pelvoux",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7157,
@@ -69175,19 +69259,21 @@
           "url": "https://climbfinder.com/en/climbs/chambran-pelvoux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "gros",
       "name": "Gros",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 506,
         "slug": "gros",
         "url": "https://climbfinder.com/en/climbs/gros",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 7385,
@@ -71052,7 +71138,8 @@
           "url": "https://climbfinder.com/en/climbs/gros",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-d-espreaux-barcillonnette",
@@ -71064,7 +71151,8 @@
         "id": 5785,
         "slug": "col-d-espreaux-barcillonnette",
         "url": "https://climbfinder.com/en/climbs/col-d-espreaux-barcillonnette",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 12158,
@@ -72637,19 +72725,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-espreaux-barcillonnette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "mont-dauphin",
       "name": "Mont Dauphin South",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 633,
         "slug": "mont-dauphin",
         "url": "https://climbfinder.com/en/climbs/mont-dauphin",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1783,
@@ -73176,7 +73266,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-dauphin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "super-devoluy-le-devoluy",
@@ -73188,7 +73279,8 @@
         "id": 6723,
         "slug": "super-devoluy-le-devoluy",
         "url": "https://climbfinder.com/en/climbs/super-devoluy-le-devoluy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 3604,
@@ -74155,19 +74247,21 @@
           "url": "https://climbfinder.com/en/climbs/super-devoluy-le-devoluy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "le-means-embrun",
       "name": "Le Méans from Embrun via Puy Sanières",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 406,
         "slug": "le-means-embrun",
         "url": "https://climbfinder.com/en/climbs/le-means-embrun",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 12326,
@@ -75758,19 +75852,21 @@
           "url": "https://climbfinder.com/en/climbs/le-means-embrun",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "crevoux-saint-andre-d-embrun",
       "name": "La Chalp",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 8896,
         "slug": "crevoux-saint-andre-d-embrun",
         "url": "https://climbfinder.com/en/climbs/crevoux-saint-andre-d-embrun",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 12098,
@@ -77331,7 +77427,8 @@
           "url": "https://climbfinder.com/en/climbs/crevoux-saint-andre-d-embrun",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "le-chazelet-la-grave",
@@ -77343,7 +77440,8 @@
         "id": 5439,
         "slug": "le-chazelet-la-grave",
         "url": "https://climbfinder.com/en/climbs/le-chazelet-la-grave",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 5950,
@@ -78854,19 +78952,21 @@
           "url": "https://climbfinder.com/en/climbs/le-chazelet-la-grave",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "col-de-la-sentinelle-gap",
       "name": "Col de la Sentinelle",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 656,
         "slug": "col-de-la-sentinelle-gap",
         "url": "https://climbfinder.com/en/climbs/col-de-la-sentinelle-gap",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 7420,
@@ -80737,7 +80837,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-sentinelle-gap",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-de-la-fromagere-rosans",
@@ -80749,7 +80850,8 @@
         "id": 6058,
         "slug": "col-de-la-fromagere-rosans",
         "url": "https://climbfinder.com/en/climbs/col-de-la-fromagere-rosans",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 192
       },
       "stats": {
         "length_m": 6570,
@@ -82414,19 +82516,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-fromagere-rosans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 192
     },
     {
       "id": "la-chaussee-briancon",
       "name": "La Chaussée from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11975,
         "slug": "la-chaussee-briancon",
         "url": "https://climbfinder.com/en/climbs/la-chaussee-briancon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 957,
@@ -82759,19 +82863,21 @@
           "url": "https://climbfinder.com/en/climbs/la-chaussee-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "reallon",
       "name": "Réallon",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 242,
         "slug": "reallon",
         "url": "https://climbfinder.com/en/climbs/reallon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 14947,
@@ -84654,19 +84760,21 @@
           "url": "https://climbfinder.com/en/climbs/reallon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "puy-saint-eusebe",
       "name": "Puy Saint Eusèbe",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 592,
         "slug": "puy-saint-eusebe",
         "url": "https://climbfinder.com/en/climbs/puy-saint-eusebe",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 6436,
@@ -86299,19 +86407,21 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-eusebe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "col-de-la-coche-saint-andre-d-embrun",
       "name": "Col de la Coche from Saint André d'Embrun",
-      "region": "Hautes Alpes",
+      "region": "Serre Ponçon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 11922,
         "slug": "col-de-la-coche-saint-andre-d-embrun",
         "url": "https://climbfinder.com/en/climbs/col-de-la-coche-saint-andre-d-embrun",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 39
       },
       "stats": {
         "length_m": 12710,
@@ -87926,19 +88036,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-coche-saint-andre-d-embrun",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 39
     },
     {
       "id": "chalets-de-laval-nevache",
       "name": "Chalets de Laval from Nevache",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 4268,
         "slug": "chalets-de-laval-nevache",
         "url": "https://climbfinder.com/en/climbs/chalets-de-laval-nevache",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 12040,
@@ -89469,7 +89581,8 @@
           "url": "https://climbfinder.com/en/climbs/chalets-de-laval-nevache",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-bayard",
@@ -91541,14 +91654,15 @@
     {
       "id": "les-esponces",
       "name": "Les Escoyeres",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9970,
         "slug": "les-esponces",
         "url": "https://climbfinder.com/en/climbs/les-esponces",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 3167,
@@ -92401,7 +92515,8 @@
           "url": "https://climbfinder.com/en/climbs/les-esponces",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "le-sauze-du-lac-savines-le-lac",
@@ -93805,14 +93920,15 @@
     {
       "id": "chanteloube",
       "name": "Le Chambon from Chanteloube",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 326,
         "slug": "chanteloube",
         "url": "https://climbfinder.com/en/climbs/chanteloube",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 3615,
@@ -94779,19 +94895,21 @@
           "url": "https://climbfinder.com/en/climbs/chanteloube",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "puy-saint-andre-la-combe-briancon",
       "name": "Puy-Saint-André / la Combe from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 2569,
         "slug": "puy-saint-andre-la-combe-briancon",
         "url": "https://climbfinder.com/en/climbs/puy-saint-andre-la-combe-briancon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 8974,
@@ -97040,7 +97158,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-andre-la-combe-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "saint-sauveur-embrun",
@@ -99999,14 +100118,15 @@
     {
       "id": "montbardon",
       "name": "Montbardon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9992,
         "slug": "montbardon",
         "url": "https://climbfinder.com/en/climbs/montbardon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 2985,
@@ -100845,19 +100965,21 @@
           "url": "https://climbfinder.com/en/climbs/montbardon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "route-de-la-viste-maison-du-roy",
       "name": "Route de la Viste from Maison du Roy",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 495,
         "slug": "route-de-la-viste-maison-du-roy",
         "url": "https://climbfinder.com/en/climbs/route-de-la-viste-maison-du-roy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1550,
@@ -101320,7 +101442,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-la-viste-maison-du-roy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "serre-eyraud",
@@ -102996,14 +103119,15 @@
     {
       "id": "route-de-mikeou",
       "name": "Route de Mikéou from Réotier",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 645,
         "slug": "route-de-mikeou",
         "url": "https://climbfinder.com/en/climbs/route-de-mikeou",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5821,
@@ -104484,19 +104608,21 @@
           "url": "https://climbfinder.com/en/climbs/route-de-mikeou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "les-meyries-chateau-queyras",
       "name": "Les Meyries from Château Queyras",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 5558,
         "slug": "les-meyries-chateau-queyras",
         "url": "https://climbfinder.com/en/climbs/les-meyries-chateau-queyras",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 3945,
@@ -105543,7 +105669,8 @@
           "url": "https://climbfinder.com/en/climbs/les-meyries-chateau-queyras",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-moissiere-chorges",
@@ -108900,14 +109027,15 @@
     {
       "id": "chemin-vieux-briancon",
       "name": "Chemin Vieux from Briançon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11976,
         "slug": "chemin-vieux-briancon",
         "url": "https://climbfinder.com/en/climbs/chemin-vieux-briancon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 547,
@@ -109120,19 +109248,21 @@
           "url": "https://climbfinder.com/en/climbs/chemin-vieux-briancon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "vallee-de-freissinieres-pallon",
       "name": "Vallée de Freissinières from Pallon",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 2076,
         "slug": "vallee-de-freissinieres-pallon",
         "url": "https://climbfinder.com/en/climbs/vallee-de-freissinieres-pallon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 10448,
@@ -110467,7 +110597,8 @@
           "url": "https://climbfinder.com/en/climbs/vallee-de-freissinieres-pallon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-des-garcinets-breziers",
@@ -111983,14 +112114,15 @@
     {
       "id": "l-echalp-ville-vieille",
       "name": "L'Echalp from Ville Vieille",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 8523,
         "slug": "l-echalp-ville-vieille",
         "url": "https://climbfinder.com/en/climbs/l-echalp-ville-vieille",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 17505,
@@ -114191,7 +114323,8 @@
           "url": "https://climbfinder.com/en/climbs/l-echalp-ville-vieille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "saint-apollinaire-chorges",
@@ -118665,14 +118798,15 @@
     {
       "id": "souliers-chateau-queyras",
       "name": "Souliers from Château Queyras",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 5537,
         "slug": "souliers-chateau-queyras",
         "url": "https://climbfinder.com/en/climbs/souliers-chateau-queyras",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 4289,
@@ -119781,19 +119915,21 @@
           "url": "https://climbfinder.com/en/climbs/souliers-chateau-queyras",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "ponteil",
       "name": "Ponteil",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 403,
         "slug": "ponteil",
         "url": "https://climbfinder.com/en/climbs/ponteil",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 4195,
@@ -120902,7 +121038,8 @@
           "url": "https://climbfinder.com/en/climbs/ponteil",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-carabes-sigottier",
@@ -122218,14 +122355,15 @@
     {
       "id": "puy-saint-pierre-puy-richard",
       "name": "Puy Saint Pierre / Puy Richard",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 2571,
         "slug": "puy-saint-pierre-puy-richard",
         "url": "https://climbfinder.com/en/climbs/puy-saint-pierre-puy-richard",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5414,
@@ -123608,7 +123746,8 @@
           "url": "https://climbfinder.com/en/climbs/puy-saint-pierre-puy-richard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-faye-ventavon",
@@ -125650,14 +125789,15 @@
     {
       "id": "le-villard-saint-crepin",
       "name": "Le Villard from Saint Crepin",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1794,
         "slug": "le-villard-saint-crepin",
         "url": "https://climbfinder.com/en/climbs/le-villard-saint-crepin",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 5604,
@@ -127090,19 +127230,21 @@
           "url": "https://climbfinder.com/en/climbs/le-villard-saint-crepin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "eygliers-guil",
       "name": "Eygliers from Le Guil",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 11879,
         "slug": "eygliers-guil",
         "url": "https://climbfinder.com/en/climbs/eygliers-guil",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 1559,
@@ -127571,19 +127713,21 @@
           "url": "https://climbfinder.com/en/climbs/eygliers-guil",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "risoul-le-plan-de-phazy",
       "name": "Risoul via Le Plan de Phazy",
-      "region": "Hautes Alpes",
+      "region": "Briançon",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 21108,
         "slug": "risoul-le-plan-de-phazy",
         "url": "https://climbfinder.com/en/climbs/risoul-le-plan-de-phazy",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 42
       },
       "stats": {
         "length_m": 13900,
@@ -129338,7 +129482,8 @@
           "url": "https://climbfinder.com/en/climbs/risoul-le-plan-de-phazy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 42
     },
     {
       "id": "col-de-foureyssasse-fouillouse",

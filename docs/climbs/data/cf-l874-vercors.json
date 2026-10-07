@@ -5,7 +5,7 @@
     "title": "Vercors",
     "region_label": "Vercors",
     "country": "FR",
-    "updated_at": "2026-10-06T14:52:00Z",
+    "updated_at": "2026-10-07T13:19:08Z",
     "count": 117,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 874
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:19:08Z"
+    }
   },
   "climbs": [
     {
@@ -31,7 +34,8 @@
         "id": 914,
         "slug": "col-de-rousset-die",
         "url": "https://climbfinder.com/en/climbs/col-de-rousset-die",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 19498,
@@ -2470,7 +2474,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-rousset-die",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-machine-saint-jean-en-royans",
@@ -2482,7 +2487,8 @@
         "id": 2594,
         "slug": "col-de-la-machine-saint-jean-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-la-machine-saint-jean-en-royans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12024,
@@ -4037,7 +4043,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-machine-saint-jean-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-tourniol-barbieres",
@@ -4049,7 +4056,8 @@
         "id": 4636,
         "slug": "col-de-tourniol-barbieres",
         "url": "https://climbfinder.com/en/climbs/col-de-tourniol-barbieres",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12486,
@@ -5634,7 +5642,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tourniol-barbieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-des-limouches-peyrus",
@@ -5646,7 +5655,8 @@
         "id": 4632,
         "slug": "col-des-limouches-peyrus",
         "url": "https://climbfinder.com/en/climbs/col-des-limouches-peyrus",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 10462,
@@ -6987,7 +6997,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-limouches-peyrus",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-du-mont-noir-cognin-les-gorges",
@@ -6999,7 +7010,8 @@
         "id": 1687,
         "slug": "col-du-mont-noir-cognin-les-gorges",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-cognin-les-gorges",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 15961,
@@ -9010,7 +9022,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-cognin-les-gorges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-bataille-leoncel",
@@ -9022,7 +9035,8 @@
         "id": 2666,
         "slug": "col-de-la-bataille-leoncel",
         "url": "https://climbfinder.com/en/climbs/col-de-la-bataille-leoncel",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8368,
@@ -11125,7 +11139,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-bataille-leoncel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-menee-chatillon-en-diois",
@@ -11137,7 +11152,8 @@
         "id": 9098,
         "slug": "col-de-menee-chatillon-en-diois",
         "url": "https://climbfinder.com/en/climbs/col-de-menee-chatillon-en-diois",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 20899,
@@ -12492,7 +12508,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-menee-chatillon-en-diois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-machine-saint-laurent-en-royans",
@@ -12504,7 +12521,8 @@
         "id": 2595,
         "slug": "col-de-la-machine-saint-laurent-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-la-machine-saint-laurent-en-royans",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 17402,
@@ -14693,7 +14711,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-machine-saint-laurent-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "gorges-de-la-bourne-pont-en-royans",
@@ -14705,7 +14724,8 @@
         "id": 4083,
         "slug": "gorges-de-la-bourne-pont-en-royans",
         "url": "https://climbfinder.com/en/climbs/gorges-de-la-bourne-pont-en-royans",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 21750,
@@ -16116,7 +16136,8 @@
           "url": "https://climbfinder.com/en/climbs/gorges-de-la-bourne-pont-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "tunnel-du-mortier-veurey-voroise",
@@ -16128,7 +16149,8 @@
         "id": 5489,
         "slug": "tunnel-du-mortier-veurey-voroise",
         "url": "https://climbfinder.com/en/climbs/tunnel-du-mortier-veurey-voroise",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 18035,
@@ -18391,7 +18413,8 @@
           "url": "https://climbfinder.com/en/climbs/tunnel-du-mortier-veurey-voroise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-jerome-cavalli-combovin",
@@ -18403,7 +18426,8 @@
         "id": 4651,
         "slug": "col-jerome-cavalli-combovin",
         "url": "https://climbfinder.com/en/climbs/col-jerome-cavalli-combovin",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 9918,
@@ -20884,7 +20908,8 @@
           "url": "https://climbfinder.com/en/climbs/col-jerome-cavalli-combovin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-grimone-chatillon-en-diois",
@@ -20896,7 +20921,8 @@
         "id": 5937,
         "slug": "col-de-grimone-chatillon-en-diois",
         "url": "https://climbfinder.com/en/climbs/col-de-grimone-chatillon-en-diois",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 21598,
@@ -22295,7 +22321,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-grimone-chatillon-en-diois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-du-mont-noir-saint-gervais-col-de-romeyere",
@@ -22307,7 +22334,8 @@
         "id": 1688,
         "slug": "col-du-mont-noir-saint-gervais-col-de-romeyere",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-gervais-col-de-romeyere",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 18054,
@@ -24576,7 +24604,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-gervais-col-de-romeyere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-l-echarasson-saint-jean-en-royans",
@@ -24588,7 +24617,8 @@
         "id": 2598,
         "slug": "col-de-l-echarasson-saint-jean-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-l-echarasson-saint-jean-en-royans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12081,
@@ -26149,7 +26179,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-echarasson-saint-jean-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-l-arzelier-le-gua",
@@ -26161,7 +26192,8 @@
         "id": 4418,
         "slug": "col-de-l-arzelier-le-gua",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-le-gua",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 11522,
@@ -27630,7 +27662,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-le-gua",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-bataille",
@@ -27642,7 +27675,8 @@
         "id": 2669,
         "slug": "col-de-la-bataille",
         "url": "https://climbfinder.com/en/climbs/col-de-la-bataille",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12772,
@@ -29263,7 +29297,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-bataille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-du-mont-noir-saint-pierre-de-cherennes",
@@ -29275,7 +29310,8 @@
         "id": 1689,
         "slug": "col-du-mont-noir-saint-pierre-de-cherennes",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-pierre-de-cherennes",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 17674,
@@ -31494,7 +31530,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-noir-saint-pierre-de-cherennes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-croix-perrin-sassenage",
@@ -31506,7 +31543,8 @@
         "id": 4477,
         "slug": "col-de-la-croix-perrin-sassenage",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-sassenage",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 21887,
@@ -32923,7 +32961,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-sassenage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-tourniol-leoncel",
@@ -32935,7 +32974,8 @@
         "id": 4637,
         "slug": "col-de-tourniol-leoncel",
         "url": "https://climbfinder.com/en/climbs/col-de-tourniol-leoncel",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 3452,
@@ -33864,7 +33904,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tourniol-leoncel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-rousset-saint-agnan-en-vercors",
@@ -33876,7 +33917,8 @@
         "id": 4990,
         "slug": "col-de-rousset-saint-agnan-en-vercors",
         "url": "https://climbfinder.com/en/climbs/col-de-rousset-saint-agnan-en-vercors",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 14295,
@@ -35681,7 +35723,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-rousset-saint-agnan-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-d-herbouilly-les-barraques-en-vercors",
@@ -35693,7 +35736,8 @@
         "id": 4309,
         "slug": "col-d-herbouilly-les-barraques-en-vercors",
         "url": "https://climbfinder.com/en/climbs/col-d-herbouilly-les-barraques-en-vercors",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 14405,
@@ -37516,7 +37560,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-herbouilly-les-barraques-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-pra-l-etang-pont-en-royans",
@@ -37528,7 +37573,8 @@
         "id": 4151,
         "slug": "col-de-pra-l-etang-pont-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-pra-l-etang-pont-en-royans",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 16785,
@@ -39637,7 +39683,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-pra-l-etang-pont-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-jerome-cavalli-beaufort-sur-gervanne",
@@ -39649,7 +39696,8 @@
         "id": 4652,
         "slug": "col-jerome-cavalli-beaufort-sur-gervanne",
         "url": "https://climbfinder.com/en/climbs/col-jerome-cavalli-beaufort-sur-gervanne",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 9271,
@@ -41972,7 +42020,8 @@
           "url": "https://climbfinder.com/en/climbs/col-jerome-cavalli-beaufort-sur-gervanne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-bacchus-beaufort-sur-gervanne",
@@ -41984,7 +42033,8 @@
         "id": 4364,
         "slug": "col-de-bacchus-beaufort-sur-gervanne",
         "url": "https://climbfinder.com/en/climbs/col-de-bacchus-beaufort-sur-gervanne",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 13066,
@@ -43643,7 +43693,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bacchus-beaufort-sur-gervanne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-d-herbouilly-villard-de-lans",
@@ -43655,7 +43706,8 @@
         "id": 4310,
         "slug": "col-d-herbouilly-villard-de-lans",
         "url": "https://climbfinder.com/en/climbs/col-d-herbouilly-villard-de-lans",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 10500,
@@ -44996,7 +45048,8 @@
           "url": "https://climbfinder.com/en/climbs/col-d-herbouilly-villard-de-lans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-bacchus-saint-jean-en-royans",
@@ -45008,7 +45061,8 @@
         "id": 4365,
         "slug": "col-de-bacchus-saint-jean-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-bacchus-saint-jean-en-royans",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 23675,
@@ -46513,7 +46567,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bacchus-saint-jean-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-romeyere-pont-en-royans",
@@ -46525,7 +46580,8 @@
         "id": 21350,
         "slug": "col-de-romeyere-pont-en-royans",
         "url": "https://climbfinder.com/en/climbs/col-de-romeyere-pont-en-royans",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 19483,
@@ -48964,7 +49020,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-romeyere-pont-en-royans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-croix-perrin-autrans",
@@ -48976,7 +49033,8 @@
         "id": 4476,
         "slug": "col-de-la-croix-perrin-autrans",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-autrans",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5360,
@@ -49381,7 +49439,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-perrin-autrans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-portette-bouvante",
@@ -49393,7 +49452,8 @@
         "id": 4482,
         "slug": "col-de-la-portette-bouvante",
         "url": "https://climbfinder.com/en/climbs/col-de-la-portette-bouvante",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 10755,
@@ -50770,7 +50830,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-portette-bouvante",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "relais-telecom-de-musan",
@@ -50782,7 +50843,8 @@
         "id": 5529,
         "slug": "relais-telecom-de-musan",
         "url": "https://climbfinder.com/en/climbs/relais-telecom-de-musan",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 6155,
@@ -52349,7 +52411,8 @@
           "url": "https://climbfinder.com/en/climbs/relais-telecom-de-musan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-carri",
@@ -52361,7 +52424,8 @@
         "id": 2597,
         "slug": "col-de-carri",
         "url": "https://climbfinder.com/en/climbs/col-de-carri",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 6361,
@@ -53976,7 +54040,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-carri",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-grimone-la-crpoix-haute",
@@ -53988,7 +54053,8 @@
         "id": 5938,
         "slug": "col-de-grimone-la-crpoix-haute",
         "url": "https://climbfinder.com/en/climbs/col-de-grimone-la-crpoix-haute",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 4173,
@@ -55067,7 +55133,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-grimone-la-crpoix-haute",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-menee-chaffaud",
@@ -55079,7 +55146,8 @@
         "id": 9097,
         "slug": "col-de-menee-chaffaud",
         "url": "https://climbfinder.com/en/climbs/col-de-menee-chaffaud",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12994,
@@ -56724,7 +56792,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-menee-chaffaud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-des-limouches-pas-de-la-rune",
@@ -56736,7 +56805,8 @@
         "id": 4634,
         "slug": "col-des-limouches-pas-de-la-rune",
         "url": "https://climbfinder.com/en/climbs/col-des-limouches-pas-de-la-rune",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8852,
@@ -58961,7 +59031,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-limouches-pas-de-la-rune",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-croix-beaufort-sur-gervanne",
@@ -58973,7 +59044,8 @@
         "id": 4464,
         "slug": "col-de-la-croix-beaufort-sur-gervanne",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-beaufort-sur-gervanne",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 11142,
@@ -60394,7 +60466,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-beaufort-sur-gervanne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "la-sierre-lans-en-vercors",
@@ -60406,7 +60479,8 @@
         "id": 5522,
         "slug": "la-sierre-lans-en-vercors",
         "url": "https://climbfinder.com/en/climbs/la-sierre-lans-en-vercors",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5431,
@@ -61795,7 +61869,8 @@
           "url": "https://climbfinder.com/en/climbs/la-sierre-lans-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-l-arzelier-saint-guillaume",
@@ -61807,7 +61882,8 @@
         "id": 4417,
         "slug": "col-de-l-arzelier-saint-guillaume",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-saint-guillaume",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8665,
@@ -63984,7 +64060,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-arzelier-saint-guillaume",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-carri-la-barraque-en-vercors",
@@ -63996,7 +64073,8 @@
         "id": 4370,
         "slug": "col-de-carri-la-barraque-en-vercors",
         "url": "https://climbfinder.com/en/climbs/col-de-carri-la-barraque-en-vercors",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 12583,
@@ -65593,7 +65671,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-carri-la-barraque-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-chaud-clapier-vassieux-en-vercors",
@@ -65605,7 +65684,8 @@
         "id": 4431,
         "slug": "col-de-chaud-clapier-vassieux-en-vercors",
         "url": "https://climbfinder.com/en/climbs/col-de-chaud-clapier-vassieux-en-vercors",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5829,
@@ -67092,7 +67172,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-chaud-clapier-vassieux-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-des-limouches-la-vacherie",
@@ -67104,7 +67185,8 @@
         "id": 4633,
         "slug": "col-des-limouches-la-vacherie",
         "url": "https://climbfinder.com/en/climbs/col-des-limouches-la-vacherie",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 2291,
@@ -67739,7 +67821,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-limouches-la-vacherie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-marignac-die",
@@ -67751,7 +67834,8 @@
         "id": 10952,
         "slug": "col-de-marignac-die",
         "url": "https://climbfinder.com/en/climbs/col-de-marignac-die",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8327,
@@ -69848,7 +69932,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-marignac-die",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-l-echarasson",
@@ -69860,7 +69945,8 @@
         "id": 2599,
         "slug": "col-de-l-echarasson",
         "url": "https://climbfinder.com/en/climbs/col-de-l-echarasson",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 3205,
@@ -70727,7 +70813,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-echarasson",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-romeyere-st-gervais",
@@ -70739,7 +70826,8 @@
         "id": 39957,
         "slug": "col-de-romeyere-st-gervais",
         "url": "https://climbfinder.com/en/climbs/col-de-romeyere-st-gervais",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 13175,
@@ -72410,7 +72498,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-romeyere-st-gervais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-la-croix-ribiere",
@@ -72422,7 +72511,8 @@
         "id": 4466,
         "slug": "col-de-la-croix-ribiere",
         "url": "https://climbfinder.com/en/climbs/col-de-la-croix-ribiere",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 4680,
@@ -73629,7 +73719,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-croix-ribiere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-l-allimas-saint-michel-les-portes",
@@ -73641,7 +73732,8 @@
         "id": 4413,
         "slug": "col-de-l-allimas-saint-michel-les-portes",
         "url": "https://climbfinder.com/en/climbs/col-de-l-allimas-saint-michel-les-portes",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8056,
@@ -75672,7 +75764,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-allimas-saint-michel-les-portes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-proncel-les-barraques-en-vercors",
@@ -75684,7 +75777,8 @@
         "id": 4887,
         "slug": "col-de-proncel-les-barraques-en-vercors",
         "url": "https://climbfinder.com/en/climbs/col-de-proncel-les-barraques-en-vercors",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 11927,
@@ -77225,7 +77319,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-proncel-les-barraques-en-vercors",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-chaud-clapier-les-trois-routes",
@@ -77237,7 +77332,8 @@
         "id": 4430,
         "slug": "col-de-chaud-clapier-les-trois-routes",
         "url": "https://climbfinder.com/en/climbs/col-de-chaud-clapier-les-trois-routes",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 7316,
@@ -79084,7 +79180,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-chaud-clapier-les-trois-routes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-marignac-saint-julien-en-quint",
@@ -79096,7 +79193,8 @@
         "id": 10951,
         "slug": "col-de-marignac-saint-julien-en-quint",
         "url": "https://climbfinder.com/en/climbs/col-de-marignac-saint-julien-en-quint",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 3255,
@@ -79975,7 +80073,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-marignac-saint-julien-en-quint",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "montchardon-cognin-les-georges",
@@ -79987,7 +80086,8 @@
         "id": 21477,
         "slug": "montchardon-cognin-les-georges",
         "url": "https://climbfinder.com/en/climbs/montchardon-cognin-les-georges",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 5519,
@@ -81396,7 +81496,8 @@
           "url": "https://climbfinder.com/en/climbs/montchardon-cognin-les-georges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "montchardon-izeron",
@@ -81408,7 +81509,8 @@
         "id": 21476,
         "slug": "montchardon-izeron",
         "url": "https://climbfinder.com/en/climbs/montchardon-izeron",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 874
       },
       "stats": {
         "length_m": 8533,
@@ -83555,7 +83657,8 @@
           "url": "https://climbfinder.com/en/climbs/montchardon-izeron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 874
     },
     {
       "id": "col-de-carri-la-cime-du-mas",
