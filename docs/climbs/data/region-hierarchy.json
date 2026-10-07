@@ -1,0 +1,4328 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-07T13:07:45Z",
+  "countries": [
+    {
+      "country_iso": "NL",
+      "country": "Netherlands",
+      "groups": [
+        {
+          "locality_id": 26,
+          "name": "Netherlands",
+          "name_nl": "Nederland (heel)",
+          "popular_count": 1502,
+          "localities": [
+            {
+              "locality_id": 274,
+              "name": "Gelderland",
+              "label": "Gelderland (l=274)",
+              "popular_count": 483,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 30,
+              "name": "Veluwe",
+              "label": "Veluwe (l=30)",
+              "popular_count": 365,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 90,
+              "name": "Niederrheinischer Höhenzug",
+              "label": "Niederrheinischer Höhenzug (l=90)",
+              "popular_count": 264,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 28,
+              "name": "Utrecht Hill Ridge",
+              "label": "Utrecht Hill Ridge (l=28)",
+              "popular_count": 112,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 33,
+              "name": "Rijk van Nijmegen",
+              "label": "Rijk van Nijmegen (l=33)",
+              "popular_count": 107,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 275,
+              "name": "Utrecht",
+              "label": "Utrecht (l=275)",
+              "popular_count": 92,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 271,
+              "name": "Overijssel",
+              "label": "Overijssel (l=271)",
+              "popular_count": 82,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 34,
+              "name": "Veluwezoom",
+              "label": "Veluwezoom (l=34)",
+              "popular_count": 72,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 29,
+              "name": "Salland Ridge",
+              "label": "Salland Ridge (l=29)",
+              "popular_count": 52,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            },
+            {
+              "locality_id": 259,
+              "name": "Drenthe",
+              "label": "Drenthe (l=259)",
+              "popular_count": 7,
+              "parent_locality_id": null,
+              "macro_locality_id": 26
+            }
+          ]
+        },
+        {
+          "locality_id": 27,
+          "name": "South Limburg",
+          "name_nl": "Zuid-Limburg",
+          "popular_count": 688,
+          "localities": [
+            {
+              "locality_id": 280,
+              "name": "Limburg",
+              "label": "Limburg (l=280)",
+              "popular_count": 713,
+              "parent_locality_id": null,
+              "macro_locality_id": 27
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 297,
+          "name": "Achterhoek",
+          "label": "Achterhoek (l=297)",
+          "popular_count": 24,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 35,
+          "name": "Arnhem",
+          "label": "Arnhem (l=35)",
+          "popular_count": 177,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 281,
+          "name": "Brabantse Wal",
+          "label": "Brabantse Wal (l=281)",
+          "popular_count": 19,
+          "parent_locality_id": 279,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 114,
+          "name": "Ede & Wageningen",
+          "label": "Ede & Wageningen (l=114)",
+          "popular_count": 48,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 272,
+          "name": "Friesland",
+          "label": "Friesland (l=272)",
+          "popular_count": 6,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 542,
+          "name": "Gooi",
+          "label": "Gooi (l=542)",
+          "popular_count": 22,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 150,
+          "name": "Hoge Veluwe",
+          "label": "Hoge Veluwe (l=150)",
+          "popular_count": 20,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 116,
+          "name": "Kop van de Veluwe",
+          "label": "Kop van de Veluwe (l=116)",
+          "popular_count": 22,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 117,
+          "name": "Kroondomein Het Loo",
+          "label": "Kroondomein Het Loo (l=117)",
+          "popular_count": 25,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 279,
+          "name": "North Brabant",
+          "label": "North Brabant (l=279)",
+          "popular_count": 23,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 276,
+          "name": "North Holland",
+          "label": "North Holland (l=276)",
+          "popular_count": 71,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 115,
+          "name": "Oldenzaalse Stuwwal",
+          "label": "Oldenzaalse Stuwwal (l=115)",
+          "popular_count": 16,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 277,
+          "name": "South Holland",
+          "label": "South Holland (l=277)",
+          "popular_count": 21,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 175,
+          "name": "Süchtelner Höhen",
+          "label": "Süchtelner Höhen (l=175)",
+          "popular_count": 83,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 113,
+          "name": "Uelsener Berge",
+          "label": "Uelsener Berge (l=113)",
+          "popular_count": 39,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 278,
+          "name": "Zeeland",
+          "label": "Zeeland (l=278)",
+          "popular_count": 4,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "BE",
+      "country": "Belgium",
+      "groups": [
+        {
+          "locality_id": 133,
+          "name": "High Fens & East Cantons",
+          "name_nl": "Hoge Venen & Oostkantons",
+          "popular_count": 517,
+          "localities": []
+        },
+        {
+          "locality_id": 304,
+          "name": "Liège Province",
+          "name_nl": "Luik (provincie)",
+          "popular_count": 2082,
+          "localities": [
+            {
+              "locality_id": 48,
+              "name": "Pays de Herve",
+              "label": "Pays de Herve (l=48)",
+              "popular_count": 718,
+              "parent_locality_id": null,
+              "macro_locality_id": 304
+            },
+            {
+              "locality_id": 136,
+              "name": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
+              "label": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe (l=136)",
+              "popular_count": 590,
+              "parent_locality_id": null,
+              "macro_locality_id": 304
+            },
+            {
+              "locality_id": 380,
+              "name": "Haute Ardenne",
+              "label": "Haute Ardenne (l=380)",
+              "popular_count": 133,
+              "parent_locality_id": null,
+              "macro_locality_id": 304
+            }
+          ]
+        },
+        {
+          "locality_id": 315,
+          "name": "Belgian Luxembourg",
+          "name_nl": "Luxemburg (BE)",
+          "popular_count": 904,
+          "localities": [
+            {
+              "locality_id": 128,
+              "name": "Condroz - Famenne",
+              "label": "Condroz - Famenne (l=128)",
+              "popular_count": 500,
+              "parent_locality_id": null,
+              "macro_locality_id": 315
+            },
+            {
+              "locality_id": 135,
+              "name": "Heart of the Ardennes",
+              "label": "Heart of the Ardennes (l=135)",
+              "popular_count": 231,
+              "parent_locality_id": null,
+              "macro_locality_id": 315
+            },
+            {
+              "locality_id": 132,
+              "name": "Semois Valley",
+              "label": "Semois Valley (l=132)",
+              "popular_count": 77,
+              "parent_locality_id": null,
+              "macro_locality_id": 315
+            }
+          ]
+        },
+        {
+          "locality_id": 370,
+          "name": "Flanders",
+          "name_nl": "Vlaanderen",
+          "popular_count": 2979,
+          "localities": [
+            {
+              "locality_id": 301,
+              "name": "Flemish Brabant",
+              "label": "Flemish Brabant (l=301)",
+              "popular_count": 1067,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 298,
+              "name": "East Flanders",
+              "label": "East Flanders (l=298)",
+              "popular_count": 650,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 96,
+              "name": "Ardennes Brabançonnes",
+              "label": "Ardennes Brabançonnes (l=96)",
+              "popular_count": 631,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 302,
+              "name": "Belgium Limburg",
+              "label": "Belgium Limburg (l=302)",
+              "popular_count": 605,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 299,
+              "name": "West Flanders",
+              "label": "West Flanders (l=299)",
+              "popular_count": 603,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 50,
+              "name": "Flemish Ardennes",
+              "label": "Flemish Ardennes (l=50)",
+              "popular_count": 533,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 97,
+              "name": "Hageland",
+              "label": "Hageland (l=97)",
+              "popular_count": 339,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 332,
+              "name": "Dijleland",
+              "label": "Dijleland (l=332)",
+              "popular_count": 290,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 382,
+              "name": "Westhoek",
+              "label": "Westhoek (l=382)",
+              "popular_count": 258,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 51,
+              "name": "West-Flemish Hills",
+              "label": "West-Flemish Hills (l=51)",
+              "popular_count": 241,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 356,
+              "name": "Denderland",
+              "label": "Denderland (l=356)",
+              "popular_count": 158,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            },
+            {
+              "locality_id": 357,
+              "name": "Voer-Region",
+              "label": "Voer-Region (l=357)",
+              "popular_count": 38,
+              "parent_locality_id": null,
+              "macro_locality_id": 370
+            }
+          ]
+        },
+        {
+          "locality_id": 371,
+          "name": "Wallonia",
+          "name_nl": "Wallonië",
+          "popular_count": 5665,
+          "localities": [
+            {
+              "locality_id": 43,
+              "name": "Belgium",
+              "label": "Belgium (l=43)",
+              "popular_count": 8763,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            },
+            {
+              "locality_id": 49,
+              "name": "Ardennes",
+              "label": "Ardennes (l=49)",
+              "popular_count": 3757,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            },
+            {
+              "locality_id": 85,
+              "name": "Belgian Ardennes",
+              "label": "Belgian Ardennes (l=85)",
+              "popular_count": 3092,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            },
+            {
+              "locality_id": 300,
+              "name": "Hainaut Province",
+              "label": "Hainaut Province (l=300)",
+              "popular_count": 1250,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            },
+            {
+              "locality_id": 331,
+              "name": "Namur Province",
+              "label": "Namur Province (l=331)",
+              "popular_count": 1003,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            },
+            {
+              "locality_id": 130,
+              "name": "Valleys of the Meuse, Sambre and Orneau",
+              "label": "Valleys of the Meuse, Sambre and Orneau (l=130)",
+              "popular_count": 447,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            },
+            {
+              "locality_id": 67,
+              "name": "Pays des Collines",
+              "label": "Pays des Collines (l=67)",
+              "popular_count": 263,
+              "parent_locality_id": null,
+              "macro_locality_id": 371
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 296,
+          "name": "Antwerp Province",
+          "label": "Antwerp Province (l=296)",
+          "popular_count": 51,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 361,
+          "name": "Belgian Lorraine",
+          "label": "Belgian Lorraine (l=361)",
+          "popular_count": 141,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 99,
+          "name": "Belgian Picardy",
+          "label": "Belgian Picardy (l=99)",
+          "popular_count": 344,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 124,
+          "name": "Belgium Coast",
+          "label": "Belgium Coast (l=124)",
+          "popular_count": 49,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 131,
+          "name": "Borinage and Center",
+          "label": "Borinage and Center (l=131)",
+          "popular_count": 284,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 127,
+          "name": "Brabantic Hesbaye",
+          "label": "Brabantic Hesbaye (l=127)",
+          "popular_count": 120,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 126,
+          "name": "Brabantse Kouters",
+          "label": "Brabantse Kouters (l=126)",
+          "popular_count": 93,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 314,
+          "name": "Brussels-Capital Region",
+          "label": "Brussels-Capital Region (l=314)",
+          "popular_count": 137,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 358,
+          "name": "Druivenstreek",
+          "label": "Druivenstreek (l=358)",
+          "popular_count": 148,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 129,
+          "name": "Fagne",
+          "label": "Fagne (l=129)",
+          "popular_count": 316,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 363,
+          "name": "Forest of Saint-Hubert",
+          "label": "Forest of Saint-Hubert (l=363)",
+          "popular_count": 258,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 360,
+          "name": "Gaume",
+          "label": "Gaume (l=360)",
+          "popular_count": 87,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 98,
+          "name": "Haspengouw",
+          "label": "Haspengouw (l=98)",
+          "popular_count": 489,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 362,
+          "name": "Haute-Sûre Forêt d'Anlier",
+          "label": "Haute-Sûre Forêt d'Anlier (l=362)",
+          "popular_count": 108,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 364,
+          "name": "Hauts-Pays",
+          "label": "Hauts-Pays (l=364)",
+          "popular_count": 94,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 138,
+          "name": "Hinterland of Bruges",
+          "label": "Hinterland of Bruges (l=138)",
+          "popular_count": 58,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 134,
+          "name": "Kempens Plateau",
+          "label": "Kempens Plateau (l=134)",
+          "popular_count": 166,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 359,
+          "name": "Land of Arlon",
+          "label": "Land of Arlon (l=359)",
+          "popular_count": 55,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 125,
+          "name": "Leiestreek",
+          "label": "Leiestreek (l=125)",
+          "popular_count": 265,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 137,
+          "name": "Lesse Valley",
+          "label": "Lesse Valley (l=137)",
+          "popular_count": 194,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 121,
+          "name": "Meetjesland",
+          "label": "Meetjesland (l=121)",
+          "popular_count": 14,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 354,
+          "name": "Oost-Vlaamse bloemenstreek",
+          "label": "Oost-Vlaamse bloemenstreek (l=354)",
+          "popular_count": 27,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 77,
+          "name": "Pajottenland",
+          "label": "Pajottenland (l=77)",
+          "popular_count": 300,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 376,
+          "name": "Pays de Charleroi",
+          "label": "Pays de Charleroi (l=376)",
+          "popular_count": 223,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 378,
+          "name": "Pays de Liège",
+          "label": "Pays de Liège (l=378)",
+          "popular_count": 228,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 120,
+          "name": "Plateau of Tielt",
+          "label": "Plateau of Tielt (l=120)",
+          "popular_count": 55,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 119,
+          "name": "Plateau of Wijnendale",
+          "label": "Plateau of Wijnendale (l=119)",
+          "popular_count": 22,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 123,
+          "name": "Rivierenland",
+          "label": "Rivierenland (l=123)",
+          "popular_count": 19,
+          "parent_locality_id": 296,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 118,
+          "name": "Rug van Westrozebeke",
+          "label": "Rug van Westrozebeke (l=118)",
+          "popular_count": 127,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 366,
+          "name": "Rupelstreek",
+          "label": "Rupelstreek (l=366)",
+          "popular_count": 7,
+          "parent_locality_id": 123,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 367,
+          "name": "Sambre-Orneau",
+          "label": "Sambre-Orneau (l=367)",
+          "popular_count": 77,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 333,
+          "name": "Schelde-Durme",
+          "label": "Schelde-Durme (l=333)",
+          "popular_count": 44,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 377,
+          "name": "Thudinie",
+          "label": "Thudinie (l=377)",
+          "popular_count": 90,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 368,
+          "name": "Vallées de la Burdinale et de la Mehaigne",
+          "label": "Vallées de la Burdinale et de la Mehaigne (l=368)",
+          "popular_count": 86,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 122,
+          "name": "Waasland",
+          "label": "Waasland (l=122)",
+          "popular_count": 26,
+          "parent_locality_id": 333,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 303,
+          "name": "Walloon Brabant",
+          "label": "Walloon Brabant (l=303)",
+          "popular_count": 420,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "FR",
+      "country": "France",
+      "groups": [
+        {
+          "locality_id": 36,
+          "name": "Alps",
+          "name_nl": "Alpen",
+          "popular_count": 8902,
+          "localities": [
+            {
+              "locality_id": 1,
+              "name": "World",
+              "label": "World (l=1)",
+              "popular_count": 93939,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 25,
+              "name": "Europe",
+              "label": "Europe (l=25)",
+              "popular_count": 89628,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 44,
+              "name": "France",
+              "label": "France (l=44)",
+              "popular_count": 20313,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 445,
+              "name": "Auvergne-Rhône-Alpes",
+              "label": "Auvergne-Rhône-Alpes (l=445)",
+              "popular_count": 3795,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 37,
+              "name": "French Alps",
+              "label": "French Alps (l=37)",
+              "popular_count": 2271,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 58,
+              "name": "Provence-Alpes-Côte d'Azur",
+              "label": "Provence-Alpes-Côte d'Azur (l=58)",
+              "popular_count": 1292,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 646,
+              "name": "Provence",
+              "label": "Provence (l=646)",
+              "popular_count": 1020,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 289,
+              "name": "Isère",
+              "label": "Isère (l=289)",
+              "popular_count": 439,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 957,
+              "name": "Savoie",
+              "label": "Savoie (l=957)",
+              "popular_count": 419,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 288,
+              "name": "Haute Savoie",
+              "label": "Haute Savoie (l=288)",
+              "popular_count": 359,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 192,
+              "name": "Hautes Alpes",
+              "label": "Hautes Alpes (l=192)",
+              "popular_count": 270,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 654,
+              "name": "Vaucluse",
+              "label": "Vaucluse (l=654)",
+              "popular_count": 232,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 39,
+              "name": "Serre Ponçon",
+              "label": "Serre Ponçon (l=39)",
+              "popular_count": 223,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 65,
+              "name": "Annecy",
+              "label": "Annecy (l=65)",
+              "popular_count": 165,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 42,
+              "name": "Briançon",
+              "label": "Briançon (l=42)",
+              "popular_count": 112,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            },
+            {
+              "locality_id": 63,
+              "name": "La Maurienne",
+              "label": "La Maurienne (l=63)",
+              "popular_count": 96,
+              "parent_locality_id": null,
+              "macro_locality_id": 36
+            }
+          ]
+        },
+        {
+          "locality_id": 422,
+          "name": "Ardennes (France)",
+          "name_nl": "Ardennen (FR)",
+          "popular_count": 294,
+          "localities": [
+            {
+              "locality_id": 84,
+              "name": "French Ardennes",
+              "label": "French Ardennes (l=84)",
+              "popular_count": 172,
+              "parent_locality_id": null,
+              "macro_locality_id": 422
+            }
+          ]
+        },
+        {
+          "locality_id": 350,
+          "name": "Armorican Massif",
+          "name_nl": "Armoricaans Massief",
+          "popular_count": 1532,
+          "localities": [
+            {
+              "locality_id": 451,
+              "name": "Normandy",
+              "label": "Normandy (l=451)",
+              "popular_count": 1038,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            },
+            {
+              "locality_id": 429,
+              "name": "Calvados",
+              "label": "Calvados (l=429)",
+              "popular_count": 276,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            },
+            {
+              "locality_id": 454,
+              "name": "Pays de la Loire",
+              "label": "Pays de la Loire (l=454)",
+              "popular_count": 265,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            },
+            {
+              "locality_id": 950,
+              "name": "Orne",
+              "label": "Orne (l=950)",
+              "popular_count": 214,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            },
+            {
+              "locality_id": 351,
+              "name": "Manche",
+              "label": "Manche (l=351)",
+              "popular_count": 159,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            },
+            {
+              "locality_id": 941,
+              "name": "Mayenne",
+              "label": "Mayenne (l=941)",
+              "popular_count": 43,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            },
+            {
+              "locality_id": 411,
+              "name": "Loire-Atlantique",
+              "label": "Loire-Atlantique (l=411)",
+              "popular_count": 33,
+              "parent_locality_id": null,
+              "macro_locality_id": 350
+            }
+          ]
+        },
+        {
+          "locality_id": 446,
+          "name": "Brittany",
+          "name_nl": "Bretagne",
+          "popular_count": 857,
+          "localities": [
+            {
+              "locality_id": 438,
+              "name": "Côtes-d'Armor",
+              "label": "Côtes-d'Armor (l=438)",
+              "popular_count": 234,
+              "parent_locality_id": null,
+              "macro_locality_id": 446
+            },
+            {
+              "locality_id": 918,
+              "name": "Ille-et-Vilaine",
+              "label": "Ille-et-Vilaine (l=918)",
+              "popular_count": 220,
+              "parent_locality_id": null,
+              "macro_locality_id": 446
+            },
+            {
+              "locality_id": 945,
+              "name": "Morbihan",
+              "label": "Morbihan (l=945)",
+              "popular_count": 213,
+              "parent_locality_id": null,
+              "macro_locality_id": 446
+            },
+            {
+              "locality_id": 915,
+              "name": "Finistère",
+              "label": "Finistère (l=915)",
+              "popular_count": 187,
+              "parent_locality_id": null,
+              "macro_locality_id": 446
+            }
+          ]
+        },
+        {
+          "locality_id": 80,
+          "name": "Corsica",
+          "name_nl": "Corsica",
+          "popular_count": 326,
+          "localities": []
+        },
+        {
+          "locality_id": 145,
+          "name": "Cévennes",
+          "name_nl": "Cévennes",
+          "popular_count": 344,
+          "localities": [
+            {
+              "locality_id": 57,
+              "name": "Ardèche",
+              "label": "Ardèche (l=57)",
+              "popular_count": 343,
+              "parent_locality_id": null,
+              "macro_locality_id": 145
+            },
+            {
+              "locality_id": 900,
+              "name": "Ardèche",
+              "label": "Ardèche (l=900)",
+              "popular_count": 341,
+              "parent_locality_id": null,
+              "macro_locality_id": 145
+            },
+            {
+              "locality_id": 916,
+              "name": "Gard",
+              "label": "Gard (l=916)",
+              "popular_count": 212,
+              "parent_locality_id": null,
+              "macro_locality_id": 145
+            },
+            {
+              "locality_id": 937,
+              "name": "Lozère",
+              "label": "Lozère (l=937)",
+              "popular_count": 165,
+              "parent_locality_id": null,
+              "macro_locality_id": 145
+            }
+          ]
+        },
+        {
+          "locality_id": 61,
+          "name": "Auvergne",
+          "name_nl": "Massif Central (Auvergne)",
+          "popular_count": 817,
+          "localities": [
+            {
+              "locality_id": 54,
+              "name": "Massif Central",
+              "label": "Massif Central (l=54)",
+              "popular_count": 3250,
+              "parent_locality_id": null,
+              "macro_locality_id": 61
+            },
+            {
+              "locality_id": 951,
+              "name": "Puy-de-Dôme",
+              "label": "Puy-de-Dôme (l=951)",
+              "popular_count": 393,
+              "parent_locality_id": null,
+              "macro_locality_id": 61
+            },
+            {
+              "locality_id": 154,
+              "name": "Monts du Forez",
+              "label": "Monts du Forez (l=154)",
+              "popular_count": 310,
+              "parent_locality_id": null,
+              "macro_locality_id": 61
+            },
+            {
+              "locality_id": 430,
+              "name": "Cantal",
+              "label": "Cantal (l=430)",
+              "popular_count": 259,
+              "parent_locality_id": null,
+              "macro_locality_id": 61
+            }
+          ]
+        },
+        {
+          "locality_id": 53,
+          "name": "Pyrenees",
+          "name_nl": "Pyrenéeën",
+          "popular_count": 2034,
+          "localities": [
+            {
+              "locality_id": 453,
+              "name": "Occitania",
+              "label": "Occitania (l=453)",
+              "popular_count": 5405,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 452,
+              "name": "Nouvelle-Aquitaine",
+              "label": "Nouvelle-Aquitaine (l=452)",
+              "popular_count": 2429,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 82,
+              "name": "French Pyrenees",
+              "label": "French Pyrenees (l=82)",
+              "popular_count": 1463,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 148,
+              "name": "Euskal Herria",
+              "label": "Euskal Herria (l=148)",
+              "popular_count": 1029,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 898,
+              "name": "Pyrénées-Atlantiques",
+              "label": "Pyrénées-Atlantiques (l=898)",
+              "popular_count": 1010,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 873,
+              "name": "Haute-Garonne",
+              "label": "Haute-Garonne (l=873)",
+              "popular_count": 827,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 899,
+              "name": "Hautes-Pyrénées",
+              "label": "Hautes-Pyrénées (l=899)",
+              "popular_count": 551,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            },
+            {
+              "locality_id": 423,
+              "name": "Ariège",
+              "label": "Ariège (l=423)",
+              "popular_count": 320,
+              "parent_locality_id": null,
+              "macro_locality_id": 53
+            }
+          ]
+        },
+        {
+          "locality_id": 450,
+          "name": "Île-de-France",
+          "name_nl": "Île-de-France",
+          "popular_count": 402,
+          "localities": [
+            {
+              "locality_id": 958,
+              "name": "Val-d'Oise",
+              "label": "Val-d'Oise (l=958)",
+              "popular_count": 126,
+              "parent_locality_id": null,
+              "macro_locality_id": 450
+            },
+            {
+              "locality_id": 902,
+              "name": "Yvelines",
+              "label": "Yvelines (l=902)",
+              "popular_count": 95,
+              "parent_locality_id": null,
+              "macro_locality_id": 450
+            },
+            {
+              "locality_id": 929,
+              "name": "Hauts-de-Seine",
+              "label": "Hauts-de-Seine (l=929)",
+              "popular_count": 27,
+              "parent_locality_id": null,
+              "macro_locality_id": 450
+            },
+            {
+              "locality_id": 959,
+              "name": "Paris",
+              "label": "Paris (l=959)",
+              "popular_count": 10,
+              "parent_locality_id": null,
+              "macro_locality_id": 450
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 193,
+          "name": "Ain",
+          "label": "Ain (l=193)",
+          "popular_count": 227,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 413,
+          "name": "Aisne",
+          "label": "Aisne (l=413)",
+          "popular_count": 91,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 416,
+          "name": "Allier",
+          "label": "Allier (l=416)",
+          "popular_count": 149,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 290,
+          "name": "Alpes-de-Haute-Provence",
+          "label": "Alpes-de-Haute-Provence (l=290)",
+          "popular_count": 194,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 379,
+          "name": "Alpes-Maritimes",
+          "label": "Alpes-Maritimes (l=379)",
+          "popular_count": 247,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 425,
+          "name": "Aube",
+          "label": "Aube (l=425)",
+          "popular_count": 23,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 426,
+          "name": "Aude",
+          "label": "Aude (l=426)",
+          "popular_count": 361,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 427,
+          "name": "Aveyron",
+          "label": "Aveyron (l=427)",
+          "popular_count": 241,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 144,
+          "name": "Beaujolais",
+          "label": "Beaujolais (l=144)",
+          "popular_count": 208,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 415,
+          "name": "Bouches-du-Rhône",
+          "label": "Bouches-du-Rhône (l=415)",
+          "popular_count": 124,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 435,
+          "name": "Burgundy-Franche-Comté",
+          "label": "Burgundy-Franche-Comté (l=435)",
+          "popular_count": 1162,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 152,
+          "name": "Caps et Marais d'Opale",
+          "label": "Caps et Marais d'Opale (l=152)",
+          "popular_count": 387,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 447,
+          "name": "Centre-Val de Loire",
+          "label": "Centre-Val de Loire (l=447)",
+          "popular_count": 166,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 431,
+          "name": "Charente",
+          "label": "Charente (l=431)",
+          "popular_count": 58,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 432,
+          "name": "Charente-Maritime",
+          "label": "Charente-Maritime (l=432)",
+          "popular_count": 14,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 433,
+          "name": "Cher",
+          "label": "Cher (l=433)",
+          "popular_count": 53,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 434,
+          "name": "Corrèze",
+          "label": "Corrèze (l=434)",
+          "popular_count": 247,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 439,
+          "name": "Creuse",
+          "label": "Creuse (l=439)",
+          "popular_count": 56,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 436,
+          "name": "Côte-d'Or",
+          "label": "Côte-d'Or (l=436)",
+          "popular_count": 208,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 903,
+          "name": "Deux-Sèvres",
+          "label": "Deux-Sèvres (l=903)",
+          "popular_count": 80,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 440,
+          "name": "Dordogne",
+          "label": "Dordogne (l=440)",
+          "popular_count": 139,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 441,
+          "name": "Doubs",
+          "label": "Doubs (l=441)",
+          "popular_count": 195,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 442,
+          "name": "Drôme",
+          "label": "Drôme (l=442)",
+          "popular_count": 326,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 914,
+          "name": "Essonne",
+          "label": "Essonne (l=914)",
+          "popular_count": 55,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 443,
+          "name": "Eure",
+          "label": "Eure (l=443)",
+          "popular_count": 94,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 444,
+          "name": "Eure-et-Loir",
+          "label": "Eure-et-Loir (l=444)",
+          "popular_count": 14,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 666,
+          "name": "Gers",
+          "label": "Gers (l=666)",
+          "popular_count": 1413,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 917,
+          "name": "Gironde",
+          "label": "Gironde (l=917)",
+          "popular_count": 57,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 448,
+          "name": "Grand Est",
+          "label": "Grand Est (l=448)",
+          "popular_count": 1543,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 64,
+          "name": "Grenoble",
+          "label": "Grenoble (l=64)",
+          "popular_count": 235,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 925,
+          "name": "Haute-Loire",
+          "label": "Haute-Loire (l=925)",
+          "popular_count": 314,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 940,
+          "name": "Haute-Marne",
+          "label": "Haute-Marne (l=940)",
+          "popular_count": 33,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 954,
+          "name": "Haute-Saône",
+          "label": "Haute-Saône (l=954)",
+          "popular_count": 92,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 910,
+          "name": "Haute-Vienne",
+          "label": "Haute-Vienne (l=910)",
+          "popular_count": 46,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 449,
+          "name": "Hauts-de-France",
+          "label": "Hauts-de-France (l=449)",
+          "popular_count": 1705,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 897,
+          "name": "Hérault",
+          "label": "Hérault (l=897)",
+          "popular_count": 132,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 922,
+          "name": "Indre",
+          "label": "Indre (l=922)",
+          "popular_count": 34,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 919,
+          "name": "Indre-et-Loire",
+          "label": "Indre-et-Loire (l=919)",
+          "popular_count": 31,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 55,
+          "name": "Jura",
+          "label": "Jura (l=55)",
+          "popular_count": 1547,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 920,
+          "name": "Jura",
+          "label": "Jura (l=920)",
+          "popular_count": 169,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 921,
+          "name": "Landes",
+          "label": "Landes (l=921)",
+          "popular_count": 316,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 923,
+          "name": "Loir-et-Cher",
+          "label": "Loir-et-Cher (l=923)",
+          "popular_count": 19,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 924,
+          "name": "Loire",
+          "label": "Loire (l=924)",
+          "popular_count": 246,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 933,
+          "name": "Loiret",
+          "label": "Loiret (l=933)",
+          "popular_count": 15,
+          "parent_locality_id": 447,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 935,
+          "name": "Lot-et-Garonne",
+          "label": "Lot-et-Garonne (l=935)",
+          "popular_count": 375,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 931,
+          "name": "Lower Rhine",
+          "label": "Lower Rhine (l=931)",
+          "popular_count": 179,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 938,
+          "name": "Maine-et-Loire",
+          "label": "Maine-et-Loire (l=938)",
+          "popular_count": 48,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 939,
+          "name": "Marne",
+          "label": "Marne (l=939)",
+          "popular_count": 95,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 942,
+          "name": "Meurthe-et-Moselle",
+          "label": "Meurthe-et-Moselle (l=942)",
+          "popular_count": 180,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 943,
+          "name": "Meuse",
+          "label": "Meuse (l=943)",
+          "popular_count": 77,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 157,
+          "name": "Monts du Lyonnais",
+          "label": "Monts du Lyonnais (l=157)",
+          "popular_count": 89,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 174,
+          "name": "Morvan",
+          "label": "Morvan (l=174)",
+          "popular_count": 165,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 946,
+          "name": "Moselle",
+          "label": "Moselle (l=946)",
+          "popular_count": 182,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 953,
+          "name": "Métropole de Lyon",
+          "label": "Métropole de Lyon (l=953)",
+          "popular_count": 64,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 947,
+          "name": "Nièvre",
+          "label": "Nièvre (l=947)",
+          "popular_count": 129,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 948,
+          "name": "Nord",
+          "label": "Nord (l=948)",
+          "popular_count": 439,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 949,
+          "name": "Oise",
+          "label": "Oise (l=949)",
+          "popular_count": 114,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 241,
+          "name": "Palatinate Forest / Haardt",
+          "label": "Palatinate Forest / Haardt (l=241)",
+          "popular_count": 150,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 153,
+          "name": "Pas-de-Calais",
+          "label": "Pas-de-Calais (l=153)",
+          "popular_count": 837,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 952,
+          "name": "Pyrénées-Orientales",
+          "label": "Pyrénées-Orientales (l=952)",
+          "popular_count": 159,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 930,
+          "name": "Rhône",
+          "label": "Rhône (l=930)",
+          "popular_count": 272,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 956,
+          "name": "Sarthe",
+          "label": "Sarthe (l=956)",
+          "popular_count": 49,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 955,
+          "name": "Saône-et-Loire",
+          "label": "Saône-et-Loire (l=955)",
+          "popular_count": 313,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 927,
+          "name": "Seine-et-Marne",
+          "label": "Seine-et-Marne (l=927)",
+          "popular_count": 61,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 926,
+          "name": "Seine-Maritime",
+          "label": "Seine-Maritime (l=926)",
+          "popular_count": 290,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 928,
+          "name": "Seine-Saint-Denis",
+          "label": "Seine-Saint-Denis (l=928)",
+          "popular_count": 7,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 904,
+          "name": "Somme",
+          "label": "Somme (l=904)",
+          "popular_count": 218,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 905,
+          "name": "Tarn",
+          "label": "Tarn (l=905)",
+          "popular_count": 261,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 906,
+          "name": "Tarn-et-Garonne",
+          "label": "Tarn-et-Garonne (l=906)",
+          "popular_count": 426,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 913,
+          "name": "Territoire de Belfort",
+          "label": "Territoire de Belfort (l=913)",
+          "popular_count": 8,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 932,
+          "name": "Upper Rhine",
+          "label": "Upper Rhine (l=932)",
+          "popular_count": 184,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 907,
+          "name": "Var",
+          "label": "Var (l=907)",
+          "popular_count": 223,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 908,
+          "name": "Vendée",
+          "label": "Vendée (l=908)",
+          "popular_count": 91,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 874,
+          "name": "Vercors",
+          "label": "Vercors (l=874)",
+          "popular_count": 117,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 909,
+          "name": "Vienne",
+          "label": "Vienne (l=909)",
+          "popular_count": 13,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 52,
+          "name": "Vosges",
+          "label": "Vosges (l=52)",
+          "popular_count": 657,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 911,
+          "name": "Vosges",
+          "label": "Vosges (l=911)",
+          "popular_count": 303,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 349,
+          "name": "Westrich Plateau",
+          "label": "Westrich Plateau (l=349)",
+          "popular_count": 91,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 912,
+          "name": "Yonne",
+          "label": "Yonne (l=912)",
+          "popular_count": 43,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "DE",
+      "country": "Germany",
+      "groups": [
+        {
+          "locality_id": 341,
+          "name": "Allgäu Alps",
+          "name_nl": "Allgäu",
+          "popular_count": 78,
+          "localities": [
+            {
+              "locality_id": 883,
+              "name": "Swabia",
+              "label": "Swabia (l=883)",
+              "popular_count": 819,
+              "parent_locality_id": null,
+              "macro_locality_id": 341
+            }
+          ]
+        },
+        {
+          "locality_id": 342,
+          "name": "Ammergau Alps",
+          "name_nl": "Ammergau",
+          "popular_count": 16,
+          "localities": []
+        },
+        {
+          "locality_id": 348,
+          "name": "Bavarian Alps",
+          "name_nl": "Beierse Alpen",
+          "popular_count": 161,
+          "localities": [
+            {
+              "locality_id": 230,
+              "name": "Bavaria",
+              "label": "Bavaria (l=230)",
+              "popular_count": 9098,
+              "parent_locality_id": null,
+              "macro_locality_id": 348
+            },
+            {
+              "locality_id": 877,
+              "name": "Upper Bavaria",
+              "label": "Upper Bavaria (l=877)",
+              "popular_count": 1659,
+              "parent_locality_id": null,
+              "macro_locality_id": 348
+            },
+            {
+              "locality_id": 344,
+              "name": "Bavarian Prealps",
+              "label": "Bavarian Prealps (l=344)",
+              "popular_count": 42,
+              "parent_locality_id": null,
+              "macro_locality_id": 348
+            }
+          ]
+        },
+        {
+          "locality_id": 347,
+          "name": "Berchtesgaden Alps",
+          "name_nl": "Berchtesgaden",
+          "popular_count": 31,
+          "localities": []
+        },
+        {
+          "locality_id": 106,
+          "name": "Eifel",
+          "name_nl": "Eifel",
+          "popular_count": 1795,
+          "localities": [
+            {
+              "locality_id": 226,
+              "name": "North Rhine-Westphalia",
+              "label": "North Rhine-Westphalia (l=226)",
+              "popular_count": 3579,
+              "parent_locality_id": null,
+              "macro_locality_id": 106
+            },
+            {
+              "locality_id": 893,
+              "name": "Cologne",
+              "label": "Cologne (l=893)",
+              "popular_count": 1662,
+              "parent_locality_id": null,
+              "macro_locality_id": 106
+            },
+            {
+              "locality_id": 227,
+              "name": "Rhineland-Palatinate",
+              "label": "Rhineland-Palatinate (l=227)",
+              "popular_count": 1151,
+              "parent_locality_id": null,
+              "macro_locality_id": 106
+            }
+          ]
+        },
+        {
+          "locality_id": 245,
+          "name": "Harz",
+          "name_nl": "Harz",
+          "popular_count": 57,
+          "localities": [
+            {
+              "locality_id": 256,
+              "name": "Lower Saxony",
+              "label": "Lower Saxony (l=256)",
+              "popular_count": 287,
+              "parent_locality_id": null,
+              "macro_locality_id": 245
+            },
+            {
+              "locality_id": 229,
+              "name": "Saxony-Anhalt",
+              "label": "Saxony-Anhalt (l=229)",
+              "popular_count": 41,
+              "parent_locality_id": null,
+              "macro_locality_id": 245
+            }
+          ]
+        },
+        {
+          "locality_id": 257,
+          "name": "Sauerland",
+          "name_nl": "Sauerland",
+          "popular_count": 617,
+          "localities": [
+            {
+              "locality_id": 234,
+              "name": "Hesse",
+              "label": "Hesse (l=234)",
+              "popular_count": 891,
+              "parent_locality_id": null,
+              "macro_locality_id": 257
+            },
+            {
+              "locality_id": 894,
+              "name": "Arnsberg",
+              "label": "Arnsberg (l=894)",
+              "popular_count": 882,
+              "parent_locality_id": null,
+              "macro_locality_id": 257
+            },
+            {
+              "locality_id": 889,
+              "name": "Giessen",
+              "label": "Giessen (l=889)",
+              "popular_count": 124,
+              "parent_locality_id": null,
+              "macro_locality_id": 257
+            }
+          ]
+        },
+        {
+          "locality_id": 74,
+          "name": "Black Forest",
+          "name_nl": "Zwart Woud",
+          "popular_count": 676,
+          "localities": [
+            {
+              "locality_id": 69,
+              "name": "Germany",
+              "label": "Germany (l=69)",
+              "popular_count": 17984,
+              "parent_locality_id": null,
+              "macro_locality_id": 74
+            },
+            {
+              "locality_id": 223,
+              "name": "Baden-Württemberg",
+              "label": "Baden-Württemberg (l=223)",
+              "popular_count": 2063,
+              "parent_locality_id": null,
+              "macro_locality_id": 74
+            },
+            {
+              "locality_id": 886,
+              "name": "Freiburg",
+              "label": "Freiburg (l=886)",
+              "popular_count": 689,
+              "parent_locality_id": null,
+              "macro_locality_id": 74
+            },
+            {
+              "locality_id": 887,
+              "name": "Karlsruhe",
+              "label": "Karlsruhe (l=887)",
+              "popular_count": 387,
+              "parent_locality_id": null,
+              "macro_locality_id": 74
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 238,
+          "name": "Baumberge",
+          "label": "Baumberge (l=238)",
+          "popular_count": 94,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 250,
+          "name": "Bavarian Forest",
+          "label": "Bavarian Forest (l=250)",
+          "popular_count": 430,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 261,
+          "name": "Bergisch-Märkisches Hügelland",
+          "label": "Bergisch-Märkisches Hügelland (l=261)",
+          "popular_count": 139,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 242,
+          "name": "Bergisches Land",
+          "label": "Bergisches Land (l=242)",
+          "popular_count": 396,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 232,
+          "name": "Berlin",
+          "label": "Berlin (l=232)",
+          "popular_count": 13,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 236,
+          "name": "Brandenburg",
+          "label": "Brandenburg (l=236)",
+          "popular_count": 8,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 231,
+          "name": "Bremen",
+          "label": "Bremen (l=231)",
+          "popular_count": 4,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 888,
+          "name": "Darmstadt",
+          "label": "Darmstadt (l=888)",
+          "popular_count": 229,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 895,
+          "name": "Detmold",
+          "label": "Detmold (l=895)",
+          "popular_count": 321,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 892,
+          "name": "Düsseldorf",
+          "label": "Düsseldorf (l=892)",
+          "popular_count": 426,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 285,
+          "name": "Elbe Sandstone Mountains",
+          "label": "Elbe Sandstone Mountains (l=285)",
+          "popular_count": 91,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 252,
+          "name": "Fichtel Mountains",
+          "label": "Fichtel Mountains (l=252)",
+          "popular_count": 285,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 896,
+          "name": "Franconian Forest",
+          "label": "Franconian Forest (l=896)",
+          "popular_count": 129,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 248,
+          "name": "Franconian Jura",
+          "label": "Franconian Jura (l=248)",
+          "popular_count": 1143,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 336,
+          "name": "Franconian Keuper-Lias Plains",
+          "label": "Franconian Keuper-Lias Plains (l=336)",
+          "popular_count": 1231,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 335,
+          "name": "Gäu Plateaus",
+          "label": "Gäu Plateaus (l=335)",
+          "popular_count": 271,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 224,
+          "name": "Hamburg",
+          "label": "Hamburg (l=224)",
+          "popular_count": 25,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 239,
+          "name": "Hunsrück",
+          "label": "Hunsrück (l=239)",
+          "popular_count": 297,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 875,
+          "name": "Kaiserstuhl",
+          "label": "Kaiserstuhl (l=875)",
+          "popular_count": 41,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 890,
+          "name": "Kassel",
+          "label": "Kassel (l=890)",
+          "popular_count": 535,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 878,
+          "name": "Lower Bavaria",
+          "label": "Lower Bavaria (l=878)",
+          "popular_count": 1459,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 881,
+          "name": "Lower Franconia",
+          "label": "Lower Franconia (l=881)",
+          "popular_count": 1900,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 334,
+          "name": "Mainfränkische Platten",
+          "label": "Mainfränkische Platten (l=334)",
+          "popular_count": 1302,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 235,
+          "name": "Mecklenburg-Western Pomerania",
+          "label": "Mecklenburg-Western Pomerania (l=235)",
+          "popular_count": 11,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 882,
+          "name": "Middle Franconia",
+          "label": "Middle Franconia (l=882)",
+          "popular_count": 449,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 31,
+          "name": "Montferland",
+          "label": "Montferland (l=31)",
+          "popular_count": 22,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 891,
+          "name": "Münster",
+          "label": "Münster (l=891)",
+          "popular_count": 301,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 352,
+          "name": "Münsterland & Hohe Mark Nature Park",
+          "label": "Münsterland & Hohe Mark Nature Park (l=352)",
+          "popular_count": 210,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 262,
+          "name": "Odenwald",
+          "label": "Odenwald (l=262)",
+          "popular_count": 298,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 251,
+          "name": "Ore Mountains",
+          "label": "Ore Mountains (l=251)",
+          "popular_count": 51,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 282,
+          "name": "Osthessisches Bergland",
+          "label": "Osthessisches Bergland (l=282)",
+          "popular_count": 256,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 260,
+          "name": "Rhön Mountains",
+          "label": "Rhön Mountains (l=260)",
+          "popular_count": 285,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 240,
+          "name": "Saar-Nahe Uplands",
+          "label": "Saar-Nahe Uplands (l=240)",
+          "popular_count": 17,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 225,
+          "name": "Saarland",
+          "label": "Saarland (l=225)",
+          "popular_count": 23,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 339,
+          "name": "Saxon Hills",
+          "label": "Saxon Hills (l=339)",
+          "popular_count": 76,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 338,
+          "name": "Saxon Uplands",
+          "label": "Saxon Uplands (l=338)",
+          "popular_count": 1,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 228,
+          "name": "Saxony",
+          "label": "Saxony (l=228)",
+          "popular_count": 346,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 237,
+          "name": "Schleswig-Holstein",
+          "label": "Schleswig-Holstein (l=237)",
+          "popular_count": 55,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 247,
+          "name": "Spessart",
+          "label": "Spessart (l=247)",
+          "popular_count": 262,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 884,
+          "name": "Stuttgart",
+          "label": "Stuttgart (l=884)",
+          "popular_count": 323,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 249,
+          "name": "Swabian Jura",
+          "label": "Swabian Jura (l=249)",
+          "popular_count": 317,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 337,
+          "name": "Swabian Keuper-Lias Plains",
+          "label": "Swabian Keuper-Lias Plains (l=337)",
+          "popular_count": 140,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 244,
+          "name": "Taunus",
+          "label": "Taunus (l=244)",
+          "popular_count": 68,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 78,
+          "name": "Teutoburg Forest",
+          "label": "Teutoburg Forest (l=78)",
+          "popular_count": 175,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 233,
+          "name": "Thuringia",
+          "label": "Thuringia (l=233)",
+          "popular_count": 389,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 263,
+          "name": "Thuringian Basin",
+          "label": "Thuringian Basin (l=263)",
+          "popular_count": 101,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 254,
+          "name": "Thuringian Forest",
+          "label": "Thuringian Forest (l=254)",
+          "popular_count": 227,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 255,
+          "name": "Thuringian-Franconian Highlands",
+          "label": "Thuringian-Franconian Highlands (l=255)",
+          "popular_count": 292,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 885,
+          "name": "Tübingen",
+          "label": "Tübingen (l=885)",
+          "popular_count": 665,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 880,
+          "name": "Upper Franconia",
+          "label": "Upper Franconia (l=880)",
+          "popular_count": 1585,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 284,
+          "name": "Upper Lusatia",
+          "label": "Upper Lusatia (l=284)",
+          "popular_count": 185,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 879,
+          "name": "Upper Palatinate",
+          "label": "Upper Palatinate (l=879)",
+          "popular_count": 1226,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 253,
+          "name": "Upper Palatine Forest",
+          "label": "Upper Palatine Forest (l=253)",
+          "popular_count": 508,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 246,
+          "name": "Vogelsberg",
+          "label": "Vogelsberg (l=246)",
+          "popular_count": 118,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 340,
+          "name": "Vogtland",
+          "label": "Vogtland (l=340)",
+          "popular_count": 47,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 265,
+          "name": "West Hesse Highlands",
+          "label": "West Hesse Highlands (l=265)",
+          "popular_count": 82,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 243,
+          "name": "Westerwald",
+          "label": "Westerwald (l=243)",
+          "popular_count": 150,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 283,
+          "name": "Wiehen Hills",
+          "label": "Wiehen Hills (l=283)",
+          "popular_count": 43,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "IT",
+      "country": "Italy",
+      "groups": [
+        {
+          "locality_id": 166,
+          "name": "Apennines",
+          "name_nl": "Apennijnen",
+          "popular_count": 2948,
+          "localities": [
+            {
+              "locality_id": 164,
+              "name": "Tuscany",
+              "label": "Tuscany (l=164)",
+              "popular_count": 1654,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 323,
+              "name": "Emilia-Romagna",
+              "label": "Emilia-Romagna (l=323)",
+              "popular_count": 881,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 182,
+              "name": "Marche",
+              "label": "Marche (l=182)",
+              "popular_count": 744,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 319,
+              "name": "Liguria",
+              "label": "Liguria (l=319)",
+              "popular_count": 405,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 799,
+              "name": "Florence",
+              "label": "Florence (l=799)",
+              "popular_count": 325,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 325,
+              "name": "Abruzzo",
+              "label": "Abruzzo (l=325)",
+              "popular_count": 304,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 316,
+              "name": "Lazio",
+              "label": "Lazio (l=316)",
+              "popular_count": 204,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 712,
+              "name": "L'Aquila",
+              "label": "L'Aquila (l=712)",
+              "popular_count": 171,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 754,
+              "name": "Genoa",
+              "label": "Genoa (l=754)",
+              "popular_count": 165,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 326,
+              "name": "Campania",
+              "label": "Campania (l=326)",
+              "popular_count": 131,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 803,
+              "name": "Lucca",
+              "label": "Lucca (l=803)",
+              "popular_count": 111,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 774,
+              "name": "Pesaro and Urbino",
+              "label": "Pesaro and Urbino (l=774)",
+              "popular_count": 87,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            },
+            {
+              "locality_id": 804,
+              "name": "Massa-Carrara",
+              "label": "Massa-Carrara (l=804)",
+              "popular_count": 60,
+              "parent_locality_id": null,
+              "macro_locality_id": 166
+            }
+          ]
+        },
+        {
+          "locality_id": 60,
+          "name": "Dolomites",
+          "name_nl": "Dolomieten",
+          "popular_count": 209,
+          "localities": [
+            {
+              "locality_id": 321,
+              "name": "Veneto",
+              "label": "Veneto (l=321)",
+              "popular_count": 646,
+              "parent_locality_id": null,
+              "macro_locality_id": 60
+            },
+            {
+              "locality_id": 320,
+              "name": "Trentino-South Tyrol",
+              "label": "Trentino-South Tyrol (l=320)",
+              "popular_count": 585,
+              "parent_locality_id": null,
+              "macro_locality_id": 60
+            },
+            {
+              "locality_id": 809,
+              "name": "Bolzano",
+              "label": "Bolzano (l=809)",
+              "popular_count": 317,
+              "parent_locality_id": null,
+              "macro_locality_id": 60
+            },
+            {
+              "locality_id": 808,
+              "name": "Trento",
+              "label": "Trento (l=808)",
+              "popular_count": 268,
+              "parent_locality_id": null,
+              "macro_locality_id": 60
+            },
+            {
+              "locality_id": 813,
+              "name": "Belluno",
+              "label": "Belluno (l=813)",
+              "popular_count": 147,
+              "parent_locality_id": null,
+              "macro_locality_id": 60
+            },
+            {
+              "locality_id": 816,
+              "name": "Treviso",
+              "label": "Treviso (l=816)",
+              "popular_count": 112,
+              "parent_locality_id": null,
+              "macro_locality_id": 60
+            }
+          ]
+        },
+        {
+          "locality_id": 59,
+          "name": "Italian Alps",
+          "name_nl": "Italiaanse Alpen",
+          "popular_count": 3072,
+          "localities": [
+            {
+              "locality_id": 47,
+              "name": "Italy",
+              "label": "Italy (l=47)",
+              "popular_count": 9335,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 375,
+              "name": "Lombardy",
+              "label": "Lombardy (l=375)",
+              "popular_count": 1203,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 318,
+              "name": "Piedmont",
+              "label": "Piedmont (l=318)",
+              "popular_count": 1057,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 781,
+              "name": "Cuneo",
+              "label": "Cuneo (l=781)",
+              "popular_count": 320,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 768,
+              "name": "Sondrio",
+              "label": "Sondrio (l=768)",
+              "popular_count": 222,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 322,
+              "name": "Friuli Venezia Giulia",
+              "label": "Friuli Venezia Giulia (l=322)",
+              "popular_count": 191,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 760,
+              "name": "Brescia",
+              "label": "Brescia (l=760)",
+              "popular_count": 173,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            },
+            {
+              "locality_id": 748,
+              "name": "Udine",
+              "label": "Udine (l=748)",
+              "popular_count": 128,
+              "parent_locality_id": null,
+              "macro_locality_id": 59
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 791,
+          "name": "Agrigento",
+          "label": "Agrigento (l=791)",
+          "popular_count": 5,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 778,
+          "name": "Alessandria",
+          "label": "Alessandria (l=778)",
+          "popular_count": 181,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 770,
+          "name": "Ancona",
+          "label": "Ancona (l=770)",
+          "popular_count": 52,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 317,
+          "name": "Aosta Valley",
+          "label": "Aosta Valley (l=317)",
+          "popular_count": 100,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 327,
+          "name": "Apulia",
+          "label": "Apulia (l=327)",
+          "popular_count": 87,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 800,
+          "name": "Arezzo",
+          "label": "Arezzo (l=800)",
+          "popular_count": 123,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 771,
+          "name": "Ascoli Piceno",
+          "label": "Ascoli Piceno (l=771)",
+          "popular_count": 284,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 779,
+          "name": "Asti",
+          "label": "Asti (l=779)",
+          "popular_count": 53,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 732,
+          "name": "Avellino",
+          "label": "Avellino (l=732)",
+          "popular_count": 18,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 716,
+          "name": "Bari",
+          "label": "Bari (l=716)",
+          "popular_count": 5,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 717,
+          "name": "Barletta-Andria-Trani",
+          "label": "Barletta-Andria-Trani (l=717)",
+          "popular_count": 2,
+          "parent_locality_id": 327,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 329,
+          "name": "Basilicata",
+          "label": "Basilicata (l=329)",
+          "popular_count": 65,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 733,
+          "name": "Benevento",
+          "label": "Benevento (l=733)",
+          "popular_count": 18,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 759,
+          "name": "Bergamo",
+          "label": "Bergamo (l=759)",
+          "popular_count": 204,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 780,
+          "name": "Biella",
+          "label": "Biella (l=780)",
+          "popular_count": 37,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 736,
+          "name": "Bologna",
+          "label": "Bologna (l=736)",
+          "popular_count": 184,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 718,
+          "name": "Brindisi",
+          "label": "Brindisi (l=718)",
+          "popular_count": 7,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 785,
+          "name": "Cagliari",
+          "label": "Cagliari (l=785)",
+          "popular_count": 13,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 330,
+          "name": "Calabria",
+          "label": "Calabria (l=330)",
+          "popular_count": 123,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 792,
+          "name": "Caltanissetta",
+          "label": "Caltanissetta (l=792)",
+          "popular_count": 1,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 775,
+          "name": "Campobasso",
+          "label": "Campobasso (l=775)",
+          "popular_count": 115,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 734,
+          "name": "Caserta",
+          "label": "Caserta (l=734)",
+          "popular_count": 18,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 793,
+          "name": "Catania",
+          "label": "Catania (l=793)",
+          "popular_count": 53,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 726,
+          "name": "Catanzaro",
+          "label": "Catanzaro (l=726)",
+          "popular_count": 23,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 715,
+          "name": "Chieti",
+          "label": "Chieti (l=715)",
+          "popular_count": 71,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 724,
+          "name": "Colli Berici",
+          "label": "Colli Berici (l=724)",
+          "popular_count": 94,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 761,
+          "name": "Como",
+          "label": "Como (l=761)",
+          "popular_count": 107,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 727,
+          "name": "Cosenza",
+          "label": "Cosenza (l=727)",
+          "popular_count": 61,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 728,
+          "name": "Crotone",
+          "label": "Crotone (l=728)",
+          "popular_count": 1,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 819,
+          "name": "Elba",
+          "label": "Elba (l=819)",
+          "popular_count": 25,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 794,
+          "name": "Enna",
+          "label": "Enna (l=794)",
+          "popular_count": 7,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 772,
+          "name": "Fermo",
+          "label": "Fermo (l=772)",
+          "popular_count": 245,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 719,
+          "name": "Foggia",
+          "label": "Foggia (l=719)",
+          "popular_count": 37,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 738,
+          "name": "Forlì-Cesena",
+          "label": "Forlì-Cesena (l=738)",
+          "popular_count": 250,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 750,
+          "name": "Frosinone",
+          "label": "Frosinone (l=750)",
+          "popular_count": 24,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 745,
+          "name": "Gorizia",
+          "label": "Gorizia (l=745)",
+          "popular_count": 13,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 801,
+          "name": "Grosseto",
+          "label": "Grosseto (l=801)",
+          "popular_count": 269,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 755,
+          "name": "Imperia",
+          "label": "Imperia (l=755)",
+          "popular_count": 73,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 776,
+          "name": "Isernia",
+          "label": "Isernia (l=776)",
+          "popular_count": 46,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 756,
+          "name": "La Spezia",
+          "label": "La Spezia (l=756)",
+          "popular_count": 78,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 751,
+          "name": "Latina",
+          "label": "Latina (l=751)",
+          "popular_count": 19,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 720,
+          "name": "Lecce",
+          "label": "Lecce (l=720)",
+          "popular_count": 26,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 763,
+          "name": "Lecco",
+          "label": "Lecco (l=763)",
+          "popular_count": 108,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 802,
+          "name": "Livorno",
+          "label": "Livorno (l=802)",
+          "popular_count": 82,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 773,
+          "name": "Macerata",
+          "label": "Macerata (l=773)",
+          "popular_count": 75,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 765,
+          "name": "Mantua",
+          "label": "Mantua (l=765)",
+          "popular_count": 4,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 723,
+          "name": "Matera",
+          "label": "Matera (l=723)",
+          "popular_count": 15,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 795,
+          "name": "Messina",
+          "label": "Messina (l=795)",
+          "popular_count": 50,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 758,
+          "name": "Milan",
+          "label": "Milan (l=758)",
+          "popular_count": 7,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 739,
+          "name": "Modena",
+          "label": "Modena (l=739)",
+          "popular_count": 70,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 328,
+          "name": "Molise",
+          "label": "Molise (l=328)",
+          "popular_count": 159,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 725,
+          "name": "Montello",
+          "label": "Montello (l=725)",
+          "popular_count": 45,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 766,
+          "name": "Monza and Brianza",
+          "label": "Monza and Brianza (l=766)",
+          "popular_count": 17,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 731,
+          "name": "Naples",
+          "label": "Naples (l=731)",
+          "popular_count": 26,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 782,
+          "name": "Novara",
+          "label": "Novara (l=782)",
+          "popular_count": 72,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 786,
+          "name": "Nuoro",
+          "label": "Nuoro (l=786)",
+          "popular_count": 94,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 787,
+          "name": "Oristano",
+          "label": "Oristano (l=787)",
+          "popular_count": 54,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 814,
+          "name": "Padua",
+          "label": "Padua (l=814)",
+          "popular_count": 68,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 790,
+          "name": "Palermo",
+          "label": "Palermo (l=790)",
+          "popular_count": 43,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 740,
+          "name": "Parma",
+          "label": "Parma (l=740)",
+          "popular_count": 93,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 767,
+          "name": "Pavia",
+          "label": "Pavia (l=767)",
+          "popular_count": 52,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 810,
+          "name": "Perugia",
+          "label": "Perugia (l=810)",
+          "popular_count": 132,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 714,
+          "name": "Pescara",
+          "label": "Pescara (l=714)",
+          "popular_count": 24,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 741,
+          "name": "Piacenza",
+          "label": "Piacenza (l=741)",
+          "popular_count": 107,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 805,
+          "name": "Pisa",
+          "label": "Pisa (l=805)",
+          "popular_count": 198,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 806,
+          "name": "Pistoia",
+          "label": "Pistoia (l=806)",
+          "popular_count": 104,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 746,
+          "name": "Pordenone",
+          "label": "Pordenone (l=746)",
+          "popular_count": 28,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 722,
+          "name": "Potenza",
+          "label": "Potenza (l=722)",
+          "popular_count": 50,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 807,
+          "name": "Prato",
+          "label": "Prato (l=807)",
+          "popular_count": 26,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 796,
+          "name": "Ragusa",
+          "label": "Ragusa (l=796)",
+          "popular_count": 6,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 742,
+          "name": "Ravenna",
+          "label": "Ravenna (l=742)",
+          "popular_count": 61,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 729,
+          "name": "Reggio Calabria",
+          "label": "Reggio Calabria (l=729)",
+          "popular_count": 32,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 743,
+          "name": "Reggio Emilia",
+          "label": "Reggio Emilia (l=743)",
+          "popular_count": 59,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 752,
+          "name": "Rieti",
+          "label": "Rieti (l=752)",
+          "popular_count": 64,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 744,
+          "name": "Rimini",
+          "label": "Rimini (l=744)",
+          "popular_count": 57,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 749,
+          "name": "Rome",
+          "label": "Rome (l=749)",
+          "popular_count": 71,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 735,
+          "name": "Salerno",
+          "label": "Salerno (l=735)",
+          "popular_count": 52,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 141,
+          "name": "Sardinia",
+          "label": "Sardinia (l=141)",
+          "popular_count": 325,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 788,
+          "name": "Sassari",
+          "label": "Sassari (l=788)",
+          "popular_count": 67,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 757,
+          "name": "Savona",
+          "label": "Savona (l=757)",
+          "popular_count": 89,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 142,
+          "name": "Sicily",
+          "label": "Sicily (l=142)",
+          "popular_count": 224,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 149,
+          "name": "Siena",
+          "label": "Siena (l=149)",
+          "popular_count": 360,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 789,
+          "name": "South Sardinia",
+          "label": "South Sardinia (l=789)",
+          "popular_count": 97,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 797,
+          "name": "Syracuse",
+          "label": "Syracuse (l=797)",
+          "popular_count": 21,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 721,
+          "name": "Taranto",
+          "label": "Taranto (l=721)",
+          "popular_count": 10,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 713,
+          "name": "Teramo",
+          "label": "Teramo (l=713)",
+          "popular_count": 38,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 811,
+          "name": "Terni",
+          "label": "Terni (l=811)",
+          "popular_count": 92,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 798,
+          "name": "Trapani",
+          "label": "Trapani (l=798)",
+          "popular_count": 39,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 747,
+          "name": "Trieste",
+          "label": "Trieste (l=747)",
+          "popular_count": 22,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 777,
+          "name": "Turin",
+          "label": "Turin (l=777)",
+          "popular_count": 178,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 324,
+          "name": "Umbria",
+          "label": "Umbria (l=324)",
+          "popular_count": 224,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 769,
+          "name": "Varese",
+          "label": "Varese (l=769)",
+          "popular_count": 311,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 783,
+          "name": "Verbano-Cusio-Ossola",
+          "label": "Verbano-Cusio-Ossola (l=783)",
+          "popular_count": 179,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 784,
+          "name": "Vercelli",
+          "label": "Vercelli (l=784)",
+          "popular_count": 35,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 817,
+          "name": "Verona",
+          "label": "Verona (l=817)",
+          "popular_count": 115,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 730,
+          "name": "Vibo Valentia",
+          "label": "Vibo Valentia (l=730)",
+          "popular_count": 8,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 818,
+          "name": "Vicenza",
+          "label": "Vicenza (l=818)",
+          "popular_count": 204,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 753,
+          "name": "Viterbo",
+          "label": "Viterbo (l=753)",
+          "popular_count": 26,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "ES",
+      "country": "Spain",
+      "groups": [
+        {
+          "locality_id": 83,
+          "name": "Spanish Pyrenees",
+          "name_nl": "Pyrenéeën (ES)",
+          "popular_count": 519,
+          "localities": [
+            {
+              "locality_id": 72,
+              "name": "Spain",
+              "label": "Spain (l=72)",
+              "popular_count": 7372,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            },
+            {
+              "locality_id": 147,
+              "name": "Catalonia",
+              "label": "Catalonia (l=147)",
+              "popular_count": 840,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            },
+            {
+              "locality_id": 222,
+              "name": "Basque Mountains",
+              "label": "Basque Mountains (l=222)",
+              "popular_count": 693,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            },
+            {
+              "locality_id": 221,
+              "name": "Basque Country",
+              "label": "Basque Country (l=221)",
+              "popular_count": 535,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            },
+            {
+              "locality_id": 186,
+              "name": "Aragon",
+              "label": "Aragon (l=186)",
+              "popular_count": 341,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            },
+            {
+              "locality_id": 220,
+              "name": "Navarre",
+              "label": "Navarre (l=220)",
+              "popular_count": 186,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            },
+            {
+              "locality_id": 648,
+              "name": "Costa Brava",
+              "label": "Costa Brava (l=648)",
+              "popular_count": 161,
+              "parent_locality_id": null,
+              "macro_locality_id": 83
+            }
+          ]
+        },
+        {
+          "locality_id": 212,
+          "name": "Sierra Nevada",
+          "name_nl": "Sierra Nevada",
+          "popular_count": 52,
+          "localities": [
+            {
+              "locality_id": 163,
+              "name": "Andalusia",
+              "label": "Andalusia (l=163)",
+              "popular_count": 805,
+              "parent_locality_id": null,
+              "macro_locality_id": 212
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 189,
+          "name": "Asturias",
+          "label": "Asturias (l=189)",
+          "popular_count": 537,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 294,
+          "name": "Balearic Islands",
+          "label": "Balearic Islands (l=294)",
+          "popular_count": 264,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 295,
+          "name": "Canary Islands",
+          "label": "Canary Islands (l=295)",
+          "popular_count": 536,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 190,
+          "name": "Cantabria",
+          "label": "Cantabria (l=190)",
+          "popular_count": 138,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 103,
+          "name": "Cantabrian Mountains",
+          "label": "Cantabrian Mountains (l=103)",
+          "popular_count": 892,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 196,
+          "name": "Castile and León",
+          "label": "Castile and León (l=196)",
+          "popular_count": 1188,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 195,
+          "name": "Castile–La Mancha",
+          "label": "Castile–La Mancha (l=195)",
+          "popular_count": 358,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 197,
+          "name": "Catalan Coastal Range",
+          "label": "Catalan Coastal Range (l=197)",
+          "popular_count": 578,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 651,
+          "name": "Costa Blanca",
+          "label": "Costa Blanca (l=651)",
+          "popular_count": 222,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 649,
+          "name": "Costa del Azahar",
+          "label": "Costa del Azahar (l=649)",
+          "popular_count": 391,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 652,
+          "name": "Costa del Sol",
+          "label": "Costa del Sol (l=652)",
+          "popular_count": 209,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 650,
+          "name": "Costa Dorada",
+          "label": "Costa Dorada (l=650)",
+          "popular_count": 226,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 107,
+          "name": "El Hierro",
+          "label": "El Hierro (l=107)",
+          "popular_count": 18,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 187,
+          "name": "Extremadura",
+          "label": "Extremadura (l=187)",
+          "popular_count": 223,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 109,
+          "name": "Fuerteventura",
+          "label": "Fuerteventura (l=109)",
+          "popular_count": 73,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 188,
+          "name": "Galicia",
+          "label": "Galicia (l=188)",
+          "popular_count": 446,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 92,
+          "name": "Gran Canaria",
+          "label": "Gran Canaria (l=92)",
+          "popular_count": 69,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 101,
+          "name": "Ibiza",
+          "label": "Ibiza (l=101)",
+          "popular_count": 39,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 100,
+          "name": "La Gomera",
+          "label": "La Gomera (l=100)",
+          "popular_count": 27,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 94,
+          "name": "La Palma",
+          "label": "La Palma (l=94)",
+          "popular_count": 43,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 191,
+          "name": "La Rioja",
+          "label": "La Rioja (l=191)",
+          "popular_count": 105,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 108,
+          "name": "Lanzarote",
+          "label": "Lanzarote (l=108)",
+          "popular_count": 37,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 194,
+          "name": "Madrid",
+          "label": "Madrid (l=194)",
+          "popular_count": 127,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 93,
+          "name": "Mallorca",
+          "label": "Mallorca (l=93)",
+          "popular_count": 222,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 102,
+          "name": "Menorca",
+          "label": "Menorca (l=102)",
+          "popular_count": 3,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 104,
+          "name": "Montes de León",
+          "label": "Montes de León (l=104)",
+          "popular_count": 116,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 208,
+          "name": "Montes de Toledo",
+          "label": "Montes de Toledo (l=208)",
+          "popular_count": 199,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 184,
+          "name": "Murcia",
+          "label": "Murcia (l=184)",
+          "popular_count": 134,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 105,
+          "name": "Picos de Europa",
+          "label": "Picos de Europa (l=105)",
+          "popular_count": 24,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 639,
+          "name": "Serra de Tramuntana",
+          "label": "Serra de Tramuntana (l=639)",
+          "popular_count": 173,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 615,
+          "name": "Sierra de Ayllón",
+          "label": "Sierra de Ayllón (l=615)",
+          "popular_count": 49,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 613,
+          "name": "Sierra de Béjar",
+          "label": "Sierra de Béjar (l=613)",
+          "popular_count": 82,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 614,
+          "name": "Sierra de Francia",
+          "label": "Sierra de Francia (l=614)",
+          "popular_count": 87,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 200,
+          "name": "Sierra de Gata",
+          "label": "Sierra de Gata (l=200)",
+          "popular_count": 25,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 199,
+          "name": "Sierra de Gredos",
+          "label": "Sierra de Gredos (l=199)",
+          "popular_count": 143,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 206,
+          "name": "Sierra de Guadalupe",
+          "label": "Sierra de Guadalupe (l=206)",
+          "popular_count": 78,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 111,
+          "name": "Sierra de Guadarrama",
+          "label": "Sierra de Guadarrama (l=111)",
+          "popular_count": 122,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 198,
+          "name": "Sierra de Somosierra",
+          "label": "Sierra de Somosierra (l=198)",
+          "popular_count": 48,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 209,
+          "name": "Sierra Morena",
+          "label": "Sierra Morena (l=209)",
+          "popular_count": 175,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 110,
+          "name": "Sistema Central",
+          "label": "Sistema Central (l=110)",
+          "popular_count": 747,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 91,
+          "name": "Tenerife",
+          "label": "Tenerife (l=91)",
+          "popular_count": 269,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 185,
+          "name": "Valencia",
+          "label": "Valencia (l=185)",
+          "popular_count": 84,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "CH",
+      "country": "Switzerland",
+      "groups": [
+        {
+          "locality_id": 56,
+          "name": "Swiss Alps",
+          "name_nl": "Zwitserse Alpen",
+          "popular_count": 1075,
+          "localities": [
+            {
+              "locality_id": 45,
+              "name": "Switzerland",
+              "label": "Switzerland (l=45)",
+              "popular_count": 2385,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            },
+            {
+              "locality_id": 499,
+              "name": "Bern",
+              "label": "Bern (l=499)",
+              "popular_count": 283,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            },
+            {
+              "locality_id": 405,
+              "name": "Vaud",
+              "label": "Vaud (l=405)",
+              "popular_count": 202,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            },
+            {
+              "locality_id": 365,
+              "name": "Valais",
+              "label": "Valais (l=365)",
+              "popular_count": 160,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            },
+            {
+              "locality_id": 506,
+              "name": "Grisons",
+              "label": "Grisons (l=506)",
+              "popular_count": 124,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            },
+            {
+              "locality_id": 514,
+              "name": "Tessin",
+              "label": "Tessin (l=514)",
+              "popular_count": 124,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            },
+            {
+              "locality_id": 515,
+              "name": "Uri",
+              "label": "Uri (l=515)",
+              "popular_count": 24,
+              "parent_locality_id": null,
+              "macro_locality_id": 56
+            }
+          ]
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 507,
+          "name": "Appenzell",
+          "label": "Appenzell (l=507)",
+          "popular_count": 22,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 503,
+          "name": "Argovia",
+          "label": "Argovia (l=503)",
+          "popular_count": 422,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 504,
+          "name": "Basle-Country & City",
+          "label": "Basle-Country & City (l=504)",
+          "popular_count": 270,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 500,
+          "name": "Fribourg",
+          "label": "Fribourg (l=500)",
+          "popular_count": 64,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 66,
+          "name": "Geneva",
+          "label": "Geneva (l=66)",
+          "popular_count": 10,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 508,
+          "name": "Glarus",
+          "label": "Glarus (l=508)",
+          "popular_count": 24,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 496,
+          "name": "Kanton Jura",
+          "label": "Kanton Jura (l=496)",
+          "popular_count": 32,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 505,
+          "name": "Lucerne",
+          "label": "Lucerne (l=505)",
+          "popular_count": 76,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 497,
+          "name": "Neuchatel",
+          "label": "Neuchatel (l=497)",
+          "popular_count": 48,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 509,
+          "name": "Nidwald & Obwald",
+          "label": "Nidwald & Obwald (l=509)",
+          "popular_count": 35,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 512,
+          "name": "Saint Gallen",
+          "label": "Saint Gallen (l=512)",
+          "popular_count": 76,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 510,
+          "name": "Schaffhausen",
+          "label": "Schaffhausen (l=510)",
+          "popular_count": 13,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 511,
+          "name": "Schwyz",
+          "label": "Schwyz (l=511)",
+          "popular_count": 68,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 502,
+          "name": "Solothurn",
+          "label": "Solothurn (l=502)",
+          "popular_count": 152,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 513,
+          "name": "Thurgovia",
+          "label": "Thurgovia (l=513)",
+          "popular_count": 28,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 516,
+          "name": "Zug",
+          "label": "Zug (l=516)",
+          "popular_count": 16,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 517,
+          "name": "Zürich",
+          "label": "Zürich (l=517)",
+          "popular_count": 111,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    },
+    {
+      "country_iso": "AT",
+      "country": "Austria",
+      "groups": [
+        {
+          "locality_id": 305,
+          "name": "Carinthia",
+          "name_nl": "Karinthië",
+          "popular_count": 372,
+          "localities": []
+        },
+        {
+          "locality_id": 87,
+          "name": "Austrian Alps",
+          "name_nl": "Oostenrijkse Alpen",
+          "popular_count": 1627,
+          "localities": [
+            {
+              "locality_id": 73,
+              "name": "Austria",
+              "label": "Austria (l=73)",
+              "popular_count": 3190,
+              "parent_locality_id": null,
+              "macro_locality_id": 87
+            },
+            {
+              "locality_id": 292,
+              "name": "Tyrol",
+              "label": "Tyrol (l=292)",
+              "popular_count": 349,
+              "parent_locality_id": null,
+              "macro_locality_id": 87
+            },
+            {
+              "locality_id": 293,
+              "name": "Salzburg",
+              "label": "Salzburg (l=293)",
+              "popular_count": 297,
+              "parent_locality_id": null,
+              "macro_locality_id": 87
+            },
+            {
+              "locality_id": 291,
+              "name": "Vorarlberg",
+              "label": "Vorarlberg (l=291)",
+              "popular_count": 75,
+              "parent_locality_id": null,
+              "macro_locality_id": 87
+            }
+          ]
+        },
+        {
+          "locality_id": 306,
+          "name": "Styria",
+          "name_nl": "Salzburg",
+          "popular_count": 906,
+          "localities": []
+        }
+      ],
+      "ungrouped": [
+        {
+          "locality_id": 313,
+          "name": "Burgenland",
+          "label": "Burgenland (l=313)",
+          "popular_count": 141,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 346,
+          "name": "Chiemgau Alps",
+          "label": "Chiemgau Alps (l=346)",
+          "popular_count": 57,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 345,
+          "name": "Karwendel",
+          "label": "Karwendel (l=345)",
+          "popular_count": 16,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 308,
+          "name": "Lower Austria",
+          "label": "Lower Austria (l=308)",
+          "popular_count": 238,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 472,
+          "name": "South-Moravian Carpathians",
+          "label": "South-Moravian Carpathians (l=472)",
+          "popular_count": 18,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 307,
+          "name": "Upper Austria",
+          "label": "Upper Austria (l=307)",
+          "popular_count": 788,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 309,
+          "name": "Vienna",
+          "label": "Vienna (l=309)",
+          "popular_count": 14,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        },
+        {
+          "locality_id": 343,
+          "name": "Wetterstein",
+          "label": "Wetterstein (l=343)",
+          "popular_count": 18,
+          "parent_locality_id": null,
+          "macro_locality_id": null
+        }
+      ]
+    }
+  ]
+}

@@ -93,6 +93,15 @@
     .dup-row-action { margin-top: 0.35rem; font-size: 0.78rem; padding: 0.35rem 0.55rem; }
     #dupGhCmd { min-height: 64px; font-size: 0.72rem; margin-top: 0.5rem; }
     #dupPager { margin-top: 0.5rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
+    #hierTree { margin-top: 0.75rem; }
+    .hier-group { margin-bottom: 0.5rem; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.35rem 0.5rem; background: #fafafa; }
+    .hier-group summary { cursor: pointer; font-weight: 700; color: #0f766e; }
+    .hier-children { margin: 0.35rem 0 0.25rem 0.75rem; }
+    .hier-loc-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; padding: 0.25rem 0; font-size: 0.88rem; }
+    .hier-loc-row--macro { background: #ecfdf5; border-radius: 6px; padding: 0.35rem 0.45rem; margin: 0.25rem 0; }
+    .hier-loc-name { flex: 1 1 10rem; min-width: 0; }
+    .hier-loc-meta { font-size: 0.78rem; color: #64748b; }
+    .hier-loc-row button { margin: 0; padding: 0.3rem 0.55rem; font-size: 0.78rem; }
     .dup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; align-items: center; }
     button.dup-danger { background: #9a3412; }
     button.dup-danger:hover { background: #7c2d12; }
@@ -153,6 +162,19 @@
         <button type="button" id="tabMap">Regio op kaart</button>
         <button type="button" id="tabManual">Handmatig / preset</button>
         <button type="button" id="tabDuplicates">Duplicaten</button>
+        <button type="button" id="tabHierarchy">Klimgebieden</button>
+      </div>
+
+      <div id="panelHierarchy" class="panel">
+        <p class="hint">
+          Overzicht van belangrijke klimgebieden (NL, BE, FR, DE, IT, ES, CH, AT).
+          Onder elk macro-gebied staan Climbfinder-regio’s die daar (volgens ranking-slugs) onder vallen.
+          <strong>Import</strong> opent de GitHub-import voor die regio. Nieuwe imports zetten elke klim op de
+          <strong>kleinste passende regio</strong> (veld <code>region</code> op de klim), ook als je een groter gebied downloadt.
+        </p>
+        <label for="hierCountrySelect">Land</label>
+        <select id="hierCountrySelect"></select>
+        <div id="hierTree"></div>
       </div>
 
       <div id="panelRegion" class="panel active">
@@ -237,6 +259,7 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="assets/import-status.js?v=20261007f"></script>
   <script src="assets/duplicate-admin.js?v=20261007g"></script>
+  <script src="assets/region-hierarchy-picker.js?v=20261007h"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
@@ -452,6 +475,32 @@
     }
 
     let duplicatesLoaded = false;
+    let hierarchyInited = false;
+
+    function pickRegionForImport(localityId) {
+      if (!regionsCatalog) return false;
+      let found = null;
+      for (const block of regionsCatalog.countries) {
+        const r = block.regions.find((x) => x.id === localityId);
+        if (r) {
+          found = { ...r, country: block.country, country_iso: r.country_iso || null };
+          break;
+        }
+      }
+      if (!found) return false;
+      const countrySel = document.getElementById("countrySelect");
+      countrySel.value = found.country;
+      fillRegionSelect();
+      const regionSel = document.getElementById("regionSelect");
+      regionSel.value = String(localityId);
+      selectedRegion = found;
+      updateRankingMeta();
+      regionPicker?.syncFromDropdown?.();
+      setTab("region");
+      refreshGhCommand();
+      log(`Regio gekozen: ${found.name} (l=${localityId}) — start import op tab Regio.`);
+      return true;
+    }
 
     function setTab(which) {
       activeImportTab = which;
@@ -459,19 +508,23 @@
       document.getElementById("tabMap").classList.toggle("active", which === "map");
       document.getElementById("tabManual").classList.toggle("active", which === "manual");
       document.getElementById("tabDuplicates").classList.toggle("active", which === "duplicates");
+      document.getElementById("tabHierarchy").classList.toggle("active", which === "hierarchy");
       document.getElementById("panelRegion").classList.toggle("active", which === "region");
       document.getElementById("panelMap").classList.toggle("active", which === "map");
       document.getElementById("panelManual").classList.toggle("active", which === "manual");
       document.getElementById("panelDuplicates").classList.toggle("active", which === "duplicates");
+      document.getElementById("panelHierarchy").classList.toggle("active", which === "hierarchy");
       document.getElementById("fietsklim-app-root").classList.toggle("wide", which === "map");
       const panelRegion = document.getElementById("panelRegion");
       const panelMap = document.getElementById("panelMap");
       const panelManual = document.getElementById("panelManual");
       const panelDuplicates = document.getElementById("panelDuplicates");
+      const panelHierarchy = document.getElementById("panelHierarchy");
       if (panelRegion) panelRegion.inert = which !== "region";
       if (panelMap) panelMap.inert = which !== "map";
       if (panelManual) panelManual.inert = which !== "manual";
       if (panelDuplicates) panelDuplicates.inert = which !== "duplicates";
+      if (panelHierarchy) panelHierarchy.inert = which !== "hierarchy";
       if (which === "map") {
         regionPicker?.onMapTabShown();
         setTimeout(() => document.getElementById("mapRegionSearch")?.focus({ preventScroll: true }), 50);
@@ -482,12 +535,21 @@
         duplicatesLoaded = true;
         void window.FietsKlimDuplicateAdmin.refreshReport();
       }
+      if (which === "hierarchy" && !hierarchyInited && window.FietsKlimRegionHierarchy) {
+        hierarchyInited = true;
+        void window.FietsKlimRegionHierarchy.init({
+          onPickImport: (id) => pickRegionForImport(id),
+          publishedByLocality: () => publishedByLocality || {},
+          importStatus: typeof FietsKlimImportStatus !== "undefined" ? FietsKlimImportStatus : undefined,
+        });
+      }
     }
 
     document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
     document.getElementById("tabMap").addEventListener("click", () => setTab("map"));
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
     document.getElementById("tabDuplicates").addEventListener("click", () => setTab("duplicates"));
+    document.getElementById("tabHierarchy").addEventListener("click", () => setTab("hierarchy"));
 
     function hideClimbSearchResults() {
       const el = document.getElementById("climbSearchResults");
