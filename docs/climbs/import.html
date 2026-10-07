@@ -113,6 +113,15 @@
     .climb-lookup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: flex-end; margin-top: 0.5rem; }
     .climb-lookup-actions .grow { flex: 1 1 14rem; min-width: 0; }
     .climb-lookup-actions button { margin-top: 0; }
+    details.import-guide { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.5rem 0.85rem; margin: 0 0 1rem; }
+    details.import-guide summary { cursor: pointer; font-weight: 700; color: #0f766e; }
+    .import-guide-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 0.65rem 0 0.25rem; }
+    .import-guide-table th, .import-guide-table td { text-align: left; vertical-align: top; padding: 0.35rem 0.5rem; border-bottom: 1px solid #e2e8f0; }
+    .import-guide-table th { color: #475569; font-weight: 600; width: 28%; }
+    .import-guide-table code { font-size: 0.78rem; }
+    .panel-lead { font-size: 0.92rem; font-weight: 600; color: #0f172a; margin: 0 0 0.35rem; }
+    .action-group { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #e2e8f0; }
+    .action-group h4 { margin: 0 0 0.35rem; font-size: 0.88rem; color: #334155; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
@@ -134,6 +143,38 @@
     <p class="links">Polyline + hoogteprofiel per klim. <a href="index.html">← Database</a> · <a href="../index.html">HTML Scraper</a></p>
     <p id="siteDatabaseSummary" class="hint" style="margin:0.35rem 0 0.75rem;font-weight:600;color:#0f766e;"></p>
 
+    <details class="import-guide">
+      <summary>Wat doet wat? (import vs onderhoud)</summary>
+      <table class="import-guide-table">
+        <thead>
+          <tr><th>Doel</th><th>Waar op deze pagina</th><th>GitHub Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Nieuwe klimmen binnenhalen</strong></td>
+            <td>Land/regio + <em>aantal klimmen</em> → tab <strong>Regio</strong> → <strong>Start serverimport</strong>. Of: <strong>Klimgebieden</strong> / <strong>Kaart</strong> (kiest regio, start <em>niet</em> automatisch).</td>
+            <td><code>climbfinder-import.yml</code></td>
+          </tr>
+          <tr>
+            <td><strong>Eén klim opzoeken</strong></td>
+            <td>Zoekveld bovenaan → status + kaart. <strong>Download regio</strong> = direct workflow (zonder limit-stap).</td>
+            <td><code>climbfinder-import.yml</code></td>
+          </tr>
+          <tr>
+            <td><strong>Labels op bestaande klimmen</strong></td>
+            <td>Tab <strong>Onderhoud</strong> → herlabel (<code>region</code> weergave + ids). Geen nieuwe downloads.</td>
+            <td><code>backfill-climb-regions.yml</code></td>
+          </tr>
+          <tr>
+            <td><strong>Dubbele rijen verwijderen</strong></td>
+            <td>Tab <strong>Duplicaten</strong>: zelfde slug in meerdere JSON-bestanden → behoud kopie in <em>kleinste dataset</em> (min. klimmen in bestand).</td>
+            <td><code>dedupe-all-smallest-region.yml</code> of <code>remove-duplicate-climbs.yml</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="hint" style="margin:0.35rem 0 0">Log onderaan toont elke actie. Zonder Firebase één-klik: workflow handmatig <strong>Run workflow</strong> op GitHub.</p>
+    </details>
+
     <div class="card">
       <div class="grid2 region-toolbar">
         <div class="climb-search-block">
@@ -149,7 +190,7 @@
               </div>
               <button type="button" id="climbLookupSortBtn" class="secondary">Sorteer: klein → groot (Popular)</button>
               <button type="button" id="climbLookupOpenMapTabBtn" class="secondary">Grote regiokaart</button>
-              <button type="button" id="climbLookupImportBtn">Download regio (GitHub)</button>
+              <button type="button" id="climbLookupImportBtn">Start GitHub-import (direct)</button>
               <button type="button" id="climbLookupManualBtn" class="secondary">Alleen deze klim (browser)</button>
             </div>
             <p class="hint">Regio’s: Popular-telling (klein = specifieker gebied). Groen op kaart = klim al in dataset; ring = Climbfinder-regio’s waar de slug in ranking-cache staat.</p>
@@ -182,36 +223,27 @@
       <p id="rankingMeta"></p>
 
       <div class="tabs">
-        <button type="button" id="tabRegion" class="active">Regio (GitHub import)</button>
-        <button type="button" id="tabMap">Regio op kaart</button>
-        <button type="button" id="tabManual">Handmatig / preset</button>
-        <button type="button" id="tabDuplicates">Duplicaten</button>
+        <button type="button" id="tabRegion" class="active">① Regio → download</button>
         <button type="button" id="tabHierarchy">Klimgebieden</button>
+        <button type="button" id="tabMap">Kaart</button>
+        <button type="button" id="tabManual">Handmatig</button>
+        <button type="button" id="tabDuplicates">Duplicaten</button>
+        <button type="button" id="tabMaintenance">Onderhoud</button>
       </div>
 
       <div id="panelHierarchy" class="panel">
+        <p class="panel-lead">Stap 1 — regio kiezen (macro-overzicht)</p>
         <p class="hint">
-          Overzicht van belangrijke klimgebieden (NL, BE, FR, DE, IT, ES, CH, AT).
-          Onder elk macro-gebied staan Climbfinder-regio’s die daar (volgens ranking-slugs) onder vallen.
-          <strong>Import</strong> kiest de regio en opent tab <strong>Regio</strong> — stel daar <strong>aantal klimmen</strong> in en klik pas daarna <strong>Start serverimport</strong> (geen automatische GitHub-run). Nieuwe imports zetten elke klim op de
-          <strong>weergave-regio</strong> (veld <code>region</code>: sub-land / Climbfinder-naam / Overig), ook bij import van een heel land.
+          NL, BE, FR, DE, IT, ES, CH, AT. Knop <strong>Kies regio</strong> → tab Regio + focus op aantal klimmen.
+          <strong>●/○</strong> = apart JSON-bestand voor die Climbfinder-regio; <strong>≈N gelabeld</strong> = klimmen op site met die weergave-regio (ook uit land-import).
         </p>
         <label for="hierCountrySelect">Land</label>
         <select id="hierCountrySelect"></select>
         <div id="hierTree"></div>
-        <div class="dup-actions" style="margin-top:0.75rem">
-          <button type="button" id="backfillRegionsBtn" class="secondary">
-            Herlabel alle klimmen op site (GitHub)
-          </button>
-        </div>
-        <p class="hint">
-          Alle bundles opnieuw: <code>region</code> (weergave sub-land / Climbfinder / Overig),
-          plus <code>display_locality_id</code> en <code>resolved_locality_id</code>.
-          Vooral na verversen van de <strong>ranking-cache</strong> (minder *Overig*). Nieuwe imports zijn al correct gelabeld.
-        </p>
       </div>
 
       <div id="panelRegion" class="panel active">
+        <p class="panel-lead">Stap 2 — download Popular-ranking (GitHub)</p>
         <p class="hint" id="githubImportHint"><strong>Aanbevolen:</strong> <strong>GitHub Actions</strong> met <code>publish_to_site=true</code> (standaard): na de run staat JSON automatisch op de kaart — geen zip/upload. Optioneel <code>merge_into=nl-popular</code> om meerdere imports samen te voegen. Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
         <p class="hint" id="oneClickStatus" hidden></p>
         <button type="button" id="startGithubBtn">Start serverimport (GitHub Actions)</button>
@@ -226,6 +258,7 @@
       </div>
 
       <div id="panelMap" class="panel">
+        <p class="panel-lead">Stap 1 — regio kiezen (kaart)</p>
         <p class="hint">Alle Climbfinder-<strong>regio’s</strong> (~866) op de kaart. Stippen = gemiddelde van Popular-klimmen in die regio (Climbfinder API). <strong>Dropdown</strong> (land/regio) past kaart mee aan; klik stip = zelfde keuze. Klik lege kaart = overzicht. Kleur = importstatus. Grote regio’s (bv. “Alps”, “World”) kunnen een breed gebied samenvatten.</p>
         <form id="mapSearchForm" class="map-toolbar" action="#" autocomplete="off">
           <div class="grow">
@@ -239,10 +272,11 @@
       </div>
 
       <div id="panelDuplicates" class="panel">
+        <p class="panel-lead">Onderhoud — dubbele rijen (niet hetzelfde als herlabelen)</p>
         <p class="hint">
-          Klimmen met dezelfde <strong>Climbfinder-slug</strong> in meerdere regio-bestanden op je site.
-          Vink kopieën aan om te verwijderen (laat minstens één regio per klim staan).
-          Verwijderen gaat via <strong>GitHub Actions</strong> — geen lokale tools nodig.
+          Dezelfde <strong>slug</strong> in <strong>meerdere JSON-bestanden</strong> (bijv. Alps + Isère).
+          Per klim blijft één kopie in het <strong>kleinste dataset</strong> (min. aantal klimmen in dat bestand).
+          Dit verandert geen <code>region</code>-weergave — daarvoor tab <strong>Onderhoud</strong>.
         </p>
         <p id="dupSummary" class="hint" style="font-weight:600;color:#7c3aed;"></p>
         <div class="dup-toolbar">
@@ -251,13 +285,23 @@
         </div>
         <div id="dupList"><p class="hint">Open dit tabblad om duplicaten te laden…</p></div>
         <div id="dupPager"></div>
-        <div class="dup-actions">
-          <button type="button" id="dupApplyAllSmallestBtn" class="dup-danger">
-            Alles opschonen — behoud kleinste regio (GitHub)
-          </button>
-          <button type="button" id="dupSelectAllSmallestBtn" class="secondary">Alleen selecteren (review)</button>
-          <button type="button" id="dupApplyBtn">Verwijder selectie (max 120)</button>
-          <button type="button" id="dupCopyGhBtn" class="secondary">Kopieer gh-commando</button>
+        <div class="action-group">
+          <h4>Alles in één run</h4>
+          <div class="dup-actions">
+            <button type="button" id="dupApplyAllSmallestBtn" class="dup-danger">
+              Alle duplicaten opschonen — behoud kleinste dataset (GitHub)
+            </button>
+          </div>
+          <p class="hint">Workflow <code>dedupe-all-smallest-region.yml</code> — geen handmatige vinkjes.</p>
+        </div>
+        <div class="action-group">
+          <h4>Handmatig per klim</h4>
+          <div class="dup-actions">
+            <button type="button" id="dupSelectAllSmallestBtn" class="secondary">Selecteer extra kopieën (review)</button>
+            <button type="button" id="dupApplyBtn">Verwijder selectie (max 120)</button>
+            <button type="button" id="dupCopyGhBtn" class="secondary">Kopieer gh-commando</button>
+          </div>
+          <p class="hint">Workflow <code>remove-duplicate-climbs.yml</code>.</p>
         </div>
         <textarea id="dupGhCmd" readonly aria-label="gh workflow commando"></textarea>
         <p class="actions-links">
@@ -265,7 +309,23 @@
         </p>
       </div>
 
+      <div id="panelMaintenance" class="panel">
+        <p class="panel-lead">Onderhoud — labels op bestaande klimmen</p>
+        <p class="hint">
+          Geen nieuwe downloads. Werkt alle bundles bij: <code>region</code> (weergave sub-land / Climbfinder / Overig),
+          <code>display_locality_id</code>, <code>resolved_locality_id</code>.
+          Vooral na <strong>ranking-cache</strong> verversen (minder *Overig*).
+        </p>
+        <button type="button" id="backfillRegionsBtn" class="secondary">
+          Herlabel alle klimmen op site (GitHub)
+        </button>
+        <p class="actions-links">
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml" target="_blank" rel="noopener">Open Actions → Backfill climb regions</a>
+        </p>
+      </div>
+
       <div id="panelManual" class="panel">
+        <p class="panel-lead">Experimenteel — enkele slugs in browser</p>
         <p class="hint">Gebruik de <strong>slug</strong> uit de URL (<code>…/climbs/cauberg</code>), geen vrije naam — tenzij die exact overeenkomt met de slug. Meerdere regels = meerdere klimmen.</p>
         <label for="preset">Preset (optioneel)</label>
         <select id="preset">
@@ -279,7 +339,8 @@
       </div>
 
       <button type="button" id="downloadBtn" class="secondary" disabled>Download JSON</button>
-      <div id="log"></div>
+      <label for="log" class="hint" style="margin-top:0.75rem;font-weight:600;color:#334155">Actielog (GitHub / fouten)</label>
+      <div id="log" role="log" aria-live="polite"></div>
     </div>
   </div>
 
@@ -292,8 +353,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="assets/import-status.js?v=20261007f"></script>
-  <script src="assets/duplicate-admin.js?v=20261007g"></script>
-  <script src="assets/region-hierarchy-picker.js?v=20261007fold"></script>
+  <script src="assets/duplicate-admin.js?v=20261007dup2"></script>
+  <script src="assets/region-hierarchy-picker.js?v=20261007kies"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="assets/climb-lookup.js?v=20261007i"></script>
   <script src="climbfinder-browser.js"></script>
@@ -620,22 +681,26 @@
       document.getElementById("tabManual").classList.toggle("active", which === "manual");
       document.getElementById("tabDuplicates").classList.toggle("active", which === "duplicates");
       document.getElementById("tabHierarchy").classList.toggle("active", which === "hierarchy");
+      document.getElementById("tabMaintenance").classList.toggle("active", which === "maintenance");
       document.getElementById("panelRegion").classList.toggle("active", which === "region");
       document.getElementById("panelMap").classList.toggle("active", which === "map");
       document.getElementById("panelManual").classList.toggle("active", which === "manual");
       document.getElementById("panelDuplicates").classList.toggle("active", which === "duplicates");
       document.getElementById("panelHierarchy").classList.toggle("active", which === "hierarchy");
+      document.getElementById("panelMaintenance").classList.toggle("active", which === "maintenance");
       document.getElementById("fietsklim-app-root").classList.toggle("wide", which === "map");
       const panelRegion = document.getElementById("panelRegion");
       const panelMap = document.getElementById("panelMap");
       const panelManual = document.getElementById("panelManual");
       const panelDuplicates = document.getElementById("panelDuplicates");
       const panelHierarchy = document.getElementById("panelHierarchy");
+      const panelMaintenance = document.getElementById("panelMaintenance");
       if (panelRegion) panelRegion.inert = which !== "region";
       if (panelMap) panelMap.inert = which !== "map";
       if (panelManual) panelManual.inert = which !== "manual";
       if (panelDuplicates) panelDuplicates.inert = which !== "duplicates";
       if (panelHierarchy) panelHierarchy.inert = which !== "hierarchy";
+      if (panelMaintenance) panelMaintenance.inert = which !== "maintenance";
       if (which === "map") {
         regionPicker?.onMapTabShown();
         setTimeout(() => document.getElementById("mapRegionSearch")?.focus({ preventScroll: true }), 50);
@@ -661,6 +726,7 @@
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
     document.getElementById("tabDuplicates").addEventListener("click", () => setTab("duplicates"));
     document.getElementById("tabHierarchy").addEventListener("click", () => setTab("hierarchy"));
+    document.getElementById("tabMaintenance").addEventListener("click", () => setTab("maintenance"));
 
     document.getElementById("backfillRegionsBtn")?.addEventListener("click", async () => {
       if (!isUnlocked()) {

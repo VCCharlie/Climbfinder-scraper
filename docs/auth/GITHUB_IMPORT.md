@@ -52,7 +52,7 @@ Zet **merge_into** op bijv. `nl-limburg`. Elke import voegt klimmen toe aan dat 
 
 Climbfinder koppelt één klim (zelfde **slug**) aan meerdere **localities** (bijv. French Alps én Isère, of Liège Province én Pays de Herve). Importeer je beide regio’s als aparte JSON-bestanden, staan dezelfde klimmen **twee keer** in de site-database (regio-totalen tellen op).
 
-- **Kaart / zoeken / logboek:** de app toont elke klim **één keer** (dedupe op slug; smallere regio wint).
+- **Kaart / zoeken / logboek:** de app toont elke klim **één keer** (dedupe op slug in de UI).
 - **Importpagina:** in de regio-lijst staat **overlap site:** … als klimmen al in een andere geïmporteerde regio staan (`published-locality-overlaps.json`, gebouwd bij index-rebuild).
 - **Opruimen:** voorkom dubbele imports van ouder + kind-regio, of merge met `merge_climb_bundles.py` / `merge_into`.
 
@@ -62,13 +62,16 @@ Tab **Klimgebieden** op `import.html`: macro-gebieden (Alpen, Pyrenéeën, …) 
 
 Bij **import** krijgt elke klim automatisch **`region`** (weergave: **grootste sub-land**-locality uit ranking, Climbfinder-naam of *Overig*) en **`resolved_locality_id`** (kleinste locality, intern/dedupe) — ook als je een heel land importeert (bv. NL l=26 → *Gelderland* op de klim, niet *Netherlands*).
 
-**Bestaande data:** tab Klimgebieden → **Herlabel alle klimmen op site**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`). Herhaalt policy B op alle JSON’s (handig na `refresh_ranking_slugs.py`, minder *Overig*).
+**Bestaande data:** tab **Onderhoud** → **Herlabel alle klimmen op site**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`). Herhaalt weergave-labels op alle JSON’s (handig na `refresh_ranking_slugs.py`, minder *Overig*).
+
+Op `import.html` staat een uitklapbaar **“Wat doet wat?”**-overzicht (download vs onderhoud).
 
 ### Duplicaten op de importpagina
 
-Tab **Duplicaten** (`import.html`) leest `published-duplicate-climbs.json` (gebouwd door `rebuild_climb_index.py`). Per klim (slug) zie je in welke regio-bestanden hij staat; vink kopieën aan → **Verwijder geselecteerde kopieën** start workflow **Remove duplicate climbs** op GitHub (zelfde PAT/Firebase als import).
+Tab **Duplicaten** leest `published-duplicate-climbs.json`. Per slug in meerdere JSON-bestanden: behoud kopie in het **kleinste dataset** (min. klimmen in dat bestand) — niet hetzelfde als herlabelen van `region`.
 
-Na deploy van Functions: callable **`requestClimbDuplicateRemovals`** (selectieve verwijdering) en **`requestClimbDedupeAllSmallest`** (één klik: alle duplicaten, behoud kopie in kleinste regio-bestand). Zonder Firebase: workflow **Dedupe all (keep smallest region)** of `gh workflow run dedupe-all-smallest-region.yml`.
+- **Alle duplicaten opschonen** → `dedupe-all-smallest-region.yml` (Firebase: **`requestClimbDedupeAllSmallest`**)
+- **Handmatige selectie** → `remove-duplicate-climbs.yml` (Firebase: **`requestClimbDuplicateRemovals`**, max 120 per run)
 
 ### Bestaande twee JSON’s samenvoegen
 

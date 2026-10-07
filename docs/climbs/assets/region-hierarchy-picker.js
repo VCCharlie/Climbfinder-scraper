@@ -90,7 +90,7 @@
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = isMacro ? "secondary" : "";
-      btn.textContent = "Import";
+      btn.textContent = "Kies regio";
       btn.addEventListener("click", () => {
         opts.onPickImport(loc.locality_id, loc);
       });

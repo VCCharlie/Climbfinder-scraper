@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Remove duplicate climb slugs across region bundles; keep one copy per slug in the
-smallest region file (fewest climbs in bundle). Tie-break: dataset_id ascending.
+smallest dataset (JSON bundle with fewest climbs). Tie-break: dataset_id ascending.
 
   python scripts/dedupe_keep_smallest_region.py
   python scripts/dedupe_keep_smallest_region.py --dry-run
