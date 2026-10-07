@@ -193,7 +193,7 @@
         <p class="hint">
           Overzicht van belangrijke klimgebieden (NL, BE, FR, DE, IT, ES, CH, AT).
           Onder elk macro-gebied staan Climbfinder-regio’s die daar (volgens ranking-slugs) onder vallen.
-          <strong>Import</strong> kiest de regio en start (met Firebase één-klik) direct <strong>Climbfinder import</strong> op GitHub; anders tab Regio + handmatig Run workflow. Nieuwe imports zetten elke klim op de
+          <strong>Import</strong> kiest de regio en opent tab <strong>Regio</strong> — stel daar <strong>aantal klimmen</strong> in en klik pas daarna <strong>Start serverimport</strong> (geen automatische GitHub-run). Nieuwe imports zetten elke klim op de
           <strong>weergave-regio</strong> (veld <code>region</code>: sub-land / Climbfinder-naam / Overig), ook bij import van een heel land.
         </p>
         <label for="hierCountrySelect">Land</label>
@@ -584,8 +584,16 @@
       applyRegionSelection(found, localityId);
       regionPicker?.syncFromDropdown?.();
       setTab("region");
-      log(`Regio gekozen: ${found.name} (l=${localityId})${startGithub ? " — GitHub import starten…" : " — tab Regio."}`);
+      log(
+        `Regio gekozen: ${found.name} (l=${localityId})` +
+          (startGithub
+            ? " — GitHub import starten…"
+            : " — pas aantal klimmen aan en klik Start serverimport (tab Regio).")
+      );
       if (startGithub) void triggerGithubRegionImport();
+      else {
+        requestAnimationFrame(() => document.getElementById("importClimbLimit")?.focus({ preventScroll: true }));
+      }
       return true;
     }
 
@@ -640,7 +648,7 @@
       if (which === "hierarchy" && !hierarchyInited && window.FietsKlimRegionHierarchy) {
         hierarchyInited = true;
         void window.FietsKlimRegionHierarchy.init({
-          onPickImport: (id) => pickRegionForImport(id, { startGithub: true }),
+          onPickImport: (id) => pickRegionForImport(id),
           publishedByLocality: () => publishedByLocality || {},
           importStatus: typeof FietsKlimImportStatus !== "undefined" ? FietsKlimImportStatus : undefined,
         });
