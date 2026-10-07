@@ -79,6 +79,20 @@
     .cf-search-hit { text-align: left; background: #f1f5f9; color: #0f172a; border: 1px solid #e2e8f0; padding: 0.45rem 0.55rem; border-radius: 6px; margin: 0; font: inherit; cursor: pointer; width: 100%; }
     .cf-search-hit:hover { background: #e2e8f0; }
     .cf-search-hit .muted { color: #64748b; font-weight: 400; font-size: 0.85em; }
+    .dup-toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem; }
+    .dup-toolbar input[type="search"] { flex: 1 1 12rem; min-width: 0; }
+    #dupList { max-height: 420px; overflow: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.5rem 0.75rem; background: #fafafa; }
+    .dup-group { border-bottom: 1px solid #e2e8f0; padding: 0.65rem 0; }
+    .dup-group:last-child { border-bottom: none; }
+    .dup-group-title { margin: 0 0 0.2rem; font-size: 0.95rem; color: #0f172a; }
+    .dup-group-slug { margin: 0 0 0.35rem; font-size: 0.78rem; }
+    .dup-copy-list { list-style: none; margin: 0; padding: 0; }
+    .dup-copy-row { display: flex; gap: 0.45rem; align-items: flex-start; font-size: 0.85rem; padding: 0.25rem 0; cursor: pointer; }
+    .dup-copy-row--suggest-keep { background: #ecfdf5; border-radius: 4px; padding: 0.25rem 0.35rem; }
+    .dup-keep-tag { font-size: 0.72rem; font-weight: 700; color: #047857; }
+    .dup-row-action { margin-top: 0.35rem; font-size: 0.78rem; padding: 0.35rem 0.55rem; }
+    #dupGhCmd { min-height: 64px; font-size: 0.72rem; margin-top: 0.5rem; }
+    #dupPager { margin-top: 0.5rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
@@ -135,6 +149,7 @@
         <button type="button" id="tabRegion" class="active">Regio (GitHub import)</button>
         <button type="button" id="tabMap">Regio op kaart</button>
         <button type="button" id="tabManual">Handmatig / preset</button>
+        <button type="button" id="tabDuplicates">Duplicaten</button>
       </div>
 
       <div id="panelRegion" class="panel active">
@@ -164,6 +179,27 @@
         <div id="mapLegend" class="cf-legend"></div>
       </div>
 
+      <div id="panelDuplicates" class="panel">
+        <p class="hint">
+          Klimmen met dezelfde <strong>Climbfinder-slug</strong> in meerdere regio-bestanden op je site.
+          Vink kopieën aan om te verwijderen (laat minstens één regio per klim staan).
+          Verwijderen gaat via <strong>GitHub Actions</strong> — geen lokale tools nodig.
+        </p>
+        <p id="dupSummary" class="hint" style="font-weight:600;color:#7c3aed;"></p>
+        <div class="dup-toolbar">
+          <input type="search" id="dupSearch" placeholder="Filter op klimnaam, slug of regio…" autocomplete="off" />
+          <button type="button" id="dupReloadBtn" class="secondary">Herlaad rapport</button>
+        </div>
+        <div id="dupList"><p class="hint">Open dit tabblad om duplicaten te laden…</p></div>
+        <div id="dupPager"></div>
+        <button type="button" id="dupApplyBtn">Verwijder geselecteerde kopieën (GitHub)</button>
+        <button type="button" id="dupCopyGhBtn" class="secondary">Kopieer gh-commando</button>
+        <textarea id="dupGhCmd" readonly aria-label="gh workflow commando"></textarea>
+        <p class="actions-links">
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/remove-duplicate-climbs.yml" target="_blank" rel="noopener">Open Actions → Remove duplicate climbs</a>
+        </p>
+      </div>
+
       <div id="panelManual" class="panel">
         <p class="hint">Gebruik de <strong>slug</strong> uit de URL (<code>…/climbs/cauberg</code>), geen vrije naam — tenzij die exact overeenkomt met de slug. Meerdere regels = meerdere klimmen.</p>
         <label for="preset">Preset (optioneel)</label>
@@ -190,7 +226,8 @@
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
-  <script src="assets/import-status.js?v=20261007e"></script>
+  <script src="assets/import-status.js?v=20261007f"></script>
+  <script src="assets/duplicate-admin.js?v=20261007f"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
@@ -405,32 +442,43 @@
       return `cf-l${r.id}-${r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
     }
 
+    let duplicatesLoaded = false;
+
     function setTab(which) {
       activeImportTab = which;
       document.getElementById("tabRegion").classList.toggle("active", which === "region");
       document.getElementById("tabMap").classList.toggle("active", which === "map");
       document.getElementById("tabManual").classList.toggle("active", which === "manual");
+      document.getElementById("tabDuplicates").classList.toggle("active", which === "duplicates");
       document.getElementById("panelRegion").classList.toggle("active", which === "region");
       document.getElementById("panelMap").classList.toggle("active", which === "map");
       document.getElementById("panelManual").classList.toggle("active", which === "manual");
+      document.getElementById("panelDuplicates").classList.toggle("active", which === "duplicates");
       document.getElementById("fietsklim-app-root").classList.toggle("wide", which === "map");
       const panelRegion = document.getElementById("panelRegion");
       const panelMap = document.getElementById("panelMap");
       const panelManual = document.getElementById("panelManual");
+      const panelDuplicates = document.getElementById("panelDuplicates");
       if (panelRegion) panelRegion.inert = which !== "region";
       if (panelMap) panelMap.inert = which !== "map";
       if (panelManual) panelManual.inert = which !== "manual";
+      if (panelDuplicates) panelDuplicates.inert = which !== "duplicates";
       if (which === "map") {
         regionPicker?.onMapTabShown();
         setTimeout(() => document.getElementById("mapRegionSearch")?.focus({ preventScroll: true }), 50);
       } else {
         regionPicker?.invalidateSize();
       }
+      if (which === "duplicates" && !duplicatesLoaded && window.FietsKlimDuplicateAdmin?.refreshReport) {
+        duplicatesLoaded = true;
+        void window.FietsKlimDuplicateAdmin.refreshReport();
+      }
     }
 
     document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
     document.getElementById("tabMap").addEventListener("click", () => setTab("map"));
     document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
+    document.getElementById("tabDuplicates").addEventListener("click", () => setTab("duplicates"));
 
     function hideClimbSearchResults() {
       const el = document.getElementById("climbSearchResults");
@@ -864,6 +912,14 @@
       refreshImportLimitHint();
       bindClimbNameSearch();
       initRegions().catch(() => {});
+      if (typeof FietsKlimDuplicateAdminInit === "function") {
+        FietsKlimDuplicateAdminInit({
+          isUnlocked,
+          githubImportConfig,
+          log,
+          formatCallableError,
+        });
+      }
     }
 
     document.addEventListener("fietsklim-authenticated", () => bootImportPage());

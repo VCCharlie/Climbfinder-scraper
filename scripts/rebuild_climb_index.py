@@ -11,6 +11,7 @@ Run after uploading datasets (or let GitHub Actions do it on push).
 from __future__ import annotations
 
 import json
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,6 +26,7 @@ SKIP_NAMES = {
     "climbfinder-region-popular-counts.json",
     "climb-slug-search-index.json",
     "published-locality-overlaps.json",
+    "published-duplicate-climbs.json",
 }
 
 
@@ -140,10 +142,56 @@ def write_locality_overlaps(
     print(f"Wrote locality overlaps → {out_path.relative_to(ROOT)}")
 
 
+def write_duplicate_climbs_report(slug_copies: dict[str, list[dict]]) -> None:
+    out_path = DATA / "published-duplicate-climbs.json"
+    groups = []
+    for slug, copies in slug_copies.items():
+        if len(copies) < 2:
+            continue
+        copies_sorted = sorted(
+            copies,
+            key=lambda c: (c.get("region_count") or 0, c.get("dataset_id") or ""),
+        )
+        groups.append(
+            {
+                "slug": slug,
+                "name": copies_sorted[0].get("name") or slug,
+                "copies": [
+                    {
+                        "dataset_id": c["dataset_id"],
+                        "title": c["title"],
+                        "locality_id": c.get("locality_id"),
+                        "climb_id": c.get("climb_id"),
+                        "region_count": c.get("region_count"),
+                    }
+                    for c in copies_sorted
+                ],
+            }
+        )
+    groups.sort(key=lambda g: g["name"].lower())
+    extra_rows = sum(len(g["copies"]) - 1 for g in groups)
+    payload = {
+        "schema_version": "1.0",
+        "updated_at": __import__("datetime")
+        .datetime.now(__import__("datetime").timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "duplicate_groups": len(groups),
+        "extra_rows": extra_rows,
+        "groups": groups,
+    }
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"Wrote duplicate report ({len(groups)} groups) → {out_path.relative_to(ROOT)}")
+
+
 def main() -> None:
     regions = []
     loc_slugs: dict[int, set[str]] = {}
     global_slugs: set[str] = set()
+    slug_copies: dict[str, list[dict]] = defaultdict(list)
     for path in sorted(DATA.glob("*.json")):
         if not is_climb_bundle(path):
             continue
@@ -166,19 +214,34 @@ def main() -> None:
         if loc is not None:
             entry["locality_id"] = loc
         regions.append(entry)
+        region_count = len(climbs)
+        disp = display_title(meta)
         if loc is not None:
             bucket = loc_slugs.setdefault(loc, set())
-            for c in climbs:
-                s = climb_slug(c)
-                if s:
-                    bucket.add(s)
-                    global_slugs.add(s)
+        for c in climbs:
+            s = climb_slug(c)
+            if not s:
+                continue
+            global_slugs.add(s)
+            if loc is not None:
+                bucket.add(s)
+            slug_copies[s].append(
+                {
+                    "dataset_id": meta_id,
+                    "title": disp,
+                    "locality_id": loc,
+                    "climb_id": c.get("id"),
+                    "name": c.get("name") or s,
+                    "region_count": region_count,
+                }
+            )
 
     regions.sort(key=lambda r: (r.get("country", ""), r.get("displayTitle", r.get("title", ""))))
     total_climbs = sum(r.get("count") or 0 for r in regions)
     unique_climbs = len(global_slugs)
     duplicate_rows = total_climbs - unique_climbs
     write_locality_overlaps(loc_slugs, load_region_name_index())
+    write_duplicate_climbs_report(slug_copies)
     payload = {
         "schema_version": "1.0",
         "total_climbs": total_climbs,

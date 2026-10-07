@@ -14,7 +14,8 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 const DEFAULT_ALLOWED = ["vr.deruiter@gmail.com"];
-const WORKFLOW_FILE = "climbfinder-import.yml";
+const WORKFLOW_IMPORT = "climbfinder-import.yml";
+const WORKFLOW_DEDUPE = "remove-duplicate-climbs.yml";
 
 function allowedEmail(email) {
   const cfg = functions.config().auth || {};
@@ -58,7 +59,7 @@ exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall
     throw new functions.https.HttpsError("invalid-argument", "locality, meta_id, title, country, region_label zijn verplicht.");
   }
 
-  const url = `https://api.github.com/repos/${owner}/${name}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
+  const url = `https://api.github.com/repos/${owner}/${name}/actions/workflows/${WORKFLOW_IMPORT}/dispatches`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -95,6 +96,76 @@ exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall
     message: publish
       ? "Import gestart op GitHub Actions. Bij publish_to_site=true komt JSON automatisch op de kaart na de run."
       : "Import gestart. Download JSON bij Artifacts wanneer de run klaar is.",
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_FILE}`,
+    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_IMPORT}`,
+  };
+});
+
+exports.requestClimbDuplicateRemovals = functions.region("europe-west1").https.onCall(async (data, context) => {
+  if (!context.auth?.token?.email) {
+    throw new functions.https.HttpsError("unauthenticated", "Log in met Google.");
+  }
+  if (!allowedEmail(context.auth.token.email)) {
+    throw new functions.https.HttpsError("permission-denied", "Geen toegang.");
+  }
+
+  const gh = functions.config().github || {};
+  const pat = gh.pat;
+  if (!pat) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "GitHub PAT niet geconfigureerd op Firebase Functions. Zie docs/auth/GITHUB_IMPORT.md"
+    );
+  }
+
+  const removals = data.removals;
+  if (!Array.isArray(removals) || !removals.length) {
+    throw new functions.https.HttpsError("invalid-argument", "removals moet een niet-lege array zijn.");
+  }
+  if (removals.length > 150) {
+    throw new functions.https.HttpsError("invalid-argument", "Max. 150 verwijderingen per run.");
+  }
+  for (const row of removals) {
+    if (!row || typeof row !== "object" || !String(row.dataset_id || "").trim() || !String(row.climb_id || "").trim()) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Elke removal: { dataset_id, climb_id }."
+      );
+    }
+  }
+
+  const repo = gh.repo || "VCCharlie/Climbfinder-scraper";
+  const ref = gh.ref || "main";
+  const [owner, name] = repo.split("/");
+  if (!owner || !name) {
+    throw new functions.https.HttpsError("internal", "github.repo moet owner/name zijn.");
+  }
+
+  const url = `https://api.github.com/repos/${owner}/${name}/actions/workflows/${WORKFLOW_DEDUPE}/dispatches`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${pat}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ref,
+      inputs: {
+        removals_json: JSON.stringify(removals),
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    functions.logger.error("GitHub dedupe dispatch failed", res.status, text);
+    throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
+  }
+
+  return {
+    ok: true,
+    message: `Verwijder-workflow gestart (${removals.length} kopieën). Na ~1–3 min: hard refresh import/kaart.`,
+    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_DEDUPE}`,
   };
 });
