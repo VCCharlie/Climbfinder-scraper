@@ -5,6 +5,13 @@
 (function () {
   const DEFAULT_ALLOWED = ["vr.deruiter@gmail.com"];
 
+  /** Geen login-flash terwijl Firebase sessie uit IndexedDB komt. */
+  document.documentElement.classList.add("fietsklim-auth-pending");
+
+  function finishAuthPending() {
+    document.documentElement.classList.remove("fietsklim-auth-pending");
+  }
+
   function $(id) {
     return document.getElementById(id);
   }
@@ -51,6 +58,7 @@
   }
 
   function failConfig(message) {
+    finishAuthPending();
     showGate();
     showError(message);
     const btn = $("fietsklim-google-btn");
@@ -108,6 +116,7 @@
     });
 
     auth.onAuthStateChanged(function (user) {
+      finishAuthPending();
       if (!user) {
         showGate();
         return;

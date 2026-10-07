@@ -27,6 +27,22 @@ SKIP_NAMES = {
 }
 
 
+def locality_id_from_meta(meta: dict) -> int | None:
+    src = meta.get("source") if isinstance(meta.get("source"), dict) else {}
+    if src.get("locality_id") is not None:
+        try:
+            return int(src["locality_id"])
+        except (TypeError, ValueError):
+            pass
+    meta_id = str(meta.get("id") or "")
+    m = __import__("re").match(r"^cf-l(\d+)-", meta_id)
+    if m:
+        return int(m.group(1))
+    if meta_id == "nl-limburg":
+        return 27
+    return None
+
+
 def display_title(meta: dict) -> str:
     raw = (meta.get("region_label") or meta.get("title") or "").strip()
     import re
@@ -70,19 +86,27 @@ def main() -> None:
         meta_id = meta["id"]
         if path.stem != meta_id:
             print(f"  warn: {path.name} meta.id={meta_id!r} (filename mismatch)")
-        regions.append(
-            {
-                "id": meta_id,
-                "title": meta["title"],
-                "displayTitle": display_title(meta),
-                "country": meta.get("country") or "XX",
-                "url": f"data/{path.name}",
-                "count": len(climbs),
-            }
-        )
+        entry = {
+            "id": meta_id,
+            "title": meta["title"],
+            "displayTitle": display_title(meta),
+            "country": meta.get("country") or "XX",
+            "url": f"data/{path.name}",
+            "count": len(climbs),
+        }
+        loc = locality_id_from_meta(meta)
+        if loc is not None:
+            entry["locality_id"] = loc
+        regions.append(entry)
 
     regions.sort(key=lambda r: (r.get("country", ""), r.get("displayTitle", r.get("title", ""))))
-    payload = {"schema_version": "1.0", "regions": regions}
+    total_climbs = sum(r.get("count") or 0 for r in regions)
+    payload = {
+        "schema_version": "1.0",
+        "total_climbs": total_climbs,
+        "region_count": len(regions),
+        "regions": regions,
+    }
     INDEX.parent.mkdir(parents=True, exist_ok=True)
     with INDEX.open("w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)

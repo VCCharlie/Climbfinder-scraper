@@ -98,6 +98,7 @@
     <p class="userbar"><span id="fietsklim-auth-userbar"></span></p>
     <h1>Climbfinder → JSON</h1>
     <p class="links">Polyline + hoogteprofiel per klim. <a href="index.html">← Database</a> · <a href="../index.html">HTML Scraper</a></p>
+    <p id="siteDatabaseSummary" class="hint" style="margin:0.35rem 0 0.75rem;font-weight:600;color:#0f766e;"></p>
 
     <div class="card">
       <div class="grid2 region-toolbar">
@@ -114,6 +115,12 @@
         <div>
           <label for="regionSelect">Climbfinder-regio</label>
           <select id="regionSelect" disabled><option value="">Kies eerst een land</option></select>
+          <p class="hint import-status-legend" style="margin:0.35rem 0 0;font-size:0.78rem;">
+            <span style="color:#0f766e">●</span> compleet op site ·
+            <span style="color:#d97706">◐</span> deels ·
+            <span style="color:#94a3b8">○</span> niet geïmporteerd
+            (getal = klimmen site / Popular Climbfinder)
+          </p>
         </div>
         <div>
           <label for="importClimbLimit">Aantal klimmen (Popular-ranking)</label>
@@ -182,12 +189,14 @@
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
-  <script src="assets/region-picker.js?v=20261006f"></script>
+  <script src="assets/import-status.js"></script>
+  <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
     let lastBundle = null;
     let regionsCatalog = null;
     let regionPopularCounts = null;
+    let publishedByLocality = null;
     let selectedRegion = null;
     let regionsBooted = false;
     let regionPicker = null;
@@ -250,8 +259,28 @@
 
     function regionSelectLabel(r) {
       const total = cfPopularCount(r.id);
-      const suffix = total != null ? ` · ~${total}` : "";
-      return `${r.name} (l=${r.id}${suffix})`;
+      const pub = publishedByLocality?.[String(r.id)]?.count ?? 0;
+      const badge =
+        typeof FietsKlimImportStatus !== "undefined"
+          ? `${FietsKlimImportStatus.formatImportBadge(pub, total)} · `
+          : "";
+      const suffix = total != null ? ` · ~${total} Popular` : "";
+      return `${badge}${r.name} (l=${r.id}${suffix})`;
+    }
+
+    async function refreshSiteDatabaseSummary() {
+      const el = document.getElementById("siteDatabaseSummary");
+      if (!el) return;
+      try {
+        const res = await fetch(new URL("data/index.json", location.href).href, { cache: "no-store" });
+        if (!res.ok) return;
+        const index = await res.json();
+        const total = index.total_climbs ?? (index.regions || []).reduce((s, r) => s + (r.count || 0), 0);
+        const n = index.region_count ?? (index.regions || []).length;
+        el.textContent = `Site-database: ${Number(total).toLocaleString("nl-NL")} klimmen in ${n} regio-dataset(s)`;
+      } catch {
+        /* optional */
+      }
     }
 
     function countryCode(region) {
@@ -527,6 +556,10 @@
           regionPopularCounts = null;
           log("Popular-tellingen niet geladen: " + e.message);
         }
+        if (typeof FietsKlimImportStatus !== "undefined") {
+          publishedByLocality = await FietsKlimImportStatus.loadPublishedByLocality();
+        }
+        void refreshSiteDatabaseSummary();
       } catch (e) {
         regionsBooted = false;
         countrySel.innerHTML = "";

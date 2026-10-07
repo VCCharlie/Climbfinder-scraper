@@ -11,6 +11,24 @@
   padding: 1.5rem;
 }
 
+html.fietsklim-auth-pending #fietsklim-auth-gate .fietsklim-auth-card {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+html.fietsklim-auth-pending #fietsklim-auth-gate::before {
+  content: "Sessie laden…";
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+html.fietsklim-auth-pending body.fietsklim-locked #fietsklim-app-root {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
 #fietsklim-auth-gate.fietsklim-auth-hidden {
   display: none;
 }
