@@ -119,7 +119,8 @@
             <span style="color:#0f766e">●</span> compleet op site ·
             <span style="color:#d97706">◐</span> deels ·
             <span style="color:#94a3b8">○</span> niet geïmporteerd
-            (getal = klimmen site / Popular Climbfinder)
+            (getal = klimmen site / Popular Climbfinder).
+            <strong>overlap site:</strong> klimmen die ook in een andere, al geïmporteerde regio staan.
           </p>
         </div>
         <div>
@@ -189,7 +190,7 @@
   <script src="assets/climb-metrics.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
-  <script src="assets/import-status.js"></script>
+  <script src="assets/import-status.js?v=20261007e"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="climbfinder-browser.js"></script>
   <script>
@@ -264,8 +265,12 @@
         typeof FietsKlimImportStatus !== "undefined"
           ? `${FietsKlimImportStatus.formatImportBadge(pub, total)} · `
           : "";
+      const overlap =
+        typeof FietsKlimImportStatus !== "undefined"
+          ? FietsKlimImportStatus.formatOverlapHint(r.id, publishedByLocality)
+          : "";
       const suffix = total != null ? ` · ~${total} Popular` : "";
-      return `${badge}${r.name} (l=${r.id}${suffix})`;
+      return `${badge}${r.name} (l=${r.id}${suffix})${overlap}`;
     }
 
     async function refreshSiteDatabaseSummary() {
@@ -276,8 +281,14 @@
         if (!res.ok) return;
         const index = await res.json();
         const total = index.total_climbs ?? (index.regions || []).reduce((s, r) => s + (r.count || 0), 0);
+        const unique = index.unique_climbs;
+        const dup = index.duplicate_rows_across_regions;
         const n = index.region_count ?? (index.regions || []).length;
-        el.textContent = `Site-database: ${Number(total).toLocaleString("nl-NL")} klimmen in ${n} regio-dataset(s)`;
+        let text = `Site-database: ${Number(total).toLocaleString("nl-NL")} klimmen in ${n} regio-dataset(s)`;
+        if (unique != null && dup > 0) {
+          text += ` · ${Number(unique).toLocaleString("nl-NL")} unieke klimmen (${Number(dup).toLocaleString("nl-NL")} dubbele regels door overlap)`;
+        }
+        el.textContent = text;
       } catch {
         /* optional */
       }
@@ -558,6 +569,7 @@
         }
         if (typeof FietsKlimImportStatus !== "undefined") {
           publishedByLocality = await FietsKlimImportStatus.loadPublishedByLocality();
+          await FietsKlimImportStatus.loadLocalityOverlaps();
         }
         void refreshSiteDatabaseSummary();
       } catch (e) {
@@ -676,8 +688,12 @@
         } else {
           pagesHint += " · Zet <strong>aantal klimmen</strong> tot max. Popular-telling hierboven.";
         }
+        const overlapDetail =
+          typeof FietsKlimImportStatus !== "undefined"
+            ? FietsKlimImportStatus.formatOverlapDetailHtml(selectedRegion.id, publishedByLocality)
+            : "";
         meta.innerHTML =
-          `${ranking.count} slugs in lokale cache (Popular p.1–2) · bijgewerkt ${ranking.updated_at || "?"}${warn}${pagesHint} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>`;
+          `${ranking.count} slugs in lokale cache (Popular p.1–2) · bijgewerkt ${ranking.updated_at || "?"}${warn}${pagesHint} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>${overlapDetail}`;
       } catch (e) {
         meta.textContent = e.message;
       }

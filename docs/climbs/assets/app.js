@@ -490,6 +490,30 @@
     return `${entry.regionUrl}::${entry.climb.id}`;
   }
 
+  function climbGlobalKey(climb) {
+    if (typeof FietsKlimClimbDedupe !== "undefined") {
+      return FietsKlimClimbDedupe.climbGlobalKey(climb);
+    }
+    const slug = climb?.climbfinder?.slug;
+    if (slug) return `slug:${slug}`;
+    if (climb?.id) return `id:${climb.id}`;
+    return null;
+  }
+
+  function regionEntryCount(regionUrl) {
+    const reg = state.indexRegions.find((r) => r.url === regionUrl);
+    return reg?.count ?? Number.MAX_SAFE_INTEGER;
+  }
+
+  /** Bij dubbele slug: smallere regio (minder klimmen) wint; gekozen regio wint altijd. */
+  function shouldPreferGlobalEntry(candidate, existing) {
+    if (state.currentRegionUrl === candidate.regionUrl && state.currentRegionUrl !== existing.regionUrl) {
+      return true;
+    }
+    if (state.currentRegionUrl === existing.regionUrl) return false;
+    return regionEntryCount(candidate.regionUrl) < regionEntryCount(existing.regionUrl);
+  }
+
   /** Kaart: alle regio’s; zoekterm + logboek-filter. */
   function mapVisibleEntries() {
     const q = state.searchQuery.trim().toLowerCase();
@@ -568,8 +592,14 @@
     if (!el) return;
     const total =
       indexMeta?.total_climbs ?? state.indexRegions.reduce((s, r) => s + (r.count || 0), 0);
+    const unique = indexMeta?.unique_climbs;
+    const dup = indexMeta?.duplicate_rows_across_regions;
     const nReg = indexMeta?.region_count ?? state.indexRegions.length;
-    el.textContent = `${Number(total).toLocaleString("nl-NL")} klimmen in database · ${nReg} regio’s`;
+    let line = `${Number(total).toLocaleString("nl-NL")} klimmen in database · ${nReg} regio’s`;
+    if (unique != null && dup > 0) {
+      line += ` · ${Number(unique).toLocaleString("nl-NL")} uniek (${Number(dup).toLocaleString("nl-NL")} overlap tussen regio’s)`;
+    }
+    el.textContent = line;
   }
 
   function updateMobileFiltersSummary() {
@@ -1407,19 +1437,45 @@
     return bundle;
   }
 
+  function reprioritizeGlobalEntriesForCurrentRegion() {
+    if (!state.globalSearchReady || !state.currentRegionUrl || !state.bundle) return;
+    const r = state.indexRegions.find((x) => x.url === state.currentRegionUrl);
+    if (!r) return;
+    mergeBundleIntoGlobalEntries(r, state.bundle);
+  }
+
   function mergeBundleIntoGlobalEntries(r, bundle) {
-    const seen = new Set(state.globalEntries.map((e) => entryKey(e)));
+    if (!state.globalEntryByClimbKey) state.globalEntryByClimbKey = new Map();
+    const seenRegionKeys = new Set(state.globalEntries.map((e) => entryKey(e)));
+
     for (const c of bundle.climbs || []) {
-      const k = entryKey({ regionUrl: r.url, climb: { id: c.id } });
-      if (seen.has(k)) continue;
-      seen.add(k);
-      state.globalEntries.push({
+      const regionKey = entryKey({ regionUrl: r.url, climb: { id: c.id } });
+      if (seenRegionKeys.has(regionKey)) continue;
+
+      const entry = {
         climb: c,
         regionUrl: r.url,
         regionTitle: regionTitleFromIndexEntry(r),
         regionId: r.id,
         country: String(r.country || bundle.meta?.country || "").toUpperCase(),
-      });
+      };
+
+      const globalKey = climbGlobalKey(c);
+      if (globalKey) {
+        const prev = state.globalEntryByClimbKey.get(globalKey);
+        if (prev) {
+          if (!shouldPreferGlobalEntry(entry, prev)) continue;
+          const idx = state.globalEntries.indexOf(prev);
+          if (idx >= 0) state.globalEntries.splice(idx, 1);
+          seenRegionKeys.delete(entryKey(prev));
+          state.globalEntryByClimbKey.set(globalKey, entry);
+        } else {
+          state.globalEntryByClimbKey.set(globalKey, entry);
+        }
+      }
+
+      seenRegionKeys.add(regionKey);
+      state.globalEntries.push(entry);
     }
   }
 
@@ -1428,6 +1484,7 @@
     const r = state.indexRegions.find((x) => x.url === state.currentRegionUrl);
     if (!r) return;
     state.globalEntries = [];
+    state.globalEntryByClimbKey = new Map();
     mergeBundleIntoGlobalEntries(r, state.bundle);
     syncOverviewMarkers({ fit: true });
     updateSearchHint();
@@ -1462,15 +1519,19 @@
     state.searchBusy = true;
     if (!background) renderList(state.searchQuery);
     const regions = state.indexRegions;
-    if (!state.globalEntries.length && !background) state.globalEntries = [];
+    if (!state.globalEntries.length && !background) {
+      state.globalEntries = [];
+      state.globalEntryByClimbKey = new Map();
+    }
+    const loadOrder = [...regions].sort((a, b) => (a.count || 0) - (b.count || 0));
     let next = 0;
     let loaded = 0;
-    const workers = Math.min(8, Math.max(1, regions.length));
+    const workers = Math.min(8, Math.max(1, loadOrder.length));
 
     async function worker() {
-      while (next < regions.length) {
+      while (next < loadOrder.length) {
         const i = next++;
-        const r = regions[i];
+        const r = loadOrder[i];
         try {
           const bundle = await loadRegionBundle(r);
           mergeBundleIntoGlobalEntries(r, bundle);
@@ -1979,6 +2040,7 @@
 
     clearDetailSelection();
     if (state.globalSearchReady) {
+      reprioritizeGlobalEntriesForCurrentRegion();
       syncOverviewMarkers({ fit: !pick && !state.searchQuery.trim() });
     }
   }

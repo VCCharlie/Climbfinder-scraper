@@ -24,6 +24,7 @@ SKIP_NAMES = {
     "climbfinder-regions-geo.json",
     "climbfinder-region-popular-counts.json",
     "climb-slug-search-index.json",
+    "published-locality-overlaps.json",
 }
 
 
@@ -74,8 +75,75 @@ def is_climb_bundle(path: Path) -> bool:
     return True
 
 
+def climb_slug(climb: dict) -> str | None:
+    slug = (climb.get("climbfinder") or {}).get("slug")
+    if slug:
+        return str(slug)
+    cid = climb.get("id")
+    return str(cid) if cid else None
+
+
+def load_region_name_index() -> dict[int, str]:
+    catalog = DATA / "climbfinder-regions.json"
+    names: dict[int, str] = {}
+    if not catalog.is_file():
+        return names
+    with catalog.open(encoding="utf-8") as f:
+        data = json.load(f)
+    for block in data.get("countries") or []:
+        for r in block.get("regions") or []:
+            rid = r.get("id")
+            if rid is not None:
+                names[int(rid)] = str(r.get("name") or r.get("label") or rid)
+    return names
+
+
+def write_locality_overlaps(
+    loc_slugs: dict[int, set[str]], region_names: dict[int, str]
+) -> None:
+    out_path = DATA / "published-locality-overlaps.json"
+    by_locality: dict[str, list[dict]] = {}
+    loc_ids = sorted(loc_slugs.keys())
+    for loc_a in loc_ids:
+        slugs_a = loc_slugs[loc_a]
+        if not slugs_a:
+            continue
+        overlaps: list[dict] = []
+        for loc_b in loc_ids:
+            if loc_b == loc_a:
+                continue
+            shared = len(slugs_a & loc_slugs[loc_b])
+            if shared <= 0:
+                continue
+            overlaps.append(
+                {
+                    "locality_id": loc_b,
+                    "name": region_names.get(loc_b, f"l={loc_b}"),
+                    "shared_climbs": shared,
+                    "pct_of_this": round(100.0 * shared / len(slugs_a), 1),
+                }
+            )
+        overlaps.sort(key=lambda x: (-x["shared_climbs"], x["name"]))
+        by_locality[str(loc_a)] = overlaps[:8]
+    payload = {
+        "schema_version": "1.0",
+        "updated_at": __import__("datetime")
+        .datetime.now(__import__("datetime").timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "by_locality": by_locality,
+    }
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"Wrote locality overlaps → {out_path.relative_to(ROOT)}")
+
+
 def main() -> None:
     regions = []
+    loc_slugs: dict[int, set[str]] = {}
+    global_slugs: set[str] = set()
     for path in sorted(DATA.glob("*.json")):
         if not is_climb_bundle(path):
             continue
@@ -98,12 +166,24 @@ def main() -> None:
         if loc is not None:
             entry["locality_id"] = loc
         regions.append(entry)
+        if loc is not None:
+            bucket = loc_slugs.setdefault(loc, set())
+            for c in climbs:
+                s = climb_slug(c)
+                if s:
+                    bucket.add(s)
+                    global_slugs.add(s)
 
     regions.sort(key=lambda r: (r.get("country", ""), r.get("displayTitle", r.get("title", ""))))
     total_climbs = sum(r.get("count") or 0 for r in regions)
+    unique_climbs = len(global_slugs)
+    duplicate_rows = total_climbs - unique_climbs
+    write_locality_overlaps(loc_slugs, load_region_name_index())
     payload = {
         "schema_version": "1.0",
         "total_climbs": total_climbs,
+        "unique_climbs": unique_climbs,
+        "duplicate_rows_across_regions": max(0, duplicate_rows),
         "region_count": len(regions),
         "regions": regions,
     }
