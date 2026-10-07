@@ -93,6 +93,9 @@
     .dup-row-action { margin-top: 0.35rem; font-size: 0.78rem; padding: 0.35rem 0.55rem; }
     #dupGhCmd { min-height: 64px; font-size: 0.72rem; margin-top: 0.5rem; }
     #dupPager { margin-top: 0.5rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
+    .dup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; align-items: center; }
+    button.dup-danger { background: #9a3412; }
+    button.dup-danger:hover { background: #7c2d12; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
@@ -192,8 +195,14 @@
         </div>
         <div id="dupList"><p class="hint">Open dit tabblad om duplicaten te laden…</p></div>
         <div id="dupPager"></div>
-        <button type="button" id="dupApplyBtn">Verwijder geselecteerde kopieën (GitHub)</button>
-        <button type="button" id="dupCopyGhBtn" class="secondary">Kopieer gh-commando</button>
+        <div class="dup-actions">
+          <button type="button" id="dupApplyAllSmallestBtn" class="dup-danger">
+            Alles opschonen — behoud kleinste regio (GitHub)
+          </button>
+          <button type="button" id="dupSelectAllSmallestBtn" class="secondary">Alleen selecteren (review)</button>
+          <button type="button" id="dupApplyBtn">Verwijder selectie (max 120)</button>
+          <button type="button" id="dupCopyGhBtn" class="secondary">Kopieer gh-commando</button>
+        </div>
         <textarea id="dupGhCmd" readonly aria-label="gh workflow commando"></textarea>
         <p class="actions-links">
           <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/remove-duplicate-climbs.yml" target="_blank" rel="noopener">Open Actions → Remove duplicate climbs</a>
@@ -227,7 +236,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="assets/import-status.js?v=20261007f"></script>
-  <script src="assets/duplicate-admin.js?v=20261007f"></script>
+  <script src="assets/duplicate-admin.js?v=20261007g"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="climbfinder-browser.js"></script>
   <script>

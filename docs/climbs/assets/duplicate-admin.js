@@ -45,6 +45,20 @@
     )[0];
   }
 
+  function selectAllSmallestRegionRemovals() {
+    selectedRemovals = new Set();
+    if (!report?.groups) return 0;
+    for (const g of report.groups) {
+      const keep = suggestKeepCopy(g.copies);
+      if (!keep) continue;
+      for (const c of g.copies || []) {
+        if (c.dataset_id === keep.dataset_id && c.climb_id === keep.climb_id) continue;
+        selectedRemovals.add(removalKey(c.dataset_id, c.climb_id));
+      }
+    }
+    return selectedRemovals.size;
+  }
+
   function buildRemovalsPayload() {
     const out = [];
     for (const key of selectedRemovals) {
@@ -209,6 +223,8 @@
     const searchEl = document.getElementById("dupSearch");
     const loadBtn = document.getElementById("dupReloadBtn");
     const applyBtn = document.getElementById("dupApplyBtn");
+    const applyAllBtn = document.getElementById("dupApplyAllSmallestBtn");
+    const selectAllBtn = document.getElementById("dupSelectAllSmallestBtn");
     const cmdTa = document.getElementById("dupGhCmd");
     const copyBtn = document.getElementById("dupCopyGhBtn");
     if (!listEl) return;
@@ -233,6 +249,66 @@
     });
 
     loadBtn?.addEventListener("click", () => void refreshReport());
+
+    selectAllBtn?.addEventListener("click", () => {
+      if (!report?.groups?.length) {
+        opts.log("Laad eerst het duplicatenrapport.");
+        return;
+      }
+      const n = selectAllSmallestRegionRemovals();
+      applyFilter(searchEl?.value || "");
+      renderList(listEl, summaryEl, pagerEl, opts.log);
+      opts.log(`${n} kopieën geselecteerd (behoud kleinste regio per klim). Gebruik daarna handmatig verwijderen (max ${MAX_REMOVALS_PER_RUN} per run).`);
+    });
+
+    applyAllBtn?.addEventListener("click", async () => {
+      if (!opts.isUnlocked()) {
+        opts.log("FOUT: eerst inloggen.");
+        return;
+      }
+      const extra = report?.extra_rows != null ? ` (~${report.extra_rows} regels)` : "";
+      if (
+        !confirm(
+          "Alle duplicaten opschonen?\n\n" +
+            "Per klim (slug) blijft één kopie in het kleinste regio-bestand; " +
+            "alle kopieën in grotere regio’s worden verwijderd" +
+            extra +
+            ".\n\nEén GitHub Actions-run op main — geen handmatige selectie."
+        )
+      ) {
+        return;
+      }
+      applyAllBtn.disabled = true;
+      try {
+        const cfg = opts.githubImportConfig?.();
+        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
+          opts.log("Start volledige dedupe (kleinste regio behouden)…");
+          const fn = firebase
+            .app()
+            .functions(cfg.region || "europe-west1")
+            .httpsCallable("requestClimbDedupeAllSmallest");
+          const res = await fn({});
+          opts.log(res.data.message || "Workflow gestart.");
+          if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
+        } else {
+          const cmd = "gh workflow run dedupe-all-smallest-region.yml";
+          if (cmdTa) cmdTa.value = cmd;
+          opts.log("Firebase niet actief — start handmatig:");
+          opts.log(cmd);
+          opts.log("→ Actions → Dedupe all (keep smallest region) → Run workflow");
+          window.open(
+            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/dedupe-all-smallest-region.yml",
+            "_blank",
+            "noopener"
+          );
+        }
+      } catch (e) {
+        const fmt = opts.formatCallableError || ((x) => x?.message || String(x));
+        opts.log("FOUT: " + fmt(e));
+      } finally {
+        applyAllBtn.disabled = false;
+      }
+    });
 
     copyBtn?.addEventListener("click", () => {
       if (!cmdTa?.value) return;
