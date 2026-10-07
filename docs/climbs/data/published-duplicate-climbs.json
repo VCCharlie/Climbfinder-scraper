@@ -1,9 +1,29 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-10-07T16:42:13Z",
-  "duplicate_groups": 100,
-  "extra_rows": 100,
+  "updated_at": "2026-10-07T16:47:15Z",
+  "duplicate_groups": 263,
+  "extra_rows": 263,
   "groups": [
+    {
+      "slug": "beau-reve",
+      "name": "Beau Rêve",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "beau-reve",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "beau-reve",
+          "region_count": 622
+        }
+      ]
+    },
     {
       "slug": "beau-soleil-ayon",
       "name": "Beau Soleil from Ayon",
@@ -13,7 +33,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "beau-soleil-ayon",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -33,7 +53,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "bellevue-la-sarre",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -53,7 +73,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "le-moulin-de-cabossen",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -73,7 +93,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "bieuzy-prioldy",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -93,13 +113,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "bignat-le-sourn-le-ponto",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "bignat-le-sourn-le-ponto",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "bois-de-tremelin",
+      "name": "Bois de Tremelin",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "bois-de-tremelin",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "bois-de-tremelin",
           "region_count": 622
         }
       ]
@@ -113,7 +153,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "bonalo-kerfos",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -133,7 +173,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "bonalo-le-moulin-de-kernars",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -165,6 +205,86 @@
       ]
     },
     {
+      "slug": "bosse-de-belzoeuvre-rochefort-en-terre",
+      "name": "Bosse de Belzoeuvre from Rochefort-en-Terre",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "bosse-de-belzoeuvre-rochefort-en-terre",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "bosse-de-belzoeuvre-rochefort-en-terre",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "bosse-de-ferrand-poulvidan",
+      "name": "Bosse de Férrand from Poulvidan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "bosse-de-ferrand-poulvidan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "bosse-de-ferrand-poulvidan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "bosse-de-trehiguier",
+      "name": "Bosse de Tréhiguier",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "bosse-de-trehiguier",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "bosse-de-trehiguier",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "bosse-saint-julien-malestroit",
+      "name": "Bosse Saint Julien from Malestroit",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "bosse-saint-julien-malestroit",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "bosse-saint-julien-malestroit",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "ceillac",
       "name": "Ceillac",
       "copies": [
@@ -185,6 +305,106 @@
       ]
     },
     {
+      "slug": "chemin-de-couedo-le-sourn-kerdanet",
+      "name": "Chemin de Couédo from Le Sourn Kerdanet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "chemin-de-couedo-le-sourn-kerdanet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "chemin-de-couedo-le-sourn-kerdanet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "chemin-de-l-ecobut",
+      "name": "Chemin de l'Écobut",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "chemin-de-l-ecobut",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "chemin-de-l-ecobut",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "chemin-de-la-sezaie",
+      "name": "Chemin de la Sézaie",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "chemin-de-la-sezaie",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "chemin-de-la-sezaie",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "chemin-du-pont-de-sarre",
+      "name": "Chemin du Pont de Sarre",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "chemin-du-pont-de-sarre",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "chemin-du-pont-de-sarre",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "chemin-du-pradigo-a-touldorhent",
+      "name": "Chemin du Pradigo à Touldorhent",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "chemin-du-pradigo-a-touldorhent",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "chemin-du-pradigo-a-touldorhent",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "col-de-la-bonette-jausiers",
       "name": "Cime de la Bonette",
       "copies": [
@@ -201,6 +421,26 @@
           "locality_id": 290,
           "climb_id": "col-de-la-bonette-jausiers",
           "region_count": 193
+        }
+      ]
+    },
+    {
+      "slug": "coet-henuen",
+      "name": "Coet Henuen",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "coet-henuen",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "coet-henuen",
+          "region_count": 622
         }
       ]
     },
@@ -313,7 +553,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "col-de-keralvez-gourin",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -513,7 +753,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "col-de-toullaeron-gourin",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -725,6 +965,86 @@
       ]
     },
     {
+      "slug": "cote-de-malguenac",
+      "name": "Cote de Malguenac",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-malguenac",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-malguenac",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "coet-maguet",
+      "name": "Coët Maguet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "coet-maguet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "coet-maguet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "coet-moru-l-ecluse-de-timadeuc",
+      "name": "Coët Moru via L'Écluse de Timadeuc",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "coet-moru-l-ecluse-de-timadeuc",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "coet-moru-l-ecluse-de-timadeuc",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "coet-prat",
+      "name": "Coët Prat",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "coet-prat",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "coet-prat",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "coet-sulan",
       "name": "Coët Sulan",
       "copies": [
@@ -733,13 +1053,113 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "coet-sulan",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "coet-sulan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "croix-du-pont-du-favre-toulicouet",
+      "name": "Croix du Pont du Favre from Toulicouët",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "croix-du-pont-du-favre-toulicouet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "croix-du-pont-du-favre-toulicouet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "croix-jegou",
+      "name": "Croix Jégou",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "croix-jegou",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "croix-jegou",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "croix-jegou-rohan",
+      "name": "Croix Jégou from Rohan via Rue de Cathélo",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "croix-jegou-rohan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "croix-jegou-rohan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "crehozo-le-grand-drenidan",
+      "name": "Créhozo from Le Grand Drénidan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "crehozo-le-grand-drenidan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "crehozo-le-grand-drenidan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-berdeux",
+      "name": "Côte de Berdeux",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-berdeux",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-berdeux",
           "region_count": 622
         }
       ]
@@ -753,13 +1173,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-boget-garnot",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-boget-garnot",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-bordehouat-port-andro",
+      "name": "Côte de Bordehouat from Port Andro",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-bordehouat-port-andro",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-bordehouat-port-andro",
           "region_count": 622
         }
       ]
@@ -773,7 +1213,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-botcoet",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -793,7 +1233,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-bramby",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -813,13 +1253,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-brancheleux-le-plessis-rivault",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-brancheleux-le-plessis-rivault",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-beganne-pellouan",
+      "name": "Côte de Béganne from Pellouan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-beganne-pellouan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-beganne-pellouan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-caden-limerzel",
+      "name": "Côte de Caden from Limerzel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-caden-limerzel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-caden-limerzel",
           "region_count": 622
         }
       ]
@@ -833,7 +1313,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-cadoudal",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -853,13 +1333,173 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-castennec-st-nicolas-les-eaux-575799",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-castennec-st-nicolas-les-eaux-575799",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-griffet",
+      "name": "Côte de Griffet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-griffet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-griffet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kerfloch",
+      "name": "Côte de Kerfloch",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kerfloch",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kerfloch",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kergoff",
+      "name": "Côte de Kergoff",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kergoff",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kergoff",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kergourio",
+      "name": "Côte de Kergourio",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kergourio",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kergourio",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kergrennec",
+      "name": "Côte de Kergrennec",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kergrennec",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kergrennec",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kerhuennec",
+      "name": "Côte de Kerhuennec",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kerhuennec",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kerhuennec",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kermahe",
+      "name": "Côte de Kermahé",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kermahe",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kermahe",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kerouallan",
+      "name": "Côte de Kerouallan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kerouallan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kerouallan",
           "region_count": 622
         }
       ]
@@ -873,13 +1513,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-kervalan",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-kervalan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-kervegant",
+      "name": "Côte de Kervégant",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-kervegant",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-kervegant",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-belle-alouette",
+      "name": "Côte de la Belle Alouette",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-belle-alouette",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-belle-alouette",
           "region_count": 622
         }
       ]
@@ -893,13 +1573,193 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-la-brochardais",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-la-brochardais",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-croix-aux-chenes",
+      "name": "Côte de la Croix aux Chènes",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-croix-aux-chenes",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-croix-aux-chenes",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-la-foret-pont-callek",
+      "name": "Côte de la Forêt from Le Pont Neuf",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-la-foret-pont-callek",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-la-foret-pont-callek",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-la-gare-de-meslien",
+      "name": "Côte de la Gare de Meslien",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-la-gare-de-meslien",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-la-gare-de-meslien",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-la-haye",
+      "name": "Côte de la Haye",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-la-haye",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-la-haye",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-la-maladrie",
+      "name": "Côte de la Maladrie",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-la-maladrie",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-la-maladrie",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-la-ville-agno",
+      "name": "Côte de la Ville Agno",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-la-ville-agno",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-la-ville-agno",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-lanouee",
+      "name": "Côte de Lanouée via Rue des Glycines",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-lanouee",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-lanouee",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-marta",
+      "name": "Côte de Marta",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-marta",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-marta",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-penhouet",
+      "name": "Côte de Penhouët",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-penhouet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-penhouet",
           "region_count": 622
         }
       ]
@@ -913,13 +1773,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-peudu",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-peudu",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-plaudren",
+      "name": "Côte de Plaudren",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-plaudren",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-plaudren",
           "region_count": 622
         }
       ]
@@ -933,13 +1813,113 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-plumelliau",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-plumelliau",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-pont-neuf",
+      "name": "Côte de Pont-Neuf",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-pont-neuf",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-pont-neuf",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-queuvre",
+      "name": "Côte de Queuvré",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-queuvre",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-queuvre",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-quistinic",
+      "name": "Côte de Quistinic",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-quistinic",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-quistinic",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-randrecard-trefflean",
+      "name": "Côte de Randrécard from Trefflean",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-randrecard-trefflean",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-randrecard-trefflean",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rostervel",
+      "name": "Côte de Rostervel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rostervel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rostervel",
           "region_count": 622
         }
       ]
@@ -953,13 +1933,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-saint-degan-auray",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-saint-degan-auray",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-saint-jean-brevelay",
+      "name": "Côte de Saint Jean Brevelay",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-saint-jean-brevelay",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-saint-jean-brevelay",
           "region_count": 622
         }
       ]
@@ -973,13 +1973,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-saint-jean-la-poterie-rieux",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-saint-jean-la-poterie-rieux",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-saint-marc",
+      "name": "Côte de Saint Marc via Rue de Pontmain",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-saint-marc",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-saint-marc",
           "region_count": 622
         }
       ]
@@ -993,13 +2013,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-de-treorzan",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-de-treorzan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-villa-es-moines",
+      "name": "Côte de Villa ès Moines",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-de-villa-es-moines",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-de-villa-es-moines",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-des-croix",
+      "name": "Côte des Croix",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-des-croix",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-des-croix",
           "region_count": 622
         }
       ]
@@ -1013,13 +2073,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-du-barrage-d-arzal-arzal",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-du-barrage-d-arzal-arzal",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-bourg-aux-moines",
+      "name": "Côte du Bourg aux Moines via Rue Saint-Martin",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-bourg-aux-moines",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-bourg-aux-moines",
           "region_count": 622
         }
       ]
@@ -1033,13 +2113,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-du-chene",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-du-chene",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-clos-fauvel",
+      "name": "Côte du Clos Fauvel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-clos-fauvel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-clos-fauvel",
           "region_count": 622
         }
       ]
@@ -1053,13 +2153,113 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-du-closet",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-du-closet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-cormier",
+      "name": "Côte du Cormier",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-cormier",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-cormier",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-kerdore",
+      "name": "Côte du Kerdore",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-kerdore",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-kerdore",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-kergouet",
+      "name": "Côte du Kergouët",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-kergouet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-kergouet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-lezot",
+      "name": "Côte du Lezot",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-lezot",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-lezot",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-lomelec",
+      "name": "Côte du Lomelec",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-lomelec",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-lomelec",
           "region_count": 622
         }
       ]
@@ -1073,13 +2273,153 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-du-maneguen-botruit",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-du-maneguen-botruit",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-moulin-de-bezon",
+      "name": "Côte du Moulin de Bezon",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-moulin-de-bezon",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-moulin-de-bezon",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-petit-villeneuve-tredion",
+      "name": "Côte du Petit Villeneuve from Trédion",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-petit-villeneuve-tredion",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-petit-villeneuve-tredion",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-point-du-jour",
+      "name": "Côte du Point du Jour",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-point-du-jour",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-point-du-jour",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-reclus-auray",
+      "name": "Côte du Reclus from Auray",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-reclus-auray",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-reclus-auray",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-rendez-vous",
+      "name": "Côte du Rendez-Vous",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-rendez-vous",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-rendez-vous",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-ros-le-folleux",
+      "name": "Côte du Ros from Le Folleux",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-ros-le-folleux",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-ros-le-folleux",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-toulhouet",
+      "name": "Côte du Toulhouët",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-toulhouet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-toulhouet",
           "region_count": 622
         }
       ]
@@ -1093,7 +2433,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-du-vau",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1113,13 +2453,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-du-vaubossard",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-du-vaubossard",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-du-verger",
+      "name": "Côte du Verger",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-du-verger",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-du-verger",
           "region_count": 622
         }
       ]
@@ -1133,13 +2493,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "cote-petit-kermaniec-st-nicolas-les-eaux",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "cote-petit-kermaniec-st-nicolas-les-eaux",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "cote-villa-des-roses",
+      "name": "Côte Villa des Roses via Rue des Lavandières",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "cote-villa-des-roses",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "cote-villa-des-roses",
           "region_count": 622
         }
       ]
@@ -1153,7 +2533,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "faux-plat-de-deil",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1173,13 +2553,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "font-faven-pontivy",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "font-faven-pontivy",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "grand-champ-par-la-chenaie-grand-champ",
+      "name": "Grand Champ from Grand Champ via la Chenaie",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "grand-champ-par-la-chenaie-grand-champ",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "grand-champ-par-la-chenaie-grand-champ",
           "region_count": 622
         }
       ]
@@ -1193,7 +2593,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "grand-champ-kerherve",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1213,13 +2613,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "grand-champ-lopabu",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "grand-champ-lopabu",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "grayo-moulin-de-gourvinec",
+      "name": "Grayo from Moulin de Gourvinec",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "grayo-moulin-de-gourvinec",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "grayo-moulin-de-gourvinec",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "grayo-saint-nolff",
+      "name": "Grayo from Saint Nolff",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "grayo-saint-nolff",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "grayo-saint-nolff",
           "region_count": 622
         }
       ]
@@ -1245,6 +2685,186 @@
       ]
     },
     {
+      "slug": "gueltas",
+      "name": "Gueltas",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "gueltas",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "gueltas",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kerallain-l-eveil",
+      "name": "Kerallain from L'Eveil",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kerallain-l-eveil",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kerallain-l-eveil",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "saint-tugdual",
+      "name": "Kerantalec via Saint Tugdual",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "saint-tugdual",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "saint-tugdual",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kerascouet-pont-en-du",
+      "name": "Kerascouet from Pont en Du",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kerascouet-pont-en-du",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kerascouet-pont-en-du",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kercadio-treblavet",
+      "name": "Kercadio from Treblavet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kercadio-treblavet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kercadio-treblavet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kerdrean-trefflean-ruisseau-de-caradec-saint-clement-elven",
+      "name": "Kerdrean from Ruisseau de Caradec",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kerdrean-trefflean-ruisseau-de-caradec-saint-clement-elven",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kerdrean-trefflean-ruisseau-de-caradec-saint-clement-elven",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kernentelin-le-blern",
+      "name": "Kernentelin from Le Blern",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kernentelin-le-blern",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kernentelin-le-blern",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kerrivalain-prioldy",
+      "name": "Kerrivalain from Prioldy",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kerrivalain-prioldy",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kerrivalain-prioldy",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kerroc-h",
+      "name": "Kerroc'h from Bois de Kerminizy",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kerroc-h",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kerroc-h",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "kerroch-le-sourn-kerdanet",
       "name": "Kerroc'h from Le Sourn Kerdanet",
       "copies": [
@@ -1253,7 +2873,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "kerroch-le-sourn-kerdanet",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1273,7 +2893,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "kerroc-h-le-sourn-rimaison",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1293,13 +2913,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "kerscoulan-longeo-le-bas",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "kerscoulan-longeo-le-bas",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kertrionnaire-rue-du-bois-de-gournais",
+      "name": "Kertrionnaire",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kertrionnaire-rue-du-bois-de-gournais",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kertrionnaire-rue-du-bois-de-gournais",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "kervarec-botello",
+      "name": "Kervarec from Botello",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "kervarec-botello",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "kervarec-botello",
           "region_count": 622
         }
       ]
@@ -1313,13 +2973,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "la-barriere-loperhet",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "la-barriere-loperhet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-belle-alouette-quenahe",
+      "name": "La Belle Alouette via Quénahé",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-belle-alouette-quenahe",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-belle-alouette-quenahe",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-buzardiere",
+      "name": "La Buzardière",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-buzardiere",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-buzardiere",
           "region_count": 622
         }
       ]
@@ -1373,13 +3073,413 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "la-chaussee-olivier",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "la-chaussee-olivier",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-croix-peinte-cadoudal",
+      "name": "La Croix Peinte from Cadoudal",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-croix-peinte-cadoudal",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-croix-peinte-cadoudal",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-croix-robic",
+      "name": "La Croix Robic",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-croix-robic",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-croix-robic",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-croix-verte",
+      "name": "La Croix Verte",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-croix-verte",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-croix-verte",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-gree-lesteno",
+      "name": "La Grée from Lesteno",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-gree-lesteno",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-gree-lesteno",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "leval-ruault-le-val",
+      "name": "La Grée Ruault from Le Val",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "leval-ruault-le-val",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "leval-ruault-le-val",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-haie-haute-l-evel",
+      "name": "La Haie Haute from l'Evel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-haie-haute-l-evel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-haie-haute-l-evel",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-muterne-le-petit-guerno",
+      "name": "La Muterne from Le Petit Guerno",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-muterne-le-petit-guerno",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-muterne-le-petit-guerno",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-noe-kerha",
+      "name": "La Noé from Kerha",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-noe-kerha",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-noe-kerha",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-noe-le-poteau",
+      "name": "La Noé from Le Poteau",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-noe-le-poteau",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-noe-le-poteau",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-salle-le-gorvello",
+      "name": "La Salle from Le Gorvello",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-salle-le-gorvello",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-salle-le-gorvello",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-david",
+      "name": "La Ville David",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-david",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-david",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-ean",
+      "name": "La Ville Ean",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-ean",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-ean",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-gazio-la-cr-d-agueneac",
+      "name": "La Ville Gazio from La Cour d'Aguénéac",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-gazio-la-cr-d-agueneac",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-gazio-la-cr-d-agueneac",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-glais",
+      "name": "La Ville Glais",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-glais",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-glais",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-hervieux",
+      "name": "La Ville Hervieux",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-hervieux",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-hervieux",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-molsan",
+      "name": "La Ville Molsan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-molsan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-molsan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-rieux",
+      "name": "La Ville Rieux",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-rieux",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-rieux",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-ville-ruault-le-ledo",
+      "name": "La Ville Ruault from Le Ledo",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-ville-ruault-le-ledo",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-ville-ruault-le-ledo",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-villeneuve-kerguillic",
+      "name": "La Villeneuve from Kerguillic",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-villeneuve-kerguillic",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-villeneuve-kerguillic",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "la-villeneuve-loheac",
+      "name": "La Villeneuve Lohéac",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "la-villeneuve-loheac",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "la-villeneuve-loheac",
           "region_count": 622
         }
       ]
@@ -1405,6 +3505,106 @@
       ]
     },
     {
+      "slug": "landes-de-combocaire-moulin-du-pomin",
+      "name": "Landes de Combocaire from Moulin du Pomin",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "landes-de-combocaire-moulin-du-pomin",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "landes-de-combocaire-moulin-du-pomin",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "lannivon-toul-er-reh",
+      "name": "Lannivon from Toul er Reh",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "lannivon-toul-er-reh",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "lannivon-toul-er-reh",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "lannivon-toul-er-reh-237094",
+      "name": "Lannivon from Toul er Reh",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "lannivon-toul-er-reh-237094",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "lannivon-toul-er-reh-237094",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-bas-penhoet",
+      "name": "Le Bas Penhoet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-bas-penhoet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-bas-penhoet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-bourron",
+      "name": "Le Bourron",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-bourron",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-bourron",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "le-buisson-guerin",
       "name": "Le Buisson Guérin",
       "copies": [
@@ -1413,7 +3613,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "le-buisson-guerin",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1445,6 +3645,86 @@
       ]
     },
     {
+      "slug": "le-cours-le-moulin-du-pont-de-molac",
+      "name": "Le Cours from Pont de Molac",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-cours-le-moulin-du-pont-de-molac",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-cours-le-moulin-du-pont-de-molac",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-croix-de-bolan",
+      "name": "Le Croix de Bolan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-croix-de-bolan",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-croix-de-bolan",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-croix-de-bolan-331504",
+      "name": "Le Croix de Bolan via La Lande du Punto",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-croix-de-bolan-331504",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-croix-de-bolan-331504",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-faouet-rue-poher",
+      "name": "Le Faouet via Rue Poher",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-faouet-rue-poher",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-faouet-rue-poher",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "le-grand-chene-fumel",
       "name": "Le Grand Chêne Fumel",
       "copies": [
@@ -1453,13 +3733,133 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "le-grand-chene-fumel",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "le-grand-chene-fumel",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-haut-penhoet",
+      "name": "Le Haut Penhoët",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-haut-penhoet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-haut-penhoet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-haut-quetel",
+      "name": "Le Haut Quetel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-haut-quetel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-haut-quetel",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-haut-tugnac",
+      "name": "Le Haut Tugnac",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-haut-tugnac",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-haut-tugnac",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-hellen-monterblanc",
+      "name": "Le Hellen from Monterblanc",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-hellen-monterblanc",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-hellen-monterblanc",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-helles",
+      "name": "Le Helles",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-helles",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-helles",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "le-helles-rosmiliguet",
+      "name": "Le Helles from Rosmiliguet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-helles-rosmiliguet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-helles-rosmiliguet",
           "region_count": 622
         }
       ]
@@ -1481,6 +3881,26 @@
           "locality_id": 192,
           "climb_id": "le-means-embrun",
           "region_count": 169
+        }
+      ]
+    },
+    {
+      "slug": "le-rouvray",
+      "name": "Le Rouvray",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "le-rouvray",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "le-rouvray",
+          "region_count": 622
         }
       ]
     },
@@ -1513,7 +3933,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "les-coulees-du-val",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1533,13 +3953,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "les-landettes-le-chateau-du-vau-de-quip",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "les-landettes-le-chateau-du-vau-de-quip",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "les-noes",
+      "name": "Les Noës",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "les-noes",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "les-noes",
           "region_count": 622
         }
       ]
@@ -1565,6 +4005,26 @@
       ]
     },
     {
+      "slug": "lescastel-la-haie-belle-fontaine",
+      "name": "Lescastel from La Haie Belle Fontaine",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "lescastel-la-haie-belle-fontaine",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "lescastel-la-haie-belle-fontaine",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "ligne-du-petit-bois",
       "name": "Ligne du Petit Bois from Camors",
       "copies": [
@@ -1573,7 +4033,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "ligne-du-petit-bois",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1593,7 +4053,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "locmaria-le-temple",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1613,7 +4073,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "locunele-tallene",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1641,6 +4101,46 @@
           "locality_id": 290,
           "climb_id": "maljasset-saint-paul-sur-ubaye",
           "region_count": 193
+        }
+      ]
+    },
+    {
+      "slug": "mane-brazo",
+      "name": "Mané Brazo",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "mane-brazo",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "mane-brazo",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "maneguen-moulin-de-maneguen",
+      "name": "Manéguen from Moulin de Manéguen",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "maneguen-moulin-de-maneguen",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "maneguen-moulin-de-maneguen",
+          "region_count": 622
         }
       ]
     },
@@ -1693,7 +4193,7 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "montee-de-la-noe-voisin",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
@@ -1713,13 +4213,33 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "montee-du-guereteau",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "montee-du-guereteau",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "moulin-boriou",
+      "name": "Moulin Boriou",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "moulin-boriou",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "moulin-boriou",
           "region_count": 622
         }
       ]
@@ -1733,13 +4253,53 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "mur-de-briolet",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "mur-de-briolet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "mur-de-kerhuel",
+      "name": "Mur de Kerhuel from Belle île",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "mur-de-kerhuel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "mur-de-kerhuel",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "mur-de-penan-le-pin-rochefort-en-terre",
+      "name": "Mur de Pénan - Le Pin from Rochefort-en-Terre",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "mur-de-penan-le-pin-rochefort-en-terre",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "mur-de-penan-le-pin-rochefort-en-terre",
           "region_count": 622
         }
       ]
@@ -1765,6 +4325,26 @@
       ]
     },
     {
+      "slug": "rue-de-ros-avel",
+      "name": "Noyal Pontivy via Rue de Ros Avel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-de-ros-avel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-de-ros-avel",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "orcieres-merlette-1850",
       "name": "Orcières Merlette 1850",
       "copies": [
@@ -1781,6 +4361,126 @@
           "locality_id": 192,
           "climb_id": "orcieres-merlette-1850",
           "region_count": 169
+        }
+      ]
+    },
+    {
+      "slug": "parc-bras-keraluit",
+      "name": "Parc Bras from Keraluit",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "parc-bras-keraluit",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "parc-bras-keraluit",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "pilornec-kergouic",
+      "name": "Pilornec from Kergouic",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "pilornec-kergouic",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "pilornec-kergouic",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "pleugriffet",
+      "name": "Pleugriffet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "pleugriffet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "pleugriffet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "plumelec-lautrean",
+      "name": "Plumelec from Lautréan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "plumelec-lautrean",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "plumelec-lautrean",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "pont-de-l-etier-sainte-croix",
+      "name": "Pont de l'Etier from Sainte Croix",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "pont-de-l-etier-sainte-croix",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "pont-de-l-etier-sainte-croix",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "port-arthur-st-nicolas-des-eaux",
+      "name": "Port Arthur from St Nicolas des Eaux",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "port-arthur-st-nicolas-des-eaux",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "port-arthur-st-nicolas-des-eaux",
+          "region_count": 622
         }
       ]
     },
@@ -1805,6 +4505,26 @@
       ]
     },
     {
+      "slug": "pre-de-la-garenne-capitainerie-la-roche-bernard",
+      "name": "Pré de la Garenne from Capitainerie la Roche-Bernard",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "pre-de-la-garenne-capitainerie-la-roche-bernard",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "pre-de-la-garenne-capitainerie-la-roche-bernard",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "puy-saint-eusebe",
       "name": "Puy Saint Eusèbe",
       "copies": [
@@ -1821,6 +4541,86 @@
           "locality_id": 192,
           "climb_id": "puy-saint-eusebe",
           "region_count": 169
+        }
+      ]
+    },
+    {
+      "slug": "quelven-keraluit",
+      "name": "Quelven from Keraluit",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "quelven-keraluit",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "quelven-keraluit",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "querrien-milin-pont",
+      "name": "Querrien via Milin Pont",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "querrien-milin-pont",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "querrien-milin-pont",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "queuvre-293326",
+      "name": "Queuvré",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "queuvre-293326",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "queuvre-293326",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "queuvre",
+      "name": "Queuvré from Les Attaches via Crélan",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "queuvre",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "queuvre",
+          "region_count": 622
         }
       ]
     },
@@ -1865,6 +4665,66 @@
       ]
     },
     {
+      "slug": "route-de-bieuzy-lanvaux-loperhet",
+      "name": "Route de Bieuzy-Lanvaux from Loperhet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "route-de-bieuzy-lanvaux-loperhet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "route-de-bieuzy-lanvaux-loperhet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "route-de-coat-en-haie",
+      "name": "Route de Coat en Haie",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "route-de-coat-en-haie",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "route-de-coat-en-haie",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "route-de-cornevec",
+      "name": "Route de Cornevec",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "route-de-cornevec",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "route-de-cornevec",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "route-de-la-viste",
       "name": "Route de la Viste from Guillestre",
       "copies": [
@@ -1885,6 +4745,26 @@
       ]
     },
     {
+      "slug": "route-de-toulgrand-saint-nolff",
+      "name": "Route de Toulgrand from Saint Nolff",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "route-de-toulgrand-saint-nolff",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "route-de-toulgrand-saint-nolff",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "route-des-poulains",
       "name": "Route des Poulains",
       "copies": [
@@ -1893,13 +4773,153 @@
           "title": "Morbihan",
           "locality_id": 945,
           "climb_id": "route-des-poulains",
-          "region_count": 50
+          "region_count": 213
         },
         {
           "dataset_id": "cf-l446-brittany",
           "title": "Brittany",
           "locality_id": 446,
           "climb_id": "route-des-poulains",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-de-la-colline-715997",
+      "name": "Rue de la Colline",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-de-la-colline-715997",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-de-la-colline-715997",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-de-la-forge-548732",
+      "name": "Rue de la Forge",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-de-la-forge-548732",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-de-la-forge-548732",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-de-pont-ar-len",
+      "name": "Rue de Pont Ar Len",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-de-pont-ar-len",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-de-pont-ar-len",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-des-genets",
+      "name": "Rue des Genêts",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-des-genets",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-des-genets",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-du-champ-des-martyrs-auray",
+      "name": "Rue du Champ des Martyrs from Auray",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-du-champ-des-martyrs-auray",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-du-champ-des-martyrs-auray",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-du-morhery",
+      "name": "Rue du Morhery",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-du-morhery",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-du-morhery",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "rue-du-stade",
+      "name": "Rue du Stade",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "rue-du-stade",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "rue-du-stade",
           "region_count": 622
         }
       ]
@@ -1945,6 +4965,26 @@
       ]
     },
     {
+      "slug": "saint-thuriau",
+      "name": "Saint Thuriau",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "saint-thuriau",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "saint-thuriau",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "saint-veran-chateau-ville-vieille",
       "name": "Saint Veran",
       "copies": [
@@ -1961,6 +5001,46 @@
           "locality_id": 42,
           "climb_id": "saint-veran-chateau-ville-vieille",
           "region_count": 112
+        }
+      ]
+    },
+    {
+      "slug": "saint-isidore-guetavet",
+      "name": "Saint-Isidore from Guetavet via Les Fontaines",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "saint-isidore-guetavet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "saint-isidore-guetavet",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "saint-pabut-de-brambien-le-pont-d-arz",
+      "name": "Saint-Pabut de Brambien from Le Pont d'Arz",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "saint-pabut-de-brambien-le-pont-d-arz",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "saint-pabut-de-brambien-le-pont-d-arz",
+          "region_count": 622
         }
       ]
     },
@@ -1985,6 +5065,106 @@
       ]
     },
     {
+      "slug": "sapin-en-garn-feunteuniou",
+      "name": "Sapin en Garn from Feunteuniou",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "sapin-en-garn-feunteuniou",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "sapin-en-garn-feunteuniou",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "silfiac-kergoniel",
+      "name": "Silfiac from Kergoniel",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "silfiac-kergoniel",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "silfiac-kergoniel",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "sinarty-le-temple",
+      "name": "Sinarty from Le Temple",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "sinarty-le-temple",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "sinarty-le-temple",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "sulniac-laverdon",
+      "name": "Sulniac from Laverdon",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "sulniac-laverdon",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "sulniac-laverdon",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "sulniac-le-gorvello",
+      "name": "Sulniac from Le Gorvello",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "sulniac-le-gorvello",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "sulniac-le-gorvello",
+          "region_count": 622
+        }
+      ]
+    },
+    {
       "slug": "super-sauze-barcelonette",
       "name": "Super Sauze from Barcelonette",
       "copies": [
@@ -2001,6 +5181,86 @@
           "locality_id": 290,
           "climb_id": "super-sauze-barcelonette",
           "region_count": 193
+        }
+      ]
+    },
+    {
+      "slug": "timadeuc",
+      "name": "Timadeuc",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "timadeuc",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "timadeuc",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "trefflean-le-marais",
+      "name": "Tréffléan from Le Marais",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "trefflean-le-marais",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "trefflean-le-marais",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "treonec-la-trinite",
+      "name": "Tréonec from La Trinité",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "treonec-la-trinite",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "treonec-la-trinite",
+          "region_count": 622
+        }
+      ]
+    },
+    {
+      "slug": "ty-marrec-poulhibet",
+      "name": "Ty Marrec from Poulhibet",
+      "copies": [
+        {
+          "dataset_id": "cf-l945-morbihan",
+          "title": "Morbihan",
+          "locality_id": 945,
+          "climb_id": "ty-marrec-poulhibet",
+          "region_count": 213
+        },
+        {
+          "dataset_id": "cf-l446-brittany",
+          "title": "Brittany",
+          "locality_id": 446,
+          "climb_id": "ty-marrec-poulhibet",
+          "region_count": 622
         }
       ]
     }
