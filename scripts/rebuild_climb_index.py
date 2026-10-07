@@ -27,6 +27,8 @@ SKIP_NAMES = {
     "climb-slug-search-index.json",
     "published-locality-overlaps.json",
     "published-duplicate-climbs.json",
+    "region-hierarchy.json",
+    "slug-smallest-locality.json",
 }
 
 
@@ -255,6 +257,18 @@ def main() -> None:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
     print(f"Wrote {len(regions)} region(s) → {INDEX.relative_to(ROOT)}")
+
+    try:
+        import subprocess
+        import sys
+
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts/build_region_hierarchy.py")],
+            check=True,
+            cwd=str(ROOT),
+        )
+    except (subprocess.CalledProcessError, OSError) as exc:
+        print(f"  warn: region hierarchy build failed: {exc}")
 
 
 if __name__ == "__main__":

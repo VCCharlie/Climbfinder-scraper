@@ -24,6 +24,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+_SCRIPTS = Path(__file__).resolve().parent
+import sys
+
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
+
 USER_AGENT = "Mozilla/5.0 (compatible; FietsKlimDB/1.0)"
 
 PRESETS: dict[str, dict[str, Any]] = {
@@ -495,17 +501,40 @@ def main() -> None:
     climbs: list[dict[str, Any]] = []
     errors: list[str] = []
     seen_ids: set[str] = set()
+    import_locality = int(localities[0]) if localities and len(localities) == 1 else None
+    try:
+        from climb_locality_resolve import clear_resolution_cache, resolve_smallest_locality
+
+        clear_resolution_cache()
+    except ImportError:
+        resolve_smallest_locality = None  # type: ignore[assignment,misc]
+        clear_resolution_cache = None  # type: ignore[assignment,misc]
+
     for slug in slugs:
         url = f"https://climbfinder.com/en/climbs/{slug}"
         try:
             page_html = fetch_html(url)
+            label = region_label
+            resolved_meta: dict[str, Any] | None = None
+            if resolve_smallest_locality:
+                resolved = resolve_smallest_locality(
+                    slug, country, import_locality_id=import_locality
+                )
+                if resolved and resolved.get("region_name"):
+                    label = str(resolved["region_name"])
+                    resolved_meta = resolved
             climb = parse_climb_page(
                 page_html,
                 url,
-                region_label=region_label,
+                region_label=label,
                 country=country,
                 tags=tags,
             )
+            if resolved_meta and not resolved_meta.get("fallback"):
+                climb["resolved_locality_id"] = resolved_meta.get("locality_id")
+                climb.setdefault("climbfinder", {})["resolved_locality_id"] = resolved_meta.get(
+                    "locality_id"
+                )
             if climb["id"] in seen_ids:
                 continue
             seen_ids.add(climb["id"])

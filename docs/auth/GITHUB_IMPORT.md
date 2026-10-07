@@ -56,6 +56,12 @@ Climbfinder koppelt één klim (zelfde **slug**) aan meerdere **localities** (bi
 - **Importpagina:** in de regio-lijst staat **overlap site:** … als klimmen al in een andere geïmporteerde regio staan (`published-locality-overlaps.json`, gebouwd bij index-rebuild).
 - **Opruimen:** voorkom dubbele imports van ouder + kind-regio, of merge met `merge_climb_bundles.py` / `merge_into`.
 
+### Klimgebieden (hiërarchie)
+
+Tab **Klimgebieden** op `import.html`: macro-gebieden (Alpen, Pyrenéeën, …) met daaronder Climbfinder-regio’s. Data: `region-hierarchy.json` + `slug-smallest-locality.json` (gebouwd door `scripts/build_region_hierarchy.py`, ook na `rebuild_climb_index.py`).
+
+Bij **import** krijgt elke klim automatisch het veld `region` (en `resolved_locality_id`) van de **kleinste** passende Climbfinder-locality voor die slug — ook als je een groter gebied importeert (bv. Alps → Grenoble/Isère op de klim).
+
 ### Duplicaten op de importpagina
 
 Tab **Duplicaten** (`import.html`) leest `published-duplicate-climbs.json` (gebouwd door `rebuild_climb_index.py`). Per klim (slug) zie je in welke regio-bestanden hij staat; vink kopieën aan → **Verwijder geselecteerde kopieën** start workflow **Remove duplicate climbs** op GitHub (zelfde PAT/Firebase als import).
