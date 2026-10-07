@@ -5,7 +5,7 @@
     "title": "Liège Province",
     "region_label": "Liège Province",
     "country": "BE",
-    "updated_at": "2026-10-07T12:50:23Z",
+    "updated_at": "2026-10-07T13:30:45Z",
     "count": 1525,
     "source": {
       "name": "climbfinder",
@@ -21,20 +21,24 @@
     "import_errors": [
       "rue-sur-le-batty-fraipont: IncompleteRead(36475 bytes read)",
       "clavier-rue-de-petit-brin: IncompleteRead(0 bytes read)"
-    ]
+    ],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:30:45Z"
+    }
   },
   "climbs": [
     {
       "id": "redoute",
       "name": "Côte de la Redoute",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 749,
         "slug": "redoute",
         "url": "https://climbfinder.com/en/climbs/redoute",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1580,
@@ -509,19 +513,21 @@
           "url": "https://climbfinder.com/en/climbs/redoute",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "mur-de-huy",
       "name": "Mur de Huy",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 738,
         "slug": "mur-de-huy",
         "url": "https://climbfinder.com/en/climbs/mur-de-huy",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1402,
@@ -980,19 +986,21 @@
           "url": "https://climbfinder.com/en/climbs/mur-de-huy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "stockeu",
       "name": "Stockeu",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 733,
         "slug": "stockeu",
         "url": "https://climbfinder.com/en/climbs/stockeu",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2304,
@@ -1657,19 +1665,21 @@
           "url": "https://climbfinder.com/en/climbs/stockeu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "roche-aux-faucons",
       "name": "Roche aux Faucons",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 759,
         "slug": "roche-aux-faucons",
         "url": "https://climbfinder.com/en/climbs/roche-aux-faucons",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4348,
@@ -2816,19 +2826,21 @@
           "url": "https://climbfinder.com/en/climbs/roche-aux-faucons",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "rosier-est",
       "name": "Col du Rosier",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 743,
         "slug": "rosier-est",
         "url": "https://climbfinder.com/en/climbs/rosier-est",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4436,
@@ -4001,19 +4013,21 @@
           "url": "https://climbfinder.com/en/climbs/rosier-est",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "thier-de-coo",
       "name": "Thier de Coo",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 736,
         "slug": "thier-de-coo",
         "url": "https://climbfinder.com/en/climbs/thier-de-coo",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2565,
@@ -4742,19 +4756,21 @@
           "url": "https://climbfinder.com/en/climbs/thier-de-coo",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "rosier-nord",
       "name": "Col du Rosier from Spa",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 742,
         "slug": "rosier-nord",
         "url": "https://climbfinder.com/en/climbs/rosier-nord",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 6828,
@@ -6485,19 +6501,21 @@
           "url": "https://climbfinder.com/en/climbs/rosier-nord",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "hezalles",
       "name": "Côte des Hézalles",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 737,
         "slug": "hezalles",
         "url": "https://climbfinder.com/en/climbs/hezalles",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1034,
@@ -6850,19 +6868,21 @@
           "url": "https://climbfinder.com/en/climbs/hezalles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "hallembaye",
       "name": "Hallembaye",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 475,
         "slug": "hallembaye",
         "url": "https://climbfinder.com/en/climbs/hallembaye",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 830,
@@ -7159,19 +7179,21 @@
           "url": "https://climbfinder.com/en/climbs/hallembaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "desnie",
       "name": "Côte de Desnie",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 786,
         "slug": "desnie",
         "url": "https://climbfinder.com/en/climbs/desnie",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 6521,
@@ -8824,19 +8846,21 @@
           "url": "https://climbfinder.com/en/climbs/desnie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "thier-de-huy",
       "name": "Thier de Huy",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 739,
         "slug": "thier-de-huy",
         "url": "https://climbfinder.com/en/climbs/thier-de-huy",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1424,
@@ -9267,19 +9291,21 @@
           "url": "https://climbfinder.com/en/climbs/thier-de-huy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "vecquee",
       "name": "La Vecquée",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 745,
         "slug": "vecquee",
         "url": "https://climbfinder.com/en/climbs/vecquee",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 6391,
@@ -10900,19 +10926,21 @@
           "url": "https://climbfinder.com/en/climbs/vecquee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "haute-levee",
       "name": "Haute Levée",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 754,
         "slug": "haute-levee",
         "url": "https://climbfinder.com/en/climbs/haute-levee",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 3620,
@@ -11879,19 +11907,21 @@
           "url": "https://climbfinder.com/en/climbs/haute-levee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "rosier-sud",
       "name": "Col du Rosier via La Gleize",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 744,
         "slug": "rosier-sud",
         "url": "https://climbfinder.com/en/climbs/rosier-sud",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 8251,
@@ -12980,19 +13010,21 @@
           "url": "https://climbfinder.com/en/climbs/rosier-sud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "chambralles",
       "name": "Chambralles",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 731,
         "slug": "chambralles",
         "url": "https://climbfinder.com/en/climbs/chambralles",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1563,
@@ -13461,19 +13493,21 @@
           "url": "https://climbfinder.com/en/climbs/chambralles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-niaster",
       "name": "Côte de Niaster",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 834,
         "slug": "cote-de-niaster",
         "url": "https://climbfinder.com/en/climbs/cote-de-niaster",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4074,
@@ -14552,19 +14586,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-niaster",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "super-stockeu-stavelot",
       "name": "Super Stockeu from Stavelot",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "2",
       "climbfinder": {
         "id": 24726,
         "slug": "super-stockeu-stavelot",
         "url": "https://climbfinder.com/en/climbs/super-stockeu-stavelot",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4663,
@@ -15793,19 +15829,21 @@
           "url": "https://climbfinder.com/en/climbs/super-stockeu-stavelot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "maquisard",
       "name": "Maquisard",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 755,
         "slug": "maquisard",
         "url": "https://climbfinder.com/en/climbs/maquisard",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2944,
@@ -16602,19 +16640,21 @@
           "url": "https://climbfinder.com/en/climbs/maquisard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "tesny",
       "name": "Rue Tesny",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 688,
         "slug": "tesny",
         "url": "https://climbfinder.com/en/climbs/tesny",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1015,
@@ -16961,19 +17001,21 @@
           "url": "https://climbfinder.com/en/climbs/tesny",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-des-trois-frontieres",
       "name": "Côte des Trois Frontières",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 641,
         "slug": "cote-des-trois-frontieres",
         "url": "https://climbfinder.com/en/climbs/cote-des-trois-frontieres",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2218,
@@ -17612,19 +17654,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-trois-frontieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "les-forges",
       "name": "Les Forges / Thier des Forges",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 840,
         "slug": "les-forges",
         "url": "https://climbfinder.com/en/climbs/les-forges",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2102,
@@ -18237,19 +18281,21 @@
           "url": "https://climbfinder.com/en/climbs/les-forges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "sur-steppes",
       "name": "Sur Steppes",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 794,
         "slug": "sur-steppes",
         "url": "https://climbfinder.com/en/climbs/sur-steppes",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2144,
@@ -18868,19 +18914,21 @@
           "url": "https://climbfinder.com/en/climbs/sur-steppes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "drolenval",
       "name": "Drolenval",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 638,
         "slug": "drolenval",
         "url": "https://climbfinder.com/en/climbs/drolenval",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1395,
@@ -19331,19 +19379,21 @@
           "url": "https://climbfinder.com/en/climbs/drolenval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "haute-folie",
       "name": "Haute Folie via Rue des Gottes",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 684,
         "slug": "haute-folie",
         "url": "https://climbfinder.com/en/climbs/haute-folie",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1654,
@@ -19838,19 +19888,21 @@
           "url": "https://climbfinder.com/en/climbs/haute-folie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-saint-nicolas",
       "name": "Côte de Saint-Nicolas",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 777,
         "slug": "cote-de-saint-nicolas",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-nicolas",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1405,
@@ -20281,19 +20333,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-nicolas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "wanneranval",
       "name": "Wanneranval",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 753,
         "slug": "wanneranval",
         "url": "https://climbfinder.com/en/climbs/wanneranval",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1631,
@@ -20782,19 +20836,21 @@
           "url": "https://climbfinder.com/en/climbs/wanneranval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-de-wanne-spineux",
       "name": "Côte de Wanne via Spineux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 748,
         "slug": "cote-de-wanne-spineux",
         "url": "https://climbfinder.com/en/climbs/cote-de-wanne-spineux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3091,
@@ -21629,19 +21685,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-wanne-spineux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "le-stockay-route-de-ancienne-douane-spa",
       "name": "Le Stockay / Route de l'Ancienne Douane from Spa",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 2860,
         "slug": "le-stockay-route-de-ancienne-douane-spa",
         "url": "https://climbfinder.com/en/climbs/le-stockay-route-de-ancienne-douane-spa",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 14932,
@@ -23524,19 +23582,21 @@
           "url": "https://climbfinder.com/en/climbs/le-stockay-route-de-ancienne-douane-spa",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "les-waides",
       "name": "Les Waides",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 639,
         "slug": "les-waides",
         "url": "https://climbfinder.com/en/climbs/les-waides",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2612,
@@ -24253,19 +24313,21 @@
           "url": "https://climbfinder.com/en/climbs/les-waides",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "ereffe",
       "name": "Côte d'Ereffe",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 772,
         "slug": "ereffe",
         "url": "https://climbfinder.com/en/climbs/ereffe",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2180,
@@ -24874,19 +24936,21 @@
           "url": "https://climbfinder.com/en/climbs/ereffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-cortil-tilff",
       "name": "Côte de Cortil from Tilff",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14527,
         "slug": "cote-de-cortil-tilff",
         "url": "https://climbfinder.com/en/climbs/cote-de-cortil-tilff",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2966,
@@ -25689,19 +25753,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-cortil-tilff",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "sur-le-thier",
       "name": "Sur le Thier",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 766,
         "slug": "sur-le-thier",
         "url": "https://climbfinder.com/en/climbs/sur-le-thier",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 656,
@@ -25950,19 +26016,21 @@
           "url": "https://climbfinder.com/en/climbs/sur-le-thier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-brume",
       "name": "Côte de Brume via Vieux Chemin de Brume",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 750,
         "slug": "cote-de-brume",
         "url": "https://climbfinder.com/en/climbs/cote-de-brume",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2664,
@@ -26691,19 +26759,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-brume",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "aisomont",
       "name": "Côte d'Aisomont",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 752,
         "slug": "aisomont",
         "url": "https://climbfinder.com/en/climbs/aisomont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 5089,
@@ -28038,19 +28108,21 @@
           "url": "https://climbfinder.com/en/climbs/aisomont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "xhierfomont",
       "name": "Côte de Xhierfomont",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 746,
         "slug": "xhierfomont",
         "url": "https://climbfinder.com/en/climbs/xhierfomont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 3007,
@@ -28867,19 +28939,21 @@
           "url": "https://climbfinder.com/en/climbs/xhierfomont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "berg-la-clouse",
       "name": "Berg la Clouse",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 705,
         "slug": "berg-la-clouse",
         "url": "https://climbfinder.com/en/climbs/berg-la-clouse",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 981,
@@ -29218,19 +29292,21 @@
           "url": "https://climbfinder.com/en/climbs/berg-la-clouse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-cornemont",
       "name": "Côte de Cornemont",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 839,
         "slug": "cote-de-cornemont",
         "url": "https://climbfinder.com/en/climbs/cote-de-cornemont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 5057,
@@ -30529,19 +30605,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-cornemont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "voie-des-chars",
       "name": "Voie des Chars",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 800,
         "slug": "voie-des-chars",
         "url": "https://climbfinder.com/en/climbs/voie-des-chars",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1317,
@@ -30946,19 +31024,21 @@
           "url": "https://climbfinder.com/en/climbs/voie-des-chars",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-d-amermont",
       "name": "Côte d'Amermont",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 792,
         "slug": "cote-d-amermont",
         "url": "https://climbfinder.com/en/climbs/cote-d-amermont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1361,
@@ -31375,19 +31455,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-d-amermont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "rue-de-beusdael",
       "name": "Rue de Beusdael from Sippenaeken",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 649,
         "slug": "rue-de-beusdael",
         "url": "https://climbfinder.com/en/climbs/rue-de-beusdael",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 3412,
@@ -32304,19 +32386,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-beusdael",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "lorce",
       "name": "Côte de Lorcé",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 791,
         "slug": "lorce",
         "url": "https://climbfinder.com/en/climbs/lorce",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4471,
@@ -33495,19 +33579,21 @@
           "url": "https://climbfinder.com/en/climbs/lorce",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "ancienne-barriere",
       "name": "Ancienne Barrière from Neufmoulin",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 757,
         "slug": "ancienne-barriere",
         "url": "https://climbfinder.com/en/climbs/ancienne-barriere",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4822,
@@ -34774,19 +34860,21 @@
           "url": "https://climbfinder.com/en/climbs/ancienne-barriere",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-foret",
       "name": "Côte de Forêt",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 679,
         "slug": "cote-de-foret",
         "url": "https://climbfinder.com/en/climbs/cote-de-foret",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 3021,
@@ -35603,19 +35691,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-foret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-kin",
       "name": "Côte de Kin",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 732,
         "slug": "cote-de-kin",
         "url": "https://climbfinder.com/en/climbs/cote-de-kin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4322,
@@ -36756,19 +36846,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-kin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "baraque-michel-chemin-de-henseberg-hestreux",
       "name": "Baraque Michel via Chemin de Henseberg & Hestreux",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 10986,
         "slug": "baraque-michel-chemin-de-henseberg-hestreux",
         "url": "https://climbfinder.com/en/climbs/baraque-michel-chemin-de-henseberg-hestreux",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 13399,
@@ -38463,19 +38555,21 @@
           "url": "https://climbfinder.com/en/climbs/baraque-michel-chemin-de-henseberg-hestreux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "malchamps",
       "name": "Côte de Malchamps from Spa",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 783,
         "slug": "malchamps",
         "url": "https://climbfinder.com/en/climbs/malchamps",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 5508,
@@ -39884,19 +39978,21 @@
           "url": "https://climbfinder.com/en/climbs/malchamps",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-havelange",
       "name": "Côte de Havelange",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 843,
         "slug": "cote-de-havelange",
         "url": "https://climbfinder.com/en/climbs/cote-de-havelange",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2770,
@@ -40649,19 +40745,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-havelange",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "trasenster-ouest",
       "name": "Trasenster from Fraipont",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 761,
         "slug": "trasenster-ouest",
         "url": "https://climbfinder.com/en/climbs/trasenster-ouest",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 3722,
@@ -41652,19 +41750,21 @@
           "url": "https://climbfinder.com/en/climbs/trasenster-ouest",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "stockeu-monument-eddy-merckx",
       "name": "Stockeu Monument Eddy Merckx",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 29670,
         "slug": "stockeu-monument-eddy-merckx",
         "url": "https://climbfinder.com/en/climbs/stockeu-monument-eddy-merckx",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1017,
@@ -42011,19 +42111,21 @@
           "url": "https://climbfinder.com/en/climbs/stockeu-monument-eddy-merckx",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-saint-jacques",
       "name": "Côte de Saint-Jacques",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 758,
         "slug": "cote-de-saint-jacques",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-jacques",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 4754,
@@ -43276,19 +43378,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-jacques",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "trasenster-nord",
       "name": "Trasenster from Nessonvaux",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 760,
         "slug": "trasenster-nord",
         "url": "https://climbfinder.com/en/climbs/trasenster-nord",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 3892,
@@ -44323,19 +44427,21 @@
           "url": "https://climbfinder.com/en/climbs/trasenster-nord",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-fraiture",
       "name": "Côte de Fraiture",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 848,
         "slug": "cote-de-fraiture",
         "url": "https://climbfinder.com/en/climbs/cote-de-fraiture",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2525,
@@ -45052,19 +45158,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-fraiture",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "baraque-michel-jalhay",
       "name": "Baraque Michel from Jalhay",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 780,
         "slug": "baraque-michel-jalhay",
         "url": "https://climbfinder.com/en/climbs/baraque-michel-jalhay",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 8631,
@@ -46197,19 +46305,21 @@
           "url": "https://climbfinder.com/en/climbs/baraque-michel-jalhay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-bru",
       "name": "Côte de Bru",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 857,
         "slug": "cote-de-bru",
         "url": "https://climbfinder.com/en/climbs/cote-de-bru",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 6936,
@@ -47964,19 +48074,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bru",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "kinkenweg",
       "name": "Côte du Bois de la Hees / Kinkenweg from Montzen",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 706,
         "slug": "kinkenweg",
         "url": "https://climbfinder.com/en/climbs/kinkenweg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2978,
@@ -48815,19 +48927,21 @@
           "url": "https://climbfinder.com/en/climbs/kinkenweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "le-rossier-spa-le-thier-de-statte",
       "name": "Col du Rosier via Le Thier de Statte",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 14438,
         "slug": "le-rossier-spa-le-thier-de-statte",
         "url": "https://climbfinder.com/en/climbs/le-rossier-spa-le-thier-de-statte",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 5495,
@@ -50262,19 +50376,21 @@
           "url": "https://climbfinder.com/en/climbs/le-rossier-spa-le-thier-de-statte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "mont-theux",
       "name": "Mont Theux",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 776,
         "slug": "mont-theux",
         "url": "https://climbfinder.com/en/climbs/mont-theux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 2784,
@@ -51033,19 +51149,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-theux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "roche-aux-faucons-mery",
       "name": "Roche aux Faucons from Méry",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 13601,
         "slug": "roche-aux-faucons-mery",
         "url": "https://climbfinder.com/en/climbs/roche-aux-faucons-mery",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 4522,
@@ -52236,19 +52354,21 @@
           "url": "https://climbfinder.com/en/climbs/roche-aux-faucons-mery",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "cote-de-chevron",
       "name": "Côte de Chevron",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 855,
         "slug": "cote-de-chevron",
         "url": "https://climbfinder.com/en/climbs/cote-de-chevron",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1038,
@@ -52601,19 +52721,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-chevron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "signal-de-botrange-membach",
       "name": "Signal de Botrange from Membach",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 29671,
         "slug": "signal-de-botrange-membach",
         "url": "https://climbfinder.com/en/climbs/signal-de-botrange-membach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 15559,
@@ -54576,19 +54698,21 @@
           "url": "https://climbfinder.com/en/climbs/signal-de-botrange-membach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "baraque-michel-lac-de-la-gileppe",
       "name": "Baraque Michel from Lac de la Gileppe",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 3906,
         "slug": "baraque-michel-lac-de-la-gileppe",
         "url": "https://climbfinder.com/en/climbs/baraque-michel-lac-de-la-gileppe",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 10128,
@@ -55907,19 +56031,21 @@
           "url": "https://climbfinder.com/en/climbs/baraque-michel-lac-de-la-gileppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "route-du-circuit-l-eau-rouge",
       "name": "Route du Circuit from L'Eau Rouge",
-      "region": "Liège Province",
+      "region": "Valleys of the Vesdre, de l'Amblève et de l'Ourthe",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 21053,
         "slug": "route-du-circuit-l-eau-rouge",
         "url": "https://climbfinder.com/en/climbs/route-du-circuit-l-eau-rouge",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 136
       },
       "stats": {
         "length_m": 1307,
@@ -56324,19 +56450,21 @@
           "url": "https://climbfinder.com/en/climbs/route-du-circuit-l-eau-rouge",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 136
     },
     {
       "id": "haie-des-loups",
       "name": "Haie des Loups",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 683,
         "slug": "haie-des-loups",
         "url": "https://climbfinder.com/en/climbs/haie-des-loups",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1739,
@@ -56851,19 +56979,21 @@
           "url": "https://climbfinder.com/en/climbs/haie-des-loups",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "rue-de-la-seche",
       "name": "Rue de la Sèche",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 860,
         "slug": "rue-de-la-seche",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-seche",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1576,
@@ -57370,7 +57500,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-seche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "la-levee",
@@ -58666,14 +58797,15 @@
     {
       "id": "bois-de-beyne",
       "name": "Bois de Beyne",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 682,
         "slug": "bois-de-beyne",
         "url": "https://climbfinder.com/en/climbs/bois-de-beyne",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2362,
@@ -59350,19 +59482,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-beyne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "les-communes",
       "name": "Les Communes",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 808,
         "slug": "les-communes",
         "url": "https://climbfinder.com/en/climbs/les-communes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 626,
@@ -59603,19 +59737,21 @@
           "url": "https://climbfinder.com/en/climbs/les-communes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "hallembaye-eben",
       "name": "Hallembaye from Eben",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2745,
         "slug": "hallembaye-eben",
         "url": "https://climbfinder.com/en/climbs/hallembaye-eben",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1219,
@@ -59994,19 +60130,21 @@
           "url": "https://climbfinder.com/en/climbs/hallembaye-eben",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "bois-de-la-dame",
       "name": "Bois de la Dame",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 702,
         "slug": "bois-de-la-dame",
         "url": "https://climbfinder.com/en/climbs/bois-de-la-dame",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1335,
@@ -60417,7 +60555,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-la-dame",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "chemins-de-renardmont",
@@ -61822,14 +61961,15 @@
     {
       "id": "cote-de-brume-sud",
       "name": "Côte de Brume from Basse-Bodeux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 751,
         "slug": "cote-de-brume-sud",
         "url": "https://climbfinder.com/en/climbs/cote-de-brume-sud",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1674,
@@ -62324,7 +62464,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-brume-sud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-d-awan-aywaille",
@@ -63282,14 +63423,15 @@
     {
       "id": "cote-de-la-casmatrie",
       "name": "Côte de la Casmatrie",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 685,
         "slug": "cote-de-la-casmatrie",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-casmatrie",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2699,
@@ -64050,19 +64192,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-casmatrie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "wonck",
       "name": "Wonck",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 476,
         "slug": "wonck",
         "url": "https://climbfinder.com/en/climbs/wonck",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 649,
@@ -64303,7 +64447,8 @@
           "url": "https://climbfinder.com/en/climbs/wonck",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "oneux",
@@ -65079,14 +65224,15 @@
     {
       "id": "rue-du-garage",
       "name": "Rue du Garage from Eben-Emael",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 474,
         "slug": "rue-du-garage",
         "url": "https://climbfinder.com/en/climbs/rue-du-garage",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1442,
@@ -65523,19 +65669,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-garage",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "rue-de-vaals",
       "name": "Rue de Vaals from Gemmenich",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 722,
         "slug": "rue-de-vaals",
         "url": "https://climbfinder.com/en/climbs/rue-de-vaals",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1138,
@@ -65916,19 +66064,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-vaals",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "werhai",
       "name": "Côte de Werhai",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 790,
         "slug": "werhai",
         "url": "https://climbfinder.com/en/climbs/werhai",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3651,
@@ -66907,19 +67057,21 @@
           "url": "https://climbfinder.com/en/climbs/werhai",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "la-heydt",
       "name": "La Heydt",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 708,
         "slug": "la-heydt",
         "url": "https://climbfinder.com/en/climbs/la-heydt",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 4349,
@@ -68066,7 +68218,8 @@
           "url": "https://climbfinder.com/en/climbs/la-heydt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "chemin-des-moutons",
@@ -68422,14 +68575,15 @@
     {
       "id": "rue-des-montagnards",
       "name": "Rue des Montagnards",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 714,
         "slug": "rue-des-montagnards",
         "url": "https://climbfinder.com/en/climbs/rue-des-montagnards",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 956,
@@ -68762,19 +68916,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-montagnards",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "richelle",
       "name": "Rue de Richelle via Rue des Hauteurs",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 697,
         "slug": "richelle",
         "url": "https://climbfinder.com/en/climbs/richelle",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1293,
@@ -69171,7 +69327,8 @@
           "url": "https://climbfinder.com/en/climbs/richelle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "annette-et-lubin",
@@ -69493,14 +69650,15 @@
     {
       "id": "cote-de-cornesse",
       "name": "Côte de Cornesse",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 673,
         "slug": "cote-de-cornesse",
         "url": "https://climbfinder.com/en/climbs/cote-de-cornesse",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1445,
@@ -69937,19 +70095,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-cornesse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-sarolay",
       "name": "Côte de Sarolay",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 696,
         "slug": "cote-de-sarolay",
         "url": "https://climbfinder.com/en/climbs/cote-de-sarolay",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 917,
@@ -70268,7 +70428,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-sarolay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "mur-de-limbourg",
@@ -71405,14 +71566,15 @@
     {
       "id": "montagne-corroy",
       "name": "Montagne Corroy",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 807,
         "slug": "montagne-corroy",
         "url": "https://climbfinder.com/en/climbs/montagne-corroy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1127,
@@ -71771,19 +71933,21 @@
           "url": "https://climbfinder.com/en/climbs/montagne-corroy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-ans",
       "name": "Côte de Ans",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 778,
         "slug": "cote-de-ans",
         "url": "https://climbfinder.com/en/climbs/cote-de-ans",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1406,
@@ -72214,7 +72378,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-ans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "le-rossier-creppe",
@@ -74194,14 +74359,15 @@
     {
       "id": "thier-riga",
       "name": "Thier Riga",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 814,
         "slug": "thier-riga",
         "url": "https://climbfinder.com/en/climbs/thier-riga",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1484,
@@ -74650,19 +74816,21 @@
           "url": "https://climbfinder.com/en/climbs/thier-riga",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-brume-trois-ponts",
       "name": "Côte de Brume from Trois-Ponts",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 14806,
         "slug": "cote-de-brume-trois-ponts",
         "url": "https://climbfinder.com/en/climbs/cote-de-brume-trois-ponts",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3398,
@@ -75571,19 +75739,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-brume-trois-ponts",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-de-saint-jacques-hezalles",
       "name": "Côte de Saint-Jacques via Côte des Hézalles",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 16573,
         "slug": "cote-de-saint-jacques-hezalles",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-jacques-hezalles",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 4606,
@@ -76800,19 +76970,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-jacques-hezalles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-de-wanne-neuville",
       "name": "Côte de Wanne via Neuville",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 14464,
         "slug": "cote-de-wanne-neuville",
         "url": "https://climbfinder.com/en/climbs/cote-de-wanne-neuville",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2467,
@@ -77515,19 +77687,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-wanne-neuville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-d-ahin",
       "name": "Côte d'Ahin",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 846,
         "slug": "cote-d-ahin",
         "url": "https://climbfinder.com/en/climbs/cote-d-ahin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2470,
@@ -78206,19 +78380,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-d-ahin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "rue-du-laveu-liege",
       "name": "Rue du Laveu from Liège",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 2394,
         "slug": "rue-du-laveu-liege",
         "url": "https://climbfinder.com/en/climbs/rue-du-laveu-liege",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 973,
@@ -78551,7 +78727,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-laveu-liege",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-du-hornay-sprimont",
@@ -80568,14 +80745,15 @@
     {
       "id": "chemin-de-la-lemmetrie",
       "name": "Chemin de la Lemmetrie",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 686,
         "slug": "chemin-de-la-lemmetrie",
         "url": "https://climbfinder.com/en/climbs/chemin-de-la-lemmetrie",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2207,
@@ -81214,7 +81392,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-de-la-lemmetrie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-xhoris",
@@ -82416,14 +82595,15 @@
     {
       "id": "rue-vieille-voie-cheratte",
       "name": "Rue Vieille Voie from Cheratte",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 1870,
         "slug": "rue-vieille-voie-cheratte",
         "url": "https://climbfinder.com/en/climbs/rue-vieille-voie-cheratte",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1127,
@@ -82782,19 +82962,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-vieille-voie-cheratte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "tier-de-la-cognee-hezalles",
       "name": "Thier de la Cognée via Côte des Hézalles",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 16572,
         "slug": "tier-de-la-cognee-hezalles",
         "url": "https://climbfinder.com/en/climbs/tier-de-la-cognee-hezalles",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3924,
@@ -83835,19 +84017,21 @@
           "url": "https://climbfinder.com/en/climbs/tier-de-la-cognee-hezalles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "haute-bodeux",
       "name": "Côte de Haute-Bodeux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 787,
         "slug": "haute-bodeux",
         "url": "https://climbfinder.com/en/climbs/haute-bodeux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3438,
@@ -84770,19 +84954,21 @@
           "url": "https://climbfinder.com/en/climbs/haute-bodeux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-du-sart-tilman-tilff",
       "name": "Côte du Sart-Tilman from Tilff",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 11819,
         "slug": "cote-du-sart-tilman-tilff",
         "url": "https://climbfinder.com/en/climbs/cote-du-sart-tilman-tilff",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3641,
@@ -85755,19 +85941,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-sart-tilman-tilff",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "bois-de-mauhin",
       "name": "Bois de Mauhin",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 709,
         "slug": "bois-de-mauhin",
         "url": "https://climbfinder.com/en/climbs/bois-de-mauhin",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1970,
@@ -86340,7 +86528,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-mauhin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "nouveau-monde",
@@ -87060,14 +87249,15 @@
     {
       "id": "cote-saint-leonhard",
       "name": "Côte Saint-Léonard",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 813,
         "slug": "cote-saint-leonhard",
         "url": "https://climbfinder.com/en/climbs/cote-saint-leonhard",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1577,
@@ -87542,19 +87732,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-saint-leonhard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-saint-pierre-rue-du-garage-lanaye",
       "name": "Côte Saint Pierre / Rue du Garage from Lanaye",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 1152,
         "slug": "cote-saint-pierre-rue-du-garage-lanaye",
         "url": "https://climbfinder.com/en/climbs/cote-saint-pierre-rue-du-garage-lanaye",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1304,
@@ -87959,19 +88151,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-saint-pierre-rue-du-garage-lanaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "clos-du-grand-sart",
       "name": "Clos du Grand Sart from Mortroux",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 704,
         "slug": "clos-du-grand-sart",
         "url": "https://climbfinder.com/en/climbs/clos-du-grand-sart",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2464,
@@ -88674,19 +88868,21 @@
           "url": "https://climbfinder.com/en/climbs/clos-du-grand-sart",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "rue-trou-du-moulin-oupeye",
       "name": "Rue Trou du Moulin",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2758,
         "slug": "rue-trou-du-moulin-oupeye",
         "url": "https://climbfinder.com/en/climbs/rue-trou-du-moulin-oupeye",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 818,
@@ -88977,7 +89173,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-trou-du-moulin-oupeye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "lac-de-la-gileppe-bethane",
@@ -89299,14 +89496,15 @@
     {
       "id": "cote-de-hagelstein",
       "name": "Côte de Hagelstein",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 712,
         "slug": "cote-de-hagelstein",
         "url": "https://climbfinder.com/en/climbs/cote-de-hagelstein",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1121,
@@ -89681,7 +89879,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-hagelstein",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "col-du-rosier-cheneux",
@@ -92063,14 +92262,15 @@
     {
       "id": "chavee-arecht-roclenge-sur-geer-houtain-saint-simeon",
       "name": "Chavée Arecht",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2920,
         "slug": "chavee-arecht-roclenge-sur-geer-houtain-saint-simeon",
         "url": "https://climbfinder.com/en/climbs/chavee-arecht-roclenge-sur-geer-houtain-saint-simeon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 871,
@@ -92375,7 +92575,8 @@
           "url": "https://climbfinder.com/en/climbs/chavee-arecht-roclenge-sur-geer-houtain-saint-simeon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "cote-de-gotale",
@@ -93199,14 +93400,15 @@
     {
       "id": "pierre-blanche",
       "name": "Rue de la Pierre Blanche",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 687,
         "slug": "pierre-blanche",
         "url": "https://climbfinder.com/en/climbs/pierre-blanche",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1631,
@@ -93695,19 +93897,21 @@
           "url": "https://climbfinder.com/en/climbs/pierre-blanche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "avenue-du-fort-flemalle",
       "name": "Avenue du Fort from Flemalle",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 3051,
         "slug": "avenue-du-fort-flemalle",
         "url": "https://climbfinder.com/en/climbs/avenue-du-fort-flemalle",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 725,
@@ -93970,19 +94174,21 @@
           "url": "https://climbfinder.com/en/climbs/avenue-du-fort-flemalle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "les-cahottes-sart-avette-awirs",
       "name": "Les Cahottes via Sart d'Avette",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3054,
         "slug": "les-cahottes-sart-avette-awirs",
         "url": "https://climbfinder.com/en/climbs/les-cahottes-sart-avette-awirs",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3448,
@@ -94905,19 +95111,21 @@
           "url": "https://climbfinder.com/en/climbs/les-cahottes-sart-avette-awirs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-hansez",
       "name": "Côte de Hansez",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 678,
         "slug": "cote-de-hansez",
         "url": "https://climbfinder.com/en/climbs/cote-de-hansez",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1869,
@@ -95464,7 +95672,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-hansez",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-ninane",
@@ -96578,14 +96787,15 @@
     {
       "id": "cote-de-strivay-esneux",
       "name": "Côte de Strivay from Esneux",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 2948,
         "slug": "cote-de-strivay-esneux",
         "url": "https://climbfinder.com/en/climbs/cote-de-strivay-esneux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2768,
@@ -97338,7 +97548,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-strivay-esneux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "somagne-stavelot",
@@ -98284,14 +98495,15 @@
     {
       "id": "chemin-du-duc",
       "name": "Chemin du Duc from Gemmenich",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 723,
         "slug": "chemin-du-duc",
         "url": "https://climbfinder.com/en/climbs/chemin-du-duc",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1127,
@@ -98672,19 +98884,21 @@
           "url": "https://climbfinder.com/en/climbs/chemin-du-duc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-charneux",
       "name": "Côte de Charneux",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 657,
         "slug": "cote-de-charneux",
         "url": "https://climbfinder.com/en/climbs/cote-de-charneux",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 3638,
@@ -99657,19 +99871,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-charneux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "saint-jean-sart",
       "name": "Saint Jean-Sart",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8911,
         "slug": "saint-jean-sart",
         "url": "https://climbfinder.com/en/climbs/saint-jean-sart",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 3272,
@@ -100548,19 +100764,21 @@
           "url": "https://climbfinder.com/en/climbs/saint-jean-sart",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "heid-de-mael-sentier-de-la-colline",
       "name": "Heid de Maël via Sentier de la Colline",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 3258,
         "slug": "heid-de-mael-sentier-de-la-colline",
         "url": "https://climbfinder.com/en/climbs/heid-de-mael-sentier-de-la-colline",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1129,
@@ -100919,19 +101137,21 @@
           "url": "https://climbfinder.com/en/climbs/heid-de-mael-sentier-de-la-colline",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-thier-d-amry-heure-le-romain",
       "name": "Rue Thier d'Amry",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2757,
         "slug": "rue-thier-d-amry-heure-le-romain",
         "url": "https://climbfinder.com/en/climbs/rue-thier-d-amry-heure-le-romain",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 379,
@@ -101102,19 +101322,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-thier-d-amry-heure-le-romain",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "cote-de-fayembois",
       "name": "Côte de Fayembois",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 715,
         "slug": "cote-de-fayembois",
         "url": "https://climbfinder.com/en/climbs/cote-de-fayembois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 2193,
@@ -101745,19 +101967,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-fayembois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "cote-de-france-ombret",
       "name": "Côte de France",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 2952,
         "slug": "cote-de-france-ombret",
         "url": "https://climbfinder.com/en/climbs/cote-de-france-ombret",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2240,
@@ -102380,19 +102604,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-france-ombret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "bastion-dalhem",
       "name": "Bastion Dalhem",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1164,
         "slug": "bastion-dalhem",
         "url": "https://climbfinder.com/en/climbs/bastion-dalhem",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 601,
@@ -102627,7 +102853,8 @@
           "url": "https://climbfinder.com/en/climbs/bastion-dalhem",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "hes-grevis",
@@ -105037,14 +105264,15 @@
     {
       "id": "bois-de-tihange-chemin-du-chera",
       "name": "Bois de Tihange / Chemin du Chera from Tihange",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3014,
         "slug": "bois-de-tihange-chemin-du-chera",
         "url": "https://climbfinder.com/en/climbs/bois-de-tihange-chemin-du-chera",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3578,
@@ -106003,19 +106231,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-tihange-chemin-du-chera",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-stockis",
       "name": "Côte de Stockis",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 650,
         "slug": "cote-de-stockis",
         "url": "https://climbfinder.com/en/climbs/cote-de-stockis",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1604,
@@ -106498,19 +106728,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-stockis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "thier-fouarge",
       "name": "Thier Fouarge",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 670,
         "slug": "thier-fouarge",
         "url": "https://climbfinder.com/en/climbs/thier-fouarge",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 686,
@@ -106765,7 +106997,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-fouarge",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "maquisard-la-reid",
@@ -107199,14 +107432,15 @@
     {
       "id": "vieux-thier-de-tilleur",
       "name": "Vieux-Thier de Tilleur",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 804,
         "slug": "vieux-thier-de-tilleur",
         "url": "https://climbfinder.com/en/climbs/vieux-thier-de-tilleur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 821,
@@ -107497,7 +107731,8 @@
           "url": "https://climbfinder.com/en/climbs/vieux-thier-de-tilleur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-du-jeu-de-paume",
@@ -107797,14 +108032,15 @@
     {
       "id": "bois-d-olne",
       "name": "Bois d'Olne",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 680,
         "slug": "bois-d-olne",
         "url": "https://climbfinder.com/en/climbs/bois-d-olne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 1375,
@@ -108221,19 +108457,21 @@
           "url": "https://climbfinder.com/en/climbs/bois-d-olne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "rue-bay-bonnet",
       "name": "Rue Bay-Bonnet",
-      "region": "Liège Province",
+      "region": "Pays de Herve",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 716,
         "slug": "rue-bay-bonnet",
         "url": "https://climbfinder.com/en/climbs/rue-bay-bonnet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 48
       },
       "stats": {
         "length_m": 5735,
@@ -109730,19 +109968,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-bay-bonnet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 48
     },
     {
       "id": "mur-amay",
       "name": "Mur d'Amay",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3075,
         "slug": "mur-amay",
         "url": "https://climbfinder.com/en/climbs/mur-amay",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1761,
@@ -110263,7 +110503,8 @@
           "url": "https://climbfinder.com/en/climbs/mur-amay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "hautregard-la-reid",
@@ -110789,14 +111030,15 @@
     {
       "id": "chemin-des-gueuses",
       "name": "Chemin des Gueuses",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 4108,
         "slug": "chemin-des-gueuses",
         "url": "https://climbfinder.com/en/climbs/chemin-des-gueuses",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2270,
@@ -111447,7 +111689,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-des-gueuses",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "val-de-la-berwinne",
@@ -112873,14 +113116,15 @@
     {
       "id": "thier-begot",
       "name": "Thier Bégot",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 1493,
         "slug": "thier-begot",
         "url": "https://climbfinder.com/en/climbs/thier-begot",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1189,
@@ -113251,7 +113495,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-begot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "cote-de-lince",
@@ -114675,14 +114920,15 @@
     {
       "id": "cote-de-cherave-rue-de-l-eglise",
       "name": "Côte de Cherave via Rue de l'Église",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 29706,
         "slug": "cote-de-cherave-rue-de-l-eglise",
         "url": "https://climbfinder.com/en/climbs/cote-de-cherave-rue-de-l-eglise",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1152,
@@ -115071,7 +115317,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-cherave-rue-de-l-eglise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "vieux-thier-ferrieres",
@@ -115681,14 +115928,15 @@
     {
       "id": "houtain-saint-simeon-bassenge",
       "name": "Houtain-Saint-Siméon from Bassenge",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2921,
         "slug": "houtain-saint-simeon-bassenge",
         "url": "https://climbfinder.com/en/climbs/houtain-saint-simeon-bassenge",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1957,
@@ -116261,19 +116509,21 @@
           "url": "https://climbfinder.com/en/climbs/houtain-saint-simeon-bassenge",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "rue-naniot",
       "name": "Côte de la Rue Naniot",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 856,
         "slug": "rue-naniot",
         "url": "https://climbfinder.com/en/climbs/rue-naniot",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1216,
@@ -116676,7 +116926,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-naniot",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "holliguette",
@@ -117072,14 +117323,15 @@
     {
       "id": "rue-de-la-reine-awirs",
       "name": "Mur de la Reine from Awirs",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3056,
         "slug": "rue-de-la-reine-awirs",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-reine-awirs",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1109,
@@ -117454,7 +117706,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-reine-awirs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-de-borre-argenteau",
@@ -117698,14 +117951,15 @@
     {
       "id": "heid-de-mael",
       "name": "Heid de Maël",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 796,
         "slug": "heid-de-mael",
         "url": "https://climbfinder.com/en/climbs/heid-de-mael",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1454,
@@ -118148,7 +118402,8 @@
           "url": "https://climbfinder.com/en/climbs/heid-de-mael",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "thier-antoine-coo",
@@ -120143,14 +120398,15 @@
     {
       "id": "cote-de-mont-comblain-au-pont",
       "name": "Côte de Mont from Comblain-au-Pont",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 2966,
         "slug": "cote-de-mont-comblain-au-pont",
         "url": "https://climbfinder.com/en/climbs/cote-de-mont-comblain-au-pont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2967,
@@ -120953,7 +121209,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-mont-comblain-au-pont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "chera-de-la-gombe",
@@ -123416,14 +123673,15 @@
     {
       "id": "cote-de-lierneux",
       "name": "Côte de Lierneux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 838,
         "slug": "cote-de-lierneux",
         "url": "https://climbfinder.com/en/climbs/cote-de-lierneux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 6584,
@@ -125094,7 +125352,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-lierneux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "la-redoute-playe",
@@ -127805,14 +128064,15 @@
     {
       "id": "cote-de-hermalle-sous-huy",
       "name": "Côte de Hermalle sous Huy",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3063,
         "slug": "cote-de-hermalle-sous-huy",
         "url": "https://climbfinder.com/en/climbs/cote-de-hermalle-sous-huy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2966,
@@ -128615,7 +128875,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-hermalle-sous-huy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "bierleux-haut",
@@ -130761,14 +131022,15 @@
     {
       "id": "sur-limoges-tilff",
       "name": "Sur Limoges from Tilff",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 9031,
         "slug": "sur-limoges-tilff",
         "url": "https://climbfinder.com/en/climbs/sur-limoges-tilff",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3916,
@@ -131809,19 +132071,21 @@
           "url": "https://climbfinder.com/en/climbs/sur-limoges-tilff",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "bois-de-saint-laurant",
       "name": "Bois de Saint-Laurant",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 837,
         "slug": "bois-de-saint-laurant",
         "url": "https://climbfinder.com/en/climbs/bois-de-saint-laurant",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2636,
@@ -132544,7 +132808,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-saint-laurant",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "fechereux",
@@ -133328,14 +133593,15 @@
     {
       "id": "state-marchin",
       "name": "State from Marchin",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3023,
         "slug": "state-marchin",
         "url": "https://climbfinder.com/en/climbs/state-marchin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 704,
@@ -133598,7 +133864,8 @@
           "url": "https://climbfinder.com/en/climbs/state-marchin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-rivage",
@@ -138108,14 +138375,15 @@
     {
       "id": "montagne-sainte-walburge-liege",
       "name": "Montagne Sainte-Walburge",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14006,
         "slug": "montagne-sainte-walburge-liege",
         "url": "https://climbfinder.com/en/climbs/montagne-sainte-walburge-liege",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1229,
@@ -138524,7 +138792,8 @@
           "url": "https://climbfinder.com/en/climbs/montagne-sainte-walburge-liege",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "trasenster-est",
@@ -139903,14 +140172,15 @@
     {
       "id": "mont-falise-huy",
       "name": "Mont Falise from Huy",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3128,
         "slug": "mont-falise-huy",
         "url": "https://climbfinder.com/en/climbs/mont-falise-huy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1153,
@@ -140299,7 +140569,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-falise-huy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-werbomont-aywaille",
@@ -142764,14 +143035,15 @@
     {
       "id": "hautes-des-froidmont-hallembaye-thier-des-bruyeres",
       "name": "Hautes des Froidmont from Hallembaye via Thier des Bruyères",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2751,
         "slug": "hautes-des-froidmont-hallembaye-thier-des-bruyeres",
         "url": "https://climbfinder.com/en/climbs/hautes-des-froidmont-hallembaye-thier-des-bruyeres",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1687,
@@ -143272,7 +143544,8 @@
           "url": "https://climbfinder.com/en/climbs/hautes-des-froidmont-hallembaye-thier-des-bruyeres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "cote-de-bellaire",
@@ -144655,14 +144928,15 @@
     {
       "id": "route-du-condroz-angleur",
       "name": "Route du Condroz from Angleur",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 15795,
         "slug": "route-du-condroz-angleur",
         "url": "https://climbfinder.com/en/climbs/route-du-condroz-angleur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3341,
@@ -145559,7 +145833,8 @@
           "url": "https://climbfinder.com/en/climbs/route-du-condroz-angleur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-malchamps-francorchamps",
@@ -146905,14 +147180,15 @@
     {
       "id": "bois-des-moines-awirs",
       "name": "Bois des Moines from Awirs",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3096,
         "slug": "bois-des-moines-awirs",
         "url": "https://climbfinder.com/en/climbs/bois-des-moines-awirs",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1870,
@@ -147459,7 +147735,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-des-moines-awirs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "barchon-blegny",
@@ -149195,14 +149472,15 @@
     {
       "id": "cote-de-grevesse-stockay",
       "name": "Côte de Stockay",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 4137,
         "slug": "cote-de-grevesse-stockay",
         "url": "https://climbfinder.com/en/climbs/cote-de-grevesse-stockay",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2087,
@@ -149807,7 +150085,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-grevesse-stockay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-de-sippenaeken",
@@ -152487,14 +152766,15 @@
     {
       "id": "wanzoul-rue-de-abattoir",
       "name": "Wanzoul via Rue de l'Abattoir",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3130,
         "slug": "wanzoul-rue-de-abattoir",
         "url": "https://climbfinder.com/en/climbs/wanzoul-rue-de-abattoir",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1537,
@@ -152987,7 +153267,8 @@
           "url": "https://climbfinder.com/en/climbs/wanzoul-rue-de-abattoir",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-septroux",
@@ -155739,14 +156020,15 @@
     {
       "id": "cote-de-la-kerite-flone",
       "name": "Côte de la Kérité from Flône",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3140,
         "slug": "cote-de-la-kerite-flone",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-kerite-flone",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2424,
@@ -156437,7 +156719,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-kerite-flone",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "aux-piedroux-chenee",
@@ -160003,14 +160286,15 @@
     {
       "id": "houtain-saint-simeon-hallembaye",
       "name": "Houtain-Saint-Siméon from Hallembaye",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 2922,
         "slug": "houtain-saint-simeon-hallembaye",
         "url": "https://climbfinder.com/en/climbs/houtain-saint-simeon-hallembaye",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 3245,
@@ -160883,7 +161167,8 @@
           "url": "https://climbfinder.com/en/climbs/houtain-saint-simeon-hallembaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "vaalserberg-katzenkopf-moresnet-chapelle",
@@ -162400,14 +162685,15 @@
     {
       "id": "chemin-du-comte",
       "name": "Chemin du Comte",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 740,
         "slug": "chemin-du-comte",
         "url": "https://climbfinder.com/en/climbs/chemin-du-comte",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 2784,
@@ -163194,7 +163480,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-du-comte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-lambermont",
@@ -163602,14 +163889,15 @@
     {
       "id": "rue-des-trente-six-tournants-engis",
       "name": "Rue des Trente Six Tournants from Engis",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16568,
         "slug": "rue-des-trente-six-tournants-engis",
         "url": "https://climbfinder.com/en/climbs/rue-des-trente-six-tournants-engis",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 4123,
@@ -164700,19 +164988,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-trente-six-tournants-engis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-geromont-comblain-au-pont-rue-vieille-chera",
       "name": "Côte de Géromont from Comblain-au-Pont via Rue Vieille Chera",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 2992,
         "slug": "cote-de-geromont-comblain-au-pont-rue-vieille-chera",
         "url": "https://climbfinder.com/en/climbs/cote-de-geromont-comblain-au-pont-rue-vieille-chera",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2642,
@@ -165461,19 +165751,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-geromont-comblain-au-pont-rue-vieille-chera",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-du-bol-air-ougree-rue-des-escaliers",
       "name": "Côte du Bol d'Air via Rue des Escaliers",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 9029,
         "slug": "cote-du-bol-air-ougree-rue-des-escaliers",
         "url": "https://climbfinder.com/en/climbs/cote-du-bol-air-ougree-rue-des-escaliers",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3448,
@@ -166396,7 +166688,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-bol-air-ougree-rue-des-escaliers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-lince-souverain-pre",
@@ -169928,14 +170221,15 @@
     {
       "id": "sur-les-coteaux-roclenge-sur-geer",
       "name": "Sur les Coteaux from Roclenge-sur-Geer",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3182,
         "slug": "sur-les-coteaux-roclenge-sur-geer",
         "url": "https://climbfinder.com/en/climbs/sur-les-coteaux-roclenge-sur-geer",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1749,
@@ -170450,7 +170744,8 @@
           "url": "https://climbfinder.com/en/climbs/sur-les-coteaux-roclenge-sur-geer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "habiemont",
@@ -171657,14 +171952,15 @@
     {
       "id": "cote-de-marneffe",
       "name": "Côte de Marneffe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8647,
         "slug": "cote-de-marneffe",
         "url": "https://climbfinder.com/en/climbs/cote-de-marneffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 698,
@@ -171919,19 +172215,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-marneffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "poudreries",
       "name": "Poudreries",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 8491,
         "slug": "poudreries",
         "url": "https://climbfinder.com/en/climbs/poudreries",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2949,
@@ -172728,7 +173026,8 @@
           "url": "https://climbfinder.com/en/climbs/poudreries",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rampe-de-renoupre",
@@ -173565,14 +173864,15 @@
     {
       "id": "vieux-thier-de-huy",
       "name": "Vieux Thier de Huy",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14042,
         "slug": "vieux-thier-de-huy",
         "url": "https://climbfinder.com/en/climbs/vieux-thier-de-huy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 613,
@@ -173807,7 +174107,8 @@
           "url": "https://climbfinder.com/en/climbs/vieux-thier-de-huy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-wegnez",
@@ -177796,14 +178097,15 @@
     {
       "id": "hautes-des-froidmont",
       "name": "Hautes des Froidmont",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2748,
         "slug": "hautes-des-froidmont",
         "url": "https://climbfinder.com/en/climbs/hautes-des-froidmont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 547,
@@ -178016,7 +178318,8 @@
           "url": "https://climbfinder.com/en/climbs/hautes-des-froidmont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "cote-de-sarpaye-polleur",
@@ -178762,14 +179065,15 @@
     {
       "id": "rue-du-vallon-angleur",
       "name": "Rue du Vallon from Angleur",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 15797,
         "slug": "rue-du-vallon-angleur",
         "url": "https://climbfinder.com/en/climbs/rue-du-vallon-angleur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 3898,
@@ -179804,19 +180108,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-vallon-angleur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "thier-philippart-amay",
       "name": "Thier Philippart from Amay",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3078,
         "slug": "thier-philippart-amay",
         "url": "https://climbfinder.com/en/climbs/thier-philippart-amay",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2215,
@@ -180455,19 +180761,21 @@
           "url": "https://climbfinder.com/en/climbs/thier-philippart-amay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "emaelerweg-eben-emael",
       "name": "Emaelerweg from Eben-Emael",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 2926,
         "slug": "emaelerweg-eben-emael",
         "url": "https://climbfinder.com/en/climbs/emaelerweg-eben-emael",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 928,
@@ -180792,19 +181100,21 @@
           "url": "https://climbfinder.com/en/climbs/emaelerweg-eben-emael",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "cote-de-marneffe-fumal",
       "name": "Côte de Marneffe from Fumal",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3736,
         "slug": "cote-de-marneffe-fumal",
         "url": "https://climbfinder.com/en/climbs/cote-de-marneffe-fumal",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2336,
@@ -181451,7 +181761,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-marneffe-fumal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "aubin-neufchateau",
@@ -182966,14 +183277,15 @@
     {
       "id": "rue-coupee",
       "name": "Rue Coupée",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 3150,
         "slug": "rue-coupee",
         "url": "https://climbfinder.com/en/climbs/rue-coupee",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1580,
@@ -183480,19 +183792,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-coupee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-viamont-amay",
       "name": "Côte de Viamont from Amay",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3077,
         "slug": "cote-de-viamont-amay",
         "url": "https://climbfinder.com/en/climbs/cote-de-viamont-amay",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1441,
@@ -183929,7 +184243,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-viamont-amay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-thimister",
@@ -186148,14 +186463,15 @@
     {
       "id": "wanzoul-moha",
       "name": "Wanzoul from Moha",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3132,
         "slug": "wanzoul-moha",
         "url": "https://climbfinder.com/en/climbs/wanzoul-moha",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2446,
@@ -186852,7 +187168,8 @@
           "url": "https://climbfinder.com/en/climbs/wanzoul-moha",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rabosee",
@@ -187371,14 +187688,15 @@
     {
       "id": "clos-des-coutures-roclenge-sur-geer",
       "name": "Clos des Coutures from Roclenge-sur-Geer",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3184,
         "slug": "clos-des-coutures-roclenge-sur-geer",
         "url": "https://climbfinder.com/en/climbs/clos-des-coutures-roclenge-sur-geer",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 419,
@@ -187557,19 +187875,21 @@
           "url": "https://climbfinder.com/en/climbs/clos-des-coutures-roclenge-sur-geer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "la-chaussee-romaine-flone",
       "name": "La Chaussée Romaine from Flône",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3058,
         "slug": "la-chaussee-romaine-flone",
         "url": "https://climbfinder.com/en/climbs/la-chaussee-romaine-flone",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2334,
@@ -188240,7 +188560,8 @@
           "url": "https://climbfinder.com/en/climbs/la-chaussee-romaine-flone",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "thier-d-hodimont",
@@ -189636,14 +189957,15 @@
     {
       "id": "rue-xhovemont-liege",
       "name": "Rue Xhovémont",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 9039,
         "slug": "rue-xhovemont-liege",
         "url": "https://climbfinder.com/en/climbs/rue-xhovemont-liege",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1476,
@@ -190122,7 +190444,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-xhovemont-liege",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-chateau-stavelot-la-bergerie",
@@ -191056,14 +191379,15 @@
     {
       "id": "stockeu-henumont",
       "name": "Stockeu via Hénumont",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 24730,
         "slug": "stockeu-henumont",
         "url": "https://climbfinder.com/en/climbs/stockeu-henumont",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3314,
@@ -191954,19 +192278,21 @@
           "url": "https://climbfinder.com/en/climbs/stockeu-henumont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "cote-de-geromont-fairon",
       "name": "Côte de Géromont from Fairon",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2991,
         "slug": "cote-de-geromont-fairon",
         "url": "https://climbfinder.com/en/climbs/cote-de-geromont-fairon",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2175,
@@ -192591,7 +192917,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-geromont-fairon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "bois-de-vecqueterre-winamplanche",
@@ -193799,14 +194126,15 @@
     {
       "id": "les-ruelles-gives",
       "name": "Les Ruelles from Gives",
-      "region": "Liège Province",
+      "region": "Valleys of the Meuse, Sambre and Orneau",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 11599,
         "slug": "les-ruelles-gives",
         "url": "https://climbfinder.com/en/climbs/les-ruelles-gives",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 130
       },
       "stats": {
         "length_m": 1736,
@@ -194321,7 +194649,8 @@
           "url": "https://climbfinder.com/en/climbs/les-ruelles-gives",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 130
     },
     {
       "id": "cote-de-creppe-spa",
@@ -195061,14 +195390,15 @@
     {
       "id": "sart-malmy",
       "name": "Côte de la Poudrerie via Sart Malmy",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 831,
         "slug": "sart-malmy",
         "url": "https://climbfinder.com/en/climbs/sart-malmy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1572,
@@ -195537,7 +195867,8 @@
           "url": "https://climbfinder.com/en/climbs/sart-malmy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "la-lonhiene-biches-des-pres-trooz",
@@ -196533,14 +196864,15 @@
     {
       "id": "houtain-saint-simeon-heure-le-romain-rue-de-houtain",
       "name": "Houtain-Saint-Siméon from Heure-le-Romain",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2927,
         "slug": "houtain-saint-simeon-heure-le-romain-rue-de-houtain",
         "url": "https://climbfinder.com/en/climbs/houtain-saint-simeon-heure-le-romain-rue-de-houtain",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 2393,
@@ -197223,19 +197555,21 @@
           "url": "https://climbfinder.com/en/climbs/houtain-saint-simeon-heure-le-romain-rue-de-houtain",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "chateau-de-famelette",
       "name": "Château de Famelette",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3741,
         "slug": "chateau-de-famelette",
         "url": "https://climbfinder.com/en/climbs/chateau-de-famelette",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 430,
@@ -197420,7 +197754,8 @@
           "url": "https://climbfinder.com/en/climbs/chateau-de-famelette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-de-la-chartreuse-liege",
@@ -199400,14 +199735,15 @@
     {
       "id": "cote-de-fragnay-rue-fragnay",
       "name": "Côte de Fragnay from Rue de Houtain",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8365,
         "slug": "cote-de-fragnay-rue-fragnay",
         "url": "https://climbfinder.com/en/climbs/cote-de-fragnay-rue-fragnay",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 1733,
@@ -199922,7 +200258,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-fragnay-rue-fragnay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "affnay-warsage",
@@ -200912,14 +201249,15 @@
     {
       "id": "cote-des-nonnes-awirs",
       "name": "Côte des Nonnes from Awirs",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3095,
         "slug": "cote-des-nonnes-awirs",
         "url": "https://climbfinder.com/en/climbs/cote-des-nonnes-awirs",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1681,
@@ -201420,7 +201758,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-nonnes-awirs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-chateau-magis-schaens",
@@ -203007,14 +203346,15 @@
     {
       "id": "tier-de-la-cognee-bergeval",
       "name": "Thier de la Cognée via Bergeval",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14845,
         "slug": "tier-de-la-cognee-bergeval",
         "url": "https://climbfinder.com/en/climbs/tier-de-la-cognee-bergeval",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 4067,
@@ -204093,7 +204433,8 @@
           "url": "https://climbfinder.com/en/climbs/tier-de-la-cognee-bergeval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "la-fagnoul-ferrieres",
@@ -205054,14 +205395,15 @@
     {
       "id": "cote-de-chokier-rue-houlbouse",
       "name": "Côte de Chokier via Rue Houlbouse",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3057,
         "slug": "cote-de-chokier-rue-houlbouse",
         "url": "https://climbfinder.com/en/climbs/cote-de-chokier-rue-houlbouse",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1460,
@@ -205504,19 +205846,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-chokier-rue-houlbouse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-bonsgnee-hout-si-plout",
       "name": "Côte de Bonsgnée from Hout-si-Plout",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 2950,
         "slug": "cote-de-bonsgnee-hout-si-plout",
         "url": "https://climbfinder.com/en/climbs/cote-de-bonsgnee-hout-si-plout",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 4851,
@@ -206795,7 +207139,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bonsgnee-hout-si-plout",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "hombourg-rue-d-aubel",
@@ -208218,14 +208563,15 @@
     {
       "id": "thier-du-moulin-boirs",
       "name": "Thier du Moulin from Boirs",
-      "region": "Liège Province",
+      "region": "Haspengouw",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 19922,
         "slug": "thier-du-moulin-boirs",
         "url": "https://climbfinder.com/en/climbs/thier-du-moulin-boirs",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 98
       },
       "stats": {
         "length_m": 653,
@@ -208474,7 +208820,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-du-moulin-boirs",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 98
     },
     {
       "id": "rue-du-calvaire-lambermont",
@@ -209727,14 +210074,15 @@
     {
       "id": "cote-du-jolibois-avenue-du-jolibois",
       "name": "Côte du Jolibois via Avenue du Jolibois",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3072,
         "slug": "cote-du-jolibois-avenue-du-jolibois",
         "url": "https://climbfinder.com/en/climbs/cote-du-jolibois-avenue-du-jolibois",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 484,
@@ -209933,7 +210281,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-jolibois-avenue-du-jolibois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-de-mons-vise",
@@ -210341,14 +210690,15 @@
     {
       "id": "les-airelles",
       "name": "Les Airelles",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 824,
         "slug": "les-airelles",
         "url": "https://climbfinder.com/en/climbs/les-airelles",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 913,
@@ -210667,7 +211017,8 @@
           "url": "https://climbfinder.com/en/climbs/les-airelles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "trou-malbrouk-lac-de-la-gileppe",
@@ -211185,14 +211536,15 @@
     {
       "id": "cote-de-huccorgne",
       "name": "Côte de Huccorgne",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3740,
         "slug": "cote-de-huccorgne",
         "url": "https://climbfinder.com/en/climbs/cote-de-huccorgne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1482,
@@ -211641,7 +211993,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-huccorgne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-de-miroulle-chanxhe",
@@ -213271,14 +213624,15 @@
     {
       "id": "la-haute-rochette-ivoz-ramet",
       "name": "La Haute-Rochette from Ivoz-Ramet",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3135,
         "slug": "la-haute-rochette-ivoz-ramet",
         "url": "https://climbfinder.com/en/climbs/la-haute-rochette-ivoz-ramet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2862,
@@ -214085,7 +214439,8 @@
           "url": "https://climbfinder.com/en/climbs/la-haute-rochette-ivoz-ramet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "basse-hez",
@@ -214928,14 +215283,15 @@
     {
       "id": "bois-saint-lambert",
       "name": "Bois Saint-Lambert",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 13990,
         "slug": "bois-saint-lambert",
         "url": "https://climbfinder.com/en/climbs/bois-saint-lambert",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 401,
@@ -215114,7 +215470,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-saint-lambert",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "a-bouny",
@@ -220552,14 +220909,15 @@
     {
       "id": "thier-ardent-engis",
       "name": "Thier Ardent from Engis",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 10306,
         "slug": "thier-ardent-engis",
         "url": "https://climbfinder.com/en/climbs/thier-ardent-engis",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2672,
@@ -221314,7 +221672,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-ardent-engis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "jevoumont-theux",
@@ -226270,14 +226629,15 @@
     {
       "id": "cote-oteppe-thier-de-eglise",
       "name": "Côte d'Oteppe via Thier de l'Église",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3751,
         "slug": "cote-oteppe-thier-de-eglise",
         "url": "https://climbfinder.com/en/climbs/cote-oteppe-thier-de-eglise",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1134,
@@ -226658,19 +227018,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-oteppe-thier-de-eglise",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "hodinfosse-amay-rue-des-larrons",
       "name": "Hodinfosse via Rue des Larrons",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3059,
         "slug": "hodinfosse-amay-rue-des-larrons",
         "url": "https://climbfinder.com/en/climbs/hodinfosse-amay-rue-des-larrons",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1271,
@@ -227087,7 +227449,8 @@
           "url": "https://climbfinder.com/en/climbs/hodinfosse-amay-rue-des-larrons",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "rue-les-combles-la-reid",
@@ -227808,14 +228171,15 @@
     {
       "id": "fosse",
       "name": "Fosse",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16575,
         "slug": "fosse",
         "url": "https://climbfinder.com/en/climbs/fosse",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1021,
@@ -228162,7 +228526,8 @@
           "url": "https://climbfinder.com/en/climbs/fosse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "le-fi-harze",
@@ -230947,14 +231312,15 @@
     {
       "id": "hestreux-limont",
       "name": "Hestreux via Limont",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3332,
         "slug": "hestreux-limont",
         "url": "https://climbfinder.com/en/climbs/hestreux-limont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2248,
@@ -231599,19 +231965,21 @@
           "url": "https://climbfinder.com/en/climbs/hestreux-limont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "rue-du-sart-marneffe",
       "name": "Rue du Sart from Marneffe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3739,
         "slug": "rue-du-sart-marneffe",
         "url": "https://climbfinder.com/en/climbs/rue-du-sart-marneffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1209,
@@ -231990,7 +232358,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-sart-marneffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "thier-may",
@@ -234788,14 +235157,15 @@
     {
       "id": "thier-des-malades",
       "name": "Thier des Malades",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3062,
         "slug": "thier-des-malades",
         "url": "https://climbfinder.com/en/climbs/thier-des-malades",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 712,
@@ -235058,19 +235428,21 @@
           "url": "https://climbfinder.com/en/climbs/thier-des-malades",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-du-fays-ivoz-ramet",
       "name": "Côte du Fays from Ivoz-Ramet",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3134,
         "slug": "cote-du-fays-ivoz-ramet",
         "url": "https://climbfinder.com/en/climbs/cote-du-fays-ivoz-ramet",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2579,
@@ -235805,7 +236177,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-fays-ivoz-ramet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "chemin-de-favechamps",
@@ -236836,14 +237209,15 @@
     {
       "id": "route-de-la-sarte-huy",
       "name": "Route de la Sarte from Huy",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 13962,
         "slug": "route-de-la-sarte-huy",
         "url": "https://climbfinder.com/en/climbs/route-de-la-sarte-huy",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 1971,
@@ -237416,7 +237790,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-la-sarte-huy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "bois-de-winerotte-warsage",
@@ -240355,14 +240730,15 @@
     {
       "id": "fagnes-engis",
       "name": "Fagnes from Engis",
-      "region": "Liège Province",
+      "region": "Pays de Liège",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 10305,
         "slug": "fagnes-engis",
         "url": "https://climbfinder.com/en/climbs/fagnes-engis",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 378
       },
       "stats": {
         "length_m": 2781,
@@ -241121,7 +241497,8 @@
           "url": "https://climbfinder.com/en/climbs/fagnes-engis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 378
     },
     {
       "id": "cote-de-florze-sprimont",
@@ -241665,14 +242042,15 @@
     {
       "id": "rue-adrien-david-wanze",
       "name": "Rampe d'Oha",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3129,
         "slug": "rue-adrien-david-wanze",
         "url": "https://climbfinder.com/en/climbs/rue-adrien-david-wanze",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 337,
@@ -241829,19 +242207,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-adrien-david-wanze",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "thier-du-mont-bra",
       "name": "Thier du Mont from Bra",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 12195,
         "slug": "thier-du-mont-bra",
         "url": "https://climbfinder.com/en/climbs/thier-du-mont-bra",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2590,
@@ -242576,7 +242956,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-du-mont-bra",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "rue-de-fexhe-slins-hermee",
@@ -244165,14 +244546,15 @@
     {
       "id": "rue-rond-bonnier-oteppe",
       "name": "Côte Rue Rond Bonnier from Oteppe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3738,
         "slug": "rue-rond-bonnier-oteppe",
         "url": "https://climbfinder.com/en/climbs/rue-rond-bonnier-oteppe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1764,
@@ -244693,7 +245075,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-rond-bonnier-oteppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-mortier-chateau-cortils",
@@ -246340,14 +246723,15 @@
     {
       "id": "mont-falise-leumont",
       "name": "Mont Falise from Leûmont",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3127,
         "slug": "mont-falise-leumont",
         "url": "https://climbfinder.com/en/climbs/mont-falise-leumont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1389,
@@ -246798,7 +247182,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-falise-leumont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "croupet-du-bois",
@@ -247533,14 +247918,15 @@
     {
       "id": "thier-du-moulin-hosdent",
       "name": "Thier du Moulin from Hosdent",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9862,
         "slug": "thier-du-moulin-hosdent",
         "url": "https://climbfinder.com/en/climbs/thier-du-moulin-hosdent",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1332,
@@ -247977,7 +248363,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-du-moulin-hosdent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "haut-vent-sironval",
@@ -251408,14 +251795,15 @@
     {
       "id": "ry-d-oneux-villers-aux-tours",
       "name": "Ry d'Oneux",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14910,
         "slug": "ry-d-oneux-villers-aux-tours",
         "url": "https://climbfinder.com/en/climbs/ry-d-oneux-villers-aux-tours",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 3905,
@@ -252456,7 +252844,8 @@
           "url": "https://climbfinder.com/en/climbs/ry-d-oneux-villers-aux-tours",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "cote-de-gotale-rue-de-la-chapelle",
@@ -254495,14 +254884,15 @@
     {
       "id": "vissoul-oteppe",
       "name": "Vissoul from Oteppe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8599,
         "slug": "vissoul-oteppe",
         "url": "https://climbfinder.com/en/climbs/vissoul-oteppe",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2216,
@@ -255141,7 +255531,8 @@
           "url": "https://climbfinder.com/en/climbs/vissoul-oteppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-des-beguines-awirs",
@@ -255942,14 +256333,15 @@
     {
       "id": "rue-roua-fumal",
       "name": "Rue Roua from Fumal",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3747,
         "slug": "rue-roua-fumal",
         "url": "https://climbfinder.com/en/climbs/rue-roua-fumal",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2133,
@@ -256568,7 +256960,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-roua-fumal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "henri-chapelle-route-charlemagne",
@@ -263963,14 +264356,15 @@
     {
       "id": "mouhipre",
       "name": "Mouhipre",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 14465,
         "slug": "mouhipre",
         "url": "https://climbfinder.com/en/climbs/mouhipre",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 826,
@@ -264267,7 +264661,8 @@
           "url": "https://climbfinder.com/en/climbs/mouhipre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "rue-du-doyard-fraipont",
@@ -265474,14 +265869,15 @@
     {
       "id": "cote-de-bergeval-trois-ponts",
       "name": "Côte de Bergeval from Trois-Ponts",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 23195,
         "slug": "cote-de-bergeval-trois-ponts",
         "url": "https://climbfinder.com/en/climbs/cote-de-bergeval-trois-ponts",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2788,
@@ -266240,7 +266636,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-bergeval-trois-ponts",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "rue-joseph-leclerq",
@@ -272909,14 +273306,15 @@
     {
       "id": "vinalmont-rue-doyard",
       "name": "Vinalmont via Rue Doyard",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9904,
         "slug": "vinalmont-rue-doyard",
         "url": "https://climbfinder.com/en/climbs/vinalmont-rue-doyard",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 580,
@@ -273143,7 +273541,8 @@
           "url": "https://climbfinder.com/en/climbs/vinalmont-rue-doyard",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "henri-chapelle-rue-de-verviers",
@@ -276271,14 +276670,15 @@
     {
       "id": "wanne-hinoumont",
       "name": "Wanne from Hinoûmont",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 24727,
         "slug": "wanne-hinoumont",
         "url": "https://climbfinder.com/en/climbs/wanne-hinoumont",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1479,
@@ -276727,7 +277127,8 @@
           "url": "https://climbfinder.com/en/climbs/wanne-hinoumont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "pont-du-trou-hennet-ruy",
@@ -278659,14 +279060,15 @@
     {
       "id": "cote-de-mont-poulseur",
       "name": "Côte de Mont from Poulseur",
-      "region": "Liège Province",
+      "region": "Condroz - Famenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 9009,
         "slug": "cote-de-mont-poulseur",
         "url": "https://climbfinder.com/en/climbs/cote-de-mont-poulseur",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 128
       },
       "stats": {
         "length_m": 2883,
@@ -279451,7 +279853,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-mont-poulseur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 128
     },
     {
       "id": "thier-pierrot",
@@ -290225,14 +290628,15 @@
     {
       "id": "bois-de-champia-vinalmont",
       "name": "Bois de Champia",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3749,
         "slug": "bois-de-champia-vinalmont",
         "url": "https://climbfinder.com/en/climbs/bois-de-champia-vinalmont",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1260,
@@ -290649,7 +291053,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-champia-vinalmont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "berwausau-voie-des-hougnes",
@@ -298242,14 +298647,15 @@
     {
       "id": "basse-voie-bas-oha",
       "name": "Basse-Voie from Bas-Oha",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 11581,
         "slug": "basse-voie-bas-oha",
         "url": "https://climbfinder.com/en/climbs/basse-voie-bas-oha",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1418,
@@ -298708,7 +299114,8 @@
           "url": "https://climbfinder.com/en/climbs/basse-voie-bas-oha",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "xhos",
@@ -299298,14 +299705,15 @@
     {
       "id": "les-communes-moha",
       "name": "Les Communes from Moha",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14142,
         "slug": "les-communes-moha",
         "url": "https://climbfinder.com/en/climbs/les-communes-moha",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 741,
@@ -299574,19 +299982,21 @@
           "url": "https://climbfinder.com/en/climbs/les-communes-moha",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-famelette",
       "name": "Rue Famelette",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3746,
         "slug": "rue-famelette",
         "url": "https://climbfinder.com/en/climbs/rue-famelette",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 3046,
@@ -300409,7 +300819,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-famelette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "long-thier-glons",
@@ -305550,14 +305961,15 @@
     {
       "id": "le-point-du-jour-pitet",
       "name": "Le Point-du-Jour from Pitet",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9866,
         "slug": "le-point-du-jour-pitet",
         "url": "https://climbfinder.com/en/climbs/le-point-du-jour-pitet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2587,
@@ -306292,7 +306704,8 @@
           "url": "https://climbfinder.com/en/climbs/le-point-du-jour-pitet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-florze-aywaille",
@@ -307591,14 +308004,15 @@
     {
       "id": "grand-sart",
       "name": "Grand-Sart",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 14888,
         "slug": "grand-sart",
         "url": "https://climbfinder.com/en/climbs/grand-sart",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 835,
@@ -307895,7 +308309,8 @@
           "url": "https://climbfinder.com/en/climbs/grand-sart",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "saule-marie-belle-maison",
@@ -308293,14 +308708,15 @@
     {
       "id": "cote-de-saint-jacques-fosse",
       "name": "Côte de Saint-Jacques from Fosse",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 16574,
         "slug": "cote-de-saint-jacques-fosse",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-jacques-fosse",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2584,
@@ -309009,7 +309425,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-saint-jacques-fosse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "fort-van-battice-route-d-aubel",
@@ -310390,14 +310807,15 @@
     {
       "id": "cote-de-ville-en-hesbaye-rue-des-aiwisses",
       "name": "Côte de Ville-en-Hesbaye via Rue des Aiwisses",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8549,
         "slug": "cote-de-ville-en-hesbaye-rue-des-aiwisses",
         "url": "https://climbfinder.com/en/climbs/cote-de-ville-en-hesbaye-rue-des-aiwisses",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 4280,
@@ -311532,7 +311950,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-ville-en-hesbaye-rue-des-aiwisses",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-sart-solwaster",
@@ -314604,14 +315023,15 @@
     {
       "id": "rue-de-liege-dreye",
       "name": "Rue de Liège",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9864,
         "slug": "rue-de-liege-dreye",
         "url": "https://climbfinder.com/en/climbs/rue-de-liege-dreye",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1095,
@@ -314978,7 +315398,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-liege-dreye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-hena-awirs",
@@ -319150,14 +319571,15 @@
     {
       "id": "bois-de-gistru-antheit",
       "name": "Bois de Gistru",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 3734,
         "slug": "bois-de-gistru-antheit",
         "url": "https://climbfinder.com/en/climbs/bois-de-gistru-antheit",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1820,
@@ -319692,7 +320114,8 @@
           "url": "https://climbfinder.com/en/climbs/bois-de-gistru-antheit",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "petit-berleur-route-de-berleur",
@@ -328536,14 +328959,15 @@
     {
       "id": "cote-de-ville-en-hesbaye-rue-du-bolland",
       "name": "Côte de Ville-en-Hesbaye via Rue du Bolland",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8547,
         "slug": "cote-de-ville-en-hesbaye-rue-du-bolland",
         "url": "https://climbfinder.com/en/climbs/cote-de-ville-en-hesbaye-rue-du-bolland",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 3506,
@@ -329484,7 +329908,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-ville-en-hesbaye-rue-du-bolland",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "route-de-filot-sy",
@@ -338090,14 +338515,15 @@
     {
       "id": "les-villettes",
       "name": "Les Villettes",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 24762,
         "slug": "les-villettes",
         "url": "https://climbfinder.com/en/climbs/les-villettes",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2655,
@@ -338826,7 +339252,8 @@
           "url": "https://climbfinder.com/en/climbs/les-villettes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "ancienne-carriere-ampsin-rue-hellebaye",
@@ -339685,14 +340112,15 @@
     {
       "id": "rue-des-pages-oteppe",
       "name": "Rue des Pages from Oteppe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8652,
         "slug": "rue-des-pages-oteppe",
         "url": "https://climbfinder.com/en/climbs/rue-des-pages-oteppe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2159,
@@ -340317,7 +340745,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-des-pages-oteppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-de-merckhof-oudemoeder",
@@ -342382,14 +342811,15 @@
     {
       "id": "wanzoul-rue-georges-hubin",
       "name": "Wanzoul via Rue Georges Hubin",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 9901,
         "slug": "wanzoul-rue-georges-hubin",
         "url": "https://climbfinder.com/en/climbs/wanzoul-rue-georges-hubin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2330,
@@ -343060,7 +343490,8 @@
           "url": "https://climbfinder.com/en/climbs/wanzoul-rue-georges-hubin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "vieille-chera-comblain-la-tour",
@@ -343895,14 +344326,15 @@
     {
       "id": "cote-de-falihou-fumal",
       "name": "Côte de Falihou from Fumal",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3735,
         "slug": "cote-de-falihou-fumal",
         "url": "https://climbfinder.com/en/climbs/cote-de-falihou-fumal",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1299,
@@ -344299,7 +344731,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-falihou-fumal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-saive",
@@ -351088,14 +351521,15 @@
     {
       "id": "havee-du-moulin-marneffe",
       "name": "Havée du Moulin from Marneffe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8646,
         "slug": "havee-du-moulin-marneffe",
         "url": "https://climbfinder.com/en/climbs/havee-du-moulin-marneffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 549,
@@ -351308,7 +351742,8 @@
           "url": "https://climbfinder.com/en/climbs/havee-du-moulin-marneffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-tavalle-souxhon",
@@ -352371,14 +352806,15 @@
     {
       "id": "rue-du-tumulus-braives",
       "name": "Rue du Tumulus from Braives",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 9886,
         "slug": "rue-du-tumulus-braives",
         "url": "https://climbfinder.com/en/climbs/rue-du-tumulus-braives",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 3341,
@@ -353275,7 +353711,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-tumulus-braives",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-louis-demeuse-rue-de-milmort-herstal",
@@ -357396,14 +357833,15 @@
     {
       "id": "thier-eglette-lamontzee",
       "name": "Thier Eglette from Lamontzée",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8597,
         "slug": "thier-eglette-lamontzee",
         "url": "https://climbfinder.com/en/climbs/thier-eglette-lamontzee",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1889,
@@ -357956,7 +358394,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-eglette-lamontzee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-berneau",
@@ -365148,14 +365587,15 @@
     {
       "id": "rue-chapuron-antheit",
       "name": "Rue Chapuron",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3732,
         "slug": "rue-chapuron-antheit",
         "url": "https://climbfinder.com/en/climbs/rue-chapuron-antheit",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 554,
@@ -365376,19 +365816,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-chapuron-antheit",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-chenia-huccorgne",
       "name": "Rue Chênia from Huccorgne",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13909,
         "slug": "rue-chenia-huccorgne",
         "url": "https://climbfinder.com/en/climbs/rue-chenia-huccorgne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 633,
@@ -365629,19 +366071,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-chenia-huccorgne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "vinalmont-rue-reine-astrid",
       "name": "Vinalmont from Rue Reine Astrid",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9903,
         "slug": "vinalmont-rue-reine-astrid",
         "url": "https://climbfinder.com/en/climbs/vinalmont-rue-reine-astrid",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1346,
@@ -366078,7 +366522,8 @@
           "url": "https://climbfinder.com/en/climbs/vinalmont-rue-reine-astrid",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "verte-voie-rue-de-gobce",
@@ -370263,14 +370708,15 @@
     {
       "id": "rue-moray",
       "name": "Rue Moray",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9924,
         "slug": "rue-moray",
         "url": "https://climbfinder.com/en/climbs/rue-moray",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 731,
@@ -370539,7 +370985,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-moray",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-croix-henrard-forges",
@@ -371135,14 +371582,15 @@
     {
       "id": "marneffe-rue-du-prale-rue-du-cure",
       "name": "Marneffe via Rue du Prâle & Rue du Curé",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8648,
         "slug": "marneffe-rue-du-prale-rue-du-cure",
         "url": "https://climbfinder.com/en/climbs/marneffe-rue-du-prale-rue-du-cure",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 669,
@@ -371391,7 +371839,8 @@
           "url": "https://climbfinder.com/en/climbs/marneffe-rue-du-prale-rue-du-cure",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-saint-quirin-broux",
@@ -377154,14 +377603,15 @@
     {
       "id": "thier-plumier-oteppe",
       "name": "Thier Plumier from Oteppe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8651,
         "slug": "thier-plumier-oteppe",
         "url": "https://climbfinder.com/en/climbs/thier-plumier-oteppe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1530,
@@ -377654,7 +378104,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-plumier-oteppe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "langenstein-gemmenich-bienenheide",
@@ -378501,14 +378952,15 @@
     {
       "id": "les-potalles-petite-wanze",
       "name": "Les Potalles from Petite Wanze",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9902,
         "slug": "les-potalles-petite-wanze",
         "url": "https://climbfinder.com/en/climbs/les-potalles-petite-wanze",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2045,
@@ -379101,7 +379553,8 @@
           "url": "https://climbfinder.com/en/climbs/les-potalles-petite-wanze",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "le-tumulus-otrange",
@@ -382422,14 +382875,15 @@
     {
       "id": "rue-de-la-tombe-braives",
       "name": "Rue de la Tombe from Braives",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8538,
         "slug": "rue-de-la-tombe-braives",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-tombe-braives",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 988,
@@ -382768,7 +383222,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-de-la-tombe-braives",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "halleux-bois-de-halleux",
@@ -384522,14 +384977,15 @@
     {
       "id": "cote-du-prale-marneffe",
       "name": "Côte du Prâle from Marneffe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8650,
         "slug": "cote-du-prale-marneffe",
         "url": "https://climbfinder.com/en/climbs/cote-du-prale-marneffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1376,
@@ -384952,7 +385408,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-prale-marneffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "route-de-sy-vieuxville",
@@ -385835,14 +386292,15 @@
     {
       "id": "cote-de-marneffe-le-chateau-de-fallais",
       "name": "Côte de Marneffe from Le Château de Fallais",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 9865,
         "slug": "cote-de-marneffe-le-chateau-de-fallais",
         "url": "https://climbfinder.com/en/climbs/cote-de-marneffe-le-chateau-de-fallais",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 2637,
@@ -386591,7 +387049,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-marneffe-le-chateau-de-fallais",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "champ-mosay-rahier",
@@ -390815,14 +391274,15 @@
     {
       "id": "rue-hebret-marneffe",
       "name": "Rue Hébret from Marneffe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 8649,
         "slug": "rue-hebret-marneffe",
         "url": "https://climbfinder.com/en/climbs/rue-hebret-marneffe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 762,
@@ -391099,19 +391559,21 @@
           "url": "https://climbfinder.com/en/climbs/rue-hebret-marneffe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "thier-depas-braives",
       "name": "Thier Depas from Braives",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 9880,
         "slug": "thier-depas-braives",
         "url": "https://climbfinder.com/en/climbs/thier-depas-braives",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1039,
@@ -391464,7 +391926,8 @@
           "url": "https://climbfinder.com/en/climbs/thier-depas-braives",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "bois-communaux-houchenee",
@@ -393615,14 +394078,15 @@
     {
       "id": "les-monts-basse-bodeux",
       "name": "Les Monts from Basse-Bodeux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 11580,
         "slug": "les-monts-basse-bodeux",
         "url": "https://climbfinder.com/en/climbs/les-monts-basse-bodeux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1693,
@@ -394123,7 +394587,8 @@
           "url": "https://climbfinder.com/en/climbs/les-monts-basse-bodeux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "thier-des-vignes-rue-falloise-anthisnes",
@@ -397629,14 +398094,15 @@
     {
       "id": "cote-de-jevigne-lansival",
       "name": "Côte de Jevigné from Lansival",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 14010,
         "slug": "cote-de-jevigne-lansival",
         "url": "https://climbfinder.com/en/climbs/cote-de-jevigne-lansival",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1177,
@@ -398031,7 +398497,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-jevigne-lansival",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "chaud-thier-cite-des-mineurs",
@@ -398401,14 +398868,15 @@
     {
       "id": "rue-aux-thiers-ville-en-hesbaye",
       "name": "Rue aux Thiers",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8539,
         "slug": "rue-aux-thiers-ville-en-hesbaye",
         "url": "https://climbfinder.com/en/climbs/rue-aux-thiers-ville-en-hesbaye",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 3403,
@@ -399325,7 +399793,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-aux-thiers-ville-en-hesbaye",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "rue-monulphe",
@@ -399499,14 +399968,15 @@
     {
       "id": "reharmont",
       "name": "Reharmont",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 16576,
         "slug": "reharmont",
         "url": "https://climbfinder.com/en/climbs/reharmont",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2424,
@@ -400197,7 +400667,8 @@
           "url": "https://climbfinder.com/en/climbs/reharmont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "rue-de-hermee-herstal-rue-en-bois",
@@ -402237,14 +402708,15 @@
     {
       "id": "rue-petites-trixhes-huccorgne",
       "name": "Rue Petites Trixhes from Huccorgne",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 13910,
         "slug": "rue-petites-trixhes-huccorgne",
         "url": "https://climbfinder.com/en/climbs/rue-petites-trixhes-huccorgne",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 446,
@@ -402429,7 +402901,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-petites-trixhes-huccorgne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "thier-des-sotais-aywaille",
@@ -407722,14 +408195,15 @@
     {
       "id": "spineux-aismont-spineux",
       "name": "Spineux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "3",
       "climbfinder": {
         "id": 35033,
         "slug": "spineux-aismont-spineux",
         "url": "https://climbfinder.com/en/climbs/spineux-aismont-spineux",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 2079,
@@ -408334,7 +408808,8 @@
           "url": "https://climbfinder.com/en/climbs/spineux-aismont-spineux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "chemin-de-l-andelaine-bombaye",
@@ -415716,14 +416191,15 @@
     {
       "id": "les-paturages-antheit",
       "name": "Les Pâturages",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3733,
         "slug": "les-paturages-antheit",
         "url": "https://climbfinder.com/en/climbs/les-paturages-antheit",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 1324,
@@ -416128,7 +416604,8 @@
           "url": "https://climbfinder.com/en/climbs/les-paturages-antheit",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "privot-la-fontaine",
@@ -417951,14 +418428,15 @@
     {
       "id": "cote-de-ciplet",
       "name": "Côte de Ciplet",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 8550,
         "slug": "cote-de-ciplet",
         "url": "https://climbfinder.com/en/climbs/cote-de-ciplet",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 3639,
@@ -418931,7 +419409,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-ciplet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "hodinfosse-rue-desire-lega",
@@ -428869,14 +429348,15 @@
     {
       "id": "rue-du-cure-moxhe",
       "name": "Rue du Curé from Moxhe",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 9888,
         "slug": "rue-du-cure-moxhe",
         "url": "https://climbfinder.com/en/climbs/rue-du-cure-moxhe",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 715,
@@ -429139,7 +429619,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-du-cure-moxhe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "cote-de-paifve-oborne",
@@ -432576,14 +433057,15 @@
     {
       "id": "rue-japin-villers-le-bouillet",
       "name": "Rue Japin",
-      "region": "Liège Province",
+      "region": "Vallées de la Burdinale et de la Mehaigne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 3750,
         "slug": "rue-japin-villers-le-bouillet",
         "url": "https://climbfinder.com/en/climbs/rue-japin-villers-le-bouillet",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 368
       },
       "stats": {
         "length_m": 561,
@@ -432804,7 +433286,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-japin-villers-le-bouillet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 368
     },
     {
       "id": "couvenailles-dalle",
@@ -457541,14 +458024,15 @@
     {
       "id": "ancienne-barriere-basse-bodeux",
       "name": "Ancienne Barrière from Basse-Bodeux",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "4",
       "climbfinder": {
         "id": 35037,
         "slug": "ancienne-barriere-basse-bodeux",
         "url": "https://climbfinder.com/en/climbs/ancienne-barriere-basse-bodeux",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 3831,
@@ -458571,7 +459055,8 @@
           "url": "https://climbfinder.com/en/climbs/ancienne-barriere-basse-bodeux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "les-golettes-tihange-rue-rouge-lion",
@@ -495274,14 +495759,15 @@
     {
       "id": "logbierme",
       "name": "Logbiermé",
-      "region": "Liège Province",
+      "region": "Haute Ardenne",
       "country": "BE",
       "classification": "5",
       "climbfinder": {
         "id": 24725,
         "slug": "logbierme",
         "url": "https://climbfinder.com/en/climbs/logbierme",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 380
       },
       "stats": {
         "length_m": 1239,
@@ -495690,7 +496176,8 @@
           "url": "https://climbfinder.com/en/climbs/logbierme",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 380
     },
     {
       "id": "bois-tri-al-tienne-rue-werihoux",
@@ -623929,14 +624416,15 @@
     {
       "id": "belle-vue-hannut",
       "name": "Belle Vue from Hannut",
-      "region": "Liège Province",
+      "region": "Brabantic Hesbaye",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 34088,
         "slug": "belle-vue-hannut",
         "url": "https://climbfinder.com/en/climbs/belle-vue-hannut",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 127
       },
       "stats": {
         "length_m": 435,
@@ -624121,7 +624609,8 @@
           "url": "https://climbfinder.com/en/climbs/belle-vue-hannut",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 127
     },
     {
       "id": "fastre-faweux",
@@ -627597,14 +628086,15 @@
     {
       "id": "rue-trixhe-a-l-arbre-grand-hallet",
       "name": "Rue Trixhe à l'Arbre from Grand-Hallet",
-      "region": "Liège Province",
+      "region": "Brabantic Hesbaye",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 34071,
         "slug": "rue-trixhe-a-l-arbre-grand-hallet",
         "url": "https://climbfinder.com/en/climbs/rue-trixhe-a-l-arbre-grand-hallet",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 127
       },
       "stats": {
         "length_m": 324,
@@ -627755,7 +628245,8 @@
           "url": "https://climbfinder.com/en/climbs/rue-trixhe-a-l-arbre-grand-hallet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 127
     },
     {
       "id": "thier-du-marnave-clemodeau",
@@ -688324,14 +688815,15 @@
     {
       "id": "belle-vue-grand-hallet",
       "name": "Belle Vue from Grand-Hallet",
-      "region": "Liège Province",
+      "region": "Brabantic Hesbaye",
       "country": "BE",
       "classification": null,
       "climbfinder": {
         "id": 34086,
         "slug": "belle-vue-grand-hallet",
         "url": "https://climbfinder.com/en/climbs/belle-vue-grand-hallet",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 127
       },
       "stats": {
         "length_m": 980,
@@ -688670,7 +689162,8 @@
           "url": "https://climbfinder.com/en/climbs/belle-vue-grand-hallet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 127
     },
     {
       "id": "petit-ouffet-jenneret",

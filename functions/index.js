@@ -17,6 +17,7 @@ const DEFAULT_ALLOWED = ["vr.deruiter@gmail.com"];
 const WORKFLOW_IMPORT = "climbfinder-import.yml";
 const WORKFLOW_DEDUPE = "remove-duplicate-climbs.yml";
 const WORKFLOW_DEDUPE_ALL = "dedupe-all-smallest-region.yml";
+const WORKFLOW_BACKFILL_REGIONS = "backfill-climb-regions.yml";
 
 function allowedEmail(email) {
   const cfg = functions.config().auth || {};
@@ -218,5 +219,55 @@ exports.requestClimbDedupeAllSmallest = functions.region("europe-west1").https.o
     message:
       "Volledige dedupe gestart (behoud kleinste regio per slug). Duurt enkele minuten — daarna hard refresh.",
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_DEDUPE_ALL}`,
+  };
+});
+
+exports.requestClimbRegionBackfill = functions.region("europe-west1").https.onCall(async (_data, context) => {
+  if (!context.auth?.token?.email) {
+    throw new functions.https.HttpsError("unauthenticated", "Log in met Google.");
+  }
+  if (!allowedEmail(context.auth.token.email)) {
+    throw new functions.https.HttpsError("permission-denied", "Geen toegang.");
+  }
+
+  const gh = functions.config().github || {};
+  const pat = gh.pat;
+  if (!pat) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "GitHub PAT niet geconfigureerd op Firebase Functions. Zie docs/auth/GITHUB_IMPORT.md"
+    );
+  }
+
+  const repo = gh.repo || "VCCharlie/Climbfinder-scraper";
+  const ref = gh.ref || "main";
+  const [owner, name] = repo.split("/");
+  if (!owner || !name) {
+    throw new functions.https.HttpsError("internal", "github.repo moet owner/name zijn.");
+  }
+
+  const url = `https://api.github.com/repos/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_REGIONS}/dispatches`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${pat}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ref, inputs: {} }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    functions.logger.error("GitHub backfill regions dispatch failed", res.status, text);
+    throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
+  }
+
+  return {
+    ok: true,
+    message:
+      "Backfill gestart: alle klimmen krijgen region + resolved_locality_id (kleinste regio). Duurt enkele minuten.",
+    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_REGIONS}`,
   };
 });

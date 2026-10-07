@@ -5,7 +5,7 @@
     "title": "Vosges",
     "region_label": "Vosges",
     "country": "FR",
-    "updated_at": "2026-10-07T12:50:30Z",
+    "updated_at": "2026-10-07T13:30:48Z",
     "count": 370,
     "source": {
       "name": "climbfinder",
@@ -18,20 +18,24 @@
       ],
       "locality_id": 52
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:30:48Z"
+    }
   },
   "climbs": [
     {
       "id": "planche-des-belles-filles",
       "name": "Super Planche des Belles Filles",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 994,
         "slug": "planche-des-belles-filles",
         "url": "https://climbfinder.com/en/climbs/planche-des-belles-filles",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 6968,
@@ -1792,19 +1796,21 @@
           "url": "https://climbfinder.com/en/climbs/planche-des-belles-filles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "grand-ballon",
       "name": "Col du Grand Ballon from Moosch",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1014,
         "slug": "grand-ballon",
         "url": "https://climbfinder.com/en/climbs/grand-ballon",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 12634,
@@ -3407,19 +3413,21 @@
           "url": "https://climbfinder.com/en/climbs/grand-ballon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "grand-ballon-cernay",
       "name": "Col du Grand Ballon",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1016,
         "slug": "grand-ballon-cernay",
         "url": "https://climbfinder.com/en/climbs/grand-ballon-cernay",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 21650,
@@ -4824,19 +4832,21 @@
           "url": "https://climbfinder.com/en/climbs/grand-ballon-cernay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "petit-ballon-munster",
       "name": "Col du Petit Ballon",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1024,
         "slug": "petit-ballon-munster",
         "url": "https://climbfinder.com/en/climbs/petit-ballon-munster",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 9696,
@@ -7263,19 +7273,21 @@
           "url": "https://climbfinder.com/en/climbs/petit-ballon-munster",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-grand-ballon-saint-amarin",
       "name": "Col du Grand Ballon from Saint-Amarin",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "HC",
       "climbfinder": {
         "id": 10026,
         "slug": "col-du-grand-ballon-saint-amarin",
         "url": "https://climbfinder.com/en/climbs/col-du-grand-ballon-saint-amarin",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 12721,
@@ -8890,19 +8902,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-grand-ballon-saint-amarin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-la-schlucht-munster",
       "name": "Col de la Schlucht",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1025,
         "slug": "col-de-la-schlucht-munster",
         "url": "https://climbfinder.com/en/climbs/col-de-la-schlucht-munster",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 17388,
@@ -11085,19 +11099,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-schlucht-munster",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-platzerwasel",
       "name": "Col du Platzerwasel from Metzeral",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1031,
         "slug": "col-de-platzerwasel",
         "url": "https://climbfinder.com/en/climbs/col-de-platzerwasel",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 9957,
@@ -13590,19 +13606,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-platzerwasel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "grand-ballon-willer-sur-thur",
       "name": "Col du Grand Ballon from Willer-sur-Thur",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1017,
         "slug": "grand-ballon-willer-sur-thur",
         "url": "https://climbfinder.com/en/climbs/grand-ballon-willer-sur-thur",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 15846,
@@ -15595,19 +15613,21 @@
           "url": "https://climbfinder.com/en/climbs/grand-ballon-willer-sur-thur",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-haag-saint-amarin",
       "name": "Col du Haag from Saint-Amarin",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 72994,
         "slug": "col-du-haag-saint-amarin",
         "url": "https://climbfinder.com/en/climbs/col-du-haag-saint-amarin",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 11366,
@@ -17080,19 +17100,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-haag-saint-amarin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "grand-ballon-kruth",
       "name": "Col du Grand Ballon from Kruth",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1019,
         "slug": "grand-ballon-kruth",
         "url": "https://climbfinder.com/en/climbs/grand-ballon-kruth",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 21596,
@@ -18491,19 +18513,21 @@
           "url": "https://climbfinder.com/en/climbs/grand-ballon-kruth",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "ballon-d-alsace-giromagny",
       "name": "Ballon d’Alsace from Giromagny",
-      "region": "Vosges",
+      "region": "Territoire de Belfort",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 997,
         "slug": "ballon-d-alsace-giromagny",
         "url": "https://climbfinder.com/en/climbs/ballon-d-alsace-giromagny",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 913
       },
       "stats": {
         "length_m": 13690,
@@ -20234,19 +20258,21 @@
           "url": "https://climbfinder.com/en/climbs/ballon-d-alsace-giromagny",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 913
     },
     {
       "id": "ballon-de-servance-plancher-bas",
       "name": "Ballon de Servance from Plancher-Bas",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1030,
         "slug": "ballon-de-servance-plancher-bas",
         "url": "https://climbfinder.com/en/climbs/ballon-de-servance-plancher-bas",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 17987,
@@ -22501,19 +22527,21 @@
           "url": "https://climbfinder.com/en/climbs/ballon-de-servance-plancher-bas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "grand-ballon-soultz",
       "name": "Col du Grand Ballon from Soultz",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1018,
         "slug": "grand-ballon-soultz",
         "url": "https://climbfinder.com/en/climbs/grand-ballon-soultz",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 17648,
@@ -24726,19 +24754,21 @@
           "url": "https://climbfinder.com/en/climbs/grand-ballon-soultz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "ballon-d-alsace-sewen",
       "name": "Ballon d'Alsace from Sewen",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 996,
         "slug": "ballon-d-alsace-sewen",
         "url": "https://climbfinder.com/en/climbs/ballon-d-alsace-sewen",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 10942,
@@ -26155,19 +26185,21 @@
           "url": "https://climbfinder.com/en/climbs/ballon-d-alsace-sewen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "petit-ballon-whir-au-val",
       "name": "Col du Petit Ballon from Whir au Val",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1022,
         "slug": "petit-ballon-whir-au-val",
         "url": "https://climbfinder.com/en/climbs/petit-ballon-whir-au-val",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 13906,
@@ -27928,19 +27960,21 @@
           "url": "https://climbfinder.com/en/climbs/petit-ballon-whir-au-val",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "grand-ballon-buhl",
       "name": "Col du Grand Ballon from Buhl",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1020,
         "slug": "grand-ballon-buhl",
         "url": "https://climbfinder.com/en/climbs/grand-ballon-buhl",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 22638,
@@ -29407,19 +29441,21 @@
           "url": "https://climbfinder.com/en/climbs/grand-ballon-buhl",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-d-oderen",
       "name": "Col d'Oderen from Kruth",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1036,
         "slug": "col-d-oderen",
         "url": "https://climbfinder.com/en/climbs/col-d-oderen",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 6812,
@@ -31144,19 +31180,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-oderen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-des-chevreres",
       "name": "Col des Chevrères from Rexelaxert via Miellin",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1032,
         "slug": "col-des-chevreres",
         "url": "https://climbfinder.com/en/climbs/col-des-chevreres",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 9446,
@@ -33521,19 +33559,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-chevreres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-de-bramont",
       "name": "Col de Bramont from Wildenstein",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2312,
         "slug": "col-de-bramont",
         "url": "https://climbfinder.com/en/climbs/col-de-bramont",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 8246,
@@ -35606,19 +35646,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bramont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "petit-ballon-sondernach",
       "name": "Col du Petit Ballon from Sondernach",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1023,
         "slug": "petit-ballon-sondernach",
         "url": "https://climbfinder.com/en/climbs/petit-ballon-sondernach",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 9662,
@@ -38039,19 +38081,21 @@
           "url": "https://climbfinder.com/en/climbs/petit-ballon-sondernach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-hundsruck",
       "name": "Col du Hundsruck from Bitschwiller-lès-Thann",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1034,
         "slug": "col-du-hundsruck",
         "url": "https://climbfinder.com/en/climbs/col-du-hundsruck",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 5868,
@@ -39544,19 +39588,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-hundsruck",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-calvaire-orbey",
       "name": "Col du Calvaire from Orbey",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3885,
         "slug": "col-du-calvaire-orbey",
         "url": "https://climbfinder.com/en/climbs/col-du-calvaire-orbey",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 11085,
@@ -40971,19 +41017,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-calvaire-orbey",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-hundsruck-masevaux",
       "name": "Col du Hundsruck",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1035,
         "slug": "col-du-hundsruck-masevaux",
         "url": "https://climbfinder.com/en/climbs/col-du-hundsruck-masevaux",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 8416,
@@ -43098,19 +43146,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-hundsruck-masevaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "mont-sainte-odile-ottrott",
       "name": "Mont Sainte Odile from Ottrott",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4193,
         "slug": "mont-sainte-odile-ottrott",
         "url": "https://climbfinder.com/en/climbs/mont-sainte-odile-ottrott",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 8498,
@@ -45243,19 +45293,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-sainte-odile-ottrott",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-donon-schirmeck",
       "name": "Col du Donon from Schirmeck",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3891,
         "slug": "col-du-donon-schirmeck",
         "url": "https://climbfinder.com/en/climbs/col-du-donon-schirmeck",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 9163,
@@ -47554,19 +47606,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-donon-schirmeck",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-des-chevreres-belfahy",
       "name": "Col des Chevrères via Belfahy",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 2857,
         "slug": "col-des-chevreres-belfahy",
         "url": "https://climbfinder.com/en/climbs/col-des-chevreres-belfahy",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 8356,
@@ -48667,19 +48721,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-chevreres-belfahy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-de-firstplan-osenbach",
       "name": "Col de Firstplan from Osenbach",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1049,
         "slug": "col-de-firstplan-osenbach",
         "url": "https://climbfinder.com/en/climbs/col-de-firstplan-osenbach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 5796,
@@ -50154,19 +50210,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-firstplan-osenbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "champ-du-feu-barr",
       "name": "Champ du Feu from Barr",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9641,
         "slug": "champ-du-feu-barr",
         "url": "https://climbfinder.com/en/climbs/champ-du-feu-barr",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 21361,
@@ -51553,19 +51611,21 @@
           "url": "https://climbfinder.com/en/climbs/champ-du-feu-barr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "haut-koenigsbourg-kintzheim",
       "name": "Château du Haut-Kœnigsbourg from Kintzheim",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4185,
         "slug": "haut-koenigsbourg-kintzheim",
         "url": "https://climbfinder.com/en/climbs/haut-koenigsbourg-kintzheim",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 8100,
@@ -53602,19 +53662,21 @@
           "url": "https://climbfinder.com/en/climbs/haut-koenigsbourg-kintzheim",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "mont-sainte-odile-ottrott-saint-nabor",
       "name": "Mont Sainte Odile from Ottrott via Saint Nabor",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4194,
         "slug": "mont-sainte-odile-ottrott-saint-nabor",
         "url": "https://climbfinder.com/en/climbs/mont-sainte-odile-ottrott-saint-nabor",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 9665,
@@ -54877,19 +54939,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-sainte-odile-ottrott-saint-nabor",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-des-pandours-schneeberg-oberhaslach",
       "name": "Col des Pandours / Schneeberg from Oberhaslach",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8369,
         "slug": "col-des-pandours-schneeberg-oberhaslach",
         "url": "https://climbfinder.com/en/climbs/col-des-pandours-schneeberg-oberhaslach",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 11556,
@@ -56388,19 +56452,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-pandours-schneeberg-oberhaslach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-donon",
       "name": "Col de la Côte d'Engin",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1050,
         "slug": "col-du-donon",
         "url": "https://climbfinder.com/en/climbs/col-du-donon",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 13150,
@@ -58065,19 +58131,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-donon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "collet-du-linge-weiermatten",
       "name": "Collet du Linge from Weiermatten",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9642,
         "slug": "collet-du-linge-weiermatten",
         "url": "https://climbfinder.com/en/climbs/collet-du-linge-weiermatten",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 9392,
@@ -60430,19 +60498,21 @@
           "url": "https://climbfinder.com/en/climbs/collet-du-linge-weiermatten",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-donon-saint-quirin",
       "name": "Col du Donon from Saint Quirin",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3890,
         "slug": "col-du-donon-saint-quirin",
         "url": "https://climbfinder.com/en/climbs/col-du-donon-saint-quirin",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 16549,
@@ -62521,19 +62591,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-donon-saint-quirin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "col-du-wettstein-soultzeren",
       "name": "Col du Wettstein from Soultzeren",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3866,
         "slug": "col-du-wettstein-soultzeren",
         "url": "https://climbfinder.com/en/climbs/col-du-wettstein-soultzeren",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 6785,
@@ -64252,19 +64324,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-wettstein-soultzeren",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "trois-epis-turckheim",
       "name": "Trois Epis",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2071,
         "slug": "trois-epis-turckheim",
         "url": "https://climbfinder.com/en/climbs/trois-epis-turckheim",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7191,
@@ -66081,19 +66155,21 @@
           "url": "https://climbfinder.com/en/climbs/trois-epis-turckheim",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-des-bagenelles-sainte-marie-aux-mines",
       "name": "Col des Bagenelles from Sainte-Marie-aux-Mines",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3856,
         "slug": "col-des-bagenelles-sainte-marie-aux-mines",
         "url": "https://climbfinder.com/en/climbs/col-des-bagenelles-sainte-marie-aux-mines",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 11322,
@@ -67538,19 +67614,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-bagenelles-sainte-marie-aux-mines",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-des-chevreres-plancher-bas",
       "name": "Col des Chevrères from Plancher-Bas",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1033,
         "slug": "col-des-chevreres-plancher-bas",
         "url": "https://climbfinder.com/en/climbs/col-des-chevreres-plancher-bas",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 11997,
@@ -69097,19 +69175,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-chevreres-plancher-bas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-de-sainte-marie-sainte-marie-aux-mines",
       "name": "Col de Sainte Marie",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3850,
         "slug": "col-de-sainte-marie-sainte-marie-aux-mines",
         "url": "https://climbfinder.com/en/climbs/col-de-sainte-marie-sainte-marie-aux-mines",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 6347,
@@ -70718,19 +70798,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sainte-marie-sainte-marie-aux-mines",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-wettstein",
       "name": "Col du Wettstein from Orbey",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1046,
         "slug": "col-du-wettstein",
         "url": "https://climbfinder.com/en/climbs/col-du-wettstein",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 8006,
@@ -72749,19 +72831,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-wettstein",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "mont-sainte-odile-barr",
       "name": "Mont Sainte Odile",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4192,
         "slug": "mont-sainte-odile-barr",
         "url": "https://climbfinder.com/en/climbs/mont-sainte-odile-barr",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 10520,
@@ -74108,19 +74192,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-sainte-odile-barr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "cote-des-cinq-chateaux",
       "name": "Côte des Cinq Châteaux from Wintzenheim",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1043,
         "slug": "cote-des-cinq-chateaux",
         "url": "https://climbfinder.com/en/climbs/cote-des-cinq-chateaux",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7022,
@@ -75895,19 +75981,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-des-cinq-chateaux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-bannstein",
       "name": "Col du Bannstein",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3433,
         "slug": "col-du-bannstein",
         "url": "https://climbfinder.com/en/climbs/col-du-bannstein",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 3911,
@@ -76948,19 +77036,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-bannstein",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-firstplan-hattstatt",
       "name": "Col de Firstplan from Gueberschwihr",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3678,
         "slug": "col-de-firstplan-hattstatt",
         "url": "https://climbfinder.com/en/climbs/col-de-firstplan-hattstatt",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 11360,
@@ -78433,19 +78523,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-firstplan-hattstatt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-amic-soultz-haut-rhin",
       "name": "Col Amic from Soultz-Haut-Rhin",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 34574,
         "slug": "col-amic-soultz-haut-rhin",
         "url": "https://climbfinder.com/en/climbs/col-amic-soultz-haut-rhin",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 11102,
@@ -79888,19 +79980,21 @@
           "url": "https://climbfinder.com/en/climbs/col-amic-soultz-haut-rhin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-des-croix-servance",
       "name": "Col des Croix from Servance",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3857,
         "slug": "col-des-croix-servance",
         "url": "https://climbfinder.com/en/climbs/col-des-croix-servance",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 7880,
@@ -81887,19 +81981,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-croix-servance",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "station-du-gaschney-mulhbach",
       "name": "Le Gaschney from Mulhbach",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1177,
         "slug": "station-du-gaschney-mulhbach",
         "url": "https://climbfinder.com/en/climbs/station-du-gaschney-mulhbach",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7606,
@@ -83820,19 +83916,21 @@
           "url": "https://climbfinder.com/en/climbs/station-du-gaschney-mulhbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-haut-ribeauville-ribeauville",
       "name": "Col Haut de Ribeauvillé from Ribeauvillé",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3685,
         "slug": "col-du-haut-ribeauville-ribeauville",
         "url": "https://climbfinder.com/en/climbs/col-du-haut-ribeauville-ribeauville",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 10758,
@@ -85231,19 +85329,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-haut-ribeauville-ribeauville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-firstplan-wihr-au-val",
       "name": "Col de Firstplan from Wihr au Val",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3679,
         "slug": "col-de-firstplan-wihr-au-val",
         "url": "https://climbfinder.com/en/climbs/col-de-firstplan-wihr-au-val",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7273,
@@ -86208,19 +86308,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-firstplan-wihr-au-val",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "trois-epis-col-du-brand",
       "name": "Trois Epis from Turckheim via Col du Brand",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 2070,
         "slug": "trois-epis-col-du-brand",
         "url": "https://climbfinder.com/en/climbs/trois-epis-col-du-brand",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7651,
@@ -88153,19 +88255,21 @@
           "url": "https://climbfinder.com/en/climbs/trois-epis-col-du-brand",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-la-schleif",
       "name": "Col de la Schleif via Dabo",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9184,
         "slug": "col-de-la-schleif",
         "url": "https://climbfinder.com/en/climbs/col-de-la-schleif",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 10988,
@@ -89588,19 +89692,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-schleif",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "col-de-fouchy-fouchy",
       "name": "Col de Fouchy from Fouchy",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3680,
         "slug": "col-de-fouchy-fouchy",
         "url": "https://climbfinder.com/en/climbs/col-de-fouchy-fouchy",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 5122,
@@ -90911,19 +91017,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-fouchy-fouchy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-boenlesgrab",
       "name": "Col de Boenlesgrab",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3538,
         "slug": "col-de-boenlesgrab",
         "url": "https://climbfinder.com/en/climbs/col-de-boenlesgrab",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 5233,
@@ -92264,19 +92372,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-boenlesgrab",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "champ-du-feu-walderbach",
       "name": "Champ du Feu from Waldersbach",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9640,
         "slug": "champ-du-feu-walderbach",
         "url": "https://climbfinder.com/en/climbs/champ-du-feu-walderbach",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 10357,
@@ -93625,19 +93735,21 @@
           "url": "https://climbfinder.com/en/climbs/champ-du-feu-walderbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-valsberg-dabo",
       "name": "Col de Valsberg",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8070,
         "slug": "col-de-valsberg-dabo",
         "url": "https://climbfinder.com/en/climbs/col-de-valsberg-dabo",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 13865,
@@ -95392,19 +95504,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-valsberg-dabo",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "col-de-bussang-urbes",
       "name": "Col de Bussang from Urbès",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 23501,
         "slug": "col-de-bussang-urbes",
         "url": "https://climbfinder.com/en/climbs/col-de-bussang-urbes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 6124,
@@ -96959,19 +97073,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bussang-urbes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-du-hantz-saint-blaise-la-roche",
       "name": "Col du Hantz from Saint-Blaise-la-Roche",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9345,
         "slug": "col-du-hantz-saint-blaise-la-roche",
         "url": "https://climbfinder.com/en/climbs/col-du-hantz-saint-blaise-la-roche",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 5901,
@@ -98476,19 +98592,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-hantz-saint-blaise-la-roche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-petit-ballon-leymel",
       "name": "Col du Petit Ballon from Leymel",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 39281,
         "slug": "col-du-petit-ballon-leymel",
         "url": "https://climbfinder.com/en/climbs/col-du-petit-ballon-leymel",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 9828,
@@ -100951,19 +101069,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-petit-ballon-leymel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "ballon-de-servance-col-des-croix-790471",
       "name": "Ballon de Servance from Col des Croix",
-      "region": "Vosges",
+      "region": "Burgundy-Franche-Comté",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 24431,
         "slug": "ballon-de-servance-col-des-croix-790471",
         "url": "https://climbfinder.com/en/climbs/ballon-de-servance-col-des-croix-790471",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 435
       },
       "stats": {
         "length_m": 10134,
@@ -102282,19 +102402,21 @@
           "url": "https://climbfinder.com/en/climbs/ballon-de-servance-col-des-croix-790471",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 435
     },
     {
       "id": "col-de-la-charbonniere-fouday",
       "name": "Col de la Charbonnière from Fouday",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3822,
         "slug": "col-de-la-charbonniere-fouday",
         "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-fouday",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 8531,
@@ -104441,19 +104563,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-fouday",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-calvaire-hachimette",
       "name": "Col du Calvaire from Hachimette via Col de Louchpach",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3884,
         "slug": "col-du-calvaire-hachimette",
         "url": "https://climbfinder.com/en/climbs/col-du-calvaire-hachimette",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 18807,
@@ -106812,19 +106936,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-calvaire-hachimette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-valsberg-romanswiller",
       "name": "Col de Valsberg from Romanswiller",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8074,
         "slug": "col-de-valsberg-romanswiller",
         "url": "https://climbfinder.com/en/climbs/col-de-valsberg-romanswiller",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 10839,
@@ -108229,19 +108355,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-valsberg-romanswiller",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-firstplan-soultzmatt",
       "name": "Col de Firstplan from Soultzmatt",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 13575,
         "slug": "col-de-firstplan-soultzmatt",
         "url": "https://climbfinder.com/en/climbs/col-de-firstplan-soultzmatt",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 8371,
@@ -110344,19 +110472,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-firstplan-soultzmatt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-freland-hachimette",
       "name": "Col de Freland from Hachimette",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3684,
         "slug": "col-de-freland-hachimette",
         "url": "https://climbfinder.com/en/climbs/col-de-freland-hachimette",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 8062,
@@ -112387,19 +112517,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-freland-hachimette",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "haut-koenigsbourg-saint-hippolyte",
       "name": "Château du Haut-Kœnigsbourg from Saint-Hippolyte",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 4187,
         "slug": "haut-koenigsbourg-saint-hippolyte",
         "url": "https://climbfinder.com/en/climbs/haut-koenigsbourg-saint-hippolyte",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7075,
@@ -114186,19 +114318,21 @@
           "url": "https://climbfinder.com/en/climbs/haut-koenigsbourg-saint-hippolyte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-sandplatz-engenthal",
       "name": "Col des Pandours / Schneeberg from Engenthal",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8071,
         "slug": "col-de-sandplatz-engenthal",
         "url": "https://climbfinder.com/en/climbs/col-de-sandplatz-engenthal",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 4269,
@@ -115327,19 +115461,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sandplatz-engenthal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-schanz-geisweg-westhoffen",
       "name": "Col du Schanz from Westhoffen via Geisweg",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 25390,
         "slug": "col-du-schanz-geisweg-westhoffen",
         "url": "https://climbfinder.com/en/climbs/col-du-schanz-geisweg-westhoffen",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 2357,
@@ -116016,19 +116152,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-schanz-geisweg-westhoffen",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "hilsen-linthal",
       "name": "Hilsen from Linthal",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9769,
         "slug": "hilsen-linthal",
         "url": "https://climbfinder.com/en/climbs/hilsen-linthal",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 4197,
@@ -117137,19 +117275,21 @@
           "url": "https://climbfinder.com/en/climbs/hilsen-linthal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-kreuzweg-andlau",
       "name": "Col du Kreuzweg from Andlau",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3723,
         "slug": "col-de-kreuzweg-andlau",
         "url": "https://climbfinder.com/en/climbs/col-de-kreuzweg-andlau",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 13048,
@@ -118802,19 +118942,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-kreuzweg-andlau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-haut-de-ribeauville-sainte-marie-aux-mines",
       "name": "Col Haut de Ribeauvillé from Sainte Marie aux Mines",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3683,
         "slug": "col-haut-de-ribeauville-sainte-marie-aux-mines",
         "url": "https://climbfinder.com/en/climbs/col-haut-de-ribeauville-sainte-marie-aux-mines",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7308,
@@ -120661,19 +120803,21 @@
           "url": "https://climbfinder.com/en/climbs/col-haut-de-ribeauville-sainte-marie-aux-mines",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-la-charbonniere-saint-martin",
       "name": "Col de la Charbonnière from Saint Martin",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3823,
         "slug": "col-de-la-charbonniere-saint-martin",
         "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-saint-martin",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 9999,
@@ -121972,19 +122116,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-saint-martin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-la-chevestraye-belonchamp",
       "name": "Col de la Chevestraye from Belonchamp",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3825,
         "slug": "col-de-la-chevestraye-belonchamp",
         "url": "https://climbfinder.com/en/climbs/col-de-la-chevestraye-belonchamp",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 10742,
@@ -123355,19 +123501,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-chevestraye-belonchamp",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-de-freland-beblenheim",
       "name": "Col de Freland from Beblenheim",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3682,
         "slug": "col-de-freland-beblenheim",
         "url": "https://climbfinder.com/en/climbs/col-de-freland-beblenheim",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 15109,
@@ -125276,19 +125424,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-freland-beblenheim",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-fouchy-liepvre",
       "name": "Col de Fouchy from Lièpvre",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3681,
         "slug": "col-de-fouchy-liepvre",
         "url": "https://climbfinder.com/en/climbs/col-de-fouchy-liepvre",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 6929,
@@ -127043,19 +127193,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-fouchy-liepvre",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "labaroche-ammerschwihr",
       "name": "Labaroche from Ammerschwihr",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 2074,
         "slug": "labaroche-ammerschwihr",
         "url": "https://climbfinder.com/en/climbs/labaroche-ammerschwihr",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 9761,
@@ -128330,19 +128482,21 @@
           "url": "https://climbfinder.com/en/climbs/labaroche-ammerschwihr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-steige-saint-martin",
       "name": "Col de Steige from Saint Martin",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3854,
         "slug": "col-de-steige-saint-martin",
         "url": "https://climbfinder.com/en/climbs/col-de-steige-saint-martin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 9697,
@@ -130769,19 +130923,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-steige-saint-martin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "champ-du-messin-klingenthal",
       "name": "Champ du Messin from Klingenthal",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9203,
         "slug": "champ-du-messin-klingenthal",
         "url": "https://climbfinder.com/en/climbs/champ-du-messin-klingenthal",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 13392,
@@ -132502,19 +132658,21 @@
           "url": "https://climbfinder.com/en/climbs/champ-du-messin-klingenthal",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-ligne-ammerschwihr",
       "name": "Collet du Linge from Ammerschwihr",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 14574,
         "slug": "col-du-ligne-ammerschwihr",
         "url": "https://climbfinder.com/en/climbs/col-du-ligne-ammerschwihr",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 16309,
@@ -134569,19 +134727,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-ligne-ammerschwihr",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "collet-du-linge-trois-epis",
       "name": "Collet du Linge from Trois Epis",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2072,
         "slug": "collet-du-linge-trois-epis",
         "url": "https://climbfinder.com/en/climbs/collet-du-linge-trois-epis",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 10465,
@@ -135922,19 +136082,21 @@
           "url": "https://climbfinder.com/en/climbs/collet-du-linge-trois-epis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "collet-du-linge-col-du-wettstein",
       "name": "Collet du Linge from Col du Wettstein",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 3867,
         "slug": "collet-du-linge-col-du-wettstein",
         "url": "https://climbfinder.com/en/climbs/collet-du-linge-col-du-wettstein",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 2612,
@@ -136651,19 +136813,21 @@
           "url": "https://climbfinder.com/en/climbs/collet-du-linge-col-du-wettstein",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "col-de-la-charbonniere-col-de-steige",
       "name": "Col de la Charbonnière from Col de Steige",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3821,
         "slug": "col-de-la-charbonniere-col-de-steige",
         "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-col-de-steige",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 8708,
@@ -138852,19 +139016,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-col-de-steige",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "trois-epis-ingersheim",
       "name": "Trois Epis",
-      "region": "Vosges",
+      "region": "Upper Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2069,
         "slug": "trois-epis-ingersheim",
         "url": "https://climbfinder.com/en/climbs/trois-epis-ingersheim",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 932
       },
       "stats": {
         "length_m": 7718,
@@ -139885,19 +140051,21 @@
           "url": "https://climbfinder.com/en/climbs/trois-epis-ingersheim",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 932
     },
     {
       "id": "route-du-champ-du-feu-fischutte",
       "name": "Route du Champ du Feu from Fischutte",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 28863,
         "slug": "route-du-champ-du-feu-fischutte",
         "url": "https://climbfinder.com/en/climbs/route-du-champ-du-feu-fischutte",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 17912,
@@ -142146,7 +142314,8 @@
           "url": "https://climbfinder.com/en/climbs/route-du-champ-du-feu-fischutte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "trois-epis-ammerschwihr",
@@ -149937,14 +150106,15 @@
     {
       "id": "ballon-de-servance-servance-haut-du-them",
       "name": "Ballon de Servance from Haut du Them",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 32461,
         "slug": "ballon-de-servance-servance-haut-du-them",
         "url": "https://climbfinder.com/en/climbs/ballon-de-servance-servance-haut-du-them",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 11728,
@@ -151461,19 +151631,21 @@
           "url": "https://climbfinder.com/en/climbs/ballon-de-servance-servance-haut-du-them",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "chemin-des-acacias-obernai",
       "name": "Chemin des Acacias from Obernai",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 15165,
         "slug": "chemin-des-acacias-obernai",
         "url": "https://climbfinder.com/en/climbs/chemin-des-acacias-obernai",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 382,
@@ -151644,7 +151816,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-des-acacias-obernai",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "les-trois-chateaux-d-eguisheim-obermorshwihr",
@@ -153356,14 +153529,15 @@
     {
       "id": "col-de-la-chevestraye-plancher-bas",
       "name": "Col de la Chevestraye from Plancher Bas",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3826,
         "slug": "col-de-la-chevestraye-plancher-bas",
         "url": "https://climbfinder.com/en/climbs/col-de-la-chevestraye-plancher-bas",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 2355,
@@ -154016,7 +154190,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-chevestraye-plancher-bas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-du-hundsruck-thann",
@@ -155564,14 +155739,15 @@
     {
       "id": "col-d-urbeis-urbeis",
       "name": "Col d'Urbeis from Urbeis",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9192,
         "slug": "col-d-urbeis-urbeis",
         "url": "https://climbfinder.com/en/climbs/col-d-urbeis-urbeis",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 4447,
@@ -156744,19 +156920,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-urbeis-urbeis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "le-climont-urbeis",
       "name": "Le Climont from Urbeis",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9191,
         "slug": "le-climont-urbeis",
         "url": "https://climbfinder.com/en/climbs/le-climont-urbeis",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 5864,
@@ -158249,19 +158427,21 @@
           "url": "https://climbfinder.com/en/climbs/le-climont-urbeis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-mont-de-fourche-corravillers",
       "name": "Col du Mont de Fourche from Corravillers",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 4090,
         "slug": "col-du-mont-de-fourche-corravillers",
         "url": "https://climbfinder.com/en/climbs/col-du-mont-de-fourche-corravillers",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 2978,
@@ -159070,19 +159250,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-mont-de-fourche-corravillers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "cote-d-albe",
       "name": "Côte d'Albé",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 22318,
         "slug": "cote-d-albe",
         "url": "https://climbfinder.com/en/climbs/cote-d-albe",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 332,
@@ -159239,7 +159421,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-d-albe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-des-bagenelles-hachimette",
@@ -163300,14 +163483,15 @@
     {
       "id": "le-climont",
       "name": "Le Climont from La Salcée",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9193,
         "slug": "le-climont",
         "url": "https://climbfinder.com/en/climbs/le-climont",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 2251,
@@ -163958,19 +164142,21 @@
           "url": "https://climbfinder.com/en/climbs/le-climont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-kreuzweg-saint-martin",
       "name": "Col du Kreuzweg from Saint Martin",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3722,
         "slug": "col-de-kreuzweg-saint-martin",
         "url": "https://climbfinder.com/en/climbs/col-de-kreuzweg-saint-martin",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 7874,
@@ -164535,19 +164721,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-kreuzweg-saint-martin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-la-charbonniere-col-kreuzweg",
       "name": "Col de la Charbonnière from Col de Kreuzweg",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 3824,
         "slug": "col-de-la-charbonniere-col-kreuzweg",
         "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-col-kreuzweg",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 3205,
@@ -165030,19 +165218,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-charbonniere-col-kreuzweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-la-chapelotte-badonviller",
       "name": "Col de la Chapelotte from Badonviller",
-      "region": "Vosges",
+      "region": "Meurthe-et-Moselle",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 9189,
         "slug": "col-de-la-chapelotte-badonviller",
         "url": "https://climbfinder.com/en/climbs/col-de-la-chapelotte-badonviller",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 942
       },
       "stats": {
         "length_m": 5827,
@@ -166529,7 +166719,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-chapelotte-badonviller",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 942
     },
     {
       "id": "le-tanet-ampfersbach",
@@ -168741,14 +168932,15 @@
     {
       "id": "grendelbruch-muhlbach-sur-bruche",
       "name": "Grendelbruch from Muhlbach-sur-Bruche",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 26140,
         "slug": "grendelbruch-muhlbach-sur-bruche",
         "url": "https://climbfinder.com/en/climbs/grendelbruch-muhlbach-sur-bruche",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 2469,
@@ -169451,19 +169643,21 @@
           "url": "https://climbfinder.com/en/climbs/grendelbruch-muhlbach-sur-bruche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "champ-du-feu-saint-martin",
       "name": "Champ du Feu from Saint-Martin via Col de la Charbonnière",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 44703,
         "slug": "champ-du-feu-saint-martin",
         "url": "https://climbfinder.com/en/climbs/champ-du-feu-saint-martin",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 11995,
@@ -171010,19 +171204,21 @@
           "url": "https://climbfinder.com/en/climbs/champ-du-feu-saint-martin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-las-saales",
       "name": "Col du Las from Saâles",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9253,
         "slug": "col-du-las-saales",
         "url": "https://climbfinder.com/en/climbs/col-du-las-saales",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 5127,
@@ -172369,7 +172565,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-las-saales",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "ballon-d-alsace-sewen-route-de-la-fennematt",
@@ -173989,14 +174186,15 @@
     {
       "id": "col-de-praye-schirmeck",
       "name": "Col de Prayé from Schirmeck",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9187,
         "slug": "col-de-praye-schirmeck",
         "url": "https://climbfinder.com/en/climbs/col-de-praye-schirmeck",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 10443,
@@ -175351,7 +175549,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-praye-schirmeck",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-breitfirst-col-du-hahnenbrunnen",
@@ -176077,14 +176276,15 @@
     {
       "id": "les-hauts-bois-ranrupt",
       "name": "Les Hauts Bois from Ranrupt",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9201,
         "slug": "les-hauts-bois-ranrupt",
         "url": "https://climbfinder.com/en/climbs/les-hauts-bois-ranrupt",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 2986,
@@ -176893,19 +177093,21 @@
           "url": "https://climbfinder.com/en/climbs/les-hauts-bois-ranrupt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "champ-du-messin-natzwiller",
       "name": "Champ du Messin from Natzwiller",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9202,
         "slug": "champ-du-messin-natzwiller",
         "url": "https://climbfinder.com/en/climbs/champ-du-messin-natzwiller",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 7879,
@@ -178892,19 +179094,21 @@
           "url": "https://climbfinder.com/en/climbs/champ-du-messin-natzwiller",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-du-hantz-saales",
       "name": "Le Palais from Saales",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9346,
         "slug": "col-du-hantz-saales",
         "url": "https://climbfinder.com/en/climbs/col-du-hantz-saales",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 4722,
@@ -180145,19 +180349,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-hantz-saales",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "route-forestiere-des-russes-steigenbach",
       "name": "Route forestiêre des Russes from Steigenbach",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 9178,
         "slug": "route-forestiere-des-russes-steigenbach",
         "url": "https://climbfinder.com/en/climbs/route-forestiere-des-russes-steigenbach",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 9608,
@@ -181414,19 +181620,21 @@
           "url": "https://climbfinder.com/en/climbs/route-forestiere-des-russes-steigenbach",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "route-forestiere-des-russes-la-zorn-jaune",
       "name": "Route forestiêre des Russes from La Zorn Jaune",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9182,
         "slug": "route-forestiere-des-russes-la-zorn-jaune",
         "url": "https://climbfinder.com/en/climbs/route-forestiere-des-russes-la-zorn-jaune",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 8534,
@@ -183573,19 +183781,21 @@
           "url": "https://climbfinder.com/en/climbs/route-forestiere-des-russes-la-zorn-jaune",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "le-rocheret",
       "name": "Route des Forts / Le Rocheret",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 10062,
         "slug": "le-rocheret",
         "url": "https://climbfinder.com/en/climbs/le-rocheret",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 11099,
@@ -185022,19 +185232,21 @@
           "url": "https://climbfinder.com/en/climbs/le-rocheret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "ungersberg",
       "name": "Ungersberg",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9615,
         "slug": "ungersberg",
         "url": "https://climbfinder.com/en/climbs/ungersberg",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 5965,
@@ -186551,19 +186763,21 @@
           "url": "https://climbfinder.com/en/climbs/ungersberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "stampoumont-colroy-la-roche",
       "name": "Stampoumont from Colroy la Roche",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9199,
         "slug": "stampoumont-colroy-la-roche",
         "url": "https://climbfinder.com/en/climbs/stampoumont-colroy-la-roche",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 4270,
@@ -187692,7 +187906,8 @@
           "url": "https://climbfinder.com/en/climbs/stampoumont-colroy-la-roche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "lachtelweiher-kirchberg",
@@ -188788,14 +189003,15 @@
     {
       "id": "stangenplatz-breitenau",
       "name": "Stangenplatz / Château de Frankenbourg from Breitenau",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21611,
         "slug": "stangenplatz-breitenau",
         "url": "https://climbfinder.com/en/climbs/stangenplatz-breitenau",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 6842,
@@ -190526,7 +190742,8 @@
           "url": "https://climbfinder.com/en/climbs/stangenplatz-breitenau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "haut-koenigsbourg-bergheim",
@@ -192274,14 +192491,15 @@
     {
       "id": "col-de-valsberg-birkenwald",
       "name": "Col de Valsberg from Birkenwald",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9168,
         "slug": "col-de-valsberg-birkenwald",
         "url": "https://climbfinder.com/en/climbs/col-de-valsberg-birkenwald",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 8511,
@@ -194422,19 +194640,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-valsberg-birkenwald",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-valsberg-sparsbrod",
       "name": "Col de Valsberg from Sparsbrod",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8072,
         "slug": "col-de-valsberg-sparsbrod",
         "url": "https://climbfinder.com/en/climbs/col-de-valsberg-sparsbrod",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 11771,
@@ -195957,19 +196177,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-valsberg-sparsbrod",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "col-de-bruchberg-grendelbruch",
       "name": "Col de Bruchberg from Grendelbruch",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9204,
         "slug": "col-de-bruchberg-grendelbruch",
         "url": "https://climbfinder.com/en/climbs/col-de-bruchberg-grendelbruch",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 1947,
@@ -196536,19 +196758,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-bruchberg-grendelbruch",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "col-de-brechpunkt-walscheid",
       "name": "Col de Brechpunkt from Walscheid via Col du Hohwalsch",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9179,
         "slug": "col-de-brechpunkt-walscheid",
         "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-walscheid",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 6477,
@@ -198193,7 +198417,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-walscheid",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "stangenplatz-liepvre",
@@ -200009,14 +200234,15 @@
     {
       "id": "la-caleuche-ternuay",
       "name": "La Caleuche from Ternuay",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 14601,
         "slug": "la-caleuche-ternuay",
         "url": "https://climbfinder.com/en/climbs/la-caleuche-ternuay",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 4381,
@@ -201175,19 +201401,21 @@
           "url": "https://climbfinder.com/en/climbs/la-caleuche-ternuay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "cote-saphoz-esmoulieres",
       "name": "Côte Esmoulières from Saphoz",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 16739,
         "slug": "cote-saphoz-esmoulieres",
         "url": "https://climbfinder.com/en/climbs/cote-saphoz-esmoulieres",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 2448,
@@ -201884,7 +202112,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-saphoz-esmoulieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "ferme-du-brezouard-le-bonhomme",
@@ -202702,14 +202931,15 @@
     {
       "id": "champ-du-messin-rothau",
       "name": "Champ du Messin from Röthau",
-      "region": "Vosges",
+      "region": "Lower Rhine",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 14536,
         "slug": "champ-du-messin-rothau",
         "url": "https://climbfinder.com/en/climbs/champ-du-messin-rothau",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 931
       },
       "stats": {
         "length_m": 11133,
@@ -204152,7 +204382,8 @@
           "url": "https://climbfinder.com/en/climbs/champ-du-messin-rothau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 931
     },
     {
       "id": "freconrupt-la-broque",
@@ -205711,14 +205942,15 @@
     {
       "id": "chapelle-st-leon",
       "name": "Chapelle St Léon",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9175,
         "slug": "chapelle-st-leon",
         "url": "https://climbfinder.com/en/climbs/chapelle-st-leon",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 1520,
@@ -206175,7 +206407,8 @@
           "url": "https://climbfinder.com/en/climbs/chapelle-st-leon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "ober-solberg-luttenbach-pres-munster",
@@ -207177,14 +207410,15 @@
     {
       "id": "lutzelbourg-hultehouse",
       "name": "Hultehouse from Lutzelbourg",
-      "region": "Vosges",
+      "region": "Westrich Plateau",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9163,
         "slug": "lutzelbourg-hultehouse",
         "url": "https://climbfinder.com/en/climbs/lutzelbourg-hultehouse",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 349
       },
       "stats": {
         "length_m": 3101,
@@ -208025,7 +208259,8 @@
           "url": "https://climbfinder.com/en/climbs/lutzelbourg-hultehouse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 349
     },
     {
       "id": "col-amic-willer-sur-thur",
@@ -223174,14 +223409,15 @@
     {
       "id": "col-de-brechpunkt-abreschviller",
       "name": "Col de Brechpunkt from Abreschviller",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 9177,
         "slug": "col-de-brechpunkt-abreschviller",
         "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-abreschviller",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 5254,
@@ -224528,19 +224764,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-abreschviller",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "l-enclose-du-monthury",
       "name": "L'Enclose du Monthury via Route de Beulotte",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 15739,
         "slug": "l-enclose-du-monthury",
         "url": "https://climbfinder.com/en/climbs/l-enclose-du-monthury",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 3614,
@@ -225507,19 +225745,21 @@
           "url": "https://climbfinder.com/en/climbs/l-enclose-du-monthury",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-de-brechpunkt-schaeferhof-col-du-hohwalsch",
       "name": "Col de Brechpunkt from Schaeferhof via Col du Hohwalsch",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9180,
         "slug": "col-de-brechpunkt-schaeferhof-col-du-hohwalsch",
         "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-schaeferhof-col-du-hohwalsch",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 12639,
@@ -227122,7 +227362,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-schaeferhof-col-du-hohwalsch",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "grendelbruch-rosheim",
@@ -232948,14 +233189,15 @@
     {
       "id": "col-du-donon-raon-les-leau",
       "name": "Col du Donon from Raon-lès-Leau",
-      "region": "Vosges",
+      "region": "Meurthe-et-Moselle",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 34528,
         "slug": "col-du-donon-raon-les-leau",
         "url": "https://climbfinder.com/en/climbs/col-du-donon-raon-les-leau",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 942
       },
       "stats": {
         "length_m": 9952,
@@ -235448,7 +235690,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-donon-raon-les-leau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 942
     },
     {
       "id": "route-des-chateaux-stambach",
@@ -239912,14 +240155,15 @@
     {
       "id": "vallee-de-la-sayotte",
       "name": "Vallée de la Sayotte",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9185,
         "slug": "vallee-de-la-sayotte",
         "url": "https://climbfinder.com/en/climbs/vallee-de-la-sayotte",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 7605,
@@ -241840,7 +242084,8 @@
           "url": "https://climbfinder.com/en/climbs/vallee-de-la-sayotte",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "salm-grandfontaine",
@@ -243472,14 +243717,15 @@
     {
       "id": "la-caleuche-fresse",
       "name": "La Caleuche from Fresse",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 14602,
         "slug": "la-caleuche-fresse",
         "url": "https://climbfinder.com/en/climbs/la-caleuche-fresse",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 3353,
@@ -244382,7 +244628,8 @@
           "url": "https://climbfinder.com/en/climbs/la-caleuche-fresse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "le-markstein-kruth",
@@ -246198,14 +246445,15 @@
     {
       "id": "hellert-lochmuehl",
       "name": "Hellert from Lochmuehl",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9176,
         "slug": "hellert-lochmuehl",
         "url": "https://climbfinder.com/en/climbs/hellert-lochmuehl",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 2504,
@@ -246896,7 +247144,8 @@
           "url": "https://climbfinder.com/en/climbs/hellert-lochmuehl",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "col-de-freland-hachimette-freland",
@@ -251347,14 +251596,15 @@
     {
       "id": "cote-de-la-mer",
       "name": "Côte de la Mer",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 16740,
         "slug": "cote-de-la-mer",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-mer",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 3279,
@@ -252239,7 +252489,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-mer",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "plaine-saint-blaise-la-roche-route-de-saint-blaise-la-roche",
@@ -252739,14 +252990,15 @@
     {
       "id": "col-de-brechpunkt-schaeferhof",
       "name": "Col de Brechpunkt from Schaeferhof",
-      "region": "Vosges",
+      "region": "Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 9181,
         "slug": "col-de-brechpunkt-schaeferhof",
         "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-schaeferhof",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 946
       },
       "stats": {
         "length_m": 14549,
@@ -254581,7 +254833,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-brechpunkt-schaeferhof",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 946
     },
     {
       "id": "col-du-hundsruck-bitschwiller-les-thann-chem-du-kehrlenbach",
@@ -256073,14 +256326,15 @@
     {
       "id": "les-blondons",
       "name": "Les Blondons",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 10063,
         "slug": "les-blondons",
         "url": "https://climbfinder.com/en/climbs/les-blondons",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 3855,
@@ -257109,7 +257363,8 @@
           "url": "https://climbfinder.com/en/climbs/les-blondons",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "haberacker-chateau-d-ochenstein-stambach",
@@ -259071,14 +259326,15 @@
     {
       "id": "plain-de-la-broche-fresse",
       "name": "Plain de la Broche from Fresse",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 14604,
         "slug": "plain-de-la-broche-fresse",
         "url": "https://climbfinder.com/en/climbs/plain-de-la-broche-fresse",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 6121,
@@ -260633,7 +260889,8 @@
           "url": "https://climbfinder.com/en/climbs/plain-de-la-broche-fresse",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-de-chamont-freland",
@@ -261553,14 +261810,15 @@
     {
       "id": "vierge-clarisse-pierre-percee",
       "name": "Vierge Clarisse from Pierre Percée",
-      "region": "Vosges",
+      "region": "Meurthe-et-Moselle",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 21614,
         "slug": "vierge-clarisse-pierre-percee",
         "url": "https://climbfinder.com/en/climbs/vierge-clarisse-pierre-percee",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 942
       },
       "stats": {
         "length_m": 3006,
@@ -262377,7 +262635,8 @@
           "url": "https://climbfinder.com/en/climbs/vierge-clarisse-pierre-percee",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 942
     },
     {
       "id": "route-des-cretes-col-du-herrenberg",
@@ -270170,14 +270429,15 @@
     {
       "id": "vierge-clarisse-badonviller",
       "name": "Vierge Clarisse from Badonviller",
-      "region": "Vosges",
+      "region": "Meurthe-et-Moselle",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 21613,
         "slug": "vierge-clarisse-badonviller",
         "url": "https://climbfinder.com/en/climbs/vierge-clarisse-badonviller",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 942
       },
       "stats": {
         "length_m": 3983,
@@ -271236,7 +271496,8 @@
           "url": "https://climbfinder.com/en/climbs/vierge-clarisse-badonviller",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 942
     },
     {
       "id": "plaine-saint-blaise-la-roche",
@@ -274098,14 +274359,15 @@
     {
       "id": "route-des-forts-col-du-mont-de-fourche",
       "name": "Route des Forts from Col du Mont de Fourche",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 32933,
         "slug": "route-des-forts-col-du-mont-de-fourche",
         "url": "https://climbfinder.com/en/climbs/route-des-forts-col-du-mont-de-fourche",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 4461,
@@ -275284,7 +275546,8 @@
           "url": "https://climbfinder.com/en/climbs/route-des-forts-col-du-mont-de-fourche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "collet-du-linge-turckheim",
@@ -279177,14 +279440,15 @@
     {
       "id": "route-de-la-montagne-la-longine",
       "name": "Route de la Montagne from La Longine",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 15745,
         "slug": "route-de-la-montagne-la-longine",
         "url": "https://climbfinder.com/en/climbs/route-de-la-montagne-la-longine",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 7132,
@@ -280989,7 +281253,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-la-montagne-la-longine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-du-sattel",
@@ -284824,14 +285089,15 @@
     {
       "id": "le-bachetey-beulotte-saint-laurent",
       "name": "Le Bachetey from Beulotte-Saint-Laurent",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 15744,
         "slug": "le-bachetey-beulotte-saint-laurent",
         "url": "https://climbfinder.com/en/climbs/le-bachetey-beulotte-saint-laurent",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 1865,
@@ -285378,7 +285644,8 @@
           "url": "https://climbfinder.com/en/climbs/le-bachetey-beulotte-saint-laurent",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "chateau-ochenstein-reinhardsmunster",
@@ -290724,14 +290991,15 @@
     {
       "id": "enoz-corravillers",
       "name": "Enoz from Corravillers",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 17107,
         "slug": "enoz-corravillers",
         "url": "https://climbfinder.com/en/climbs/enoz-corravillers",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 2632,
@@ -291454,7 +291722,8 @@
           "url": "https://climbfinder.com/en/climbs/enoz-corravillers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "merelles-lapoutroie-barischireu",
@@ -307238,14 +307507,15 @@
     {
       "id": "route-du-montandre-servance",
       "name": "Route du Montandré from Servance",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 47738,
         "slug": "route-du-montandre-servance",
         "url": "https://climbfinder.com/en/climbs/route-du-montandre-servance",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 1119,
@@ -307620,7 +307890,8 @@
           "url": "https://climbfinder.com/en/climbs/route-du-montandre-servance",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "vers-le-chemin-d-allemagne",
@@ -310527,14 +310798,15 @@
     {
       "id": "fort-de-rupt-corravillers-col-du-mont-de-fourche",
       "name": "Fort de Rupt from Corravillers via Col du Mont de Fourche",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 49534,
         "slug": "fort-de-rupt-corravillers-col-du-mont-de-fourche",
         "url": "https://climbfinder.com/en/climbs/fort-de-rupt-corravillers-col-du-mont-de-fourche",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 7217,
@@ -312357,7 +312629,8 @@
           "url": "https://climbfinder.com/en/climbs/fort-de-rupt-corravillers-col-du-mont-de-fourche",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "lac-noir-les-hautes-huttes",
@@ -316212,14 +316485,15 @@
     {
       "id": "la-corbiere-saint-bresson",
       "name": "La Corbière from Saint-Bresson",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 49535,
         "slug": "la-corbiere-saint-bresson",
         "url": "https://climbfinder.com/en/climbs/la-corbiere-saint-bresson",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 3471,
@@ -317148,7 +317422,8 @@
           "url": "https://climbfinder.com/en/climbs/la-corbiere-saint-bresson",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "rue-rotland-mittelbergheim",
@@ -320104,14 +320379,15 @@
     {
       "id": "fort-de-rupt-corravillers",
       "name": "Fort de Rupt from Corravillers",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 49397,
         "slug": "fort-de-rupt-corravillers",
         "url": "https://climbfinder.com/en/climbs/fort-de-rupt-corravillers",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 5393,
@@ -321488,7 +321764,8 @@
           "url": "https://climbfinder.com/en/climbs/fort-de-rupt-corravillers",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "col-du-neuland-pfaffenheim",
@@ -327066,14 +327343,15 @@
     {
       "id": "blanzey-fougerolles-le-chateau",
       "name": "Côte de Blanzey from Fougerolles-le-Château",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 49546,
         "slug": "blanzey-fougerolles-le-chateau",
         "url": "https://climbfinder.com/en/climbs/blanzey-fougerolles-le-chateau",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 5767,
@@ -328542,7 +328820,8 @@
           "url": "https://climbfinder.com/en/climbs/blanzey-fougerolles-le-chateau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "cote-de-storckensohn-rue-de-storckensohn",
@@ -330024,14 +330303,15 @@
     {
       "id": "la-verrerie-haut-du-them",
       "name": "La Verrerie from Haut du Them",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 53914,
         "slug": "la-verrerie-haut-du-them",
         "url": "https://climbfinder.com/en/climbs/la-verrerie-haut-du-them",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 6094,
@@ -331580,7 +331860,8 @@
           "url": "https://climbfinder.com/en/climbs/la-verrerie-haut-du-them",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "brunnweg-wettolsheim",
@@ -342288,14 +342569,15 @@
     {
       "id": "route-de-faucogney-melisey",
       "name": "Route de Faucogney from Mélisey",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 48427,
         "slug": "route-de-faucogney-melisey",
         "url": "https://climbfinder.com/en/climbs/route-de-faucogney-melisey",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 2790,
@@ -343054,7 +343336,8 @@
           "url": "https://climbfinder.com/en/climbs/route-de-faucogney-melisey",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "neurod-mittlach",
@@ -348235,14 +348518,15 @@
     {
       "id": "le-grand-fays-le-petit-fahys",
       "name": "Le Grand Fays from Le Petit Fahys",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 70896,
         "slug": "le-grand-fays-le-petit-fahys",
         "url": "https://climbfinder.com/en/climbs/le-grand-fays-le-petit-fahys",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 775,
@@ -348519,7 +348803,8 @@
           "url": "https://climbfinder.com/en/climbs/le-grand-fays-le-petit-fahys",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "montee-de-la-necropole-sigolsheim",
@@ -350253,14 +350538,15 @@
     {
       "id": "beaumont-le-champ",
       "name": "Beaumont from Le Champ",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 70889,
         "slug": "beaumont-le-champ",
         "url": "https://climbfinder.com/en/climbs/beaumont-le-champ",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 2333,
@@ -350931,7 +351217,8 @@
           "url": "https://climbfinder.com/en/climbs/beaumont-le-champ",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "ramersmatt-bourbach-le-bas",
@@ -353523,14 +353810,15 @@
     {
       "id": "le-premourey-le-champ",
       "name": "Le Prémourey from Le Champ",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 70890,
         "slug": "le-premourey-le-champ",
         "url": "https://climbfinder.com/en/climbs/le-premourey-le-champ",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 1044,
@@ -353883,19 +354171,21 @@
           "url": "https://climbfinder.com/en/climbs/le-premourey-le-champ",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "la-haut-des-tres-rue-de-croslieres",
       "name": "La Haut des Très via Rue de Croslières",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 70885,
         "slug": "la-haut-des-tres-rue-de-croslieres",
         "url": "https://climbfinder.com/en/climbs/la-haut-des-tres-rue-de-croslieres",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 4119,
@@ -354986,19 +355276,21 @@
           "url": "https://climbfinder.com/en/climbs/la-haut-des-tres-rue-de-croslieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "la-planche-des-belles-filles",
       "name": "La Planche des Belles Filles",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 97660,
         "slug": "la-planche-des-belles-filles",
         "url": "https://climbfinder.com/en/climbs/la-planche-des-belles-filles",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 6043,
@@ -356535,19 +356827,21 @@
           "url": "https://climbfinder.com/en/climbs/la-planche-des-belles-filles",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "cote-de-blanzey-raddon-et-chapendu",
       "name": "Côte de Blanzey from Raddon-et-Chapendu",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 51685,
         "slug": "cote-de-blanzey-raddon-et-chapendu",
         "url": "https://climbfinder.com/en/climbs/cote-de-blanzey-raddon-et-chapendu",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 4087,
@@ -357632,7 +357926,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-blanzey-raddon-et-chapendu",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "cote-du-vignoble",
@@ -358537,14 +358832,15 @@
     {
       "id": "la-haut-des-tres-fougerolles-le-chateau",
       "name": "La Haut des Très from Fougerolles-le-Château",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 70887,
         "slug": "la-haut-des-tres-fougerolles-le-chateau",
         "url": "https://climbfinder.com/en/climbs/la-haut-des-tres-fougerolles-le-chateau",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 5984,
@@ -360067,7 +360363,8 @@
           "url": "https://climbfinder.com/en/climbs/la-haut-des-tres-fougerolles-le-chateau",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "schutzlen-lautenbachzell",
@@ -361478,14 +361775,15 @@
     {
       "id": "la-haut-des-tres-croslieres",
       "name": "La Haut des Très via Croslières",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 70888,
         "slug": "la-haut-des-tres-croslieres",
         "url": "https://climbfinder.com/en/climbs/la-haut-des-tres-croslieres",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 5128,
@@ -362802,19 +363100,21 @@
           "url": "https://climbfinder.com/en/climbs/la-haut-des-tres-croslieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "le-petit-fahys-le-pre-du-rupt",
       "name": "Le Petit Fahys from Le Pré du Rupt",
-      "region": "Vosges",
+      "region": "Haute-Saône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 70895,
         "slug": "le-petit-fahys-le-pre-du-rupt",
         "url": "https://climbfinder.com/en/climbs/le-petit-fahys-le-pre-du-rupt",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 954
       },
       "stats": {
         "length_m": 1870,
@@ -363361,7 +363661,8 @@
           "url": "https://climbfinder.com/en/climbs/le-petit-fahys-le-pre-du-rupt",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 954
     },
     {
       "id": "nid-d-agasse-faucogney-et-la-mer",
@@ -402215,14 +402516,15 @@
     {
       "id": "auxelle-haut",
       "name": "Auxelle-Haut",
-      "region": "Vosges",
+      "region": "Territoire de Belfort",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 97020,
         "slug": "auxelle-haut",
         "url": "https://climbfinder.com/en/climbs/auxelle-haut",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 913
       },
       "stats": {
         "length_m": 1501,
@@ -402679,7 +402981,8 @@
           "url": "https://climbfinder.com/en/climbs/auxelle-haut",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 913
     },
     {
       "id": "gustiberg-col-de-bussang",

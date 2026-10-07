@@ -5,7 +5,7 @@
     "title": "Provence-Alpes-Côte d'Azur",
     "region_label": "Provence-Alpes-Côte d'Azur",
     "country": "FR",
-    "updated_at": "2026-10-07T12:50:26Z",
+    "updated_at": "2026-10-07T13:30:48Z",
     "count": 336,
     "source": {
       "name": "climbfinder",
@@ -18,20 +18,24 @@
       ],
       "locality_id": 58
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:30:48Z"
+    }
   },
   "climbs": [
     {
       "id": "col-de-l-espigoulier-gemenos",
       "name": "Col de l'Espigoulier from Gémenos",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 2215,
         "slug": "col-de-l-espigoulier-gemenos",
         "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-gemenos",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 11170,
@@ -1458,19 +1462,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-gemenos",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-la-gineste-marseille",
       "name": "Col de la Gineste",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3435,
         "slug": "col-de-la-gineste-marseille",
         "url": "https://climbfinder.com/en/climbs/col-de-la-gineste-marseille",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 5439,
@@ -2205,19 +2211,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-gineste-marseille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "mont-faron-toulon",
       "name": "Mont Faron from Toulon",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1327,
         "slug": "mont-faron-toulon",
         "url": "https://climbfinder.com/en/climbs/mont-faron-toulon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5981,
@@ -3740,19 +3748,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-faron-toulon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-du-canadel-le-canadel",
       "name": "Col du Canadel from Le Canadel",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 2184,
         "slug": "col-du-canadel-le-canadel",
         "url": "https://climbfinder.com/en/climbs/col-du-canadel-le-canadel",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4311,
@@ -4893,19 +4903,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-canadel-le-canadel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "route-des-cretes-la-ciotat",
       "name": "Route des Crêtes from La Ciotat",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 10016,
         "slug": "route-des-cretes-la-ciotat",
         "url": "https://climbfinder.com/en/climbs/route-des-cretes-la-ciotat",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3442,
@@ -5828,19 +5840,21 @@
           "url": "https://climbfinder.com/en/climbs/route-des-cretes-la-ciotat",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-bougnon-south",
       "name": "Col du Bougnon from Les Issambres",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 1707,
         "slug": "col-du-bougnon-south",
         "url": "https://climbfinder.com/en/climbs/col-du-bougnon-south",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 3213,
@@ -6707,19 +6721,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-bougnon-south",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-du-testanier",
       "name": "Col du Testanier",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 1705,
         "slug": "col-du-testanier",
         "url": "https://climbfinder.com/en/climbs/col-du-testanier",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5324,
@@ -8078,19 +8094,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-testanier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-du-babaou-collobrieres",
       "name": "Col du Babaou from Collobrières",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 20767,
         "slug": "col-du-babaou-collobrieres",
         "url": "https://climbfinder.com/en/climbs/col-du-babaou-collobrieres",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6502,
@@ -9743,19 +9761,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-babaou-collobrieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-la-gineste-cassis",
       "name": "Col de la Gineste from Cassis",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 3436,
         "slug": "col-de-la-gineste-cassis",
         "url": "https://climbfinder.com/en/climbs/col-de-la-gineste-cassis",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 7437,
@@ -11632,19 +11652,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-gineste-cassis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-bel-homme-bargemon",
       "name": "Col du Bel Homme from Bargemon",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 10576,
         "slug": "col-du-bel-homme-bargemon",
         "url": "https://climbfinder.com/en/climbs/col-du-bel-homme-bargemon",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 7543,
@@ -13547,19 +13569,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-bel-homme-bargemon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "mont-caume-col-du-corps-de-garde",
       "name": "Mont Caume from Col du Corps de Garde",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 3979,
         "slug": "mont-caume-col-du-corps-de-garde",
         "url": "https://climbfinder.com/en/climbs/mont-caume-col-du-corps-de-garde",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5147,
@@ -14876,19 +14900,21 @@
           "url": "https://climbfinder.com/en/climbs/mont-caume-col-du-corps-de-garde",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-sainte-anne-lambesc",
       "name": "Col de Sainte Anne",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8298,
         "slug": "col-de-sainte-anne-lambesc",
         "url": "https://climbfinder.com/en/climbs/col-de-sainte-anne-lambesc",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3942,
@@ -15935,19 +15961,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sainte-anne-lambesc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-corps-de-garde",
       "name": "Col du Corps de Garde",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 1742,
         "slug": "col-du-corps-de-garde",
         "url": "https://climbfinder.com/en/climbs/col-du-corps-de-garde",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6763,
@@ -17660,19 +17688,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-corps-de-garde",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-l-espigoulier-auriol",
       "name": "Col de l'Espigoulier from Auriol",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6026,
         "slug": "col-de-l-espigoulier-auriol",
         "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-auriol",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 13600,
@@ -19391,19 +19421,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-auriol",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-des-lices",
       "name": "Montée de la Bonne Mère / Notre-Dame-de-la-Garde via Rue des Lices",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 17274,
         "slug": "montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-des-lices",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-des-lices",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 1020,
@@ -19750,19 +19782,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-des-lices",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-bougnon-north",
       "name": "Col du Bougnon from Domaine de la Bergerie",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 1706,
         "slug": "col-du-bougnon-north",
         "url": "https://climbfinder.com/en/climbs/col-du-bougnon-north",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4300,
@@ -20897,19 +20931,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-bougnon-north",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "route-forestiere-du-lachens-col-de-clavel",
       "name": "Lachens from Col de Clavel via Route Forestière du Lachens",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 6985,
         "slug": "route-forestiere-du-lachens-col-de-clavel",
         "url": "https://climbfinder.com/en/climbs/route-forestiere-du-lachens-col-de-clavel",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 9340,
@@ -22128,19 +22164,21 @@
           "url": "https://climbfinder.com/en/climbs/route-forestiere-du-lachens-col-de-clavel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-vaumale-les-salles-sur-verdon",
       "name": "Cirque de Vaumale from Les Salles-sur-Verdon",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1772,
         "slug": "col-de-vaumale-les-salles-sur-verdon",
         "url": "https://climbfinder.com/en/climbs/col-de-vaumale-les-salles-sur-verdon",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 11819,
@@ -23669,19 +23707,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-vaumale-les-salles-sur-verdon",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "notre-dame-des-anges-collobrieres",
       "name": "Notre Dame des Anges from Collobrières",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21113,
         "slug": "notre-dame-des-anges-collobrieres",
         "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges-collobrieres",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 11442,
@@ -25160,19 +25200,21 @@
           "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges-collobrieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-ste-anne-la-roque-d-antheron",
       "name": "Col de Sainte Anne from La Roque-d'Anthéron",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 8297,
         "slug": "col-de-ste-anne-la-roque-d-antheron",
         "url": "https://climbfinder.com/en/climbs/col-de-ste-anne-la-roque-d-antheron",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 5148,
@@ -26489,19 +26531,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-ste-anne-la-roque-d-antheron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-la-cornille-fayence",
       "name": "Col de la Cornille from Fayence",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 1776,
         "slug": "col-de-la-cornille-fayence",
         "url": "https://climbfinder.com/en/climbs/col-de-la-cornille-fayence",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 34475,
@@ -28666,19 +28710,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-cornille-fayence",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "pic-de-bertagne-plan-d-aups-sainte-baume",
       "name": "Pic de Bertagne from Plan-d'Aups-Sainte-Baume",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 6541,
         "slug": "pic-de-bertagne-plan-d-aups-sainte-baume",
         "url": "https://climbfinder.com/en/climbs/pic-de-bertagne-plan-d-aups-sainte-baume",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5026,
@@ -30001,19 +30047,21 @@
           "url": "https://climbfinder.com/en/climbs/pic-de-bertagne-plan-d-aups-sainte-baume",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "bau-de-la-saoupe-cassis",
       "name": "Bau de la Saoupe from Cassis",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 15889,
         "slug": "bau-de-la-saoupe-cassis",
         "url": "https://climbfinder.com/en/climbs/bau-de-la-saoupe-cassis",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3795,
@@ -31022,19 +31070,21 @@
           "url": "https://climbfinder.com/en/climbs/bau-de-la-saoupe-cassis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-la-bigue-aups",
       "name": "Col de la Bigue from Aups",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 6986,
         "slug": "col-de-la-bigue-aups",
         "url": "https://climbfinder.com/en/climbs/col-de-la-bigue-aups",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4740,
@@ -32253,19 +32303,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-bigue-aups",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "val-de-cuech-salon-de-provence",
       "name": "Val de Cuech from Salon-de-Provence",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 10582,
         "slug": "val-de-cuech-salon-de-provence",
         "url": "https://climbfinder.com/en/climbs/val-de-cuech-salon-de-provence",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4641,
@@ -33488,19 +33540,21 @@
           "url": "https://climbfinder.com/en/climbs/val-de-cuech-salon-de-provence",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-des-portes-vauvenargues",
       "name": "Col des Portes from Vauvenargues via Col de Claps",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 20285,
         "slug": "col-des-portes-vauvenargues",
         "url": "https://climbfinder.com/en/climbs/col-des-portes-vauvenargues",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4614,
@@ -34717,19 +34771,21 @@
           "url": "https://climbfinder.com/en/climbs/col-des-portes-vauvenargues",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "val-d-enfer-baux-de-provence",
       "name": "Les Baux-de-Provence via Val de Lavis",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 23835,
         "slug": "val-d-enfer-baux-de-provence",
         "url": "https://climbfinder.com/en/climbs/val-d-enfer-baux-de-provence",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3669,
@@ -35708,19 +35764,21 @@
           "url": "https://climbfinder.com/en/climbs/val-d-enfer-baux-de-provence",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-fourche-gonfaron",
       "name": "Col de Fourche from Gonfaron",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 20765,
         "slug": "col-de-fourche-gonfaron",
         "url": "https://climbfinder.com/en/climbs/col-de-fourche-gonfaron",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6619,
@@ -37397,19 +37455,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-fourche-gonfaron",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "le-grand-sambuc-jouques",
       "name": "Col de Grand Sambuc from Jouques",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 20283,
         "slug": "le-grand-sambuc-jouques",
         "url": "https://climbfinder.com/en/climbs/le-grand-sambuc-jouques",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 10194,
@@ -38734,19 +38794,21 @@
           "url": "https://climbfinder.com/en/climbs/le-grand-sambuc-jouques",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "aiguines-hameau-du-pont",
       "name": "Cirque de Vaumale from Hameau du Pont",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 1337,
         "slug": "aiguines-hameau-du-pont",
         "url": "https://climbfinder.com/en/climbs/aiguines-hameau-du-pont",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 12016,
@@ -40301,19 +40363,21 @@
           "url": "https://climbfinder.com/en/climbs/aiguines-hameau-du-pont",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "pas-d-ouillier-cassis",
       "name": "Pas d'Ouillier from Cassis via Pas de Bellefille",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 10017,
         "slug": "pas-d-ouillier-cassis",
         "url": "https://climbfinder.com/en/climbs/pas-d-ouillier-cassis",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 6673,
@@ -42002,19 +42066,21 @@
           "url": "https://climbfinder.com/en/climbs/pas-d-ouillier-cassis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-l-espigoulier-nans-les-pins",
       "name": "Col de l'Espigoulier from Nans-les-Pins",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6028,
         "slug": "col-de-l-espigoulier-nans-les-pins",
         "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-nans-les-pins",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 22126,
@@ -43451,19 +43517,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-nans-les-pins",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-du-babaou-col-du-gratteloup",
       "name": "Col du Babaou via Col du Gratteloup",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 21464,
         "slug": "col-du-babaou-col-du-gratteloup",
         "url": "https://climbfinder.com/en/climbs/col-du-babaou-col-du-gratteloup",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 12137,
@@ -45030,19 +45098,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-babaou-col-du-gratteloup",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "notre-dame-des-anges",
       "name": "Notre Dame des Anges",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 20766,
         "slug": "notre-dame-des-anges",
         "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 11391,
@@ -46515,19 +46585,21 @@
           "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-du-perier-grimaud",
       "name": "Col du Périer from Grimaud",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 20735,
         "slug": "col-du-perier-grimaud",
         "url": "https://climbfinder.com/en/climbs/col-du-perier-grimaud",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 7454,
@@ -48410,19 +48482,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-perier-grimaud",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-la-grange-la-clape",
       "name": "Col de la Grange from La Clape",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 6067,
         "slug": "col-de-la-grange-la-clape",
         "url": "https://climbfinder.com/en/climbs/col-de-la-grange-la-clape",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6846,
@@ -50153,19 +50227,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-grange-la-clape",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-l-espigoulier-saint-zacharie",
       "name": "Col de l'Espigoulier from Saint Zacharie",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 6027,
         "slug": "col-de-l-espigoulier-saint-zacharie",
         "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-saint-zacharie",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 17023,
@@ -52306,19 +52382,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-espigoulier-saint-zacharie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "tourtour-villecroze",
       "name": "Tourtour from Villecroze",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 7049,
         "slug": "tourtour-villecroze",
         "url": "https://climbfinder.com/en/climbs/tourtour-villecroze",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6493,
@@ -53963,19 +54041,21 @@
           "url": "https://climbfinder.com/en/climbs/tourtour-villecroze",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "montagne-de-la-loube",
       "name": "Montagne de la Loube",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 6520,
         "slug": "montagne-de-la-loube",
         "url": "https://climbfinder.com/en/climbs/montagne-de-la-loube",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 3862,
@@ -55004,19 +55084,21 @@
           "url": "https://climbfinder.com/en/climbs/montagne-de-la-loube",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-d-avaye-col-de-bourigaille-seillans",
       "name": "Col d'Avaye / Col de Bourigaille from Seillans",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 11995,
         "slug": "col-d-avaye-col-de-bourigaille-seillans",
         "url": "https://climbfinder.com/en/climbs/col-d-avaye-col-de-bourigaille-seillans",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 7492,
@@ -56905,19 +56987,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-avaye-col-de-bourigaille-seillans",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "chemin-de-curet",
       "name": "Chemin de Curet from La Fossette",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 12009,
         "slug": "chemin-de-curet",
         "url": "https://climbfinder.com/en/climbs/chemin-de-curet",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4503,
@@ -58108,19 +58192,21 @@
           "url": "https://climbfinder.com/en/climbs/chemin-de-curet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "gros-bessillon-cotignac",
       "name": "Gros Bessillon from Cotignac",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 40822,
         "slug": "gros-bessillon-cotignac",
         "url": "https://climbfinder.com/en/climbs/gros-bessillon-cotignac",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 9086,
@@ -60401,19 +60487,21 @@
           "url": "https://climbfinder.com/en/climbs/gros-bessillon-cotignac",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-vignon-plan-de-la-tour",
       "name": "Col Vignon from Plan de la Tour",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 20764,
         "slug": "col-vignon-plan-de-la-tour",
         "url": "https://climbfinder.com/en/climbs/col-vignon-plan-de-la-tour",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5849,
@@ -61900,19 +61988,21 @@
           "url": "https://climbfinder.com/en/climbs/col-vignon-plan-de-la-tour",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "pas-de-la-couelle-saint-zacharie",
       "name": "Pas de la Couelle from Saint Zacharie",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6523,
         "slug": "pas-de-la-couelle-saint-zacharie",
         "url": "https://climbfinder.com/en/climbs/pas-de-la-couelle-saint-zacharie",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5872,
@@ -63405,19 +63495,21 @@
           "url": "https://climbfinder.com/en/climbs/pas-de-la-couelle-saint-zacharie",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "cote-du-pigeonnier",
       "name": "Côte du Pigeonnier",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 10532,
         "slug": "cote-du-pigeonnier",
         "url": "https://climbfinder.com/en/climbs/cote-du-pigeonnier",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3464,
@@ -64346,19 +64438,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-du-pigeonnier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "notre-dame-des-anges-gonfaron-cretes-marc-robert",
       "name": "Notre Dame des Anges from Gonfaron via Crêtes Marc Robert",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21112,
         "slug": "notre-dame-des-anges-gonfaron-cretes-marc-robert",
         "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges-gonfaron-cretes-marc-robert",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 9696,
@@ -66785,19 +66879,21 @@
           "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges-gonfaron-cretes-marc-robert",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "pas-de-la-couelle-trets",
       "name": "Pas de la Couelle from Trets",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 6524,
         "slug": "pas-de-la-couelle-trets",
         "url": "https://climbfinder.com/en/climbs/pas-de-la-couelle-trets",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 7023,
@@ -68572,19 +68668,21 @@
           "url": "https://climbfinder.com/en/climbs/pas-de-la-couelle-trets",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-d-avaye-col-de-bourigaille-fayence",
       "name": "Col d'Avaye / Col de Bourigaille from Fayence",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 11996,
         "slug": "col-d-avaye-col-de-bourigaille-fayence",
         "url": "https://climbfinder.com/en/climbs/col-d-avaye-col-de-bourigaille-fayence",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 9724,
@@ -71017,19 +71115,21 @@
           "url": "https://climbfinder.com/en/climbs/col-d-avaye-col-de-bourigaille-fayence",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "cirque-de-vaumale",
       "name": "Cirque de Vaumale",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6970,
         "slug": "cirque-de-vaumale",
         "url": "https://climbfinder.com/en/climbs/cirque-de-vaumale",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5795,
@@ -72504,19 +72604,21 @@
           "url": "https://climbfinder.com/en/climbs/cirque-de-vaumale",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-fort-du-sanctuaire",
       "name": "Montée de la Bonne Mère / Notre-Dame-de-la-Garde via Rue Fort du Sanctuaire",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 17275,
         "slug": "montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-fort-du-sanctuaire",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-fort-du-sanctuaire",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 789,
@@ -72799,19 +72901,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-bonne-mere-notre-dame-de-la-garde-rue-fort-du-sanctuaire",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "le-malmont-draguignan",
       "name": "Le Malmont from Draguignan",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6377,
         "slug": "le-malmont-draguignan",
         "url": "https://climbfinder.com/en/climbs/le-malmont-draguignan",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4128,
@@ -73884,19 +73988,21 @@
           "url": "https://climbfinder.com/en/climbs/le-malmont-draguignan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-l-ange-cuges-les-pins",
       "name": "Col de l'Ange from Cuges-les-Pins",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": null,
       "climbfinder": {
         "id": 31197,
         "slug": "col-de-l-ange-cuges-les-pins",
         "url": "https://climbfinder.com/en/climbs/col-de-l-ange-cuges-les-pins",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 1434,
@@ -74333,19 +74439,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-ange-cuges-les-pins",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "foret-de-la-sainte-baume-nans-les-pins",
       "name": "Forêt de la Sainte Baume from Nans les Pins",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6325,
         "slug": "foret-de-la-sainte-baume-nans-les-pins",
         "url": "https://climbfinder.com/en/climbs/foret-de-la-sainte-baume-nans-les-pins",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 7047,
@@ -76126,19 +76234,21 @@
           "url": "https://climbfinder.com/en/climbs/foret-de-la-sainte-baume-nans-les-pins",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "plateau-de-siou-blanc-sollies-toucas",
       "name": "Plateau de Siou-Blanc from Solliès-Toucas",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21695,
         "slug": "plateau-de-siou-blanc-sollies-toucas",
         "url": "https://climbfinder.com/en/climbs/plateau-de-siou-blanc-sollies-toucas",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 11636,
@@ -77643,19 +77753,21 @@
           "url": "https://climbfinder.com/en/climbs/plateau-de-siou-blanc-sollies-toucas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "pic-de-l-ours-le-grenouillet",
       "name": "Col Notre Dame from Le Grenouillet",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 15997,
         "slug": "pic-de-l-ours-le-grenouillet",
         "url": "https://climbfinder.com/en/climbs/pic-de-l-ours-le-grenouillet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 8569,
@@ -79808,19 +79920,21 @@
           "url": "https://climbfinder.com/en/climbs/pic-de-l-ours-le-grenouillet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "le-grand-duc-les-plaines-saint-cassien-des-bois",
       "name": "Le Grand Duc / Les Plaines from Saint Cassien des Bois",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2272,
         "slug": "le-grand-duc-les-plaines-saint-cassien-des-bois",
         "url": "https://climbfinder.com/en/climbs/le-grand-duc-les-plaines-saint-cassien-des-bois",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 10674,
@@ -81207,19 +81321,21 @@
           "url": "https://climbfinder.com/en/climbs/le-grand-duc-les-plaines-saint-cassien-des-bois",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "cap-roux-le-trayas",
       "name": "Cap Roux from Le Trayas",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 2290,
         "slug": "cap-roux-le-trayas",
         "url": "https://climbfinder.com/en/climbs/cap-roux-le-trayas",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 1778,
@@ -81746,19 +81862,21 @@
           "url": "https://climbfinder.com/en/climbs/cap-roux-le-trayas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "route-d-italie-valescure",
       "name": "Route d'Italie from Valescure",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 2385,
         "slug": "route-d-italie-valescure",
         "url": "https://climbfinder.com/en/climbs/route-d-italie-valescure",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4447,
@@ -82931,19 +83049,21 @@
           "url": "https://climbfinder.com/en/climbs/route-d-italie-valescure",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "le-camp-du-castellet-sainte-anne-du-castellet",
       "name": "Le Camp du Castellet from Sainte Anne du Castellet",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6352,
         "slug": "le-camp-du-castellet-sainte-anne-du-castellet",
         "url": "https://climbfinder.com/en/climbs/le-camp-du-castellet-sainte-anne-du-castellet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 3475,
@@ -83872,19 +83992,21 @@
           "url": "https://climbfinder.com/en/climbs/le-camp-du-castellet-sainte-anne-du-castellet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-seze-charleval",
       "name": "Col de Sèze from Charleval",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 27071,
         "slug": "col-de-seze-charleval",
         "url": "https://climbfinder.com/en/climbs/col-de-seze-charleval",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2917,
@@ -84675,19 +84797,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-seze-charleval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "montee-des-antiques",
       "name": "Montée des Antiques from Saint Rémy de Provence",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 10590,
         "slug": "montee-des-antiques",
         "url": "https://climbfinder.com/en/climbs/montee-des-antiques",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3553,
@@ -85640,19 +85764,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-des-antiques",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "cap-roux-agay",
       "name": "Cap Roux from Lac de Grenouillet",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 2289,
         "slug": "cap-roux-agay",
         "url": "https://climbfinder.com/en/climbs/cap-roux-agay",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 4359,
@@ -86805,19 +86931,21 @@
           "url": "https://climbfinder.com/en/climbs/cap-roux-agay",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-taillude-collobrieres",
       "name": "Col de Taillude from Collobrières",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 20768,
         "slug": "col-de-taillude-collobrieres",
         "url": "https://climbfinder.com/en/climbs/col-de-taillude-collobrieres",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5039,
@@ -88110,19 +88238,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-taillude-collobrieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "village-de-canjeurs-montferrat",
       "name": "Village / Camp de Canjeurs from Montferrat",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 5641,
         "slug": "village-de-canjeurs-montferrat",
         "url": "https://climbfinder.com/en/climbs/village-de-canjeurs-montferrat",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6571,
@@ -89787,19 +89917,21 @@
           "url": "https://climbfinder.com/en/climbs/village-de-canjeurs-montferrat",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "notre-dame-des-anges-collobrieres-col-des-fourches-cretes-marc-robert",
       "name": "Notre Dame des Anges from Collobrières via Col des Fourches",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 21463,
         "slug": "notre-dame-des-anges-collobrieres-col-des-fourches-cretes-marc-robert",
         "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges-collobrieres-col-des-fourches-cretes-marc-robert",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 14821,
@@ -91670,19 +91802,21 @@
           "url": "https://climbfinder.com/en/climbs/notre-dame-des-anges-collobrieres-col-des-fourches-cretes-marc-robert",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "montee-de-la-cride",
       "name": "Montée de La Cride",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 10585,
         "slug": "montee-de-la-cride",
         "url": "https://climbfinder.com/en/climbs/montee-de-la-cride",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3719,
@@ -92673,19 +92807,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-de-la-cride",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-caguo-ven-le-pin-de-bormes",
       "name": "Col du Caguo Ven from Le Pin de Bormes",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 12006,
         "slug": "col-du-caguo-ven-le-pin-de-bormes",
         "url": "https://climbfinder.com/en/climbs/col-du-caguo-ven-le-pin-de-bormes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 3772,
@@ -93688,19 +93824,21 @@
           "url": "https://climbfinder.com/en/climbs/col-du-caguo-ven-le-pin-de-bormes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "collet-blanc-de-suberoque-beaurecueil",
       "name": "Collet Blanc de Suberoque from Beaurecueil",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6285,
         "slug": "collet-blanc-de-suberoque-beaurecueil",
         "url": "https://climbfinder.com/en/climbs/collet-blanc-de-suberoque-beaurecueil",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 6834,
@@ -95431,19 +95569,21 @@
           "url": "https://climbfinder.com/en/climbs/collet-blanc-de-suberoque-beaurecueil",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "vallon-de-pierre-malle",
       "name": "Vallon de Pierre Malle from Maussane-les-Alpilles",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 10591,
         "slug": "vallon-de-pierre-malle",
         "url": "https://climbfinder.com/en/climbs/vallon-de-pierre-malle",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4677,
@@ -96678,19 +96818,21 @@
           "url": "https://climbfinder.com/en/climbs/vallon-de-pierre-malle",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "pas-de-magnan-rousset",
       "name": "Pas de Magnan from Rousset",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6529,
         "slug": "pas-de-magnan-rousset",
         "url": "https://climbfinder.com/en/climbs/pas-de-magnan-rousset",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4798,
@@ -97921,19 +98063,21 @@
           "url": "https://climbfinder.com/en/climbs/pas-de-magnan-rousset",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "notre-dame-du-mai-six-fours-les-plages-le-brusc",
       "name": "Notre-Dame du Mai from Le Brusc",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 30415,
         "slug": "notre-dame-du-mai-six-fours-les-plages-le-brusc",
         "url": "https://climbfinder.com/en/climbs/notre-dame-du-mai-six-fours-les-plages-le-brusc",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 6016,
@@ -99464,19 +99608,21 @@
           "url": "https://climbfinder.com/en/climbs/notre-dame-du-mai-six-fours-les-plages-le-brusc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "route-forestiere-des-cretes-caguo-ven",
       "name": "Route Forestière des Crêtes from Col du Caguo Ven",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 12008,
         "slug": "route-forestiere-des-cretes-caguo-ven",
         "url": "https://climbfinder.com/en/climbs/route-forestiere-des-cretes-caguo-ven",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 5646,
@@ -100915,19 +101061,21 @@
           "url": "https://climbfinder.com/en/climbs/route-forestiere-des-cretes-caguo-ven",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "mons-gorges-de-la-siagne",
       "name": "Mons from Gorges de la Siagne",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "2",
       "climbfinder": {
         "id": 6417,
         "slug": "mons-gorges-de-la-siagne",
         "url": "https://climbfinder.com/en/climbs/mons-gorges-de-la-siagne",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 9544,
@@ -103318,7 +103466,8 @@
           "url": "https://climbfinder.com/en/climbs/mons-gorges-de-la-siagne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "col-de-veaux-le-toulourenc",
@@ -104126,14 +104275,15 @@
     {
       "id": "saint-jean-de-cannes",
       "name": "Montée de Saint-Jean de Cannes",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Var",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 2080,
         "slug": "saint-jean-de-cannes",
         "url": "https://climbfinder.com/en/climbs/saint-jean-de-cannes",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 907
       },
       "stats": {
         "length_m": 1941,
@@ -104700,7 +104850,8 @@
           "url": "https://climbfinder.com/en/climbs/saint-jean-de-cannes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 907
     },
     {
       "id": "fort-coudon-la-valette-du-var",
@@ -109150,14 +109301,15 @@
     {
       "id": "col-de-l-ange-gemenos",
       "name": "Col de l'Ange from Gémenos",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31198,
         "slug": "col-de-l-ange-gemenos",
         "url": "https://climbfinder.com/en/climbs/col-de-l-ange-gemenos",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3472,
@@ -110086,7 +110238,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-ange-gemenos",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "valescure-avenue-des-golfs",
@@ -110282,14 +110435,15 @@
     {
       "id": "col-de-grand-sambuc-vauvenargues",
       "name": "Col de Grand Sambuc from Vauvenargues",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 20284,
         "slug": "col-de-grand-sambuc-vauvenargues",
         "url": "https://climbfinder.com/en/climbs/col-de-grand-sambuc-vauvenargues",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4234,
@@ -111412,7 +111566,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-grand-sambuc-vauvenargues",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-des-veaux-veaux",
@@ -113136,14 +113291,15 @@
     {
       "id": "riboux",
       "name": "Riboux",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 6351,
         "slug": "riboux",
         "url": "https://climbfinder.com/en/climbs/riboux",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 5972,
@@ -114660,7 +114816,8 @@
           "url": "https://climbfinder.com/en/climbs/riboux",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "mont-vinaigre-col-du-testanier",
@@ -117921,14 +118078,15 @@
     {
       "id": "le-camp-du-castellet-cuges-les-pins",
       "name": "Le Camp du Castellet from Cuges les Pins",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 6350,
         "slug": "le-camp-du-castellet-cuges-les-pins",
         "url": "https://climbfinder.com/en/climbs/le-camp-du-castellet-cuges-les-pins",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 5005,
@@ -119215,7 +119373,8 @@
           "url": "https://climbfinder.com/en/climbs/le-camp-du-castellet-cuges-les-pins",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "bargeme-chapelle-sainte-petronille",
@@ -124206,14 +124365,15 @@
     {
       "id": "montee-d-aurons-pellissanne",
       "name": "Montée d'Aurons from Péllissanne",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 10587,
         "slug": "montee-d-aurons-pellissanne",
         "url": "https://climbfinder.com/en/climbs/montee-d-aurons-pellissanne",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 5657,
@@ -125658,7 +125818,8 @@
           "url": "https://climbfinder.com/en/climbs/montee-d-aurons-pellissanne",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "les-marjoris-lac-de-saint-cassien",
@@ -129906,14 +130067,15 @@
     {
       "id": "pas-d-ouillier-roquefort-la-bedoule",
       "name": "Pas d'Ouillier from Roquefort-la-Bédoule",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31199,
         "slug": "pas-d-ouillier-roquefort-la-bedoule",
         "url": "https://climbfinder.com/en/climbs/pas-d-ouillier-roquefort-la-bedoule",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2343,
@@ -130584,19 +130746,21 @@
           "url": "https://climbfinder.com/en/climbs/pas-d-ouillier-roquefort-la-bedoule",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-sormiou-calanque-de-sormiou",
       "name": "Col de Sormiou from Calanque de Sormiou",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 38699,
         "slug": "col-de-sormiou-calanque-de-sormiou",
         "url": "https://climbfinder.com/en/climbs/col-de-sormiou-calanque-de-sormiou",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 1480,
@@ -131045,7 +131209,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sormiou-calanque-de-sormiou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "plateau-de-siou-blanc-signes",
@@ -133324,14 +133489,15 @@
     {
       "id": "collet-blanc-de-suberoque-puyloubier",
       "name": "Collet Blanc de Suberoque from Puyloubier",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 6286,
         "slug": "collet-blanc-de-suberoque-puyloubier",
         "url": "https://climbfinder.com/en/climbs/collet-blanc-de-suberoque-puyloubier",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4790,
@@ -134562,7 +134728,8 @@
           "url": "https://climbfinder.com/en/climbs/collet-blanc-de-suberoque-puyloubier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "le-camp-du-castellet-le-beauset",
@@ -143733,14 +143900,15 @@
     {
       "id": "pas-de-belle-fille-cassis",
       "name": "Pas de Belle-Fille from Cassis",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 30951,
         "slug": "pas-de-belle-fille-cassis",
         "url": "https://climbfinder.com/en/climbs/pas-de-belle-fille-cassis",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2705,
@@ -144481,7 +144649,8 @@
           "url": "https://climbfinder.com/en/climbs/pas-de-belle-fille-cassis",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "mont-vinaigre-frejus-route-d-italie",
@@ -146595,14 +146764,15 @@
     {
       "id": "roquemartine",
       "name": "Roquemartine",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 10599,
         "slug": "roquemartine",
         "url": "https://climbfinder.com/en/climbs/roquemartine",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 5141,
@@ -147949,19 +148119,21 @@
           "url": "https://climbfinder.com/en/climbs/roquemartine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "mimet",
       "name": "Pilon du Roi from Mimet",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 37667,
         "slug": "mimet",
         "url": "https://climbfinder.com/en/climbs/mimet",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3678,
@@ -148946,19 +149118,21 @@
           "url": "https://climbfinder.com/en/climbs/mimet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-sormiou-marseille",
       "name": "Col de Sormiou from Marseille",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 38700,
         "slug": "col-de-sormiou-marseille",
         "url": "https://climbfinder.com/en/climbs/col-de-sormiou-marseille",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2539,
@@ -149655,7 +149829,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-sormiou-marseille",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "gassin",
@@ -152029,14 +152204,15 @@
     {
       "id": "escourtines-morgiou",
       "name": "Col de Escourtines from Calanque de Morgiou",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 37704,
         "slug": "escourtines-morgiou",
         "url": "https://climbfinder.com/en/climbs/escourtines-morgiou",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2219,
@@ -152675,7 +152851,8 @@
           "url": "https://climbfinder.com/en/climbs/escourtines-morgiou",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "cote-des-4-chenes-rougiers",
@@ -157048,14 +157225,15 @@
     {
       "id": "route-des-quatre-termes",
       "name": "Route des Quatre Termes",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 46396,
         "slug": "route-des-quatre-termes",
         "url": "https://climbfinder.com/en/climbs/route-des-quatre-termes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2537,
@@ -157752,7 +157930,8 @@
           "url": "https://climbfinder.com/en/climbs/route-des-quatre-termes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-valdingarde-roquebrune-sur-argens",
@@ -162724,14 +162903,15 @@
     {
       "id": "montee-des-termes-plan-de-cuques",
       "name": "Montée des Termes from Plan de Cuques",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 66304,
         "slug": "montee-des-termes-plan-de-cuques",
         "url": "https://climbfinder.com/en/climbs/montee-des-termes-plan-de-cuques",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 8474,
@@ -164858,19 +165038,21 @@
           "url": "https://climbfinder.com/en/climbs/montee-des-termes-plan-de-cuques",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-grand-caunet-la-ciotat",
       "name": "Col du Grand Caunet from La Ciotat",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 54542,
         "slug": "col-du-grand-caunet-la-ciotat",
         "url": "https://climbfinder.com/en/climbs/col-du-grand-caunet-la-ciotat",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 11720,
@@ -166387,7 +166569,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-grand-caunet-la-ciotat",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-vignon-bas-de-la-garde-freinet",
@@ -169140,14 +169323,15 @@
     {
       "id": "chateau-de-chateaurenard-montee-des-tours",
       "name": "Château de Châteaurenard via Montée des Tours",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 28714,
         "slug": "chateau-de-chateaurenard-montee-des-tours",
         "url": "https://climbfinder.com/en/climbs/chateau-de-chateaurenard-montee-des-tours",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 412,
@@ -169326,7 +169510,8 @@
           "url": "https://climbfinder.com/en/climbs/chateau-de-chateaurenard-montee-des-tours",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "rue-du-gratadis-agay",
@@ -169550,14 +169735,15 @@
     {
       "id": "col-de-seze-lambesc",
       "name": "Col de Sèze from Lambesc",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 46352,
         "slug": "col-de-seze-lambesc",
         "url": "https://climbfinder.com/en/climbs/col-de-seze-lambesc",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 4742,
@@ -170804,19 +170990,21 @@
           "url": "https://climbfinder.com/en/climbs/col-de-seze-lambesc",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "bedes",
       "name": "Bèdes",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 21984,
         "slug": "bedes",
         "url": "https://climbfinder.com/en/climbs/bedes",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3419,
@@ -171733,7 +171921,8 @@
           "url": "https://climbfinder.com/en/climbs/bedes",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "les-prats-les-thuiles",
@@ -172979,14 +173168,15 @@
     {
       "id": "peypin",
       "name": "Les Trois Fonts from Peypin",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 37771,
         "slug": "peypin",
         "url": "https://climbfinder.com/en/climbs/peypin",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 3825,
@@ -174003,7 +174193,8 @@
           "url": "https://climbfinder.com/en/climbs/peypin",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-du-serre-carqueiranne",
@@ -182542,14 +182733,15 @@
     {
       "id": "miramas-le-vieux-saint-chamas",
       "name": "Miramas le Vieux from Saint Chamas",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
         "id": 31827,
         "slug": "miramas-le-vieux-saint-chamas",
         "url": "https://climbfinder.com/en/climbs/miramas-le-vieux-saint-chamas",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 1300,
@@ -182946,19 +183138,21 @@
           "url": "https://climbfinder.com/en/climbs/miramas-le-vieux-saint-chamas",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "cote-de-la-ciotat",
       "name": "Côte de La Ciotat via Chemin des Plaines Marines",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 39315,
         "slug": "cote-de-la-ciotat",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-ciotat",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 2011,
@@ -183545,7 +183739,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-ciotat",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "le-dramont",
@@ -186123,14 +186318,15 @@
     {
       "id": "facial",
       "name": "Facial",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 31828,
         "slug": "facial",
         "url": "https://climbfinder.com/en/climbs/facial",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 817,
@@ -186421,19 +186617,21 @@
           "url": "https://climbfinder.com/en/climbs/facial",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "cote-de-la-ciotat-baguier",
       "name": "Côte de La Ciotat via Chemin du Baguier",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 39314,
         "slug": "cote-de-la-ciotat-baguier",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-ciotat-baguier",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 1436,
@@ -186870,7 +187068,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-ciotat-baguier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "gassin-port-grimaud",
@@ -188831,14 +189030,15 @@
     {
       "id": "cote-de-la-television",
       "name": "Côte de la Télévision from Septèmes les Vallons",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "3",
       "climbfinder": {
         "id": 56058,
         "slug": "cote-de-la-television",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-television",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 7097,
@@ -190631,19 +190831,21 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-television",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "cote-de-la-ciotat-civade-verde",
       "name": "Côte de La Ciotat via Chemin de la Civade Verde",
-      "region": "Provence-Alpes-Côte d'Azur",
+      "region": "Bouches-du-Rhône",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
         "id": 39313,
         "slug": "cote-de-la-ciotat-civade-verde",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-ciotat-civade-verde",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 415
       },
       "stats": {
         "length_m": 1397,
@@ -191066,7 +191268,8 @@
           "url": "https://climbfinder.com/en/climbs/cote-de-la-ciotat-civade-verde",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 415
     },
     {
       "id": "col-de-la-reraille-gemenos",

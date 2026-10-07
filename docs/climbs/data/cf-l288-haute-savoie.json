@@ -5,7 +5,7 @@
     "title": "Haute Savoie",
     "region_label": "Haute Savoie",
     "country": "FR",
-    "updated_at": "2026-10-07T12:50:27Z",
+    "updated_at": "2026-10-07T13:30:44Z",
     "count": 237,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 288
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:30:44Z"
+    }
   },
   "climbs": [
     {
@@ -17006,14 +17009,15 @@
     {
       "id": "col-du-clergeon-rumilly",
       "name": "Col du Clergeon",
-      "region": "Haute Savoie",
+      "region": "Jura",
       "country": "FR",
       "classification": "1",
       "climbfinder": {
         "id": 2262,
         "slug": "col-du-clergeon-rumilly",
         "url": "https://climbfinder.com/en/climbs/col-du-clergeon-rumilly",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 55
       },
       "stats": {
         "length_m": 14855,
@@ -18890,7 +18894,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-clergeon-rumilly",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 55
     },
     {
       "id": "cordon-sallanches",

@@ -5,7 +5,7 @@
     "title": "Annecy",
     "region_label": "Annecy",
     "country": "FR",
-    "updated_at": "2026-10-07T12:50:27Z",
+    "updated_at": "2026-10-07T13:30:49Z",
     "count": 141,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 65
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:30:49Z"
+    }
   },
   "climbs": [
     {
@@ -31,7 +34,8 @@
         "id": 2698,
         "slug": "col-de-la-forclaz-ugine-l-ile",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-ugine-l-ile",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 6782,
@@ -1750,7 +1754,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-ugine-l-ile",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-aravis-flumet",
@@ -1762,7 +1767,8 @@
         "id": 231,
         "slug": "col-des-aravis-flumet",
         "url": "https://climbfinder.com/en/climbs/col-des-aravis-flumet",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 11552,
@@ -3261,7 +3267,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-aravis-flumet",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-tamie-albertville",
@@ -3273,7 +3280,8 @@
         "id": 480,
         "slug": "col-de-tamie-albertville",
         "url": "https://climbfinder.com/en/climbs/col-de-tamie-albertville",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9065,
@@ -5548,7 +5556,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tamie-albertville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "signal-de-bisanne-ugine-l-arcy",
@@ -5560,7 +5569,8 @@
         "id": 1719,
         "slug": "signal-de-bisanne-ugine-l-arcy",
         "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-ugine-l-arcy",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 20173,
@@ -6873,7 +6883,8 @@
           "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-ugine-l-arcy",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-du-frene-saint-pierre-d-albigny",
@@ -6885,7 +6896,8 @@
         "id": 5247,
         "slug": "col-du-frene-saint-pierre-d-albigny",
         "url": "https://climbfinder.com/en/climbs/col-du-frene-saint-pierre-d-albigny",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 7699,
@@ -8824,7 +8836,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-frene-saint-pierre-d-albigny",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-forclaz-ugine",
@@ -8836,7 +8849,8 @@
         "id": 2697,
         "slug": "col-de-la-forclaz-ugine",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-ugine",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 5588,
@@ -10263,7 +10277,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-ugine",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-cyclotouristes-albertville",
@@ -10275,7 +10290,8 @@
         "id": 2693,
         "slug": "col-des-cyclotouristes-albertville",
         "url": "https://climbfinder.com/en/climbs/col-des-cyclotouristes-albertville",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 12496,
@@ -11884,7 +11900,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-cyclotouristes-albertville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-l-arpettaz-ugine-hauteville",
@@ -11896,7 +11913,8 @@
         "id": 4415,
         "slug": "col-de-l-arpettaz-ugine-hauteville",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-ugine-hauteville",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 24090,
@@ -13451,7 +13469,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-ugine-hauteville",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "mont-revard-chambery",
@@ -13463,7 +13482,8 @@
         "id": 489,
         "slug": "mont-revard-chambery",
         "url": "https://climbfinder.com/en/climbs/mont-revard-chambery",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 23548,
@@ -14986,7 +15006,8 @@
           "url": "https://climbfinder.com/en/climbs/mont-revard-chambery",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "signal-de-bisanne-queige",
@@ -14998,7 +15019,8 @@
         "id": 1720,
         "slug": "signal-de-bisanne-queige",
         "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-queige",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 16742,
@@ -17101,7 +17123,8 @@
           "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-queige",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-la-forclaz-queige",
@@ -17113,7 +17136,8 @@
         "id": 2696,
         "slug": "col-de-la-forclaz-queige",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-queige",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 4091,
@@ -18174,7 +18198,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-queige",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-pres-pont-d-escorchevel",
@@ -18186,7 +18211,8 @@
         "id": 3354,
         "slug": "col-des-pres-pont-d-escorchevel",
         "url": "https://climbfinder.com/en/climbs/col-des-pres-pont-d-escorchevel",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 14212,
@@ -19985,7 +20011,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-pres-pont-d-escorchevel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-du-marais-thones",
@@ -19997,7 +20024,8 @@
         "id": 5261,
         "slug": "col-du-marais-thones",
         "url": "https://climbfinder.com/en/climbs/col-du-marais-thones",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 6773,
@@ -21710,7 +21738,8 @@
           "url": "https://climbfinder.com/en/climbs/col-du-marais-thones",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "chemin-des-riffroids",
@@ -21722,7 +21751,8 @@
         "id": 15164,
         "slug": "chemin-des-riffroids",
         "url": "https://climbfinder.com/en/climbs/chemin-des-riffroids",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 385,
@@ -21893,7 +21923,8 @@
           "url": "https://climbfinder.com/en/climbs/chemin-des-riffroids",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-plainpalais-arith",
@@ -21905,7 +21936,8 @@
         "id": 4842,
         "slug": "col-de-plainpalais-arith",
         "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-arith",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 13974,
@@ -23672,7 +23704,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-arith",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-saisies-flons",
@@ -23684,7 +23717,8 @@
         "id": 188,
         "slug": "col-des-saisies-flons",
         "url": "https://climbfinder.com/en/climbs/col-des-saisies-flons",
-        "category": "1"
+        "category": "1",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 13987,
@@ -25451,7 +25485,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-saisies-flons",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "la-sambuy-faverges-le-villaret",
@@ -25463,7 +25498,8 @@
         "id": 15844,
         "slug": "la-sambuy-faverges-le-villaret",
         "url": "https://climbfinder.com/en/climbs/la-sambuy-faverges-le-villaret",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 8626,
@@ -27634,7 +27670,8 @@
           "url": "https://climbfinder.com/en/climbs/la-sambuy-faverges-le-villaret",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-l-epine-serraval",
@@ -27646,7 +27683,8 @@
         "id": 484,
         "slug": "col-de-l-epine-serraval",
         "url": "https://climbfinder.com/en/climbs/col-de-l-epine-serraval",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 7051,
@@ -29433,7 +29471,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-epine-serraval",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-tamie-frontenex",
@@ -29445,7 +29484,8 @@
         "id": 482,
         "slug": "col-de-tamie-frontenex",
         "url": "https://climbfinder.com/en/climbs/col-de-tamie-frontenex",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 9500,
@@ -31822,7 +31862,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-tamie-frontenex",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-l-arpettaz-ugine-le-stapey",
@@ -31834,7 +31875,8 @@
         "id": 10807,
         "slug": "col-de-l-arpettaz-ugine-le-stapey",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-ugine-le-stapey",
-        "category": "HC"
+        "category": "HC",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 19114,
@@ -34231,7 +34273,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-ugine-le-stapey",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-des-fleuries-thorens-glieres",
@@ -34243,7 +34286,8 @@
         "id": 2805,
         "slug": "col-des-fleuries-thorens-glieres",
         "url": "https://climbfinder.com/en/climbs/col-des-fleuries-thorens-glieres",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 5590,
@@ -35702,7 +35746,8 @@
           "url": "https://climbfinder.com/en/climbs/col-des-fleuries-thorens-glieres",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-plainpalais-lescheraines",
@@ -35714,7 +35759,8 @@
         "id": 4841,
         "slug": "col-de-plainpalais-lescheraines",
         "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-lescheraines",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 11379,
@@ -37165,7 +37211,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-lescheraines",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "les-confins-la-clusaz",
@@ -37177,7 +37224,8 @@
         "id": 18027,
         "slug": "les-confins-la-clusaz",
         "url": "https://climbfinder.com/en/climbs/les-confins-la-clusaz",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 5626,
@@ -38616,7 +38664,8 @@
           "url": "https://climbfinder.com/en/climbs/les-confins-la-clusaz",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "signal-de-bisanne-col-des-saisies",
@@ -38628,7 +38677,8 @@
         "id": 1718,
         "slug": "signal-de-bisanne-col-des-saisies",
         "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-col-des-saisies",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 4009,
@@ -39695,7 +39745,8 @@
           "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-col-des-saisies",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-plan-bois-manigod",
@@ -39707,7 +39758,8 @@
         "id": 4845,
         "slug": "col-de-plan-bois-manigod",
         "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-manigod",
-        "category": "2"
+        "category": "2",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 4899,
@@ -40080,7 +40132,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-manigod",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-leschaux-pont-detrier",
@@ -40092,7 +40145,8 @@
         "id": 3166,
         "slug": "col-de-leschaux-pont-detrier",
         "url": "https://climbfinder.com/en/climbs/col-de-leschaux-pont-detrier",
-        "category": "3"
+        "category": "3",
+        "resolved_locality_id": 65
       },
       "stats": {
         "length_m": 6664,
@@ -41781,7 +41835,8 @@
           "url": "https://climbfinder.com/en/climbs/col-de-leschaux-pont-detrier",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 65
     },
     {
       "id": "col-de-marocaz-chambery",

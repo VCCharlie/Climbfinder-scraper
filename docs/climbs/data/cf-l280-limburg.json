@@ -4,7 +4,7 @@
     "id": "cf-l280-limburg",
     "title": "Limburg (Climbfinder Popular)",
     "country": "NL",
-    "updated_at": "2026-10-07T12:50:26Z",
+    "updated_at": "2026-10-07T13:30:44Z",
     "count": 146,
     "source": {
       "name": "climbfinder",
@@ -15,19 +15,23 @@
         }
       ]
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "resolved_regions_backfill": "2026-10-07T13:30:44Z"
+    }
   },
   "climbs": [
     {
       "id": "keutenberg",
       "name": "Keutenberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 1,
         "slug": "keutenberg",
         "url": "https://climbfinder.com/en/climbs/keutenberg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1618,
@@ -468,18 +472,20 @@
           "url": "https://climbfinder.com/en/climbs/keutenberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "cauberg",
       "name": "Cauberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 245,
         "slug": "cauberg",
         "url": "https://climbfinder.com/en/climbs/cauberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1200,
@@ -818,18 +824,20 @@
           "url": "https://climbfinder.com/en/climbs/cauberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "camerig",
       "name": "Camerig",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 247,
         "slug": "camerig",
         "url": "https://climbfinder.com/en/climbs/camerig",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 4153,
@@ -1882,18 +1890,20 @@
           "url": "https://climbfinder.com/en/climbs/camerig",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "eyserbosweg",
       "name": "Eyserbosweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 4,
         "slug": "eyserbosweg",
         "url": "https://climbfinder.com/en/climbs/eyserbosweg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1075,
@@ -2202,18 +2212,20 @@
           "url": "https://climbfinder.com/en/climbs/eyserbosweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "doodeman",
       "name": "Doodeman",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 10,
         "slug": "doodeman",
         "url": "https://climbfinder.com/en/climbs/doodeman",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1047,
@@ -2516,18 +2528,20 @@
           "url": "https://climbfinder.com/en/climbs/doodeman",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "vaalserberg",
       "name": "Vaalserberg / Drielandenpunt via Eschberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 9,
         "slug": "vaalserberg",
         "url": "https://climbfinder.com/en/climbs/vaalserberg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 3360,
@@ -3388,18 +3402,20 @@
           "url": "https://climbfinder.com/en/climbs/vaalserberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "kruisberg",
       "name": "Kruisberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 5,
         "slug": "kruisberg",
         "url": "https://climbfinder.com/en/climbs/kruisberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 700,
@@ -3618,18 +3634,20 @@
           "url": "https://climbfinder.com/en/climbs/kruisberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "gulperberg-partij",
       "name": "Gulperberg from Partij",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 6,
         "slug": "gulperberg-partij",
         "url": "https://climbfinder.com/en/climbs/gulperberg-partij",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 424,
@@ -3782,18 +3800,20 @@
           "url": "https://climbfinder.com/en/climbs/gulperberg-partij",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "gulperberg",
       "name": "Gulperberg from Gulpen",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 7,
         "slug": "gulperberg",
         "url": "https://climbfinder.com/en/climbs/gulperberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 923,
@@ -4066,18 +4086,20 @@
           "url": "https://climbfinder.com/en/climbs/gulperberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "bemelerberg",
       "name": "Bemelerberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 354,
         "slug": "bemelerberg",
         "url": "https://climbfinder.com/en/climbs/bemelerberg",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 892,
@@ -4344,18 +4366,20 @@
           "url": "https://climbfinder.com/en/climbs/bemelerberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "loorberg",
       "name": "Loorberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 3,
         "slug": "loorberg",
         "url": "https://climbfinder.com/en/climbs/loorberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1442,
@@ -4754,18 +4778,20 @@
           "url": "https://climbfinder.com/en/climbs/loorberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "fromberg",
       "name": "Fromberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 421,
         "slug": "fromberg",
         "url": "https://climbfinder.com/en/climbs/fromberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1675,
@@ -5218,18 +5244,20 @@
           "url": "https://climbfinder.com/en/climbs/fromberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "geulhemmerberg",
       "name": "Geulhemmerberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 246,
         "slug": "geulhemmerberg",
         "url": "https://climbfinder.com/en/climbs/geulhemmerberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 899,
@@ -5496,18 +5524,20 @@
           "url": "https://climbfinder.com/en/climbs/geulhemmerberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "camerig-groenenweg",
       "name": "Camerig via Groenenweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 290,
         "slug": "camerig-groenenweg",
         "url": "https://climbfinder.com/en/climbs/camerig-groenenweg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 4237,
@@ -6578,18 +6608,20 @@
           "url": "https://climbfinder.com/en/climbs/camerig-groenenweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "slingerberg",
       "name": "Slingerberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 266,
         "slug": "slingerberg",
         "url": "https://climbfinder.com/en/climbs/slingerberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1250,
@@ -6940,18 +6972,20 @@
           "url": "https://climbfinder.com/en/climbs/slingerberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "schweiberg",
       "name": "Schweiberg from Mechelen",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 261,
         "slug": "schweiberg",
         "url": "https://climbfinder.com/en/climbs/schweiberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 2975,
@@ -7716,18 +7750,20 @@
           "url": "https://climbfinder.com/en/climbs/schweiberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "lange-bosweg",
       "name": "Lange Bosweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 293,
         "slug": "lange-bosweg",
         "url": "https://climbfinder.com/en/climbs/lange-bosweg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 2325,
@@ -8336,18 +8372,20 @@
           "url": "https://climbfinder.com/en/climbs/lange-bosweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "kersenpad",
       "name": "Loorberg via Kersenpad",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 248,
         "slug": "kersenpad",
         "url": "https://climbfinder.com/en/climbs/kersenpad",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1075,
@@ -8656,18 +8694,20 @@
           "url": "https://climbfinder.com/en/climbs/kersenpad",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "brakkeberg",
       "name": "Brakkeberg via Vogelzangweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 270,
         "slug": "brakkeberg",
         "url": "https://climbfinder.com/en/climbs/brakkeberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 668,
@@ -8880,18 +8920,20 @@
           "url": "https://climbfinder.com/en/climbs/brakkeberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "koning-van-spanje",
       "name": "Koning van Spanje",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 417,
         "slug": "koning-van-spanje",
         "url": "https://climbfinder.com/en/climbs/koning-van-spanje",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1650,
@@ -9338,18 +9380,20 @@
           "url": "https://climbfinder.com/en/climbs/koning-van-spanje",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "sibbergrubbe",
       "name": "Sibbergrubbe from Valkenburg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 272,
         "slug": "sibbergrubbe",
         "url": "https://climbfinder.com/en/climbs/sibbergrubbe",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1766,
@@ -9826,18 +9870,20 @@
           "url": "https://climbfinder.com/en/climbs/sibbergrubbe",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "kromhagerweg",
       "name": "Kromhagerweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 450,
         "slug": "kromhagerweg",
         "url": "https://climbfinder.com/en/climbs/kromhagerweg",
-        "category": "4"
+        "category": "4",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 583,
@@ -10032,18 +10078,20 @@
           "url": "https://climbfinder.com/en/climbs/kromhagerweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "epenerbaan",
       "name": "Epenerbaan",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 292,
         "slug": "epenerbaan",
         "url": "https://climbfinder.com/en/climbs/epenerbaan",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 2800,
@@ -10766,18 +10814,20 @@
           "url": "https://climbfinder.com/en/climbs/epenerbaan",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "maasberg",
       "name": "Maasberg from Kasteel Elsloo",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 449,
         "slug": "maasberg",
         "url": "https://climbfinder.com/en/climbs/maasberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 670,
@@ -10990,18 +11040,20 @@
           "url": "https://climbfinder.com/en/climbs/maasberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "rugweg",
       "name": "Rugweg via Vijlen",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 291,
         "slug": "rugweg",
         "url": "https://climbfinder.com/en/climbs/rugweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 3896,
@@ -11988,18 +12040,20 @@
           "url": "https://climbfinder.com/en/climbs/rugweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "schilberg",
       "name": "Schilberg from Slenaken",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 287,
         "slug": "schilberg",
         "url": "https://climbfinder.com/en/climbs/schilberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 957,
@@ -12284,18 +12338,20 @@
           "url": "https://climbfinder.com/en/climbs/schilberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "oude-huls",
       "name": "Oude Huls from Simpelveld",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 280,
         "slug": "oude-huls",
         "url": "https://climbfinder.com/en/climbs/oude-huls",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 984,
@@ -12586,18 +12642,20 @@
           "url": "https://climbfinder.com/en/climbs/oude-huls",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "sint-pietersberg",
       "name": "Sint Pietersberg via Zonnebergweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 263,
         "slug": "sint-pietersberg",
         "url": "https://climbfinder.com/en/climbs/sint-pietersberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1049,
@@ -12900,18 +12958,20 @@
           "url": "https://climbfinder.com/en/climbs/sint-pietersberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "hulsberg",
       "name": "Hulsberg from Simpelveld",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 281,
         "slug": "hulsberg",
         "url": "https://climbfinder.com/en/climbs/hulsberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1003,
@@ -13208,18 +13268,20 @@
           "url": "https://climbfinder.com/en/climbs/hulsberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "adsteeg",
       "name": "Adsteeg from Beek",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 338,
         "slug": "adsteeg",
         "url": "https://climbfinder.com/en/climbs/adsteeg",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 674,
@@ -13432,18 +13494,20 @@
           "url": "https://climbfinder.com/en/climbs/adsteeg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "oude-molenstraat",
       "name": "Oude Molenstraat",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 5382,
         "slug": "oude-molenstraat",
         "url": "https://climbfinder.com/en/climbs/oude-molenstraat",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 104,
@@ -13524,18 +13588,20 @@
           "url": "https://climbfinder.com/en/climbs/oude-molenstraat",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "snijdersberg",
       "name": "Snijdersberg from Geulle",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 268,
         "slug": "snijdersberg",
         "url": "https://climbfinder.com/en/climbs/snijdersberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 950,
@@ -13814,18 +13880,20 @@
           "url": "https://climbfinder.com/en/climbs/snijdersberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "eperheide",
       "name": "Eperheide from Epen",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 11,
         "slug": "eperheide",
         "url": "https://climbfinder.com/en/climbs/eperheide",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1455,
@@ -14230,18 +14298,20 @@
           "url": "https://climbfinder.com/en/climbs/eperheide",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "trintelerberg",
       "name": "Trintelerberg from Eys",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 278,
         "slug": "trintelerberg",
         "url": "https://climbfinder.com/en/climbs/trintelerberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 2149,
@@ -14808,18 +14878,20 @@
           "url": "https://climbfinder.com/en/climbs/trintelerberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "dikkebuiksweg",
       "name": "Dikkebuiksweg via Leienhuisweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 260,
         "slug": "dikkebuiksweg",
         "url": "https://climbfinder.com/en/climbs/dikkebuiksweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 2019,
@@ -15356,18 +15428,20 @@
           "url": "https://climbfinder.com/en/climbs/dikkebuiksweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "bergseweg",
       "name": "Bergseweg from Voerendaal",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 426,
         "slug": "bergseweg",
         "url": "https://climbfinder.com/en/climbs/bergseweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 2724,
@@ -16072,18 +16146,20 @@
           "url": "https://climbfinder.com/en/climbs/bergseweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "vrakelberg",
       "name": "Vrakelberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 420,
         "slug": "vrakelberg",
         "url": "https://climbfinder.com/en/climbs/vrakelberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 525,
@@ -16260,18 +16336,20 @@
           "url": "https://climbfinder.com/en/climbs/vrakelberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "koulenberg",
       "name": "Koulenberg from Ransdaal",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 437,
         "slug": "koulenberg",
         "url": "https://climbfinder.com/en/climbs/koulenberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 571,
@@ -16460,18 +16538,20 @@
           "url": "https://climbfinder.com/en/climbs/koulenberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "piemert",
       "name": "Piemert / Hoogcruts",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 288,
         "slug": "piemert",
         "url": "https://climbfinder.com/en/climbs/piemert",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 792,
@@ -16714,18 +16794,20 @@
           "url": "https://climbfinder.com/en/climbs/piemert",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "wolfsberg",
       "name": "Wolfsberg from Noorbeek",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 289,
         "slug": "wolfsberg",
         "url": "https://climbfinder.com/en/climbs/wolfsberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 825,
@@ -16974,18 +17056,20 @@
           "url": "https://climbfinder.com/en/climbs/wolfsberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "daalhemmerweg",
       "name": "Daalhemerweg from Valkenburg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 368,
         "slug": "daalhemmerweg",
         "url": "https://climbfinder.com/en/climbs/daalhemmerweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1885,
@@ -17492,18 +17576,20 @@
           "url": "https://climbfinder.com/en/climbs/daalhemmerweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "wolfhaag",
       "name": "Pas van Wolfhaag via Schuttebergsweg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 294,
         "slug": "wolfhaag",
         "url": "https://climbfinder.com/en/climbs/wolfhaag",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1865,
@@ -18004,18 +18090,20 @@
           "url": "https://climbfinder.com/en/climbs/wolfhaag",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "heiweg",
       "name": "Heiweg from Mesch",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 384,
         "slug": "heiweg",
         "url": "https://climbfinder.com/en/climbs/heiweg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1530,
@@ -18438,18 +18526,20 @@
           "url": "https://climbfinder.com/en/climbs/heiweg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "pannisberg",
       "name": "Pannisberg from Vijlen",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 397,
         "slug": "pannisberg",
         "url": "https://climbfinder.com/en/climbs/pannisberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 3400,
@@ -19316,18 +19406,20 @@
           "url": "https://climbfinder.com/en/climbs/pannisberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "lange-raarberg",
       "name": "Lange Raarberg via Humcoverstraat",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 296,
         "slug": "lange-raarberg",
         "url": "https://climbfinder.com/en/climbs/lange-raarberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1697,
@@ -19786,18 +19878,20 @@
           "url": "https://climbfinder.com/en/climbs/lange-raarberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "kruisberg-nijswiller",
       "name": "Kruisberg from Nijswiller",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 285,
         "slug": "kruisberg-nijswiller",
         "url": "https://climbfinder.com/en/climbs/kruisberg-nijswiller",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1049,
@@ -20100,18 +20194,20 @@
           "url": "https://climbfinder.com/en/climbs/kruisberg-nijswiller",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "bukel",
       "name": "Bukel",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 389,
         "slug": "bukel",
         "url": "https://climbfinder.com/en/climbs/bukel",
-        "category": ""
+        "category": "",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 939,
@@ -20390,18 +20486,20 @@
           "url": "https://climbfinder.com/en/climbs/bukel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "grensheuvel",
       "name": "Grensheuvel from Noorbeek",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 286,
         "slug": "grensheuvel",
         "url": "https://climbfinder.com/en/climbs/grensheuvel",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 549,
@@ -20584,18 +20682,20 @@
           "url": "https://climbfinder.com/en/climbs/grensheuvel",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "groeve-t-rooth",
       "name": "Groeve 't Rooth",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 355,
         "slug": "groeve-t-rooth",
         "url": "https://climbfinder.com/en/climbs/groeve-t-rooth",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 1636,
@@ -21042,18 +21142,20 @@
           "url": "https://climbfinder.com/en/climbs/groeve-t-rooth",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "oerenberg",
       "name": "Oerenberg / Örenberg",
-      "region": "Limburg",
+      "region": "South Limburg",
       "country": "NL",
       "climbfinder": {
         "id": 357,
         "slug": "oerenberg",
         "url": "https://climbfinder.com/en/climbs/oerenberg",
-        "category": "5"
+        "category": "5",
+        "resolved_locality_id": 27
       },
       "stats": {
         "length_m": 580,
@@ -21248,7 +21350,8 @@
           "url": "https://climbfinder.com/en/climbs/oerenberg",
           "note": "Route geometry + elevation profile from climb page"
         }
-      ]
+      ],
+      "resolved_locality_id": 27
     },
     {
       "id": "vrakelbergerweg-wijlre",

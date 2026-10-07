@@ -62,6 +62,8 @@ Tab **Klimgebieden** op `import.html`: macro-gebieden (Alpen, Pyrenéeën, …) 
 
 Bij **import** krijgt elke klim automatisch het veld `region` (en `resolved_locality_id`) van de **kleinste** passende Climbfinder-locality voor die slug — ook als je een groter gebied importeert (bv. Alps → Grenoble/Isère op de klim).
 
+**Bestaande data:** tab Klimgebieden → **Pas kleinste regio toe op alle klimmen**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`).
+
 ### Duplicaten op de importpagina
 
 Tab **Duplicaten** (`import.html`) leest `published-duplicate-climbs.json` (gebouwd door `rebuild_climb_index.py`). Per klim (slug) zie je in welke regio-bestanden hij staat; vink kopieën aan → **Verwijder geselecteerde kopieën** start workflow **Remove duplicate climbs** op GitHub (zelfde PAT/Firebase als import).
