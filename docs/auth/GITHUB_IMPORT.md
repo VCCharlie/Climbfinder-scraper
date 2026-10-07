@@ -70,8 +70,21 @@ Op `import.html` staat een uitklapbaar **“Wat doet wat?”**-overzicht (downlo
 
 Tab **Duplicaten** leest `published-duplicate-climbs.json`. Per slug in meerdere JSON-bestanden: behoud kopie in het **kleinste dataset** (min. klimmen in dat bestand) — niet hetzelfde als herlabelen van `region`.
 
+Na deploy van Functions (workflow **Deploy Climbfinder import function**): **`requestClimbDuplicateRemovals`**, **`requestClimbDedupeAllSmallest`** en **`requestClimbRegionBackfill`**. Zonder Firebase: de bijbehorende workflows handmatig **Run workflow** op GitHub.
+
 - **Alle duplicaten opschonen** → `dedupe-all-smallest-region.yml` (Firebase: **`requestClimbDedupeAllSmallest`**)
 - **Handmatige selectie** → `remove-duplicate-climbs.yml` (Firebase: **`requestClimbDuplicateRemovals`**, max 120 per run)
+
+### Herlabel alle klimmen — werkt één-klik?
+
+| Wat je ziet na OK | Betekenis |
+|-------------------|-----------|
+| Log: *Firebase één-klik niet actief* | Alleen bevestiging; **jij** moet op GitHub **Backfill climb regions → Run workflow** (branch `main`). |
+| Log: *Backfill gestart…* + Actions-link | Firebase heeft GitHub aangeroepen. Binnen ~30 sec: [Backfill climb regions runs](https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml) — nieuwe regel **In progress** / **Completed**. |
+| Log: *not-found* / *404* op callable | Function **`requestClimbRegionBackfill`** nog niet gedeployed. Run workflow **Deploy Climbfinder import function** (deployt alle import-callables). |
+| Geen run, wel “gestart” | Popup geblokkeerd? Open de Actions-link uit het logveld onderaan de importpagina. |
+
+Een geslaagde run eindigt met commit `data(climbs): backfill smallest-region labels on climbs`. Herhaal vooral na index-wijzigingen of `refresh_ranking_slugs.py` (minder *Overig*).
 
 ### Bestaande twee JSON’s samenvoegen
 
@@ -187,7 +200,7 @@ firebase functions:config:set \
   github.repo="VCCharlie/Climbfinder-scraper" \
   github.ref="main"
 
-firebase deploy --only functions:requestClimbfinderImport
+firebase deploy --only functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill
 ```
 
 In `firebase-config.js`:
