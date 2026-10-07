@@ -48,6 +48,20 @@ git add docs/climbs/data/climb-slug-search-index.json && git commit -m "Refresh 
 
 Zet **merge_into** op bijv. `nl-limburg`. Elke import voegt klimmen toe aan dat bestand (zelfde **slug/id** = één klim, nieuwste wint). Eén dropdown-entry, geen overlap tussen oude Zuid-Limburg (35) en een nieuwe Limburg-import.
 
+### Dezelfde klim in meerdere regio-datasets?
+
+Climbfinder koppelt één klim (zelfde **slug**) aan meerdere **localities** (bijv. French Alps én Isère, of Liège Province én Pays de Herve). Importeer je beide regio’s als aparte JSON-bestanden, staan dezelfde klimmen **twee keer** in de site-database (regio-totalen tellen op).
+
+- **Kaart / zoeken / logboek:** de app toont elke klim **één keer** (dedupe op slug; smallere regio wint).
+- **Importpagina:** in de regio-lijst staat **overlap site:** … als klimmen al in een andere geïmporteerde regio staan (`published-locality-overlaps.json`, gebouwd bij index-rebuild).
+- **Opruimen:** voorkom dubbele imports van ouder + kind-regio, of merge met `merge_climb_bundles.py` / `merge_into`.
+
+### Duplicaten op de importpagina
+
+Tab **Duplicaten** (`import.html`) leest `published-duplicate-climbs.json` (gebouwd door `rebuild_climb_index.py`). Per klim (slug) zie je in welke regio-bestanden hij staat; vink kopieën aan → **Verwijder geselecteerde kopieën** start workflow **Remove duplicate climbs** op GitHub (zelfde PAT/Firebase als import).
+
+Na deploy van Functions: callable **`requestClimbDuplicateRemovals`**. Zonder Firebase: kopieer het `gh workflow run remove-duplicate-climbs.yml …` commando of vul `removals_json` handmatig in Actions.
+
 ### Bestaande twee JSON’s samenvoegen
 
 ```bash

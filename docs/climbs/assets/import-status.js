@@ -73,10 +73,66 @@
     return `${badge} —`;
   }
 
+  let localityOverlapsCache = null;
+
+  async function loadLocalityOverlaps() {
+    if (localityOverlapsCache) return localityOverlapsCache;
+    try {
+      const url = new URL("data/published-locality-overlaps.json", document.baseURI || location.href)
+        .href;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        localityOverlapsCache = {};
+        return localityOverlapsCache;
+      }
+      const data = await res.json();
+      localityOverlapsCache = data.by_locality || {};
+    } catch {
+      localityOverlapsCache = {};
+    }
+    return localityOverlapsCache;
+  }
+
+  /**
+   * Korte overlap-hint voor import-dropdown (andere regio's al op site).
+   * @param {number} localityId
+   * @param {Record<string, { count: number }>} publishedByLocality
+   */
+  function publishedOverlapRows(localityId, publishedByLocality) {
+    if (!localityOverlapsCache || localityId == null) return [];
+    const rows = localityOverlapsCache[String(localityId)] || [];
+    return rows.filter((row) => (publishedByLocality?.[String(row.locality_id)]?.count ?? 0) > 0);
+  }
+
+  function formatOverlapHint(localityId, publishedByLocality) {
+    const hits = publishedOverlapRows(localityId, publishedByLocality);
+    const parts = hits.slice(0, 2).map((row) => {
+      const name = row.name || `l=${row.locality_id}`;
+      return `${name} (${row.shared_climbs})`;
+    });
+    if (!parts.length) return "";
+    return ` · overlap site: ${parts.join(", ")}`;
+  }
+
+  function formatOverlapDetailHtml(localityId, publishedByLocality) {
+    const hits = publishedOverlapRows(localityId, publishedByLocality);
+    if (!hits.length) return "";
+    const lines = hits.slice(0, 5).map((row) => {
+      const pub = publishedByLocality?.[String(row.locality_id)]?.count ?? 0;
+      const name = row.name || `l=${row.locality_id}`;
+      return `${name} (l=${row.locality_id}): ${row.shared_climbs} gedeelde klimmen · ${row.pct_of_this}% van deze import staat al op site (${pub} klimmen daar)`;
+    });
+    return `<br><span style="font-size:0.82rem;color:#475569">Overlap met andere regio’s op site: ${lines.join(" · ")}</span>`;
+  }
+
   global.FietsKlimImportStatus = {
     parseLocalityFromMeta,
     parseLocalityFromIndexEntry,
     loadPublishedByLocality,
+    loadLocalityOverlaps,
+    formatOverlapHint,
+    formatOverlapDetailHtml,
+    publishedOverlapRows,
     statusKey,
     formatImportBadge,
     STATUS_LABEL,

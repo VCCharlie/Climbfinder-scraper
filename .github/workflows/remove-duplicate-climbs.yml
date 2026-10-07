@@ -1,0 +1,48 @@
+# Verwijder geselecteerde dubbele klimmen uit regio-JSON (importpagina → Duplicaten).
+name: Remove duplicate climbs
+
+on:
+  workflow_dispatch:
+    inputs:
+      removals_json:
+        description: 'JSON array [{dataset_id, climb_id}] — max ~150 per run'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: remove-duplicate-climbs-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply removals
+        env:
+          REMOVALS_JSON: ${{ inputs.removals_json }}
+        run: |
+          printf '%s' "$REMOVALS_JSON" > /tmp/removals.json
+          python scripts/remove_climb_copies.py --removals-file /tmp/removals.json
+          python scripts/rebuild_climb_index.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/climbs/data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "data(climbs): remove duplicate climb copies"
+          git push
