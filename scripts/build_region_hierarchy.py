@@ -20,6 +20,7 @@ SLUG_INDEX = DATA / "climb-slug-search-index.json"
 POPULAR = DATA / "climbfinder-region-popular-counts.json"
 OUT_HIER = DATA / "region-hierarchy.json"
 OUT_SLUG = DATA / "slug-smallest-locality.json"
+OUT_DISPLAY = DATA / "slug-display-region.json"
 
 TARGET_ISO = ("NL", "BE", "FR", "DE", "IT", "ES", "CH", "AT")
 MEGA_LOCALITY_IDS = {1, 25}
@@ -223,6 +224,62 @@ def build_smallest_locality_map(
     return by_country
 
 
+def build_display_region_map(
+    entries: list[dict],
+    catalog: dict[str, dict],
+    popular: dict[int, int],
+) -> dict[str, dict[str, dict]]:
+    """
+    Coarsest sub-national region per slug (max Popular count among non-country localities).
+    Used for climb.region (policy B).
+    """
+    by_country: dict[str, dict[str, dict]] = defaultdict(dict)
+    country_level: dict[str, set[int]] = {}
+    for iso, block in catalog.items():
+        if iso not in TARGET_ISO:
+            continue
+        names = {str(block["country"]).lower()}
+        country_level[iso] = {
+            lid
+            for lid, r in block["by_id"].items()
+            if str(r.get("name") or "").lower() in names
+        }
+
+    slug_to_locs: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for e in entries:
+        iso = str(e.get("country_iso") or "").upper()
+        if iso not in TARGET_ISO:
+            continue
+        slug = e.get("slug")
+        if not slug:
+            continue
+        lid = e.get("locality_id")
+        if lid is None:
+            continue
+        slug_to_locs[(iso, str(slug))].append(e)
+
+    for (iso, slug), rows in slug_to_locs.items():
+        candidates: list[tuple[int, int, str]] = []
+        for row in rows:
+            lid = int(row["locality_id"])
+            if lid in MEGA_LOCALITY_IDS or lid in country_level.get(iso, set()):
+                continue
+            pc = popular.get(lid, 0)
+            name = str(row.get("region_name") or catalog[iso]["by_id"].get(lid, {}).get("name") or lid)
+            candidates.append((pc, lid, name))
+        if not candidates:
+            continue
+        candidates.sort(key=lambda x: (-x[0], x[1]))
+        pc, lid, name = candidates[0]
+        by_country[iso][slug] = {
+            "display_locality_id": lid,
+            "display_name": name,
+            "popular_count": pc,
+            "source": "largest_subcountry",
+        }
+    return by_country
+
+
 def main() -> None:
     catalog = catalog_by_iso()
     popular = popular_counts()
@@ -240,7 +297,19 @@ def main() -> None:
             parents[lid] = immediate_parent(lid, slug_sets, popular, ids)
 
     by_country_slug = build_smallest_locality_map(entries, catalog, popular)
+    by_country_display = build_display_region_map(entries, catalog, popular)
     ts = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+    display_payload = {
+        "schema_version": "1.0",
+        "updated_at": ts,
+        "note": "Weergave-regio per slug: grootste sub-land-locality (max Popular), excl. land/World/Europe.",
+        "by_country": by_country_display,
+    }
+    with OUT_DISPLAY.open("w", encoding="utf-8") as f:
+        json.dump(display_payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"Wrote display region map → {OUT_DISPLAY.relative_to(ROOT)}")
 
     slug_payload = {
         "schema_version": "1.0",

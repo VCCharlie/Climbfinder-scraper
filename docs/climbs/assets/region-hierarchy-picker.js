@@ -9,6 +9,27 @@
     return res.json();
   }
 
+  let labelCountsCache = null;
+
+  async function loadLabelCounts() {
+    if (labelCountsCache) return labelCountsCache;
+    try {
+      const url = new URL(
+        "data/published-label-counts-by-locality.json",
+        document.baseURI || location.href
+      ).href;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        labelCountsCache = { by_display_locality_id: {}, by_resolved_locality_id: {} };
+        return labelCountsCache;
+      }
+      labelCountsCache = await res.json();
+    } catch {
+      labelCountsCache = { by_display_locality_id: {}, by_resolved_locality_id: {} };
+    }
+    return labelCountsCache;
+  }
+
   /**
    * @param {object} opts
    * @param {(localityId: number, regionRow: object) => void} opts.onPickImport
@@ -21,8 +42,9 @@
     if (!countrySel || !treeEl) return;
 
     let hierarchy = null;
+    let labelCounts = { by_display_locality_id: {} };
     try {
-      hierarchy = await loadHierarchy();
+      [hierarchy, labelCounts] = await Promise.all([loadHierarchy(), loadLabelCounts()]);
     } catch (e) {
       treeEl.innerHTML = `<p class="hint" style="color:#b91c1c">${e.message}</p>`;
       return;
@@ -39,13 +61,24 @@
     }
 
     function badgeForLocality(id) {
-      if (typeof opts.importStatus === "undefined" || !opts.publishedByLocality) return "";
+      const labeled = labelCounts.by_display_locality_id?.[String(id)] ?? 0;
+      if (typeof opts.importStatus === "undefined" || !opts.publishedByLocality) {
+        return labeled > 0 ? `≈ ${labeled} gelabeld` : "";
+      }
       const pub = opts.publishedByLocality()?.[String(id)]?.count ?? 0;
-      return typeof FietsKlimImportStatus !== "undefined"
-        ? FietsKlimImportStatus.formatImportBadge(pub, null)
-        : pub > 0
-          ? `● ${pub}`
-          : "○";
+      const importBadge =
+        typeof FietsKlimImportStatus !== "undefined"
+          ? FietsKlimImportStatus.formatImportBadge(pub, null)
+          : pub > 0
+            ? `● ${pub}`
+            : "○";
+      if (labeled > 0 && pub <= 0) {
+        return `${importBadge} · ≈${labeled} gelabeld op site`;
+      }
+      if (labeled > 0 && pub > 0 && labeled !== pub) {
+        return `${importBadge} · ≈${labeled} gelabeld`;
+      }
+      return importBadge;
     }
 
     function renderLocalityRow(loc, isMacro = false) {

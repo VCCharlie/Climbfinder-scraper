@@ -29,7 +29,9 @@ SKIP_NAMES = {
     "published-duplicate-climbs.json",
     "region-hierarchy.json",
     "slug-smallest-locality.json",
+    "slug-display-region.json",
     "published-climbs-by-slug.json",
+    "published-label-counts-by-locality.json",
 }
 
 
@@ -247,6 +249,8 @@ def main() -> None:
     global_slugs: set[str] = set()
     slug_copies: dict[str, list[dict]] = defaultdict(list)
     slug_coords: dict[str, tuple[float | None, float | None]] = {}
+    label_by_display: dict[int, int] = defaultdict(int)
+    label_by_resolved: dict[int, int] = defaultdict(int)
     for path in sorted(DATA.glob("*.json")):
         if not is_climb_bundle(path):
             continue
@@ -294,6 +298,20 @@ def main() -> None:
                     "climb_region": c.get("region"),
                 }
             )
+            did = c.get("display_locality_id")
+            if did is not None:
+                try:
+                    label_by_display[int(did)] += 1
+                except (TypeError, ValueError):
+                    pass
+            rid = c.get("resolved_locality_id") or (c.get("climbfinder") or {}).get(
+                "resolved_locality_id"
+            )
+            if rid is not None:
+                try:
+                    label_by_resolved[int(rid)] += 1
+                except (TypeError, ValueError):
+                    pass
 
     regions.sort(key=lambda r: (r.get("country", ""), r.get("displayTitle", r.get("title", ""))))
     total_climbs = sum(r.get("count") or 0 for r in regions)
@@ -302,6 +320,22 @@ def main() -> None:
     write_locality_overlaps(loc_slugs, load_region_name_index())
     write_duplicate_climbs_report(slug_copies)
     write_published_climbs_by_slug(slug_copies, slug_coords)
+    label_counts_path = DATA / "published-label-counts-by-locality.json"
+    label_payload = {
+        "schema_version": "1.0",
+        "updated_at": __import__("datetime")
+        .datetime.now(__import__("datetime").timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "note": "Aantal klimmen op site per display_locality_id / resolved_locality_id (Klimgebieden-tab).",
+        "by_display_locality_id": {str(k): v for k, v in sorted(label_by_display.items())},
+        "by_resolved_locality_id": {str(k): v for k, v in sorted(label_by_resolved.items())},
+    }
+    with label_counts_path.open("w", encoding="utf-8") as f:
+        json.dump(label_payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"Wrote label counts → {label_counts_path.relative_to(ROOT)}")
     payload = {
         "schema_version": "1.0",
         "total_climbs": total_climbs,

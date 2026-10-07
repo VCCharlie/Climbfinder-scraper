@@ -503,11 +503,11 @@ def main() -> None:
     seen_ids: set[str] = set()
     import_locality = int(localities[0]) if localities and len(localities) == 1 else None
     try:
-        from climb_locality_resolve import clear_resolution_cache, resolve_smallest_locality
+        from climb_locality_resolve import clear_resolution_cache, resolve_climb_labels
 
         clear_resolution_cache()
     except ImportError:
-        resolve_smallest_locality = None  # type: ignore[assignment,misc]
+        resolve_climb_labels = None  # type: ignore[assignment,misc]
         clear_resolution_cache = None  # type: ignore[assignment,misc]
 
     for slug in slugs:
@@ -515,14 +515,16 @@ def main() -> None:
         try:
             page_html = fetch_html(url)
             label = region_label
-            resolved_meta: dict[str, Any] | None = None
-            if resolve_smallest_locality:
-                resolved = resolve_smallest_locality(
-                    slug, country, import_locality_id=import_locality
+            labels_meta: dict[str, Any] | None = None
+            if resolve_climb_labels:
+                labels_meta = resolve_climb_labels(
+                    slug,
+                    country,
+                    import_locality_id=import_locality,
+                    import_region_label=region_label,
                 )
-                if resolved and resolved.get("region_name"):
-                    label = str(resolved["region_name"])
-                    resolved_meta = resolved
+                if labels_meta and labels_meta.get("region_name"):
+                    label = str(labels_meta["region_name"])
             climb = parse_climb_page(
                 page_html,
                 url,
@@ -530,11 +532,14 @@ def main() -> None:
                 country=country,
                 tags=tags,
             )
-            if resolved_meta and not resolved_meta.get("fallback"):
-                climb["resolved_locality_id"] = resolved_meta.get("locality_id")
-                climb.setdefault("climbfinder", {})["resolved_locality_id"] = resolved_meta.get(
-                    "locality_id"
-                )
+            if labels_meta:
+                rid = labels_meta.get("resolved_locality_id")
+                if rid is not None:
+                    climb["resolved_locality_id"] = rid
+                    climb.setdefault("climbfinder", {})["resolved_locality_id"] = rid
+                did = labels_meta.get("display_locality_id")
+                if did is not None:
+                    climb["display_locality_id"] = did
             if climb["id"] in seen_ids:
                 continue
             seen_ids.add(climb["id"])

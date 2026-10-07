@@ -60,7 +60,7 @@ Climbfinder koppelt één klim (zelfde **slug**) aan meerdere **localities** (bi
 
 Tab **Klimgebieden** op `import.html`: macro-gebieden (Alpen, Pyrenéeën, …) met daaronder Climbfinder-regio’s. Data: `region-hierarchy.json` + `slug-smallest-locality.json` (gebouwd door `scripts/build_region_hierarchy.py`, ook na `rebuild_climb_index.py`).
 
-Bij **import** krijgt elke klim automatisch het veld `region` (en `resolved_locality_id`) van de **kleinste** passende Climbfinder-locality voor die slug — ook als je een groter gebied importeert (bv. Alps → Grenoble/Isère op de klim).
+Bij **import** krijgt elke klim automatisch **`region`** (weergave: **grootste sub-land**-locality uit ranking, Climbfinder-naam of *Overig*) en **`resolved_locality_id`** (kleinste locality, intern/dedupe) — ook als je een heel land importeert (bv. NL l=26 → *Gelderland* op de klim, niet *Netherlands*).
 
 **Bestaande data:** tab Klimgebieden → **Pas kleinste regio toe op alle klimmen**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`).
 

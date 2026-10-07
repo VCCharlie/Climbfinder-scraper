@@ -5,7 +5,7 @@
     "title": "Paris",
     "region_label": "Paris",
     "country": "FR",
-    "updated_at": "2026-10-07T13:19:09Z",
+    "updated_at": "2026-10-07T14:31:39Z",
     "count": 10,
     "source": {
       "name": "climbfinder",
@@ -20,14 +20,15 @@
     },
     "import_errors": [],
     "maintenance": {
-      "resolved_regions_backfill": "2026-10-07T13:19:09Z"
+      "resolved_regions_backfill": "2026-10-07T13:19:09Z",
+      "macro_region_labels_backfill": "2026-10-07T14:31:39Z"
     }
   },
   "climbs": [
     {
       "id": "montmartre-rue-lepic",
       "name": "Montmartre via Rue Lepic",
-      "region": "Paris",
+      "region": "Île-de-France",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
@@ -347,12 +348,13 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 450
     },
     {
       "id": "avenue-des-champs-elysees",
       "name": "Avenue des Champs-Elysées",
-      "region": "Paris",
+      "region": "Île-de-France",
       "country": "FR",
       "classification": null,
       "climbfinder": {
@@ -742,12 +744,13 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 450
     },
     {
       "id": "montmartre-clignancourt",
       "name": "Montmartre from Clignancourt",
-      "region": "Paris",
+      "region": "Île-de-France",
       "country": "FR",
       "classification": "4",
       "climbfinder": {
@@ -1159,12 +1162,13 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 450
     },
     {
       "id": "cote-de-la-butte-montmartre",
       "name": "Côte de la Butte Montmartre",
-      "region": "Paris",
+      "region": "Île-de-France",
       "country": "FR",
       "classification": null,
       "climbfinder": {
@@ -1478,12 +1482,13 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 450
     },
     {
       "id": "rue-menilmontant-boulevard-de-belleville",
       "name": "Rue Ménilmontant from Boulevard de Belleville",
-      "region": "Paris",
+      "region": "Île-de-France",
       "country": "FR",
       "classification": "5",
       "climbfinder": {
@@ -1797,7 +1802,8 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 450
     },
     {
       "id": "rue-gasnier-guy",
@@ -2046,7 +2052,8 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 959
     },
     {
       "id": "place-des-fetes-rue-compans",
@@ -2343,7 +2350,8 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 959
     },
     {
       "id": "belleville-boulevard-davout",
@@ -3136,7 +3144,8 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 959
     },
     {
       "id": "rue-de-l-estrapade",
@@ -3371,7 +3380,8 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 959
     },
     {
       "id": "boulevard-serurier-place-du-general-cochet",
@@ -3620,7 +3630,8 @@
           "note": "Route geometry + elevation profile from climb page"
         }
       ],
-      "resolved_locality_id": 959
+      "resolved_locality_id": 959,
+      "display_locality_id": 959
     }
   ]
 }
