@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261007b" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261007d" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -93,6 +93,9 @@
 
     <aside class="sidebar">
       <div id="climbDetailPanel" class="climb-detail-panel" hidden>
+        <p id="climbDetailPreviewHint" class="climb-detail-preview-hint" hidden>
+          Voorvertoning — klik in de lijst of op de kaart om te selecteren
+        </p>
         <label class="climb-detail-done" id="climbDetailDoneWrap" hidden>
           <input type="checkbox" id="climbDetailDone" />
           <span>Gedaan</span>
@@ -163,6 +166,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/climb-metrics.js?v=20261006h"></script>
   <script src="assets/climb-log.js?v=20261006j"></script>
-  <script src="assets/app.js?v=20261007c"></script>
+  <script src="assets/app.js?v=20261007d"></script>
 </body>
 </html>
