@@ -747,6 +747,8 @@
       btn.disabled = true;
       try {
         const cfg = githubImportConfig();
+        const actionsUrl =
+          "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml";
         if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
           log("Start herlabel-workflow (weergave + resolved)…");
           const fn = firebase
@@ -755,19 +757,24 @@
             .httpsCallable("requestClimbRegionBackfill");
           const res = await fn({});
           log(res.data.message || "Workflow gestart.");
+          log("Controle: binnen ~30 sec moet een run verschijnen op:");
+          log(res.data.actionsUrl || actionsUrl);
+          log("(OK in het popup = alleen bevestiging; de run staat pas live na Firebase → GitHub.)");
           if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
         } else {
-          log("Firebase niet actief — start handmatig:");
-          log("gh workflow run backfill-climb-regions.yml");
-          log("→ Actions → Backfill climb regions");
-          window.open(
-            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml",
-            "_blank",
-            "noopener"
-          );
+          log("Firebase één-klik niet actief — OK start GEEN workflow automatisch.");
+          log("Handmatig: GitHub → Actions → Backfill climb regions → Run workflow → Branch main → Run.");
+          log("Of met gh: gh workflow run backfill-climb-regions.yml -R VCCharlie/Climbfinder-scraper");
+          window.open(actionsUrl, "_blank", "noopener");
         }
       } catch (e) {
-        log("FOUT: " + formatCallableError(e));
+        const msg = formatCallableError(e);
+        log("FOUT: " + msg);
+        if (/not-found|404|UNIMPLEMENTED/i.test(msg)) {
+          log("");
+          log("Tip: deploy Firebase Functions opnieuw (inclusief requestClimbRegionBackfill).");
+          log("GitHub → Actions → Deploy Climbfinder import function → Run workflow.");
+        }
       } finally {
         btn.disabled = false;
       }

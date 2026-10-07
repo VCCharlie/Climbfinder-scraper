@@ -1,4 +1,4 @@
-# One-time / occasional: deploy requestClimbfinderImport so import.html one-click works.
+# One-time / occasional: deploy import-page callables (import, dedupe, backfill).
 # Repo secrets (Settings → Secrets → Actions):
 #   FIREBASE_SERVICE_ACCOUNT — JSON key for a GCP service account used only for deploy
 #   CLIMBFINDER_IMPORT_PAT — fine-grained PAT with Actions: Read and write on this repo
@@ -73,10 +73,11 @@ jobs:
             github.ref="main" \
             --project climbfinder-scraper
 
-      - name: Deploy requestClimbfinderImport
+      - name: Deploy import callables
         run: |
           set -o pipefail
-          firebase deploy --only functions:requestClimbfinderImport \
+          firebase deploy --only \
+            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill \
             --project climbfinder-scraper --non-interactive --debug 2>&1 | tee firebase-deploy.log
 
       - name: Upload deploy log on failure
