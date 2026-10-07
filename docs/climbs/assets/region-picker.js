@@ -27,28 +27,25 @@
   }
 
   async function loadPublishedByLocality() {
+    if (typeof global.FietsKlimImportStatus !== "undefined") {
+      return global.FietsKlimImportStatus.loadPublishedByLocality();
+    }
     const indexUrl = new URL("data/index.json", document.baseURI || location.href).href;
     const res = await fetch(indexUrl, { cache: "no-store" });
     if (!res.ok) return {};
     const index = await res.json();
     const out = {};
     for (const entry of index.regions || []) {
-      try {
-        const bundleUrl = new URL(entry.url, indexUrl).href;
-        const br = await fetch(bundleUrl, { cache: "no-store" });
-        if (!br.ok) continue;
-        const bundle = await br.json();
-        const loc = parseLocalityFromMeta(bundle.meta);
-        if (loc == null) continue;
-        out[String(loc)] = {
-          datasetId: entry.id,
-          title: entry.title || bundle.meta?.title,
-          count: entry.count ?? bundle.meta?.count ?? bundle.climbs?.length ?? 0,
-          updated_at: bundle.meta?.updated_at,
-        };
-      } catch {
-        /* skip */
-      }
+      const loc =
+        entry.locality_id != null
+          ? Number(entry.locality_id)
+          : parseLocalityFromMeta({ id: entry.id, source: {} });
+      if (loc == null) continue;
+      out[String(loc)] = {
+        datasetId: entry.id,
+        title: entry.title,
+        count: entry.count ?? 0,
+      };
     }
     return out;
   }

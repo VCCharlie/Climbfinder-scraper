@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261007a" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261007b" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -48,14 +48,19 @@
             <span class="mobile-filters-chevron" aria-hidden="true">▾</span>
           </button>
         </div>
+        <p id="databaseTotals" class="database-totals">Laden…</p>
         <p id="datasetMeta">Laden…</p>
       </div>
       <div class="app-header-filters header-tools">
         <div id="headerFiltersPanel" class="header-filters-panel">
         <div class="header-filters-grid">
-          <div class="field field--search">
-            <label for="searchInput">Zoeken</label>
-            <input id="searchInput" type="search" placeholder="Land, regio, klimnaam, HC…" autocomplete="off" />
+          <div class="field field--done">
+            <label for="doneFilter">Logboek</label>
+            <select id="doneFilter">
+              <option value="all">Alle klimmen</option>
+              <option value="todo">Nog niet gedaan</option>
+              <option value="done">Al gedaan</option>
+            </select>
           </div>
           <div class="field field--country">
             <label for="countrySelect">Land</label>
@@ -65,13 +70,9 @@
             <label for="regionSelect">Regio</label>
             <select id="regionSelect"></select>
           </div>
-          <div class="field field--done">
-            <label for="doneFilter">Logboek</label>
-            <select id="doneFilter">
-              <option value="all">Alle klimmen</option>
-              <option value="todo">Nog niet gedaan</option>
-              <option value="done">Al gedaan</option>
-            </select>
+          <div class="field field--search">
+            <label for="searchInput">Zoeken</label>
+            <input id="searchInput" type="search" placeholder="Land, regio, klimnaam, HC…" autocomplete="off" />
           </div>
         </div>
         <p id="searchHint" class="field-hint">Alle klimmen op kaart; lijst = gekozen regio. Klik een klim (ook grijs) om die regio te kiezen.</p>
@@ -162,6 +163,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/climb-metrics.js?v=20261006h"></script>
   <script src="assets/climb-log.js?v=20261006j"></script>
-  <script src="assets/app.js?v=20261007a"></script>
+  <script src="assets/app.js?v=20261007b"></script>
 </body>
 </html>

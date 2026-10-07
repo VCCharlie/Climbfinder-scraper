@@ -508,14 +508,23 @@
     btn.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
+  function updateDatabaseTotals(indexMeta) {
+    const el = $("databaseTotals");
+    if (!el) return;
+    const total =
+      indexMeta?.total_climbs ?? state.indexRegions.reduce((s, r) => s + (r.count || 0), 0);
+    const nReg = indexMeta?.region_count ?? state.indexRegions.length;
+    el.textContent = `${Number(total).toLocaleString("nl-NL")} klimmen in database · ${nReg} regio’s`;
+  }
+
   function updateMobileFiltersSummary() {
     const el = $("mobileFiltersSummary");
     if (!el) return;
     const parts = [];
-    const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
-    if (reg) parts.push(regionTitleFromIndexEntry(reg));
     if (state.doneFilter === "todo") parts.push("open");
     if (state.doneFilter === "done") parts.push("gedaan");
+    const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
+    if (reg) parts.push(regionTitleFromIndexEntry(reg));
     const q = state.searchQuery.trim();
     if (q) parts.push(q.length > 20 ? `${q.slice(0, 18)}…` : q);
     el.textContent = parts.join(" · ") || "tik om te filteren";
@@ -1014,7 +1023,7 @@
       }
       if (style !== ROUTE_STYLE.dim) {
         addClimbStartEndMarkers(latlngs, {
-          size: "sm",
+          size: isCoarsePointer() ? "md" : "sm",
           layer: state.viewportLayer,
           tooltip: entry.climb.name,
           onClick: () => void selectClimbFromList(entry.climb.id, entry.regionUrl),
@@ -1292,30 +1301,92 @@
     }
   }
 
-  async function ensureGlobalSearchIndex() {
-    if (state.searchBusy) return;
+  async function loadRegionBundle(r) {
+    if (state.regionCache.has(r.url)) return state.regionCache.get(r.url);
+    const bundle = await loadJson(r.url);
+    state.regionCache.set(r.url, bundle);
+    return bundle;
+  }
+
+  function mergeBundleIntoGlobalEntries(r, bundle) {
+    const seen = new Set(state.globalEntries.map((e) => entryKey(e)));
+    for (const c of bundle.climbs || []) {
+      const k = entryKey({ regionUrl: r.url, climb: { id: c.id } });
+      if (seen.has(k)) continue;
+      seen.add(k);
+      state.globalEntries.push({
+        climb: c,
+        regionUrl: r.url,
+        regionTitle: regionTitleFromIndexEntry(r),
+        regionId: r.id,
+        country: String(r.country || bundle.meta?.country || "").toUpperCase(),
+      });
+    }
+  }
+
+  function seedGlobalEntriesFromCurrentRegion() {
+    if (!state.bundle || !state.currentRegionUrl || state.globalSearchReady) return;
+    const r = state.indexRegions.find((x) => x.url === state.currentRegionUrl);
+    if (!r) return;
+    state.globalEntries = [];
+    mergeBundleIntoGlobalEntries(r, state.bundle);
+    syncOverviewMarkers({ fit: true });
+    updateSearchHint();
+  }
+
+  async function waitForGlobalSearchIndex() {
     if (state.globalSearchReady) return;
-    state.searchBusy = true;
-    renderList(state.searchQuery);
-    try {
-      state.globalEntries = [];
-      for (const r of state.indexRegions) {
-        if (!state.regionCache.has(r.url)) {
-          state.regionCache.set(r.url, await loadJson(r.url));
+    await new Promise((resolve) => {
+      const tick = () => {
+        if (state.globalSearchReady) {
+          resolve();
+          return;
         }
-        const bundle = state.regionCache.get(r.url);
-        for (const c of bundle.climbs || []) {
-          state.globalEntries.push({
-            climb: c,
-            regionUrl: r.url,
-            regionTitle: regionTitleFromIndexEntry(r),
-            regionId: r.id,
-            country: String(r.country || bundle.meta?.country || "").toUpperCase(),
-          });
+        if (!state.searchBusy) {
+          resolve();
+          return;
+        }
+        setTimeout(tick, 40);
+      };
+      tick();
+    });
+    if (!state.globalSearchReady) await ensureGlobalSearchIndex({ background: false });
+  }
+
+  async function ensureGlobalSearchIndex(options = {}) {
+    const { background = false } = options;
+    if (state.globalSearchReady) return;
+    if (state.searchBusy) {
+      if (!background) await waitForGlobalSearchIndex();
+      return;
+    }
+    state.searchBusy = true;
+    if (!background) renderList(state.searchQuery);
+    const regions = state.indexRegions;
+    if (!state.globalEntries.length && !background) state.globalEntries = [];
+    let next = 0;
+    let loaded = 0;
+    const workers = Math.min(8, Math.max(1, regions.length));
+
+    async function worker() {
+      while (next < regions.length) {
+        const i = next++;
+        const r = regions[i];
+        try {
+          const bundle = await loadRegionBundle(r);
+          mergeBundleIntoGlobalEntries(r, bundle);
+          loaded += 1;
+          if (background && loaded % 4 === 0) syncOverviewMarkers({ fit: false });
+        } catch (err) {
+          console.warn("Dataset laden mislukt:", r.url, err);
         }
       }
+    }
+
+    try {
+      await Promise.all(Array.from({ length: workers }, () => worker()));
       state.globalSearchReady = true;
-      syncOverviewMarkers();
+      syncOverviewMarkers({ fit: !background && !state.searchQuery.trim() });
     } finally {
       state.searchBusy = false;
       renderList(state.searchQuery);
@@ -1805,6 +1876,7 @@
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
+    updateDatabaseTotals(index);
     fillCountrySelect();
     const countrySel = $("countrySelect");
     const select = $("regionSelect");
@@ -1911,17 +1983,19 @@
       else if (state.mapMode === "local") returnToOverview();
     });
 
-    await ensureGlobalSearchIndex();
     if (select.value) {
       syncCountrySelectForRegionUrl(select.value);
       await loadRegion(select.value);
+      seedGlobalEntriesFromCurrentRegion();
     }
 
-    const deepLink = window.location.hash.replace("#", "");
-    if (deepLink && !state.selectedId) {
-      const hit = state.globalEntries.find(({ climb }) => climb.id === deepLink);
-      if (hit) await selectClimbFromList(hit.climb.id, hit.regionUrl);
-    }
+    void ensureGlobalSearchIndex({ background: true }).then(async () => {
+      const deepLink = window.location.hash.replace("#", "");
+      if (deepLink && !state.selectedId) {
+        const hit = state.globalEntries.find(({ climb }) => climb.id === deepLink);
+        if (hit) await selectClimbFromList(hit.climb.id, hit.regionUrl);
+      }
+    });
   }
 
   function refreshMapSize() {
