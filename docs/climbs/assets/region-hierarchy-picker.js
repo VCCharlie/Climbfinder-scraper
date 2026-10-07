@@ -110,7 +110,7 @@
       for (const group of block.groups || []) {
         const details = document.createElement("details");
         details.className = "hier-group";
-        details.open = true;
+        details.open = false;
         const summary = document.createElement("summary");
         summary.textContent = `${group.name_nl || group.name} (l=${group.locality_id})`;
         details.appendChild(summary);
