@@ -806,9 +806,43 @@
     });
   }
 
+  function stripLeafletPathFocus(layer) {
+    if (!layer?.on) return;
+    const strip = () => {
+      const el = layer.getElement?.();
+      if (!el) return;
+      el.setAttribute("tabindex", "-1");
+      el.style.outline = "none";
+    };
+    if (layer.getElement?.()) strip();
+    else layer.on("add", strip);
+  }
+
+  function blurMapInteractionFocus() {
+    const active = document.activeElement;
+    if (active?.closest?.("#map") && active !== state.map?.getContainer?.()) {
+      active.blur();
+    }
+  }
+
+  /** Geen sticky/interactive tooltips op touch — voorkomt focus-kader en dubbel-tikken. */
+  function bindMapTooltip(layer, content, extra = {}) {
+    if (!layer?.bindTooltip || !content) return;
+    const touch = isCoarsePointer();
+    if (touch) return;
+    layer.bindTooltip(content, {
+      direction: "top",
+      sticky: true,
+      interactive: false,
+      ...extra,
+    });
+  }
+
   function bindMapEntryInteraction(layer, entry) {
+    stripLeafletPathFocus(layer);
     layer.on("click", (e) => {
       L.DomEvent.stopPropagation(e);
+      blurMapInteractionFocus();
       void selectClimbFromList(entry.climb.id, entry.regionUrl);
     });
     if (!isCoarsePointer()) {
@@ -956,19 +990,20 @@
         ...style,
         interactive: !isCoarsePointer() && !isDim,
       });
-      line.bindTooltip(tip, { sticky: true, interactive: !isCoarsePointer() });
+      bindMapTooltip(line, tip);
       state.viewportRoutesLayer.addLayer(line);
       const needsHit = isCoarsePointer() || isDim;
       if (needsHit) {
         const hit = L.polyline(latlngs, {
-          color: "#000000",
+          className: "fietsklim-route-hit",
+          color: "transparent",
           weight: isDim ? ROUTE_HIT_WEIGHT_DIM : ROUTE_HIT_WEIGHT_COARSE,
-          opacity: 0,
+          opacity: 0.001,
           interactive: true,
         });
-        hit.bindTooltip(
-          isDim ? `${tip} — klik om regio «${regLabel || "?"}» te kiezen` : tip,
-          { sticky: true, interactive: true }
+        bindMapTooltip(
+          hit,
+          isDim ? `${tip} — klik om regio «${regLabel || "?"}» te kiezen` : tip
         );
         bindMapEntryInteraction(hit, entry);
         state.viewportRoutesLayer.addLayer(hit);
@@ -1014,11 +1049,7 @@
       const tip = dimmed
         ? `${entry.climb.name} · ${regLabel || "andere regio"} — klik = regio kiezen`
         : entry.climb.name;
-      marker.bindTooltip(tip, {
-        direction: "top",
-        sticky: true,
-        interactive: !isCoarsePointer(),
-      });
+      bindMapTooltip(marker, tip, { direction: "top" });
       bindMapEntryInteraction(marker, entry);
       state.viewportLayer.addLayer(marker);
     };
@@ -1136,11 +1167,7 @@
       const reg = entry.regionTitle ? ` · ${displayRegionTitle(entry.regionTitle)}` : "";
       const activeTip = `${entry.climb.name}${reg}`;
       const dimTip = `${entry.climb.name}${reg}${reg ? " — klik = regio kiezen" : ""}`;
-      marker.bindTooltip(active ? activeTip : dimTip, {
-        direction: "top",
-        sticky: true,
-        interactive: !touch,
-      });
+      bindMapTooltip(marker, active ? activeTip : dimTip, { direction: "top" });
       bindMapEntryInteraction(marker, entry);
       state.overviewCluster.addLayer(marker);
     }
@@ -1686,7 +1713,8 @@
     }
     state.map = L.map("map", {
       zoomControl: true,
-      tapTolerance: isCoarsePointer() ? 25 : 15,
+      keyboard: false,
+      tapTolerance: isCoarsePointer() ? 28 : 15,
     });
 
     state.baseLayers = {
