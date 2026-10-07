@@ -93,6 +93,10 @@
     if (!countrySel) return;
     const prev = countrySel.value;
     countrySel.innerHTML = "";
+    const allOpt = document.createElement("option");
+    allOpt.value = "";
+    allOpt.textContent = "Alle landen";
+    countrySel.appendChild(allOpt);
     for (const code of uniqueCountryCodes()) {
       const opt = document.createElement("option");
       opt.value = code;
@@ -101,15 +105,28 @@
     }
     if (prev && [...countrySel.options].some((o) => o.value === prev)) {
       countrySel.value = prev;
+    } else {
+      countrySel.value = "";
     }
   }
 
   function fillRegionSelect(countryCode, preferredUrl) {
     const regionSel = $("regionSelect");
     if (!regionSel) return;
-    const pool = regionsForCountry(countryCode);
-    const prev = preferredUrl || regionSel.value;
+    const code = String(countryCode || "").toUpperCase();
+    const pool = code ? regionsForCountry(code) : [];
+    const prev = preferredUrl !== undefined ? preferredUrl : regionSel.value;
     regionSel.innerHTML = "";
+    const allOpt = document.createElement("option");
+    allOpt.value = "";
+    allOpt.textContent = code ? "Alle regio's" : "Kies eerst een land";
+    regionSel.appendChild(allOpt);
+    if (!code) {
+      regionSel.value = "";
+      regionSel.disabled = true;
+      return;
+    }
+    regionSel.disabled = false;
     for (const region of pool) {
       const opt = document.createElement("option");
       opt.value = region.url;
@@ -118,9 +135,34 @@
     }
     if (prev && pool.some((r) => r.url === prev)) {
       regionSel.value = prev;
-    } else if (pool[0]) {
-      regionSel.value = pool[0].url;
+    } else {
+      regionSel.value = "";
     }
+  }
+
+  function selectedCountryCode() {
+    const v = $("countrySelect")?.value;
+    return v ? String(v).toUpperCase() : "";
+  }
+
+  function clearRegionSelection() {
+    state.currentRegionUrl = null;
+    state.bundle = null;
+    state.climbs = [];
+    const meta = $("datasetMeta");
+    if (meta) {
+      meta.textContent =
+        "Kies een regio voor de regionale lijst, of gebruik logboek/zoeken voor alle klimmen.";
+    }
+    clearDetailSelection();
+    renderList(state.searchQuery);
+    updateClimbLogSummary();
+    updateMobileFiltersSummary();
+    if (state.globalSearchReady) {
+      if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+      else refreshViewportClimbs();
+    }
+    updateSearchHint();
   }
 
   function syncCountrySelectForRegionUrl(regionUrl) {
@@ -462,6 +504,8 @@
     const q = state.searchQuery.trim().toLowerCase();
     if (q) return entryMatchesQuery(entry, q);
     if (state.currentRegionUrl) return entry.regionUrl === state.currentRegionUrl;
+    const country = selectedCountryCode();
+    if (country) return String(entry.country || "").toUpperCase() === country;
     return true;
   }
 
@@ -487,10 +531,21 @@
       const regN = reg
         ? state.globalEntries.filter((e) => e.regionUrl === state.currentRegionUrl).length
         : 0;
-      el.textContent =
-        n > 0
-          ? `Kaart: ${n} klimmen (alle regio’s). Lijst: ${reg ? regionTitleFromIndexEntry(reg) : "regio"} (${regN}). Klik klim (ook grijs) = regio wisselt mee.`
-          : "Leeg = alle klimmen op kaart. Typ om te filteren.";
+      if (state.doneFilter !== "all") {
+        const filtered = applyDoneFilter(state.globalEntries).length;
+        const tag = state.doneFilter === "done" ? "gedaan" : "nog open";
+        el.textContent =
+          n > 0
+            ? `Lijst: ${filtered} klimmen (${tag}, alle regio’s). Kaart: ${n} klimmen. Klik klim = regio wisselt mee.`
+            : "Index laden…";
+      } else if (reg) {
+        el.textContent = `Kaart: ${n} klimmen (alle regio’s). Lijst: ${regionTitleFromIndexEntry(reg)} (${regN}). Klik klim (ook grijs) = regio wisselt mee.`;
+      } else {
+        el.textContent =
+          n > 0
+            ? `Kaart: ${n} klimmen (alle regio’s). Lijst: kies een regio, of logboek/zoeken.`
+            : "Leeg = alle klimmen op kaart. Typ om te filteren, of kies logboek-filter.";
+      }
     }
     updateMobileFiltersSummary();
   }
@@ -1206,36 +1261,57 @@
   function renderList(filterText) {
     const list = $("climbList");
     const q = (filterText || "").trim().toLowerCase();
+    const logbookList = !q && state.doneFilter !== "all";
+    const needsGlobal = Boolean(q) || logbookList;
 
-    if (q && !state.globalSearchReady) {
+    if (needsGlobal && !state.globalSearchReady) {
       list.innerHTML = '<p class="list-hint">Zoekindex laden…</p>';
+      void ensureGlobalSearchIndex({ background: false });
       return;
     }
 
     list.innerHTML = "";
     let items;
+    let capped = false;
     if (q) {
-      items = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q)).slice(0, 200);
-    } else {
+      items = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q));
+      items = applyDoneFilter(items);
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
+      }
+    } else if (logbookList) {
+      items = applyDoneFilter(state.globalEntries);
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
+      }
+    } else if (state.currentRegionUrl && state.climbs.length) {
+      const country = selectedCountryCode() || String(state.bundle?.meta?.country || "").toUpperCase();
       items = state.climbs.map((climb) => ({
         climb,
         regionUrl: state.currentRegionUrl,
         regionTitle: state.bundle?.meta?.title || "",
         regionId: state.bundle?.meta?.id || "",
+        country,
       }));
-    }
-
-    items = applyDoneFilter(items);
-
-    if (q && !items.length) {
+      items = applyDoneFilter(items);
+    } else {
       list.innerHTML =
-        state.doneFilter !== "all"
-          ? '<p class="list-hint">Geen klimmen voor dit logboek-filter.</p>'
-          : '<p class="list-hint">Geen klimmen gevonden in alle regio’s.</p>';
+        '<p class="list-hint">Kies een regio voor de lijst, of gebruik logboek (al gedaan / nog niet) of zoeken voor alle klimmen.</p>';
+      updateClimbLogSummary();
       return;
     }
-    if (!q && !items.length && state.doneFilter !== "all") {
-      list.innerHTML = '<p class="list-hint">Geen klimmen voor dit filter in deze regio.</p>';
+
+    if (!items.length) {
+      if (q) {
+        list.innerHTML =
+          state.doneFilter !== "all"
+            ? '<p class="list-hint">Geen klimmen voor dit logboek-filter.</p>'
+            : '<p class="list-hint">Geen klimmen gevonden in alle regio’s.</p>';
+      } else {
+        list.innerHTML = '<p class="list-hint">Geen klimmen voor dit logboek-filter.</p>';
+      }
       updateClimbLogSummary();
       return;
     }
@@ -1257,7 +1333,7 @@
         ? `<a href="${climb.climbfinder.url}" target="_blank" rel="noopener" class="text-teal-700 text-xs">Climbfinder</a>`
         : "";
       const datasetLine =
-        q && entry.regionTitle
+        (q || logbookList) && entry.regionTitle
           ? `<div class="dataset-tag">${displayRegionTitle(entry.regionTitle)}</div>`
           : "";
       el.innerHTML = `
@@ -1293,10 +1369,12 @@
       list.appendChild(el);
     }
     updateClimbLogSummary();
-    if (q && state.globalEntries.length && items.length === 200) {
+    if (capped && state.globalEntries.length) {
       const hint = document.createElement("p");
       hint.className = "list-hint";
-      hint.textContent = "Eerste 200 resultaten — verfijn je zoekterm.";
+      hint.textContent = logbookList
+        ? "Eerste 200 resultaten — kies een regio of verfijn met zoeken."
+        : "Eerste 200 resultaten — verfijn je zoekterm.";
       list.appendChild(hint);
     }
   }
@@ -1880,15 +1958,19 @@
     fillCountrySelect();
     const countrySel = $("countrySelect");
     const select = $("regionSelect");
-    if (countrySel?.options.length) {
-      fillRegionSelect(countrySel.value);
-    }
 
     countrySel?.addEventListener("change", () => {
       const prevUrl = state.currentRegionUrl;
-      fillRegionSelect(countrySel.value, prevUrl);
+      const code = countrySel.value;
+      const keepUrl =
+        code && prevUrl && regionsForCountry(code).some((r) => r.url === prevUrl) ? prevUrl : "";
+      fillRegionSelect(code, keepUrl);
       const nextUrl = select.value;
-      if (nextUrl && nextUrl !== state.currentRegionUrl) {
+      if (!nextUrl) {
+        clearRegionSelection();
+        return;
+      }
+      if (nextUrl !== state.currentRegionUrl) {
         void loadRegion(nextUrl).then(() => {
           if (state.globalSearchReady && state.mapMode === "overview") {
             syncOverviewMarkers({ fit: true });
@@ -1901,12 +1983,18 @@
 
     $("doneFilter")?.addEventListener("change", (e) => {
       state.doneFilter = e.target.value || "all";
-      renderList(state.searchQuery);
-      updateMobileFiltersSummary();
-      if (state.globalSearchReady) {
-        if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
-        else refreshViewportClimbs();
-      }
+      void (async () => {
+        if (state.doneFilter !== "all") {
+          await ensureGlobalSearchIndex({ background: false });
+        }
+        renderList(state.searchQuery);
+        updateMobileFiltersSummary();
+        updateSearchHint();
+        if (state.globalSearchReady) {
+          if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+          else refreshViewportClimbs();
+        }
+      })();
     });
 
     document.addEventListener("fietsklim-climb-log-changed", () => {
@@ -1920,8 +2008,13 @@
     });
 
     select.addEventListener("change", () => {
-      syncCountrySelectForRegionUrl(select.value);
-      void loadRegion(select.value).then(() => {
+      const url = select.value;
+      if (!url) {
+        clearRegionSelection();
+        return;
+      }
+      syncCountrySelectForRegionUrl(url);
+      void loadRegion(url).then(() => {
         if (state.globalSearchReady && state.mapMode === "overview") {
           syncOverviewMarkers({ fit: true });
         } else if (state.mapMode === "local") {
@@ -1983,9 +2076,19 @@
       else if (state.mapMode === "local") returnToOverview();
     });
 
+    fillRegionSelect(countrySel?.value || "", "");
+    if (!select.value) {
+      $("datasetMeta").textContent =
+        "Kies een regio voor de regionale lijst, of gebruik logboek/zoeken voor alle klimmen.";
+      updateSearchHint();
+    }
+
+    const hashRegion = window.location.hash.replace("#", "");
     if (select.value) {
       syncCountrySelectForRegionUrl(select.value);
-      await loadRegion(select.value);
+      await loadRegion(select.value, {
+        selectId: hashRegion && !state.selectedId ? hashRegion : null,
+      });
       seedGlobalEntriesFromCurrentRegion();
     }
 
