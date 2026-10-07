@@ -267,7 +267,7 @@ exports.requestClimbRegionBackfill = functions.region("europe-west1").https.onCa
   return {
     ok: true,
     message:
-      "Backfill gestart: alle klimmen krijgen region + resolved_locality_id (kleinste regio). Duurt enkele minuten.",
+      "Backfill gestart: herlabel region (weergave) + display/resolved locality op alle klimmen. Duurt enkele minuten.",
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_REGIONS}`,
   };
 });
