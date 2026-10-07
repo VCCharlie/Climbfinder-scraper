@@ -1,4 +1,4 @@
-# Zet op alle gepubliceerde klimmen region + resolved_locality_id (kleinste regio).
+# Herlabel alle klimmen: region (weergave policy B) + display/resolved locality ids.
 name: Backfill climb regions
 
 on:
@@ -40,5 +40,5 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "data(climbs): backfill smallest-region labels on climbs"
+          git commit -m "data(climbs): backfill macro display region labels on climbs"
           git push

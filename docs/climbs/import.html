@@ -201,12 +201,13 @@
         <div id="hierTree"></div>
         <div class="dup-actions" style="margin-top:0.75rem">
           <button type="button" id="backfillRegionsBtn" class="secondary">
-            Pas kleinste regio toe op alle klimmen (GitHub)
+            Herlabel alle klimmen op site (GitHub)
           </button>
         </div>
         <p class="hint">
-          Eénmalig of na index-update: werkt bestaande JSON-bestanden bij (veld <code>region</code> op elke klim),
-          niet alleen nieuwe imports.
+          Alle bundles opnieuw: <code>region</code> (weergave sub-land / Climbfinder / Overig),
+          plus <code>display_locality_id</code> en <code>resolved_locality_id</code>.
+          Vooral na verversen van de <strong>ranking-cache</strong> (minder *Overig*). Nieuwe imports zijn al correct gelabeld.
         </p>
       </div>
 
@@ -668,7 +669,10 @@
       }
       if (
         !confirm(
-          "Alle gepubliceerde klimmen bijwerken?\n\nElke klim krijgt region + resolved_locality_id volgens de kleinste Climbfinder-regio (slug-index). GitHub commit op main."
+          "Alle gepubliceerde klimmen opnieuw herlabelen?\n\n" +
+            "region = weergave (grootste sub-land uit ranking-cache, anders CF-naam/Overig).\n" +
+            "resolved_locality_id = kleinste locality (dedupe).\n\n" +
+            "Commit op main via GitHub Actions. Doorgaan?"
         )
       ) {
         return;
@@ -678,7 +682,7 @@
       try {
         const cfg = githubImportConfig();
         if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-          log("Start backfill kleinste regio…");
+          log("Start herlabel-workflow (weergave + resolved)…");
           const fn = firebase
             .app()
             .functions(cfg.region || "europe-west1")

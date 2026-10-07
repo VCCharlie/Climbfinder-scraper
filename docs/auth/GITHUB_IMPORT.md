@@ -62,7 +62,7 @@ Tab **Klimgebieden** op `import.html`: macro-gebieden (Alpen, Pyrenéeën, …) 
 
 Bij **import** krijgt elke klim automatisch **`region`** (weergave: **grootste sub-land**-locality uit ranking, Climbfinder-naam of *Overig*) en **`resolved_locality_id`** (kleinste locality, intern/dedupe) — ook als je een heel land importeert (bv. NL l=26 → *Gelderland* op de klim, niet *Netherlands*).
 
-**Bestaande data:** tab Klimgebieden → **Pas kleinste regio toe op alle klimmen**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`).
+**Bestaande data:** tab Klimgebieden → **Herlabel alle klimmen op site**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`). Herhaalt policy B op alle JSON’s (handig na `refresh_ranking_slugs.py`, minder *Overig*).
 
 ### Duplicaten op de importpagina
 
