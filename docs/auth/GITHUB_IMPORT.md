@@ -60,7 +60,7 @@ Climbfinder koppelt één klim (zelfde **slug**) aan meerdere **localities** (bi
 
 Tab **Duplicaten** (`import.html`) leest `published-duplicate-climbs.json` (gebouwd door `rebuild_climb_index.py`). Per klim (slug) zie je in welke regio-bestanden hij staat; vink kopieën aan → **Verwijder geselecteerde kopieën** start workflow **Remove duplicate climbs** op GitHub (zelfde PAT/Firebase als import).
 
-Na deploy van Functions: callable **`requestClimbDuplicateRemovals`**. Zonder Firebase: kopieer het `gh workflow run remove-duplicate-climbs.yml …` commando of vul `removals_json` handmatig in Actions.
+Na deploy van Functions: callable **`requestClimbDuplicateRemovals`** (selectieve verwijdering) en **`requestClimbDedupeAllSmallest`** (één klik: alle duplicaten, behoud kopie in kleinste regio-bestand). Zonder Firebase: workflow **Dedupe all (keep smallest region)** of `gh workflow run dedupe-all-smallest-region.yml`.
 
 ### Bestaande twee JSON’s samenvoegen
 
