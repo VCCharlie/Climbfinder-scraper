@@ -153,7 +153,7 @@
         text.innerHTML =
           `<strong>${c.title || c.dataset_id}</strong> ` +
           `<span class="muted">(${c.dataset_id}${loc}, ${c.region_count ?? "?"} klimmen in bestand)</span>` +
-          (isKeep ? ' <span class="dup-keep-tag">aanbevolen behouden</span>' : "");
+          (isKeep ? ' <span class="dup-keep-tag">behouden (kleinste dataset)</span>' : "");
         label.appendChild(cb);
         label.appendChild(text);
         li.appendChild(label);
@@ -164,7 +164,7 @@
       const rowBtn = document.createElement("button");
       rowBtn.type = "button";
       rowBtn.className = "dup-row-action secondary";
-      rowBtn.textContent = "Selecteer extra kopieën (behoud smallere regio)";
+      rowBtn.textContent = "Selecteer extra kopieën (behoud kleinste dataset)";
       rowBtn.addEventListener("click", () => {
         for (const c of g.copies) {
           if (keep && c.dataset_id === keep.dataset_id && c.climb_id === keep.climb_id) continue;
@@ -258,7 +258,7 @@
       const n = selectAllSmallestRegionRemovals();
       applyFilter(searchEl?.value || "");
       renderList(listEl, summaryEl, pagerEl, opts.log);
-      opts.log(`${n} kopieën geselecteerd (behoud kleinste regio per klim). Gebruik daarna handmatig verwijderen (max ${MAX_REMOVALS_PER_RUN} per run).`);
+      opts.log(`${n} kopieën geselecteerd (behoud kleinste dataset per slug). Daarna: Verwijder selectie (max ${MAX_REMOVALS_PER_RUN}).`);
     });
 
     applyAllBtn?.addEventListener("click", async () => {
@@ -270,8 +270,8 @@
       if (
         !confirm(
           "Alle duplicaten opschonen?\n\n" +
-            "Per klim (slug) blijft één kopie in het kleinste regio-bestand; " +
-            "alle kopieën in grotere regio’s worden verwijderd" +
+            "Per slug blijft één kopie in het JSON-bestand met de minste klimmen (kleinste dataset); " +
+            "andere kopieën worden verwijderd" +
             extra +
             ".\n\nEén GitHub Actions-run op main — geen handmatige selectie."
         )
@@ -282,7 +282,7 @@
       try {
         const cfg = opts.githubImportConfig?.();
         if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-          opts.log("Start volledige dedupe (kleinste regio behouden)…");
+          opts.log("Start volledige dedupe (kleinste dataset behouden)…");
           const fn = firebase
             .app()
             .functions(cfg.region || "europe-west1")
@@ -295,7 +295,7 @@
           if (cmdTa) cmdTa.value = cmd;
           opts.log("Firebase niet actief — start handmatig:");
           opts.log(cmd);
-          opts.log("→ Actions → Dedupe all (keep smallest region) → Run workflow");
+          opts.log("→ Actions → Dedupe all (keep smallest dataset) → Run workflow");
           window.open(
             "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/dedupe-all-smallest-region.yml",
             "_blank",

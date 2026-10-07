@@ -217,7 +217,7 @@ exports.requestClimbDedupeAllSmallest = functions.region("europe-west1").https.o
   return {
     ok: true,
     message:
-      "Volledige dedupe gestart (behoud kleinste regio per slug). Duurt enkele minuten — daarna hard refresh.",
+      "Volledige dedupe gestart (behoud kleinste dataset per slug). Duurt enkele minuten — daarna hard refresh.",
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_DEDUPE_ALL}`,
   };
 });

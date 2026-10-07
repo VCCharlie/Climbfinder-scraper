@@ -1,5 +1,5 @@
-# Eén run: alle dubbele slugs → behoud kopie in kleinste regio-bestand.
-name: Dedupe all (keep smallest region)
+# Eén run: alle dubbele slugs → behoud kopie in kleinste dataset (min. klimmen in JSON-bestand).
+name: Dedupe all (keep smallest dataset)
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Keep smallest region per duplicate slug
+      - name: Keep smallest dataset per duplicate slug
         run: |
           python scripts/dedupe_keep_smallest_region.py
           python scripts/rebuild_climb_index.py
@@ -36,5 +36,5 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "data(climbs): dedupe all duplicates (keep smallest region)"
+          git commit -m "data(climbs): dedupe all duplicates (keep smallest dataset)"
           git push
