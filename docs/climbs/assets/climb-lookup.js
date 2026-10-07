@@ -204,6 +204,10 @@
     list.innerHTML = candidates
       .map((c) => {
         const badge = statusBadge(c.import_status);
+        const importBadge =
+          typeof FietsKlimImportStatus !== "undefined"
+            ? FietsKlimImportStatus.formatImportBadge(c.locality_published_count, c.popular_count)
+            : badge;
         const pc = c.popular_count != null ? `${c.popular_count} Popular` : "Popular ?";
         const siteLine = c.on_site
           ? `<strong style="color:#047857">deze klim in dataset</strong>${c.climb_region ? ` · label <em>${c.climb_region}</em>` : ""}`
@@ -212,7 +216,7 @@
           ? "slug in ranking-cache"
           : "niet in lokale ranking-cache";
         const sm = c.smallest_suggested ? ' · <span style="color:#0f766e">kleinste regio (heuristiek)</span>' : "";
-        return `<li><strong>${c.region_name}</strong> <code>l=${c.locality_id}</code> · ${pc} · ${badge} regio-import ${c.locality_published_count}${pc.includes("?") ? "" : `/${c.popular_count}`} · ${siteLine} · ${cache}${sm}</li>`;
+        return `<li><strong>${c.region_name}</strong> <code>l=${c.locality_id}</code> · ${pc} · regio ${importBadge} · ${siteLine} · ${cache}${sm}</li>`;
       })
       .join("");
   }
