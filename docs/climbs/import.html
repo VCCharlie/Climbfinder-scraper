@@ -234,8 +234,9 @@
       <div id="panelHierarchy" class="panel">
         <p class="panel-lead">Stap 1 — regio kiezen (macro-overzicht)</p>
         <p class="hint">
-          NL, BE, FR, DE, IT, ES, CH, AT. Knop <strong>Kies regio</strong> → tab Regio + focus op aantal klimmen.
-          <strong>●/○</strong> = apart JSON-bestand voor die Climbfinder-regio; <strong>≈N gelabeld</strong> = klimmen op site met die weergave-regio (ook uit land-import).
+          NL, BE, FR, DE, IT, ES, CH, AT. Per subregio: <strong>Kies regio</strong> → tab Regio.
+          Op de <strong>groene macro-regel</strong>: <strong>Importeer gebied (N)</strong> = batch voor alle niet-● regio’s eronder (<code>pages=all</code>, Policy B, dedupe).
+          <strong>●/○</strong> = apart JSON-bestand; <strong>≈N gelabeld</strong> = weergave-regio op site.
         </p>
         <label for="hierCountrySelect">Land</label>
         <select id="hierCountrySelect"></select>
@@ -640,6 +641,75 @@
       }
     }
 
+    const MACRO_BATCH_WORKFLOW = "macro-klimgebied-import-batch.yml";
+
+    function ghMacroBatchCommand(macroId, countryIso) {
+      const iso = countryIso ? `\n  -f country_iso=${JSON.stringify(countryIso)}` : "";
+      return (
+        `gh workflow run ${MACRO_BATCH_WORKFLOW} \\\n` +
+        `  -f macro_locality_id=${JSON.stringify(String(macroId))}${iso} \\\n` +
+        `  -f skip_dedupe=false`
+      );
+    }
+
+    async function triggerMacroKlimgebiedBatch(macroId, ctx) {
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
+      const label = ctx.name || `l=${macroId}`;
+      const n = ctx.batchCount ?? 0;
+      if (
+        !confirm(
+          `Hele klimgebied “${label}” (l=${macroId})?\n\n` +
+            `${n} regio(’s) met status ○ of ◐ worden sequentieel geïmporteerd (pages=all, Policy B).\n` +
+            `Geen monolithische macro-import; ● regio’s worden overgeslagen.\n` +
+            `Aan het eind: dedupe (kleinste dataset).\n\n` +
+            "GitHub Actions — kan een nacht duren. Doorgaan?"
+        )
+      ) {
+        return;
+      }
+      document.getElementById("log").textContent = "";
+      const cfg = githubImportConfig();
+      const payload = {
+        macro_locality_id: String(macroId),
+        country_iso: ctx.countryIso || "",
+        skip_dedupe: "false",
+      };
+      try {
+        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
+          log(`Start macro-batch: ${label} (l=${macroId}, ${n} regio’s)…`);
+          const fn = firebase
+            .app()
+            .functions(cfg.region || "europe-west1")
+            .httpsCallable("requestClimbMacroBatchImport");
+          const res = await fn(payload);
+          log(res.data.message || "Batch-workflow gestart.");
+          if (res.data.actionsUrl) {
+            log(res.data.actionsUrl);
+            window.open(res.data.actionsUrl, "_blank", "noopener");
+          }
+        } else {
+          log("Firebase één-klik niet actief — handmatig:");
+          log("");
+          log(ghMacroBatchCommand(macroId, ctx.countryIso));
+          log("");
+          log("→ Actions → Macro klimgebied import batch → Run workflow");
+          window.open(
+            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/macro-klimgebied-import-batch.yml",
+            "_blank",
+            "noopener"
+          );
+        }
+      } catch (e) {
+        log("FOUT: " + formatCallableError(e));
+        if (/not-found|404|UNIMPLEMENTED/i.test(String(e))) {
+          log("Tip: deploy Functions opnieuw (requestClimbMacroBatchImport).");
+        }
+      }
+    }
+
     function pickRegionForImport(localityId, { startGithub = false } = {}) {
       const found = findRegionInCatalog(localityId);
       if (!found) return false;
@@ -715,6 +785,7 @@
         hierarchyInited = true;
         void window.FietsKlimRegionHierarchy.init({
           onPickImport: (id) => pickRegionForImport(id),
+          onPickMacroBatch: (macroId, ctx) => void triggerMacroKlimgebiedBatch(macroId, ctx),
           publishedByLocality: () => publishedByLocality || {},
           importStatus: typeof FietsKlimImportStatus !== "undefined" ? FietsKlimImportStatus : undefined,
         });

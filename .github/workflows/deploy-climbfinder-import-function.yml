@@ -77,7 +77,7 @@ jobs:
         run: |
           set -o pipefail
           firebase deploy --only \
-            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill \
+            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport \
             --project climbfinder-scraper --non-interactive --debug 2>&1 | tee firebase-deploy.log
 
       - name: Upload deploy log on failure
