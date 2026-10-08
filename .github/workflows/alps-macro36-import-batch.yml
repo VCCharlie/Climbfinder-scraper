@@ -1,0 +1,87 @@
+# One night: import all non-● localities under Klimgebieden Alpen (macro l=36).
+# Skips l=1/25/44/36. pages=all (Policy B in climbfinder_import.py). Dedupe at end.
+name: Alps macro36 import batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_dedupe:
+        description: "Skip dedupe step at end (only imports)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: climbfinder-import-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  batch:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements-climbimport.txt
+
+      - name: Import regions (leaf → parent order)
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          # locality|meta_id|title|country|limit
+          while IFS='|' read -r locality meta_id title country limit; do
+            [[ -z "$locality" || "$locality" =~ ^# ]] && continue
+            echo "========== l=${locality} ${title} limit=${limit} =========="
+            python scripts/climbfinder_import.py \
+              --locality "$locality" \
+              --all-pages \
+              --meta-id "$meta_id" \
+              --title "$title" \
+              --country "$country" \
+              --region-label "$title" \
+              --limit "$limit" \
+              --out "out/${meta_id}.json"
+            python scripts/publish_climb_json.py --bundle "out/${meta_id}.json"
+          done <<'REGIONS'
+          63|cf-l63-la-maurienne|La Maurienne|FR|146
+          65|cf-l65-annecy|Annecy|FR|215
+          39|cf-l39-serre-pon-on|Serre Ponçon|FR|273
+          192|cf-l192-hautes-alpes|Hautes Alpes|FR|320
+          288|cf-l288-haute-savoie|Haute Savoie|FR|409
+          289|cf-l289-is-re|Isère|FR|489
+          957|cf-l957-savoie|Savoie|FR|469
+          646|cf-l646-provence|Provence|FR|1070
+          58|cf-l58-provence-alpes-c-te-d-azur|Provence-Alpes-Côte d'Azur|FR|1342
+          37|cf-l37-french-alps|French Alps|FR|2321
+          445|cf-l445-auvergne-rh-ne-alpes|Auvergne-Rhône-Alpes|FR|3845
+          REGIONS
+          python scripts/rebuild_climb_index.py
+
+      - name: Dedupe (keep smallest dataset)
+        if: inputs.skip_dedupe != 'true'
+        run: |
+          python scripts/dedupe_keep_smallest_region.py
+          python scripts/rebuild_climb_index.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/climbs/data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "data(climbs): Alps macro36 batch import + dedupe"
+          git push
