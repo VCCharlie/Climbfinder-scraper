@@ -70,7 +70,20 @@ Op `import.html` staat een uitklapbaar **“Wat doet wat?”**-overzicht (downlo
 
 Tab **Duplicaten** leest `published-duplicate-climbs.json`. Per slug in meerdere JSON-bestanden: behoud kopie in het **kleinste dataset** (min. klimmen in dat bestand) — niet hetzelfde als herlabelen van `region`.
 
-Na deploy van Functions (workflow **Deploy Climbfinder import function**): **`requestClimbDuplicateRemovals`**, **`requestClimbDedupeAllSmallest`** en **`requestClimbRegionBackfill`**. Zonder Firebase: de bijbehorende workflows handmatig **Run workflow** op GitHub.
+Na deploy van Functions (workflow **Deploy Climbfinder import function**): **`requestClimbDuplicateRemovals`**, **`requestClimbDedupeAllSmallest`**, **`requestClimbRegionBackfill`** en **`requestClimbMacroBatchImport`** (Klimgebieden → **Importeer gebied**). Zonder Firebase: de bijbehorende workflows handmatig **Run workflow** op GitHub.
+
+### Heel klimgebied (macro) — tab Klimgebieden
+
+Op de **groene macro-regel**: **Importeer gebied (N)** start workflow **Macro klimgebied import batch** voor alle niet-● subregio’s (`pages=all`, Policy B, dedupe). Plan: `python scripts/plan_macro_group_import.py --macro 350 --country-iso FR`.
+
+Handmatig:
+
+```bash
+gh workflow run macro-klimgebied-import-batch.yml \
+  -f macro_locality_id=350 \
+  -f country_iso=FR \
+  -f skip_dedupe=false
+```
 
 - **Alle duplicaten opschonen** → `dedupe-all-smallest-region.yml` (Firebase: **`requestClimbDedupeAllSmallest`**)
 - **Handmatige selectie** → `remove-duplicate-climbs.yml` (Firebase: **`requestClimbDuplicateRemovals`**, max 120 per run)
@@ -200,7 +213,7 @@ firebase functions:config:set \
   github.repo="VCCharlie/Climbfinder-scraper" \
   github.ref="main"
 
-firebase deploy --only functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill
+firebase deploy --only functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport
 ```
 
 In `firebase-config.js`:

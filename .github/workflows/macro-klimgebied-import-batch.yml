@@ -1,0 +1,100 @@
+# Batch-import all non-● localities under one Klimgebieden macro group.
+name: Macro klimgebied import batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      macro_locality_id:
+        description: "Macro group locality id (e.g. 36 Alpen, 350 Armoricaans Massief)"
+        required: true
+        type: string
+      country_iso:
+        description: "Country ISO if macro id is ambiguous (usually FR, NL, …)"
+        required: false
+        default: ""
+        type: string
+      skip_dedupe:
+        description: "Skip dedupe step at end"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: climbfinder-import-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  batch:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements-climbimport.txt
+
+      - name: Build import plan
+        id: plan
+        run: |
+          set -euo pipefail
+          ISO="${{ inputs.country_iso }}"
+          EXTRA=()
+          if [ -n "$ISO" ]; then EXTRA=(--country-iso "$ISO"); fi
+          python scripts/plan_macro_group_import.py --macro "${{ inputs.macro_locality_id }}" "${EXTRA[@]}" > /tmp/macro-import-plan.tsv
+          COUNT=$(grep -c . /tmp/macro-import-plan.tsv || true)
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          if [ "$COUNT" = "0" ]; then
+            echo "Geen regio's te importeren (alles al ●)."
+          else
+            cat /tmp/macro-import-plan.tsv
+          fi
+
+      - name: Import regions (smallest first)
+        if: steps.plan.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          while IFS='|' read -r locality meta_id title country limit; do
+            [[ -z "$locality" ]] && continue
+            echo "========== l=${locality} ${title} limit=${limit} =========="
+            python scripts/climbfinder_import.py \
+              --locality "$locality" \
+              --all-pages \
+              --meta-id "$meta_id" \
+              --title "$title" \
+              --country "$country" \
+              --region-label "$title" \
+              --limit "$limit" \
+              --out "out/${meta_id}.json"
+            python scripts/publish_climb_json.py --bundle "out/${meta_id}.json"
+          done < /tmp/macro-import-plan.tsv
+          python scripts/rebuild_climb_index.py
+
+      - name: Dedupe (keep smallest dataset)
+        if: steps.plan.outputs.count != '0' && inputs.skip_dedupe != 'true'
+        run: |
+          python scripts/dedupe_keep_smallest_region.py
+          python scripts/rebuild_climb_index.py
+
+      - name: Commit and push
+        if: steps.plan.outputs.count != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/climbs/data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "data(climbs): macro l=${{ inputs.macro_locality_id }} batch import + dedupe"
+          git push

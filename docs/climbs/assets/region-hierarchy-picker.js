@@ -30,9 +30,20 @@
     return labelCountsCache;
   }
 
+  const GLOBAL_SKIP_LOCALITY = new Set([1, 25]);
+  const EXTRA_SKIP_BY_MACRO = { 36: new Set([44]) };
+
+  function shouldSkipMacroChild(macroId, localityId) {
+    if (GLOBAL_SKIP_LOCALITY.has(localityId)) return true;
+    if (localityId === macroId) return true;
+    const extra = EXTRA_SKIP_BY_MACRO[macroId];
+    return extra ? extra.has(localityId) : false;
+  }
+
   /**
    * @param {object} opts
    * @param {(localityId: number, regionRow: object) => void} opts.onPickImport
+   * @param {(macroId: number, ctx: { group: object, countryIso: string, batchCount: number }) => void} [opts.onPickMacroBatch]
    * @param {() => Record<string, {count:number}>} [opts.publishedByLocality]
    * @param {typeof FietsKlimImportStatus} [opts.importStatus]
    */
@@ -60,6 +71,24 @@
       countrySel.appendChild(opt);
     }
 
+    function macroBatchCount(group, macroId) {
+      let n = 0;
+      for (const loc of group.localities || []) {
+        const id = loc.locality_id;
+        if (shouldSkipMacroChild(macroId, id)) continue;
+        const pub = opts.publishedByLocality?.()?.[String(id)]?.count ?? 0;
+        const pop = loc.popular_count;
+        const key =
+          typeof FietsKlimImportStatus !== "undefined"
+            ? FietsKlimImportStatus.statusKey(pub, pop ?? null)
+            : pub > 0
+              ? "partial"
+              : "none";
+        if (key !== "full") n += 1;
+      }
+      return n;
+    }
+
     function badgeForLocality(id) {
       const labeled = labelCounts.by_display_locality_id?.[String(id)] ?? 0;
       if (typeof opts.importStatus === "undefined" || !opts.publishedByLocality) {
@@ -81,20 +110,44 @@
       return importBadge;
     }
 
-    function renderLocalityRow(loc, isMacro = false) {
+    function renderLocalityRow(loc, isMacro = false, macroCtx = null) {
       const row = document.createElement("div");
       row.className = "hier-loc-row" + (isMacro ? " hier-loc-row--macro" : "");
       const badge = badgeForLocality(loc.locality_id);
       const pop = loc.popular_count != null ? ` · ~${loc.popular_count} Popular` : "";
       row.innerHTML = `<span class="hier-loc-name">${loc.name || loc.name_nl}${pop}</span> <span class="hier-loc-meta">l=${loc.locality_id} ${badge}</span>`;
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = isMacro ? "secondary" : "";
-      btn.textContent = "Kies regio";
-      btn.addEventListener("click", () => {
-        opts.onPickImport(loc.locality_id, loc);
-      });
-      row.appendChild(btn);
+      if (isMacro && macroCtx && typeof opts.onPickMacroBatch === "function") {
+        const batchN = macroBatchCount(macroCtx.group, loc.locality_id);
+        const batchBtn = document.createElement("button");
+        batchBtn.type = "button";
+        batchBtn.textContent =
+          batchN > 0 ? `Importeer gebied (${batchN})` : "Gebied compleet ●";
+        batchBtn.disabled = batchN <= 0;
+        batchBtn.title =
+          "GitHub batch: alle niet-● regio’s hieronder, pages=all, Policy B, dedupe aan het eind";
+        batchBtn.addEventListener("click", () => {
+          opts.onPickMacroBatch(loc.locality_id, {
+            group: macroCtx.group,
+            countryIso: macroCtx.countryIso,
+            batchCount: batchN,
+            name: loc.name_nl || loc.name || `l=${loc.locality_id}`,
+          });
+        });
+        row.appendChild(batchBtn);
+        const singleBtn = document.createElement("button");
+        singleBtn.type = "button";
+        singleBtn.className = "secondary";
+        singleBtn.textContent = "Alleen macro";
+        singleBtn.title = "Alleen l=" + loc.locality_id + " — één Popular-ranking (meestal niet gewenst)";
+        singleBtn.addEventListener("click", () => opts.onPickImport(loc.locality_id, loc));
+        row.appendChild(singleBtn);
+      } else {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = "Kies regio";
+        btn.addEventListener("click", () => opts.onPickImport(loc.locality_id, loc));
+        row.appendChild(btn);
+      }
       return row;
     }
 
@@ -121,7 +174,8 @@
             name_nl: group.name_nl,
             popular_count: group.popular_count,
           },
-          true
+          true,
+          { group, countryIso: iso }
         );
         details.appendChild(macroRow);
         const childWrap = document.createElement("div");
