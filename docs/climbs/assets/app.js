@@ -1029,6 +1029,11 @@
       setMobilePane("list");
       $("climbDetailPanel")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", () => {
+        if (isMobileLayout() && isMobileMapPaneActive()) refreshMapSize();
+      });
+    }
   }
 
   function afterClimbSelectedOnMobile(climb) {

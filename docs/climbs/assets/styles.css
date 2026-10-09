@@ -674,17 +674,23 @@ header.app-header p#datasetMeta {
 @media (max-width: 900px) {
   html,
   body {
-    height: auto;
-    min-height: 100%;
-    overflow-x: hidden;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
   }
 
   .layout {
     display: flex;
     flex-direction: column;
-    height: auto;
-    min-height: 100dvh;
-    max-height: none;
+    height: 100dvh;
+    min-height: 0;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  header.app-header,
+  .mobile-view-switch {
+    flex-shrink: 0;
   }
 
   header.app-header {
@@ -736,25 +742,34 @@ header.app-header p#datasetMeta {
   }
 
   .sidebar {
-    flex: 0 0 auto;
+    flex: 1 1 0;
     width: 100%;
     max-width: none;
     border-right: none;
     border-bottom: none;
     min-height: 0;
+    overflow: hidden;
+  }
+
+  .layout.mobile-pane-map .sidebar {
+    display: none;
   }
 
   .map-panel {
-    flex: 0 0 auto;
+    flex: 1 1 0;
     width: 100%;
-    height: min(58dvh, 520px);
-    min-height: 280px;
+    min-height: 0;
+    height: auto;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   #map {
-    min-height: 280px;
+    flex: 1 1 0;
+    min-height: 0;
+    height: auto;
   }
 
   .layout.layout-has-climb .climb-list {
@@ -880,7 +895,7 @@ header.app-header p#datasetMeta {
     background: #fff;
     border-top: 1px solid var(--slate-200);
     border-radius: 12px 12px 0 0;
-    padding: 0.65rem 0.85rem 0.85rem;
+    padding: 0.65rem 0.85rem max(0.85rem, env(safe-area-inset-bottom, 0px));
     box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.12);
     max-height: 42%;
     overflow: auto;
