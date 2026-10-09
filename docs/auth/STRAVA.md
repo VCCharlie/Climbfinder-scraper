@@ -21,7 +21,9 @@ firebase functions:config:set \
 
 Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat (Firebase Storage URL-prefix).
 
-## 3. Deploy
+## 3. Deploy (verplicht na code-merge)
+
+Zonder deploy blijft de site **`internal`** of **`not-found`** geven — de browser praat dan nog niet met `getStravaConnectUrl`.
 
 Workflow **Deploy Climbfinder import function** deployt ook Strava-callables, of handmatig:
 
