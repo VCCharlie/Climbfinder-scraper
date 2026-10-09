@@ -73,12 +73,37 @@ jobs:
             github.ref="main" \
             --project climbfinder-scraper
 
+      - name: Set Strava config (optional secrets)
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+        run: |
+          if [ -z "$STRAVA_CLIENT_ID" ] || [ -z "$STRAVA_CLIENT_SECRET" ]; then
+            echo "Strava secrets niet gezet — skip (voeg STRAVA_CLIENT_ID + STRAVA_CLIENT_SECRET toe voor Koppel Strava)."
+            exit 0
+          fi
+          firebase functions:config:set \
+            strava.client_id="$STRAVA_CLIENT_ID" \
+            strava.client_secret="$STRAVA_CLIENT_SECRET" \
+            strava.redirect_uri="https://europe-west1-climbfinder-scraper.cloudfunctions.net/stravaOAuthCallback" \
+            strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/index.html" \
+            --project climbfinder-scraper
+
       - name: Deploy import callables
         run: |
           set -o pipefail
           firebase deploy --only \
             functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:getStravaConnectUrl,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
             --project climbfinder-scraper --non-interactive --debug 2>&1 | tee firebase-deploy.log
+          DEPLOY_EXIT=${PIPESTATUS[0]}
+          if grep -q "0 Functions Errored" firebase-deploy.log && grep -q "Deploy complete!" firebase-deploy.log; then
+            if [ "$DEPLOY_EXIT" -ne 0 ]; then
+              echo "::warning::Functions staan live; Firebase exit ${DEPLOY_EXIT} door cleanup (Artifact Registry delete 403 is normaal zonder extra IAM-rol)."
+              echo "Geef deploy-SA rol Artifact Registry Administrator als je cleanup-warnings wilt vermijden — zie docs/auth/GITHUB_IMPORT.md"
+            fi
+            exit 0
+          fi
+          exit "$DEPLOY_EXIT"
 
       - name: Upload deploy log on failure
         if: failure()
