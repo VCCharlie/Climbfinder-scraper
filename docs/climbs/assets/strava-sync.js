@@ -40,7 +40,10 @@
     const el = $("stravaSyncStatus");
     if (!el) return;
     el.textContent = text || "";
-    el.style.color = isError ? "#b91c1c" : "#64748b";
+    el.classList.toggle("is-error", Boolean(isError));
+    if (!el.classList.contains("settings-status")) {
+      el.style.color = isError ? "#b91c1c" : "#64748b";
+    }
   }
 
   function setupHint(setup) {

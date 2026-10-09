@@ -86,7 +86,7 @@ jobs:
             strava.client_id="$STRAVA_CLIENT_ID" \
             strava.client_secret="$STRAVA_CLIENT_SECRET" \
             strava.redirect_uri="https://europe-west1-climbfinder-scraper.cloudfunctions.net/stravaOAuthCallback" \
-            strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/index.html" \
+            strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
             --project climbfinder-scraper
 
       - name: Deploy import callables

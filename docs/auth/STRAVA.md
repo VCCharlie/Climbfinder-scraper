@@ -19,7 +19,7 @@ firebase functions:config:set \
   strava.client_id="YOUR_CLIENT_ID" \
   strava.client_secret="YOUR_CLIENT_SECRET" \
   strava.redirect_uri="https://europe-west1-climbfinder-scraper.cloudfunctions.net/stravaOAuthCallback" \
-  strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/index.html" \
+  strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
   --project climbfinder-scraper
 ```
 
@@ -57,7 +57,7 @@ Op **`climbs/index.html`** moet **`firebase-functions-compat.js`** geladen zijn 
 
 ## 6. Gebruik op de site
 
-1. **FietsKlim Database** → inloggen → **Koppel Strava**.
+1. **Instellingen** (`climbs/settings.html`) → **Koppel Strava** (OAuth keert hier terug).
 2. Na terugkeer: **Proef-sync (50 ritten · nl-limburg)** — matcht publieke ritten tegen `nl-limburg.json` (Policy: ~65% overlap, 45 m buffer).
 
 Logboekvelden bij Strava-match: `source: "strava"`, `stravaActivityId`, `matchCoverage`.

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instellingen — FietsKlim</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <script src="assets/pwa-register.js?v=20261006pwa2"></script>
+  <link rel="stylesheet" href="../auth/gate.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261009" />
+</head>
+<body class="fietsklim-locked settings-page">
+  <div id="fietsklim-auth-gate">
+    <div class="fietsklim-auth-card">
+      <h1>FietsKlim — persoonlijk</h1>
+      <p>Log in om instellingen te beheren.</p>
+      <button type="button" id="fietsklim-google-btn" class="fietsklim-auth-btn">Inloggen met Google</button>
+      <div id="fietsklim-auth-error" class="fietsklim-auth-error" role="alert"></div>
+    </div>
+  </div>
+
+  <div id="fietsklim-app-root" class="settings-wrap">
+    <p class="settings-userbar"><span id="fietsklim-auth-userbar"></span></p>
+    <nav class="fietsklim-site-nav" aria-label="FietsKlim">
+      <a href="index.html">Database</a>
+      <a href="import.html">Import</a>
+      <a href="settings.html" aria-current="page">Instellingen</a>
+      <a href="../index.html">HTML Scraper</a>
+    </nav>
+    <h1>Instellingen</h1>
+    <p class="settings-lead">Koppelingen, logboek en documentatie voor je persoonlijke FietsKlim-omgeving.</p>
+
+    <section class="settings-card" id="stravaSettingsCard" aria-labelledby="stravaSettingsTitle">
+      <h2 id="stravaSettingsTitle">Strava</h2>
+      <p>
+        Publieke fietsritten automatisch matchen met klimmen in het logboek (proef: laatste 50 ritten vs
+        Zuid-Limburg). Sync overschrijft handmatige vinkjes bij match.
+      </p>
+      <div class="settings-actions">
+        <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
+        <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
+        <button type="button" id="stravaTrialSyncBtn" hidden>Proef-sync (50 ritten · nl-limburg)</button>
+      </div>
+      <p id="stravaSyncStatus" class="settings-status" role="status"></p>
+    </section>
+
+    <section class="settings-card" aria-labelledby="logbookSettingsTitle">
+      <h2 id="logbookSettingsTitle">Logboek (gedaan-vinkjes)</h2>
+      <p id="logbookModeHint">Laden…</p>
+      <p>
+        Vinkjes op de <a href="index.html">Database</a>-kaart. Bij Firestore (Native mode) sync tussen apparaten;
+        anders alleen localStorage in deze browser.
+      </p>
+      <p class="settings-doc-links">
+        <a href="../auth/SETUP.md">Firestore inschakelen</a> (repo-doc) ·
+        <a href="../auth/firestore.rules.example">Rules-voorbeeld</a>
+      </p>
+    </section>
+
+    <section class="settings-card" aria-labelledby="docsSettingsTitle">
+      <h2 id="docsSettingsTitle">Import &amp; onderhoud</h2>
+      <ul>
+        <li><a href="import.html">Climbfinder import</a> — regio’s, Klimgebieden, dedupe</li>
+        <li><a href="../auth/GITHUB_IMPORT.md">GitHub import &amp; deploy Functions</a></li>
+        <li><a href="../auth/STRAVA.md">Strava koppelen (Functions config)</a></li>
+      </ul>
+    </section>
+
+    <section class="settings-card settings-card--muted" aria-labelledby="futureSettingsTitle">
+      <h2 id="futureSettingsTitle">Later</h2>
+      <p>Denkbaar: volledige Strava-history, voorkeuren kaart/kaartlagen, export logboek.</p>
+    </section>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-functions-compat.js"></script>
+  <script src="../auth/firebase-config.js"></script>
+  <script src="../auth/gate.js"></script>
+  <script src="assets/strava-sync.js?v=20261009settings"></script>
+  <script src="assets/settings-page.js?v=20261009"></script>
+</body>
+</html>
