@@ -1,0 +1,130 @@
+/* FietsKlim — Instellingen (settings.html) */
+.settings-page {
+  font-family: Barlow, system-ui, sans-serif;
+  background: #f8fafc;
+  margin: 0;
+  padding: 1rem 1.25rem 2rem;
+  color: #0f172a;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.settings-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.fietsklim-site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  font-size: 0.88rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.fietsklim-site-nav a {
+  color: #0f766e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.fietsklim-site-nav a[aria-current="page"] {
+  color: #0f172a;
+  text-decoration: underline;
+}
+
+.settings-page h1 {
+  color: #0f766e;
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+}
+
+.settings-lead {
+  margin: 0 0 1.25rem;
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.settings-userbar {
+  text-align: right;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.settings-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.15rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+}
+
+.settings-card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.settings-card p {
+  margin: 0.35rem 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #475569;
+}
+
+.settings-card ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.settings-actions button {
+  background: #0f766e;
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.settings-actions button.secondary {
+  background: #475569;
+}
+
+.settings-actions button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.settings-status {
+  margin-top: 0.65rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.settings-status.is-error {
+  color: #b91c1c;
+}
+
+.settings-card--muted h2 {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.settings-doc-links a {
+  color: #0f766e;
+}

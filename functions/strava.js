@@ -18,7 +18,7 @@ function stravaCfg() {
 function siteReturnUrl() {
   return (
     stravaCfg().site_return_url ||
-    "https://vccharlie.github.io/Climbfinder-scraper/climbs/index.html"
+    "https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html"
   );
 }
 
