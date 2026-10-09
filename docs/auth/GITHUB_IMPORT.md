@@ -178,6 +178,7 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
    |-----|--------|
    | **Firebase Admin** | `functions:config:set` + deploy (eenvoudig; persoonlijk project) |
    | *of* **Cloud Functions Admin** + **Cloud Build Editor** | Strakkere variant |
+   | **Artifact Registry Administrator** (optioneel) | Voorkomt rode workflow na *Deploy complete* door cleanup `artifactregistry.packages.delete` 403 |
 
 3. **Belangrijk (veel deploy-fouten):** je **deploy-SA** moet **Service Account User** (`iam.serviceAccounts.actAs`) op **twee** runtime-accounts hebben — herhaal per account: tab **Principals with access** → **Grant access** → principal = deploy-SA (`client_email` uit JSON) → rol **Service Account User**:
 
@@ -264,5 +265,6 @@ Na login: **Start serverimport (GitHub Actions)** op de importpagina.
 | Deploy function: **ActAs** / **Service Account User** | GitHub-deploy-SA mag niet “als” App Engine-SA draaien | Optie B stap 3: **Principals with access** → deploy-SA → **Service Account User** op `@appspot`. |
 | Deploy: **Permissions denied enabling firebaseextensions.googleapis.com** | Deploy-SA mag API’s niet zelf aanzetten | Als **owner**: [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=climbfinder-scraper) → **Enable**, daarna workflow opnieuw. |
 | Deploy: **`creating Node.js 20 (1st Gen) function…`** daarna **`failed to create function`** | Geen PAT; GCP weigert function aanmaken (Firebase toont weinig detail) | 1) **Owner:** [App Engine starten](https://console.cloud.google.com/appengine/start?project=climbfinder-scraper) → regio **europe-west** (bij 1st Gen + `europe-west1`). 2) [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com?project=climbfinder-scraper) → Enable. 3) [Logging](https://console.cloud.google.com/logs/query?project=climbfinder-scraper) → filter `resource.type="cloud_function"` rond deploy-tijd. 4) Deploy-SA: **Cloud Functions Admin** + **Service Account User** op `@appspot`. 5) Workflow opnieuw; bij falen **firebase-deploy-log** artifact downloaden (`--debug`). |
+| Deploy log: **`artifactregistry.packages.delete` denied** + Troubleshooter-link | Functions zijn vaak **wel** live (`Deploy complete!`); Firebase faalt op opruimen oude build-packages | Deploy-SA: **Artifact Registry Administrator**. Troubleshooter-URL: alleen het stuk na `errorId=` plakken (niet `,https:` erachter). Workflow na fix #99 telt deploy als geslaagd als `0 Functions Errored`. |
 
 Workflow **Validate docs site** (`.github/workflows/validate-docs-site.yml`) controleert JSON en `index.json` op een normale runner — handig als Pages even in de wachtrij hangt.

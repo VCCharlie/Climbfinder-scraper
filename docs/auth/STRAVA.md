@@ -10,6 +10,10 @@ Automatisch **gedaan**-vinkjes op basis van **publieke** Strava-fietritten (geen
 
 ## 2. Firebase Functions config
 
+**Optie A — GitHub Secrets (aanbevolen):** repo **Settings → Secrets → Actions** → `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`. De deploy-workflow zet `strava.*` automatisch.
+
+**Optie B — handmatig:**
+
 ```bash
 firebase functions:config:set \
   strava.client_id="YOUR_CLIENT_ID" \
