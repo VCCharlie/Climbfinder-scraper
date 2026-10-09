@@ -1,0 +1,1395 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "cf-l259-drenthe",
+    "title": "Drenthe",
+    "region_label": "Drenthe",
+    "country": "NL",
+    "updated_at": "2026-10-09T19:14:01Z",
+    "count": 7,
+    "source": {
+      "name": "climbfinder",
+      "sort": "popular",
+      "localities": [
+        {
+          "id": 259,
+          "label": "259"
+        }
+      ],
+      "locality_id": 259
+    },
+    "import_errors": []
+  },
+  "climbs": [
+    {
+      "id": "vam-berg",
+      "name": "Col du VAM via Ronde van Drenthepad",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": "5",
+      "climbfinder": {
+        "id": 216,
+        "slug": "vam-berg",
+        "url": "https://climbfinder.com/en/climbs/vam-berg",
+        "category": "5",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 359,
+        "elevation_gain_m": 33,
+        "elevation_loss_m": 0,
+        "avg_gradient_pct": 9.1,
+        "max_gradient_pct": 13.2,
+        "steepest_100m_pct": 12.9,
+        "steepest_1km_pct": 0.0,
+        "classification": "5"
+      },
+      "difficulty_score": 5.0,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.52871,
+            52.792010000000005
+          ],
+          [
+            6.52836,
+            52.79208
+          ],
+          [
+            6.528,
+            52.79214
+          ],
+          [
+            6.52763,
+            52.79212
+          ],
+          [
+            6.52728,
+            52.79206
+          ],
+          [
+            6.52698,
+            52.79192
+          ],
+          [
+            6.52669,
+            52.79178
+          ],
+          [
+            6.52643,
+            52.79162
+          ],
+          [
+            6.52619,
+            52.79145
+          ],
+          [
+            6.526,
+            52.79126
+          ],
+          [
+            6.52583,
+            52.79106
+          ],
+          [
+            6.52562,
+            52.79088
+          ],
+          [
+            6.52527,
+            52.79088
+          ],
+          [
+            6.52496,
+            52.791
+          ],
+          [
+            6.52463,
+            52.7911
+          ],
+          [
+            6.52449,
+            52.79111
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          325,
+          350,
+          359
+        ],
+        "elevations_m": [
+          15.8,
+          19.1,
+          22.3,
+          25.5,
+          28.7,
+          31.9,
+          34.8,
+          37.2,
+          38.8,
+          39.8,
+          40.7,
+          41.7,
+          43.2,
+          45.2,
+          47.7,
+          48.4
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350
+        ],
+        "graph_gradients_pct": [
+          13.0,
+          12.8,
+          12.2,
+          8.0,
+          3.8,
+          5.0,
+          9.0,
+          7.8
+        ]
+      },
+      "bbox": [
+        6.52449,
+        52.79088,
+        6.52871,
+        52.79214
+      ],
+      "start": {
+        "lng": 6.52871,
+        "lat": 52.792010000000005
+      },
+      "summit": {
+        "lng": 6.52449,
+        "lat": 52.79111
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/vam-berg",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    },
+    {
+      "id": "vam-berg-north",
+      "name": "Col du VAM via Atteropad",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": "5",
+      "climbfinder": {
+        "id": 1292,
+        "slug": "vam-berg-north",
+        "url": "https://climbfinder.com/en/climbs/vam-berg-north",
+        "category": "5",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 565,
+        "elevation_gain_m": 33,
+        "elevation_loss_m": 1,
+        "avg_gradient_pct": 5.9,
+        "max_gradient_pct": 12.0,
+        "steepest_100m_pct": 10.7,
+        "steepest_1km_pct": 0.0,
+        "classification": "5"
+      },
+      "difficulty_score": 5.0,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.528810000000001,
+            52.7933
+          ],
+          [
+            6.52854,
+            52.79345
+          ],
+          [
+            6.52837,
+            52.79365
+          ],
+          [
+            6.52818,
+            52.79384
+          ],
+          [
+            6.52787,
+            52.79377
+          ],
+          [
+            6.52788,
+            52.79354
+          ],
+          [
+            6.52794,
+            52.79332
+          ],
+          [
+            6.52798,
+            52.7931
+          ],
+          [
+            6.52788,
+            52.79289
+          ],
+          [
+            6.52766,
+            52.79271
+          ],
+          [
+            6.52732,
+            52.79262
+          ],
+          [
+            6.52697,
+            52.79264
+          ],
+          [
+            6.52662,
+            52.79273
+          ],
+          [
+            6.52628,
+            52.79266
+          ],
+          [
+            6.52596,
+            52.79255
+          ],
+          [
+            6.52565,
+            52.79243
+          ],
+          [
+            6.52534,
+            52.7923
+          ],
+          [
+            6.52506,
+            52.79215
+          ],
+          [
+            6.5248,
+            52.79199
+          ],
+          [
+            6.52454,
+            52.79183
+          ],
+          [
+            6.52428,
+            52.79167
+          ],
+          [
+            6.52402,
+            52.79151
+          ],
+          [
+            6.52389,
+            52.7913
+          ],
+          [
+            6.5239400000000005,
+            52.79117
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          325,
+          350,
+          375,
+          400,
+          425,
+          450,
+          475,
+          500,
+          525,
+          550,
+          565
+        ],
+        "elevations_m": [
+          15.5,
+          16.5,
+          18.0,
+          20.0,
+          22.0,
+          24.2,
+          26.8,
+          29.8,
+          32.6,
+          34.9,
+          36.5,
+          37.0,
+          36.7,
+          36.2,
+          36.6,
+          37.2,
+          37.9,
+          39.0,
+          40.6,
+          42.6,
+          44.7,
+          46.5,
+          47.8,
+          48.1
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500,
+          550
+        ],
+        "graph_gradients_pct": [
+          5.0,
+          8.0,
+          9.6,
+          11.6,
+          7.8,
+          0.4,
+          -0.2,
+          2.6,
+          5.4,
+          8.2,
+          6.2,
+          2.0
+        ]
+      },
+      "bbox": [
+        6.52389,
+        52.79117,
+        6.528810000000001,
+        52.79384
+      ],
+      "start": {
+        "lng": 6.528810000000001,
+        "lat": 52.7933
+      },
+      "summit": {
+        "lng": 6.5239400000000005,
+        "lat": 52.79117
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/vam-berg-north",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    },
+    {
+      "id": "vam-berg-south",
+      "name": "Col du VAM via MountVAMpad",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": "5",
+      "climbfinder": {
+        "id": 1291,
+        "slug": "vam-berg-south",
+        "url": "https://climbfinder.com/en/climbs/vam-berg-south",
+        "category": "5",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 357,
+        "elevation_gain_m": 26,
+        "elevation_loss_m": 0,
+        "avg_gradient_pct": 7.4,
+        "max_gradient_pct": 13.2,
+        "steepest_100m_pct": 13.0,
+        "steepest_1km_pct": 0.0,
+        "classification": "5"
+      },
+      "difficulty_score": 5.0,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.528550000000001,
+            52.79137000000001
+          ],
+          [
+            6.52872,
+            52.79117
+          ],
+          [
+            6.52868,
+            52.79096
+          ],
+          [
+            6.52843,
+            52.79079
+          ],
+          [
+            6.52816,
+            52.79064
+          ],
+          [
+            6.5279,
+            52.79048
+          ],
+          [
+            6.52758,
+            52.79036
+          ],
+          [
+            6.52722,
+            52.79035
+          ],
+          [
+            6.52688,
+            52.79044
+          ],
+          [
+            6.52656,
+            52.79056
+          ],
+          [
+            6.52621,
+            52.79062
+          ],
+          [
+            6.52585,
+            52.7906
+          ],
+          [
+            6.52548,
+            52.79056
+          ],
+          [
+            6.52515,
+            52.79047
+          ],
+          [
+            6.52505,
+            52.79026
+          ],
+          [
+            6.52507,
+            52.790200000000006
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          325,
+          350,
+          357
+        ],
+        "elevations_m": [
+          16.5,
+          18.9,
+          21.8,
+          24.9,
+          28.2,
+          31.4,
+          34.7,
+          37.9,
+          40.1,
+          41.3,
+          41.8,
+          42.0,
+          42.3,
+          42.6,
+          42.8,
+          42.9
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350
+        ],
+        "graph_gradients_pct": [
+          10.6,
+          12.8,
+          13.0,
+          10.8,
+          3.4,
+          1.0,
+          1.0,
+          1.4
+        ]
+      },
+      "bbox": [
+        6.52505,
+        52.790200000000006,
+        6.52872,
+        52.79137000000001
+      ],
+      "start": {
+        "lng": 6.528550000000001,
+        "lat": 52.79137000000001
+      },
+      "summit": {
+        "lng": 6.52507,
+        "lat": 52.790200000000006
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/vam-berg-south",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    },
+    {
+      "id": "vam-berg-atteropad-cobbles",
+      "name": "Col du VAM cobbles via Atteropad",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": "5",
+      "climbfinder": {
+        "id": 1294,
+        "slug": "vam-berg-atteropad-cobbles",
+        "url": "https://climbfinder.com/en/climbs/vam-berg-atteropad-cobbles",
+        "category": "5",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 550,
+        "elevation_gain_m": 34,
+        "elevation_loss_m": 1,
+        "avg_gradient_pct": 6.2,
+        "max_gradient_pct": 12.4,
+        "steepest_100m_pct": 10.7,
+        "steepest_1km_pct": 0.0,
+        "classification": "5"
+      },
+      "difficulty_score": 5.0,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.528810000000001,
+            52.7933
+          ],
+          [
+            6.52854,
+            52.79345
+          ],
+          [
+            6.52837,
+            52.79365
+          ],
+          [
+            6.52818,
+            52.79384
+          ],
+          [
+            6.52787,
+            52.79377
+          ],
+          [
+            6.52788,
+            52.79354
+          ],
+          [
+            6.52794,
+            52.79332
+          ],
+          [
+            6.52798,
+            52.7931
+          ],
+          [
+            6.52788,
+            52.79289
+          ],
+          [
+            6.52766,
+            52.79271
+          ],
+          [
+            6.52732,
+            52.79262
+          ],
+          [
+            6.52697,
+            52.79264
+          ],
+          [
+            6.52662,
+            52.79273
+          ],
+          [
+            6.52628,
+            52.79266
+          ],
+          [
+            6.52596,
+            52.79255
+          ],
+          [
+            6.52565,
+            52.79243
+          ],
+          [
+            6.52543,
+            52.79225
+          ],
+          [
+            6.52527,
+            52.79205
+          ],
+          [
+            6.52521,
+            52.79183
+          ],
+          [
+            6.52518,
+            52.7916
+          ],
+          [
+            6.525,
+            52.79141
+          ],
+          [
+            6.52474,
+            52.79125
+          ],
+          [
+            6.524470000000001,
+            52.79110000000001
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          325,
+          350,
+          375,
+          400,
+          425,
+          450,
+          475,
+          500,
+          525,
+          550
+        ],
+        "elevations_m": [
+          15.5,
+          16.5,
+          18.0,
+          20.0,
+          22.0,
+          24.2,
+          26.8,
+          29.8,
+          32.6,
+          34.9,
+          36.5,
+          37.0,
+          36.7,
+          36.2,
+          36.6,
+          37.3,
+          38.8,
+          41.5,
+          44.6,
+          47.2,
+          48.4,
+          48.7,
+          48.4
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500
+        ],
+        "graph_gradients_pct": [
+          5.0,
+          8.0,
+          9.6,
+          11.6,
+          7.8,
+          0.4,
+          -0.2,
+          4.4,
+          11.6,
+          7.6,
+          0.0
+        ]
+      },
+      "bbox": [
+        6.524470000000001,
+        52.79110000000001,
+        6.528810000000001,
+        52.79384
+      ],
+      "start": {
+        "lng": 6.528810000000001,
+        "lat": 52.7933
+      },
+      "summit": {
+        "lng": 6.524470000000001,
+        "lat": 52.79110000000001
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/vam-berg-atteropad-cobbles",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    },
+    {
+      "id": "schansstraat-emmen",
+      "name": "Muur van Emmen from Schansstraat",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": null,
+      "climbfinder": {
+        "id": 3219,
+        "slug": "schansstraat-emmen",
+        "url": "https://climbfinder.com/en/climbs/schansstraat-emmen",
+        "category": "",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 336,
+        "elevation_gain_m": 21,
+        "elevation_loss_m": 0,
+        "avg_gradient_pct": 6.1,
+        "max_gradient_pct": 15.5,
+        "steepest_100m_pct": 7.1,
+        "steepest_1km_pct": 0.0,
+        "classification": null
+      },
+      "difficulty_score": null,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.9519,
+            52.7937
+          ],
+          [
+            6.95227,
+            52.79368
+          ],
+          [
+            6.95264,
+            52.79366
+          ],
+          [
+            6.95301,
+            52.79364
+          ],
+          [
+            6.95338,
+            52.79361
+          ],
+          [
+            6.95375,
+            52.79359
+          ],
+          [
+            6.95412,
+            52.79357
+          ],
+          [
+            6.95449,
+            52.79355
+          ],
+          [
+            6.95486,
+            52.79353
+          ],
+          [
+            6.95523,
+            52.79351
+          ],
+          [
+            6.9556,
+            52.79348
+          ],
+          [
+            6.95597,
+            52.79346
+          ],
+          [
+            6.95634,
+            52.79344
+          ],
+          [
+            6.95671,
+            52.79342
+          ],
+          [
+            6.95687,
+            52.79341
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          325,
+          336
+        ],
+        "elevations_m": [
+          21.7,
+          22.8,
+          24.0,
+          25.3,
+          26.5,
+          27.8,
+          29.2,
+          30.6,
+          32.0,
+          33.4,
+          34.8,
+          36.3,
+          38.2,
+          40.5,
+          42.2
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "graph_gradients_pct": [
+          4.6,
+          5.0,
+          5.4,
+          5.6,
+          5.6,
+          6.8,
+          8.0
+        ]
+      },
+      "bbox": [
+        6.9519,
+        52.79341,
+        6.95687,
+        52.7937
+      ],
+      "start": {
+        "lng": 6.9519,
+        "lat": 52.7937
+      },
+      "summit": {
+        "lng": 6.95687,
+        "lat": 52.79341
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/schansstraat-emmen",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    },
+    {
+      "id": "muur-van-emmen-emmer-ondereinden",
+      "name": "Muur van Emmen from Emmer Ondereinden",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": "5",
+      "climbfinder": {
+        "id": 10730,
+        "slug": "muur-van-emmen-emmer-ondereinden",
+        "url": "https://climbfinder.com/en/climbs/muur-van-emmen-emmer-ondereinden",
+        "category": "5",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 318,
+        "elevation_gain_m": 28,
+        "elevation_loss_m": 0,
+        "avg_gradient_pct": 8.9,
+        "max_gradient_pct": 14.0,
+        "steepest_100m_pct": 13.3,
+        "steepest_1km_pct": 0.0,
+        "classification": "5"
+      },
+      "difficulty_score": 5.0,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.95898,
+            52.79276
+          ],
+          [
+            6.95868,
+            52.79263
+          ],
+          [
+            6.95834,
+            52.79254
+          ],
+          [
+            6.95802,
+            52.79244
+          ],
+          [
+            6.95778,
+            52.79226
+          ],
+          [
+            6.9575,
+            52.79213
+          ],
+          [
+            6.95713,
+            52.7921
+          ],
+          [
+            6.95677,
+            52.79214
+          ],
+          [
+            6.95659,
+            52.79231
+          ],
+          [
+            6.95664,
+            52.79253
+          ],
+          [
+            6.95657,
+            52.79275
+          ],
+          [
+            6.95657,
+            52.79297
+          ],
+          [
+            6.9568,
+            52.79314
+          ],
+          [
+            6.95687,
+            52.7933
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          318
+        ],
+        "elevations_m": [
+          14.7,
+          15.0,
+          16.1,
+          17.7,
+          19.8,
+          22.4,
+          25.3,
+          28.7,
+          32.0,
+          35.5,
+          38.6,
+          40.8,
+          42.3,
+          42.9
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "graph_gradients_pct": [
+          2.8,
+          7.4,
+          11.0,
+          13.4,
+          13.2,
+          7.4,
+          3.3
+        ]
+      },
+      "bbox": [
+        6.95657,
+        52.7921,
+        6.95898,
+        52.7933
+      ],
+      "start": {
+        "lng": 6.95898,
+        "lat": 52.79276
+      },
+      "summit": {
+        "lng": 6.95687,
+        "lat": 52.7933
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/muur-van-emmen-emmer-ondereinden",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    },
+    {
+      "id": "dak-van-drenthe",
+      "name": "Dak van Drenthe",
+      "region": "Drenthe",
+      "country": "NL",
+      "classification": "5",
+      "climbfinder": {
+        "id": 43553,
+        "slug": "dak-van-drenthe",
+        "url": "https://climbfinder.com/en/climbs/dak-van-drenthe",
+        "category": "5",
+        "resolved_locality_id": 259
+      },
+      "stats": {
+        "length_m": 475,
+        "elevation_gain_m": 45,
+        "elevation_loss_m": 0,
+        "avg_gradient_pct": 9.5,
+        "max_gradient_pct": 16.0,
+        "steepest_100m_pct": 15.2,
+        "steepest_1km_pct": 0.0,
+        "classification": "5"
+      },
+      "difficulty_score": 5.0,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            6.521590000000001,
+            52.782140000000005
+          ],
+          [
+            6.52148,
+            52.78235
+          ],
+          [
+            6.52144,
+            52.78257
+          ],
+          [
+            6.52158,
+            52.78278
+          ],
+          [
+            6.52173,
+            52.78299
+          ],
+          [
+            6.52188,
+            52.78319
+          ],
+          [
+            6.52203,
+            52.7834
+          ],
+          [
+            6.52215,
+            52.78361
+          ],
+          [
+            6.52213,
+            52.78383
+          ],
+          [
+            6.52205,
+            52.78405
+          ],
+          [
+            6.52195,
+            52.78427
+          ],
+          [
+            6.52209,
+            52.78447
+          ],
+          [
+            6.52237,
+            52.78461
+          ],
+          [
+            6.52264,
+            52.78476
+          ],
+          [
+            6.52291,
+            52.78492
+          ],
+          [
+            6.52272,
+            52.78503
+          ],
+          [
+            6.52234,
+            52.78503
+          ],
+          [
+            6.52197,
+            52.78504
+          ],
+          [
+            6.5216,
+            52.78505
+          ],
+          [
+            6.521310000000001,
+            52.785140000000006
+          ]
+        ]
+      },
+      "profile": {
+        "distances_m": [
+          0,
+          25,
+          50,
+          75,
+          100,
+          125,
+          150,
+          175,
+          200,
+          225,
+          250,
+          275,
+          300,
+          325,
+          350,
+          375,
+          400,
+          425,
+          450,
+          475
+        ],
+        "elevations_m": [
+          17.2,
+          18.2,
+          19.9,
+          22.3,
+          24.7,
+          27.5,
+          31.1,
+          35.1,
+          39.0,
+          42.7,
+          45.1,
+          46.4,
+          47.1,
+          48.1,
+          49.6,
+          51.7,
+          54.7,
+          57.8,
+          60.7,
+          62.3
+        ],
+        "path_interval_m": 25,
+        "graph_interval_m": 50,
+        "graph_distances_m": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450
+        ],
+        "graph_gradients_pct": [
+          5.4,
+          9.6,
+          12.8,
+          15.8,
+          12.2,
+          4.0,
+          5.0,
+          10.2,
+          12.0,
+          6.4
+        ]
+      },
+      "bbox": [
+        6.521310000000001,
+        52.782140000000005,
+        6.52291,
+        52.785140000000006
+      ],
+      "start": {
+        "lng": 6.521590000000001,
+        "lat": 52.782140000000005
+      },
+      "summit": {
+        "lng": 6.521310000000001,
+        "lat": 52.785140000000006
+      },
+      "tags": [
+        "climbfinder"
+      ],
+      "sources": [
+        {
+          "name": "climbfinder",
+          "url": "https://climbfinder.com/en/climbs/dak-van-drenthe",
+          "note": "Route geometry + elevation profile from climb page"
+        }
+      ],
+      "resolved_locality_id": 259,
+      "display_locality_id": 259
+    }
+  ]
+}
