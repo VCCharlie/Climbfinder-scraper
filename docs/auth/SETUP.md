@@ -62,7 +62,11 @@ blijven **direct downloadbaar** zolang ze op GitHub Pages staan. Iemand die de U
 
 **Alternatief zonder Firebase Storage:** [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/policies/access/) voor je **hele domein** (Google login + e-mailbeleid) — sterkste optie voor statische GitHub/custom hosting.
 
-## 4. Klim-logboek (Fase 1 — handmatig “gedaan”)
+## 4. Strava (optioneel)
+
+Zie **[STRAVA.md](./STRAVA.md)** — koppelen, proef-sync laatste 50 publieke ritten tegen `nl-limburg`.
+
+## 5. Klim-logboek (Fase 1 — handmatig “gedaan”)
 
 Op **FietsKlim Database** (`climbs/index.html`) kun je klimmen afvinken. Data staat per Google-account:
 
@@ -98,7 +102,7 @@ Dan staat het project op **Firestore in Datastore mode** (legacy, voor App Engin
 
 Zonder Firestore toont de site onder het filter kort: *localStorage fallback* — dat is normaal.
 
-## 5. Account wijzigen
+## 6. Account wijzigen
 
 Pas `allowedEmails` in `firebase-config.js` aan (niet alleen in de UI-tekst).
 
