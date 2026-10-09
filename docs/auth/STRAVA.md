@@ -45,14 +45,18 @@ match /stravaOAuthStates/{stateId} {
 
 `climbLog` blijft: alleen eigen `uid` read/write.
 
-## 5. Gebruik op de site
+## 5. Site-scripts
+
+Op **`climbs/index.html`** moet **`firebase-functions-compat.js`** geladen zijn (zelfde versie als app/auth), anders: `functions is not a function` bij Koppel Strava.
+
+## 6. Gebruik op de site
 
 1. **FietsKlim Database** → inloggen → **Koppel Strava**.
 2. Na terugkeer: **Proef-sync (50 ritten · nl-limburg)** — matcht publieke ritten tegen `nl-limburg.json` (Policy: ~65% overlap, 45 m buffer).
 
 Logboekvelden bij Strava-match: `source: "strava"`, `stravaActivityId`, `matchCoverage`.
 
-## 6. Volgende fases (nog niet gebouwd)
+## 7. Volgende fases (nog niet gebouwd)
 
 - Volledige history-backfill + alle regio’s uit `index.json`
 - Strava webhooks / dagelijkse incrementele sync

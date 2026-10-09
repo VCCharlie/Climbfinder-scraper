@@ -9,7 +9,16 @@
   }
 
   function callable(name) {
-    return firebase.app().functions(fnRegion()).httpsCallable(name);
+    if (typeof firebase === "undefined" || !firebase.app) {
+      throw new Error("Firebase niet geladen.");
+    }
+    const fnFactory = firebase.app().functions;
+    if (typeof fnFactory !== "function") {
+      throw new Error(
+        "Firebase Functions SDK ontbreekt — laad firebase-functions-compat.js vóór strava-sync.js (zie import.html)."
+      );
+    }
+    return fnFactory.call(firebase.app(), fnRegion()).httpsCallable(name);
   }
 
   function $(id) {
