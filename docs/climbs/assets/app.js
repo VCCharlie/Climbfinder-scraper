@@ -266,6 +266,11 @@
     userLatLng: null,
     /** Tot eerste GPS-fix: geen fitBounds op regio (kaart blijft op jouw locatie). */
     geoInitialCenter: false,
+    regionsGeo: null,
+    regionsGeoPromise: null,
+    geoRegionPickDone: false,
+    /** Handmatige land/regio-keuze → geen GPS-auto-regio meer. */
+    regionFiltersTouched: false,
   };
 
   function haversineM(lat1, lon1, lat2, lon2) {
@@ -292,6 +297,66 @@
   /** Automatisch uitzoomen op regio overslaan zodra GPS-fix bekend is. */
   function shouldAutoFitMapBounds() {
     return !state.geoInitialCenter && !state.userLatLng;
+  }
+
+  async function loadRegionsGeo() {
+    if (state.regionsGeo) return state.regionsGeo;
+    if (!state.regionsGeoPromise) {
+      state.regionsGeoPromise = loadJson("data/climbfinder-regions-geo.json")
+        .then((data) => {
+          state.regionsGeo = data;
+          return data;
+        })
+        .catch((err) => {
+          console.warn("Regio-geo laden mislukt:", err.message);
+          state.regionsGeo = null;
+          return null;
+        });
+    }
+    return state.regionsGeoPromise;
+  }
+
+  function findNearestIndexRegion(lat, lon) {
+    const byLoc = state.regionsGeo?.regions;
+    if (!byLoc || !state.indexRegions.length) return null;
+    let best = null;
+    let bestD = Infinity;
+    for (const r of state.indexRegions) {
+      const lid = r.locality_id;
+      if (lid == null) continue;
+      const g = byLoc[String(lid)];
+      if (!g || g.lat == null || g.lon == null) continue;
+      const d = haversineM(lat, lon, g.lat, g.lon);
+      if (d < bestD) {
+        bestD = d;
+        best = r;
+      }
+    }
+    return best;
+  }
+
+  async function applyRegionFromUserLocation(latlng) {
+    if (state.geoRegionPickDone || state.regionFiltersTouched) return;
+    const hashClimb = window.location.hash.replace("#", "").trim();
+    if (hashClimb) return;
+    const regionSel = $("regionSelect");
+    if (regionSel?.value) return;
+
+    await loadRegionsGeo();
+    const region = findNearestIndexRegion(latlng.lat, latlng.lng);
+    if (!region?.url) return;
+
+    state.geoRegionPickDone = true;
+    syncCountrySelectForRegionUrl(region.url);
+    if (regionSel) regionSel.value = region.url;
+    await loadRegion(region.url);
+    updateMobileFiltersSummary();
+    if (state.globalSearchReady) {
+      syncOverviewMarkers({ fit: false });
+      refreshViewportClimbs();
+    }
+    renderList(state.searchQuery);
+    updateSearchHint();
   }
 
   function entryDatasetId(entry) {
@@ -1932,6 +1997,7 @@
     if (firstFix) {
       state.geoInitialCenter = false;
       state.mapMode = state.map.getZoom() >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
+      void applyRegionFromUserLocation(latlng);
       if (state.globalSearchReady) {
         syncOverviewMarkers({ fit: false });
         refreshViewportClimbs();
@@ -2142,12 +2208,14 @@
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
+    void loadRegionsGeo();
     updateDatabaseTotals(index);
     fillCountrySelect();
     const countrySel = $("countrySelect");
     const select = $("regionSelect");
 
     countrySel?.addEventListener("change", () => {
+      state.regionFiltersTouched = true;
       const prevUrl = state.currentRegionUrl;
       const code = countrySel.value;
       const keepUrl =
@@ -2196,6 +2264,7 @@
     });
 
     select.addEventListener("change", () => {
+      state.regionFiltersTouched = true;
       const url = select.value;
       if (!url) {
         clearRegionSelection();
