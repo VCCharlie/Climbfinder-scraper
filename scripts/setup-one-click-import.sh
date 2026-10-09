@@ -9,8 +9,8 @@ if ! command -v firebase >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "Firebase project: climbfinder-scraper (zie .firebaserc)"
-firebase use climbfinder-scraper
+echo "Firebase project: climb-database (zie .firebaserc)"
+firebase use climb-database
 
 if [ -z "${CLIMBFINDER_IMPORT_PAT:-}" ]; then
   echo "Export CLIMBFINDER_IMPORT_PAT= (fine-grained PAT, Actions read+write op deze repo) en run opnieuw."

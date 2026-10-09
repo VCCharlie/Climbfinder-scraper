@@ -4,7 +4,9 @@ De hele site onder `docs/` is afgeschermd met **Google-inloggen**. Alleen adress
 
 ## 1. Firebase-project (eenmalig)
 
-1. Ga naar [Firebase Console](https://console.firebase.google.com/) → **Project toevoegen**.
+**Actief project:** [`climb-database`](https://console.firebase.google.com/project/climb-database) (Firestore Native, eur3). Migratie-checklist: **[FIREBASE_MIGRATION.md](./FIREBASE_MIGRATION.md)**.
+
+1. Ga naar [Firebase Console](https://console.firebase.google.com/) → project **climb-database** (of nieuw project aanmaken).
 2. **Authentication** → **Sign-in method** → **Google** inschakelen.
 3. **Authentication** → **Settings** → **Authorized domains**:
    - `localhost` (lokaal testen)

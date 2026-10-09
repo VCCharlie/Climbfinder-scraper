@@ -5,7 +5,7 @@ Automatisch **gedaan**-vinkjes op basis van **publieke** Strava-fietritten (geen
 ## 1. Strava API-app
 
 1. [Strava → Settings → My API Application](https://www.strava.com/settings/api) → **Create App**.
-2. **Authorization Callback Domain:** `europe-west1-climbfinder-scraper.cloudfunctions.net` (of jouw project-id).
+2. **Authorization Callback Domain:** `europe-west1-climb-database.cloudfunctions.net` (Firebase-project **`climb-database`**).
 3. Noteer **Client ID** en **Client Secret**.
 
 ## 2. Firebase Functions config
@@ -18,9 +18,9 @@ Automatisch **gedaan**-vinkjes op basis van **publieke** Strava-fietritten (geen
 firebase functions:config:set \
   strava.client_id="YOUR_CLIENT_ID" \
   strava.client_secret="YOUR_CLIENT_SECRET" \
-  strava.redirect_uri="https://europe-west1-climbfinder-scraper.cloudfunctions.net/stravaOAuthCallback" \
+  strava.redirect_uri="https://europe-west1-climb-database.cloudfunctions.net/stravaOAuthCallback" \
   strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
-  --project climbfinder-scraper
+  --project climb-database
 ```
 
 Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat (Firebase Storage URL-prefix).
@@ -33,7 +33,7 @@ Workflow **Deploy Climbfinder import function** deployt ook Strava-callables, of
 
 ```bash
 firebase deploy --only functions:getStravaConnectUrl,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
-  --project climbfinder-scraper
+  --project climb-database
 ```
 
 ## 4. Firestore rules

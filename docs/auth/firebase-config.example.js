@@ -1,5 +1,6 @@
 /**
  * Copy to firebase-config.js and fill in your Firebase web app config.
+ * Project: climb-database (Firestore Native, eur3) — see docs/auth/FIREBASE_MIGRATION.md
  * Console: Project settings → Your apps → Web app → firebaseConfig
  *
  * Authorized domains (Authentication → Settings): add e.g.
@@ -10,9 +11,9 @@ window.FIETSKLIM_AUTH_CONFIG = {
   /** Paste the full object from Firebase Console; extra keys are fine. */
   firebase: {
     apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    authDomain: "climb-database.firebaseapp.com",
+    projectId: "climb-database",
+    storageBucket: "climb-database.firebasestorage.app",
     messagingSenderId: "YOUR_SENDER_ID",
     appId: "YOUR_APP_ID",
     measurementId: "G-XXXXXXXXXX",

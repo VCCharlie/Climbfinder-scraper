@@ -171,8 +171,8 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
 
 **Optie 2 — alleen browser/GitHub (geen lokale Firebase CLI)**
 
-1. Maak een **service account** voor GitHub Actions (bijv. `github-deploy-functions@climbfinder-scraper.iam.gserviceaccount.com`) en download een JSON-sleutel.
-2. Geef die service account **projectrollen** (IAM → project `climbfinder-scraper` → Grant access → principal = het SA-e-mailadres):
+1. Maak een **service account** voor GitHub Actions (bijv. `github-deploy-functions@climb-database.iam.gserviceaccount.com`) en download een JSON-sleutel.
+2. Geef die service account **projectrollen** (IAM → project **`climb-database`** → Grant access → principal = het SA-e-mailadres):
 
    | Rol | Waarom |
    |-----|--------|
@@ -184,18 +184,18 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
 
    | Service account | Wanneer nodig |
    |-----------------|---------------|
-   | **`climbfinder-scraper@appspot.gserviceaccount.com`** | App Engine default |
-   | **`267954743255-compute@developer.gserviceaccount.com`** | Default Compute (1st Gen Functions gebruikt deze vaak bij *create*) |
+   | **`climb-database@appspot.gserviceaccount.com`** | App Engine default |
+   | **`<PROJECT_NUMBER>-compute@developer.gserviceaccount.com`** | Default Compute (1st Gen Functions gebruikt deze vaak bij *create*) — projectnummer: GCP Console → Home |
 
-   [Alle service accounts](https://console.cloud.google.com/iam-admin/serviceaccounts?project=climbfinder-scraper) → klik het account → **Principals with access** (niet “Manage access” op Permissions — dat wijzigt projectrollen *van* die SA, niet wie hem mag impersonaten).
+   [Alle service accounts](https://console.cloud.google.com/iam-admin/serviceaccounts?project=climb-database) → klik het account → **Principals with access** (niet “Manage access” op Permissions — dat wijzigt projectrollen *van* die SA, niet wie hem mag impersonaten).
 
-   Typische fout na `@appspot` fix: *ActAs on **267954743255-compute@developer.gserviceaccount.com***.
+   Typische fout na `@appspot` fix: *ActAs on **`<PROJECT_NUMBER>-compute@developer.gserviceaccount.com`***.
 
    **PAT:** deel deploy-logs (`--debug`) niet publiek — daarin kunnen `runtimeconfig`-waarden (GitHub PAT) staan. Log gelekt? PAT intrekken op GitHub en opnieuw zetten via workflow/`functions:config:set`.
 
 4. **API’s eenmalig inschakelen** (als project owner, in browser — deploy-SA mag dit vaak niet zelf):
 
-   - [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=climbfinder-scraper) → **Enable**
+   - [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=climb-database) → **Enable**
    - Meestal al aan na eerdere deploy-poging: Cloud Functions, Cloud Build, Artifact Registry.
 
 5. Repo **Settings → Secrets → Actions**: `FIREBASE_SERVICE_ACCOUNT` (hele JSON), `CLIMBFINDER_IMPORT_PAT` (fine-grained PAT; mag **niet** met `GITHUB_` beginnen — GitHub-regel).
@@ -207,7 +207,7 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
 cd functions
 npm install
 firebase login
-firebase use climbfinder-scraper   # jouw project-id
+firebase use climb-database
 
 firebase functions:config:set \
   github.pat="github_pat_…" \
@@ -263,8 +263,8 @@ Na login: **Start serverimport (GitHub Actions)** op de importpagina.
 | **pages build and deployment** idem | Zelfde runner-probleem bij GitHub Pages | Push naar `main` triggert opnieuw, of repo **Settings → Pages →** redeploy indien beschikbaar. |
 | Import **wel** gedraaid maar site oud | Pages-build faalde ná commit | Fix Pages-run; laatste **geslaagde** Pages-run bepaalt wat live staat. |
 | Deploy function: **ActAs** / **Service Account User** | GitHub-deploy-SA mag niet “als” App Engine-SA draaien | Optie B stap 3: **Principals with access** → deploy-SA → **Service Account User** op `@appspot`. |
-| Deploy: **Permissions denied enabling firebaseextensions.googleapis.com** | Deploy-SA mag API’s niet zelf aanzetten | Als **owner**: [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=climbfinder-scraper) → **Enable**, daarna workflow opnieuw. |
-| Deploy: **`creating Node.js 20 (1st Gen) function…`** daarna **`failed to create function`** | Geen PAT; GCP weigert function aanmaken (Firebase toont weinig detail) | 1) **Owner:** [App Engine starten](https://console.cloud.google.com/appengine/start?project=climbfinder-scraper) → regio **europe-west** (bij 1st Gen + `europe-west1`). 2) [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com?project=climbfinder-scraper) → Enable. 3) [Logging](https://console.cloud.google.com/logs/query?project=climbfinder-scraper) → filter `resource.type="cloud_function"` rond deploy-tijd. 4) Deploy-SA: **Cloud Functions Admin** + **Service Account User** op `@appspot`. 5) Workflow opnieuw; bij falen **firebase-deploy-log** artifact downloaden (`--debug`). |
+| Deploy: **Permissions denied enabling firebaseextensions.googleapis.com** | Deploy-SA mag API’s niet zelf aanzetten | Als **owner**: [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=climb-database) → **Enable**, daarna workflow opnieuw. |
+| Deploy: **`creating Node.js 20 (1st Gen) function…`** daarna **`failed to create function`** | Geen PAT; GCP weigert function aanmaken (Firebase toont weinig detail) | 1) **Owner:** [App Engine starten](https://console.cloud.google.com/appengine/start?project=climb-database) → regio **europe-west** (bij 1st Gen + `europe-west1`). 2) [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com?project=climb-database) → Enable. 3) [Logging](https://console.cloud.google.com/logs/query?project=climb-database) → filter `resource.type="cloud_function"` rond deploy-tijd. 4) Deploy-SA: **Cloud Functions Admin** + **Service Account User** op `@appspot`. 5) Workflow opnieuw; bij falen **firebase-deploy-log** artifact downloaden (`--debug`). |
 | Deploy log: **`artifactregistry.packages.delete` denied** + Troubleshooter-link | Functions zijn vaak **wel** live (`Deploy complete!`); Firebase faalt op opruimen oude build-packages | Deploy-SA: **Artifact Registry Administrator**. Troubleshooter-URL: alleen het stuk na `errorId=` plakken (niet `,https:` erachter). Workflow na fix #99 telt deploy als geslaagd als `0 Functions Errored`. |
 
 Workflow **Validate docs site** (`.github/workflows/validate-docs-site.yml`) controleert JSON en `index.json` op een normale runner — handig als Pages even in de wachtrij hangt.
