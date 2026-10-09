@@ -70,6 +70,8 @@ jobs:
         run: echo "Job started on $(uname -a)"
 
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -124,7 +126,7 @@ jobs:
             exit 0
           fi
           git commit -m "data(climbs): import ${{ inputs.meta_id }} (${{ inputs.region_label }})"
-          git push
+          bash scripts/ci_push_main.sh main
 
       - name: Upload JSON artifact
         uses: actions/upload-artifact@v4

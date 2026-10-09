@@ -41,4 +41,4 @@ jobs:
             exit 0
           fi
           git commit -m "data(climbs): backfill macro display region labels on climbs"
-          git push
+          bash scripts/ci_push_main.sh main

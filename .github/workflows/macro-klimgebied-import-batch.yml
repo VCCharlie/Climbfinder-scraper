@@ -35,6 +35,8 @@ jobs:
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -97,4 +99,4 @@ jobs:
             exit 0
           fi
           git commit -m "data(climbs): macro l=${{ inputs.macro_locality_id }} batch import + dedupe"
-          git push
+          bash scripts/ci_push_main.sh main

@@ -27,6 +27,8 @@ jobs:
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -84,4 +86,4 @@ jobs:
             exit 0
           fi
           git commit -m "data(climbs): Alps macro36 batch import + dedupe"
-          git push
+          bash scripts/ci_push_main.sh main
