@@ -77,6 +77,15 @@
         </div>
         <p id="searchHint" class="field-hint">Alle klimmen op kaart; lijst = gekozen regio. Klik een klim (ook grijs) om die regio te kiezen.</p>
         <p id="climbLogSummary" class="field-hint field-hint--log"></p>
+        <div class="strava-sync-panel" id="stravaSyncPanel">
+          <p class="field-hint field-hint--strava"><strong>Strava</strong> (publieke ritten) — vinkjes overschrijven handmatig bij sync.</p>
+          <div class="strava-sync-actions">
+            <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
+            <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
+            <button type="button" id="stravaTrialSyncBtn" hidden>Proef-sync (50 ritten · nl-limburg)</button>
+          </div>
+          <p id="stravaSyncStatus" class="field-hint"></p>
+        </div>
         </div>
       </div>
       <div class="app-header-links">
@@ -165,7 +174,8 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/climb-metrics.js?v=20261006h"></script>
-  <script src="assets/climb-log.js?v=20261006j"></script>
+  <script src="assets/climb-log.js?v=20261009strava"></script>
+  <script src="assets/strava-sync.js?v=20261009strava"></script>
   <script src="assets/climb-dedupe.js?v=20261007e"></script>
   <script src="assets/app.js?v=20261007e"></script>
 </body>

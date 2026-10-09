@@ -336,3 +336,5 @@ exports.requestClimbMacroBatchImport = functions.region("europe-west1").https.on
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_MACRO_BATCH}`,
   };
 });
+
+Object.assign(exports, require("./strava"));

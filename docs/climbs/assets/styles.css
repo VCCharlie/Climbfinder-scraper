@@ -132,6 +132,22 @@ header.app-header p#datasetMeta {
   line-height: 1.35;
 }
 
+.strava-sync-panel {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+.strava-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.35rem 0;
+}
+.strava-sync-actions button {
+  margin: 0;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.65rem;
+}
 .header-tools .field-hint--log {
   margin-top: 0.15rem;
 }

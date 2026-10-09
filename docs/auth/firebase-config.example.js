@@ -38,6 +38,10 @@ window.FIETSKLIM_AUTH_CONFIG = {
   climbLog: {
     useFirestore: true,
   },
+  /** Strava (climbs/index.html): OAuth + proef-sync via Cloud Functions — zie docs/auth/STRAVA.md */
+  strava: {
+    enabled: true,
+  },
   githubImport: {
     /** Zet true na deploy van requestClimbfinderImport + github.pat in Functions config. */
     enabled: true,
