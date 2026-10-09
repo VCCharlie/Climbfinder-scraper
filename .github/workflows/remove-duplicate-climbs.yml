@@ -45,4 +45,4 @@ jobs:
             exit 0
           fi
           git commit -m "data(climbs): remove duplicate climb copies"
-          git push
+          bash scripts/ci_push_main.sh main
