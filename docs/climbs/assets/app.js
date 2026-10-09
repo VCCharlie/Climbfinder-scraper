@@ -636,6 +636,51 @@
     return bounds;
   }
 
+  /** Handmatige regio-keuze: kaart springt naar regio (ook als GPS actief is). */
+  function focusMapOnRegion() {
+    if (!state.map || !state.currentRegionUrl) return;
+
+    state.geoFollow = false;
+    updateGeoLocateUi();
+
+    if (state.mapMode === "detail") {
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+      state.selectedId = null;
+      state.activeClimb = null;
+      state.mapMode = "overview";
+      clearMapLayers();
+      resetProfilePanel();
+      hideMapTouchSheet();
+      updateOverviewBackButton();
+    }
+
+    let bounds = [];
+    if (state.climbs?.length) {
+      bounds = boundsForEntries(state.climbs.map((climb) => ({ climb })));
+    }
+    if (!bounds.length && state.globalSearchReady) {
+      bounds = boundsForEntries(
+        state.globalEntries.filter((e) => e.regionUrl === state.currentRegionUrl)
+      );
+    }
+    if (!bounds.length) return;
+
+    state.map.fitBounds(bounds, { padding: [36, 36], maxZoom: 14 });
+    state.mapMode = state.map.getZoom() >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
+
+    if (state.globalSearchReady) {
+      syncOverviewMarkers({ fit: false });
+      refreshViewportClimbs();
+    }
+    updateSearchHint();
+    requestAnimationFrame(() => {
+      state.map?.invalidateSize();
+      refreshViewportClimbs();
+    });
+  }
+
   function updateSearchHint() {
     const el = $("searchHint");
     if (!el) return;
@@ -2154,7 +2199,7 @@
   }
 
   async function loadRegion(url, options = {}) {
-    const { keepSearch = false, selectId = null } = options;
+    const { keepSearch = false, selectId = null, fitMap = false } = options;
     const hashOnEntry = window.location.hash.replace("#", "");
     let bundle = state.regionCache.get(url);
     if (!bundle) {
@@ -2196,7 +2241,9 @@
     }
 
     clearDetailSelection();
-    if (state.globalSearchReady) {
+    if (fitMap) {
+      focusMapOnRegion();
+    } else if (state.globalSearchReady) {
       reprioritizeGlobalEntriesForCurrentRegion();
       syncOverviewMarkers({ fit: !pick && !state.searchQuery.trim() && shouldAutoFitMapBounds() });
     }
@@ -2227,13 +2274,9 @@
         return;
       }
       if (nextUrl !== state.currentRegionUrl) {
-        void loadRegion(nextUrl).then(() => {
-          if (state.globalSearchReady && state.mapMode === "overview") {
-            syncOverviewMarkers({ fit: true });
-          } else if (state.mapMode === "local") {
-            refreshViewportClimbs();
-          }
-        });
+        void loadRegion(nextUrl, { fitMap: true });
+      } else if (nextUrl) {
+        focusMapOnRegion();
       }
     });
 
@@ -2271,13 +2314,7 @@
         return;
       }
       syncCountrySelectForRegionUrl(url);
-      void loadRegion(url).then(() => {
-        if (state.globalSearchReady && state.mapMode === "overview") {
-          syncOverviewMarkers({ fit: true });
-        } else if (state.mapMode === "local") {
-          refreshViewportClimbs();
-        }
-      });
+      void loadRegion(url, { fitMap: true });
     });
 
     const searchInput = $("searchInput");
