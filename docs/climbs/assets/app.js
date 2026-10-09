@@ -271,6 +271,8 @@
     geoRegionPickDone: false,
     /** Handmatige land/regio-keuze → geen GPS-auto-regio meer. */
     regionFiltersTouched: false,
+    /** true = alle regio’s op kaart (gedimd); false = alleen land/regio-filter zichtbaar. */
+    mapExploreAllRegions: false,
   };
 
   function haversineM(lat1, lon1, lat2, lon2) {
@@ -347,6 +349,7 @@
     if (!region?.url) return;
 
     state.geoRegionPickDone = true;
+    state.mapExploreAllRegions = false;
     syncCountrySelectForRegionUrl(region.url);
     if (regionSel) regionSel.value = region.url;
     await loadRegion(region.url);
@@ -627,6 +630,26 @@
     return true;
   }
 
+  function isEntryOutsideMapFilter(entry) {
+    if (state.currentRegionUrl) return entry.regionUrl !== state.currentRegionUrl;
+    const country = selectedCountryCode();
+    if (country) return String(entry.country || "").toUpperCase() !== country;
+    return false;
+  }
+
+  /** Alleen gekozen land/regio op kaart (clusters), tenzij zoeken of “alle regio’s”-modus. */
+  function mapFilterStrictActive() {
+    if (state.mapExploreAllRegions) return false;
+    if (state.searchQuery.trim()) return false;
+    return Boolean(state.currentRegionUrl || selectedCountryCode());
+  }
+
+  function entriesForMapDisplay() {
+    const entries = mapVisibleEntries();
+    if (!mapFilterStrictActive()) return entries;
+    return entries.filter((e) => isEntryMapActive(e));
+  }
+
   function boundsForEntries(entries) {
     const bounds = [];
     for (const entry of entries) {
@@ -685,6 +708,11 @@
     const el = $("searchHint");
     if (!el) return;
     const q = state.searchQuery.trim();
+    if (mapFilterStrictActive()) {
+      el.textContent =
+        "Kaart: alleen gekozen land/regio. Klik een klim buiten de filter of deselecteer (kaart naast route) om alles te zien.";
+      return;
+    }
     if (q) {
       const n = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q.toLowerCase())).length;
       el.textContent = `${n} treffer in alle regio’s — klik kaart of lijst.`;
@@ -1232,8 +1260,9 @@
     clearViewportLayers();
 
     const entries = entriesInMapBounds();
+    const strict = mapFilterStrictActive();
     const activeEntries = entries.filter((e) => isEntryMapActive(e));
-    const inactiveEntries = entries.filter((e) => !isEntryMapActive(e));
+    const inactiveEntries = strict ? [] : entries.filter((e) => !isEntryMapActive(e));
     const withRouteKeys = new Set();
 
     const addRoute = (entry, style) => {
@@ -1340,6 +1369,7 @@
     }
     state.selectedId = null;
     state.activeClimb = null;
+    state.mapExploreAllRegions = false;
     const zoom = state.map.getZoom();
     state.mapMode = zoom >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
     clearMapLayers();
@@ -1402,13 +1432,14 @@
       state.overviewCluster.addTo(state.map);
     }
     state.overviewCluster.clearLayers();
-    const entries = mapVisibleEntries();
+    const allEntries = mapVisibleEntries();
+    const entries = entriesForMapDisplay();
     const fitBounds = [];
     if (fit && state.currentRegionUrl && !state.searchQuery.trim()) {
-      const regionEntries = entries.filter((e) => e.regionUrl === state.currentRegionUrl);
+      const regionEntries = allEntries.filter((e) => e.regionUrl === state.currentRegionUrl);
       fitBounds.push(...boundsForEntries(regionEntries));
     } else {
-      fitBounds.push(...boundsForEntries(entries));
+      fitBounds.push(...boundsForEntries(mapFilterStrictActive() ? entries : allEntries));
     }
     for (const entry of entries) {
       const latlng = climbLatLng(entry.climb);
@@ -1719,12 +1750,20 @@
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
     clearDetailSelection();
+    state.mapExploreAllRegions = false;
     renderList("");
     if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
     updateSearchHint();
   }
 
   async function selectClimbFromList(id, regionUrl) {
+    if (mapFilterStrictActive() && regionUrl) {
+      const reg = state.indexRegions.find((r) => r.url === regionUrl);
+      const probe = { regionUrl, country: reg?.country || "" };
+      if (isEntryOutsideMapFilter(probe)) {
+        state.mapExploreAllRegions = true;
+      }
+    }
     if (regionUrl && regionUrl !== state.currentRegionUrl) {
       syncCountrySelectForRegionUrl(regionUrl);
       const select = $("regionSelect");
@@ -2263,6 +2302,7 @@
 
     countrySel?.addEventListener("change", () => {
       state.regionFiltersTouched = true;
+      state.mapExploreAllRegions = false;
       const prevUrl = state.currentRegionUrl;
       const code = countrySel.value;
       const keepUrl =
@@ -2308,6 +2348,7 @@
 
     select.addEventListener("change", () => {
       state.regionFiltersTouched = true;
+      state.mapExploreAllRegions = false;
       const url = select.value;
       if (!url) {
         clearRegionSelection();
