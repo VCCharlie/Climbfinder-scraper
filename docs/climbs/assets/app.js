@@ -1501,6 +1501,9 @@
     let capped = false;
     if (q) {
       items = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q));
+      if (mapFilterStrictActive()) {
+        items = items.filter((e) => isEntryMapActive(e));
+      }
       items = applyDoneFilter(items);
       if (items.length > 200) {
         items = items.slice(0, 200);
@@ -1508,12 +1511,9 @@
       }
     } else if (logbookList) {
       items = applyDoneFilter(state.globalEntries);
-      if (items.length > 200) {
-        items = items.slice(0, 200);
-        capped = true;
+      if (mapFilterStrictActive()) {
+        items = items.filter((e) => isEntryMapActive(e));
       }
-    } else if (state.globalSearchReady && state.userLatLng && state.map) {
-      items = sortEntriesByDistance(entriesInMapBounds(), state.userLatLng);
       if (items.length > 200) {
         items = items.slice(0, 200);
         capped = true;
@@ -1530,6 +1530,21 @@
       items = applyDoneFilter(items);
       if (state.userLatLng) {
         items = sortEntriesByDistance(items, state.userLatLng);
+      }
+    } else if (selectedCountryCode() && state.globalSearchReady) {
+      items = applyDoneFilter(state.globalEntries.filter((e) => isEntryMapActive(e)));
+      if (state.userLatLng) {
+        items = sortEntriesByDistance(items, state.userLatLng);
+      }
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
+      }
+    } else if (state.globalSearchReady && state.userLatLng && state.map) {
+      items = sortEntriesByDistance(entriesInMapBounds(), state.userLatLng);
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
       }
     } else {
       list.innerHTML =
@@ -2229,7 +2244,13 @@
     state.map.on("moveend zoomend", () => {
       if (state.mapMode === "detail") return;
       scheduleViewportRefresh();
-      if (state.userLatLng && !state.searchQuery.trim() && state.doneFilter === "all") {
+      if (
+        state.userLatLng &&
+        !state.searchQuery.trim() &&
+        state.doneFilter === "all" &&
+        !state.currentRegionUrl &&
+        !selectedCountryCode()
+      ) {
         renderList("");
       }
     });
