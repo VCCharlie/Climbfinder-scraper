@@ -263,7 +263,36 @@
     geoAccuracy: null,
     geoFollow: false,
     geoLocateBtn: null,
+    userLatLng: null,
+    /** Tot eerste GPS-fix: geen fitBounds op regio (kaart blijft op jouw locatie). */
+    geoInitialCenter: false,
   };
+
+  function haversineM(lat1, lon1, lat2, lon2) {
+    const toRad = (d) => (d * Math.PI) / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+    return 6371000 * 2 * Math.asin(Math.min(1, Math.sqrt(a)));
+  }
+
+  function sortEntriesByDistance(entries, latlng) {
+    if (!latlng) return entries;
+    return [...entries].sort((a, b) => {
+      const la = climbLatLng(a.climb);
+      const lb = climbLatLng(b.climb);
+      const da = la ? haversineM(latlng.lat, latlng.lng, la[0], la[1]) : Infinity;
+      const db = lb ? haversineM(latlng.lat, latlng.lng, lb[0], lb[1]) : Infinity;
+      return da - db;
+    });
+  }
+
+  /** Automatisch uitzoomen op regio overslaan zodra GPS-fix bekend is. */
+  function shouldAutoFitMapBounds() {
+    return !state.geoInitialCenter && !state.userLatLng;
+  }
 
   function entryDatasetId(entry) {
     if (entry?.regionId) return entry.regionId;
@@ -1013,7 +1042,7 @@
     const applyDefault = () => {
       if (isMobileLayout()) {
         if (!root.classList.contains("mobile-pane-map") && !root.classList.contains("mobile-pane-list")) {
-          setMobilePane("list");
+          setMobilePane("map");
         }
       } else {
         root.classList.remove("mobile-pane-map", "mobile-pane-list");
@@ -1291,7 +1320,7 @@
       bindMapEntryInteraction(marker, entry);
       state.overviewCluster.addLayer(marker);
     }
-    if (fit && fitBounds.length) {
+    if (fit && shouldAutoFitMapBounds() && fitBounds.length) {
       state.map.fitBounds(fitBounds, { padding: [36, 36], maxZoom: 14 });
     }
     refreshViewportClimbs();
@@ -1342,6 +1371,12 @@
         items = items.slice(0, 200);
         capped = true;
       }
+    } else if (state.globalSearchReady && state.userLatLng && state.map) {
+      items = sortEntriesByDistance(entriesInMapBounds(), state.userLatLng);
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
+      }
     } else if (state.currentRegionUrl && state.climbs.length) {
       const country = selectedCountryCode() || String(state.bundle?.meta?.country || "").toUpperCase();
       items = state.climbs.map((climb) => ({
@@ -1352,6 +1387,9 @@
         country,
       }));
       items = applyDoneFilter(items);
+      if (state.userLatLng) {
+        items = sortEntriesByDistance(items, state.userLatLng);
+      }
     } else {
       list.innerHTML =
         '<p class="list-hint">Kies een regio voor de lijst, of gebruik logboek (al gedaan / nog niet) of zoeken voor alle klimmen.</p>';
@@ -1430,7 +1468,9 @@
       hint.className = "list-hint";
       hint.textContent = logbookList
         ? "Eerste 200 resultaten — kies een regio of verfijn met zoeken."
-        : "Eerste 200 resultaten — verfijn je zoekterm.";
+        : state.userLatLng && !q
+          ? "Eerste 200 klimmen in de kaart rond jou — zoom/pan of kies een regio."
+          : "Eerste 200 resultaten — verfijn je zoekterm.";
       list.appendChild(hint);
     }
   }
@@ -1491,7 +1531,7 @@
     state.globalEntries = [];
     state.globalEntryByClimbKey = new Map();
     mergeBundleIntoGlobalEntries(r, state.bundle);
-    syncOverviewMarkers({ fit: true });
+    syncOverviewMarkers({ fit: shouldAutoFitMapBounds() });
     updateSearchHint();
   }
 
@@ -1551,7 +1591,9 @@
     try {
       await Promise.all(Array.from({ length: workers }, () => worker()));
       state.globalSearchReady = true;
-      syncOverviewMarkers({ fit: !background && !state.searchQuery.trim() });
+      syncOverviewMarkers({
+        fit: !background && !state.searchQuery.trim() && shouldAutoFitMapBounds(),
+      });
     } finally {
       state.searchBusy = false;
       renderList(state.searchQuery);
@@ -1857,7 +1899,9 @@
     if (!state.map) return;
     const { latitude, longitude, accuracy } = pos.coords;
     const latlng = L.latLng(latitude, longitude);
+    state.userLatLng = latlng;
     const acc = Math.max(accuracy || 25, 8);
+    const firstFix = state.geoInitialCenter;
 
     if (!state.geoMarker) {
       state.geoAccuracy = L.circle(latlng, {
@@ -1883,14 +1927,29 @@
 
     if (state.geoFollow) {
       const z = Math.max(state.map.getZoom(), isMobileLayout() ? 14 : 13);
-      state.map.setView(latlng, z, { animate: !isCoarsePointer() });
+      state.map.setView(latlng, z, { animate: !isCoarsePointer() && !firstFix });
+    }
+    if (firstFix) {
+      state.geoInitialCenter = false;
+      state.mapMode = state.map.getZoom() >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
+      if (state.globalSearchReady) {
+        syncOverviewMarkers({ fit: false });
+        refreshViewportClimbs();
+      }
+      renderList(state.searchQuery);
+      updateSearchHint();
     }
     updateGeoLocateUi();
   }
 
   function onGeoError(err) {
     console.warn("Geolocatie:", err);
+    const wasInitial = state.geoInitialCenter;
     stopGeoLocate();
+    if (wasInitial) {
+      state.geoInitialCenter = false;
+      if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
+    }
     const msg =
       err.code === 1
         ? "Geen toestemming voor locatie. Sta locatie toe in Chrome (site-instellingen)."
@@ -1898,6 +1957,36 @@
           ? "Locatie niet beschikbaar (GPS uit of geen signaal?)."
           : "Locatie opvragen duurde te lang. Probeer opnieuw.";
     alert(msg);
+  }
+
+  function startGeoLocate(options = {}) {
+    const { silent = false } = options;
+    if (!navigator.geolocation) {
+      if (!silent) alert("Geolocatie wordt niet ondersteund in deze browser.");
+      return;
+    }
+    if (state.geoWatchId != null) return;
+    state.geoFollow = true;
+    state.geoInitialCenter = true;
+    state.geoWatchId = navigator.geolocation.watchPosition(
+      onGeoPosition,
+      (err) => {
+        if (silent) {
+          console.warn("Geolocatie (autostart):", err);
+          state.geoInitialCenter = false;
+          stopGeoLocate();
+          if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
+          return;
+        }
+        onGeoError(err);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 8000,
+        timeout: 20000,
+      }
+    );
+    updateGeoLocateUi();
   }
 
   function toggleGeoLocate() {
@@ -1914,13 +2003,7 @@
       stopGeoLocate();
       return;
     }
-    state.geoFollow = true;
-    state.geoWatchId = navigator.geolocation.watchPosition(onGeoPosition, onGeoError, {
-      enableHighAccuracy: true,
-      maximumAge: 8000,
-      timeout: 20000,
-    });
-    updateGeoLocateUi();
+    startGeoLocate({ silent: false });
   }
 
   function initGeoLocateControl() {
@@ -1996,6 +2079,9 @@
     state.map.on("moveend zoomend", () => {
       if (state.mapMode === "detail") return;
       scheduleViewportRefresh();
+      if (state.userLatLng && !state.searchQuery.trim() && state.doneFilter === "all") {
+        renderList("");
+      }
     });
 
     initGeoLocateControl();
@@ -2046,12 +2132,13 @@
     clearDetailSelection();
     if (state.globalSearchReady) {
       reprioritizeGlobalEntriesForCurrentRegion();
-      syncOverviewMarkers({ fit: !pick && !state.searchQuery.trim() });
+      syncOverviewMarkers({ fit: !pick && !state.searchQuery.trim() && shouldAutoFitMapBounds() });
     }
   }
 
   async function init() {
     initMap();
+    startGeoLocate({ silent: true });
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
