@@ -32,9 +32,17 @@ function dataBaseUrl() {
 function redirectUri() {
   const u = stravaCfg().redirect_uri;
   if (!u) {
-    throw new Error("strava.redirect_uri ontbreekt in Functions config");
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "strava.redirect_uri ontbreekt. Zie docs/auth/STRAVA.md (functions:config:set + deploy)."
+    );
   }
   return u;
+}
+
+function stravaBackendConfigured() {
+  const c = stravaCfg();
+  return Boolean(c.client_id && c.client_secret && c.redirect_uri);
 }
 
 function allowedEmail(email) {
@@ -131,28 +139,41 @@ async function loadDataset(datasetId) {
 }
 
 exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (_data, context) => {
-  const uid = requireAuth(context);
-  const clientId = stravaCfg().client_id;
-  if (!clientId) {
-    throw new functions.https.HttpsError("failed-precondition", "Strava client_id niet geconfigureerd.");
+  try {
+    const uid = requireAuth(context);
+    const clientId = stravaCfg().client_id;
+    if (!clientId) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "strava.client_id ontbreekt op Firebase Functions. Zie docs/auth/STRAVA.md."
+      );
+    }
+    const redir = redirectUri();
+
+    const state = crypto.randomBytes(24).toString("hex");
+    await admin.firestore().collection("stravaOAuthStates").doc(state).set({
+      uid,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    const params = new URLSearchParams({
+      client_id: clientId,
+      redirect_uri: redir,
+      response_type: "code",
+      approval_prompt: "auto",
+      scope: SCOPES,
+      state,
+    });
+
+    return { url: `${STRAVA_AUTH}?${params.toString()}` };
+  } catch (e) {
+    if (e instanceof functions.https.HttpsError) throw e;
+    functions.logger.error("getStravaConnectUrl", e);
+    throw new functions.https.HttpsError(
+      "internal",
+      `Strava-koppeling mislukt: ${e.message || String(e)}`
+    );
   }
-
-  const state = crypto.randomBytes(24).toString("hex");
-  await admin.firestore().collection("stravaOAuthStates").doc(state).set({
-    uid,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
-  });
-
-  const params = new URLSearchParams({
-    client_id: clientId,
-    redirect_uri: redirectUri(),
-    response_type: "code",
-    approval_prompt: "auto",
-    scope: SCOPES,
-    state,
-  });
-
-  return { url: `${STRAVA_AUTH}?${params.toString()}` };
 });
 
 exports.stravaOAuthCallback = functions.region(REGION).https.onRequest(async (req, res) => {
@@ -230,16 +251,28 @@ exports.stravaDisconnect = functions.region(REGION).https.onCall(async (_data, c
 
 exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, context) => {
   const uid = requireAuth(context);
-  const data = await getStoredIntegration(uid);
-  if (!data) {
-    return { connected: false };
+  const setup = { backendConfigured: stravaBackendConfigured() };
+  try {
+    const data = await getStoredIntegration(uid);
+    if (!data) {
+      return { connected: false, setup };
+    }
+    return {
+      connected: true,
+      athleteName: data.athleteName || null,
+      lastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
+      lastSyncSummary: data.lastSyncSummary || null,
+      setup,
+    };
+  } catch (e) {
+    functions.logger.error("getStravaStatus", e);
+    return {
+      connected: false,
+      setup,
+      firestoreError: true,
+      hint: e.message || String(e),
+    };
   }
-  return {
-    connected: true,
-    athleteName: data.athleteName || null,
-    lastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
-    lastSyncSummary: data.lastSyncSummary || null,
-  };
 });
 
 exports.stravaSyncTrial = functions.region(REGION).https.onCall(async (data, context) => {
