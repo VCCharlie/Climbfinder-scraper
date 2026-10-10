@@ -196,9 +196,22 @@
     const regionId = (entry.regionId || "").toLowerCase();
     if (regionId.includes(q)) return true;
     for (const token of countrySearchTokens(entry.country)) {
-      if (token.includes(q) || q.includes(token)) return true;
+      if (token.includes(q)) return true;
+      // ISO2-codes (be, ch): alleen exacte match — voorkomt false positives (bettmer ⊃ be).
+      if (token.length <= 2) {
+        if (q === token) return true;
+      } else if (q.includes(token)) {
+        return true;
+      }
     }
     return false;
+  }
+
+  /** Typeahead: alleen klimnaam of id bevat de zoekstring. */
+  function entryMatchesSuggestQuery(entry, ql) {
+    const name = (entry.climb.name || "").toLowerCase();
+    const id = (entry.climb.id || "").toLowerCase();
+    return name.includes(ql) || id.includes(ql);
   }
 
   function isCoarsePointer() {
@@ -1798,13 +1811,14 @@
   }
 
   function scoreSearchEntry(entry, ql) {
+    if (!entryMatchesSuggestQuery(entry, ql)) return 0;
     const name = (entry.climb.name || "").toLowerCase();
     const id = (entry.climb.id || "").toLowerCase();
     if (name === ql) return 100;
     if (id === ql) return 95;
     if (name.startsWith(ql)) return 85;
     if (name.includes(ql)) return 70;
-    if (entryMatchesQuery(entry, ql)) return 50;
+    if (id.includes(ql)) return 65;
     return 0;
   }
 
