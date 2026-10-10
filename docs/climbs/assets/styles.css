@@ -125,6 +125,69 @@ header.app-header p#datasetMeta {
   min-width: 0;
 }
 
+.climb-search-wrap {
+  position: relative;
+}
+
+.climb-search-suggest {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 2px);
+  z-index: 2000;
+  margin: 0;
+  padding: 0.25rem 0;
+  list-style: none;
+  max-height: min(16rem, 42vh);
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+}
+
+.climb-search-suggest li {
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.climb-search-suggest li:last-child {
+  border-bottom: none;
+}
+
+.climb-search-suggest li:hover,
+.climb-search-suggest li.is-active {
+  background: #f0fdfa;
+}
+
+.climb-search-suggest-name {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--slate-900);
+  line-height: 1.25;
+}
+
+.climb-search-suggest-meta {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--slate-600);
+  margin-top: 0.1rem;
+}
+
+.climb-search-suggest-empty,
+.climb-search-suggest-hint {
+  cursor: default;
+  color: var(--slate-600);
+  font-size: 0.78rem;
+}
+
+.climb-search-suggest-empty:hover,
+.climb-search-suggest-hint:hover {
+  background: transparent;
+}
+
 .header-tools .field-hint {
   margin: 0.3rem 0 0;
   font-size: 0.68rem;
