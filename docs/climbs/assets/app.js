@@ -403,12 +403,35 @@
     return FietsKlimClimbLog.isDone(entryDatasetId(entry), entry.climb.id);
   }
 
+  function climbIsWishlist(entry) {
+    if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) return false;
+    return FietsKlimClimbLog.isWishlist(entryDatasetId(entry), entry.climb.id);
+  }
+
+  function isLogbookFilterActive() {
+    return state.doneFilter !== "all";
+  }
+
   function applyDoneFilter(items) {
     if (state.doneFilter === "all") return items;
     if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) return items;
     return items.filter((entry) => {
       const done = climbIsDone(entry);
-      return state.doneFilter === "done" ? done : !done;
+      const wish = climbIsWishlist(entry);
+      switch (state.doneFilter) {
+        case "done":
+          return done;
+        case "todo":
+          return !done;
+        case "wishlist":
+          return wish;
+        case "wishlist-todo":
+          return wish && !done;
+        case "hide-wishlist":
+          return !wish;
+        default:
+          return true;
+      }
     });
   }
 
@@ -423,9 +446,10 @@
     const total = state.climbs?.length || 0;
     if (ds && total) {
       const done = FietsKlimClimbLog.countDoneForDataset(ds);
-      el.textContent = `${done} / ${total} gedaan in deze regio · ${FietsKlimClimbLog.totalDone()} totaal`;
+      const wish = FietsKlimClimbLog.countWishlistForDataset(ds);
+      el.textContent = `${done} / ${total} gedaan · ${wish} wishlist in deze regio · ${FietsKlimClimbLog.totalDone()} gedaan / ${FietsKlimClimbLog.totalWishlist()} wishlist totaal`;
     } else {
-      el.textContent = `${FietsKlimClimbLog.totalDone()} klimmen afgevinkt (alle regio’s)`;
+      el.textContent = `${FietsKlimClimbLog.totalDone()} gedaan · ${FietsKlimClimbLog.totalWishlist()} op wishlist (alle regio’s)`;
     }
   }
 
@@ -441,21 +465,39 @@
     }
   }
 
-  function syncClimbDetailDoneToggle() {
-    const wrap = $("climbDetailDoneWrap");
+  async function toggleClimbWishlist(entry, wishlist) {
+    if (typeof FietsKlimClimbLog === "undefined") return;
+    const datasetId = entryDatasetId(entry);
+    if (!datasetId) return;
+    try {
+      await FietsKlimClimbLog.setWishlist(datasetId, entry.climb.id, wishlist);
+    } catch (e) {
+      console.error(e);
+      alert("Wishlist opslaan mislukt: " + (e.message || e));
+    }
+  }
+
+  function syncClimbDetailLogToggles() {
+    const logWrap = $("climbDetailLogWrap");
+    const doneWrap = $("climbDetailDoneWrap");
     const box = $("climbDetailDone");
-    if (!wrap || !box) return;
+    const wishWrap = $("climbDetailWishlistWrap");
+    const wishBox = $("climbDetailWishlist");
+    if (!logWrap || !doneWrap || !box || !wishWrap || !wishBox) return;
     if (!state.activeClimb || !state.bundle?.meta?.id || state.mapMode !== "detail") {
-      wrap.hidden = true;
+      logWrap.hidden = true;
       return;
     }
-    wrap.hidden = false;
+    logWrap.hidden = false;
+    doneWrap.hidden = false;
+    wishWrap.hidden = false;
     const entry = {
       climb: state.activeClimb,
       regionId: state.bundle.meta.id,
       regionUrl: state.currentRegionUrl,
     };
     box.checked = climbIsDone(entry);
+    wishBox.checked = climbIsWishlist(entry);
     box.onchange = () => {
       void toggleClimbDone(entry, box.checked).then(() => {
         renderList(state.searchQuery);
@@ -466,6 +508,20 @@
         }
       });
     };
+    wishBox.onchange = () => {
+      void toggleClimbWishlist(entry, wishBox.checked).then(() => {
+        renderList(state.searchQuery);
+        updateClimbLogSummary();
+        if (state.globalSearchReady) {
+          if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+          else refreshViewportClimbs();
+        }
+      });
+    };
+  }
+
+  function syncClimbDetailDoneToggle() {
+    syncClimbDetailLogToggles();
   }
 
   function $(id) {
@@ -748,9 +804,16 @@
       const regN = reg
         ? state.globalEntries.filter((e) => e.regionUrl === state.currentRegionUrl).length
         : 0;
-      if (state.doneFilter !== "all") {
+      if (isLogbookFilterActive()) {
         const filtered = applyDoneFilter(state.globalEntries).length;
-        const tag = state.doneFilter === "done" ? "gedaan" : "nog open";
+        const tagByFilter = {
+          done: "gedaan",
+          todo: "nog open",
+          wishlist: "wishlist",
+          "wishlist-todo": "wishlist (open)",
+          "hide-wishlist": "zonder wishlist",
+        };
+        const tag = tagByFilter[state.doneFilter] || "filter";
         el.textContent =
           n > 0
             ? `Lijst: ${filtered} klimmen (${tag}, alle regio’s). Kaart: ${n} klimmen. Klik klim = regio wisselt mee.`
@@ -801,6 +864,9 @@
     const parts = [];
     if (state.doneFilter === "todo") parts.push("open");
     if (state.doneFilter === "done") parts.push("gedaan");
+    if (state.doneFilter === "wishlist") parts.push("wishlist");
+    if (state.doneFilter === "wishlist-todo") parts.push("wishlist open");
+    if (state.doneFilter === "hide-wishlist") parts.push("−wishlist");
     const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
     if (reg) parts.push(regionTitleFromIndexEntry(reg));
     const q = state.searchQuery.trim();
@@ -1523,7 +1589,7 @@
   function renderList(filterText) {
     const list = $("climbList");
     const q = (filterText || "").trim().toLowerCase();
-    const logbookList = !q && state.doneFilter !== "all";
+    const logbookList = !q && isLogbookFilterActive();
     const needsGlobal = Boolean(q) || logbookList;
 
     if (needsGlobal && !state.globalSearchReady) {
@@ -1589,7 +1655,7 @@
     if (!items.length) {
       if (q) {
         list.innerHTML =
-          state.doneFilter !== "all"
+          isLogbookFilterActive()
             ? '<p class="list-hint">Geen klimmen voor dit logboek-filter.</p>'
             : '<p class="list-hint">Geen klimmen gevonden in alle regio’s.</p>';
       } else {
@@ -1602,11 +1668,13 @@
     for (const entry of items) {
       const climb = entry.climb;
       const done = climbIsDone(entry);
+      const wish = climbIsWishlist(entry);
       const el = document.createElement("div");
       el.className =
         "climb-item" +
         (climb.id === state.selectedId ? " active" : "") +
-        (done ? " climb-item--done" : "");
+        (done ? " climb-item--done" : "") +
+        (wish ? " climb-item--wishlist" : "");
       el.dataset.id = climb.id;
       const tags = (climb.tags || [])
         .slice(0, 3)
@@ -1620,9 +1688,14 @@
           ? `<div class="dataset-tag">${displayRegionTitle(entry.regionTitle)}</div>`
           : "";
       el.innerHTML = `
-        <label class="climb-done-toggle" title="Markeer als gedaan">
-          <input type="checkbox" class="climb-done-checkbox" ${done ? "checked" : ""} aria-label="Gedaan: ${climb.name.replace(/"/g, "&quot;")}" />
-        </label>
+        <div class="climb-item-toggles">
+          <label class="climb-wishlist-toggle" title="Op wishlist">
+            <input type="checkbox" class="climb-wishlist-checkbox" ${wish ? "checked" : ""} aria-label="Wishlist: ${climb.name.replace(/"/g, "&quot;")}" />
+          </label>
+          <label class="climb-done-toggle" title="Markeer als gedaan">
+            <input type="checkbox" class="climb-done-checkbox" ${done ? "checked" : ""} aria-label="Gedaan: ${climb.name.replace(/"/g, "&quot;")}" />
+          </label>
+        </div>
         <div class="climb-item-body">
           <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
           ${datasetLine}
@@ -1630,15 +1703,21 @@
           <div>${tags} ${cf}</div>
         </div>
       `;
-      el.querySelector(".climb-done-checkbox")?.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
+      for (const sel of [".climb-done-checkbox", ".climb-wishlist-checkbox"]) {
+        el.querySelector(sel)?.addEventListener("click", (e) => {
+          e.stopPropagation();
+        });
+      }
       el.querySelector(".climb-done-checkbox")?.addEventListener("change", (e) => {
         e.stopPropagation();
         void toggleClimbDone(entry, e.target.checked);
       });
+      el.querySelector(".climb-wishlist-checkbox")?.addEventListener("change", (e) => {
+        e.stopPropagation();
+        void toggleClimbWishlist(entry, e.target.checked);
+      });
       el.addEventListener("click", (e) => {
-        if (e.target.closest(".climb-done-toggle")) return;
+        if (e.target.closest(".climb-item-toggles")) return;
         if (e.target.tagName === "A") return;
         void selectClimbFromList(climb.id, entry.regionUrl);
       });
@@ -2633,7 +2712,7 @@
     $("doneFilter")?.addEventListener("change", (e) => {
       state.doneFilter = e.target.value || "all";
       void (async () => {
-        if (state.doneFilter !== "all") {
+        if (isLogbookFilterActive()) {
           await ensureGlobalSearchIndex({ background: false });
         }
         renderList(state.searchQuery);
@@ -2649,7 +2728,7 @@
     document.addEventListener("fietsklim-climb-log-changed", () => {
       updateClimbLogSummary();
       renderList(state.searchQuery);
-      syncClimbDetailDoneToggle();
+      syncClimbDetailLogToggles();
       if (state.globalSearchReady && state.mapMode !== "detail") {
         if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
         else refreshViewportClimbs();
