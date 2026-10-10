@@ -987,6 +987,12 @@
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(state.activeClimb) : [];
     renderGradientStrip(buckets, "profileGradientStripFull");
+    const hintEl = $("profileExpandMapHint");
+    if (hintEl) {
+      hintEl.textContent = isCoarsePointer()
+        ? "Positie op de route — veeg over het profiel"
+        : "Positie op de route — beweeg de muis over het profiel";
+    }
     mountProfileExpandMap(state.activeClimb);
     mountProfileChart("profileChartFull", "chartFull", state.activeClimb, false);
     requestAnimationFrame(() => {
@@ -994,6 +1000,10 @@
         if (state.chartFull) state.chartFull.resize();
         state.profileExpandMap?.invalidateSize();
       }, 50);
+      setTimeout(() => {
+        if (state.chartFull) state.chartFull.resize();
+        state.profileExpandMap?.invalidateSize();
+      }, 280);
     });
   }
 
