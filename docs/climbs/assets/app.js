@@ -278,6 +278,8 @@
     geoFollow: false,
     geoLocateBtn: null,
     userLatLng: null,
+    /** Eén retry met lagere nauwkeurigheid na timeout / vage weigering. */
+    geoLocateRetried: false,
     /** Tot eerste GPS-fix: geen fitBounds op regio (kaart blijft op jouw locatie). */
     geoInitialCenter: false,
     regionsGeo: null,
@@ -2284,8 +2286,73 @@
     updateGeoLocateUi();
   }
 
+  function geoWatchOptions(highAccuracy) {
+    return {
+      enableHighAccuracy: highAccuracy,
+      maximumAge: highAccuracy ? 8000 : 20000,
+      timeout: highAccuracy ? 25000 : 40000,
+    };
+  }
+
+  async function queryGeoPermission() {
+    if (!navigator.permissions?.query) return null;
+    try {
+      const status = await navigator.permissions.query({ name: "geolocation" });
+      return status.state;
+    } catch {
+      return null;
+    }
+  }
+
+  function buildGeoErrorMessage(err, permissionState) {
+    const code = err?.code;
+    if (code === 1) {
+      if (permissionState === "granted") {
+        return (
+          "Locatie staat voor deze site op Toegestaan, maar er kwam geen GPS-positie binnen. " +
+          "Zet locatie/GPS aan op je telefoon (ook voor Chrome of Brave in Android-instellingen). " +
+          "Gebruik je Brave: zet Shields uit of sta locatie toe voor vccharlie.github.io."
+        );
+      }
+      if (permissionState === "denied") {
+        return (
+          "Locatie is geblokkeerd voor deze site. Tik op het slot-icoon naast het adres → " +
+          "Site-instellingen → Locatie → Toestaan, en laad de pagina opnieuw."
+        );
+      }
+      return (
+        "Geen toestemming voor locatie. Sta locatie toe via het slot-icoon / site-instellingen " +
+        "van je browser (niet alleen systeem-GPS)."
+      );
+    }
+    if (code === 2) {
+      return "Locatie niet beschikbaar (GPS uit, binnen zonder signaal, of vliegtuigstand?).";
+    }
+    if (code === 3) {
+      return "Locatie opvragen duurde te lang. Ga naar buiten of probeer het opnieuw (eventueel zonder hoge nauwkeurigheid).";
+    }
+    return "Locatie kon niet worden bepaald. Probeer opnieuw of controleer GPS en browserinstellingen.";
+  }
+
+  async function notifyGeoError(err) {
+    console.warn("Geolocatie:", err);
+    const wasInitial = state.geoInitialCenter;
+    stopGeoLocate();
+    state.geoLocateRetried = false;
+    if (wasInitial) {
+      state.geoInitialCenter = false;
+      if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
+    }
+    const perm = await queryGeoPermission();
+    const msg = buildGeoErrorMessage(err, perm);
+    const hint = $("searchHint");
+    if (hint) hint.textContent = msg;
+    alert(msg);
+  }
+
   function onGeoPosition(pos) {
     if (!state.map) return;
+    state.geoLocateRetried = false;
     const { latitude, longitude, accuracy } = pos.coords;
     const latlng = L.latLng(latitude, longitude);
     state.userLatLng = latlng;
@@ -2332,51 +2399,48 @@
     updateGeoLocateUi();
   }
 
-  function onGeoError(err) {
-    console.warn("Geolocatie:", err);
-    const wasInitial = state.geoInitialCenter;
-    stopGeoLocate();
-    if (wasInitial) {
+  async function handleGeoWatchError(err, { silent, highAccuracy }) {
+    if (silent) {
+      console.warn("Geolocatie (autostart):", err);
       state.geoInitialCenter = false;
+      stopGeoLocate();
       if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
-    }
-    const msg =
-      err.code === 1
-        ? "Geen toestemming voor locatie. Sta locatie toe in Chrome (site-instellingen)."
-        : err.code === 2
-          ? "Locatie niet beschikbaar (GPS uit of geen signaal?)."
-          : "Locatie opvragen duurde te lang. Probeer opnieuw.";
-    alert(msg);
-  }
-
-  function startGeoLocate(options = {}) {
-    const { silent = false } = options;
-    if (!navigator.geolocation) {
-      if (!silent) alert("Geolocatie wordt niet ondersteund in deze browser.");
       return;
     }
-    if (state.geoWatchId != null) return;
+    if (highAccuracy && !state.geoLocateRetried) {
+      state.geoLocateRetried = true;
+      if (state.geoWatchId != null) {
+        navigator.geolocation.clearWatch(state.geoWatchId);
+        state.geoWatchId = null;
+      }
+      beginGeoWatch(false, false);
+      return;
+    }
+    await notifyGeoError(err);
+  }
+
+  function beginGeoWatch(silent, highAccuracy) {
     state.geoFollow = true;
     state.geoInitialCenter = true;
     state.geoWatchId = navigator.geolocation.watchPosition(
       onGeoPosition,
       (err) => {
-        if (silent) {
-          console.warn("Geolocatie (autostart):", err);
-          state.geoInitialCenter = false;
-          stopGeoLocate();
-          if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
-          return;
-        }
-        onGeoError(err);
+        void handleGeoWatchError(err, { silent, highAccuracy });
       },
-      {
-        enableHighAccuracy: true,
-        maximumAge: 8000,
-        timeout: 20000,
-      }
+      geoWatchOptions(highAccuracy)
     );
     updateGeoLocateUi();
+  }
+
+  function startGeoLocate(options = {}) {
+    const { silent = false, highAccuracy = true } = options;
+    if (!navigator.geolocation) {
+      if (!silent) alert("Geolocatie wordt niet ondersteund in deze browser.");
+      return;
+    }
+    if (state.geoWatchId != null) return;
+    if (!silent) state.geoLocateRetried = false;
+    beginGeoWatch(silent, highAccuracy);
   }
 
   function toggleGeoLocate() {
