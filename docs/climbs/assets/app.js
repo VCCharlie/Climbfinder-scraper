@@ -280,6 +280,8 @@
     userLatLng: null,
     /** Na mislukte poging: één retry met hoge nauwkeurigheid (alleen na gebruikersgebaar). */
     geoLocateRetried: false,
+    /** Brave/PWA: extra poging met langere timeout bij code 1 + permission granted. */
+    geoExtendedLocateRetry: false,
     geoAcquireInFlight: false,
     /** Vervangt normale searchHint-tekst (GPS-status / fout). */
     geoHintOverride: null,
@@ -2398,11 +2400,13 @@
     updateGeoLocateUi();
   }
 
-  function geoAcquireOptions(highAccuracy) {
+  function geoAcquireOptions(highAccuracy, { extended = false } = {}) {
+    let timeout = highAccuracy ? 50000 : 60000;
+    if (extended) timeout = Math.max(timeout, 120000);
     return {
       enableHighAccuracy: highAccuracy,
       maximumAge: highAccuracy ? 15000 : 120000,
-      timeout: highAccuracy ? 50000 : 60000,
+      timeout,
     };
   }
 
@@ -2489,13 +2493,10 @@
 
   async function notifyGeoError(err) {
     console.warn("Geolocatie:", err);
-    const wasInitial = state.geoInitialCenter;
     stopGeoLocate();
     state.geoLocateRetried = false;
-    if (wasInitial) {
-      state.geoInitialCenter = false;
-      if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
-    }
+    state.geoExtendedLocateRetry = false;
+    if (state.geoInitialCenter) state.geoInitialCenter = false;
     const perm = await queryGeoPermission();
     let msg = buildGeoErrorMessage(err, perm);
     const needsBraveHint =
@@ -2509,6 +2510,7 @@
   function onGeoPosition(pos) {
     if (!state.map) return;
     state.geoLocateRetried = false;
+    state.geoExtendedLocateRetry = false;
     const { latitude, longitude, accuracy } = pos.coords;
     const latlng = L.latLng(latitude, longitude);
     state.userLatLng = latlng;
@@ -2557,19 +2559,27 @@
 
   async function handleGeoAcquireError(err, { silent, highAccuracy }) {
     if (silent) {
-      console.warn("Geolocatie (autostart):", err);
+      console.warn("Geolocatie (achtergrond):", err);
       state.geoInitialCenter = false;
       state.geoAcquireInFlight = false;
       clearGeoWatchOnly();
       state.geoFollow = false;
       updateGeoLocateUi();
-      if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
       return;
     }
     if (!highAccuracy && !state.geoLocateRetried) {
       state.geoLocateRetried = true;
       requestGeoFix(false, true);
       return;
+    }
+    if (err?.code === 1 && !state.geoExtendedLocateRetry) {
+      const perm = await queryGeoPermission();
+      if (perm === "granted" && (await isBraveBrowser())) {
+        state.geoExtendedLocateRetry = true;
+        setGeoHint("Locatie opvragen… (Brave kan extra lang duren)", { warn: false });
+        requestGeoFix(false, highAccuracy, { extended: true });
+        return;
+      }
     }
     await notifyGeoError(err);
   }
@@ -2590,7 +2600,7 @@
     updateGeoLocateUi();
   }
 
-  function requestGeoFix(silent, highAccuracy) {
+  function requestGeoFix(silent, highAccuracy, { extended = false } = {}) {
     if (state.geoAcquireInFlight) return;
     state.geoAcquireInFlight = true;
     state.geoFollow = true;
@@ -2606,7 +2616,7 @@
         state.geoAcquireInFlight = false;
         void handleGeoAcquireError(err, { silent, highAccuracy });
       },
-      geoAcquireOptions(highAccuracy)
+      geoAcquireOptions(highAccuracy, { extended })
     );
     updateGeoLocateUi();
   }
@@ -2621,6 +2631,7 @@
     }
     if (!silent) {
       state.geoLocateRetried = false;
+      state.geoExtendedLocateRetry = false;
       setGeoHint("Locatie opvragen… (kan een halve minuut duren)", { warn: false });
     }
     requestGeoFix(silent, highAccuracy);
