@@ -1,5 +1,5 @@
 /* FietsKlim climbs PWA — installable on Android Chrome (GitHub Pages / docs/climbs/). */
-const CACHE_VERSION = "20261006b";
+const CACHE_VERSION = "20261010geofix2";
 const CACHE_NAME = `fietsklim-climbs-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [

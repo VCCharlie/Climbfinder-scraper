@@ -280,6 +280,7 @@
     userLatLng: null,
     /** Eén retry met lagere nauwkeurigheid na timeout / vage weigering. */
     geoLocateRetried: false,
+    geoAcquireInFlight: false,
     /** Tot eerste GPS-fix: geen fitBounds op regio (kaart blijft op jouw locatie). */
     geoInitialCenter: false,
     regionsGeo: null,
@@ -2348,11 +2349,16 @@
       : "Mijn locatie op de kaart (volgen)";
   }
 
-  function stopGeoLocate() {
+  function clearGeoWatchOnly() {
     if (state.geoWatchId != null) {
       navigator.geolocation.clearWatch(state.geoWatchId);
       state.geoWatchId = null;
     }
+  }
+
+  function stopGeoLocate() {
+    clearGeoWatchOnly();
+    state.geoAcquireInFlight = false;
     state.geoFollow = false;
     if (state.geoMarker && state.map) {
       state.map.removeLayer(state.geoMarker);
@@ -2365,11 +2371,19 @@
     updateGeoLocateUi();
   }
 
-  function geoWatchOptions(highAccuracy) {
+  function geoAcquireOptions(highAccuracy, { warmCache = false } = {}) {
     return {
       enableHighAccuracy: highAccuracy,
-      maximumAge: highAccuracy ? 8000 : 20000,
-      timeout: highAccuracy ? 25000 : 40000,
+      maximumAge: warmCache ? 300000 : highAccuracy ? 10000 : 120000,
+      timeout: highAccuracy ? 35000 : warmCache ? 12000 : 45000,
+    };
+  }
+
+  function geoWatchUpdateOptions() {
+    return {
+      enableHighAccuracy: false,
+      maximumAge: 15000,
+      timeout: 60000,
     };
   }
 
@@ -2478,48 +2492,93 @@
     updateGeoLocateUi();
   }
 
-  async function handleGeoWatchError(err, { silent, highAccuracy }) {
+  async function handleGeoAcquireError(err, { silent, highAccuracy }) {
     if (silent) {
       console.warn("Geolocatie (autostart):", err);
       state.geoInitialCenter = false;
-      stopGeoLocate();
+      state.geoAcquireInFlight = false;
+      clearGeoWatchOnly();
+      state.geoFollow = false;
+      updateGeoLocateUi();
       if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
       return;
     }
-    if (highAccuracy && !state.geoLocateRetried) {
+    if (!highAccuracy && !state.geoLocateRetried) {
       state.geoLocateRetried = true;
-      if (state.geoWatchId != null) {
-        navigator.geolocation.clearWatch(state.geoWatchId);
-        state.geoWatchId = null;
-      }
-      beginGeoWatch(false, false);
+      requestGeoFix(false, true);
       return;
     }
     await notifyGeoError(err);
   }
 
-  function beginGeoWatch(silent, highAccuracy) {
-    state.geoFollow = true;
-    state.geoInitialCenter = true;
+  function startGeoWatchUpdates() {
+    clearGeoWatchOnly();
     state.geoWatchId = navigator.geolocation.watchPosition(
       onGeoPosition,
       (err) => {
-        void handleGeoWatchError(err, { silent, highAccuracy });
+        if (state.userLatLng) {
+          console.warn("Geolocatie (watch):", err);
+          return;
+        }
+        void handleGeoAcquireError(err, { silent: true, highAccuracy: false });
       },
-      geoWatchOptions(highAccuracy)
+      geoWatchUpdateOptions()
     );
     updateGeoLocateUi();
   }
 
+  function requestGeoFix(silent, highAccuracy) {
+    if (state.geoAcquireInFlight) return;
+    state.geoAcquireInFlight = true;
+    state.geoFollow = true;
+    if (!state.userLatLng) state.geoInitialCenter = true;
+    clearGeoWatchOnly();
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        state.geoAcquireInFlight = false;
+        onGeoPosition(pos);
+        startGeoWatchUpdates();
+      },
+      (err) => {
+        state.geoAcquireInFlight = false;
+        void handleGeoAcquireError(err, { silent, highAccuracy });
+      },
+      geoAcquireOptions(highAccuracy)
+    );
+    updateGeoLocateUi();
+  }
+
+  /** Autostart: alleen cache/WiFi-fix, geen watch zonder gebruikersgebaar (Android). */
+  function tryGeoWarmStart() {
+    if (!navigator.geolocation || state.userLatLng) return;
+    state.geoFollow = true;
+    state.geoInitialCenter = true;
+    state.geoAcquireInFlight = true;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        state.geoAcquireInFlight = false;
+        onGeoPosition(pos);
+        startGeoWatchUpdates();
+      },
+      (err) => {
+        console.warn("Geolocatie (autostart):", err);
+        state.geoInitialCenter = false;
+        state.geoAcquireInFlight = false;
+        state.geoFollow = false;
+        updateGeoLocateUi();
+      },
+      geoAcquireOptions(false, { warmCache: true })
+    );
+  }
+
   function startGeoLocate(options = {}) {
-    const { silent = false, highAccuracy = true } = options;
+    const { silent = false, highAccuracy = false } = options;
     if (!navigator.geolocation) {
       if (!silent) alert("Geolocatie wordt niet ondersteund in deze browser.");
       return;
     }
-    if (state.geoWatchId != null) return;
     if (!silent) state.geoLocateRetried = false;
-    beginGeoWatch(silent, highAccuracy);
+    requestGeoFix(silent, highAccuracy);
   }
 
   function toggleGeoLocate() {
@@ -2527,16 +2586,29 @@
       alert("Geolocatie wordt niet ondersteund in deze browser.");
       return;
     }
-    if (state.geoWatchId != null) {
+    const waitingForFix =
+      state.geoAcquireInFlight || (state.geoWatchId != null && !state.userLatLng);
+    if (waitingForFix) {
+      clearGeoWatchOnly();
+      state.geoAcquireInFlight = false;
+      startGeoLocate({ silent: false, highAccuracy: false });
+      return;
+    }
+    if (state.geoWatchId != null || state.userLatLng) {
       if (!state.geoFollow) {
         state.geoFollow = true;
         updateGeoLocateUi();
+        if (state.userLatLng) {
+          const z = Math.max(state.map.getZoom(), isMobileLayout() ? 14 : 13);
+          state.map.setView(state.userLatLng, z);
+        }
+        if (!state.geoWatchId) startGeoWatchUpdates();
         return;
       }
       stopGeoLocate();
       return;
     }
-    startGeoLocate({ silent: false });
+    startGeoLocate({ silent: false, highAccuracy: false });
   }
 
   function initGeoLocateControl() {
@@ -2679,7 +2751,7 @@
 
   async function init() {
     initMap();
-    startGeoLocate({ silent: true });
+    tryGeoWarmStart();
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
