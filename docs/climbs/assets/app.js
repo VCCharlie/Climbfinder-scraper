@@ -188,6 +188,13 @@
     return [...out];
   }
 
+  /** Land/ISO2 in zoekterm: geen q.includes("be") — anders matcht "Bettmeralp" op België. */
+  function countryTokenMatchesQuery(q, token) {
+    if (token.includes(q)) return true;
+    if (token.length <= 2) return q === token;
+    return q.includes(token);
+  }
+
   function entryMatchesQuery(entry, q) {
     if (!q) return true;
     if (climbMatchesQuery(entry.climb, q)) return true;
@@ -196,13 +203,7 @@
     const regionId = (entry.regionId || "").toLowerCase();
     if (regionId.includes(q)) return true;
     for (const token of countrySearchTokens(entry.country)) {
-      if (token.includes(q)) return true;
-      // ISO2-codes (be, ch): alleen exacte match — voorkomt false positives (bettmer ⊃ be).
-      if (token.length <= 2) {
-        if (q === token) return true;
-      } else if (q.includes(token)) {
-        return true;
-      }
+      if (countryTokenMatchesQuery(q, token)) return true;
     }
     return false;
   }
