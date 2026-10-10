@@ -273,7 +273,17 @@
     regionFiltersTouched: false,
     /** true = alle regio’s op kaart (gedimd); false = alleen land/regio-filter zichtbaar. */
     mapExploreAllRegions: false,
+    searchSuggestHits: [],
+    searchSuggestActive: -1,
   };
+
+  function escapeHtml(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
 
   function haversineM(lat1, lon1, lat2, lon2) {
     const toRad = (d) => (d * Math.PI) / 180;
@@ -715,7 +725,7 @@
     }
     if (q) {
       const n = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q.toLowerCase())).length;
-      el.textContent = `${n} treffer in alle regio’s — klik kaart of lijst.`;
+      el.textContent = `${n} treffer in alle regio’s (Enter-zoek) — kies uit dropdown voor land/regio + klim.`;
     } else {
       const n = state.globalEntries.length;
       const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
@@ -1508,12 +1518,9 @@
       }
     } else if (logbookList) {
       items = applyDoneFilter(state.globalEntries);
-      if (items.length > 200) {
-        items = items.slice(0, 200);
-        capped = true;
+      if (mapFilterStrictActive()) {
+        items = items.filter((e) => isEntryMapActive(e));
       }
-    } else if (state.globalSearchReady && state.userLatLng && state.map) {
-      items = sortEntriesByDistance(entriesInMapBounds(), state.userLatLng);
       if (items.length > 200) {
         items = items.slice(0, 200);
         capped = true;
@@ -1530,6 +1537,21 @@
       items = applyDoneFilter(items);
       if (state.userLatLng) {
         items = sortEntriesByDistance(items, state.userLatLng);
+      }
+    } else if (selectedCountryCode() && state.globalSearchReady) {
+      items = applyDoneFilter(state.globalEntries.filter((e) => isEntryMapActive(e)));
+      if (state.userLatLng) {
+        items = sortEntriesByDistance(items, state.userLatLng);
+      }
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
+      }
+    } else if (state.globalSearchReady && state.userLatLng && state.map) {
+      items = sortEntriesByDistance(entriesInMapBounds(), state.userLatLng);
+      if (items.length > 200) {
+        items = items.slice(0, 200);
+        capped = true;
       }
     } else {
       list.innerHTML =
@@ -1746,6 +1768,7 @@
     state.searchQuery = "";
     const input = $("searchInput");
     if (input && input.value !== "") input.value = "";
+    hideSearchSuggest();
     if (window.location.hash) {
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
@@ -1754,6 +1777,198 @@
     renderList("");
     if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
     updateSearchHint();
+  }
+
+  function setSearchSuggestOpen(open) {
+    const input = $("searchInput");
+    const list = $("searchSuggestList");
+    if (input) input.setAttribute("aria-expanded", open ? "true" : "false");
+    if (list) list.hidden = !open;
+  }
+
+  function hideSearchSuggest() {
+    state.searchSuggestHits = [];
+    state.searchSuggestActive = -1;
+    const list = $("searchSuggestList");
+    if (list) {
+      list.innerHTML = "";
+      list.hidden = true;
+    }
+    setSearchSuggestOpen(false);
+  }
+
+  function scoreSearchEntry(entry, ql) {
+    const name = (entry.climb.name || "").toLowerCase();
+    const id = (entry.climb.id || "").toLowerCase();
+    if (name === ql) return 100;
+    if (id === ql) return 95;
+    if (name.startsWith(ql)) return 85;
+    if (name.includes(ql)) return 70;
+    if (entryMatchesQuery(entry, ql)) return 50;
+    return 0;
+  }
+
+  function rankSearchEntries(q, limit = 14) {
+    const ql = q.trim().toLowerCase();
+    if (ql.length < 2) return [];
+    const scored = [];
+    for (const entry of state.globalEntries) {
+      const score = scoreSearchEntry(entry, ql);
+      if (score) scored.push({ entry, score });
+    }
+    scored.sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.entry.climb.name.localeCompare(b.entry.climb.name, "nl", { sensitivity: "base" })
+    );
+    return scored.slice(0, limit).map((s) => s.entry);
+  }
+
+  function renderSearchSuggest(hits, q) {
+    const list = $("searchSuggestList");
+    if (!list) return;
+    state.searchSuggestHits = hits;
+    state.searchSuggestActive = -1;
+    if (!q.trim()) {
+      hideSearchSuggest();
+      return;
+    }
+    if (!hits.length) {
+      list.innerHTML =
+        '<li class="climb-search-suggest-empty" role="presentation">Geen treffers — Enter zoekt over alle regio’s</li>';
+      setSearchSuggestOpen(true);
+      return;
+    }
+    list.innerHTML = hits
+      .map((entry, i) => {
+        const reg = displayRegionTitle(entry.regionTitle || "");
+        const c = String(entry.country || "").toUpperCase();
+        return `<li role="option" data-index="${i}" id="searchSuggestOpt${i}">
+          <span class="climb-search-suggest-name">${escapeHtml(entry.climb.name)}</span>
+          <span class="climb-search-suggest-meta">${escapeHtml(reg)} · ${escapeHtml(c)}</span>
+        </li>`;
+      })
+      .join("");
+    list.innerHTML +=
+      '<li class="climb-search-suggest-hint" role="presentation">Enter = alle treffers op kaart</li>';
+    setSearchSuggestOpen(true);
+  }
+
+  function highlightSearchSuggestOption(index) {
+    const list = $("searchSuggestList");
+    if (!list) return;
+    list.querySelectorAll("li[data-index]").forEach((li) => {
+      li.classList.toggle("is-active", Number(li.dataset.index) === index);
+    });
+    state.searchSuggestActive = index;
+    const el = list.querySelector(`#searchSuggestOpt${index}`);
+    el?.scrollIntoView({ block: "nearest" });
+  }
+
+  async function pickSearchSuggestion(index) {
+    const entry = state.searchSuggestHits?.[index];
+    if (!entry) return;
+    hideSearchSuggest();
+    const input = $("searchInput");
+    if (input) input.value = entry.climb.name;
+    state.searchQuery = "";
+    state.regionFiltersTouched = true;
+    state.mapExploreAllRegions = false;
+    await selectClimbFromList(entry.climb.id, entry.regionUrl);
+    if (isMobileLayout()) setMobilePane("map");
+    updateMobileFiltersSummary();
+    updateSearchHint();
+  }
+
+  async function refreshSearchSuggest(raw) {
+    const q = raw.trim();
+    if (q.length < 2) {
+      hideSearchSuggest();
+      if (!q && state.searchQuery) resetSearchToOverview();
+      return;
+    }
+    await ensureGlobalSearchIndex({ background: true });
+    renderSearchSuggest(rankSearchEntries(q), q);
+  }
+
+  async function applySearchQuery(raw) {
+    const q = raw.trim();
+    state.searchQuery = q;
+    hideSearchSuggest();
+    if (!q) {
+      resetSearchToOverview();
+      return;
+    }
+    state.mapExploreAllRegions = true;
+    await ensureGlobalSearchIndex();
+    clearDetailSelection();
+    syncOverviewMarkers({ fit: true });
+    renderList(q);
+    updateSearchHint();
+  }
+
+  function initClimbSearchSuggest() {
+    const input = $("searchInput");
+    const wrap = $("climbSearchWrap");
+    const list = $("searchSuggestList");
+    if (!input) return;
+
+    let suggestTimer = null;
+
+    input.addEventListener("input", (e) => {
+      const q = e.target.value;
+      if (suggestTimer) clearTimeout(suggestTimer);
+      suggestTimer = setTimeout(() => void refreshSearchSuggest(q), 140);
+    });
+
+    input.addEventListener("focus", () => {
+      if (isMobileLayout()) setMobileFiltersOpen(true);
+      if (input.value.trim().length >= 2) void refreshSearchSuggest(input.value);
+    });
+
+    input.addEventListener("keydown", (e) => {
+      const hits = state.searchSuggestHits || [];
+      if (e.key === "ArrowDown" && hits.length) {
+        e.preventDefault();
+        const next = state.searchSuggestActive + 1;
+        highlightSearchSuggestOption(next >= hits.length ? 0 : next);
+        return;
+      }
+      if (e.key === "ArrowUp" && hits.length) {
+        e.preventDefault();
+        const prev = state.searchSuggestActive - 1;
+        highlightSearchSuggestOption(prev < 0 ? hits.length - 1 : prev);
+        return;
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (state.searchSuggestActive >= 0 && hits[state.searchSuggestActive]) {
+          void pickSearchSuggestion(state.searchSuggestActive);
+          return;
+        }
+        hideSearchSuggest();
+        void applySearchQuery(input.value);
+        return;
+      }
+      if (e.key === "Escape") {
+        hideSearchSuggest();
+      }
+    });
+
+    input.addEventListener("search", () => {
+      if (!input.value.trim()) resetSearchToOverview();
+    });
+
+    list?.addEventListener("click", (e) => {
+      const li = e.target.closest("li[data-index]");
+      if (!li) return;
+      void pickSearchSuggestion(Number(li.dataset.index));
+    });
+
+    document.addEventListener("click", (e) => {
+      if (wrap?.contains(e.target)) return;
+      hideSearchSuggest();
+    });
   }
 
   async function selectClimbFromList(id, regionUrl) {
@@ -2229,7 +2444,13 @@
     state.map.on("moveend zoomend", () => {
       if (state.mapMode === "detail") return;
       scheduleViewportRefresh();
-      if (state.userLatLng && !state.searchQuery.trim() && state.doneFilter === "all") {
+      if (
+        state.userLatLng &&
+        !state.searchQuery.trim() &&
+        state.doneFilter === "all" &&
+        !state.currentRegionUrl &&
+        !selectedCountryCode()
+      ) {
         renderList("");
       }
     });
@@ -2358,38 +2579,7 @@
       void loadRegion(url, { fitMap: true });
     });
 
-    const searchInput = $("searchInput");
-    let searchTimer = null;
-
-    async function applySearchQuery(raw) {
-      const q = raw.trim();
-      state.searchQuery = q;
-      if (!q) {
-        resetSearchToOverview();
-        return;
-      }
-      await ensureGlobalSearchIndex();
-      clearDetailSelection();
-      syncOverviewMarkers({ fit: true });
-      renderList(q);
-      updateSearchHint();
-    }
-
-    searchInput.addEventListener("input", (e) => {
-      const q = e.target.value;
-      if (searchTimer) clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => {
-        void applySearchQuery(q);
-      }, 180);
-    });
-
-    searchInput.addEventListener("focus", () => {
-      if (isMobileLayout()) setMobileFiltersOpen(true);
-    });
-
-    searchInput.addEventListener("search", () => {
-      if (!searchInput.value.trim()) resetSearchToOverview();
-    });
+    initClimbSearchSuggest();
 
     initMobileViewSwitch();
     initMobileFiltersCollapse();
