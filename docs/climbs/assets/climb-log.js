@@ -1,5 +1,5 @@
 /**
- * Fase 1 — handmatig logboek: welke klimmen zijn gedaan (per Google-account).
+ * Fase 1 — handmatig logboek: welke klimmen zijn gedaan / op wishlist (per Google-account).
  * Firestore: users/{uid}/climbLog/{datasetId__climbId}
  * Fallback: localStorage als Firestore niet beschikbaar is.
  */
@@ -38,6 +38,15 @@
     global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
   }
 
+  function shouldPersist(row) {
+    return Boolean(row?.done || row?.wishlist);
+  }
+
+  function getEntry(datasetId, climbId) {
+    if (!datasetId || !climbId) return null;
+    return state.byKey.get(climbKey(datasetId, climbId)) || null;
+  }
+
   function loadLocal() {
     state.byKey.clear();
     const email = state.email;
@@ -47,8 +56,12 @@
       if (!raw) return;
       const data = JSON.parse(raw);
       for (const row of data.entries || []) {
-        if (row.datasetId && row.climbId && row.done) {
-          state.byKey.set(climbKey(row.datasetId, row.climbId), row);
+        if (row.datasetId && row.climbId && shouldPersist(row)) {
+          state.byKey.set(climbKey(row.datasetId, row.climbId), {
+            ...row,
+            done: Boolean(row.done),
+            wishlist: Boolean(row.wishlist),
+          });
         }
       }
     } catch {
@@ -59,28 +72,50 @@
   function saveLocal() {
     const email = state.email;
     if (!email) return;
-    const entries = [...state.byKey.values()].filter((r) => r.done);
+    const entries = [...state.byKey.values()].filter((r) => shouldPersist(r));
     localStorage.setItem(
       `fietsklim-climb-log-v${STORAGE_VERSION}-${email}`,
       JSON.stringify({ version: STORAGE_VERSION, entries })
     );
   }
 
-  function setLocal(datasetId, climbId, done) {
+  function upsertLocal(datasetId, climbId, patch) {
     const key = climbKey(datasetId, climbId);
-    if (done) {
-      state.byKey.set(key, {
-        datasetId,
-        climbId,
-        done: true,
-        source: "manual",
-        updatedAt: new Date().toISOString(),
-      });
+    const prev = getEntry(datasetId, climbId) || {
+      datasetId,
+      climbId,
+      done: false,
+      wishlist: false,
+      source: "manual",
+    };
+    const next = {
+      ...prev,
+      ...patch,
+      datasetId,
+      climbId,
+      done: Boolean(patch.done != null ? patch.done : prev.done),
+      wishlist: Boolean(patch.wishlist != null ? patch.wishlist : prev.wishlist),
+      updatedAt: new Date().toISOString(),
+    };
+    if (shouldPersist(next)) {
+      state.byKey.set(key, next);
     } else {
       state.byKey.delete(key);
     }
     saveLocal();
     dispatchChanged();
+  }
+
+  function mergeEntryFromFirestore(d) {
+    if (!d?.datasetId || !d?.climbId) return;
+    const row = {
+      ...d,
+      done: Boolean(d.done),
+      wishlist: Boolean(d.wishlist),
+    };
+    if (shouldPersist(row)) {
+      state.byKey.set(climbKey(d.datasetId, d.climbId), row);
+    }
   }
 
   async function init() {
@@ -115,10 +150,7 @@
             (snap) => {
               state.byKey.clear();
               snap.forEach((doc) => {
-                const d = doc.data();
-                if (d?.datasetId && d?.climbId && d.done) {
-                  state.byKey.set(climbKey(d.datasetId, d.climbId), d);
-                }
+                mergeEntryFromFirestore(doc.data());
               });
               state.ready = true;
               dispatchChanged();
@@ -149,43 +181,92 @@
   }
 
   function isDone(datasetId, climbId) {
-    if (!datasetId || !climbId) return false;
-    return state.byKey.has(climbKey(datasetId, climbId));
+    return Boolean(getEntry(datasetId, climbId)?.done);
+  }
+
+  function isWishlist(datasetId, climbId) {
+    return Boolean(getEntry(datasetId, climbId)?.wishlist);
+  }
+
+  async function writeFirestore(datasetId, climbId, patch) {
+    const db = firebase.firestore();
+    const ref = db
+      .collection("users")
+      .doc(state.uid)
+      .collection("climbLog")
+      .doc(logDocId(datasetId, climbId));
+    const prev = getEntry(datasetId, climbId);
+    const next = {
+      datasetId,
+      climbId,
+      done: Boolean(prev?.done),
+      wishlist: Boolean(prev?.wishlist),
+      source: prev?.source || "manual",
+      ...patch,
+    };
+    next.done = Boolean(patch.done != null ? patch.done : next.done);
+    next.wishlist = Boolean(patch.wishlist != null ? patch.wishlist : next.wishlist);
+    if (shouldPersist(next)) {
+      await ref.set(
+        {
+          ...next,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } else {
+      await ref.delete();
+    }
   }
 
   async function setDone(datasetId, climbId, done) {
     if (!datasetId || !climbId) return;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {
-      const db = firebase.firestore();
-      const ref = db
-        .collection("users")
-        .doc(state.uid)
-        .collection("climbLog")
-        .doc(logDocId(datasetId, climbId));
-      if (done) {
-        await ref.set(
-          {
-            datasetId,
-            climbId,
-            done: true,
-            source: "manual",
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          },
-          { merge: true }
-        );
-      } else {
-        await ref.delete();
-      }
+      await writeFirestore(datasetId, climbId, { done: !!done });
       return;
     }
-    setLocal(datasetId, climbId, done);
+    upsertLocal(datasetId, climbId, { done: !!done });
+  }
+
+  async function setWishlist(datasetId, climbId, wishlist) {
+    if (!datasetId || !climbId) return;
+    if (state.mode === "firestore" && firebase.firestore && state.uid) {
+      await writeFirestore(datasetId, climbId, { wishlist: !!wishlist });
+      return;
+    }
+    upsertLocal(datasetId, climbId, { wishlist: !!wishlist });
   }
 
   function countDoneForDataset(datasetId) {
     if (!datasetId) return 0;
     let n = 0;
     for (const row of state.byKey.values()) {
-      if (row.datasetId === datasetId) n += 1;
+      if (row.datasetId === datasetId && row.done) n += 1;
+    }
+    return n;
+  }
+
+  function countWishlistForDataset(datasetId) {
+    if (!datasetId) return 0;
+    let n = 0;
+    for (const row of state.byKey.values()) {
+      if (row.datasetId === datasetId && row.wishlist) n += 1;
+    }
+    return n;
+  }
+
+  function totalDone() {
+    let n = 0;
+    for (const row of state.byKey.values()) {
+      if (row.done) n += 1;
+    }
+    return n;
+  }
+
+  function totalWishlist() {
+    let n = 0;
+    for (const row of state.byKey.values()) {
+      if (row.wishlist) n += 1;
     }
     return n;
   }
@@ -205,11 +286,15 @@
     teardown,
     isReady,
     isDone,
+    isWishlist,
     setDone,
+    setWishlist,
     climbKey,
     logDocId,
     datasetIdFromRegionUrl,
     countDoneForDataset,
-    totalDone: () => state.byKey.size,
+    countWishlistForDataset,
+    totalDone,
+    totalWishlist,
   };
 })(window);

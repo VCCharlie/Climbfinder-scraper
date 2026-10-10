@@ -332,41 +332,83 @@ header.app-header p#datasetMeta {
   min-width: 0;
 }
 
-.climb-done-toggle {
+.climb-item-toggles {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.1rem;
+}
+
+.climb-done-toggle,
+.climb-wishlist-toggle {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0.15rem;
+  cursor: pointer;
+}
+
+.climb-done-toggle input,
+.climb-wishlist-toggle input {
+  width: 1.05rem;
+  height: 1.05rem;
   cursor: pointer;
 }
 
 .climb-done-toggle input {
-  width: 1.05rem;
-  height: 1.05rem;
   accent-color: #15803d;
-  cursor: pointer;
+}
+
+.climb-wishlist-toggle input {
+  accent-color: #b45309;
 }
 
 .climb-item--done .climb-item-title span {
   color: #166534;
 }
 
-.climb-detail-done {
+.climb-detail-log-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  margin: 0 0 0.35rem;
+}
+
+.climb-detail-done,
+.climb-detail-wishlist {
   display: flex;
   align-items: center;
   gap: 0.45rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #166534;
-  margin: 0 0 0.35rem;
   cursor: pointer;
 }
 
-.climb-detail-done input {
+.climb-detail-done {
+  color: #166534;
+}
+
+.climb-detail-wishlist {
+  color: #b45309;
+}
+
+.climb-detail-done input,
+.climb-detail-wishlist input {
   width: 1.1rem;
   height: 1.1rem;
+}
+
+.climb-detail-done input {
   accent-color: #15803d;
+}
+
+.climb-detail-wishlist input {
+  accent-color: #b45309;
+}
+
+.climb-item--wishlist .climb-item-title span {
+  font-weight: 600;
 }
 
 .climb-item:hover {
