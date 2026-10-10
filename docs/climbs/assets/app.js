@@ -278,9 +278,12 @@
     geoFollow: false,
     geoLocateBtn: null,
     userLatLng: null,
-    /** Eén retry met lagere nauwkeurigheid na timeout / vage weigering. */
+    /** Na mislukte poging: één retry met hoge nauwkeurigheid (alleen na gebruikersgebaar). */
     geoLocateRetried: false,
     geoAcquireInFlight: false,
+    /** Vervangt normale searchHint-tekst (GPS-status / fout). */
+    geoHintOverride: null,
+    geoHintWarn: false,
     /** Tot eerste GPS-fix: geen fitBounds op regio (kaart blijft op jouw locatie). */
     geoInitialCenter: false,
     regionsGeo: null,
@@ -787,9 +790,33 @@
     });
   }
 
+  function setGeoHint(message, { warn = false } = {}) {
+    state.geoHintOverride = message;
+    state.geoHintWarn = warn;
+    const el = $("searchHint");
+    if (!el) return;
+    el.textContent = message;
+    el.classList.toggle("field-hint--geo-warn", warn);
+  }
+
+  function clearGeoHintOverride() {
+    if (!state.geoHintOverride) return;
+    state.geoHintOverride = null;
+    state.geoHintWarn = false;
+    const el = $("searchHint");
+    el?.classList.remove("field-hint--geo-warn");
+    updateSearchHint();
+  }
+
   function updateSearchHint() {
     const el = $("searchHint");
     if (!el) return;
+    if (state.geoHintOverride) {
+      el.textContent = state.geoHintOverride;
+      el.classList.toggle("field-hint--geo-warn", state.geoHintWarn);
+      return;
+    }
+    el.classList.remove("field-hint--geo-warn");
     const q = state.searchQuery.trim();
     if (mapFilterStrictActive()) {
       el.textContent =
@@ -2371,11 +2398,11 @@
     updateGeoLocateUi();
   }
 
-  function geoAcquireOptions(highAccuracy, { warmCache = false } = {}) {
+  function geoAcquireOptions(highAccuracy) {
     return {
       enableHighAccuracy: highAccuracy,
-      maximumAge: warmCache ? 300000 : highAccuracy ? 10000 : 120000,
-      timeout: highAccuracy ? 35000 : warmCache ? 12000 : 45000,
+      maximumAge: highAccuracy ? 15000 : 120000,
+      timeout: highAccuracy ? 50000 : 60000,
     };
   }
 
@@ -2397,14 +2424,47 @@
     }
   }
 
+  const BRAVE_GEO_HINT_KEY = "fietsklim.braveGeoHintSeen";
+
+  async function isBraveBrowser() {
+    if (navigator.brave?.isBrave) {
+      try {
+        return await navigator.brave.isBrave();
+      } catch {
+        return true;
+      }
+    }
+    return /Brave/i.test(navigator.userAgent);
+  }
+
+  function braveAndroidAppPermissionHint() {
+    return (
+      " Brave/Android: controleer ook app-locatie via Instellingen → Apps → Brave → Machtigingen → Locatie → Toestaan. " +
+      "Open FietsKlim daarna opnieuw via het icoon op je startscherm (PWA), niet alleen een tabblad."
+    );
+  }
+
+  async function maybeAppendBraveGeoHint(baseMsg, { force = false } = {}) {
+    let msg = baseMsg;
+    const brave = await isBraveBrowser();
+    if (!brave && !force) return msg;
+    try {
+      if (!force && localStorage.getItem(BRAVE_GEO_HINT_KEY) === "1") return msg;
+      localStorage.setItem(BRAVE_GEO_HINT_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    msg += braveAndroidAppPermissionHint();
+    return msg;
+  }
+
   function buildGeoErrorMessage(err, permissionState) {
     const code = err?.code;
     if (code === 1) {
       if (permissionState === "granted") {
         return (
-          "Locatie staat voor deze site op Toegestaan, maar er kwam geen GPS-positie binnen. " +
-          "Zet locatie/GPS aan op je telefoon (ook voor Chrome of Brave in Android-instellingen). " +
-          "Gebruik je Brave: zet Shields uit of sta locatie toe voor vccharlie.github.io."
+          "Locatie staat voor deze site op Toegestaan, maar de browser gaf geen GPS-fix (typisch bij PWA/Brave). " +
+          "Zet locatie/GPS aan op je telefoon en controleer browser-app-machtigingen."
         );
       }
       if (permissionState === "denied") {
@@ -2437,10 +2497,13 @@
       if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
     }
     const perm = await queryGeoPermission();
-    const msg = buildGeoErrorMessage(err, perm);
-    const hint = $("searchHint");
-    if (hint) hint.textContent = msg;
-    alert(msg);
+    let msg = buildGeoErrorMessage(err, perm);
+    const needsBraveHint =
+      perm === "granted" || err?.code === 1 || err?.code === 2 || (await isBraveBrowser());
+    if (needsBraveHint) {
+      msg = await maybeAppendBraveGeoHint(msg, { force: perm === "granted" });
+    }
+    setGeoHint(msg, { warn: true });
   }
 
   function onGeoPosition(pos) {
@@ -2487,8 +2550,8 @@
         refreshViewportClimbs();
       }
       renderList(state.searchQuery);
-      updateSearchHint();
     }
+    clearGeoHintOverride();
     updateGeoLocateUi();
   }
 
@@ -2548,42 +2611,24 @@
     updateGeoLocateUi();
   }
 
-  /** Autostart: alleen cache/WiFi-fix, geen watch zonder gebruikersgebaar (Android). */
-  function tryGeoWarmStart() {
-    if (!navigator.geolocation || state.userLatLng) return;
-    state.geoFollow = true;
-    state.geoInitialCenter = true;
-    state.geoAcquireInFlight = true;
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        state.geoAcquireInFlight = false;
-        onGeoPosition(pos);
-        startGeoWatchUpdates();
-      },
-      (err) => {
-        console.warn("Geolocatie (autostart):", err);
-        state.geoInitialCenter = false;
-        state.geoAcquireInFlight = false;
-        state.geoFollow = false;
-        updateGeoLocateUi();
-      },
-      geoAcquireOptions(false, { warmCache: true })
-    );
-  }
-
   function startGeoLocate(options = {}) {
     const { silent = false, highAccuracy = false } = options;
     if (!navigator.geolocation) {
-      if (!silent) alert("Geolocatie wordt niet ondersteund in deze browser.");
+      if (!silent) {
+        setGeoHint("Geolocatie wordt niet ondersteund in deze browser.", { warn: true });
+      }
       return;
     }
-    if (!silent) state.geoLocateRetried = false;
+    if (!silent) {
+      state.geoLocateRetried = false;
+      setGeoHint("Locatie opvragen… (kan een halve minuut duren)", { warn: false });
+    }
     requestGeoFix(silent, highAccuracy);
   }
 
   function toggleGeoLocate() {
     if (!navigator.geolocation) {
-      alert("Geolocatie wordt niet ondersteund in deze browser.");
+      setGeoHint("Geolocatie wordt niet ondersteund in deze browser.", { warn: true });
       return;
     }
     const waitingForFix =
@@ -2751,7 +2796,6 @@
 
   async function init() {
     initMap();
-    tryGeoWarmStart();
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];

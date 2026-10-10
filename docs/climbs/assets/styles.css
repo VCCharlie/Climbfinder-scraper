@@ -215,6 +215,15 @@ header.app-header p#datasetMeta {
   margin-top: 0.15rem;
 }
 
+.header-tools .field-hint--geo-warn {
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.72rem;
+}
+
 .sidebar {
   grid-row: 2;
   grid-column: 1;
