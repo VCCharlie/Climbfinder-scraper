@@ -135,6 +135,24 @@ def _parse_difficulty(category: str | None) -> float | None:
         return None
 
 
+def parse_difficulty_points(page_html: str) -> int | None:
+    """Climbfinder 'Difficulty points' (bolt / Cotacol-style score) from climb page stats table."""
+    m = re.search(
+        r"Difficulty points[\s\S]*?<td[^>]*>\s*([\d.,]+)",
+        page_html,
+        re.IGNORECASE,
+    )
+    if not m:
+        return None
+    try:
+        val = float(m.group(1).replace(",", "."))
+    except ValueError:
+        return None
+    if val < 0 or not val:
+        return None
+    return int(round(val))
+
+
 def normalize_climb_category(category: str | None) -> str | None:
     """HC / SHC / 1–5 as on Climbfinder (Alpine-style classification)."""
     if not category or not str(category).strip():
@@ -245,6 +263,7 @@ def parse_climb_page(
 
     slug_id = slug or re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     classification = normalize_climb_category(category)
+    difficulty_points = parse_difficulty_points(page_html)
 
     return {
         "id": slug_id,
@@ -257,6 +276,7 @@ def parse_climb_page(
             "slug": slug,
             "url": f"https://climbfinder.com/en/climbs/{slug}",
             "category": category,
+            **({"difficulty_points": difficulty_points} if difficulty_points is not None else {}),
         },
         "stats": {
             "length_m": length_i,
@@ -267,6 +287,7 @@ def parse_climb_page(
             "steepest_100m_pct": steepest_100m,
             "steepest_1km_pct": steepest_1km,
             "classification": classification,
+            **({"difficulty_points": difficulty_points} if difficulty_points is not None else {}),
         },
         "difficulty_score": _parse_difficulty(category),
         "geometry": {"type": "LineString", "coordinates": coords},
