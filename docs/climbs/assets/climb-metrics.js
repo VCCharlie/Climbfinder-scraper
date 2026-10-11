@@ -293,6 +293,69 @@
     return `<span class="climb-cat-badge ${categoryBadgeClass(cat)}${sz}" title="${categoryDescription(cat)}">${cat}</span>`;
   }
 
+  /** Numeric Climbfinder category when present (1–5); HC/SHC stay categorical. */
+  function climbDifficultyScore(climb) {
+    if (climb?.difficulty_score != null && Number.isFinite(climb.difficulty_score)) {
+      return climb.difficulty_score;
+    }
+    const cat = climbCategory(climb);
+    if (cat && /^[1-5]$/.test(cat)) return Number(cat);
+    return null;
+  }
+
+  /** Fallback zwaarte-proxy from average gradient when import lacks category. */
+  function difficultyProxyFromGradient(climb) {
+    const g = climb?.stats?.avg_gradient_pct;
+    if (g == null || !Number.isFinite(g)) return null;
+    if (g < 4) return 5;
+    if (g < 6) return 4;
+    if (g < 8) return 3;
+    if (g < 10) return 2;
+    return 1;
+  }
+
+  function difficultyTierKey(climb) {
+    const cat = climbCategory(climb);
+    if (cat === "HC" || cat === "SHC") return cat;
+    const score = climbDifficultyScore(climb);
+    if (score != null) {
+      const n = Math.max(1, Math.min(5, Math.round(score)));
+      return String(n);
+    }
+    const proxy = difficultyProxyFromGradient(climb);
+    return proxy != null ? String(proxy) : "unknown";
+  }
+
+  const DIFFICULTY_MAP_COLORS = {
+    5: { fill: "#22c55e", stroke: "#15803d", label: "Cat. 5" },
+    4: { fill: "#eab308", stroke: "#a16207", label: "Cat. 4" },
+    3: { fill: "#fb923c", stroke: "#c2410c", label: "Cat. 3" },
+    2: { fill: "#f97316", stroke: "#ea580c", label: "Cat. 2" },
+    1: { fill: "#ef4444", stroke: "#b91c1c", label: "Cat. 1" },
+    HC: { fill: "#c084fc", stroke: "#7e22ce", label: "HC" },
+    SHC: { fill: "#7e22ce", stroke: "#581c87", label: "SHC" },
+    unknown: { fill: "#cbd5e1", stroke: "#64748b", label: "Onbekend" },
+  };
+
+  function difficultyMapColors(climb) {
+    const key = difficultyTierKey(climb);
+    return DIFFICULTY_MAP_COLORS[key] || DIFFICULTY_MAP_COLORS.unknown;
+  }
+
+  /** Short label on map markers when zoomed in (Climbfinder-style). */
+  function difficultyMarkerLabel(climb) {
+    const cat = climbCategory(climb);
+    if (cat) return cat;
+    const score = climbDifficultyScore(climb);
+    if (score != null) return String(Math.round(score));
+    const proxy = difficultyProxyFromGradient(climb);
+    return proxy != null ? String(proxy) : "";
+  }
+
+  function difficultyLegendTiers() {
+    return ["5", "4", "3", "2", "1", "HC", "SHC", "unknown"];
+  }
+
   global.ClimbMetrics = {
     segmentGradients,
     steepestGradientPct,
@@ -311,5 +374,12 @@
     climbCategory,
     categoryDescription,
     categoryBadgeHtml,
+    climbDifficultyScore,
+    difficultyProxyFromGradient,
+    difficultyTierKey,
+    difficultyMapColors,
+    difficultyMarkerLabel,
+    difficultyLegendTiers,
+    DIFFICULTY_MAP_COLORS,
   };
 })(typeof window !== "undefined" ? window : globalThis);

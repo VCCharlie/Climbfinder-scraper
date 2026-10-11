@@ -237,6 +237,20 @@
     upsertLocal(datasetId, climbId, { wishlist: !!wishlist });
   }
 
+  /** Atomic update of gedaan + wishlist (één Firestore-write). */
+  async function setFlags(datasetId, climbId, flags) {
+    if (!datasetId || !climbId) return;
+    const patch = {};
+    if (flags.done !== undefined) patch.done = !!flags.done;
+    if (flags.wishlist !== undefined) patch.wishlist = !!flags.wishlist;
+    if (!Object.keys(patch).length) return;
+    if (state.mode === "firestore" && firebase.firestore && state.uid) {
+      await writeFirestore(datasetId, climbId, patch);
+      return;
+    }
+    upsertLocal(datasetId, climbId, patch);
+  }
+
   function countDoneForDataset(datasetId) {
     if (!datasetId) return 0;
     let n = 0;
@@ -289,6 +303,7 @@
     isWishlist,
     setDone,
     setWishlist,
+    setFlags,
     climbKey,
     logDocId,
     datasetIdFromRegionUrl,
