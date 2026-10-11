@@ -2,6 +2,7 @@
 
 (function () {
   const MIN_ZOOM_NEARBY_ROUTES = 12;
+  const MIN_ZOOM_MARKER_LABELS = 13;
   const MAX_NEARBY_ROUTES = 40;
   const MAX_DIM_ROUTES = 35;
   const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
@@ -483,47 +484,232 @@
     }
   }
 
+  function refreshUiAfterClimbLogChange() {
+    renderList(state.searchQuery);
+    updateClimbLogSummary();
+    syncClimbDetailLogToggles();
+    if (state.activeClimb && isMobileMapPaneActive()) {
+      updateMapTouchSheet(state.activeClimb);
+    }
+    if (state.globalSearchReady) {
+      if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+      else if (state.mapMode !== "detail") refreshViewportClimbs();
+    }
+  }
+
+  async function applyClimbStatusFlags(entry, flags) {
+    if (typeof FietsKlimClimbLog === "undefined") return;
+    const datasetId = entryDatasetId(entry);
+    if (!datasetId) return;
+    try {
+      if (FietsKlimClimbLog.setFlags) {
+        await FietsKlimClimbLog.setFlags(datasetId, entry.climb.id, flags);
+      } else {
+        if (flags.done !== undefined) await FietsKlimClimbLog.setDone(datasetId, entry.climb.id, flags.done);
+        if (flags.wishlist !== undefined) {
+          await FietsKlimClimbLog.setWishlist(datasetId, entry.climb.id, flags.wishlist);
+        }
+      }
+      refreshUiAfterClimbLogChange();
+    } catch (e) {
+      console.error(e);
+      alert("Status opslaan mislukt: " + (e.message || e));
+    }
+  }
+
+  const STATUS_ICON = {
+    done: `<svg class="climb-status-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    wishlist: `<svg class="climb-status-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16l-6-4-6 4V4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    none: `<svg class="climb-status-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/></svg>`,
+  };
+
+  function climbStatusSummaryText(entry) {
+    const done = climbIsDone(entry);
+    const wish = climbIsWishlist(entry);
+    if (done && wish) return "Geklommen · Bucket list";
+    if (done) return "Geklommen";
+    if (wish) return "Bucket list";
+    return "Nog niet geklommen";
+  }
+
+  function climbStatusToggleButtonsHtml(entry) {
+    const done = climbIsDone(entry);
+    const wish = climbIsWishlist(entry);
+    return `
+      <div class="climb-status-toggles" role="group" aria-label="Mijn status">
+        <button type="button" class="climb-status-icon-btn climb-status-icon-btn--done${done ? " is-on" : ""}" data-flag="done" title="Geklommen" aria-label="Geklommen" aria-pressed="${done}">
+          ${STATUS_ICON.done}
+        </button>
+        <button type="button" class="climb-status-icon-btn climb-status-icon-btn--wish${wish ? " is-on" : ""}" data-flag="wishlist" title="Bucket list" aria-label="Bucket list" aria-pressed="${wish}">
+          ${STATUS_ICON.wishlist}
+        </button>
+      </div>`;
+  }
+
+  function bindClimbStatusToggleButtons(container, entry) {
+    if (!container) return;
+    container.querySelectorAll(".climb-status-icon-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const flag = btn.dataset.flag;
+        if (flag === "done") {
+          void applyClimbStatusFlags(entry, { done: !climbIsDone(entry) });
+        } else if (flag === "wishlist") {
+          void applyClimbStatusFlags(entry, { wishlist: !climbIsWishlist(entry) });
+        }
+      });
+    });
+  }
+
+  function closeClimbStatusMenu() {
+    const menu = $("climbStatusMenu");
+    const btn = $("climbStatusOpen");
+    if (menu) menu.hidden = true;
+    btn?.setAttribute("aria-expanded", "false");
+  }
+
+  function syncClimbStatusMenu(entry) {
+    const menu = $("climbStatusMenu");
+    if (!menu || menu.hidden) return;
+    const done = climbIsDone(entry);
+    const wish = climbIsWishlist(entry);
+    menu.querySelectorAll("[data-status-action]").forEach((el) => {
+      const action = el.dataset.statusAction;
+      let on = false;
+      if (action === "done") on = done;
+      else if (action === "wishlist") on = wish;
+      else if (action === "none") on = !done && !wish;
+      el.classList.toggle("is-selected", on);
+      el.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function bindClimbStatusMenu(entry) {
+    const menu = $("climbStatusMenu");
+    if (!menu) return;
+    menu.querySelectorAll("[data-status-action]").forEach((el) => {
+      el.onclick = () => {
+        const action = el.dataset.statusAction;
+        if (action === "done") {
+          void applyClimbStatusFlags(entry, { done: !climbIsDone(entry) });
+        } else if (action === "wishlist") {
+          void applyClimbStatusFlags(entry, { wishlist: !climbIsWishlist(entry) });
+        } else if (action === "none") {
+          void applyClimbStatusFlags(entry, { done: false, wishlist: false });
+          closeClimbStatusMenu();
+        }
+        syncClimbStatusMenu(entry);
+      };
+    });
+  }
+
   function syncClimbDetailLogToggles() {
     const logWrap = $("climbDetailLogWrap");
-    const doneWrap = $("climbDetailDoneWrap");
-    const box = $("climbDetailDone");
-    const wishWrap = $("climbDetailWishlistWrap");
-    const wishBox = $("climbDetailWishlist");
-    if (!logWrap || !doneWrap || !box || !wishWrap || !wishBox) return;
+    const openBtn = $("climbStatusOpen");
+    const summary = $("climbStatusSummary");
+    if (!logWrap || !openBtn) return;
     if (!state.activeClimb || !state.bundle?.meta?.id || state.mapMode !== "detail") {
       logWrap.hidden = true;
+      closeClimbStatusMenu();
       return;
     }
     logWrap.hidden = false;
-    doneWrap.hidden = false;
-    wishWrap.hidden = false;
     const entry = {
       climb: state.activeClimb,
       regionId: state.bundle.meta.id,
       regionUrl: state.currentRegionUrl,
     };
-    box.checked = climbIsDone(entry);
-    wishBox.checked = climbIsWishlist(entry);
-    box.onchange = () => {
-      void toggleClimbDone(entry, box.checked).then(() => {
-        renderList(state.searchQuery);
-        updateClimbLogSummary();
-        if (state.globalSearchReady) {
-          if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
-          else refreshViewportClimbs();
-        }
-      });
+    if (summary) summary.textContent = climbStatusSummaryText(entry);
+    bindClimbStatusMenu(entry);
+    syncClimbStatusMenu(entry);
+  }
+
+  function difficultyColorsForClimb(climb) {
+    if (typeof ClimbMetrics !== "undefined" && ClimbMetrics.difficultyMapColors) {
+      return ClimbMetrics.difficultyMapColors(climb);
+    }
+    return { fill: "#cbd5e1", stroke: "#64748b", label: "?" };
+  }
+
+  function routeStyleForEntry(entry, baseStyle) {
+    const colors = difficultyColorsForClimb(entry.climb);
+    const dimmed = baseStyle === ROUTE_STYLE.dim;
+    return {
+      ...baseStyle,
+      color: dimmed ? baseStyle.color : colors.stroke,
+      fillColor: colors.fill,
     };
-    wishBox.onchange = () => {
-      void toggleClimbWishlist(entry, wishBox.checked).then(() => {
-        renderList(state.searchQuery);
-        updateClimbLogSummary();
-        if (state.globalSearchReady) {
-          if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
-          else refreshViewportClimbs();
-        }
+  }
+
+  function createMapMarkerForEntry(entry, options = {}) {
+    const { active = false, dimmed = false } = options;
+    const latlng = climbLatLng(entry.climb);
+    if (!latlng) return null;
+    const done = climbIsDone(entry);
+    const colors = difficultyColorsForClimb(entry.climb);
+    const zoom = state.map?.getZoom() ?? 0;
+    const label =
+      typeof ClimbMetrics !== "undefined" && ClimbMetrics.difficultyMarkerLabel
+        ? ClimbMetrics.difficultyMarkerLabel(entry.climb)
+        : "";
+    const showLabel = zoom >= MIN_ZOOM_MARKER_LABELS && label && !dimmed;
+
+    if (showLabel) {
+      const icon = L.divIcon({
+        className: "fietsklim-map-marker-host",
+        html: `<div class="fietsklim-map-marker${active ? " is-active" : ""}${done ? " is-done" : ""}${dimmed ? " is-dim" : ""}" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}"><span class="fietsklim-map-marker-label">${label}</span></div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
       });
-    };
+      return L.marker(latlng, { icon });
+    }
+
+    const fill = dimmed ? "#cbd5e1" : colors.fill;
+    const stroke = dimmed ? "#94a3b8" : done ? "#15803d" : active ? "#5b21b6" : colors.stroke;
+    const touch = isCoarsePointer();
+    return L.circleMarker(latlng, {
+      radius: touch ? (active ? 9 : 7) : active ? 7 : 5,
+      color: stroke,
+      weight: active || done ? 2.5 : 1.5,
+      fillColor: fill,
+      fillOpacity: dimmed ? 0.65 : active || done ? 0.95 : 0.88,
+    });
+  }
+
+  function updateMapDifficultyLegend() {
+    const el = $("mapDifficultyLegend");
+    if (!el || !state.map || state.mapMode === "detail") {
+      if (el) el.hidden = true;
+      return;
+    }
+    if (typeof ClimbMetrics === "undefined" || !ClimbMetrics.difficultyLegendTiers) {
+      el.hidden = true;
+      return;
+    }
+    const entries =
+      state.mapMode === "overview" ? entriesForMapDisplay() : entriesInMapBounds();
+    const counts = new Map();
+    for (const entry of entries) {
+      const key = ClimbMetrics.difficultyTierKey(entry.climb);
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+    if (!counts.size) {
+      el.hidden = true;
+      return;
+    }
+    const tiers = ClimbMetrics.difficultyLegendTiers().filter((t) => counts.has(t));
+    if (!tiers.length) {
+      el.hidden = true;
+      return;
+    }
+    el.hidden = false;
+    el.innerHTML = `<span class="map-difficulty-legend-title">Zwaarte</span>${tiers
+      .map((t) => {
+        const pal = ClimbMetrics.DIFFICULTY_MAP_COLORS[t];
+        const n = counts.get(t) || 0;
+        return `<span class="map-difficulty-legend-item"><span class="map-difficulty-swatch" style="background:${pal.fill};border-color:${pal.stroke}"></span>${pal.label} <span class="map-difficulty-count">(${n})</span></span>`;
+      })
+      .join("")}`;
   }
 
   function syncClimbDetailDoneToggle() {
@@ -1279,6 +1465,26 @@
     const st = climb.stats || {};
     $("mapTouchTitle").textContent = climb.name;
     $("mapTouchStats").textContent = climbStatsLine(st, climb);
+    const statusHost = $("mapTouchStatus");
+    if (statusHost && state.bundle?.meta?.id && state.mapMode === "detail") {
+      const entry = {
+        climb,
+        regionId: state.bundle.meta.id,
+        regionUrl: state.currentRegionUrl,
+      };
+      statusHost.innerHTML = `
+        <p class="map-touch-sheet-kicker">Mijn status</p>
+        ${climbStatusToggleButtonsHtml(entry)}
+        <button type="button" class="map-touch-status-clear" data-status-action="none">Nog niet geklommen</button>`;
+      bindClimbStatusToggleButtons(statusHost, entry);
+      statusHost.querySelector(".map-touch-status-clear")?.addEventListener("click", () => {
+        void applyClimbStatusFlags(entry, { done: false, wishlist: false });
+      });
+      statusHost.hidden = false;
+    } else if (statusHost) {
+      statusHost.hidden = true;
+      statusHost.innerHTML = "";
+    }
     sheet.hidden = false;
   }
 
@@ -1407,7 +1613,7 @@
       );
       const tip = regLabel ? `${entry.climb.name} · ${regLabel}` : entry.climb.name;
       const line = L.polyline(latlngs, {
-        ...style,
+        ...routeStyleForEntry(entry, style),
         interactive: !isCoarsePointer() && !isDim,
       });
       bindMapTooltip(line, tip);
@@ -1453,16 +1659,8 @@
 
     const addStartMarker = (entry, dimmed) => {
       if (withRouteKeys.has(entryKey(entry))) return;
-      const latlngs = latLngsFromClimb(entry.climb);
-      const start = latlngs[0] || climbLatLng(entry.climb);
-      if (!start) return;
-      const style = { ...climbEndpointStyles(isCoarsePointer() ? "md" : "sm").start };
-      if (dimmed) {
-        style.fillColor = "#cbd5e1";
-        style.color = "#94a3b8";
-        style.fillOpacity = 0.75;
-      }
-      const marker = L.circleMarker(start, style);
+      const marker = createMapMarkerForEntry(entry, { active: !dimmed, dimmed });
+      if (!marker) return;
       const regLabel = regionTitleFromIndexEntry(
         state.indexRegions.find((r) => r.url === entry.regionUrl)
       );
@@ -1476,6 +1674,7 @@
 
     for (const entry of inactiveEntries) addStartMarker(entry, true);
     for (const entry of activeEntries) addStartMarker(entry, false);
+    updateMapDifficultyLegend();
   }
 
   function scheduleViewportRefresh() {
@@ -1574,18 +1773,9 @@
       fitBounds.push(...boundsForEntries(mapFilterStrictActive() ? entries : allEntries));
     }
     for (const entry of entries) {
-      const latlng = climbLatLng(entry.climb);
-      if (!latlng) continue;
       const active = isEntryMapActive(entry);
-      const done = climbIsDone(entry);
-      const touch = isCoarsePointer();
-      const marker = L.circleMarker(latlng, {
-        radius: touch ? (active ? 9 : 7) : active ? 6 : 4,
-        color: done ? "#15803d" : active ? "#5b21b6" : "#94a3b8",
-        weight: active || done ? 2 : 1,
-        fillColor: done ? "#22c55e" : active ? "#7c3aed" : "#cbd5e1",
-        fillOpacity: active || done ? 0.9 : 0.55,
-      });
+      const marker = createMapMarkerForEntry(entry, { active, dimmed: !active });
+      if (!marker) continue;
       const reg = entry.regionTitle ? ` · ${displayRegionTitle(entry.regionTitle)}` : "";
       const activeTip = `${entry.climb.name}${reg}`;
       const dimTip = `${entry.climb.name}${reg}${reg ? " — klik = regio kiezen" : ""}`;
@@ -1597,6 +1787,7 @@
       state.map.fitBounds(fitBounds, { padding: [36, 36], maxZoom: 14 });
     }
     refreshViewportClimbs();
+    updateMapDifficultyLegend();
     updateSearchHint();
   }
 
@@ -1718,14 +1909,7 @@
           ? `<div class="dataset-tag">${displayRegionTitle(entry.regionTitle)}</div>`
           : "";
       el.innerHTML = `
-        <div class="climb-item-toggles">
-          <label class="climb-wishlist-toggle" title="Op wishlist">
-            <input type="checkbox" class="climb-wishlist-checkbox" ${wish ? "checked" : ""} aria-label="Wishlist: ${climb.name.replace(/"/g, "&quot;")}" />
-          </label>
-          <label class="climb-done-toggle" title="Markeer als gedaan">
-            <input type="checkbox" class="climb-done-checkbox" ${done ? "checked" : ""} aria-label="Gedaan: ${climb.name.replace(/"/g, "&quot;")}" />
-          </label>
-        </div>
+        ${climbStatusToggleButtonsHtml(entry)}
         <div class="climb-item-body">
           <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
           ${datasetLine}
@@ -1733,21 +1917,9 @@
           <div>${tags} ${cf}</div>
         </div>
       `;
-      for (const sel of [".climb-done-checkbox", ".climb-wishlist-checkbox"]) {
-        el.querySelector(sel)?.addEventListener("click", (e) => {
-          e.stopPropagation();
-        });
-      }
-      el.querySelector(".climb-done-checkbox")?.addEventListener("change", (e) => {
-        e.stopPropagation();
-        void toggleClimbDone(entry, e.target.checked);
-      });
-      el.querySelector(".climb-wishlist-checkbox")?.addEventListener("change", (e) => {
-        e.stopPropagation();
-        void toggleClimbWishlist(entry, e.target.checked);
-      });
+      bindClimbStatusToggleButtons(el, entry);
       el.addEventListener("click", (e) => {
-        if (e.target.closest(".climb-item-toggles")) return;
+        if (e.target.closest(".climb-status-toggles")) return;
         if (e.target.tagName === "A") return;
         void selectClimbFromList(climb.id, entry.regionUrl);
       });
@@ -2860,6 +3032,7 @@
         if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
         else refreshViewportClimbs();
       }
+      updateMapDifficultyLegend();
     });
 
     select.addEventListener("change", () => {
@@ -2886,7 +3059,26 @@
     $("profileExpandLink")?.addEventListener("click", () => openProfileExpand());
     $("profileExpandClose")?.addEventListener("click", () => closeProfileExpand());
     $("profileExpandBackdrop")?.addEventListener("click", () => closeProfileExpand());
+    $("climbStatusOpen")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const menu = $("climbStatusMenu");
+      const btn = $("climbStatusOpen");
+      if (!menu || !btn) return;
+      const open = menu.hidden;
+      if (open) {
+        menu.hidden = false;
+        btn.setAttribute("aria-expanded", "true");
+        syncClimbDetailLogToggles();
+      } else {
+        closeClimbStatusMenu();
+      }
+    });
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".climb-status-picker")) return;
+      closeClimbStatusMenu();
+    });
     document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeClimbStatusMenu();
       if (e.key === "Escape" && state.profileExpanded) {
         closeProfileExpand();
         return;
