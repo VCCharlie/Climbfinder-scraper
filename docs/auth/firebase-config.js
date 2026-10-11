@@ -35,4 +35,11 @@ window.FIETSKLIM_AUTH_CONFIG = {
     repo: "VCCharlie/Climbfinder-scraper",
     region: "europe-west1",
   },
+  /**
+   * Carto Voyager: plak hier alleen je CARTO Basemaps API-sleutel (Firebase staat al ingevuld).
+   * Aanvragen: https://carto.com/basemaps/apikey/ — zie docs/climbs/MAP_TILES.md
+   */
+  mapTiles: {
+    cartoApiKey: "",
+  },
 };
