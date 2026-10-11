@@ -49,13 +49,12 @@ window.FIETSKLIM_AUTH_CONFIG = {
     region: "europe-west1",
   },
   /**
-   * Optioneel: CARTO Basemaps API-sleutel voor Carto Voyager als standaardkaart (climbs/index.html).
-   * Gratis tier (~5M tegels/maand); aanvragen op https://carto.com/basemaps/apikey/
-   * Zie docs/climbs/MAP_TILES.md (referer: vccharlie.github.io, localhost).
-   * Commit deze sleutel nooit — alleen in lokale docs/auth/firebase-config.js.
+   * Carto Voyager (climbs/index.html): plak je CARTO Basemaps API-sleutel tussen de aanhalingstekens.
+   * Gratis tier (~5M tegels/maand) — https://carto.com/basemaps/apikey/
+   * Referer-restrictie: zie docs/climbs/MAP_TILES.md (vccharlie.github.io, localhost).
    */
   mapTiles: {
-    cartoApiKey: "",
+    cartoApiKey: "PLAK_HIER_CARTO_API_KEY",
   },
   /** Alternatief veld (zelfde sleutel als mapTiles.cartoApiKey). */
   // CARTO_API_KEY: "",
