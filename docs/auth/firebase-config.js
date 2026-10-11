@@ -40,6 +40,6 @@ window.FIETSKLIM_AUTH_CONFIG = {
    * Aanvragen: https://carto.com/basemaps/apikey/ — zie docs/climbs/MAP_TILES.md
    */
   mapTiles: {
-    cartoApiKey: "",
+    cartoApiKey: "cb1_4h4w_1_2e6e2d0ac33b270f2dace12d",
   },
 };
