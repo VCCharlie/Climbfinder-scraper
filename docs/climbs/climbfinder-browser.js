@@ -82,6 +82,14 @@
     return Number.isFinite(n) ? n : null;
   }
 
+  function parseDifficultyPoints(pageHtml) {
+    const m = pageHtml.match(/Difficulty points[\s\S]*?<td[^>]*>\s*([\d.,]+)/i);
+    if (!m) return null;
+    const val = parseFloat(String(m[1]).replace(",", "."));
+    if (!Number.isFinite(val) || val <= 0) return null;
+    return Math.round(val);
+  }
+
   function parseClimbPage(pageHtml, slug, regionLabel, country, tags) {
     const idM = pageHtml.match(/climbId\s*=\s*(\d+)/);
     const dataM = pageHtml.match(
@@ -132,6 +140,7 @@
       typeof ClimbMetrics !== "undefined"
         ? ClimbMetrics.climbCategory({ climbfinder: { category }, difficulty_score: parseDifficulty(category) })
         : category && String(category).trim().toUpperCase() || null;
+    const difficultyPoints = parseDifficultyPoints(pageHtml);
 
     return {
       id: slug,
@@ -144,6 +153,7 @@
         slug,
         url: `https://climbfinder.com/en/climbs/${slug}`,
         category,
+        ...(difficultyPoints != null ? { difficulty_points: difficultyPoints } : {}),
       },
       stats: {
         length_m: lengthM,
@@ -154,6 +164,7 @@
         steepest_100m_pct: steepest.steepest_100m_pct,
         steepest_1km_pct: steepest.steepest_1km_pct,
         classification,
+        ...(difficultyPoints != null ? { difficulty_points: difficultyPoints } : {}),
       },
       difficulty_score: parseDifficulty(category),
       geometry: { type: "LineString", coordinates },

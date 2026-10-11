@@ -703,7 +703,11 @@
       return;
     }
     el.hidden = false;
-    el.innerHTML = `<span class="map-difficulty-legend-title">Zwaarte</span>${tiers
+    const legendTitle =
+      typeof ClimbMetrics.difficultyLegendTitle === "function"
+        ? ClimbMetrics.difficultyLegendTitle(entries.map((e) => e.climb))
+        : "Zwaarte";
+    el.innerHTML = `<span class="map-difficulty-legend-title">${legendTitle}</span>${tiers
       .map((t) => {
         const pal = ClimbMetrics.DIFFICULTY_MAP_COLORS[t];
         const n = counts.get(t) || 0;

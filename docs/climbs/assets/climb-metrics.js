@@ -293,6 +293,17 @@
     return `<span class="climb-cat-badge ${categoryBadgeClass(cat)}${sz}" title="${categoryDescription(cat)}">${cat}</span>`;
   }
 
+  /** Climbfinder difficulty points (bolt score on map), when imported from climb page. */
+  function climbLightningScore(climb) {
+    const raw =
+      climb?.climbfinder?.difficulty_points ??
+      climb?.stats?.difficulty_points ??
+      climb?.difficulty_points;
+    if (raw == null || !Number.isFinite(Number(raw))) return null;
+    const n = Number(raw);
+    return n > 0 ? n : null;
+  }
+
   /** Numeric Climbfinder category when present (1–5); HC/SHC stay categorical. */
   function climbDifficultyScore(climb) {
     if (climb?.difficulty_score != null && Number.isFinite(climb.difficulty_score)) {
@@ -301,6 +312,16 @@
     const cat = climbCategory(climb);
     if (cat && /^[1-5]$/.test(cat)) return Number(cat);
     return null;
+  }
+
+  /** Lightning tier keys (Climbfinder map legend: &lt;4, 4+, 8+, 12+, 34+). */
+  function lightningTierKeyFromScore(score) {
+    const s = Math.round(score);
+    if (s < 4) return "L0";
+    if (s < 8) return "L4";
+    if (s < 12) return "L8";
+    if (s < 34) return "L12";
+    return "L34";
   }
 
   /** Fallback zwaarte-proxy from average gradient when import lacks category. */
@@ -315,6 +336,8 @@
   }
 
   function difficultyTierKey(climb) {
+    const lightning = climbLightningScore(climb);
+    if (lightning != null) return lightningTierKeyFromScore(lightning);
     const cat = climbCategory(climb);
     if (cat === "HC" || cat === "SHC") return cat;
     const score = climbDifficultyScore(climb);
@@ -326,7 +349,16 @@
     return proxy != null ? String(proxy) : "unknown";
   }
 
+  const LIGHTNING_MAP_COLORS = {
+    L0: { fill: "#22c55e", stroke: "#15803d", label: "< 4" },
+    L4: { fill: "#eab308", stroke: "#a16207", label: "4+" },
+    L8: { fill: "#fb923c", stroke: "#c2410c", label: "8+" },
+    L12: { fill: "#ef4444", stroke: "#b91c1c", label: "12+" },
+    L34: { fill: "#a855f7", stroke: "#6b21a8", label: "34+" },
+  };
+
   const DIFFICULTY_MAP_COLORS = {
+    ...LIGHTNING_MAP_COLORS,
     5: { fill: "#22c55e", stroke: "#15803d", label: "Cat. 5" },
     4: { fill: "#eab308", stroke: "#a16207", label: "Cat. 4" },
     3: { fill: "#fb923c", stroke: "#c2410c", label: "Cat. 3" },
@@ -344,6 +376,8 @@
 
   /** Short label on map markers when zoomed in (Climbfinder-style). */
   function difficultyMarkerLabel(climb) {
+    const lightning = climbLightningScore(climb);
+    if (lightning != null) return String(Math.round(lightning));
     const cat = climbCategory(climb);
     if (cat) return cat;
     const score = climbDifficultyScore(climb);
@@ -353,7 +387,16 @@
   }
 
   function difficultyLegendTiers() {
-    return ["5", "4", "3", "2", "1", "HC", "SHC", "unknown"];
+    return ["L0", "L4", "L8", "L12", "L34", "5", "4", "3", "2", "1", "HC", "SHC", "unknown"];
+  }
+
+  function difficultyLegendTitle(entries) {
+    if (!entries?.length) return "Zwaarte";
+    const anyLightning = entries.some((c) => climbLightningScore(c) != null);
+    const anyCategory = entries.some((c) => climbLightningScore(c) == null && difficultyTierKey(c) !== "unknown");
+    if (anyLightning && !anyCategory) return "Moeilijkheidspunten";
+    if (anyLightning && anyCategory) return "Zwaarte / punten";
+    return "Zwaarte";
   }
 
   global.ClimbMetrics = {
@@ -374,12 +417,16 @@
     climbCategory,
     categoryDescription,
     categoryBadgeHtml,
+    climbLightningScore,
     climbDifficultyScore,
+    lightningTierKeyFromScore,
     difficultyProxyFromGradient,
     difficultyTierKey,
     difficultyMapColors,
     difficultyMarkerLabel,
     difficultyLegendTiers,
+    difficultyLegendTitle,
+    LIGHTNING_MAP_COLORS,
     DIFFICULTY_MAP_COLORS,
   };
 })(typeof window !== "undefined" ? window : globalThis);
