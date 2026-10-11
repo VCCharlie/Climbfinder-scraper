@@ -2886,22 +2886,21 @@
       tapTolerance: isCoarsePointer() ? 28 : 15,
     });
 
-    const cartoAttribution =
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+    const esriGrayAttribution =
+      'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom';
+    function esriLightGrayBasemap() {
+      const base = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+        { maxZoom: 16, attribution: esriGrayAttribution }
+      );
+      const labels = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+        { maxZoom: 16, pane: "overlayPane" }
+      );
+      return L.layerGroup([base, labels]);
+    }
     state.baseLayers = {
-      "Licht (Carto)": L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-        maxZoom: 20,
-        subdomains: "abcd",
-        attribution: cartoAttribution,
-      }),
-      "Voyager (Carto)": L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-        {
-          maxZoom: 20,
-          subdomains: "abcd",
-          attribution: cartoAttribution,
-        }
-      ),
+      "Licht (Esri)": esriLightGrayBasemap(),
       OpenStreetMap: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "&copy; OpenStreetMap",
@@ -2909,6 +2908,12 @@
       OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
         maxZoom: 17,
         attribution: "&copy; OpenTopoMap (CC-BY-SA)",
+      }),
+      CyclOSM: L.tileLayer("https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", {
+        maxZoom: 20,
+        subdomains: "abc",
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://www.openstreetmap.fr/">OSM France</a>',
       }),
       Satelliet: L.tileLayer(
         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
@@ -2918,7 +2923,7 @@
         }
       ),
     };
-    state.activeBaseLayer = state.baseLayers["Licht (Carto)"];
+    state.activeBaseLayer = state.baseLayers["Licht (Esri)"];
     state.activeBaseLayer.addTo(state.map);
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
 
