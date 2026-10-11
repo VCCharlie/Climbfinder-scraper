@@ -284,6 +284,7 @@
     /** Brave/PWA: extra poging met langere timeout bij code 1 + permission granted. */
     geoExtendedLocateRetry: false,
     geoAcquireInFlight: false,
+    mapTilesHint: null,
     /** Vervangt normale searchHint-tekst (GPS-status / fout). */
     geoHintOverride: null,
     geoHintWarn: false,
@@ -1000,6 +1001,12 @@
     updateSearchHint();
   }
 
+  function appendMapTilesHint(text) {
+    if (!state.mapTilesHint) return text;
+    if (!text) return state.mapTilesHint;
+    return `${text} ${state.mapTilesHint}`;
+  }
+
   function updateSearchHint() {
     const el = $("searchHint");
     if (!el) return;
@@ -1011,13 +1018,17 @@
     el.classList.remove("field-hint--geo-warn");
     const q = state.searchQuery.trim();
     if (mapFilterStrictActive()) {
-      el.textContent =
-        "Kaart: alleen gekozen land/regio. Klik een klim buiten de filter of deselecteer (kaart naast route) om alles te zien.";
+      el.textContent = appendMapTilesHint(
+        "Kaart: alleen gekozen land/regio. Klik een klim buiten de filter of deselecteer (kaart naast route) om alles te zien."
+      );
+      updateMobileFiltersSummary();
       return;
     }
     if (q) {
       const n = state.globalEntries.filter((entry) => entryMatchesQuery(entry, q.toLowerCase())).length;
-      el.textContent = `${n} treffer in alle regio’s (Enter-zoek) — kies uit dropdown voor land/regio + klim.`;
+      el.textContent = appendMapTilesHint(
+        `${n} treffer in alle regio’s (Enter-zoek) — kies uit dropdown voor land/regio + klim.`
+      );
     } else {
       const n = state.globalEntries.length;
       const reg = state.indexRegions.find((r) => r.url === state.currentRegionUrl);
@@ -1034,17 +1045,21 @@
           "hide-wishlist": "zonder wishlist",
         };
         const tag = tagByFilter[state.doneFilter] || "filter";
-        el.textContent =
+        el.textContent = appendMapTilesHint(
           n > 0
             ? `Lijst: ${filtered} klimmen (${tag}, alle regio’s). Kaart: ${n} klimmen. Klik klim = regio wisselt mee.`
-            : "Index laden…";
+            : "Index laden…"
+        );
       } else if (reg) {
-        el.textContent = `Kaart: ${n} klimmen (alle regio’s). Lijst: ${regionTitleFromIndexEntry(reg)} (${regN}). Klik klim (ook grijs) = regio wisselt mee.`;
+        el.textContent = appendMapTilesHint(
+          `Kaart: ${n} klimmen (alle regio’s). Lijst: ${regionTitleFromIndexEntry(reg)} (${regN}). Klik klim (ook grijs) = regio wisselt mee.`
+        );
       } else {
-        el.textContent =
+        el.textContent = appendMapTilesHint(
           n > 0
             ? `Kaart: ${n} klimmen (alle regio’s). Lijst: kies een regio, of logboek/zoeken.`
-            : "Leeg = alle klimmen op kaart. Typ om te filteren, of kies logboek-filter.";
+            : "Leeg = alle klimmen op kaart. Typ om te filteren, of kies logboek-filter."
+        );
       }
     }
     updateMobileFiltersSummary();
@@ -2878,11 +2893,27 @@
   const CARTO_ATTRIBUTION =
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attribution/">CARTO</a>';
 
+  const CARTO_KEY_PLACEHOLDER_RE =
+    /^(?:PLAK_HIER(?:_CARTO_API_KEY)?|YOUR_KEY|jouw-sleutel-hier|changeme|xxx+|test)$/i;
+
   function resolveCartoApiKey() {
     const cfg = window.FIETSKLIM_AUTH_CONFIG;
-    if (!cfg) return "";
-    const key = (cfg.mapTiles?.cartoApiKey || cfg.CARTO_API_KEY || "").trim();
+    if (!cfg || typeof cfg !== "object") return "";
+    const tiles = cfg.mapTiles;
+    const raw =
+      (tiles && typeof tiles === "object" ? tiles.cartoApiKey : undefined) ??
+      cfg.CARTO_API_KEY ??
+      cfg.cartoApiKey ??
+      "";
+    const key = String(raw).trim();
+    if (!key || CARTO_KEY_PLACEHOLDER_RE.test(key) || /PLAK_HIER/i.test(key)) return "";
     return key;
+  }
+
+  function cartoVoyagerLayerLabel(hasValidKey) {
+    return hasValidKey
+      ? "Carto Voyager"
+      : "Carto Voyager (API-sleutel in firebase-config.js)";
   }
 
   function cartoVoyagerTileLayer(apiKey) {
@@ -2920,6 +2951,10 @@
     });
 
     const cartoApiKey = resolveCartoApiKey();
+    const cartoVoyagerLabel = cartoVoyagerLayerLabel(Boolean(cartoApiKey));
+    state.mapTilesHint = cartoApiKey
+      ? null
+      : "Carto Voyager staat in het lagenmenu; vul mapTiles.cartoApiKey in docs/auth/firebase-config.js en ververs de pagina (Ctrl+F5).";
     const esriGrayAttribution =
       'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom';
     function esriLightGrayBasemap() {
@@ -2934,7 +2969,7 @@
       return L.layerGroup([base, labels]);
     }
     state.baseLayers = {
-      ...(cartoApiKey ? { "Carto Voyager": cartoVoyagerTileLayer(cartoApiKey) } : {}),
+      [cartoVoyagerLabel]: cartoVoyagerTileLayer(cartoApiKey),
       "Topo licht (Esri)": esriWorldTopoBasemap(),
       "Licht (Esri)": esriLightGrayBasemap(),
       OpenStreetMap: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -2959,10 +2994,16 @@
         }
       ),
     };
-    const defaultBaseName = cartoApiKey ? "Carto Voyager" : "Topo licht (Esri)";
+    const defaultBaseName = cartoApiKey ? cartoVoyagerLabel : "Topo licht (Esri)";
     state.activeBaseLayer = state.baseLayers[defaultBaseName];
     state.activeBaseLayer.addTo(state.map);
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
+    updateSearchHint();
+    if (!cartoApiKey && /localhost|127\.0\.0\.1/.test(window.location.hostname)) {
+      console.info(
+        "[FietsKlim] Geen geldige CARTO-sleutel (mapTiles.cartoApiKey / CARTO_API_KEY in firebase-config.js)."
+      );
+    }
 
     state.map.setView([50.85, 5.88], 11);
 

@@ -54,7 +54,7 @@ window.FIETSKLIM_AUTH_CONFIG = {
    * Referer-restrictie: zie docs/climbs/MAP_TILES.md (vccharlie.github.io, localhost).
    */
   mapTiles: {
-    cartoApiKey: "PLAK_HIER_CARTO_API_KEY",
+    cartoApiKey: "",
   },
   /** Alternatief veld (zelfde sleutel als mapTiles.cartoApiKey). */
   // CARTO_API_KEY: "",
