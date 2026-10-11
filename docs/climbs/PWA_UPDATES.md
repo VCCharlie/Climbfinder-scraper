@@ -4,7 +4,7 @@ Na een merge op GitHub Pages zien gebruikers soms oude HTML/JS/CSS door **browse
 
 ## Checklist (verplicht bij UI-/config-wijzigingen)
 
-1. **`docs/climbs/service-worker.js`** — verhoog `CACHE_VERSION` (bijv. `20261011swforce2`).
+1. **`docs/climbs/service-worker.js`** — verhoog `CACHE_VERSION` (bijv. `20261011swforce3`).
 2. **`docs/climbs/index.html`** — zet dezelfde `?v=…` op:
    - `assets/pwa-register.js`
    - `assets/styles.css`
@@ -15,7 +15,7 @@ Na een merge op GitHub Pages zien gebruikers soms oude HTML/JS/CSS door **browse
 
 ## Wat de app automatisch doet
 
-- Nieuwe service worker: `skipWaiting` + `clients.claim`, oude `fietsklim-*` caches worden gewist.
+- Nieuwe service worker: `skipWaiting` + `clients.claim`, alle caches behalve de huidige `CACHE_NAME` worden gewist.
 - Pagina: bij `updatefound` → `SKIP_WAITING`; bij `controllerchange` → **één** reload (`sessionStorage`, geen loop).
 - `index.html` en `firebase-config.js`: **network-first** (`cache: no-store`), zodat de shell niet veroudert.
 

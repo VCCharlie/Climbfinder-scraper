@@ -2,6 +2,7 @@
 (function () {
   if (!("serviceWorker" in navigator)) return;
 
+  var BUILD_STAMP = "20261011swforce3";
   var SW_RELOAD_SESSION_KEY = "fietsklim-sw-reloading";
 
   function climbsScopeUrl() {
@@ -29,6 +30,29 @@
     return base.href;
   }
 
+  function isStandaloneDisplay() {
+    try {
+      if (window.matchMedia("(display-mode: standalone)").matches) return true;
+    } catch (e) {
+      /* ignore */
+    }
+    if (window.navigator.standalone === true) return true;
+    if (document.referrer && document.referrer.indexOf("android-app://") === 0) return true;
+    return false;
+  }
+
+  function applyStandaloneMarkers() {
+    document.documentElement.setAttribute("data-build", BUILD_STAMP);
+    if (isStandaloneDisplay()) {
+      document.documentElement.classList.add("standalone");
+    }
+  }
+
+  applyStandaloneMarkers();
+  if (typeof console !== "undefined" && console.info) {
+    console.info("FietsKlim build:", BUILD_STAMP, document.documentElement.classList.contains("standalone") ? "(PWA standalone)" : "");
+  }
+
   function postSkipWaiting(worker) {
     if (!worker) return;
     try {
@@ -53,6 +77,20 @@
     });
   }
 
+  function activeSwVersionMismatch(reg, scriptUrl) {
+    if (!reg.active || !reg.active.scriptURL) return false;
+    try {
+      var expected = new URL(scriptUrl);
+      var active = new URL(reg.active.scriptURL);
+      if (expected.pathname !== active.pathname) return true;
+      var expectedV = expected.searchParams.get("v") || "";
+      var activeV = active.searchParams.get("v") || "";
+      return expectedV !== activeV;
+    } catch (e) {
+      return reg.active.scriptURL.split("?")[0] !== scriptUrl.split("?")[0];
+    }
+  }
+
   var controllerReloadScheduled = false;
   navigator.serviceWorker.addEventListener("controllerchange", function () {
     if (controllerReloadScheduled) return;
@@ -62,7 +100,7 @@
     window.location.reload();
   });
 
-  window.addEventListener("load", function () {
+  function registerAndUpdateSw() {
     var scope = climbsScopeUrl();
     var scriptUrl = swScriptUrl();
 
@@ -72,9 +110,7 @@
         return Promise.all(
           regs.map(function (reg) {
             var inClimbsTree = reg.scope.indexOf("/climbs") !== -1;
-            var wrongScript =
-              reg.active && reg.active.scriptURL && reg.active.scriptURL.split("?")[0] !== scriptUrl.split("?")[0];
-            if (inClimbsTree && wrongScript) {
+            if (inClimbsTree && activeSwVersionMismatch(reg, scriptUrl)) {
               return reg.unregister();
             }
             return undefined;
@@ -87,6 +123,7 @@
       .then(function (reg) {
         trackWaitingWorker(reg);
         return reg.update().then(function () {
+          trackWaitingWorker(reg);
           return reg;
         });
       })
@@ -98,5 +135,15 @@
       .catch(function (err) {
         console.warn("FietsKlim PWA: service worker registration failed", err);
       });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", registerAndUpdateSw);
+  } else {
+    registerAndUpdateSw();
+  }
+
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) registerAndUpdateSw();
   });
 })();
