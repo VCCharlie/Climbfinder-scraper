@@ -2875,6 +2875,39 @@
     });
   }
 
+  const CARTO_ATTRIBUTION =
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attribution/">CARTO</a>';
+
+  function resolveCartoApiKey() {
+    const cfg = window.FIETSKLIM_AUTH_CONFIG;
+    if (!cfg) return "";
+    const key = (cfg.mapTiles?.cartoApiKey || cfg.CARTO_API_KEY || "").trim();
+    return key;
+  }
+
+  function cartoVoyagerTileLayer(apiKey) {
+    const keyQuery = apiKey ? `?key=${encodeURIComponent(apiKey)}` : "";
+    return L.tileLayer(
+      `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png${keyQuery}`,
+      {
+        maxZoom: 20,
+        subdomains: "abcd",
+        attribution: CARTO_ATTRIBUTION,
+      }
+    );
+  }
+
+  function esriWorldTopoBasemap() {
+    return L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+      {
+        maxZoom: 19,
+        attribution:
+          'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, DeLorme, NAVTEQ, TomTom, USGS, EPA, NPS',
+      }
+    );
+  }
+
   function initMap() {
     if (state.map) return;
     if (typeof L === "undefined") {
@@ -2886,6 +2919,7 @@
       tapTolerance: isCoarsePointer() ? 28 : 15,
     });
 
+    const cartoApiKey = resolveCartoApiKey();
     const esriGrayAttribution =
       'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom';
     function esriLightGrayBasemap() {
@@ -2900,6 +2934,8 @@
       return L.layerGroup([base, labels]);
     }
     state.baseLayers = {
+      ...(cartoApiKey ? { "Carto Voyager": cartoVoyagerTileLayer(cartoApiKey) } : {}),
+      "Topo licht (Esri)": esriWorldTopoBasemap(),
       "Licht (Esri)": esriLightGrayBasemap(),
       OpenStreetMap: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -2923,7 +2959,8 @@
         }
       ),
     };
-    state.activeBaseLayer = state.baseLayers["Licht (Esri)"];
+    const defaultBaseName = cartoApiKey ? "Carto Voyager" : "Topo licht (Esri)";
+    state.activeBaseLayer = state.baseLayers[defaultBaseName];
     state.activeBaseLayer.addTo(state.map);
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
 

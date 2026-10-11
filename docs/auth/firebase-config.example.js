@@ -48,4 +48,15 @@ window.FIETSKLIM_AUTH_CONFIG = {
     repo: "VCCharlie/Climbfinder-scraper",
     region: "europe-west1",
   },
+  /**
+   * Optioneel: CARTO Basemaps API-sleutel voor Carto Voyager als standaardkaart (climbs/index.html).
+   * Gratis tier (~5M tegels/maand); aanvragen op https://carto.com/basemaps/apikey/
+   * Zie docs/climbs/MAP_TILES.md (referer: vccharlie.github.io, localhost).
+   * Commit deze sleutel nooit — alleen in lokale docs/auth/firebase-config.js.
+   */
+  mapTiles: {
+    cartoApiKey: "",
+  },
+  /** Alternatief veld (zelfde sleutel als mapTiles.cartoApiKey). */
+  // CARTO_API_KEY: "",
 };
