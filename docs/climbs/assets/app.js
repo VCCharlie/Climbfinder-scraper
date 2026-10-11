@@ -489,6 +489,7 @@
     renderList(state.searchQuery);
     updateClimbLogSummary();
     syncClimbDetailLogToggles();
+    syncProfileExpandLogToggles();
     if (state.activeClimb && isMobileMapPaneActive()) {
       updateMapTouchSheet(state.activeClimb);
     }
@@ -563,14 +564,17 @@
   }
 
   function closeClimbStatusMenu() {
-    const menu = $("climbStatusMenu");
-    const btn = $("climbStatusOpen");
-    if (menu) menu.hidden = true;
-    btn?.setAttribute("aria-expanded", "false");
+    for (const menuId of ["climbStatusMenu", "profileExpandStatusMenu"]) {
+      const menu = $(menuId);
+      if (menu) menu.hidden = true;
+    }
+    for (const btnId of ["climbStatusOpen", "profileExpandStatusOpen"]) {
+      $(btnId)?.setAttribute("aria-expanded", "false");
+    }
   }
 
-  function syncClimbStatusMenu(entry) {
-    const menu = $("climbStatusMenu");
+  function syncClimbStatusMenu(entry, menuEl) {
+    const menu = menuEl || $("climbStatusMenu");
     if (!menu || menu.hidden) return;
     const done = climbIsDone(entry);
     const wish = climbIsWishlist(entry);
@@ -585,8 +589,8 @@
     });
   }
 
-  function bindClimbStatusMenu(entry) {
-    const menu = $("climbStatusMenu");
+  function bindClimbStatusMenu(entry, menuEl) {
+    const menu = menuEl || $("climbStatusMenu");
     if (!menu) return;
     menu.querySelectorAll("[data-status-action]").forEach((el) => {
       el.onclick = () => {
@@ -623,6 +627,27 @@
     if (summary) summary.textContent = climbStatusSummaryText(entry);
     bindClimbStatusMenu(entry);
     syncClimbStatusMenu(entry);
+  }
+
+  function syncProfileExpandLogToggles() {
+    const logWrap = $("profileExpandLogWrap");
+    const openBtn = $("profileExpandStatusOpen");
+    const summary = $("profileExpandStatusSummary");
+    if (!logWrap || !openBtn) return;
+    if (!state.profileExpanded || !state.activeClimb || !state.bundle?.meta?.id) {
+      logWrap.hidden = true;
+      return;
+    }
+    logWrap.hidden = false;
+    const entry = {
+      climb: state.activeClimb,
+      regionId: state.bundle.meta.id,
+      regionUrl: state.currentRegionUrl,
+    };
+    if (summary) summary.textContent = climbStatusSummaryText(entry);
+    const menu = $("profileExpandStatusMenu");
+    bindClimbStatusMenu(entry, menu);
+    syncClimbStatusMenu(entry, menu);
   }
 
   function difficultyColorsForClimb(climb) {
@@ -1235,6 +1260,11 @@
         state.profileExpandMap.removeLayer(state.profileExpandRouteLayer);
       }
       state.profileExpandRouteLayer = buildDetailRouteLayer(climb, latlngs);
+      addClimbStartEndMarkers(latlngs, {
+        size: "md",
+        layer: state.profileExpandRouteLayer,
+        tooltip: climb.name,
+      });
       state.profileExpandRouteLayer.addTo(state.profileExpandMap);
       state.profileExpandMap.fitBounds(L.latLngBounds(latlngs), { padding: [14, 14] });
     }
@@ -1274,6 +1304,9 @@
     state.profileExpanded = false;
     const overlay = $("profileExpandOverlay");
     if (overlay) overlay.hidden = true;
+    const logWrap = $("profileExpandLogWrap");
+    if (logWrap) logWrap.hidden = true;
+    closeClimbStatusMenu();
     destroyProfileChart("chartFull");
     teardownProfileExpandMap();
   }
@@ -1297,6 +1330,7 @@
         : "Positie op de route — beweeg de muis over het profiel";
     }
     mountProfileExpandMap(state.activeClimb);
+    syncProfileExpandLogToggles();
     mountProfileChart("profileChartFull", "chartFull", state.activeClimb, false);
     requestAnimationFrame(() => {
       setTimeout(() => {
@@ -3161,19 +3195,28 @@
     $("profileExpandLink")?.addEventListener("click", () => openProfileExpand());
     $("profileExpandClose")?.addEventListener("click", () => closeProfileExpand());
     $("profileExpandBackdrop")?.addEventListener("click", () => closeProfileExpand());
-    $("climbStatusOpen")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const menu = $("climbStatusMenu");
-      const btn = $("climbStatusOpen");
+    function toggleClimbStatusPicker(menuId, btnId, resync) {
+      const menu = $(menuId);
+      const btn = $(btnId);
       if (!menu || !btn) return;
-      const open = menu.hidden;
-      if (open) {
+      if (menu.hidden) {
+        closeClimbStatusMenu();
         menu.hidden = false;
         btn.setAttribute("aria-expanded", "true");
-        syncClimbDetailLogToggles();
+        resync();
       } else {
         closeClimbStatusMenu();
       }
+    }
+    $("climbStatusOpen")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleClimbStatusPicker("climbStatusMenu", "climbStatusOpen", () => syncClimbDetailLogToggles());
+    });
+    $("profileExpandStatusOpen")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleClimbStatusPicker("profileExpandStatusMenu", "profileExpandStatusOpen", () =>
+        syncProfileExpandLogToggles()
+      );
     });
     document.addEventListener("click", (e) => {
       if (e.target.closest(".climb-status-picker")) return;

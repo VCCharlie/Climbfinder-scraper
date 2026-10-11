@@ -1035,6 +1035,14 @@ header.app-header p#datasetMeta {
   color: var(--slate-600);
 }
 
+.profile-expand-log {
+  margin-bottom: 0.5rem;
+}
+
+.profile-expand-log .climb-status-menu {
+  z-index: 2600;
+}
+
 .badge {
   display: inline-block;
   background: #ccfbf1;
