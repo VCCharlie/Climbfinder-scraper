@@ -2886,7 +2886,22 @@
       tapTolerance: isCoarsePointer() ? 28 : 15,
     });
 
+    const cartoAttribution =
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
     state.baseLayers = {
+      "Licht (Carto)": L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        maxZoom: 20,
+        subdomains: "abcd",
+        attribution: cartoAttribution,
+      }),
+      "Voyager (Carto)": L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        {
+          maxZoom: 20,
+          subdomains: "abcd",
+          attribution: cartoAttribution,
+        }
+      ),
       OpenStreetMap: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "&copy; OpenStreetMap",
@@ -2903,7 +2918,7 @@
         }
       ),
     };
-    state.activeBaseLayer = state.baseLayers.OpenStreetMap;
+    state.activeBaseLayer = state.baseLayers["Licht (Carto)"];
     state.activeBaseLayer.addTo(state.map);
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
 

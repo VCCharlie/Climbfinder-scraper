@@ -1,6 +1,6 @@
 /* FietsKlim climbs PWA — installable on Android Chrome (GitHub Pages / docs/climbs/).
  * Geolocation is not intercepted here (only same-origin GET for static assets). */
-const CACHE_VERSION = "20261010bravegeo1";
+const CACHE_VERSION = "20261011calmmap";
 const CACHE_NAME = `fietsklim-climbs-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
