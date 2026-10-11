@@ -597,7 +597,7 @@ header.app-header p#datasetMeta {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.2rem;
 }
 
 .profile-expand-title-row .profile-expand-title {
@@ -968,13 +968,14 @@ header.app-header p#datasetMeta {
   overflow: hidden;
   background: var(--card);
   border-radius: 12px;
-  padding: 0.45rem 1rem 1rem;
+  padding: max(0.25rem, env(safe-area-inset-top, 0px)) 1rem 1rem;
   box-shadow: 0 16px 48px rgba(15, 23, 42, 0.22);
 }
 
 .profile-expand-head {
   flex-shrink: 0;
   min-width: 0;
+  margin: 0;
 }
 
 @media (max-width: 720px) {
@@ -988,9 +989,7 @@ header.app-header p#datasetMeta {
     height: 100%;
     margin: 0;
     border-radius: 0;
-    padding: 0.35rem 0.75rem 0.75rem;
-    padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
-    padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+    padding: max(0.25rem, env(safe-area-inset-top, 0px)) 0.75rem max(0.75rem, env(safe-area-inset-bottom, 0px));
   }
 
   .profile-expand-title {
@@ -1009,8 +1008,9 @@ header.app-header p#datasetMeta {
   justify-content: space-between;
   gap: 0.35rem;
   flex-shrink: 0;
-  min-height: 44px;
-  margin: 0 0 0.25rem;
+  min-height: 40px;
+  margin: 0;
+  padding: 0;
 }
 
 .profile-expand-status-top {
@@ -1019,14 +1019,18 @@ header.app-header p#datasetMeta {
   margin: 0;
 }
 
+.profile-expand-topbar .climb-detail-log-toggles {
+  margin: 0;
+}
+
 .profile-expand-status-toggles {
   gap: 0.4rem;
 }
 
 .profile-expand-status-toggles .climb-status-icon-btn {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   border-radius: 10px;
 }
 
@@ -1038,9 +1042,9 @@ header.app-header p#datasetMeta {
 .profile-expand-close {
   position: static;
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   border: none;
   border-radius: 8px;
   background: #f1f5f9;
@@ -1062,7 +1066,7 @@ header.app-header p#datasetMeta {
 }
 
 .profile-expand-stats {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.5rem;
   font-size: 0.85rem;
   color: var(--slate-600);
 }
