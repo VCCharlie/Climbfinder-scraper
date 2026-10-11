@@ -1,7 +1,7 @@
 /* FietsKlim climbs PWA — installable on Android Chrome (GitHub Pages / docs/climbs/).
  * Geolocation is not intercepted here (only same-origin GET for static assets). */
-/** Keep in sync with app.js / styles.css ?v= in index.html (PR #121 profile expand). */
-const CACHE_VERSION = "20261011profileexpandtopbar1";
+/** Bump on every HTML/JS/CSS change — see docs/climbs/PWA_UPDATES.md */
+const CACHE_VERSION = "20261011swforce1";
 const CACHE_NAME = `fietsklim-climbs-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -34,6 +34,47 @@ function isSameOriginClimbs(requestUrl) {
   }
 }
 
+function isFirebaseConfigRequest(requestUrl) {
+  try {
+    return new URL(requestUrl).pathname.endsWith("/auth/firebase-config.js");
+  } catch {
+    return false;
+  }
+}
+
+function isIndexHtmlRequest(requestUrl) {
+  try {
+    const url = new URL(requestUrl);
+    const path = url.pathname;
+    if (path.endsWith("/index.html")) return true;
+    if (path.endsWith("/climbs") || path.endsWith("/climbs/")) return true;
+    const parts = path.split("/").filter(Boolean);
+    const last = parts[parts.length - 1];
+    return last === "climbs";
+  } catch {
+    return false;
+  }
+}
+
+async function networkFirstNoStore(request, cacheWrites) {
+  try {
+    const response = await fetch(request, { cache: "no-store" });
+    if (cacheWrites && response.ok && response.type === "basic") {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.put(request, response.clone());
+    }
+    return response;
+  } catch {
+    return caches.match(request, { ignoreSearch: true });
+  }
+}
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -42,6 +83,7 @@ self.addEventListener("install", (event) => {
       .then(() => self.skipWaiting())
       .catch((err) => {
         console.warn("[fietsklim-sw] precache partial/failed", err);
+        return self.skipWaiting();
       })
   );
 });
@@ -51,37 +93,26 @@ self.addEventListener("activate", (event) => {
     caches
       .keys()
       .then((keys) =>
-        Promise.all(keys.filter((k) => k.startsWith("fietsklim-climbs-") && k !== CACHE_NAME).map((k) => caches.delete(k)))
+        Promise.all(
+          keys.filter((k) => k.startsWith("fietsklim-") && k !== CACHE_NAME).map((k) => caches.delete(k))
+        )
       )
       .then(() => self.clients.claim())
   );
 });
-
-function isFirebaseConfigRequest(requestUrl) {
-  try {
-    return new URL(requestUrl).pathname.endsWith("/auth/firebase-config.js");
-  } catch {
-    return false;
-  }
-}
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const { request } = event;
   if (!isSameOriginClimbs(request.url)) return;
 
+  if (isIndexHtmlRequest(request.url)) {
+    event.respondWith(networkFirstNoStore(request, true));
+    return;
+  }
+
   if (isFirebaseConfigRequest(request.url)) {
-    event.respondWith(
-      fetch(request, { cache: "no-store" })
-        .then((response) => {
-          if (response.ok && response.type === "basic") {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(() => caches.match(request, { ignoreSearch: true }))
-    );
+    event.respondWith(networkFirstNoStore(request, true));
     return;
   }
 
