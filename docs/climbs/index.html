@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-title" content="FietsKlim" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <script src="assets/pwa-register.js?v=20261011profilestatustop1"></script>
+  <script src="assets/pwa-register.js?v=20261011profileexpandicons1"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261011profilestatustop1" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261011profileexpandicons1" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -173,24 +173,13 @@
     <div class="profile-expand-card">
       <div class="profile-expand-topbar">
         <div id="profileExpandLogWrap" class="climb-detail-log-toggles profile-expand-status-top" hidden>
-          <div class="climb-status-picker">
-            <button type="button" id="profileExpandStatusOpen" class="climb-status-open climb-status-open--pill" aria-haspopup="menu" aria-expanded="false">
-              <span class="climb-status-open-label">Mijn status</span>
-              <span id="profileExpandStatusSummary" class="climb-status-open-value">Nog niet geklommen</span>
+          <div id="profileExpandStatusToggles" class="climb-status-toggles profile-expand-status-toggles" role="group" aria-label="Mijn status">
+            <button type="button" class="climb-status-icon-btn climb-status-icon-btn--wish" data-flag="wishlist" title="Bucket list" aria-label="Bucket list" aria-pressed="false">
+              <svg class="climb-status-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16l-6-4-6 4V4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
             </button>
-            <div id="profileExpandStatusMenu" class="climb-status-menu" role="menu" hidden>
-              <button type="button" class="climb-status-menu-item" data-status-action="done" role="menuitemcheckbox">
-                <span class="climb-status-menu-icon climb-status-menu-icon--done" aria-hidden="true"></span>
-                Geklommen
-              </button>
-              <button type="button" class="climb-status-menu-item" data-status-action="wishlist" role="menuitemcheckbox">
-                <span class="climb-status-menu-icon climb-status-menu-icon--wish" aria-hidden="true"></span>
-                Bucket list
-              </button>
-              <button type="button" class="climb-status-menu-item climb-status-menu-item--none" data-status-action="none" role="menuitem">
-                Nog niet geklommen
-              </button>
-            </div>
+            <button type="button" class="climb-status-icon-btn climb-status-icon-btn--done" data-flag="done" title="Geklommen" aria-label="Geklommen" aria-pressed="false">
+              <svg class="climb-status-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
           </div>
         </div>
         <button type="button" id="profileExpandClose" class="profile-expand-close" aria-label="Sluiten">×</button>
@@ -228,6 +217,6 @@
   <script src="assets/climb-metrics.js?v=20261011cfmapstatus"></script>
   <script src="assets/climb-log.js?v=20261011cfmapstatus"></script>
   <script src="assets/climb-dedupe.js?v=20261007e"></script>
-  <script src="assets/app.js?v=20261011profilestatustop1"></script>
+  <script src="assets/app.js?v=20261011profileexpandicons1"></script>
 </body>
 </html>
