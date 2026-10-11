@@ -1002,6 +1002,39 @@ header.app-header p#datasetMeta {
   }
 }
 
+/* PWA standalone: één safe-area-laag op overlay; kaart vult 100dvh zonder wit onder de kaart */
+@media (max-width: 720px) and (display-mode: standalone) {
+  .profile-expand-overlay {
+    align-items: stretch;
+    justify-content: flex-start;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+      env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+
+  .profile-expand-card {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+    margin: 0;
+    border-radius: 0;
+    padding: 0.25rem 0.75rem 0;
+    box-shadow: none;
+  }
+
+  .profile-expand-split {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .profile-expand-map-panel {
+    padding-bottom: 0;
+  }
+}
+
 .profile-expand-topbar {
   display: flex;
   align-items: center;
