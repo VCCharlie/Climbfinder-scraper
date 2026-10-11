@@ -564,13 +564,9 @@
   }
 
   function closeClimbStatusMenu() {
-    for (const menuId of ["climbStatusMenu", "profileExpandStatusMenu"]) {
-      const menu = $(menuId);
-      if (menu) menu.hidden = true;
-    }
-    for (const btnId of ["climbStatusOpen", "profileExpandStatusOpen"]) {
-      $(btnId)?.setAttribute("aria-expanded", "false");
-    }
+    const menu = $("climbStatusMenu");
+    if (menu) menu.hidden = true;
+    $("climbStatusOpen")?.setAttribute("aria-expanded", "false");
   }
 
   function syncClimbStatusMenu(entry, menuEl) {
@@ -631,9 +627,8 @@
 
   function syncProfileExpandLogToggles() {
     const logWrap = $("profileExpandLogWrap");
-    const openBtn = $("profileExpandStatusOpen");
-    const summary = $("profileExpandStatusSummary");
-    if (!logWrap || !openBtn) return;
+    const toggles = $("profileExpandStatusToggles");
+    if (!logWrap || !toggles) return;
     if (!state.profileExpanded || !state.activeClimb || !state.bundle?.meta?.id) {
       logWrap.hidden = true;
       return;
@@ -644,12 +639,12 @@
       regionId: state.bundle.meta.id,
       regionUrl: state.currentRegionUrl,
     };
-    const summaryText = climbStatusSummaryText(entry);
-    if (summary) summary.textContent = summaryText;
-    openBtn.setAttribute("aria-label", `Mijn status: ${summaryText}`);
-    const menu = $("profileExpandStatusMenu");
-    bindClimbStatusMenu(entry, menu);
-    syncClimbStatusMenu(entry, menu);
+    const done = climbIsDone(entry);
+    const wish = climbIsWishlist(entry);
+    toggles.querySelector(".climb-status-icon-btn--done")?.classList.toggle("is-on", done);
+    toggles.querySelector(".climb-status-icon-btn--done")?.setAttribute("aria-pressed", done ? "true" : "false");
+    toggles.querySelector(".climb-status-icon-btn--wish")?.classList.toggle("is-on", wish);
+    toggles.querySelector(".climb-status-icon-btn--wish")?.setAttribute("aria-pressed", wish ? "true" : "false");
   }
 
   function difficultyColorsForClimb(climb) {
@@ -3214,12 +3209,27 @@
       e.stopPropagation();
       toggleClimbStatusPicker("climbStatusMenu", "climbStatusOpen", () => syncClimbDetailLogToggles());
     });
-    $("profileExpandStatusOpen")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleClimbStatusPicker("profileExpandStatusMenu", "profileExpandStatusOpen", () =>
-        syncProfileExpandLogToggles()
-      );
-    });
+    const profileExpandToggles = $("profileExpandStatusToggles");
+    if (profileExpandToggles && !profileExpandToggles.dataset.bound) {
+      profileExpandToggles.dataset.bound = "1";
+      profileExpandToggles.addEventListener("click", (e) => {
+        const btn = e.target.closest(".climb-status-icon-btn");
+        if (!btn || !profileExpandToggles.contains(btn)) return;
+        e.stopPropagation();
+        if (!state.activeClimb || !state.bundle?.meta?.id) return;
+        const entry = {
+          climb: state.activeClimb,
+          regionId: state.bundle.meta.id,
+          regionUrl: state.currentRegionUrl,
+        };
+        const flag = btn.dataset.flag;
+        if (flag === "done") {
+          void applyClimbStatusFlags(entry, { done: !climbIsDone(entry) });
+        } else if (flag === "wishlist") {
+          void applyClimbStatusFlags(entry, { wishlist: !climbIsWishlist(entry) });
+        }
+      });
+    }
     document.addEventListener("click", (e) => {
       if (e.target.closest(".climb-status-picker")) return;
       closeClimbStatusMenu();
