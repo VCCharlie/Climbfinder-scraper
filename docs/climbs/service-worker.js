@@ -1,6 +1,6 @@
 /* FietsKlim climbs PWA — installable on Android Chrome (GitHub Pages / docs/climbs/).
  * Geolocation is not intercepted here (only same-origin GET for static assets). */
-const CACHE_VERSION = "20261011cartovoyager";
+const CACHE_VERSION = "20261011cartovoyager2";
 const CACHE_NAME = `fietsklim-climbs-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -56,10 +56,33 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+function isFirebaseConfigRequest(requestUrl) {
+  try {
+    return new URL(requestUrl).pathname.endsWith("/auth/firebase-config.js");
+  } catch {
+    return false;
+  }
+}
+
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const { request } = event;
   if (!isSameOriginClimbs(request.url)) return;
+
+  if (isFirebaseConfigRequest(request.url)) {
+    event.respondWith(
+      fetch(request, { cache: "no-store" })
+        .then((response) => {
+          if (response.ok && response.type === "basic") {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(request, { ignoreSearch: true }))
+    );
+    return;
+  }
 
   event.respondWith(
     fetch(request)
