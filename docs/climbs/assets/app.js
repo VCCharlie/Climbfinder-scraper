@@ -644,7 +644,9 @@
       regionId: state.bundle.meta.id,
       regionUrl: state.currentRegionUrl,
     };
-    if (summary) summary.textContent = climbStatusSummaryText(entry);
+    const summaryText = climbStatusSummaryText(entry);
+    if (summary) summary.textContent = summaryText;
+    openBtn.setAttribute("aria-label", `Mijn status: ${summaryText}`);
     const menu = $("profileExpandStatusMenu");
     bindClimbStatusMenu(entry, menu);
     syncClimbStatusMenu(entry, menu);

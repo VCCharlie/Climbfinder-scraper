@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-title" content="FietsKlim" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <script src="assets/pwa-register.js?v=20261011profileexpand1"></script>
+  <script src="assets/pwa-register.js?v=20261011profilestatustop1"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261011profileexpand1" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261011profilestatustop1" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -171,16 +171,10 @@
   <div id="profileExpandOverlay" class="profile-expand-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="profileTitleFull">
     <div class="profile-expand-backdrop" id="profileExpandBackdrop"></div>
     <div class="profile-expand-card">
-      <button type="button" id="profileExpandClose" class="profile-expand-close" aria-label="Sluiten">×</button>
-      <div class="profile-expand-head">
-        <div class="profile-expand-title-row">
-          <span id="profileCategoryBadgeFull"></span>
-          <h2 id="profileTitleFull" class="profile-expand-title"></h2>
-        </div>
-        <p id="profileStatsFull" class="profile-expand-stats"></p>
-        <div id="profileExpandLogWrap" class="climb-detail-log-toggles profile-expand-log" hidden>
+      <div class="profile-expand-topbar">
+        <div id="profileExpandLogWrap" class="climb-detail-log-toggles profile-expand-status-top" hidden>
           <div class="climb-status-picker">
-            <button type="button" id="profileExpandStatusOpen" class="climb-status-open" aria-haspopup="menu" aria-expanded="false">
+            <button type="button" id="profileExpandStatusOpen" class="climb-status-open climb-status-open--pill" aria-haspopup="menu" aria-expanded="false">
               <span class="climb-status-open-label">Mijn status</span>
               <span id="profileExpandStatusSummary" class="climb-status-open-value">Nog niet geklommen</span>
             </button>
@@ -199,6 +193,14 @@
             </div>
           </div>
         </div>
+        <button type="button" id="profileExpandClose" class="profile-expand-close" aria-label="Sluiten">×</button>
+      </div>
+      <div class="profile-expand-head">
+        <div class="profile-expand-title-row">
+          <span id="profileCategoryBadgeFull"></span>
+          <h2 id="profileTitleFull" class="profile-expand-title"></h2>
+        </div>
+        <p id="profileStatsFull" class="profile-expand-stats"></p>
         <div id="profileGradientStripFull" class="profile-gradient-strip" aria-label="Gemiddelde helling per segment"></div>
       </div>
       <div class="profile-expand-split">
@@ -226,6 +228,6 @@
   <script src="assets/climb-metrics.js?v=20261011cfmapstatus"></script>
   <script src="assets/climb-log.js?v=20261011cfmapstatus"></script>
   <script src="assets/climb-dedupe.js?v=20261007e"></script>
-  <script src="assets/app.js?v=20261011profileexpand1"></script>
+  <script src="assets/app.js?v=20261011profilestatustop1"></script>
 </body>
 </html>
