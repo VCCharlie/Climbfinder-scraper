@@ -47,26 +47,73 @@
     return state.byKey.get(climbKey(datasetId, climbId)) || null;
   }
 
-  function loadLocal() {
-    state.byKey.clear();
+  function localStorageKey() {
     const email = state.email;
-    if (!email) return;
+    return email ? `fietsklim-climb-log-v${STORAGE_VERSION}-${email}` : "";
+  }
+
+  function migrationStorageKey() {
+    return state.uid ? `fietsklim-log-migrated-v${STORAGE_VERSION}-${state.uid}` : "";
+  }
+
+  /** Leest localStorage zonder state.byKey te wijzigen (voor Firestore-migratie). */
+  function readLocalRowsFromStorage() {
+    const key = localStorageKey();
+    if (!key) return [];
     try {
-      const raw = localStorage.getItem(`fietsklim-climb-log-v${STORAGE_VERSION}-${email}`);
-      if (!raw) return;
+      const raw = localStorage.getItem(key);
+      if (!raw) return [];
       const data = JSON.parse(raw);
+      const out = [];
       for (const row of data.entries || []) {
         if (row.datasetId && row.climbId && shouldPersist(row)) {
-          state.byKey.set(climbKey(row.datasetId, row.climbId), {
+          out.push({
             ...row,
             done: Boolean(row.done),
             wishlist: Boolean(row.wishlist),
+            source: row.source || "manual",
           });
         }
       }
+      return out;
     } catch {
-      /* ignore */
+      return [];
     }
+  }
+
+  function loadLocal() {
+    state.byKey.clear();
+    for (const row of readLocalRowsFromStorage()) {
+      state.byKey.set(climbKey(row.datasetId, row.climbId), row);
+    }
+  }
+
+  async function migrateLocalRowsToFirestore(rows) {
+    if (!rows.length || !firebase.firestore || !state.uid) return 0;
+    const db = firebase.firestore();
+    const col = db.collection("users").doc(state.uid).collection("climbLog");
+    let written = 0;
+    for (let i = 0; i < rows.length; i += 400) {
+      const batch = db.batch();
+      for (const row of rows.slice(i, i + 400)) {
+        const ref = col.doc(logDocId(row.datasetId, row.climbId));
+        batch.set(
+          ref,
+          {
+            datasetId: row.datasetId,
+            climbId: row.climbId,
+            done: Boolean(row.done),
+            wishlist: Boolean(row.wishlist),
+            source: row.source === "strava" ? "strava" : "migrated",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+        written += 1;
+      }
+      await batch.commit();
+    }
+    return written;
   }
 
   function saveLocal() {
@@ -142,12 +189,32 @@
       try {
         const db = firebase.firestore();
         state.mode = "firestore";
+        let firstSnapshot = true;
         state.unsubscribe = db
           .collection("users")
           .doc(user.uid)
           .collection("climbLog")
           .onSnapshot(
-            (snap) => {
+            async (snap) => {
+              if (firstSnapshot) {
+                firstSnapshot = false;
+                const migKey = migrationStorageKey();
+                if (migKey && !localStorage.getItem(migKey) && snap.empty) {
+                  const pending = readLocalRowsFromStorage();
+                  if (pending.length) {
+                    try {
+                      const n = await migrateLocalRowsToFirestore(pending);
+                      localStorage.setItem(migKey, new Date().toISOString());
+                      console.info(`FietsKlim logboek: ${n} vinkje(s) van localStorage naar Firestore.`);
+                      return;
+                    } catch (err) {
+                      console.warn("Climb log migratie:", err.message);
+                    }
+                  } else if (migKey) {
+                    localStorage.setItem(migKey, "empty");
+                  }
+                }
+              }
               state.byKey.clear();
               snap.forEach((doc) => {
                 mergeEntryFromFirestore(doc.data());
