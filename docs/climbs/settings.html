@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0f766e" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <script src="assets/pwa-register.js?v=20261012mapload1"></script>
+  <script src="assets/pwa-register.js?v=20261012sprint1"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/settings.css?v=20261009" />
@@ -36,14 +36,18 @@
     <section class="settings-card" id="stravaSettingsCard" aria-labelledby="stravaSettingsTitle">
       <h2 id="stravaSettingsTitle">Strava</h2>
       <p>
-        Koppel Strava om later ritten te matchen met klimmen in je logboek. <strong>Proef-sync</strong> (dataset-keuze,
-        laatste ritten) volgt in een volgende update. Bij sync overschrijven matches handmatige gedaan-vinkjes.
+        Koppel Strava en match publieke fietsritten met klimmen in je logboek (proef: laatste 50 ritten).
+        Bij sync overschrijven matches handmatige gedaan-vinkjes.
       </p>
+      <label class="settings-field-label" for="stravaDatasetSelect">Regio-dataset voor proef-sync</label>
+      <select id="stravaDatasetSelect" class="settings-select" hidden aria-label="Regio-dataset voor Strava proef-sync">
+        <option value="">Laden…</option>
+      </select>
       <div class="settings-actions">
         <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
         <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
-        <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden disabled title="Volgt in volgende update">
-          Proef-sync (binnenkort)
+        <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden>
+          Proef-sync (50 ritten)
         </button>
       </div>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
@@ -82,7 +86,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-functions-compat.js"></script>
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
-  <script src="assets/strava-sync.js?v=20261009settings"></script>
-  <script src="assets/settings-page.js?v=20261009"></script>
+  <script src="assets/strava-sync.js?v=20261012sprint1"></script>
+  <script src="assets/settings-page.js?v=20261012sprint1"></script>
 </body>
 </html>

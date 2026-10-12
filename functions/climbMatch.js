@@ -152,9 +152,26 @@ function isCyclingActivity(activity) {
   return t === "ride" || t === "virtualride" || t === "ebikeride";
 }
 
+/** Climbs whose bbox overlaps the activity track bbox (cheap prefilter). */
+function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = 0.02) {
+  const track = decodePolyline(encodedPolyline);
+  if (track.length < 2) return [];
+  const trackBox = bboxFromCoords(track);
+  const out = [];
+  for (const climb of climbs) {
+    const coords = climbCoordsLonLat(climb);
+    if (coords.length < 2) continue;
+    if (bboxesOverlap(bboxFromCoords(coords), trackBox, padDeg)) {
+      out.push(climb);
+    }
+  }
+  return out;
+}
+
 module.exports = {
   decodePolyline,
   matchClimbToActivity,
   isCyclingActivity,
   bboxFromCoords,
+  climbsNearEncodedPolyline,
 };

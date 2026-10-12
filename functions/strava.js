@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const crypto = require("crypto");
-const { matchClimbToActivity, isCyclingActivity } = require("./climbMatch");
+const { matchClimbToActivity, isCyclingActivity, climbsNearEncodedPolyline } = require("./climbMatch");
 
 const REGION = "europe-west1";
 const STRAVA_AUTH = "https://www.strava.com/oauth/authorize";
@@ -275,7 +275,10 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
   }
 });
 
-exports.stravaSyncTrial = functions.region(REGION).https.onCall(async (data, context) => {
+exports.stravaSyncTrial = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onCall(async (data, context) => {
   const uid = requireAuth(context);
   const datasetId = String(data.datasetId || "").trim();
   if (!datasetId) {
@@ -316,7 +319,8 @@ exports.stravaSyncTrial = functions.region(REGION).https.onCall(async (data, con
     }
     if (!poly) continue;
 
-    for (const climb of climbs) {
+    const candidates = climbsNearEncodedPolyline(climbs, poly);
+    for (const climb of candidates) {
       const result = matchClimbToActivity(climb, poly);
       if (!result.matched) continue;
       const prev = bestByClimb.get(climb.id);

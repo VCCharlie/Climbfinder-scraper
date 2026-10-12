@@ -9,7 +9,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <script src="assets/pwa-register.js?v=20261012mapload1"></script>
+  <script src="assets/pwa-register.js?v=20261012sprint1"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -558,6 +558,50 @@
       return `cf-l${r.id}-${r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
     }
 
+    async function fetchIndexEntry(metaId) {
+      const res = await fetch(new URL("data/index.json", document.baseURI || location.href).href, {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error(`index.json (${res.status})`);
+      const index = await res.json();
+      return (index.regions || []).find((r) => r.id === metaId) || null;
+    }
+
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    /** Na GitHub dispatch: poll tot count in index.json verandert (publish naar Pages). */
+    async function pollSiteAfterImport(metaId, baselineCount, maxMs = 25 * 60 * 1000) {
+      const start = Date.now();
+      let attempt = 0;
+      log(`Wacht op publish naar site voor ${metaId} (start: ${baselineCount} klimmen)…`);
+      while (Date.now() - start < maxMs) {
+        attempt += 1;
+        await sleep(attempt === 1 ? 20000 : 15000);
+        try {
+          const entry = await fetchIndexEntry(metaId);
+          const count = entry?.count ?? 0;
+          const title = entry?.displayTitle || entry?.title || metaId;
+          if (!entry && baselineCount === 0) {
+            log(`  [${attempt}] nog niet in index.json…`);
+            continue;
+          }
+          if (count !== baselineCount || (baselineCount === 0 && count > 0)) {
+            log(`✓ Site bijgewerkt: ${title} → ${count} klimmen (was ${baselineCount}). Open Database + hard refresh.`);
+            if (typeof FietsKlimImportStatus !== "undefined" && selectedRegion) {
+              void FietsKlimImportStatus.loadPublishedByLocality().then(() => updateRankingMeta());
+            }
+            return;
+          }
+          log(`  [${attempt}] nog ${count} klimmen op site — workflow waarschijnlijk bezig…`);
+        } catch (e) {
+          log(`  [${attempt}] ${e.message}`);
+        }
+      }
+      log("Timeout (25 min): geen wijziging in index.json. Controleer GitHub Actions.");
+    }
+
     let duplicatesLoaded = false;
     let hierarchyInited = false;
 
@@ -594,6 +638,14 @@
       btn.disabled = true;
       document.getElementById("log").textContent = "";
       const payload = workflowPayload(selectedRegion);
+      let baselineCount = 0;
+      if (String(payload.publish_to_site) !== "false") {
+        try {
+          baselineCount = (await fetchIndexEntry(payload.meta_id))?.count ?? 0;
+        } catch {
+          /* poll start zonder baseline */
+        }
+      }
       const cfg = githubImportConfig();
       try {
         if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
@@ -608,6 +660,9 @@
           if (res.data.actionsUrl) {
             log(res.data.actionsUrl);
             window.open(res.data.actionsUrl, "_blank", "noopener");
+          }
+          if (String(payload.publish_to_site) !== "false") {
+            void pollSiteAfterImport(payload.meta_id, baselineCount);
           }
         } else {
           log("Firebase één-klik niet actief — regio staat klaar op tab Regio:");

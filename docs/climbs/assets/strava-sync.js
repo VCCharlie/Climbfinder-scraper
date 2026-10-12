@@ -1,5 +1,8 @@
-/** Strava koppelen + proef-sync (Fase A/B). */
+/** Strava koppelen + proef-sync (dataset uit index.json). */
 (function (global) {
+  const DATASET_STORAGE_KEY = "fietsklim-strava-dataset-id";
+  const DEFAULT_PER_PAGE = 50;
+
   function cfg() {
     return global.FIETSKLIM_AUTH_CONFIG || {};
   }
@@ -51,9 +54,87 @@
     return " Server: strava.client_id/secret/redirect_uri nog niet gezet — functions:config:set + Deploy Functions.";
   }
 
+  function getStoredDatasetId() {
+    try {
+      return localStorage.getItem(DATASET_STORAGE_KEY) || "";
+    } catch {
+      return "";
+    }
+  }
+
+  function setStoredDatasetId(id) {
+    try {
+      if (id) localStorage.setItem(DATASET_STORAGE_KEY, id);
+      else localStorage.removeItem(DATASET_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function getSelectedDatasetId() {
+    const sel = $("stravaDatasetSelect");
+    const fromSelect = sel?.value?.trim();
+    if (fromSelect) return fromSelect;
+    return getStoredDatasetId();
+  }
+
+  async function loadRegionIndex() {
+    const url = new URL("data/index.json", global.location.href).href;
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`index.json laden mislukt (${res.status})`);
+    return res.json();
+  }
+
+  function sortRegions(regions) {
+    return [...regions].sort((a, b) => {
+      const ta = (a.displayTitle || a.title || a.id || "").toLowerCase();
+      const tb = (b.displayTitle || b.title || b.id || "").toLowerCase();
+      return ta.localeCompare(tb, "nl");
+    });
+  }
+
+  async function populateDatasetSelect() {
+    const sel = $("stravaDatasetSelect");
+    if (!sel) return;
+    sel.disabled = true;
+    sel.innerHTML = '<option value="">Laden…</option>';
+    try {
+      const index = await loadRegionIndex();
+      const regions = sortRegions(index.regions || []);
+      sel.innerHTML = '<option value="">— kies regio-dataset —</option>';
+      for (const r of regions) {
+        const opt = document.createElement("option");
+        opt.value = r.id;
+        opt.textContent = `${r.displayTitle || r.title || r.id} (${r.count ?? 0})`;
+        sel.appendChild(opt);
+      }
+      const stored = getStoredDatasetId();
+      const cfgDefault = cfg().strava?.defaultDatasetId;
+      const pick = stored || cfgDefault || "";
+      if (pick && regions.some((r) => r.id === pick)) {
+        sel.value = pick;
+      }
+      sel.disabled = false;
+    } catch (e) {
+      sel.innerHTML = `<option value="">Fout: ${e.message}</option>`;
+    }
+  }
+
+  function updateTrialSyncVisibility(connected) {
+    const btn = $("stravaTrialSyncBtn");
+    const sel = $("stravaDatasetSelect");
+    if (!btn) return;
+    const datasetOk = Boolean(getSelectedDatasetId());
+    const show = connected && datasetOk;
+    btn.toggleAttribute("hidden", !show);
+    btn.disabled = !show;
+    if (sel) sel.toggleAttribute("hidden", !connected);
+  }
+
   async function refreshStatus() {
     if (typeof firebase === "undefined" || !firebase.auth?.().currentUser) {
       setStatus("Log in om Strava te koppelen.");
+      updateTrialSyncVisibility(false);
       return;
     }
     try {
@@ -61,14 +142,15 @@
       const d = res.data || {};
       $("stravaConnectBtn")?.toggleAttribute("hidden", d.connected);
       $("stravaDisconnectBtn")?.toggleAttribute("hidden", !d.connected);
-      /* Proef-sync uitgesteld — knop blijft verborgen tot dataset-keuze in instellingen. */
-      $("stravaTrialSyncBtn")?.toggleAttribute("hidden", true);
+      updateTrialSyncVisibility(d.connected);
       if (d.firestoreError) {
         setStatus(`Firestore-fout: ${d.hint || "?"}${setupHint(d.setup)}`, true);
         return;
       }
       if (d.connected) {
         let msg = `Strava: ${d.athleteName || "gekoppeld"} (publieke ritten)`;
+        const ds = getSelectedDatasetId();
+        if (ds) msg += ` · dataset: ${ds}`;
         if (d.lastSyncSummary) {
           const s = d.lastSyncSummary;
           msg += ` · laatste sync: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten (${s.datasetId})`;
@@ -122,11 +204,16 @@
   }
 
   async function trialSync() {
+    const datasetId = getSelectedDatasetId();
+    if (!datasetId) {
+      setStatus("Kies eerst een regio-dataset voor proef-sync.", true);
+      return;
+    }
     const btn = $("stravaTrialSyncBtn");
     if (btn) btn.disabled = true;
-    setStatus("Proef-sync: laatste 50 publieke ritten vs Zuid-Limburg…");
+    setStatus(`Proef-sync: laatste ${DEFAULT_PER_PAGE} publieke ritten vs ${datasetId}…`);
     try {
-      const res = await callable("stravaSyncTrial")({ datasetId: "nl-limburg", perPage: 50 });
+      const res = await callable("stravaSyncTrial")({ datasetId, perPage: DEFAULT_PER_PAGE });
       setStatus(res.data?.message || "Klaar.");
       global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
     } catch (e) {
@@ -156,14 +243,23 @@
 
   function init() {
     handleQueryParams();
+    void populateDatasetSelect().then(() => refreshStatus());
+    $("stravaDatasetSelect")?.addEventListener("change", function () {
+      setStoredDatasetId(this.value);
+      void refreshStatus();
+    });
     $("stravaConnectBtn")?.addEventListener("click", () => void connect());
     $("stravaDisconnectBtn")?.addEventListener("click", () => void disconnect().catch((e) => setStatus(formatCallableError(e), true)));
     $("stravaTrialSyncBtn")?.addEventListener("click", () => void trialSync());
-    global.addEventListener("fietsklim-authenticated", () => void refreshStatus());
-    if (global.__FIETSKLIM_AUTH_READY) void refreshStatus();
+    global.addEventListener("fietsklim-authenticated", () => {
+      void populateDatasetSelect().then(() => refreshStatus());
+    });
+    if (global.__FIETSKLIM_AUTH_READY) {
+      void populateDatasetSelect().then(() => refreshStatus());
+    }
   }
 
-  global.FietsKlimStravaSync = { init, refreshStatus };
+  global.FietsKlimStravaSync = { init, refreshStatus, populateDatasetSelect };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
