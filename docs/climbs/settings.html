@@ -36,7 +36,7 @@
     <section class="settings-card" id="stravaSettingsCard" aria-labelledby="stravaSettingsTitle">
       <h2 id="stravaSettingsTitle">Strava</h2>
       <p>
-        Koppel Strava en match fietsritten met klimmen in je logboek. Bij sync: <strong>gedaan</strong> aan,
+        Koppel Strava en match <strong>buiten</strong>-fietsritten met klimmen (strikte route-check; geen indoor). Bij sync: <strong>gedaan</strong> aan,
         <strong>wishlist</strong> uit bij match. Handmatige gedaan-vinkjes voor gematchte klimmen worden overschreven.
       </p>
       <label class="settings-switch" for="stravaIncludePrivate">
@@ -60,7 +60,14 @@
         <button type="button" id="stravaFullSyncBtn" class="secondary" hidden>
           Volledige history sync
         </button>
+        <button type="button" id="stravaCleanupBtn" class="secondary" hidden>
+          Opschonen Strava-koppelingen
+        </button>
       </div>
+      <p class="settings-hint">
+        Opschonen verwijdert indoor/simulator-koppelingen en matches die niet (meer) op de route liggen
+        (striktere GPS-check: begin/eind klim + gemiddelde afstand).
+      </p>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
       <div id="stravaMatchPanels" class="strava-match-panels" hidden>
         <p id="stravaMatchTotal" class="settings-status strava-match-total"></p>
@@ -132,7 +139,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261012loglww1"></script>
-  <script src="assets/strava-sync.js?v=20261012stravasyncerr1"></script>
+  <script src="assets/strava-sync.js?v=20261012stravaclean1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>

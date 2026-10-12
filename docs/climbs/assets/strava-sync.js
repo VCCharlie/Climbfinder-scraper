@@ -263,11 +263,14 @@
     const datasetOk = Boolean(getSelectedDatasetId());
     const trial = $("stravaTrialSyncBtn");
     const full = $("stravaFullSyncBtn");
+    const cleanup = $("stravaCleanupBtn");
     const show = connected && datasetOk;
     trial?.toggleAttribute("hidden", !show);
     full?.toggleAttribute("hidden", !show);
+    cleanup?.toggleAttribute("hidden", !connected);
     if (trial) trial.disabled = !show;
     if (full) full.disabled = !show || Boolean(statusCache?.needsReconnect && includePrivateChecked());
+    if (cleanup) cleanup.disabled = !connected;
     const sel = $("stravaDatasetSelect");
     if (sel && global.__FIETSKLIM_AUTH_READY) sel.removeAttribute("hidden");
   }
@@ -438,6 +441,38 @@
     }
   }
 
+  async function cleanupLogMatches() {
+    if (
+      !confirm(
+        "Strava-koppelingen opschonen?\n\n• Indoor/Zwift/FulGaz wordt losgekoppeld\n• Buitenritten die de klim niet echt volgen (strikte route-check) ook\n\nGedaan-vinkjes die alleen via die Strava-match kwamen, gaan uit."
+      )
+    ) {
+      return;
+    }
+    const btn = $("stravaCleanupBtn");
+    if (btn) btn.disabled = true;
+    setStatus("Strava-koppelingen controleren (ritten ophalen)…");
+    try {
+      const res = await callable("stravaCleanupLogMatches")({
+        removeIndoor: true,
+        revalidateRoutes: true,
+      });
+      setStatus(res.data?.message || "Opschoning klaar.");
+      global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
+    } catch (e) {
+      const msg = formatCallableError(e);
+      setStatus(
+        /not-found|UNIMPLEMENTED/i.test(msg)
+          ? `${msg} → Deploy workflow met stravaCleanupLogMatches.`
+          : msg,
+        true
+      );
+    } finally {
+      if (btn) btn.disabled = false;
+      await refreshStatus();
+    }
+  }
+
   async function fullSync() {
     const datasetId = getSelectedDatasetId();
     if (!datasetId) {
@@ -537,6 +572,7 @@
     );
     $("stravaTrialSyncBtn")?.addEventListener("click", () => void trialSync());
     $("stravaFullSyncBtn")?.addEventListener("click", () => void fullSync());
+    $("stravaCleanupBtn")?.addEventListener("click", () => void cleanupLogMatches());
     global.addEventListener("fietsklim-authenticated", () => {
       void populateDatasetSelect().then(() => refreshStatus());
     });

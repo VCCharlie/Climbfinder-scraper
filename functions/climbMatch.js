@@ -104,15 +104,28 @@ function cumulativeDistancesM(coords) {
   return d;
 }
 
+/** Standaard match-parameters (strakker dan v1 — minder parallelweg/false positives). */
+const DEFAULT_MATCH_OPTS = {
+  bufferM: 30,
+  minCoverage: 0.78,
+  sampleStepM: 25,
+  bboxPadDeg: 0.008,
+  endpointMaxM: 55,
+  maxMeanSampleDistM: 70,
+};
+
 /**
  * @param {object} climb — climb JSON with geometry
  * @param {string} encodedPolyline — Strava summary polyline
  * @param {{ bufferM?: number, minCoverage?: number, sampleStepM?: number }} opts
  */
 function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
-  const bufferM = opts.bufferM ?? 45;
-  const minCoverage = opts.minCoverage ?? 0.65;
-  const sampleStepM = opts.sampleStepM ?? 30;
+  const bufferM = opts.bufferM ?? DEFAULT_MATCH_OPTS.bufferM;
+  const minCoverage = opts.minCoverage ?? DEFAULT_MATCH_OPTS.minCoverage;
+  const sampleStepM = opts.sampleStepM ?? DEFAULT_MATCH_OPTS.sampleStepM;
+  const bboxPadDeg = opts.bboxPadDeg ?? DEFAULT_MATCH_OPTS.bboxPadDeg;
+  const endpointMaxM = opts.endpointMaxM ?? DEFAULT_MATCH_OPTS.endpointMaxM;
+  const maxMeanSampleDistM = opts.maxMeanSampleDistM ?? DEFAULT_MATCH_OPTS.maxMeanSampleDistM;
 
   const climbLatLon = climbCoordsLonLat(climb);
   const track = decodePolyline(encodedPolyline);
@@ -122,8 +135,19 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
 
   const climbBox = bboxFromCoords(climbLatLon);
   const trackBox = bboxFromCoords(track);
-  if (!bboxesOverlap(climbBox, trackBox, 0.015)) {
+  if (!bboxesOverlap(climbBox, trackBox, bboxPadDeg)) {
     return { matched: false, coverage: 0 };
+  }
+
+  const startDist = minDistToTrackM(
+    climbLatLon[0][0],
+    climbLatLon[0][1],
+    track
+  );
+  const endPt = climbLatLon[climbLatLon.length - 1];
+  const endDist = minDistToTrackM(endPt[0], endPt[1], track);
+  if (startDist > endpointMaxM || endDist > endpointMaxM) {
+    return { matched: false, coverage: 0, endpointMiss: true };
   }
 
   const cum = cumulativeDistancesM(climbLatLon);
@@ -132,6 +156,7 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
 
   let hit = 0;
   let sampled = 0;
+  let distSum = 0;
   for (let dist = 0; dist <= totalLen; dist += sampleStepM) {
     sampled += 1;
     let idx = 0;
@@ -140,20 +165,59 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
     const t = (dist - cum[idx]) / segLen;
     const lat = climbLatLon[idx][0] + t * (climbLatLon[idx + 1][0] - climbLatLon[idx][0]);
     const lon = climbLatLon[idx][1] + t * (climbLatLon[idx + 1][1] - climbLatLon[idx][1]);
-    if (minDistToTrackM(lat, lon, track) <= bufferM) hit += 1;
+    const d = minDistToTrackM(lat, lon, track);
+    distSum += d;
+    if (d <= bufferM) hit += 1;
   }
 
   const coverage = sampled ? hit / sampled : 0;
-  return { matched: coverage >= minCoverage, coverage: Math.round(coverage * 1000) / 1000 };
+  const meanDist = sampled ? distSum / sampled : Infinity;
+  const matched =
+    coverage >= minCoverage && meanDist <= maxMeanSampleDistM;
+  return {
+    matched,
+    coverage: Math.round(coverage * 1000) / 1000,
+    meanDistM: Math.round(meanDist),
+  };
+}
+
+/** Buiten-fietsen voor klim-match; geen trainer/Zwift/FulGaz (VirtualRide). */
+function isOutdoorCyclingActivity(activity) {
+  if (!activity) return false;
+  if (activity.trainer === true) return false;
+
+  const sport = String(activity.sport_type || activity.type || "")
+    .toLowerCase()
+    .replace(/[\s_-]+/g, "");
+  if (!sport) return false;
+  if (sport === "virtualride" || sport.includes("indoor")) return false;
+
+  const outdoor = new Set([
+    "ride",
+    "mountainbikeride",
+    "gravelride",
+    "ebikeride",
+    "emountainbikeride",
+    "cyclocross",
+    "handcycle",
+    "bikeride",
+  ]);
+  if (!outdoor.has(sport)) return false;
+
+  const distM = Number(activity.distance);
+  if (Number.isFinite(distM) && distM > 0 && distM < 800) {
+    return false;
+  }
+
+  return true;
 }
 
 function isCyclingActivity(activity) {
-  const t = String(activity.type || activity.sport_type || "").toLowerCase();
-  return t === "ride" || t === "virtualride" || t === "ebikeride";
+  return isOutdoorCyclingActivity(activity);
 }
 
 /** Climbs whose bbox overlaps the activity track bbox (cheap prefilter). */
-function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = 0.02) {
+function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = DEFAULT_MATCH_OPTS.bboxPadDeg) {
   const track = decodePolyline(encodedPolyline);
   if (track.length < 2) return [];
   const trackBox = bboxFromCoords(track);
@@ -172,6 +236,8 @@ module.exports = {
   decodePolyline,
   matchClimbToActivity,
   isCyclingActivity,
+  isOutdoorCyclingActivity,
+  DEFAULT_MATCH_OPTS,
   bboxFromCoords,
   climbsNearEncodedPolyline,
 };
