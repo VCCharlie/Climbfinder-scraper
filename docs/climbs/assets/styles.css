@@ -696,6 +696,34 @@ header.app-header p#datasetMeta {
   background: #ecfeff;
 }
 
+.map-batch-done-btn {
+  position: absolute;
+  z-index: 900;
+  top: 3.15rem;
+  right: 0.65rem;
+  max-width: calc(100% - 5.5rem);
+  padding: 0.45rem 0.65rem;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0f172a;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.18);
+}
+
+.map-batch-done-btn:hover {
+  background: #f0fdfa;
+  color: var(--teal-700);
+}
+
+.map-batch-done-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
 .map-difficulty-legend {
   position: absolute;
   z-index: 850;

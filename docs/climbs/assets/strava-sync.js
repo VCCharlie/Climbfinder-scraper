@@ -261,6 +261,10 @@
       const d = res.data || {};
       statusCache = d;
       $("stravaConnectBtn")?.toggleAttribute("hidden", d.connected);
+      $("stravaReconnectBtn")?.toggleAttribute(
+        "hidden",
+        !d.connected || !d.needsReconnect
+      );
       $("stravaDisconnectBtn")?.toggleAttribute("hidden", !d.connected);
       syncToggleFromStatus(d);
       updatePrivateHint(d);
@@ -275,6 +279,9 @@
         const ds = getSelectedDatasetId();
         if (ds) {
           msg += ds === ALL_DATASETS ? " · scope: hele database" : ` · dataset: ${ds}`;
+        }
+        if (d.needsReconnect) {
+          msg += " · klik Ververs Strava-toestemming (privé) of Koppel opnieuw";
         }
         if (d.lastSyncSummary) {
           const s = d.lastSyncSummary;
@@ -441,6 +448,7 @@
       schedulePrefsSave();
     });
     $("stravaConnectBtn")?.addEventListener("click", () => void connect());
+    $("stravaReconnectBtn")?.addEventListener("click", () => void connect());
     $("stravaDisconnectBtn")?.addEventListener("click", () =>
       void disconnect().catch((e) => setStatus(formatCallableError(e), true))
     );
