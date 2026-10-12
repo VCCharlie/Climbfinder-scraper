@@ -81,7 +81,7 @@ strava: {
 ## 6. Gebruik
 
 1. **Instellingen** → optioneel **Privé-activiteiten** aan (daarna opnieuw koppelen als Strava extra scope vraagt).
-2. Regio-dataset kiezen → **Koppel Strava** → na callback **Proef-sync** of **Volledige history sync** (één dataset; history in batches via `stravaSyncFull`).
+2. **Hele database** of één regio-dataset kiezen → **Koppel Strava** → **Proef-sync** of **Volledige history sync** (`datasetId: "__all__"` = alle regio’s uit `index.json`; history in batches).
 
 Voorkeuren: Firestore `users/{uid}/prefs/strava` → `{ includePrivate }`.
 

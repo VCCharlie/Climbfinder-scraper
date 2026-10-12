@@ -44,6 +44,10 @@ Varianten (zelfde `key`-parameter): `voyager_nolabels`, `light_all` (Positron me
 
 Attributie op de kaart houden: © OpenStreetMap contributors, © CARTO.
 
+### Maximaal inzoomen (Voyager)
+
+Met een **gratis** API-sleutel leveren Voyager-rastertegels vaak alleen tot **zoom 18** (hogere `z` → HTTP **403**). FietsKlim zet `maxZoom` daarom op 18 voor Carto Voyager, zodat de +-knop niet verder gaat dan er echte tegels zijn. Voor dieper inzoomen: wissel tijdelijk naar **OpenStreetMap** of **CyclOSM** in het lagenmenu.
+
 ### Zonder sleutel getest (curl, 2026-10)
 
 | URL | Resultaat |

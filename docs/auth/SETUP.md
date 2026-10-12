@@ -83,12 +83,14 @@ Het logboek gebruikt de **Firebase-web-SDK** → dat vereist **Cloud Firestore i
 
 1. Firebase Console → **Build** → **Firestore Database**.
 2. Bij **eerste** aanmaken: kies **Firestore in Native mode** — **niet** “Cloud Datastore mode”.
-3. **Rules** → plak `docs/auth/firestore.rules.example` (alleen eigen `uid` mag lezen/schrijven).
-4. In `firebase-config.js`:
+3. **Rules** → plak `docs/auth/firestore.rules.example` (eigen `uid` voor `climbLog` en `prefs`; Strava-tokens alleen via Functions).
+4. In `firebase-config.js` (voor project **climb-database**):
 
    ```js
    climbLog: { useFirestore: true },
    ```
+
+   Controle: Instellingen → logboek-modus “Firestore”; op de database geen rode *localStorage fallback* onder het logboek-filter.
 
 Na deploy: hard refresh. Vinkjes in de lijst, filter **Nog niet gedaan / Al gedaan**, groene stippen op de kaart.
 

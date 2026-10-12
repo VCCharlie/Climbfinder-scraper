@@ -27,8 +27,8 @@ window.FIETSKLIM_AUTH_CONFIG = {
   storageDataPrefix: "climbs/data",
   /** One-click GitHub Actions import (requires deployed requestClimbfinderImport + github.pat in Functions). */
   climbLog: {
-    /** Zet true na Firestore **Native mode** (niet Datastore). false = localStorage per browser. */
-    useFirestore: false,
+    /** Firestore Native mode in project climb-database + rules op users/{uid}/climbLog. */
+    useFirestore: true,
   },
   githubImport: {
     enabled: true,
