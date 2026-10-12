@@ -1,36 +1,30 @@
-/** Instellingen-pagina: logboek-modus, export/import. */
+/** Instellingen: logboek-sync (local / Firestore), export/import. */
 (function (global) {
   const log = global.FietsKlimClimbLog;
 
-  function updateLogbookHint() {
-    const el = document.getElementById("logbookModeHint");
-    if (!el) return;
-    const cfg = global.FIETSKLIM_AUTH_CONFIG || {};
-    const useFs = cfg.climbLog?.useFirestore !== false;
-    if (useFs) {
-      el.textContent =
-        "Config: Firestore aan. Vereist Native mode (niet Datastore mode) — zie rode Strava/Firestore-fout? Maak Firestore Native of zet useFirestore: false.";
-    } else {
-      el.textContent = "Config: localStorage — vinkjes alleen in deze browser.";
-    }
-  }
-
-  function updateLogbookStats() {
-    const stats = document.getElementById("logbookStats");
+  function updateLogbookSyncUi() {
+    const statusEl = document.getElementById("logbookSyncStatus");
+    const countsEl = document.getElementById("logbookCounts");
+    const toggle = document.getElementById("logbookFirestoreToggle");
     const exportBtn = document.getElementById("logbookExportBtn");
-    if (!log?.isReady?.()) {
-      if (stats) stats.hidden = true;
-      if (exportBtn) exportBtn.disabled = true;
+
+    if (toggle && log?.isFirestoreSyncRequested) {
+      toggle.checked = log.isFirestoreSyncRequested();
+    }
+
+    if (!log?.syncStatusSummary) {
+      if (statusEl) statusEl.textContent = "Sync: —";
       return;
     }
-    const mode = log.getMode?.() || "?";
-    const done = log.totalDone();
-    const wish = log.totalWishlist();
-    if (stats) {
-      stats.hidden = false;
-      stats.textContent = `Logboek geladen (${mode}): ${done} gedaan, ${wish} op wishlist.`;
+
+    const summary = log.syncStatusSummary();
+    if (statusEl) {
+      statusEl.textContent = summary.line;
+      statusEl.classList.toggle("is-error", summary.requestedFirestore && !summary.ok);
     }
-    if (exportBtn) exportBtn.disabled = false;
+    if (countsEl) countsEl.hidden = true;
+
+    if (exportBtn) exportBtn.disabled = !log.isReady?.();
   }
 
   async function ensureLogReady() {
@@ -42,6 +36,16 @@
       console.warn("Logboek init:", e);
     }
     return log.isReady();
+  }
+
+  async function onFirestoreToggleChange() {
+    const toggle = document.getElementById("logbookFirestoreToggle");
+    if (!toggle || !log?.setFirestoreSyncRequested) return;
+    log.setFirestoreSyncRequested(toggle.checked);
+    if (log.teardown) log.teardown();
+    await ensureLogReady();
+    updateLogbookSyncUi();
+    global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
   }
 
   function downloadJson(filename, obj) {
@@ -63,7 +67,7 @@
 
   async function onExport() {
     if (!(await ensureLogReady())) {
-      setImportStatus("Logboek nog niet geladen — wacht een moment of herlaad.", true);
+      setImportStatus("Logboek nog niet geladen.", true);
       return;
     }
     const payload = log.exportPayload();
@@ -83,16 +87,17 @@
       const text = await file.text();
       const data = JSON.parse(text);
       const result = await log.importPayload(data, { merge: true });
-      setImportStatus(
-        `Import klaar: ${result.imported} bijgewerkt, ${result.skipped} overgeslagen.`
-      );
-      updateLogbookStats();
+      setImportStatus(`Import: ${result.imported} bijgewerkt.`);
+      updateLogbookSyncUi();
     } catch (e) {
       setImportStatus(e.message || "Import mislukt.", true);
     }
   }
 
   function wireLogbookUi() {
+    document.getElementById("logbookFirestoreToggle")?.addEventListener("change", () => {
+      void onFirestoreToggleChange();
+    });
     document.getElementById("logbookExportBtn")?.addEventListener("click", () => {
       onExport();
     });
@@ -104,14 +109,12 @@
   }
 
   async function onAuthenticated() {
-    updateLogbookHint();
     await ensureLogReady();
-    updateLogbookStats();
-    global.addEventListener("fietsklim-climb-log-changed", updateLogbookStats);
+    updateLogbookSyncUi();
+    global.addEventListener("fietsklim-climb-log-changed", updateLogbookSyncUi);
   }
 
   function init() {
-    updateLogbookHint();
     wireLogbookUi();
     global.addEventListener("fietsklim-authenticated", () => {
       onAuthenticated();

@@ -32,7 +32,7 @@ window.FIETSKLIM_AUTH_CONFIG = {
    */
   /**
    * Climb “gedaan” logboek (climbs/index.html).
-   * useFirestore: true → Firestore **Native mode** (niet Datastore mode).
+   * Optioneel startwaarde; in de app kiest je sync via Instellingen (toggle). Standaard: localStorage.
    * false → alleen localStorage in deze browser.
    */
   climbLog: {

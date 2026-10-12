@@ -5,6 +5,7 @@
  */
 (function (global) {
   const STORAGE_VERSION = 1;
+  const FIRESTORE_PREF_KEY = "fietsklim-log-use-firestore";
 
   const state = {
     ready: false,
@@ -17,6 +18,65 @@
 
   function cfg() {
     return global.FIETSKLIM_AUTH_CONFIG || {};
+  }
+
+  /** Standaard localStorage; Firestore alleen als toggle aan (of eenmalig uit firebase-config). */
+  function isFirestoreSyncRequested() {
+    try {
+      const v = localStorage.getItem(FIRESTORE_PREF_KEY);
+      if (v === "1") return true;
+      if (v === "0") return false;
+    } catch {
+      /* ignore */
+    }
+    if (cfg().climbLog?.useFirestore === true) {
+      try {
+        localStorage.setItem(FIRESTORE_PREF_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      return true;
+    }
+    return false;
+  }
+
+  function setFirestoreSyncRequested(on) {
+    try {
+      localStorage.setItem(FIRESTORE_PREF_KEY, on ? "1" : "0");
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function syncStatusSummary() {
+    const requested = isFirestoreSyncRequested();
+    const active = state.mode;
+    const counts = `${totalDone()} gedaan, ${totalWishlist()} wishlist`;
+    if (!state.ready) {
+      return { line: "Sync: laden…", ok: false, requestedFirestore: requested, activeMode: active };
+    }
+    if (!requested) {
+      return {
+        line: `Sync: localStorage · ${counts}`,
+        ok: true,
+        requestedFirestore: false,
+        activeMode: active,
+      };
+    }
+    if (active === "firestore") {
+      return {
+        line: `Sync: Firestore · actief · ${counts}`,
+        ok: true,
+        requestedFirestore: true,
+        activeMode: "firestore",
+      };
+    }
+    return {
+      line: `Sync: Firestore aan, maar localStorage (geen cloud) · ${counts}`,
+      ok: false,
+      requestedFirestore: true,
+      activeMode: active,
+    };
   }
 
   function climbKey(datasetId, climbId) {
@@ -182,8 +242,7 @@
       state.unsubscribe = null;
     }
 
-    const climbLogCfg = cfg().climbLog || {};
-    const preferFirestore = climbLogCfg.useFirestore !== false;
+    const preferFirestore = isFirestoreSyncRequested();
 
     if (preferFirestore && firebase.firestore) {
       try {
@@ -430,10 +489,19 @@
     return state.mode;
   }
 
+  async function reinit() {
+    teardown();
+    return init();
+  }
+
   global.FietsKlimClimbLog = {
     init,
+    reinit,
     teardown,
     isReady,
+    isFirestoreSyncRequested,
+    setFirestoreSyncRequested,
+    syncStatusSummary,
     isDone,
     isWishlist,
     setDone,
