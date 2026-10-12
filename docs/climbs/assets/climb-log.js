@@ -612,6 +612,25 @@
     return state.mode;
   }
 
+  function getLogEntry(datasetId, climbId) {
+    return getEntry(datasetId, climbId);
+  }
+
+  function listStravaLinked() {
+    return listEntries()
+      .filter((r) => r.stravaActivityId)
+      .sort((a, b) => {
+        const na = (a.stravaClimbName || a.climbId || "").toLowerCase();
+        const nb = (b.stravaClimbName || b.climbId || "").toLowerCase();
+        return na.localeCompare(nb, "nl");
+      });
+  }
+
+  function stravaActivityUrl(activityId) {
+    if (!activityId) return null;
+    return `https://www.strava.com/activities/${activityId}`;
+  }
+
   async function reinit() {
     teardown();
     return init();
@@ -641,6 +660,9 @@
     exportPayload,
     importPayload,
     getMode,
+    getLogEntry,
+    listStravaLinked,
+    stravaActivityUrl,
     /** @internal test hook */
     _mergeFlagsLww: mergeFlagsLww,
     _timestampMillis: timestampMillis,

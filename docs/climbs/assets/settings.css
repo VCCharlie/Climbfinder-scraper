@@ -54,6 +54,52 @@
   line-height: 1.45;
 }
 
+.strava-match-panels {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.strava-match-total {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.strava-match-details {
+  margin: 0.35rem 0 0.65rem;
+  font-size: 0.88rem;
+}
+
+.strava-match-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 0.35rem;
+}
+
+.strava-match-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.15rem;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.strava-match-list a {
+  color: #fc4c02;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.strava-match-list a:hover {
+  text-decoration: underline;
+}
+
+.strava-match-dataset {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 400;
+}
+
 .settings-switch {
   display: flex;
   align-items: center;

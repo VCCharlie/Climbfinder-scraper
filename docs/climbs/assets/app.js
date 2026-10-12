@@ -871,8 +871,44 @@
       .join("")}`;
   }
 
+  function stravaActivityUrl(activityId) {
+    if (!activityId) return null;
+    return `https://www.strava.com/activities/${activityId}`;
+  }
+
+  function renderStravaLinkElement(el, datasetId, climb) {
+    if (!el || !climb || !datasetId) {
+      if (el) el.hidden = true;
+      return;
+    }
+    if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady?.()) {
+      el.hidden = true;
+      return;
+    }
+    const row = FietsKlimClimbLog.getLogEntry?.(datasetId, climb.id);
+    const actId = row?.stravaActivityId;
+    if (!actId) {
+      el.hidden = true;
+      return;
+    }
+    const count = Math.max(1, Number(row.stravaAscentCount) || 1);
+    const actName = row.stravaActivityName || "Strava-rit";
+    const url = FietsKlimClimbLog.stravaActivityUrl?.(actId) || stravaActivityUrl(actId);
+    const countPart = count > 1 ? ` · ${count}× gedetecteerd op Strava` : "";
+    el.hidden = false;
+    el.innerHTML = `Strava: <a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(actName)}</a>${countPart}`;
+  }
+
+  function syncClimbDetailStravaLink() {
+    const datasetId = state.bundle?.meta?.id;
+    const climb = state.activeClimb;
+    renderStravaLinkElement($("climbStravaLink"), datasetId, climb);
+    renderStravaLinkElement($("profileStravaLink"), datasetId, climb);
+  }
+
   function syncClimbDetailDoneToggle() {
     syncClimbDetailLogToggles();
+    syncClimbDetailStravaLink();
   }
 
   function $(id) {
@@ -3377,7 +3413,7 @@
     document.addEventListener("fietsklim-climb-log-changed", () => {
       updateClimbLogSummary();
       renderList(state.searchQuery);
-      syncClimbDetailLogToggles();
+      syncClimbDetailDoneToggle();
       if (state.globalSearchReady && state.mapMode !== "detail") {
         if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
         else refreshViewportClimbs();
