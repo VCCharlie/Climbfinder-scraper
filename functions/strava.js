@@ -120,9 +120,87 @@ function scopesForIncludePrivate(includePrivate) {
   return includePrivate ? SCOPES_WITH_PRIVATE : SCOPES_PUBLIC;
 }
 
+/** Strava gebruikt komma’s en/of spaties in scope-strings. */
+function parseStravaScopes(scopeStr) {
+  if (!scopeStr) return [];
+  return String(scopeStr)
+    .split(/[\s,]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 function integrationHasPrivateScope(scopeStr) {
-  if (!scopeStr) return false;
-  return String(scopeStr).split(",").map((s) => s.trim()).includes("activity:read_all");
+  return parseStravaScopes(scopeStr).includes("activity:read_all");
+}
+
+function formatScopeString(scopeFromToken) {
+  const scopes = parseStravaScopes(scopeFromToken);
+  return scopes.length ? scopes.join(",") : "";
+}
+
+async function athleteCanReadPrivateActivities(accessToken) {
+  try {
+    const acts = await stravaFetch("/athlete/activities?per_page=15", accessToken);
+    return Array.isArray(acts) && acts.some((a) => a.private === true);
+  } catch (e) {
+    functions.logger.warn("athleteCanReadPrivateActivities", e.message);
+    return false;
+  }
+}
+
+async function resolvePrivateScopeForStatus(uid, integration, prefs) {
+  let scope = integration?.scope || "";
+  let hasPrivate = integrationHasPrivateScope(scope);
+
+  if (!prefs.includePrivate) {
+    return { hasPrivateScope: hasPrivate, scope, needsReconnect: false };
+  }
+
+  if (hasPrivate) {
+    return { hasPrivateScope: true, scope, needsReconnect: false };
+  }
+
+  // Na OAuth met privé: scope kan spaties i.p.v. komma’s gebruiken (Strava token response).
+  if (integration?.lastOAuthIncludePrivate) {
+    const reparsed = formatScopeString(scope);
+    if (reparsed && reparsed !== scope) {
+      scope = reparsed;
+      await (await integrationRef(uid)).set(
+        { scope: reparsed, scopeNormalizedAt: admin.firestore.FieldValue.serverTimestamp() },
+        { merge: true }
+      );
+    }
+    hasPrivate = integrationHasPrivateScope(scope);
+    if (hasPrivate) {
+      return { hasPrivateScope: true, scope, needsReconnect: false };
+    }
+  }
+
+  try {
+    const accessToken = await getValidAccessToken(uid);
+    const refreshed = await getStoredIntegration(uid);
+    if (refreshed?.scope && integrationHasPrivateScope(refreshed.scope)) {
+      return { hasPrivateScope: true, scope: refreshed.scope, needsReconnect: false };
+    }
+    if (await athleteCanReadPrivateActivities(accessToken)) {
+      const scopes = new Set(parseStravaScopes(refreshed?.scope || scope));
+      scopes.add("activity:read_all");
+      const verified = [...scopes].join(",");
+      await (await integrationRef(uid)).set(
+        {
+          scope: verified,
+          privateActivityAccessVerified: true,
+          scopeNormalizedAt: admin.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+      return { hasPrivateScope: true, scope: verified, needsReconnect: false };
+    }
+  } catch (e) {
+    functions.logger.warn("resolvePrivateScopeForStatus", e.message);
+  }
+
+  return { hasPrivateScope: false, scope, needsReconnect: true };
 }
 
 function activityVisibleForPrefs(activity, includePrivate) {
@@ -183,6 +261,9 @@ async function getValidAccessToken(uid) {
       refreshToken: tok.refresh_token || data.refreshToken,
       expiresAt: Date.now() + (tok.expires_in || 21600) * 1000,
     };
+    if (tok.scope) {
+      data.scope = formatScopeString(tok.scope);
+    }
     await ref.set(data, { merge: true });
   }
   return data.accessToken;
@@ -216,7 +297,11 @@ async function loadRegionDatasetIds() {
 async function assertPrivateScopeIfNeeded(uid, prefs) {
   if (!prefs.includePrivate) return;
   const integration = await getStoredIntegration(uid);
-  if (!integrationHasPrivateScope(integration?.scope)) {
+  if (!integration) {
+    throw new functions.https.HttpsError("failed-precondition", "Strava is niet gekoppeld.");
+  }
+  const scopeInfo = await resolvePrivateScopeForStatus(uid, integration, prefs);
+  if (!scopeInfo.hasPrivateScope) {
     throw new functions.https.HttpsError(
       "failed-precondition",
       "Privé-activiteiten aan, maar Strava heeft activity:read_all nog niet — koppel Strava opnieuw."
@@ -285,7 +370,7 @@ async function exchangeCodeAndStoreIntegration(uid, code, options) {
   }
   const tok = await tokRes.json();
   const athlete = tok.athlete || {};
-  const grantedScope = tok.scope || scopesForIncludePrivate(includePrivate);
+  const grantedScope = formatScopeString(tok.scope);
 
   await saveStravaIncludePrivate(uid, includePrivate);
 
@@ -297,6 +382,7 @@ async function exchangeCodeAndStoreIntegration(uid, code, options) {
     athleteName: [athlete.firstname, athlete.lastname].filter(Boolean).join(" ") || null,
     scope: grantedScope,
     syncIncludePrivate: includePrivate,
+    lastOAuthIncludePrivate: includePrivate,
     connectedAt: admin.firestore.FieldValue.serverTimestamp(),
     lastSyncAt: null,
     lastSyncSummary: null,
@@ -310,8 +396,11 @@ exports.setStravaSyncPrefs = functions.region(REGION).https.onCall(async (data, 
     const includePrivate = Boolean(data?.includePrivate);
     await saveStravaIncludePrivate(uid, includePrivate);
     const integration = await getStoredIntegration(uid);
-    const needsReconnect =
-      includePrivate && integration && !integrationHasPrivateScope(integration.scope);
+    const scopeInfo =
+      includePrivate && integration
+        ? await resolvePrivateScopeForStatus(uid, integration, { includePrivate: true })
+        : { needsReconnect: false };
+    const needsReconnect = Boolean(scopeInfo.needsReconnect);
     return {
       ok: true,
       includePrivate,
@@ -451,17 +540,16 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
     if (!data) {
       return { connected: false, setup, includePrivate: prefs.includePrivate };
     }
-    const hasPrivateScope = integrationHasPrivateScope(data.scope);
-    const needsReconnect = prefs.includePrivate && !hasPrivateScope;
+    const scopeInfo = await resolvePrivateScopeForStatus(uid, data, prefs);
     return {
       connected: true,
       athleteName: data.athleteName || null,
       lastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
       lastSyncSummary: data.lastSyncSummary || null,
       includePrivate: prefs.includePrivate,
-      hasPrivateScope,
-      needsReconnect,
-      grantedScope: data.scope || null,
+      hasPrivateScope: scopeInfo.hasPrivateScope,
+      needsReconnect: scopeInfo.needsReconnect,
+      grantedScope: scopeInfo.scope || null,
       fullSyncCursor: data.fullSyncCursor || null,
       setup,
     };

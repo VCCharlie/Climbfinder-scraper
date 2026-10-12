@@ -95,8 +95,11 @@
     if (d.needsReconnect) {
       hint.hidden = false;
       hint.classList.add("is-error");
+      const scopeNote = d.grantedScope ? ` (opgeslagen scope: ${d.grantedScope})` : "";
       hint.textContent =
-        "Privé staat aan, maar Strava heeft nog geen activity:read_all — klik Koppel Strava opnieuw (toestemming vernieuwen).";
+        "Privé staat aan, maar activity:read_all ontbreekt nog in de koppeling" +
+        scopeNote +
+        " — tik Ververs Strava-toestemming (privé). Na deploy Functions: pagina verversen.";
       return;
     }
     hint.classList.remove("is-error");
