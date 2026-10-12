@@ -159,9 +159,11 @@
     renderList(state.searchQuery);
     updateClimbLogSummary();
     updateMobileFiltersSummary();
-    if (state.globalSearchReady) {
+    if (mapEntriesAvailable()) {
       if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
       else refreshViewportClimbs();
+    } else {
+      void loadRegionsGeo().then(() => syncRegionPreviewMarkers());
     }
     updateSearchHint();
   }
@@ -269,6 +271,9 @@
     regionCache: new Map(),
     globalSearchReady: false,
     globalEntries: [],
+    globalIndexProgress: null,
+    regionPreviewCluster: null,
+    mapSyncTimer: null,
     searchBusy: false,
     searchQuery: "",
     mapMode: "overview",
@@ -335,6 +340,90 @@
     return !state.geoInitialCenter && !state.userLatLng;
   }
 
+  /** Kaart/lijst mogen deels geladen index gebruiken (niet wachten op alle ~29k klimmen). */
+  function mapEntriesAvailable() {
+    return state.globalSearchReady || state.globalEntries.length > 0;
+  }
+
+  function globalIndexLoadProgressText() {
+    if (!state.searchBusy || state.globalSearchReady) return "";
+    const p = state.globalIndexProgress;
+    const n = state.globalEntries.length;
+    if (!p?.totalRegions) {
+      return n > 0 ? `Database laden… (${n.toLocaleString("nl-NL")} klimmen)` : "Database laden…";
+    }
+    return `Database laden… ${p.loadedRegions}/${p.totalRegions} regio’s (${n.toLocaleString("nl-NL")} klimmen)`;
+  }
+
+  function scheduleDeferredMapSync() {
+    if (state.mapSyncTimer) return;
+    state.mapSyncTimer = setTimeout(() => {
+      state.mapSyncTimer = null;
+      if (!state.map || state.mapMode === "detail" || !mapEntriesAvailable()) return;
+      if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
+      else refreshViewportClimbs();
+      updateSearchHint();
+    }, 650);
+  }
+
+  function hideRegionPreviewMarkers() {
+    if (state.regionPreviewCluster && state.map) {
+      state.map.removeLayer(state.regionPreviewCluster);
+    }
+    state.regionPreviewCluster = null;
+  }
+
+  function syncRegionPreviewMarkers() {
+    if (!state.map || mapEntriesAvailable() || state.mapMode === "detail") {
+      hideRegionPreviewMarkers();
+      return;
+    }
+    if (!state.indexRegions.length) return;
+
+    hideRegionPreviewMarkers();
+    if (typeof L.markerClusterGroup === "function") {
+      state.regionPreviewCluster = L.markerClusterGroup({
+        showCoverageOnHover: false,
+        maxClusterRadius: 52,
+        spiderfyOnMaxZoom: true,
+      });
+    } else {
+      state.regionPreviewCluster = L.layerGroup();
+    }
+
+    const byLoc = state.regionsGeo?.regions || {};
+    for (const region of state.indexRegions) {
+      const lid = region.locality_id;
+      const g = lid != null ? byLoc[String(lid)] : null;
+      if (!g || g.lat == null || g.lon == null) continue;
+      const title = regionTitleFromIndexEntry(region);
+      const count = region.count ?? 0;
+      const icon = L.divIcon({
+        className: "fietsklim-region-preview-marker",
+        html: `<span class="fietsklim-region-preview-dot" aria-hidden="true"></span>`,
+        iconSize: [12, 12],
+        iconAnchor: [6, 6],
+      });
+      const marker = L.marker([g.lat, g.lon], { icon });
+      bindMapTooltip(marker, `${title} · ${count} klimmen`, { direction: "top" });
+      marker.on("click", () => {
+        state.regionFiltersTouched = true;
+        state.mapExploreAllRegions = false;
+        syncCountrySelectForRegionUrl(region.url);
+        const regionSel = $("regionSelect");
+        if (regionSel) regionSel.value = region.url;
+        void loadRegion(region.url, { fitMap: true });
+      });
+      state.regionPreviewCluster.addLayer(marker);
+    }
+
+    if (state.regionPreviewCluster.getLayers().length) {
+      state.regionPreviewCluster.addTo(state.map);
+    } else {
+      hideRegionPreviewMarkers();
+    }
+  }
+
   async function loadRegionsGeo() {
     if (state.regionsGeo) return state.regionsGeo;
     if (!state.regionsGeoPromise) {
@@ -388,7 +477,7 @@
     if (regionSel) regionSel.value = region.url;
     await loadRegion(region.url);
     updateMobileFiltersSummary();
-    if (state.globalSearchReady) {
+    if (mapEntriesAvailable()) {
       syncOverviewMarkers({ fit: false });
       refreshViewportClimbs();
     }
@@ -493,7 +582,7 @@
     if (state.activeClimb && isMobileMapPaneActive()) {
       updateMapTouchSheet(state.activeClimb);
     }
-    if (state.globalSearchReady) {
+    if (mapEntriesAvailable()) {
       if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
       else if (state.mapMode !== "detail") refreshViewportClimbs();
     }
@@ -984,7 +1073,7 @@
     if (state.climbs?.length) {
       bounds = boundsForEntries(state.climbs.map((climb) => ({ climb })));
     }
-    if (!bounds.length && state.globalSearchReady) {
+    if (!bounds.length && mapEntriesAvailable()) {
       bounds = boundsForEntries(
         state.globalEntries.filter((e) => e.regionUrl === state.currentRegionUrl)
       );
@@ -994,7 +1083,7 @@
     state.map.fitBounds(bounds, { padding: [36, 36], maxZoom: 14 });
     state.mapMode = state.map.getZoom() >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
 
-    if (state.globalSearchReady) {
+    if (mapEntriesAvailable()) {
       syncOverviewMarkers({ fit: false });
       refreshViewportClimbs();
     }
@@ -1038,6 +1127,12 @@
       return;
     }
     el.classList.remove("field-hint--geo-warn");
+    const indexProgress = globalIndexLoadProgressText();
+    if (indexProgress && !state.searchQuery.trim() && !isLogbookFilterActive()) {
+      el.textContent = appendMapTilesHint(indexProgress);
+      updateMobileFiltersSummary();
+      return;
+    }
     const q = state.searchQuery.trim();
     if (mapFilterStrictActive()) {
       el.textContent = appendMapTilesHint(
@@ -1069,8 +1164,10 @@
         const tag = tagByFilter[state.doneFilter] || "filter";
         el.textContent = appendMapTilesHint(
           n > 0
-            ? `Lijst: ${filtered} klimmen (${tag}, alle regio’s). Kaart: ${n} klimmen. Klik klim = regio wisselt mee.`
-            : "Index laden…"
+            ? `Lijst: ${filtered} klimmen (${tag}, alle regio’s). Kaart: ${n} klimmen. Klik klim = regio wisselt mee.${
+                indexProgress ? ` ${indexProgress}` : ""
+              }`
+            : indexProgress || "Index laden…"
         );
       } else if (reg) {
         el.textContent = appendMapTilesHint(
@@ -1630,7 +1727,7 @@
   }
 
   function refreshViewportClimbs() {
-    if (!state.map || !state.globalSearchReady || state.mapMode === "detail") return;
+    if (!state.map || !mapEntriesAvailable() || state.mapMode === "detail") return;
 
     const zoom = state.map.getZoom();
     const useViewport = state.mapMode === "local" || zoom >= MIN_ZOOM_NEARBY_ROUTES;
@@ -1761,7 +1858,7 @@
 
     /* Geen zoom/center wijzigen — alleen contextlagen in huidige viewport herstellen. */
     if (state.mapMode === "overview") {
-      if (state.globalSearchReady) syncOverviewMarkers({ fit: false });
+      if (mapEntriesAvailable()) syncOverviewMarkers({ fit: false });
       updateSearchHint();
     } else {
       refreshViewportClimbs();
@@ -1780,7 +1877,8 @@
     resetProfilePanel();
     updateOverviewBackButton();
     renderList(state.searchQuery);
-    if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
+    if (mapEntriesAvailable()) syncOverviewMarkers({ fit: true });
+    else void loadRegionsGeo().then(() => syncRegionPreviewMarkers());
     updateSearchHint();
   }
 
@@ -1801,7 +1899,8 @@
 
   function syncOverviewMarkers(options = {}) {
     const { fit = false } = options;
-    if (!state.map || !state.globalSearchReady) return;
+    if (!state.map || !mapEntriesAvailable()) return;
+    hideRegionPreviewMarkers();
     if (state.mapMode !== "overview") {
       refreshViewportClimbs();
       return;
@@ -1863,13 +1962,17 @@
     const logbookList = !q && isLogbookFilterActive();
     const needsGlobal = Boolean(q) || logbookList;
 
-    if (needsGlobal && !state.globalSearchReady) {
-      list.innerHTML = '<p class="list-hint">Zoekindex laden…</p>';
+    if (needsGlobal && !state.globalSearchReady && !state.globalEntries.length) {
+      list.innerHTML = `<p class="list-hint">${globalIndexLoadProgressText() || "Zoekindex laden…"}</p>`;
       void ensureGlobalSearchIndex({ background: false });
       return;
     }
+    if (needsGlobal && !state.globalSearchReady && !state.searchBusy) {
+      void ensureGlobalSearchIndex({ background: true });
+    }
 
     list.innerHTML = "";
+    let partialIndex = needsGlobal && !state.globalSearchReady;
     let items;
     let capped = false;
     if (q) {
@@ -1901,7 +2004,7 @@
       if (state.userLatLng) {
         items = sortEntriesByDistance(items, state.userLatLng);
       }
-    } else if (selectedCountryCode() && state.globalSearchReady) {
+    } else if (selectedCountryCode() && mapEntriesAvailable()) {
       items = applyDoneFilter(state.globalEntries.filter((e) => isEntryMapActive(e)));
       if (state.userLatLng) {
         items = sortEntriesByDistance(items, state.userLatLng);
@@ -1910,7 +2013,7 @@
         items = items.slice(0, 200);
         capped = true;
       }
-    } else if (state.globalSearchReady && state.userLatLng && state.map) {
+    } else if (mapEntriesAvailable() && state.userLatLng && state.map) {
       items = sortEntriesByDistance(entriesInMapBounds(), state.userLatLng);
       if (items.length > 200) {
         items = items.slice(0, 200);
@@ -1983,6 +2086,14 @@
       list.appendChild(el);
     }
     updateClimbLogSummary();
+    if (partialIndex) {
+      const hint = document.createElement("p");
+      hint.className = "list-hint";
+      hint.textContent =
+        globalIndexLoadProgressText() ||
+        "Nog niet alle regio’s geladen — resultaten kunnen incompleet zijn.";
+      list.appendChild(hint);
+    }
     if (capped && state.globalEntries.length) {
       const hint = document.createElement("p");
       hint.className = "list-hint";
@@ -2089,8 +2200,16 @@
       state.globalEntryByClimbKey = new Map();
     }
     const loadOrder = [...regions].sort((a, b) => (a.count || 0) - (b.count || 0));
+    if (state.currentRegionUrl) {
+      const curIdx = loadOrder.findIndex((r) => r.url === state.currentRegionUrl);
+      if (curIdx > 0) {
+        const [cur] = loadOrder.splice(curIdx, 1);
+        loadOrder.unshift(cur);
+      }
+    }
+    state.globalIndexProgress = { loadedRegions: 0, totalRegions: loadOrder.length };
+    updateSearchHint();
     let next = 0;
-    let loaded = 0;
     const workers = Math.min(8, Math.max(1, loadOrder.length));
 
     async function worker() {
@@ -2100,10 +2219,14 @@
         try {
           const bundle = await loadRegionBundle(r);
           mergeBundleIntoGlobalEntries(r, bundle);
-          loaded += 1;
-          if (background && loaded % 4 === 0) syncOverviewMarkers({ fit: false });
+          if (state.globalIndexProgress) {
+            state.globalIndexProgress.loadedRegions += 1;
+          }
+          if (background) scheduleDeferredMapSync();
+          else if (state.globalIndexProgress.loadedRegions % 3 === 0) updateSearchHint();
         } catch (err) {
           console.warn("Dataset laden mislukt:", r.url, err);
+          if (state.globalIndexProgress) state.globalIndexProgress.loadedRegions += 1;
         }
       }
     }
@@ -2111,11 +2234,13 @@
     try {
       await Promise.all(Array.from({ length: workers }, () => worker()));
       state.globalSearchReady = true;
+      state.globalIndexProgress = null;
       syncOverviewMarkers({
         fit: !background && !state.searchQuery.trim() && shouldAutoFitMapBounds(),
       });
     } finally {
       state.searchBusy = false;
+      state.globalIndexProgress = null;
       renderList(state.searchQuery);
       updateSearchHint();
     }
@@ -2132,7 +2257,7 @@
     clearDetailSelection();
     state.mapExploreAllRegions = false;
     renderList("");
-    if (state.globalSearchReady) syncOverviewMarkers({ fit: true });
+    if (mapEntriesAvailable()) syncOverviewMarkers({ fit: true });
     updateSearchHint();
   }
 
@@ -2769,7 +2894,7 @@
       state.geoInitialCenter = false;
       state.mapMode = state.map.getZoom() >= MIN_ZOOM_NEARBY_ROUTES ? "local" : "overview";
       void applyRegionFromUserLocation(latlng);
-      if (state.globalSearchReady) {
+      if (mapEntriesAvailable()) {
         syncOverviewMarkers({ fit: false });
         refreshViewportClimbs();
       }
@@ -3102,10 +3227,12 @@
     }
 
     clearDetailSelection();
+    const regionMeta = state.indexRegions.find((x) => x.url === url);
+    if (regionMeta) mergeBundleIntoGlobalEntries(regionMeta, state.bundle);
     if (fitMap) {
       focusMapOnRegion();
-    } else if (state.globalSearchReady) {
-      reprioritizeGlobalEntriesForCurrentRegion();
+    } else if (mapEntriesAvailable()) {
+      if (state.globalSearchReady) reprioritizeGlobalEntriesForCurrentRegion();
       syncOverviewMarkers({ fit: !pick && !state.searchQuery.trim() && shouldAutoFitMapBounds() });
     }
   }
@@ -3115,7 +3242,9 @@
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
-    void loadRegionsGeo();
+    void loadRegionsGeo().then(() => {
+      if (!mapEntriesAvailable()) syncRegionPreviewMarkers();
+    });
     updateDatabaseTotals(index);
     fillCountrySelect();
     const countrySel = $("countrySelect");
