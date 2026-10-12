@@ -5,6 +5,9 @@ service cloud.firestore {
     match /users/{userId}/climbLog/{entryId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+    match /users/{userId}/prefs/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
     match /users/{userId}/integrations/{doc} {
       allow read, write: if false;
     }

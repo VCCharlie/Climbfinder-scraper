@@ -622,8 +622,14 @@ header.app-header p#datasetMeta {
   color: var(--slate-600);
 }
 
+.map-panel .leaflet-top.leaflet-left,
 .map-panel .leaflet-top.leaflet-right {
   z-index: 800;
+}
+
+.map-panel .leaflet-top.leaflet-left {
+  margin-top: 0.15rem;
+  margin-left: 0.15rem;
 }
 
 .fietsklim-locate-control {
@@ -672,7 +678,8 @@ header.app-header p#datasetMeta {
   position: absolute;
   z-index: 900;
   top: 0.65rem;
-  left: 0.65rem;
+  /* rechts van Leaflet-zoom (topleft), voorkomt overlap */
+  left: 2.85rem;
   padding: 0.45rem 0.75rem;
   border: none;
   border-radius: 6px;
