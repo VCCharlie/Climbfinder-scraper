@@ -34,7 +34,7 @@ Plak `docs/auth/firestore.rules.example` in Console → Firestore → Rules → 
    { "projects": { "default": "JOUW_NIEUWE_PROJECT_ID" } }
    ```
 
-2. Pas in **`.github/workflows/deploy-climbfinder-import-function.yml`** alle `--project climbfinder-scraper` aan naar je nieuwe id (of gebruik een GitHub secret `FIREBASE_PROJECT_ID`).
+2. De deploy-workflow gebruikt **`env.FIREBASE_PROJECT_ID: climb-database`** (pas aan als je ander id gebruikt).
 
 3. Service account + secrets in GitHub Actions (zie [GITHUB_IMPORT.md](./GITHUB_IMPORT.md)):
    - `FIREBASE_SERVICE_ACCOUNT` (JSON van deploy-SA in het **nieuwe** project)

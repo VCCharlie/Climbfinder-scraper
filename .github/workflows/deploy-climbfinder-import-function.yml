@@ -1,15 +1,20 @@
 # One-time / occasional: deploy import-page callables (import, dedupe, backfill).
 # Repo secrets (Settings → Secrets → Actions):
-#   FIREBASE_SERVICE_ACCOUNT — JSON key for a GCP service account used only for deploy
+#   FIREBASE_SERVICE_ACCOUNT — JSON key for github-deploy-functions@… (climb-database)
 #   CLIMBFINDER_IMPORT_PAT — fine-grained PAT with Actions: Read and write on this repo
 #   (GitHub forbids secret names starting with GITHUB_)
 #
-# IAM (project climbfinder-scraper): deploy SA needs Firebase Admin (or Functions Admin + Build)
-# AND Service Account User on climbfinder-scraper@appspot.gserviceaccount.com — see docs/auth/GITHUB_IMPORT.md
+# Optional: FIREBASE_PROJECT_ID — defaults to climb-database (see env below)
+#
+# IAM: deploy SA needs Firebase Admin + Service Account User on @appspot + compute SA
+# See docs/auth/GITHUB_IMPORT.md and docs/auth/MIGRATE_FIREBASE.md
 name: Deploy Climbfinder import function
 
 on:
   workflow_dispatch:
+
+env:
+  FIREBASE_PROJECT_ID: climb-database
 
 jobs:
   deploy:
@@ -30,30 +35,38 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          project_id: ${{ env.FIREBASE_PROJECT_ID }}
 
       - uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.FIREBASE_PROJECT_ID }}
 
       - name: Enable required Google APIs
         run: |
           gcloud services enable \
             firebaseextensions.googleapis.com \
+            runtimeconfig.googleapis.com \
             cloudfunctions.googleapis.com \
             cloudbuild.googleapis.com \
             artifactregistry.googleapis.com \
             compute.googleapis.com \
             appengine.googleapis.com \
-            --project climbfinder-scraper
+            --project "$FIREBASE_PROJECT_ID"
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         continue-on-error: true
 
       - name: Preflight (App Engine — vereist voor 1st Gen Functions)
         run: |
-          if ! gcloud app describe --project climbfinder-scraper >/dev/null 2>&1; then
+          if ! gcloud app describe --project "$FIREBASE_PROJECT_ID" >/dev/null 2>&1; then
             echo "::warning::Geen App Engine-app in dit project. 1st Gen Cloud Functions falen vaak zonder App Engine."
-            echo "Owner: https://console.cloud.google.com/appengine/start?project=climbfinder-scraper"
+            echo "Owner: https://console.cloud.google.com/appengine/start?project=$FIREBASE_PROJECT_ID"
             echo "Kies regio europe-west (past bij functions europe-west1), daarna workflow opnieuw."
           else
-            gcloud app describe --project climbfinder-scraper --format='value(locationId,servingStatus)'
+            gcloud app describe --project "$FIREBASE_PROJECT_ID" --format='value(locationId,servingStatus)'
           fi
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
 
       - name: Install function dependencies
         run: npm ci
@@ -62,6 +75,7 @@ jobs:
       - name: Set Functions config (GitHub PAT)
         env:
           CLIMBFINDER_IMPORT_PAT: ${{ secrets.CLIMBFINDER_IMPORT_PAT }}
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         run: |
           if [ -z "$CLIMBFINDER_IMPORT_PAT" ]; then
             echo "::error::Secret CLIMBFINDER_IMPORT_PAT ontbreekt."
@@ -71,12 +85,13 @@ jobs:
             github.pat="$CLIMBFINDER_IMPORT_PAT" \
             github.repo="VCCharlie/Climbfinder-scraper" \
             github.ref="main" \
-            --project climbfinder-scraper
+            --project "$FIREBASE_PROJECT_ID"
 
       - name: Set Strava config (optional secrets)
         env:
           STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
           STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         run: |
           if [ -z "$STRAVA_CLIENT_ID" ] || [ -z "$STRAVA_CLIENT_SECRET" ]; then
             echo "Strava secrets niet gezet — skip (voeg STRAVA_CLIENT_ID + STRAVA_CLIENT_SECRET toe voor Koppel Strava)."
@@ -87,14 +102,16 @@ jobs:
             strava.client_secret="$STRAVA_CLIENT_SECRET" \
             strava.redirect_uri="https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html" \
             strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
-            --project climbfinder-scraper
+            --project "$FIREBASE_PROJECT_ID"
 
       - name: Deploy import callables
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         run: |
           set -o pipefail
           firebase deploy --only \
             functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:getStravaConnectUrl,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
-            --project climbfinder-scraper --non-interactive --debug 2>&1 | tee firebase-deploy.log
+            --project "$FIREBASE_PROJECT_ID" --non-interactive --debug 2>&1 | tee firebase-deploy.log
           DEPLOY_EXIT=${PIPESTATUS[0]}
           if grep -q "0 Functions Errored" firebase-deploy.log && grep -q "Deploy complete!" firebase-deploy.log; then
             if [ "$DEPLOY_EXIT" -ne 0 ]; then
