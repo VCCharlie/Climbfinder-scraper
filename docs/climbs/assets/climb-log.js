@@ -1,11 +1,13 @@
 /**
  * Fase 1 — handmatig logboek: welke klimmen zijn gedaan / op wishlist (per Google-account).
  * Firestore: users/{uid}/climbLog/{datasetId__climbId}
+ * Multi-device: per veld last-write-wins via doneUpdatedAt / wishlistUpdatedAt (ms).
  * Fallback: localStorage als Firestore niet beschikbaar is.
  */
 (function (global) {
   const STORAGE_VERSION = 1;
   const FIRESTORE_PREF_KEY = "fietsklim-log-use-firestore";
+  const DEVICE_MERGE_KEY_PREFIX = "fietsklim-log-device-merged-lww-";
 
   const state = {
     ready: false,
@@ -57,7 +59,7 @@
     }
     if (!requested) {
       return {
-        line: `Sync: localStorage · ${counts}`,
+        line: `Sync: alleen dit apparaat (localStorage) · ${counts} — zet cloud aan voor dezelfde lijst overal`,
         ok: true,
         requestedFirestore: false,
         activeMode: active,
@@ -65,7 +67,7 @@
     }
     if (active === "firestore") {
       return {
-        line: `Sync: Firestore · actief · ${counts}`,
+        line: `Sync: Firestore (cloud) · zelfde gedaan/wishlist op alle apparaten · ${counts}`,
         ok: true,
         requestedFirestore: true,
         activeMode: "firestore",
@@ -102,6 +104,62 @@
     return Boolean(row?.done || row?.wishlist);
   }
 
+  function nowMs() {
+    return Date.now();
+  }
+
+  function timestampMillis(v) {
+    if (v == null) return 0;
+    if (typeof v === "number" && Number.isFinite(v)) return v;
+    if (typeof v.toMillis === "function") return v.toMillis();
+    if (typeof v === "string") {
+      const t = Date.parse(v);
+      return Number.isFinite(t) ? t : 0;
+    }
+    return 0;
+  }
+
+  function timestampsFromRow(row) {
+    const fallback = timestampMillis(row?.updatedAt) || nowMs();
+    return {
+      doneUpdatedAt: timestampMillis(row?.doneUpdatedAt) || fallback,
+      wishlistUpdatedAt: timestampMillis(row?.wishlistUpdatedAt) || fallback,
+    };
+  }
+
+  /**
+   * Per-veld LWW (milliseconden). Oudere Firestore-docs zonder timestamps tellen als 0.
+   */
+  function mergeFlagsLww(existing, patch) {
+    const base = existing || {};
+    let done = Boolean(base.done);
+    let wishlist = Boolean(base.wishlist);
+    let doneUpdatedAt = timestampMillis(base.doneUpdatedAt);
+    let wishlistUpdatedAt = timestampMillis(base.wishlistUpdatedAt);
+    let source = base.source || "manual";
+
+    if (patch.done !== undefined) {
+      const at = patch.doneUpdatedAt != null ? timestampMillis(patch.doneUpdatedAt) : nowMs();
+      if (at >= doneUpdatedAt) {
+        done = Boolean(patch.done);
+        doneUpdatedAt = at;
+        if (patch.source) source = patch.source;
+      }
+    }
+    if (patch.wishlist !== undefined) {
+      const at = patch.wishlistUpdatedAt != null ? timestampMillis(patch.wishlistUpdatedAt) : nowMs();
+      if (at >= wishlistUpdatedAt) {
+        wishlist = Boolean(patch.wishlist);
+        wishlistUpdatedAt = at;
+      }
+    }
+    if (patch.source && patch.done === undefined && patch.wishlist === undefined) {
+      source = patch.source;
+    }
+
+    return { done, wishlist, doneUpdatedAt, wishlistUpdatedAt, source };
+  }
+
   function getEntry(datasetId, climbId) {
     if (!datasetId || !climbId) return null;
     return state.byKey.get(climbKey(datasetId, climbId)) || null;
@@ -114,6 +172,10 @@
 
   function migrationStorageKey() {
     return state.uid ? `fietsklim-log-migrated-v${STORAGE_VERSION}-${state.uid}` : "";
+  }
+
+  function deviceMergeStorageKey() {
+    return state.uid ? `${DEVICE_MERGE_KEY_PREFIX}${state.uid}` : "";
   }
 
   /** Leest localStorage zonder state.byKey te wijzigen (voor Firestore-migratie). */
@@ -156,6 +218,7 @@
     for (let i = 0; i < rows.length; i += 400) {
       const batch = db.batch();
       for (const row of rows.slice(i, i + 400)) {
+        const ts = timestampsFromRow(row);
         const ref = col.doc(logDocId(row.datasetId, row.climbId));
         batch.set(
           ref,
@@ -164,6 +227,8 @@
             climbId: row.climbId,
             done: Boolean(row.done),
             wishlist: Boolean(row.wishlist),
+            doneUpdatedAt: ts.doneUpdatedAt,
+            wishlistUpdatedAt: ts.wishlistUpdatedAt,
             source: row.source === "strava" ? "strava" : "migrated",
             updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           },
@@ -172,6 +237,23 @@
         written += 1;
       }
       await batch.commit();
+    }
+    return written;
+  }
+
+  /** Eerste keer op dit apparaat: lokale vinkjes samenvoegen met bestaande cloud (LWW per veld). */
+  async function mergeLocalRowsToFirestoreLww(rows) {
+    let written = 0;
+    for (const row of rows) {
+      const ts = timestampsFromRow(row);
+      await writeFirestore(row.datasetId, row.climbId, {
+        done: Boolean(row.done),
+        wishlist: Boolean(row.wishlist),
+        doneUpdatedAt: ts.doneUpdatedAt,
+        wishlistUpdatedAt: ts.wishlistUpdatedAt,
+        source: row.source === "strava" ? "strava" : row.source || "migrated",
+      });
+      written += 1;
     }
     return written;
   }
@@ -194,7 +276,10 @@
       done: false,
       wishlist: false,
       source: "manual",
+      doneUpdatedAt: 0,
+      wishlistUpdatedAt: 0,
     };
+    const t = nowMs();
     const next = {
       ...prev,
       ...patch,
@@ -204,6 +289,10 @@
       wishlist: Boolean(patch.wishlist != null ? patch.wishlist : prev.wishlist),
       updatedAt: new Date().toISOString(),
     };
+    if (patch.done !== undefined) next.doneUpdatedAt = t;
+    if (patch.wishlist !== undefined) next.wishlistUpdatedAt = t;
+    const merged = mergeFlagsLww(prev, next);
+    Object.assign(next, merged);
     if (shouldPersist(next)) {
       state.byKey.set(key, next);
     } else {
@@ -219,10 +308,48 @@
       ...d,
       done: Boolean(d.done),
       wishlist: Boolean(d.wishlist),
+      doneUpdatedAt: timestampMillis(d.doneUpdatedAt),
+      wishlistUpdatedAt: timestampMillis(d.wishlistUpdatedAt),
     };
     if (shouldPersist(row)) {
       state.byKey.set(climbKey(d.datasetId, d.climbId), row);
     }
+  }
+
+  async function handleFirstFirestoreSnapshot(snap) {
+    const migKey = migrationStorageKey();
+    const deviceKey = deviceMergeStorageKey();
+    const pending = readLocalRowsFromStorage();
+
+    if (migKey && !localStorage.getItem(migKey)) {
+      if (snap.empty && pending.length) {
+        try {
+          const n = await migrateLocalRowsToFirestore(pending);
+          localStorage.setItem(migKey, new Date().toISOString());
+          console.info(`FietsKlim logboek: ${n} vinkje(s) van localStorage naar Firestore.`);
+          return true;
+        } catch (err) {
+          console.warn("Climb log migratie:", err.message);
+        }
+      } else {
+        localStorage.setItem(migKey, snap.empty ? "empty" : "cloud-had-data");
+      }
+    }
+
+    if (deviceKey && !localStorage.getItem(deviceKey) && pending.length && !snap.empty) {
+      try {
+        const n = await mergeLocalRowsToFirestoreLww(pending);
+        localStorage.setItem(deviceKey, new Date().toISOString());
+        console.info(`FietsKlim logboek: ${n} lokale regel(s) samengevoegd met cloud (LWW).`);
+        return true;
+      } catch (err) {
+        console.warn("Climb log device-merge:", err.message);
+      }
+    }
+    if (deviceKey && !localStorage.getItem(deviceKey)) {
+      localStorage.setItem(deviceKey, pending.length ? "no-local" : "empty");
+    }
+    return false;
   }
 
   async function init() {
@@ -257,22 +384,8 @@
             async (snap) => {
               if (firstSnapshot) {
                 firstSnapshot = false;
-                const migKey = migrationStorageKey();
-                if (migKey && !localStorage.getItem(migKey) && snap.empty) {
-                  const pending = readLocalRowsFromStorage();
-                  if (pending.length) {
-                    try {
-                      const n = await migrateLocalRowsToFirestore(pending);
-                      localStorage.setItem(migKey, new Date().toISOString());
-                      console.info(`FietsKlim logboek: ${n} vinkje(s) van localStorage naar Firestore.`);
-                      return;
-                    } catch (err) {
-                      console.warn("Climb log migratie:", err.message);
-                    }
-                  } else if (migKey) {
-                    localStorage.setItem(migKey, "empty");
-                  }
-                }
+                const deferred = await handleFirstFirestoreSnapshot(snap);
+                if (deferred) return;
               }
               state.byKey.clear();
               snap.forEach((doc) => {
@@ -321,37 +434,54 @@
       .doc(state.uid)
       .collection("climbLog")
       .doc(logDocId(datasetId, climbId));
-    const prev = getEntry(datasetId, climbId);
-    const next = {
-      datasetId,
-      climbId,
-      done: Boolean(prev?.done),
-      wishlist: Boolean(prev?.wishlist),
-      source: prev?.source || "manual",
-      ...patch,
-    };
-    next.done = Boolean(patch.done != null ? patch.done : next.done);
-    next.wishlist = Boolean(patch.wishlist != null ? patch.wishlist : next.wishlist);
-    if (shouldPersist(next)) {
-      await ref.set(
-        {
-          ...next,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      );
-    } else {
-      await ref.delete();
+    const clientNow = nowMs();
+    const normalizedPatch = { ...patch };
+    if (normalizedPatch.done !== undefined && normalizedPatch.doneUpdatedAt == null) {
+      normalizedPatch.doneUpdatedAt = clientNow;
     }
+    if (normalizedPatch.wishlist !== undefined && normalizedPatch.wishlistUpdatedAt == null) {
+      normalizedPatch.wishlistUpdatedAt = clientNow;
+    }
+
+    await db.runTransaction(async (tx) => {
+      const snap = await tx.get(ref);
+      const existing = snap.exists
+        ? snap.data()
+        : {
+            datasetId,
+            climbId,
+            done: false,
+            wishlist: false,
+            doneUpdatedAt: 0,
+            wishlistUpdatedAt: 0,
+            source: "manual",
+          };
+      const merged = mergeFlagsLww(existing, normalizedPatch);
+      const next = {
+        datasetId,
+        climbId,
+        done: merged.done,
+        wishlist: merged.wishlist,
+        doneUpdatedAt: merged.doneUpdatedAt,
+        wishlistUpdatedAt: merged.wishlistUpdatedAt,
+        source: merged.source,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      if (shouldPersist(next)) {
+        tx.set(ref, next, { merge: true });
+      } else {
+        tx.delete(ref);
+      }
+    });
   }
 
   async function setDone(datasetId, climbId, done) {
     if (!datasetId || !climbId) return;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {
-      await writeFirestore(datasetId, climbId, { done: !!done });
+      await writeFirestore(datasetId, climbId, { done: !!done, source: "manual" });
       return;
     }
-    upsertLocal(datasetId, climbId, { done: !!done });
+    upsertLocal(datasetId, climbId, { done: !!done, source: "manual" });
   }
 
   async function setWishlist(datasetId, climbId, wishlist) {
@@ -370,6 +500,7 @@
     if (flags.done !== undefined) patch.done = !!flags.done;
     if (flags.wishlist !== undefined) patch.wishlist = !!flags.wishlist;
     if (!Object.keys(patch).length) return;
+    if (flags.source) patch.source = flags.source;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {
       await writeFirestore(datasetId, climbId, patch);
       return;
@@ -446,9 +577,12 @@
         skipped += 1;
         continue;
       }
+      const ts = timestampsFromRow(row);
       const patch = {
         done: Boolean(row.done),
         wishlist: Boolean(row.wishlist),
+        doneUpdatedAt: ts.doneUpdatedAt,
+        wishlistUpdatedAt: ts.wishlistUpdatedAt,
         source: row.source === "strava" ? "strava" : row.source || "import",
       };
       if (!merge) {
@@ -460,25 +594,14 @@
         imported += 1;
         continue;
       }
-      const prev = getEntry(row.datasetId, row.climbId);
-      const nextDone = prev?.done || patch.done;
-      const nextWishlist = prev?.wishlist || patch.wishlist;
-      if (!nextDone && !nextWishlist) {
+      if (!patch.done && !patch.wishlist) {
         skipped += 1;
         continue;
       }
       if (state.mode === "firestore" && firebase.firestore && state.uid) {
-        await writeFirestore(row.datasetId, row.climbId, {
-          done: nextDone,
-          wishlist: nextWishlist,
-          source: patch.source,
-        });
+        await writeFirestore(row.datasetId, row.climbId, patch);
       } else {
-        upsertLocal(row.datasetId, row.climbId, {
-          done: nextDone,
-          wishlist: nextWishlist,
-          source: patch.source,
-        });
+        upsertLocal(row.datasetId, row.climbId, patch);
       }
       imported += 1;
     }
@@ -518,5 +641,8 @@
     exportPayload,
     importPayload,
     getMode,
+    /** @internal test hook */
+    _mergeFlagsLww: mergeFlagsLww,
+    _timestampMillis: timestampMillis,
   };
 })(window);
