@@ -59,6 +59,66 @@
     }
   }
 
+  function escapeHtml(text) {
+    return String(text ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function stravaActivityUrl(activityId) {
+    if (!activityId) return "#";
+    return `https://www.strava.com/activities/${activityId}`;
+  }
+
+  function fillMatchList(ul, items, emptyEl) {
+    if (!ul) return;
+    ul.innerHTML = "";
+    const list = items || [];
+    if (emptyEl) emptyEl.hidden = list.length > 0;
+    for (const m of list) {
+      const li = document.createElement("li");
+      const climbLabel = m.climbName || m.stravaClimbName || m.climbId || "Klim";
+      const actId = m.activityId || m.stravaActivityId;
+      const actLabel = m.activityName || m.stravaActivityName || (actId ? `Rit ${actId}` : "Strava-rit");
+      const ds = m.datasetId ? `<span class="strava-match-dataset">${escapeHtml(m.datasetId)}</span> · ` : "";
+      li.innerHTML = `${ds}<strong>${escapeHtml(climbLabel)}</strong> → <a href="${stravaActivityUrl(actId)}" target="_blank" rel="noopener noreferrer">${escapeHtml(actLabel)}</a>`;
+      ul.appendChild(li);
+    }
+  }
+
+  function renderStravaMatchPanels() {
+    const wrap = $("stravaMatchPanels");
+    const totalEl = $("stravaMatchTotal");
+    if (!wrap) return;
+
+    const connected = Boolean(statusCache?.connected);
+    wrap.hidden = !connected;
+    if (!connected) return;
+
+    const log = global.FietsKlimClimbLog;
+    const linked = log?.isReady?.() && log.listStravaLinked ? log.listStravaLinked() : [];
+
+    if (totalEl) {
+      totalEl.textContent = linked.length
+        ? `${linked.length} klim(men) gekoppeld aan een Strava-rit in je logboek`
+        : "Nog geen klimmen met Strava-rit in je logboek";
+    }
+
+    const lastMatches = statusCache?.lastSyncSummary?.matches;
+    fillMatchList($("stravaLastSyncMatchList"), lastMatches, $("stravaLastSyncMatchEmpty"));
+
+    const logItems = linked.map((r) => ({
+      datasetId: r.datasetId,
+      climbId: r.climbId,
+      climbName: r.stravaClimbName || r.climbId,
+      activityId: r.stravaActivityId,
+      activityName: r.stravaActivityName,
+    }));
+    fillMatchList($("stravaLogMatchList"), logItems, $("stravaLogMatchEmpty"));
+  }
+
   function setupHint(setup) {
     if (!setup || setup.backendConfigured) return "";
     return " Server: strava.client_id/secret nog niet gezet — functions:config:set + Deploy Functions.";
@@ -305,6 +365,7 @@
           !d.setup?.backendConfigured
         );
       }
+      renderStravaMatchPanels();
     } catch (e) {
       const msg = formatCallableError(e);
       setStatus(msg, true);
@@ -459,6 +520,9 @@
     $("stravaFullSyncBtn")?.addEventListener("click", () => void fullSync());
     global.addEventListener("fietsklim-authenticated", () => {
       void populateDatasetSelect().then(() => refreshStatus());
+    });
+    global.addEventListener("fietsklim-climb-log-changed", () => {
+      renderStravaMatchPanels();
     });
     if (global.__FIETSKLIM_AUTH_READY) {
       void populateDatasetSelect().then(() => refreshStatus());

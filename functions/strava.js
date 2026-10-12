@@ -315,9 +315,27 @@ function countRideActivities(activities, includePrivate) {
     .filter((act) => activityVisibleForPrefs(act, includePrivate)).length;
 }
 
+const SYNC_SUMMARY_MATCH_LIMIT = 120;
+
+function summaryMatchesFromMap(datasetId, bestByClimb) {
+  const out = [];
+  for (const [climbId, hit] of bestByClimb.entries()) {
+    if (out.length >= SYNC_SUMMARY_MATCH_LIMIT) break;
+    out.push({
+      datasetId,
+      climbId,
+      climbName: hit.climbName || climbId,
+      activityId: hit.activity.id,
+      activityName: hit.activity.name || null,
+    });
+  }
+  return out;
+}
+
 async function matchAndWriteForDatasets(uid, accessToken, activities, includePrivate, datasetIds) {
   let matchesWritten = 0;
   const datasetsProcessed = [];
+  const matches = [];
   for (const datasetId of datasetIds) {
     const { climbs } = await loadDataset(datasetId);
     if (!climbs.length) continue;
@@ -330,10 +348,11 @@ async function matchAndWriteForDatasets(uid, accessToken, activities, includePri
     if (bestByClimb.size) {
       await writeStravaMatches(uid, datasetId, bestByClimb);
       matchesWritten += bestByClimb.size;
+      matches.push(...summaryMatchesFromMap(datasetId, bestByClimb));
     }
     datasetsProcessed.push(datasetId);
   }
-  return { matchesWritten, datasetsProcessed };
+  return { matchesWritten, datasetsProcessed, matches };
 }
 
 async function consumeOAuthState(state) {
@@ -591,7 +610,11 @@ async function matchActivitiesToClimbs({ accessToken, climbs, activities, includ
       if (!result.matched) continue;
       const prev = bestByClimb.get(climb.id);
       if (!prev || result.coverage > prev.coverage) {
-        bestByClimb.set(climb.id, { activity: act, coverage: result.coverage });
+        bestByClimb.set(climb.id, {
+          activity: act,
+          coverage: result.coverage,
+          climbName: climb.name || climb.title || String(climb.id),
+        });
       }
     }
   }
@@ -614,11 +637,19 @@ async function writeStravaMatchDoc(db, logCol, datasetId, climbId, hit) {
     const data = snap.exists ? snap.data() : {};
     const doneUpdatedAt = logFieldTimestampMillis(data.doneUpdatedAt);
     const wishlistUpdatedAt = logFieldTimestampMillis(data.wishlistUpdatedAt);
+    const newActivityId = hit.activity.id;
+    const prevActivityId = data.stravaActivityId;
+    let ascentCount = Number(data.stravaAscentCount) || 0;
+    if (!prevActivityId) ascentCount = 1;
+    else if (newActivityId !== prevActivityId) ascentCount += 1;
+
     const patch = {
       datasetId,
       climbId,
-      stravaActivityId: hit.activity.id,
+      stravaActivityId: newActivityId,
       stravaActivityName: hit.activity.name || null,
+      stravaClimbName: hit.climbName || null,
+      stravaAscentCount: ascentCount,
       matchCoverage: hit.coverage,
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
@@ -725,6 +756,7 @@ exports.stravaSyncTrial = functions
         activitiesScanned: ridesScanned,
         matchesWritten,
         uniqueClimbs: matchesWritten,
+        matches: result.matches.slice(0, SYNC_SUMMARY_MATCH_LIMIT),
         perPage,
         includePrivate: prefs.includePrivate,
       };
@@ -747,6 +779,7 @@ exports.stravaSyncTrial = functions
         activitiesScanned: ridesScanned,
         matchesWritten,
         uniqueClimbs: matchesWritten,
+        matches: summaryMatchesFromMap(datasetId, bestByClimb),
         perPage,
         includePrivate: prefs.includePrivate,
       };
@@ -838,6 +871,7 @@ exports.stravaSyncFull = functions
         completed,
         matchesWritten: bestByClimb.size,
         uniqueClimbs: bestByClimb.size,
+        matches: summaryMatchesFromMap(datasetId, bestByClimb),
         includePrivate: prefs.includePrivate,
       };
 
@@ -888,7 +922,7 @@ exports.stravaSyncFull = functions
 
     const ridesScanned = countRideActivities(activities, prefs.includePrivate);
     const batchIds = regionIds.slice(nextDatasetIndex, nextDatasetIndex + datasetsPerCall);
-    const { matchesWritten, datasetsProcessed } = await matchAndWriteForDatasets(
+    const { matchesWritten, datasetsProcessed, matches: batchMatches } = await matchAndWriteForDatasets(
       uid,
       accessToken,
       activities,
@@ -943,6 +977,7 @@ exports.stravaSyncFull = functions
       completed: syncCompleted,
       matchesWritten,
       uniqueClimbs: matchesWritten,
+      matches: batchMatches.slice(0, SYNC_SUMMARY_MATCH_LIMIT),
       includePrivate: prefs.includePrivate,
     };
 

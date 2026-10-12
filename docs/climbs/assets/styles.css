@@ -301,6 +301,27 @@ header.app-header p#datasetMeta {
   flex-shrink: 0;
 }
 
+.climb-detail-strava {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.climb-detail-strava a {
+  color: #fc4c02;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.climb-detail-strava a:hover {
+  text-decoration: underline;
+}
+
+.profile-expand-strava {
+  margin-top: 0.25rem;
+}
+
 .climb-detail-stats {
   margin: 0.35rem 0 0.5rem;
   font-size: 0.78rem;

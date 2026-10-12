@@ -87,7 +87,7 @@ strava: {
 
 Voorkeuren: Firestore `users/{uid}/prefs/strava` → `{ includePrivate }`.
 
-Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, `matchCoverage`.
+Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, `stravaActivityName`, `stravaClimbName`, `stravaAscentCount` (stijgt bij nieuwe rit), `matchCoverage`. Laatste sync-run: `integrations/strava.lastSyncSummary.matches` (max 120).
 
 ## 7. Migratie naar nieuw Firebase-project
 

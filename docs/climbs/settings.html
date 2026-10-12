@@ -11,7 +11,7 @@
   <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/settings.css?v=20261012logsync1" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261012stravamatch1" />
 </head>
 <body class="fietsklim-locked settings-page">
   <div id="fietsklim-auth-gate">
@@ -62,6 +62,21 @@
         </button>
       </div>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
+      <div id="stravaMatchPanels" class="strava-match-panels" hidden>
+        <p id="stravaMatchTotal" class="settings-status strava-match-total"></p>
+        <details class="strava-match-details">
+          <summary>Laatste sync-run</summary>
+          <p id="stravaLastSyncMatchEmpty" class="settings-hint" hidden>
+            Geen matches in de laatste run (of lijst niet opgeslagen — draai opnieuw sync na Functions-deploy).
+          </p>
+          <ul id="stravaLastSyncMatchList" class="strava-match-list"></ul>
+        </details>
+        <details class="strava-match-details" open>
+          <summary>Alle Strava-koppelingen in logboek</summary>
+          <p id="stravaLogMatchEmpty" class="settings-hint" hidden>Nog geen gekoppelde klimmen.</p>
+          <ul id="stravaLogMatchList" class="strava-match-list"></ul>
+        </details>
+      </div>
     </section>
 
     <section class="settings-card" aria-labelledby="logbookSettingsTitle">
@@ -117,7 +132,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261012loglww1"></script>
-  <script src="assets/strava-sync.js?v=20261012stravascope1"></script>
+  <script src="assets/strava-sync.js?v=20261012stravamatch1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
