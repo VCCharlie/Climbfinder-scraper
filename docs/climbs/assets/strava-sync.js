@@ -22,8 +22,11 @@
     if (!e) return "Onbekende fout";
     const code = e.code ? String(e.code).replace(/^functions\//, "") : "";
     const msg = e.message || String(e);
-    if (code === "internal" && msg === "internal") {
+    if (code === "internal" && (msg === "internal" || msg === "INTERNAL")) {
       return "Interne serverfout — meestal: Strava Functions niet gedeployed of Firestore uit. Zie docs/auth/STRAVA.md.";
+    }
+    if (code === "deadline-exceeded") {
+      return msg || "Sync-batch timeout — klik opnieuw Volledige history sync (loopt verder).";
     }
     if (/not-found|UNIMPLEMENTED/i.test(code) || /not-found|UNIMPLEMENTED/i.test(msg)) {
       return "Strava-function setStravaSyncPrefs ontbreekt — draai GitHub workflow “Deploy Climbfinder import function”. Zie docs/auth/STRAVA.md.";
@@ -454,33 +457,49 @@
     const maxLoops = isAll ? FULL_SYNC_MAX_LOOPS_ALL : FULL_SYNC_MAX_LOOPS;
     let loops = 0;
     let reset = true;
+    let syncFailed = false;
     try {
       while (loops < maxLoops) {
         loops += 1;
         const scopeLabel = isAll ? "hele database" : datasetId;
         setStatus(
-          `Volledige sync (${scopeLabel}): stap ${loops}… (laat dit scherm open tot “klaar” verschijnt)`
+          `Volledige sync (${scopeLabel}): stap ${loops}… (laat dit scherm open tot “klaar” verschijnt)`,
+          false
         );
-        const res = await callable("stravaSyncFull")({ datasetId, reset });
+        let res;
+        try {
+          res = await callable("stravaSyncFull")({ datasetId, reset });
+        } catch (batchErr) {
+          syncFailed = true;
+          const errText = formatCallableError(batchErr);
+          setStatus(`Sync gestopt in stap ${loops}: ${errText}`, true);
+          break;
+        }
         reset = false;
         const data = res.data || {};
-        setStatus(data.message || "Batch klaar.");
+        setStatus(data.message || "Batch klaar.", false);
         global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
         if (data.completed) break;
         if (!isAll && !data.nextPage) break;
       }
-      if (loops >= maxLoops) {
+      if (!syncFailed && loops >= maxLoops) {
         setStatus(
           "Sync gestopt na maximum stappen — klik opnieuw Volledige history sync (loopt verder waar gebleven).",
           true
         );
       }
     } catch (e) {
+      syncFailed = true;
       setStatus(formatCallableError(e), true);
     } finally {
       if (btn) btn.disabled = false;
       if (trialBtn) trialBtn.disabled = false;
-      await refreshStatus();
+      if (!syncFailed) {
+        await refreshStatus();
+      } else {
+        updateSyncButtonsVisibility(statusCache?.connected);
+        renderStravaMatchPanels();
+      }
     }
   }
 
