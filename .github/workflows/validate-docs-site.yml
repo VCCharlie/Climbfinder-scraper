@@ -29,6 +29,7 @@ jobs:
         run: |
           test -f docs/climbs/index.html
           test -f docs/climbs/import.html
+          test -f docs/climbs/strava-callback.html
           test -f docs/climbs/manifest.webmanifest
           test -f docs/climbs/service-worker.js
           test -f docs/climbs/icons/icon-192.png

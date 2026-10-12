@@ -41,6 +41,15 @@ window.FIETSKLIM_AUTH_CONFIG = {
   /** Strava (climbs/index.html): OAuth + proef-sync via Cloud Functions — zie docs/auth/STRAVA.md */
   strava: {
     enabled: true,
+    /** Zelfde regio als Cloud Functions (meestal europe-west1). */
+    region: "europe-west1",
+    /**
+     * Strava OAuth redirect (Authorization Callback Domain = vccharlie.github.io).
+     * Moet exact overeenkomen met functions strava.redirect_uri.
+     */
+    oauthCallbackUrl:
+      "https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html",
+    settingsUrl: "https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html",
     /** Optioneel: vooraf geselecteerde dataset-id (anders onthoudt de browser je keuze). */
     defaultDatasetId: "",
   },

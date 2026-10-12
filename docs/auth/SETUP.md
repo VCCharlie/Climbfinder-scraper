@@ -2,6 +2,10 @@
 
 De hele site onder `docs/` is afgeschermd met **Google-inloggen**. Alleen adressen in `allowedEmails` (standaard `vr.deruiter@gmail.com`) krijgen toegang.
 
+## Nieuw Firebase-project (migratie)
+
+Als je een **nieuw** project gebruikt (bv. van Datastore mode af): **[MIGRATE_FIREBASE.md](./MIGRATE_FIREBASE.md)**.
+
 ## 1. Firebase-project (eenmalig)
 
 1. Ga naar [Firebase Console](https://console.firebase.google.com/) → **Project toevoegen**.
