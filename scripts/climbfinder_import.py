@@ -7,9 +7,8 @@ Uses:
   - Climb page HTML: embedded climbgeojson + encoded elevation profile (cfDecode)
 
 Usage:
-  python scripts/climbfinder_import.py --preset nl-limburg
-  python scripts/climbfinder_import.py --preset fr-alps --pages 2 --limit 80
-  python scripts/climbfinder_import.py --locality 288 --pages 3 --meta-id fr-test ...
+  python scripts/climbfinder_import.py --locality 288 --pages 3 --meta-id cf-l288-haute-savoie ...
+  python scripts/climbfinder_import.py --locality 27 --all-pages --limit 700 --meta-id cf-l27-...
 """
 
 from __future__ import annotations
@@ -31,48 +30,6 @@ if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
 USER_AGENT = "Mozilla/5.0 (compatible; FietsKlimDB/1.0)"
-
-PRESETS: dict[str, dict[str, Any]] = {
-    "nl-limburg": {
-        "meta_id": "nl-limburg",
-        "title": "Zuid-Limburg beklimmingen (Climbfinder Popular)",
-        "country": "NL",
-        "region_label": "Zuid-Limburg",
-        "tags": ["climbfinder", "zuid-limburg"],
-        # Climbfinder URL: …/ranking?l=27&s=popular (≈688). l=280 is provincie Limburg (ander, kleiner).
-        "geo": None,
-        "localities": [27],
-        "out": "docs/climbs/data/nl-limburg.json",
-        "default_pages": 2,
-        "default_limit": 688,
-    },
-    "fr-alps": {
-        "meta_id": "fr-alps",
-        "title": "Franse Alpen (Climbfinder)",
-        "country": "FR",
-        "region_label": "Alpes",
-        "tags": ["climbfinder", "fr-alps"],
-        "geo": None,
-        "localities": [
-            288,  # Haute-Savoie
-            957,  # Savoie
-            192,  # Hautes-Alpes
-            290,  # Alpes-de-Haute-Provence
-            379,  # Alpes-Maritimes
-        ],
-        "locality_labels": {
-            "288": "Haute-Savoie",
-            "957": "Savoie",
-            "192": "Hautes-Alpes",
-            "290": "Alpes-de-Haute-Provence",
-            "379": "Alpes-Maritimes",
-        },
-        "out": "docs/climbs/data/fr-alps.json",
-        "default_pages": 2,
-        "default_limit": 80,
-    },
-}
-
 
 def cf_decode(b64: str, scale: float, seed: int) -> list[float]:
     """Port of Climbfinder's cfDecode() from climb profile pages."""
@@ -442,11 +399,6 @@ def ranking_slugs_playwright(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--preset",
-        choices=sorted(PRESETS.keys()),
-        help="Built-in region bundle (overrides meta/out defaults)",
-    )
-    parser.add_argument(
         "--geo",
         default=None,
         help="Climbfinder g= param (lonIlat), +25 km radius ranking",
@@ -478,23 +430,19 @@ def main() -> None:
     parser.add_argument("--tag", action="append", default=[])
     args = parser.parse_args()
 
-    cfg: dict[str, Any] = {}
-    if args.preset:
-        cfg = dict(PRESETS[args.preset])
-
-    geo = args.geo if args.geo is not None else cfg.get("geo")
-    localities = args.locality or cfg.get("localities") or []
-    pages = args.pages if args.pages is not None else cfg.get("default_pages", 2)
-    limit = args.limit if args.limit is not None else cfg.get("default_limit", 40)
-    out_path = args.out or cfg.get("out", "docs/climbs/data/climbs.json")
-    meta_id = args.meta_id or cfg.get("meta_id", "region")
-    title = args.title or cfg.get("title", meta_id)
-    country = args.country or cfg.get("country", "XX")
-    region_label = args.region_label or cfg.get("region_label", title)
-    tags = args.tag or cfg.get("tags") or ["climbfinder"]
+    geo = args.geo
+    localities = args.locality or []
+    pages = args.pages if args.pages is not None else 2
+    limit = args.limit if args.limit is not None else 40
+    out_path = args.out or "docs/climbs/data/climbs.json"
+    meta_id = args.meta_id or "region"
+    title = args.title or meta_id
+    country = args.country or "XX"
+    region_label = args.region_label or title
+    tags = args.tag or ["climbfinder"]
 
     if not geo and not localities:
-        raise SystemExit("Specify --geo, --locality, or --preset with a defined source.")
+        raise SystemExit("Specify --geo and/or --locality (repeat --locality for multiple).")
 
     mode = "all API pages" if args.all_pages else f"{pages} page(s)"
     print(f"Fetching ranking slugs (geo={geo!r}, localities={localities}, {mode})…")

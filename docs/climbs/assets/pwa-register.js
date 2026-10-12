@@ -2,7 +2,7 @@
 (function () {
   if (!("serviceWorker" in navigator)) return;
 
-  var BUILD_STAMP = "20261011swforce3";
+  var BUILD_STAMP = "20261012phase0";
   var SW_RELOAD_SESSION_KEY = "fietsklim-sw-reloading";
 
   function climbsScopeUrl() {

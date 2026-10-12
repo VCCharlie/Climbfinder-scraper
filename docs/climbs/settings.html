@@ -29,7 +29,6 @@
       <a href="index.html">Database</a>
       <a href="import.html">Import</a>
       <a href="settings.html" aria-current="page">Instellingen</a>
-      <a href="../index.html">HTML Scraper</a>
     </nav>
     <h1>Instellingen</h1>
     <p class="settings-lead">Koppelingen, logboek en documentatie voor je persoonlijke FietsKlim-omgeving.</p>
@@ -37,13 +36,15 @@
     <section class="settings-card" id="stravaSettingsCard" aria-labelledby="stravaSettingsTitle">
       <h2 id="stravaSettingsTitle">Strava</h2>
       <p>
-        Publieke fietsritten automatisch matchen met klimmen in het logboek (proef: laatste 50 ritten vs
-        Zuid-Limburg). Sync overschrijft handmatige vinkjes bij match.
+        Koppel Strava om later ritten te matchen met klimmen in je logboek. <strong>Proef-sync</strong> (dataset-keuze,
+        laatste ritten) volgt in een volgende update. Bij sync overschrijven matches handmatige gedaan-vinkjes.
       </p>
       <div class="settings-actions">
         <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
         <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
-        <button type="button" id="stravaTrialSyncBtn" hidden>Proef-sync (50 ritten · nl-limburg)</button>
+        <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden disabled title="Volgt in volgende update">
+          Proef-sync (binnenkort)
+        </button>
       </div>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
     </section>

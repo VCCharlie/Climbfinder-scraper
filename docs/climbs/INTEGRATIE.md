@@ -5,19 +5,19 @@ Deze map is bedoeld als **centrale klimdatabase** (Climbfinder/Strava-achtig): e
 ## JSON-structuur
 
 - **Regio-index:** `data/index.json` — welke datasets er zijn
-- **Regio-bundle:** bijv. `data/nl-limburg.json`
+- **Regio-bundle:** bijv. `data/cf-l280-limburg.json`
 - **Schema:** `data/schema.json`
 
 Publieke URL (GitHub Pages, branch `main`, map `/docs`):
 
 ```text
-https://vccharlie.github.io/Climbfinder-scraper/climbs/data/nl-limburg.json
+https://vccharlie.github.io/Climbfinder-scraper/climbs/data/cf-l280-limburg.json
 ```
 
 Of raw GitHub (handig voor CI/build scripts):
 
 ```text
-https://raw.githubusercontent.com/VCCharlie/Climbfinder-scraper/main/docs/climbs/data/nl-limburg.json
+https://raw.githubusercontent.com/VCCharlie/Climbfinder-scraper/main/docs/climbs/data/cf-l280-limburg.json
 ```
 
 ## Volledige explorer
@@ -40,7 +40,7 @@ Laad Leaflet, Chart.js en het embed-script. Vul `data-dataset` en optioneel `dat
 <div
   id="cauberg-widget"
   data-fietsklim
-  data-dataset="https://vccharlie.github.io/Climbfinder-scraper/climbs/data/nl-limburg.json"
+  data-dataset="https://vccharlie.github.io/Climbfinder-scraper/climbs/data/cf-l280-limburg.json"
   data-climb="cauberg-valkenburg"
 ></div>
 <script src="https://vccharlie.github.io/Climbfinder-scraper/climbs/assets/embed.js"></script>
@@ -50,7 +50,7 @@ Programmatisch:
 
 ```javascript
 await FietsKlimDB.render(document.getElementById("cauberg-widget"), {
-  dataset: "https://…/nl-limburg.json",
+  dataset: "https://…/cf-l280-limburg.json",
   climb: "keutenberg-schin-op-geul",
 });
 ```
@@ -61,33 +61,30 @@ await FietsKlimDB.render(document.getElementById("cauberg-widget"), {
 
    ```bash
    python scripts/gpx_to_climb_json.py mijn_klim.gpx \
-     --name "Cauberg" --region "Zuid-Limburg" --country NL > /tmp/climb.json
+     --name "Cauberg" --region "Limburg" --country NL > /tmp/climb.json
    ```
 
    Voeg het object toe aan `climbs[]` in je regio-JSON (of schrijf een klein merge-script).
 
 2. **Climbfinder (aanbevolen — echte route + profiel):**
 
-   ```bash
-   pip install playwright
-   playwright install chromium
-   python scripts/climbfinder_import.py --preset nl-limburg
-   python scripts/climbfinder_import.py --preset fr-alps --pages 2 --limit 80
-   ```
+   Via de **Import**-pagina op GitHub Pages, of lokaal / GitHub Actions:
 
-   Presets:
-   - **nl-limburg** — ranking rond Valkenburg (`g=5.83I50.86`)
-   - **fr-alps** — Climbfinder-localities Haute-Savoie, Savoie, Hautes-Alpes, Alpes-de-Haute-Provence, Alpes-Maritimes
+   ```bash
+   pip install -r requirements.txt
+   playwright install chromium
+   python scripts/climbfinder_import.py --locality 280 --pages 2 --limit 50 \
+     --meta-id cf-l280-limburg --title "Limburg" --country NL --region-label "Limburg" \
+     --out docs/climbs/data/cf-l280-limburg.json
+   ```
 
    Per klim: **Climbfinder-polyline** + **officieel hoogteprofiel** (`pathElevationsEnc`).
 
 3. **Start/eindpunt (alleen fallback, geen Climbfinder-geometrie):**
 
    ```bash
-   python scripts/climb_builder.py --out docs/climbs/data/nl-limburg.json
+   python scripts/climb_builder.py --out docs/climbs/data/mijn-regio.json
    ```
-
-3. **Ranking-scraper → stubs:** gebruik de bestaande scraper (`docs/index.html` / Streamlit) om namen en statistieken te verzamelen, koppel daarna GPX of handmatige polyline.
 
 ## Tips voor je andere repos
 

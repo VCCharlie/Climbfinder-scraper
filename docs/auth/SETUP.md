@@ -64,7 +64,7 @@ blijven **direct downloadbaar** zolang ze op GitHub Pages staan. Iemand die de U
 
 ## 4. Strava (optioneel)
 
-Zie **[STRAVA.md](./STRAVA.md)** — koppelen, proef-sync laatste 50 publieke ritten tegen `nl-limburg`.
+Zie **[STRAVA.md](./STRAVA.md)** — Strava koppelen; proef-sync (dataset-keuze) volgt later.
 
 ## 5. Klim-logboek (Fase 1 — handmatig “gedaan”)
 

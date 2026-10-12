@@ -277,7 +277,13 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
 
 exports.stravaSyncTrial = functions.region(REGION).https.onCall(async (data, context) => {
   const uid = requireAuth(context);
-  const datasetId = String(data.datasetId || "nl-limburg").trim();
+  const datasetId = String(data.datasetId || "").trim();
+  if (!datasetId) {
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      "datasetId is verplicht (kies een regio-dataset uit index.json)."
+    );
+  }
   const perPage = Math.min(Number(data.perPage) || TRIAL_ACTIVITY_COUNT, 50);
 
   const accessToken = await getValidAccessToken(uid);

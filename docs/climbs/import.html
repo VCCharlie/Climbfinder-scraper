@@ -143,8 +143,7 @@
     <p class="links">
       Polyline + hoogteprofiel per klim.
       <a href="index.html">Database</a> ·
-      <a href="settings.html">Instellingen</a> ·
-      <a href="../index.html">HTML Scraper</a>
+      <a href="settings.html">Instellingen</a>
     </p>
     <p id="siteDatabaseSummary" class="hint" style="margin:0.35rem 0 0.75rem;font-weight:600;color:#0f766e;"></p>
 
@@ -333,13 +332,7 @@
       <div id="panelManual" class="panel">
         <p class="panel-lead">Experimenteel — enkele slugs in browser</p>
         <p class="hint">Gebruik de <strong>slug</strong> uit de URL (<code>…/climbs/cauberg</code>), geen vrije naam — tenzij die exact overeenkomt met de slug. Meerdere regels = meerdere klimmen.</p>
-        <label for="preset">Preset (optioneel)</label>
-        <select id="preset">
-          <option value="">— geen preset —</option>
-          <option value="nl-limburg">Zuid-Limburg (legacy slug-lijst)</option>
-          <option value="fr-alps">Franse Alpen (legacy slug-lijst)</option>
-        </select>
-        <label for="slugs" style="margin-top:0.75rem">Slugs of Climbfinder-URL’s (één per regel)</label>
+        <label for="slugs">Slugs of Climbfinder-URL’s (één per regel)</label>
         <textarea id="slugs" placeholder="cauberg&#10;https://climbfinder.com/en/climbs/col-du-galibier-le-gauche"></textarea>
         <button type="button" id="runManualBtn">Start import</button>
       </div>
@@ -532,17 +525,6 @@
         publish_to_site: "true",
         merge_into: "",
       };
-      // Zuid-Limburg volledig (~688): l=27 + hoge limit → vaste dataset-id op de kaart.
-      if (region.id === 27 && (pages === "all" || limit >= 650)) {
-        return {
-          ...base,
-          meta_id: "nl-limburg",
-          title: "Zuid-Limburg",
-          region_label: "Zuid-Limburg",
-          pages: "all",
-          limit: limitStr,
-        };
-      }
       return base;
     }
 
@@ -1157,13 +1139,6 @@
       refreshGhCommand();
     }
 
-    async function loadPresetSlugs(preset) {
-      const res = await fetch(`data/presets/${preset}-slugs.json`);
-      if (!res.ok) throw new Error("Preset slug-lijst niet gevonden");
-      const data = await res.json();
-      return data.slugs || [];
-    }
-
     async function runImport(slugs, meta) {
       document.getElementById("log").textContent = "";
       document.getElementById("downloadBtn").disabled = true;
@@ -1236,13 +1211,7 @@
       }
       btn.disabled = true;
       try {
-        let lines = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
-        const preset = document.getElementById("preset").value;
-        if (preset) {
-          const presetSlugs = await loadPresetSlugs(preset);
-          log(`Preset ${preset}: ${presetSlugs.length} slugs`);
-          lines = [...new Set([...presetSlugs, ...lines])];
-        }
+        const lines = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
         if (!lines.length) throw new Error("Geen slugs of URL’s ingevuld");
 
         log("Slugs controleren…");

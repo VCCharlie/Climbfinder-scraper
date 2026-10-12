@@ -1,7 +1,7 @@
 /**
  * Embed FietsKlim JSON on any site.
  *
- * <div id="my-climb-map" data-fietsklim data-dataset="https://.../nl-limburg.json" data-climb="cauberg-valkenburg"></div>
+ * <div id="my-climb-map" data-fietsklim data-dataset="https://.../cf-l280-limburg.json" data-climb="cauberg-valkenburg"></div>
  * <script src="https://vccharlie.github.io/Climbfinder-scraper/climbs/assets/embed.js"></script>
  */
 (function () {

@@ -61,7 +61,8 @@
       const d = res.data || {};
       $("stravaConnectBtn")?.toggleAttribute("hidden", d.connected);
       $("stravaDisconnectBtn")?.toggleAttribute("hidden", !d.connected);
-      $("stravaTrialSyncBtn")?.toggleAttribute("hidden", !d.connected);
+      /* Proef-sync uitgesteld — knop blijft verborgen tot dataset-keuze in instellingen. */
+      $("stravaTrialSyncBtn")?.toggleAttribute("hidden", true);
       if (d.firestoreError) {
         setStatus(`Firestore-fout: ${d.hint || "?"}${setupHint(d.setup)}`, true);
         return;
