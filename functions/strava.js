@@ -13,6 +13,11 @@ const STATE_TTL_MS = 15 * 60 * 1000;
 const TRIAL_ACTIVITY_COUNT = 50;
 const FULL_SYNC_PER_PAGE = 50;
 const FULL_SYNC_MAX_PAGES_PER_CALL = 12;
+/** Minder Strava-pagina’s per call wanneer elke batch meerdere regio-datasets doorloopt. */
+const FULL_SYNC_MAX_PAGES_ALL_MODE = 3;
+const FULL_SYNC_DATASETS_PER_CALL = 5;
+/** datasetId in API / UI voor sync tegen index.json (alle regio’s). */
+const ALL_DATASETS_TOKEN = "__all__";
 
 /** Strava Authorization Callback Domain = vccharlie.github.io (gedeeld met andere repo’s). */
 const DEFAULT_REDIRECT_URI =
@@ -162,6 +167,59 @@ async function loadDataset(datasetId) {
   }
   const bundle = await res.json();
   return { datasetId, climbs: bundle.climbs || [], meta: bundle.meta || {} };
+}
+
+function isAllDatasetsToken(datasetId) {
+  return datasetId === ALL_DATASETS_TOKEN;
+}
+
+async function loadRegionDatasetIds() {
+  const url = `${dataBaseUrl().replace(/\/$/, "")}/index.json`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`index.json laden mislukt (${res.status})`);
+  }
+  const index = await res.json();
+  const ids = (index.regions || []).map((r) => String(r.id || "").trim()).filter(Boolean);
+  return { ids, totalClimbs: index.total_climbs ?? null, regionCount: ids.length };
+}
+
+async function assertPrivateScopeIfNeeded(uid, prefs) {
+  if (!prefs.includePrivate) return;
+  const integration = await getStoredIntegration(uid);
+  if (!integrationHasPrivateScope(integration?.scope)) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "Privé-activiteiten aan, maar Strava heeft activity:read_all nog niet — koppel Strava opnieuw."
+    );
+  }
+}
+
+function countRideActivities(activities, includePrivate) {
+  return (activities || [])
+    .filter(isCyclingActivity)
+    .filter((act) => activityVisibleForPrefs(act, includePrivate)).length;
+}
+
+async function matchAndWriteForDatasets(uid, accessToken, activities, includePrivate, datasetIds) {
+  let matchesWritten = 0;
+  const datasetsProcessed = [];
+  for (const datasetId of datasetIds) {
+    const { climbs } = await loadDataset(datasetId);
+    if (!climbs.length) continue;
+    const { bestByClimb } = await matchActivitiesToClimbs({
+      accessToken,
+      climbs,
+      activities,
+      includePrivate,
+    });
+    if (bestByClimb.size) {
+      await writeStravaMatches(uid, datasetId, bestByClimb);
+      matchesWritten += bestByClimb.size;
+    }
+    datasetsProcessed.push(datasetId);
+  }
+  return { matchesWritten, datasetsProcessed };
 }
 
 async function consumeOAuthState(state) {
@@ -466,46 +524,78 @@ async function fetchActivityPages(accessToken, { startPage, maxPages, perPage })
 
 exports.stravaSyncTrial = functions
   .region(REGION)
-  .runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .runWith({ timeoutSeconds: 300, memory: "1GB" })
   .https.onCall(async (data, context) => {
     const uid = requireAuth(context);
     const datasetId = String(data.datasetId || "").trim();
     if (!datasetId) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "datasetId is verplicht (kies een regio-dataset uit index.json)."
+        "datasetId is verplicht (kies een regio-dataset of hele database)."
       );
     }
     const perPage = Math.min(Number(data.perPage) || TRIAL_ACTIVITY_COUNT, 50);
     const prefs = await getStravaPrefs(uid);
+    await assertPrivateScopeIfNeeded(uid, prefs);
 
     const accessToken = await getValidAccessToken(uid);
-    const { climbs } = await loadDataset(datasetId);
-    if (!climbs.length) {
-      throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
-    }
-
     const activities = await stravaFetch(
       `/athlete/activities?per_page=${perPage}&page=1`,
       accessToken
     );
-    const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
-      accessToken,
-      climbs,
-      activities,
-      includePrivate: prefs.includePrivate,
-    });
-    await writeStravaMatches(uid, datasetId, bestByClimb);
+    const ridesScanned = countRideActivities(activities, prefs.includePrivate);
 
-    const summary = {
-      kind: "trial",
-      datasetId,
-      activitiesScanned: ridesScanned,
-      matchesWritten: bestByClimb.size,
-      uniqueClimbs: bestByClimb.size,
-      perPage,
-      includePrivate: prefs.includePrivate,
-    };
+    let matchesWritten = 0;
+    let summary;
+
+    if (isAllDatasetsToken(datasetId)) {
+      const { ids, totalClimbs, regionCount } = await loadRegionDatasetIds();
+      if (!ids.length) {
+        throw new functions.https.HttpsError("not-found", "Geen regio’s in index.json");
+      }
+      const result = await matchAndWriteForDatasets(
+        uid,
+        accessToken,
+        activities,
+        prefs.includePrivate,
+        ids
+      );
+      matchesWritten = result.matchesWritten;
+      summary = {
+        kind: "trial",
+        datasetId: ALL_DATASETS_TOKEN,
+        allDatasets: true,
+        regionCount,
+        totalClimbs,
+        activitiesScanned: ridesScanned,
+        matchesWritten,
+        uniqueClimbs: matchesWritten,
+        perPage,
+        includePrivate: prefs.includePrivate,
+      };
+    } else {
+      const { climbs } = await loadDataset(datasetId);
+      if (!climbs.length) {
+        throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
+      }
+      const { bestByClimb } = await matchActivitiesToClimbs({
+        accessToken,
+        climbs,
+        activities,
+        includePrivate: prefs.includePrivate,
+      });
+      await writeStravaMatches(uid, datasetId, bestByClimb);
+      matchesWritten = bestByClimb.size;
+      summary = {
+        kind: "trial",
+        datasetId,
+        activitiesScanned: ridesScanned,
+        matchesWritten,
+        uniqueClimbs: matchesWritten,
+        perPage,
+        includePrivate: prefs.includePrivate,
+      };
+    }
 
     await (await integrationRef(uid)).set(
       {
@@ -515,83 +605,189 @@ exports.stravaSyncTrial = functions
       { merge: true }
     );
 
+    const scopeLabel = isAllDatasetsToken(datasetId) ? "hele database" : datasetId;
     return {
       ok: true,
-      message: `Proef-sync: ${summary.uniqueClimbs} klim(men) gematcht in ${datasetId} (${ridesScanned} ritten).`,
+      message: `Proef-sync: ${matchesWritten} klim(men) gematcht (${scopeLabel}, ${ridesScanned} ritten).`,
       summary,
     };
   });
 
 exports.stravaSyncFull = functions
   .region(REGION)
-  .runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .runWith({ timeoutSeconds: 300, memory: "1GB" })
   .https.onCall(async (data, context) => {
     const uid = requireAuth(context);
     const datasetId = String(data.datasetId || "").trim();
     if (!datasetId) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "datasetId is verplicht (kies een regio-dataset uit index.json)."
+        "datasetId is verplicht (regio-dataset of hele database)."
       );
     }
     const prefs = await getStravaPrefs(uid);
-    if (prefs.includePrivate) {
-      const integration = await getStoredIntegration(uid);
-      if (!integrationHasPrivateScope(integration?.scope)) {
-        throw new functions.https.HttpsError(
-          "failed-precondition",
-          "Privé-activiteiten aan, maar Strava heeft activity:read_all nog niet — koppel Strava opnieuw."
-        );
-      }
-    }
+    await assertPrivateScopeIfNeeded(uid, prefs);
 
     const reset = Boolean(data.reset);
     const integration = await getStoredIntegration(uid);
+    const allMode = isAllDatasetsToken(datasetId);
+    const accessToken = await getValidAccessToken(uid);
+
+    if (!allMode) {
+      let startPage = 1;
+      if (
+        !reset &&
+        integration?.fullSyncCursor?.mode !== "all" &&
+        integration?.fullSyncCursor?.datasetId === datasetId &&
+        integration.fullSyncCursor.nextPage
+      ) {
+        startPage = Number(integration.fullSyncCursor.nextPage) || 1;
+      }
+
+      const maxPages = Math.min(
+        Math.max(1, Number(data.maxPages) || FULL_SYNC_MAX_PAGES_PER_CALL),
+        FULL_SYNC_MAX_PAGES_PER_CALL
+      );
+
+      const { climbs } = await loadDataset(datasetId);
+      if (!climbs.length) {
+        throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
+      }
+
+      const { activities, pagesFetched, nextPage, completed } = await fetchActivityPages(accessToken, {
+        startPage,
+        maxPages,
+        perPage: FULL_SYNC_PER_PAGE,
+      });
+
+      const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
+        accessToken,
+        climbs,
+        activities,
+        includePrivate: prefs.includePrivate,
+      });
+      await writeStravaMatches(uid, datasetId, bestByClimb);
+
+      const cursor = completed
+        ? null
+        : { mode: "single", datasetId, nextPage, updatedAt: new Date().toISOString() };
+
+      const summary = {
+        kind: "full",
+        datasetId,
+        activitiesScanned: ridesScanned,
+        activitiesFetched: activities.length,
+        pagesFetched,
+        startPage,
+        nextPage,
+        completed,
+        matchesWritten: bestByClimb.size,
+        uniqueClimbs: bestByClimb.size,
+        includePrivate: prefs.includePrivate,
+      };
+
+      await (await integrationRef(uid)).set(
+        {
+          lastSyncAt: admin.firestore.FieldValue.serverTimestamp(),
+          lastSyncSummary: summary,
+          fullSyncCursor: cursor,
+        },
+        { merge: true }
+      );
+
+      const msg = completed
+        ? `Volledige sync klaar: ${summary.uniqueClimbs} klim(men) in ${datasetId} (deze batch: ${ridesScanned} ritten, ${pagesFetched} pagina’s).`
+        : `Sync batch klaar (${ridesScanned} ritten, pag. ${startPage}–${startPage + pagesFetched - 1}). Verder vanaf pag. ${nextPage}.`;
+
+      return { ok: true, completed, nextPage, message: msg, summary };
+    }
+
+    const { ids: regionIds, totalClimbs, regionCount } = await loadRegionDatasetIds();
+    if (!regionIds.length) {
+      throw new functions.https.HttpsError("not-found", "Geen regio’s in index.json");
+    }
+
     let startPage = 1;
-    if (!reset && integration?.fullSyncCursor?.datasetId === datasetId && integration.fullSyncCursor.nextPage) {
-      startPage = Number(integration.fullSyncCursor.nextPage) || 1;
+    let nextDatasetIndex = 0;
+    const prev = integration?.fullSyncCursor;
+    if (!reset && prev?.mode === "all") {
+      startPage = Number(prev.nextPage) || 1;
+      nextDatasetIndex = Number(prev.nextDatasetIndex) || 0;
     }
 
     const maxPages = Math.min(
-      Math.max(1, Number(data.maxPages) || FULL_SYNC_MAX_PAGES_PER_CALL),
-      FULL_SYNC_MAX_PAGES_PER_CALL
+      Math.max(1, Number(data.maxPages) || FULL_SYNC_MAX_PAGES_ALL_MODE),
+      FULL_SYNC_MAX_PAGES_ALL_MODE
+    );
+    const datasetsPerCall = Math.min(
+      Math.max(1, Number(data.datasetsPerCall) || FULL_SYNC_DATASETS_PER_CALL),
+      FULL_SYNC_DATASETS_PER_CALL
     );
 
-    const accessToken = await getValidAccessToken(uid);
-    const { climbs } = await loadDataset(datasetId);
-    if (!climbs.length) {
-      throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
+    const { activities, pagesFetched, nextPage, completed: activitiesExhausted } =
+      await fetchActivityPages(accessToken, {
+        startPage,
+        maxPages,
+        perPage: FULL_SYNC_PER_PAGE,
+      });
+
+    const ridesScanned = countRideActivities(activities, prefs.includePrivate);
+    const batchIds = regionIds.slice(nextDatasetIndex, nextDatasetIndex + datasetsPerCall);
+    const { matchesWritten, datasetsProcessed } = await matchAndWriteForDatasets(
+      uid,
+      accessToken,
+      activities,
+      prefs.includePrivate,
+      batchIds
+    );
+
+    let nextDatasetIndexAfter = nextDatasetIndex + batchIds.length;
+    let syncCompleted = false;
+    let cursor = null;
+    let nextPageForCursor = startPage;
+
+    if (nextDatasetIndexAfter >= regionIds.length) {
+      nextDatasetIndexAfter = 0;
+      if (activitiesExhausted) {
+        syncCompleted = true;
+      } else {
+        nextPageForCursor = nextPage || startPage + pagesFetched;
+      }
+    } else {
+      nextPageForCursor = startPage;
     }
 
-    const { activities, pagesFetched, nextPage, completed } = await fetchActivityPages(accessToken, {
-      startPage,
-      maxPages,
-      perPage: FULL_SYNC_PER_PAGE,
-    });
-
-    const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
-      accessToken,
-      climbs,
-      activities,
-      includePrivate: prefs.includePrivate,
-    });
-    await writeStravaMatches(uid, datasetId, bestByClimb);
-
-    const cursor = completed
-      ? null
-      : { datasetId, nextPage, updatedAt: new Date().toISOString() };
+    if (!syncCompleted) {
+      cursor = {
+        mode: "all",
+        nextPage: nextPageForCursor,
+        nextDatasetIndex: nextDatasetIndexAfter,
+        updatedAt: new Date().toISOString(),
+      };
+    }
 
     const summary = {
       kind: "full",
-      datasetId,
+      datasetId: ALL_DATASETS_TOKEN,
+      allDatasets: true,
+      regionCount,
+      totalClimbs,
       activitiesScanned: ridesScanned,
       activitiesFetched: activities.length,
       pagesFetched,
       startPage,
-      nextPage,
-      completed,
-      matchesWritten: bestByClimb.size,
-      uniqueClimbs: bestByClimb.size,
+      nextPage: activitiesExhausted ? null : nextPage,
+      nextDatasetIndex: nextDatasetIndexAfter,
+      datasetsInBatch: batchIds.length,
+      datasetsProcessedCount: datasetsProcessed.length,
+      regionProgress: syncCompleted
+        ? `${regionCount}/${regionCount} regio’s`
+        : nextDatasetIndexAfter === 0
+          ? `regio’s klaar voor Strava-pag. ${startPage}–${startPage + pagesFetched - 1}; volgende ritten-batch`
+          : `${nextDatasetIndexAfter}/${regionCount} regio’s (huidige ritten-batch)`,
+      completed: syncCompleted,
+      matchesWritten,
+      uniqueClimbs: matchesWritten,
       includePrivate: prefs.includePrivate,
     };
 
@@ -604,15 +800,17 @@ exports.stravaSyncFull = functions
       { merge: true }
     );
 
-    const msg = completed
-      ? `Volledige sync klaar: ${summary.uniqueClimbs} klim(men) in ${datasetId} (deze batch: ${ridesScanned} ritten, ${pagesFetched} pagina’s).`
-      : `Sync batch klaar (${ridesScanned} ritten, pag. ${startPage}–${startPage + pagesFetched - 1}). Nog ${nextPage ? `verder vanaf pag. ${nextPage}` : "meer"} — start opnieuw of laat de app doorgaan.`;
+    const msg = syncCompleted
+      ? `Volledige sync klaar: ${matchesWritten} nieuwe match(es) in deze batch · hele database (${regionCount} regio’s, ~${totalClimbs ?? "?"} klimmen).`
+      : `Database-sync batch: ${matchesWritten} match(es), ritten pag. ${startPage}–${startPage + pagesFetched - 1}, regio’s ${nextDatasetIndex}–${nextDatasetIndex + batchIds.length - 1} van ${regionCount}. Automatisch verder…`;
 
     return {
       ok: true,
-      completed,
-      nextPage,
+      completed: syncCompleted,
+      nextPage: cursor?.nextPage ?? null,
       message: msg,
       summary,
     };
   });
+
+exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;

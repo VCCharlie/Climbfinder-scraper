@@ -1,8 +1,10 @@
 /** Strava koppelen, voorkeuren (privé), proef- en volledige sync. */
 (function (global) {
   const DATASET_STORAGE_KEY = "fietsklim-strava-dataset-id";
+  const ALL_DATASETS = "__all__";
   const DEFAULT_PER_PAGE = 50;
   const FULL_SYNC_MAX_LOOPS = 80;
+  const FULL_SYNC_MAX_LOOPS_ALL = 800;
 
   let statusCache = null;
   let prefsSaveTimer = null;
@@ -140,7 +142,14 @@
     try {
       const index = await loadRegionIndex();
       const regions = sortRegions(index.regions || []);
-      sel.innerHTML = '<option value="">— kies regio-dataset —</option>';
+      const total =
+        index.total_climbs ??
+        regions.reduce((sum, r) => sum + (Number(r.count) || 0), 0);
+      sel.innerHTML = '<option value="">— kies regio of hele database —</option>';
+      const allOpt = document.createElement("option");
+      allOpt.value = ALL_DATASETS;
+      allOpt.textContent = `Hele database (${regions.length} regio’s, ${Number(total).toLocaleString("nl-NL")} klimmen)`;
+      sel.appendChild(allOpt);
       for (const r of regions) {
         const opt = document.createElement("option");
         opt.value = r.id;
@@ -150,7 +159,7 @@
       const stored = getStoredDatasetId();
       const cfgDefault = cfg().strava?.defaultDatasetId;
       const pick = stored || cfgDefault || "";
-      if (pick && regions.some((r) => r.id === pick)) {
+      if (pick && (pick === ALL_DATASETS || regions.some((r) => r.id === pick))) {
         sel.value = pick;
       }
       sel.disabled = false;
@@ -221,13 +230,17 @@
         const mode = d.includePrivate ? "publiek + privé" : "alleen publiek";
         let msg = `Strava: ${d.athleteName || "gekoppeld"} (${mode})`;
         const ds = getSelectedDatasetId();
-        if (ds) msg += ` · dataset: ${ds}`;
+        if (ds) {
+          msg += ds === ALL_DATASETS ? " · scope: hele database" : ` · dataset: ${ds}`;
+        }
         if (d.lastSyncSummary) {
           const s = d.lastSyncSummary;
           const kind = s.kind === "full" ? "volledige sync" : "proef";
-          msg += ` · laatste ${kind}: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten`;
-          if (s.kind === "full" && s.completed === false && s.nextPage) {
-            msg += ` (verder vanaf pag. ${s.nextPage})`;
+          const scope = s.allDatasets ? "alle regio’s" : s.datasetId;
+          msg += ` · laatste ${kind}: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten (${scope})`;
+          if (s.kind === "full" && s.completed === false) {
+            if (s.allDatasets && s.regionProgress) msg += ` · ${s.regionProgress}`;
+            if (s.nextPage) msg += ` · Strava pag. ${s.nextPage}`;
           }
         } else if (d.lastSyncAt) {
           msg += ` · sync ${new Date(d.lastSyncAt).toLocaleString("nl-NL")}`;
@@ -323,13 +336,16 @@
     if (btn) btn.disabled = true;
     if (trialBtn) trialBtn.disabled = true;
 
+    const isAll = datasetId === ALL_DATASETS;
+    const maxLoops = isAll ? FULL_SYNC_MAX_LOOPS_ALL : FULL_SYNC_MAX_LOOPS;
     let loops = 0;
     let reset = true;
     try {
-      while (loops < FULL_SYNC_MAX_LOOPS) {
+      while (loops < maxLoops) {
         loops += 1;
+        const scopeLabel = isAll ? "hele database" : datasetId;
         setStatus(
-          `Volledige sync ${datasetId}: batch ${loops}… (alle Strava-pagina’s tot history op is)`
+          `Volledige sync (${scopeLabel}): stap ${loops}… (laat dit scherm open tot “klaar” verschijnt)`
         );
         const res = await callable("stravaSyncFull")({ datasetId, reset });
         reset = false;
@@ -337,10 +353,13 @@
         setStatus(data.message || "Batch klaar.");
         global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
         if (data.completed) break;
-        if (!data.nextPage) break;
+        if (!isAll && !data.nextPage) break;
       }
-      if (loops >= FULL_SYNC_MAX_LOOPS) {
-        setStatus("Sync gestopt na maximum batches — start opnieuw om verder te gaan.", true);
+      if (loops >= maxLoops) {
+        setStatus(
+          "Sync gestopt na maximum stappen — klik opnieuw Volledige history sync (loopt verder waar gebleven).",
+          true
+        );
       }
     } catch (e) {
       setStatus(formatCallableError(e), true);
