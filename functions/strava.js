@@ -629,55 +629,62 @@ function logFieldTimestampMillis(v) {
   return 0;
 }
 
-async function writeStravaMatchDoc(db, logCol, datasetId, climbId, hit) {
-  const ref = logCol.doc(logDocId(datasetId, climbId));
-  const nowMs = Date.now();
-  await db.runTransaction(async (tx) => {
-    const snap = await tx.get(ref);
-    const data = snap.exists ? snap.data() : {};
-    const doneUpdatedAt = logFieldTimestampMillis(data.doneUpdatedAt);
-    const wishlistUpdatedAt = logFieldTimestampMillis(data.wishlistUpdatedAt);
-    const newActivityId = hit.activity.id;
-    const prevActivityId = data.stravaActivityId;
-    let ascentCount = Number(data.stravaAscentCount) || 0;
-    if (!prevActivityId) ascentCount = 1;
-    else if (newActivityId !== prevActivityId) ascentCount += 1;
+function buildStravaLogPatch(datasetId, climbId, hit, data, nowMs) {
+  const doneUpdatedAt = logFieldTimestampMillis(data.doneUpdatedAt);
+  const wishlistUpdatedAt = logFieldTimestampMillis(data.wishlistUpdatedAt);
+  const newActivityId = hit.activity.id;
+  const prevActivityId = data.stravaActivityId;
+  let ascentCount = Number(data.stravaAscentCount) || 0;
+  if (!prevActivityId) ascentCount = 1;
+  else if (newActivityId !== prevActivityId) ascentCount += 1;
 
-    const patch = {
-      datasetId,
-      climbId,
-      stravaActivityId: newActivityId,
-      stravaActivityName: hit.activity.name || null,
-      stravaClimbName: hit.climbName || null,
-      stravaAscentCount: ascentCount,
-      matchCoverage: hit.coverage,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-    };
-    if (nowMs >= doneUpdatedAt) {
-      patch.done = true;
-      patch.doneUpdatedAt = nowMs;
-      patch.source = "strava";
-    }
-    if (nowMs >= wishlistUpdatedAt) {
-      patch.wishlist = false;
-      patch.wishlistUpdatedAt = nowMs;
-    }
-    const nextDone = patch.done !== undefined ? patch.done : Boolean(data.done);
-    const nextWishlist = patch.wishlist !== undefined ? patch.wishlist : Boolean(data.wishlist);
-    if (!nextDone && !nextWishlist) {
-      if (snap.exists) tx.delete(ref);
-      return;
-    }
-    tx.set(ref, patch, { merge: true });
-  });
+  const patch = {
+    datasetId,
+    climbId,
+    stravaActivityId: newActivityId,
+    stravaActivityName: hit.activity.name || null,
+    stravaClimbName: hit.climbName || null,
+    stravaAscentCount: ascentCount,
+    matchCoverage: hit.coverage,
+    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+  };
+  if (nowMs >= doneUpdatedAt) {
+    patch.done = true;
+    patch.doneUpdatedAt = nowMs;
+    patch.source = "strava";
+  }
+  if (nowMs >= wishlistUpdatedAt) {
+    patch.wishlist = false;
+    patch.wishlistUpdatedAt = nowMs;
+  }
+  const nextDone = patch.done !== undefined ? patch.done : Boolean(data.done);
+  const nextWishlist = patch.wishlist !== undefined ? patch.wishlist : Boolean(data.wishlist);
+  if (!nextDone && !nextWishlist) {
+    return { delete: true, patch: null };
+  }
+  return { delete: false, patch };
 }
 
 async function writeStravaMatches(uid, datasetId, bestByClimb) {
   const db = admin.firestore();
   const logCol = db.collection("users").doc(uid).collection("climbLog");
   const entries = [...bestByClimb.entries()];
-  for (const [climbId, hit] of entries) {
-    await writeStravaMatchDoc(db, logCol, datasetId, climbId, hit);
+  if (!entries.length) return;
+  const nowMs = Date.now();
+  const CHUNK = 100;
+  for (let i = 0; i < entries.length; i += CHUNK) {
+    const slice = entries.slice(i, i + CHUNK);
+    const refs = slice.map(([climbId]) => logCol.doc(logDocId(datasetId, climbId)));
+    const snaps = await db.getAll(...refs);
+    const batch = db.batch();
+    for (let j = 0; j < slice.length; j += 1) {
+      const [climbId, hit] = slice[j];
+      const data = snaps[j].exists ? snaps[j].data() : {};
+      const { delete: del, patch } = buildStravaLogPatch(datasetId, climbId, hit, data, nowMs);
+      if (del) batch.delete(refs[j]);
+      else batch.set(refs[j], patch, { merge: true });
+    }
+    await batch.commit();
   }
 }
 
@@ -805,6 +812,26 @@ exports.stravaSyncFull = functions
   .region(REGION)
   .runWith({ timeoutSeconds: 300, memory: "1GB" })
   .https.onCall(async (data, context) => {
+    try {
+      return await stravaSyncFullHandler(data, context);
+    } catch (e) {
+      functions.logger.error("stravaSyncFull", e);
+      if (e instanceof functions.https.HttpsError) throw e;
+      const detail = e.message || String(e);
+      if (/deadline|timeout|DEADLINE_EXCEEDED/i.test(detail)) {
+        throw new functions.https.HttpsError(
+          "deadline-exceeded",
+          "Strava-sync duurde te lang in deze batch — klik opnieuw Volledige history sync (loopt verder)."
+        );
+      }
+      throw new functions.https.HttpsError(
+        "internal",
+        `Strava volledige sync mislukt: ${detail}. Zie Firebase Functions-logs (stravaSyncFull).`
+      );
+    }
+  });
+
+async function stravaSyncFullHandler(data, context) {
     const uid = requireAuth(context);
     const datasetId = String(data.datasetId || "").trim();
     if (!datasetId) {
@@ -1001,6 +1028,6 @@ exports.stravaSyncFull = functions
       message: msg,
       summary,
     };
-  });
+}
 
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
