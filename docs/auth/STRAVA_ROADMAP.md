@@ -1,6 +1,6 @@
 # Strava — fase na Phase 2 (volledige history & privé)
 
-Status na **proef-sync**: OAuth via GitHub Pages callback, `stravaSyncTrial` = laatste **50 publieke** ritten, één **dataset**, zet `done: true` (geen wishlist-clear, geen volledige history).
+Status: OAuth via GitHub Pages callback; **toggle privé** + `setStravaSyncPrefs`; **volledige history** per dataset via `stravaSyncFull` (batched); wishlist-clear bij match. **Nog open:** multi-dataset in één run, langere background jobs.
 
 ## Doel (product)
 

@@ -1,6 +1,6 @@
 # Strava — koppelen & proef-sync
 
-Automatisch **gedaan**-vinkjes op basis van **publieke** Strava-fietritten (`read`, `activity:read`). Sync **overschrijft** handmatige vinkjes voor gematchte klimmen.
+Automatisch **gedaan**-vinkjes op basis van Strava-fietritten. Standaard **publiek** (`read`, `activity:read`); optioneel **privé** (`activity:read_all`) via Instellingen. Sync zet **gedaan** aan, haalt **wishlist** weg bij match, en **overschrijft** handmatige gedaan-vinkjes voor gematchte klimmen.
 
 ## Callback op `vccharlie.github.io` (verplicht bij gedeelde Strava-app)
 
@@ -51,7 +51,7 @@ Workflow **Deploy Climbfinder import function** (deployt ook Strava), of:
 
 ```bash
 firebase deploy --only \
-  functions:getStravaConnectUrl,functions:stravaCompleteOAuth,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
+  functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull \
   --project JOUW_PROJECT_ID
 ```
 
@@ -78,9 +78,12 @@ strava: {
 
 ## 6. Gebruik
 
-1. **Instellingen** → regio-dataset kiezen → **Koppel Strava** → na callback **Proef-sync (50 ritten)**.
+1. **Instellingen** → optioneel **Privé-activiteiten** aan (daarna opnieuw koppelen als Strava extra scope vraagt).
+2. Regio-dataset kiezen → **Koppel Strava** → na callback **Proef-sync** of **Volledige history sync** (één dataset; history in batches via `stravaSyncFull`).
 
-Logboek bij match: `source: "strava"`, `stravaActivityId`, `matchCoverage`.
+Voorkeuren: Firestore `users/{uid}/prefs/strava` → `{ includePrivate }`.
+
+Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, `matchCoverage`.
 
 ## 7. Migratie naar nieuw Firebase-project
 

@@ -75,7 +75,13 @@ def check_functions_exports() -> bool:
         fail("functions/index.js should re-export ./strava")
         return False
     strava_text = strava.read_text(encoding="utf-8")
-    needed = ["getStravaConnectUrl", "stravaCompleteOAuth", "stravaSyncTrial"]
+    needed = [
+        "getStravaConnectUrl",
+        "setStravaSyncPrefs",
+        "stravaCompleteOAuth",
+        "stravaSyncTrial",
+        "stravaSyncFull",
+    ]
     missing = [n for n in needed if n not in strava_text]
     if missing:
         fail(f"functions/strava.js missing exports: {', '.join(missing)}")
