@@ -122,13 +122,13 @@
 
   function updateTrialSyncVisibility(connected) {
     const btn = $("stravaTrialSyncBtn");
-    const sel = $("stravaDatasetSelect");
     if (!btn) return;
     const datasetOk = Boolean(getSelectedDatasetId());
     const show = connected && datasetOk;
     btn.toggleAttribute("hidden", !show);
     btn.disabled = !show;
-    if (sel) sel.toggleAttribute("hidden", !connected);
+    const sel = $("stravaDatasetSelect");
+    if (sel && global.__FIETSKLIM_AUTH_READY) sel.removeAttribute("hidden");
   }
 
   async function refreshStatus() {
