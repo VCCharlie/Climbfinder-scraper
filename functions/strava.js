@@ -606,16 +606,20 @@ async function matchActivitiesToClimbs({ accessToken, climbs, activities, includ
   const bestByClimb = new Map();
 
   for (const act of rides) {
+    let activityRecord = act;
     let poly = act.map?.summary_polyline;
     if (!poly) {
       try {
         const detail = await stravaFetch(`/activities/${act.id}`, accessToken);
+        if (!isCyclingActivity(detail)) continue;
+        activityRecord = detail;
         poly = detail.map?.summary_polyline;
       } catch (e) {
         functions.logger.warn("activity detail skip", act.id, e.message);
         continue;
       }
     }
+    if (!isCyclingActivity(activityRecord)) continue;
     if (!poly) continue;
 
     const candidates = climbsNearEncodedPolyline(climbs, poly);
@@ -625,7 +629,7 @@ async function matchActivitiesToClimbs({ accessToken, climbs, activities, includ
       const prev = bestByClimb.get(climb.id);
       if (!prev || result.coverage > prev.coverage) {
         bestByClimb.set(climb.id, {
-          activity: act,
+          activity: activityRecord,
           coverage: result.coverage,
           climbName: climb.name || climb.title || String(climb.id),
         });
