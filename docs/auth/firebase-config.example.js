@@ -36,7 +36,7 @@ window.FIETSKLIM_AUTH_CONFIG = {
    * false → alleen localStorage in deze browser.
    */
   climbLog: {
-    useFirestore: true,
+    useFirestore: false,
   },
   /** Strava (climbs/index.html): OAuth + proef-sync via Cloud Functions — zie docs/auth/STRAVA.md */
   strava: {
