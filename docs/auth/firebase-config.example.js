@@ -41,6 +41,8 @@ window.FIETSKLIM_AUTH_CONFIG = {
   /** Strava (climbs/index.html): OAuth + proef-sync via Cloud Functions — zie docs/auth/STRAVA.md */
   strava: {
     enabled: true,
+    /** Optioneel: vooraf geselecteerde dataset-id (anders onthoudt de browser je keuze). */
+    defaultDatasetId: "",
   },
   githubImport: {
     /** Zet true na deploy van requestClimbfinderImport + github.pat in Functions config. */

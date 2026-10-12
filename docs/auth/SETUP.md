@@ -64,7 +64,7 @@ blijven **direct downloadbaar** zolang ze op GitHub Pages staan. Iemand die de U
 
 ## 4. Strava (optioneel)
 
-Zie **[STRAVA.md](./STRAVA.md)** — Strava koppelen; proef-sync (dataset-keuze) volgt later.
+Zie **[STRAVA.md](./STRAVA.md)** — Strava koppelen + proef-sync met dataset uit `index.json`.
 
 ## 5. Klim-logboek (Fase 1 — handmatig “gedaan”)
 

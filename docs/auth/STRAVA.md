@@ -58,7 +58,7 @@ Op **`climbs/index.html`** moet **`firebase-functions-compat.js`** geladen zijn 
 ## 6. Gebruik op de site
 
 1. **Instellingen** (`climbs/settings.html`) → **Koppel Strava** (OAuth keert hier terug).
-2. **Proef-sync** (dataset-keuze uit `index.json`) volgt in een volgende update. Matching-policy: ~65% overlap, 45 m buffer (`functions/climbMatch.js`).
+2. Kies een **regio-dataset** op Instellingen (lijst uit `data/index.json`), daarna **Proef-sync (50 ritten)**. Matching: ~65% overlap, 45 m buffer (`functions/climbMatch.js`).
 
 Logboekvelden bij Strava-match: `source: "strava"`, `stravaActivityId`, `matchCoverage`.
 
