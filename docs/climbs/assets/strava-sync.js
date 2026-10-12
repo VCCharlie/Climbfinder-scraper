@@ -1,6 +1,7 @@
 /** Strava koppelen, voorkeuren (privé), proef- en volledige sync. */
 (function (global) {
   const DATASET_STORAGE_KEY = "fietsklim-strava-dataset-id";
+  const INCLUDE_PRIVATE_STORAGE_KEY = "fietsklim-strava-include-private";
   const ALL_DATASETS = "__all__";
   const DEFAULT_PER_PAGE = 50;
   const FULL_SYNC_MAX_LOOPS = 80;
@@ -23,6 +24,9 @@
     const msg = e.message || String(e);
     if (code === "internal" && msg === "internal") {
       return "Interne serverfout — meestal: Strava Functions niet gedeployed of Firestore uit. Zie docs/auth/STRAVA.md.";
+    }
+    if (/not-found|UNIMPLEMENTED/i.test(code) || /not-found|UNIMPLEMENTED/i.test(msg)) {
+      return "Strava-function setStravaSyncPrefs ontbreekt — draai GitHub workflow “Deploy Climbfinder import function”. Zie docs/auth/STRAVA.md.";
     }
     if (code && msg !== code && !msg.includes(code)) return `${msg} (${code})`;
     return msg || code || "Onbekende fout";
@@ -60,6 +64,22 @@
     return " Server: strava.client_id/secret nog niet gezet — functions:config:set + Deploy Functions.";
   }
 
+  function getLocalIncludePrivate() {
+    try {
+      return localStorage.getItem(INCLUDE_PRIVATE_STORAGE_KEY) === "1";
+    } catch {
+      return false;
+    }
+  }
+
+  function setLocalIncludePrivate(on) {
+    try {
+      localStorage.setItem(INCLUDE_PRIVATE_STORAGE_KEY, on ? "1" : "0");
+    } catch {
+      /* ignore */
+    }
+  }
+
   function includePrivateChecked() {
     return Boolean($("stravaIncludePrivate")?.checked);
   }
@@ -91,8 +111,13 @@
 
   function syncToggleFromStatus(d) {
     const box = $("stravaIncludePrivate");
-    if (!box || d?.includePrivate === undefined) return;
-    box.checked = Boolean(d.includePrivate);
+    if (!box) return;
+    if (d?.includePrivate !== undefined) {
+      box.checked = Boolean(d.includePrivate);
+      setLocalIncludePrivate(box.checked);
+      return;
+    }
+    box.checked = getLocalIncludePrivate();
   }
 
   function getStoredDatasetId() {
@@ -183,9 +208,11 @@
 
   async function savePrefsFromToggle() {
     if (!firebase.auth?.().currentUser) return;
+    const includePrivate = includePrivateChecked();
+    setLocalIncludePrivate(includePrivate);
     try {
       const res = await callable("setStravaSyncPrefs")({
-        includePrivate: includePrivateChecked(),
+        includePrivate,
       });
       const d = res.data || {};
       if (statusCache) {
@@ -196,9 +223,25 @@
       updateSyncButtonsVisibility(statusCache?.connected);
       if (d.needsReconnect) {
         setStatus(d.message || "Koppel Strava opnieuw voor privé.", true);
+      } else if (d.message) {
+        setStatus(d.message);
       }
     } catch (e) {
-      setStatus(formatCallableError(e), true);
+      const msg = formatCallableError(e);
+      if (/setStravaSyncPrefs|niet gedeployed|Deploy Climbfinder/i.test(msg)) {
+        setStatus(
+          "Privé-voorkeur lokaal opgeslagen. Deploy de nieuwste Strava Functions, of klik Koppel Strava — die stuurt privé-scope mee bij opnieuw koppelen.",
+          false
+        );
+        if (statusCache) {
+          statusCache.includePrivate = includePrivate;
+          statusCache.needsReconnect = includePrivate && statusCache.connected;
+        }
+        updatePrivateHint(statusCache || { connected: statusCache?.connected, includePrivate });
+        updateSyncButtonsVisibility(statusCache?.connected);
+        return;
+      }
+      setStatus(msg, true);
     }
   }
 

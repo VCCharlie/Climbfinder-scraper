@@ -47,6 +47,8 @@ Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat.
 
 ## 3. Deploy
 
+Na elke Strava-wijziging in `functions/strava.js`: workflow **Deploy Climbfinder import function** op `main` (deployt ook `setStravaSyncPrefs`, `stravaSyncFull`, …). Zonder deploy: privé-toggle kan “interne serverfout” geven — de site bewaart de voorkeur dan lokaal tot je opnieuw **Koppel Strava** klikt (na deploy).
+
 Workflow **Deploy Climbfinder import function** (deployt ook Strava), of:
 
 ```bash
