@@ -77,9 +77,38 @@ function stravaPrefsRef(uid) {
 }
 
 async function getStravaPrefs(uid) {
-  const snap = await stravaPrefsRef(uid).get();
-  const data = snap.exists ? snap.data() : {};
-  return { includePrivate: Boolean(data.includePrivate) };
+  try {
+    const snap = await stravaPrefsRef(uid).get();
+    if (snap.exists) {
+      return { includePrivate: Boolean(snap.data().includePrivate) };
+    }
+  } catch (e) {
+    functions.logger.warn("getStravaPrefs prefs doc", e);
+  }
+  try {
+    const integration = await getStoredIntegration(uid);
+    if (integration && integration.syncIncludePrivate !== undefined) {
+      return { includePrivate: Boolean(integration.syncIncludePrivate) };
+    }
+  } catch (e) {
+    functions.logger.warn("getStravaPrefs integration", e);
+  }
+  return { includePrivate: false };
+}
+
+async function saveStravaIncludePrivate(uid, includePrivate) {
+  await stravaPrefsRef(uid).set(
+    {
+      includePrivate: Boolean(includePrivate),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    },
+    { merge: true }
+  );
+  const integRef = await integrationRef(uid);
+  const integSnap = await integRef.get();
+  if (integSnap.exists) {
+    await integRef.set({ syncIncludePrivate: Boolean(includePrivate) }, { merge: true });
+  }
 }
 
 function scopesForIncludePrivate(includePrivate) {
@@ -200,7 +229,7 @@ async function exchangeCodeAndStoreIntegration(uid, code, options) {
   const athlete = tok.athlete || {};
   const grantedScope = tok.scope || scopesForIncludePrivate(includePrivate);
 
-  await stravaPrefsRef(uid).set({ includePrivate }, { merge: true });
+  await saveStravaIncludePrivate(uid, includePrivate);
 
   await (await integrationRef(uid)).set({
     accessToken: tok.access_token,
@@ -209,6 +238,7 @@ async function exchangeCodeAndStoreIntegration(uid, code, options) {
     athleteId: athlete.id || null,
     athleteName: [athlete.firstname, athlete.lastname].filter(Boolean).join(" ") || null,
     scope: grantedScope,
+    syncIncludePrivate: includePrivate,
     connectedAt: admin.firestore.FieldValue.serverTimestamp(),
     lastSyncAt: null,
     lastSyncSummary: null,
@@ -217,20 +247,29 @@ async function exchangeCodeAndStoreIntegration(uid, code, options) {
 }
 
 exports.setStravaSyncPrefs = functions.region(REGION).https.onCall(async (data, context) => {
-  const uid = requireAuth(context);
-  const includePrivate = Boolean(data?.includePrivate);
-  await stravaPrefsRef(uid).set({ includePrivate }, { merge: true });
-  const integration = await getStoredIntegration(uid);
-  const needsReconnect =
-    includePrivate && integration && !integrationHasPrivateScope(integration.scope);
-  return {
-    ok: true,
-    includePrivate,
-    needsReconnect,
-    message: needsReconnect
-      ? "Privé vereist extra Strava-toestemming — klik opnieuw Koppel Strava."
-      : "Voorkeur opgeslagen.",
-  };
+  try {
+    const uid = requireAuth(context);
+    const includePrivate = Boolean(data?.includePrivate);
+    await saveStravaIncludePrivate(uid, includePrivate);
+    const integration = await getStoredIntegration(uid);
+    const needsReconnect =
+      includePrivate && integration && !integrationHasPrivateScope(integration.scope);
+    return {
+      ok: true,
+      includePrivate,
+      needsReconnect,
+      message: needsReconnect
+        ? "Privé vereist extra Strava-toestemming — klik opnieuw Koppel Strava."
+        : "Voorkeur opgeslagen.",
+    };
+  } catch (e) {
+    functions.logger.error("setStravaSyncPrefs", e);
+    if (e instanceof functions.https.HttpsError) throw e;
+    throw new functions.https.HttpsError(
+      "internal",
+      `Strava-voorkeur opslaan mislukt: ${e.message || String(e)}. Draai de workflow Deploy Climbfinder import function (bevat setStravaSyncPrefs).`
+    );
+  }
 });
 
 exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data, context) => {
@@ -246,7 +285,7 @@ exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data,
     const prefs = await getStravaPrefs(uid);
     const includePrivate =
       data?.includePrivate !== undefined ? Boolean(data.includePrivate) : prefs.includePrivate;
-    await stravaPrefsRef(uid).set({ includePrivate }, { merge: true });
+    await saveStravaIncludePrivate(uid, includePrivate);
 
     const integration = await getStoredIntegration(uid);
     const scopeUpgraded = includePrivate && !integrationHasPrivateScope(integration?.scope);
@@ -343,7 +382,12 @@ exports.stravaDisconnect = functions.region(REGION).https.onCall(async (_data, c
 exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, context) => {
   const uid = requireAuth(context);
   const setup = { backendConfigured: stravaBackendConfigured() };
-  const prefs = await getStravaPrefs(uid);
+  let prefs = { includePrivate: false };
+  try {
+    prefs = await getStravaPrefs(uid);
+  } catch (e) {
+    functions.logger.warn("getStravaStatus prefs", e);
+  }
   try {
     const data = await getStoredIntegration(uid);
     if (!data) {
