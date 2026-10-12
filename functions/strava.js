@@ -34,11 +34,35 @@ function siteReturnUrl() {
   );
 }
 
-function dataBaseUrl() {
-  return (
-    stravaCfg().data_base_url ||
-    "https://raw.githubusercontent.com/VCCharlie/Climbfinder-scraper/main/docs/climbs/data"
-  );
+/** Klim-JSON staat op GitHub Pages; raw.githubusercontent.com geeft voor deze repo vaak 404. */
+const DEFAULT_DATA_BASE_URL =
+  "https://vccharlie.github.io/Climbfinder-scraper/climbs/data";
+const FALLBACK_DATA_BASE_URLS = [
+  DEFAULT_DATA_BASE_URL,
+  "https://raw.githubusercontent.com/VCCharlie/Climbfinder-scraper/main/docs/climbs/data",
+];
+
+function configuredDataBaseUrls() {
+  const custom = stravaCfg().data_base_url;
+  if (custom && String(custom).trim()) {
+    return [String(custom).trim(), ...FALLBACK_DATA_BASE_URLS];
+  }
+  return [...FALLBACK_DATA_BASE_URLS];
+}
+
+async function fetchDataJson(relativePath) {
+  const path = relativePath.replace(/^\//, "");
+  const tried = [];
+  for (const base of configuredDataBaseUrls()) {
+    const root = base.replace(/\/$/, "");
+    const url = `${root}/${path}`;
+    tried.push(url);
+    const res = await fetch(url);
+    if (res.ok) {
+      return res.json();
+    }
+  }
+  throw new Error(`${path} laden mislukt (404) — geprobeerd: ${tried.join(" | ")}`);
 }
 
 function redirectUri() {
@@ -270,12 +294,7 @@ async function getValidAccessToken(uid) {
 }
 
 async function loadDataset(datasetId) {
-  const url = `${dataBaseUrl().replace(/\/$/, "")}/${datasetId}.json`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Dataset ${datasetId} laden mislukt (${res.status})`);
-  }
-  const bundle = await res.json();
+  const bundle = await fetchDataJson(`${datasetId}.json`);
   return { datasetId, climbs: bundle.climbs || [], meta: bundle.meta || {} };
 }
 
@@ -284,12 +303,7 @@ function isAllDatasetsToken(datasetId) {
 }
 
 async function loadRegionDatasetIds() {
-  const url = `${dataBaseUrl().replace(/\/$/, "")}/index.json`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`index.json laden mislukt (${res.status})`);
-  }
-  const index = await res.json();
+  const index = await fetchDataJson("index.json");
   const ids = (index.regions || []).map((r) => String(r.id || "").trim()).filter(Boolean);
   return { ids, totalClimbs: index.total_climbs ?? null, regionCount: ids.length };
 }
