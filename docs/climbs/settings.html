@@ -11,7 +11,7 @@
   <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/settings.css?v=20261012phase2" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261012stravafull1" />
 </head>
 <body class="fietsklim-locked settings-page">
   <div id="fietsklim-auth-gate">
@@ -36,11 +36,16 @@
     <section class="settings-card" id="stravaSettingsCard" aria-labelledby="stravaSettingsTitle">
       <h2 id="stravaSettingsTitle">Strava</h2>
       <p>
-        Koppel Strava en match publieke fietsritten met klimmen in je logboek (proef: laatste 50 ritten).
-        Bij sync overschrijven matches handmatige gedaan-vinkjes.
+        Koppel Strava en match fietsritten met klimmen in je logboek. Bij sync: <strong>gedaan</strong> aan,
+        <strong>wishlist</strong> uit bij match. Handmatige gedaan-vinkjes voor gematchte klimmen worden overschreven.
       </p>
-      <label class="settings-field-label" for="stravaDatasetSelect">Regio-dataset voor proef-sync</label>
-      <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio-dataset voor Strava proef-sync">
+      <label class="settings-toggle" for="stravaIncludePrivate">
+        <input type="checkbox" id="stravaIncludePrivate" />
+        <span>Privé-activiteiten meenemen (vereist extra Strava-toestemming)</span>
+      </label>
+      <p id="stravaPrivateHint" class="settings-status" hidden></p>
+      <label class="settings-field-label" for="stravaDatasetSelect">Regio-dataset voor sync</label>
+      <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio-dataset voor Strava-sync">
         <option value="">Laden…</option>
       </select>
       <div class="settings-actions">
@@ -48,6 +53,9 @@
         <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
         <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden>
           Proef-sync (50 ritten)
+        </button>
+        <button type="button" id="stravaFullSyncBtn" class="secondary" hidden>
+          Volledige history sync
         </button>
       </div>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
@@ -98,7 +106,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261012phase2"></script>
-  <script src="assets/strava-sync.js?v=20261012stravacb"></script>
+  <script src="assets/strava-sync.js?v=20261012stravafull1"></script>
   <script src="assets/settings-page.js?v=20261012phase2"></script>
 </body>
 </html>

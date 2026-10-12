@@ -7,9 +7,12 @@ const REGION = "europe-west1";
 const STRAVA_AUTH = "https://www.strava.com/oauth/authorize";
 const STRAVA_TOKEN = "https://www.strava.com/oauth/token";
 const STRAVA_API = "https://www.strava.com/api/v3";
-const SCOPES = "read,activity:read";
+const SCOPES_PUBLIC = "read,activity:read";
+const SCOPES_WITH_PRIVATE = "read,activity:read,activity:read_all";
 const STATE_TTL_MS = 15 * 60 * 1000;
 const TRIAL_ACTIVITY_COUNT = 50;
+const FULL_SYNC_PER_PAGE = 50;
+const FULL_SYNC_MAX_PAGES_PER_CALL = 12;
 
 /** Strava Authorization Callback Domain = vccharlie.github.io (gedeeld met andere repo’s). */
 const DEFAULT_REDIRECT_URI =
@@ -67,6 +70,31 @@ function logDocId(datasetId, climbId) {
 
 async function integrationRef(uid) {
   return admin.firestore().collection("users").doc(uid).collection("integrations").doc("strava");
+}
+
+function stravaPrefsRef(uid) {
+  return admin.firestore().collection("users").doc(uid).collection("prefs").doc("strava");
+}
+
+async function getStravaPrefs(uid) {
+  const snap = await stravaPrefsRef(uid).get();
+  const data = snap.exists ? snap.data() : {};
+  return { includePrivate: Boolean(data.includePrivate) };
+}
+
+function scopesForIncludePrivate(includePrivate) {
+  return includePrivate ? SCOPES_WITH_PRIVATE : SCOPES_PUBLIC;
+}
+
+function integrationHasPrivateScope(scopeStr) {
+  if (!scopeStr) return false;
+  return String(scopeStr).split(",").map((s) => s.trim()).includes("activity:read_all");
+}
+
+function activityVisibleForPrefs(activity, includePrivate) {
+  if (!activity) return false;
+  if (!includePrivate && activity.private === true) return false;
+  return true;
 }
 
 async function getStoredIntegration(uid) {
@@ -151,7 +179,8 @@ async function consumeOAuthState(state) {
   return data;
 }
 
-async function exchangeCodeAndStoreIntegration(uid, code) {
+async function exchangeCodeAndStoreIntegration(uid, code, options) {
+  const includePrivate = Boolean(options?.includePrivate);
   const clientId = stravaCfg().client_id;
   const clientSecret = stravaCfg().client_secret;
   const body = new URLSearchParams({
@@ -169,6 +198,9 @@ async function exchangeCodeAndStoreIntegration(uid, code) {
   }
   const tok = await tokRes.json();
   const athlete = tok.athlete || {};
+  const grantedScope = tok.scope || scopesForIncludePrivate(includePrivate);
+
+  await stravaPrefsRef(uid).set({ includePrivate }, { merge: true });
 
   await (await integrationRef(uid)).set({
     accessToken: tok.access_token,
@@ -176,12 +208,30 @@ async function exchangeCodeAndStoreIntegration(uid, code) {
     expiresAt: Date.now() + (tok.expires_in || 21600) * 1000,
     athleteId: athlete.id || null,
     athleteName: [athlete.firstname, athlete.lastname].filter(Boolean).join(" ") || null,
-    scope: SCOPES,
+    scope: grantedScope,
     connectedAt: admin.firestore.FieldValue.serverTimestamp(),
     lastSyncAt: null,
     lastSyncSummary: null,
+    fullSyncCursor: null,
   });
 }
+
+exports.setStravaSyncPrefs = functions.region(REGION).https.onCall(async (data, context) => {
+  const uid = requireAuth(context);
+  const includePrivate = Boolean(data?.includePrivate);
+  await stravaPrefsRef(uid).set({ includePrivate }, { merge: true });
+  const integration = await getStoredIntegration(uid);
+  const needsReconnect =
+    includePrivate && integration && !integrationHasPrivateScope(integration.scope);
+  return {
+    ok: true,
+    includePrivate,
+    needsReconnect,
+    message: needsReconnect
+      ? "Privé vereist extra Strava-toestemming — klik opnieuw Koppel Strava."
+      : "Voorkeur opgeslagen.",
+  };
+});
 
 exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data, context) => {
   try {
@@ -193,6 +243,15 @@ exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data,
         "strava.client_id ontbreekt op Firebase Functions. Zie docs/auth/STRAVA.md."
       );
     }
+    const prefs = await getStravaPrefs(uid);
+    const includePrivate =
+      data?.includePrivate !== undefined ? Boolean(data.includePrivate) : prefs.includePrivate;
+    await stravaPrefsRef(uid).set({ includePrivate }, { merge: true });
+
+    const integration = await getStoredIntegration(uid);
+    const scopeUpgraded = includePrivate && !integrationHasPrivateScope(integration?.scope);
+    const scopes = scopesForIncludePrivate(includePrivate);
+
     const redir = redirectUri();
     const returnUrl = String(data?.returnUrl || siteReturnUrl()).trim() || siteReturnUrl();
 
@@ -200,6 +259,7 @@ exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data,
     await admin.firestore().collection("stravaOAuthStates").doc(state).set({
       uid,
       returnUrl,
+      includePrivate,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -207,12 +267,12 @@ exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data,
       client_id: clientId,
       redirect_uri: redir,
       response_type: "code",
-      approval_prompt: "auto",
-      scope: SCOPES,
+      approval_prompt: scopeUpgraded || includePrivate ? "force" : "auto",
+      scope: scopes,
       state,
     });
 
-    return { url: `${STRAVA_AUTH}?${params.toString()}` };
+    return { url: `${STRAVA_AUTH}?${params.toString()}`, scopes, includePrivate };
   } catch (e) {
     if (e instanceof functions.https.HttpsError) throw e;
     functions.logger.error("getStravaConnectUrl", e);
@@ -238,7 +298,9 @@ exports.stravaCompleteOAuth = functions.region(REGION).https.onCall(async (data,
       "State hoort bij een andere login — start Koppel Strava opnieuw."
     );
   }
-  await exchangeCodeAndStoreIntegration(uid, code);
+  await exchangeCodeAndStoreIntegration(uid, code, {
+    includePrivate: Boolean(stateData.includePrivate),
+  });
   const returnUrl = String(stateData.returnUrl || siteReturnUrl()).trim() || siteReturnUrl();
   return { ok: true, returnUrl };
 });
@@ -261,7 +323,9 @@ exports.stravaOAuthCallback = functions.region(REGION).https.onRequest(async (re
 
     const stateData = await consumeOAuthState(state);
     const { uid } = stateData;
-    await exchangeCodeAndStoreIntegration(uid, code);
+    await exchangeCodeAndStoreIntegration(uid, code, {
+      includePrivate: Boolean(stateData.includePrivate),
+    });
     const returnUrl = String(stateData.returnUrl || siteReturnUrl()).trim() || siteReturnUrl();
     res.redirect(302, `${returnUrl}${returnUrl.includes("?") ? "&" : "?"}strava=connected`);
   } catch (e) {
@@ -279,16 +343,24 @@ exports.stravaDisconnect = functions.region(REGION).https.onCall(async (_data, c
 exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, context) => {
   const uid = requireAuth(context);
   const setup = { backendConfigured: stravaBackendConfigured() };
+  const prefs = await getStravaPrefs(uid);
   try {
     const data = await getStoredIntegration(uid);
     if (!data) {
-      return { connected: false, setup };
+      return { connected: false, setup, includePrivate: prefs.includePrivate };
     }
+    const hasPrivateScope = integrationHasPrivateScope(data.scope);
+    const needsReconnect = prefs.includePrivate && !hasPrivateScope;
     return {
       connected: true,
       athleteName: data.athleteName || null,
       lastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
       lastSyncSummary: data.lastSyncSummary || null,
+      includePrivate: prefs.includePrivate,
+      hasPrivateScope,
+      needsReconnect,
+      grantedScope: data.scope || null,
+      fullSyncCursor: data.fullSyncCursor || null,
       setup,
     };
   } catch (e) {
@@ -302,34 +374,11 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
   }
 });
 
-exports.stravaSyncTrial = functions
-  .region(REGION)
-  .runWith({ timeoutSeconds: 300, memory: "512MB" })
-  .https.onCall(async (data, context) => {
-  const uid = requireAuth(context);
-  const datasetId = String(data.datasetId || "").trim();
-  if (!datasetId) {
-    throw new functions.https.HttpsError(
-      "invalid-argument",
-      "datasetId is verplicht (kies een regio-dataset uit index.json)."
-    );
-  }
-  const perPage = Math.min(Number(data.perPage) || TRIAL_ACTIVITY_COUNT, 50);
+async function matchActivitiesToClimbs({ accessToken, climbs, activities, includePrivate }) {
+  const rides = (activities || [])
+    .filter(isCyclingActivity)
+    .filter((act) => activityVisibleForPrefs(act, includePrivate));
 
-  const accessToken = await getValidAccessToken(uid);
-  const { climbs } = await loadDataset(datasetId);
-  if (!climbs.length) {
-    throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
-  }
-
-  const activities = await stravaFetch(
-    `/athlete/activities?per_page=${perPage}&page=1`,
-    accessToken
-  );
-  const rides = (activities || []).filter(isCyclingActivity);
-
-  const db = admin.firestore();
-  const logCol = db.collection("users").doc(uid).collection("climbLog");
   /** @type {Map<string, { activity: object, coverage: number }>} */
   const bestByClimb = new Map();
 
@@ -357,6 +406,12 @@ exports.stravaSyncTrial = functions
     }
   }
 
+  return { bestByClimb, ridesScanned: rides.length };
+}
+
+async function writeStravaMatches(uid, datasetId, bestByClimb) {
+  const db = admin.firestore();
+  const logCol = db.collection("users").doc(uid).collection("climbLog");
   const entries = [...bestByClimb.entries()];
   for (let i = 0; i < entries.length; i += 400) {
     const batch = db.batch();
@@ -368,6 +423,7 @@ exports.stravaSyncTrial = functions
           datasetId,
           climbId,
           done: true,
+          wishlist: false,
           source: "strava",
           stravaActivityId: hit.activity.id,
           stravaActivityName: hit.activity.name || null,
@@ -379,26 +435,184 @@ exports.stravaSyncTrial = functions
     }
     await batch.commit();
   }
+}
 
-  const summary = {
-    datasetId,
-    activitiesScanned: rides.length,
-    matchesWritten: bestByClimb.size,
-    uniqueClimbs: bestByClimb.size,
-    perPage,
-  };
+async function fetchActivityPages(accessToken, { startPage, maxPages, perPage }) {
+  const all = [];
+  let page = Math.max(1, startPage);
+  let pagesFetched = 0;
+  let lastPageEmpty = false;
+  while (pagesFetched < maxPages) {
+    const chunk = await stravaFetch(
+      `/athlete/activities?per_page=${perPage}&page=${page}`,
+      accessToken
+    );
+    if (!chunk || !chunk.length) {
+      lastPageEmpty = true;
+      break;
+    }
+    all.push(...chunk);
+    pagesFetched += 1;
+    if (chunk.length < perPage) {
+      lastPageEmpty = true;
+      break;
+    }
+    page += 1;
+  }
+  const completed = lastPageEmpty;
+  const nextPage = completed ? null : page;
+  return { activities: all, pagesFetched, nextPage, completed };
+}
 
-  await (await integrationRef(uid)).set(
-    {
-      lastSyncAt: admin.firestore.FieldValue.serverTimestamp(),
-      lastSyncSummary: summary,
-    },
-    { merge: true }
-  );
+exports.stravaSyncTrial = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onCall(async (data, context) => {
+    const uid = requireAuth(context);
+    const datasetId = String(data.datasetId || "").trim();
+    if (!datasetId) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "datasetId is verplicht (kies een regio-dataset uit index.json)."
+      );
+    }
+    const perPage = Math.min(Number(data.perPage) || TRIAL_ACTIVITY_COUNT, 50);
+    const prefs = await getStravaPrefs(uid);
 
-  return {
-    ok: true,
-    message: `Proef-sync: ${summary.uniqueClimbs} klim(men) gematcht in ${datasetId} (${rides.length} ritten).`,
-    summary,
-  };
-});
+    const accessToken = await getValidAccessToken(uid);
+    const { climbs } = await loadDataset(datasetId);
+    if (!climbs.length) {
+      throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
+    }
+
+    const activities = await stravaFetch(
+      `/athlete/activities?per_page=${perPage}&page=1`,
+      accessToken
+    );
+    const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
+      accessToken,
+      climbs,
+      activities,
+      includePrivate: prefs.includePrivate,
+    });
+    await writeStravaMatches(uid, datasetId, bestByClimb);
+
+    const summary = {
+      kind: "trial",
+      datasetId,
+      activitiesScanned: ridesScanned,
+      matchesWritten: bestByClimb.size,
+      uniqueClimbs: bestByClimb.size,
+      perPage,
+      includePrivate: prefs.includePrivate,
+    };
+
+    await (await integrationRef(uid)).set(
+      {
+        lastSyncAt: admin.firestore.FieldValue.serverTimestamp(),
+        lastSyncSummary: summary,
+      },
+      { merge: true }
+    );
+
+    return {
+      ok: true,
+      message: `Proef-sync: ${summary.uniqueClimbs} klim(men) gematcht in ${datasetId} (${ridesScanned} ritten).`,
+      summary,
+    };
+  });
+
+exports.stravaSyncFull = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onCall(async (data, context) => {
+    const uid = requireAuth(context);
+    const datasetId = String(data.datasetId || "").trim();
+    if (!datasetId) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "datasetId is verplicht (kies een regio-dataset uit index.json)."
+      );
+    }
+    const prefs = await getStravaPrefs(uid);
+    if (prefs.includePrivate) {
+      const integration = await getStoredIntegration(uid);
+      if (!integrationHasPrivateScope(integration?.scope)) {
+        throw new functions.https.HttpsError(
+          "failed-precondition",
+          "Privé-activiteiten aan, maar Strava heeft activity:read_all nog niet — koppel Strava opnieuw."
+        );
+      }
+    }
+
+    const reset = Boolean(data.reset);
+    const integration = await getStoredIntegration(uid);
+    let startPage = 1;
+    if (!reset && integration?.fullSyncCursor?.datasetId === datasetId && integration.fullSyncCursor.nextPage) {
+      startPage = Number(integration.fullSyncCursor.nextPage) || 1;
+    }
+
+    const maxPages = Math.min(
+      Math.max(1, Number(data.maxPages) || FULL_SYNC_MAX_PAGES_PER_CALL),
+      FULL_SYNC_MAX_PAGES_PER_CALL
+    );
+
+    const accessToken = await getValidAccessToken(uid);
+    const { climbs } = await loadDataset(datasetId);
+    if (!climbs.length) {
+      throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
+    }
+
+    const { activities, pagesFetched, nextPage, completed } = await fetchActivityPages(accessToken, {
+      startPage,
+      maxPages,
+      perPage: FULL_SYNC_PER_PAGE,
+    });
+
+    const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
+      accessToken,
+      climbs,
+      activities,
+      includePrivate: prefs.includePrivate,
+    });
+    await writeStravaMatches(uid, datasetId, bestByClimb);
+
+    const cursor = completed
+      ? null
+      : { datasetId, nextPage, updatedAt: new Date().toISOString() };
+
+    const summary = {
+      kind: "full",
+      datasetId,
+      activitiesScanned: ridesScanned,
+      activitiesFetched: activities.length,
+      pagesFetched,
+      startPage,
+      nextPage,
+      completed,
+      matchesWritten: bestByClimb.size,
+      uniqueClimbs: bestByClimb.size,
+      includePrivate: prefs.includePrivate,
+    };
+
+    await (await integrationRef(uid)).set(
+      {
+        lastSyncAt: admin.firestore.FieldValue.serverTimestamp(),
+        lastSyncSummary: summary,
+        fullSyncCursor: cursor,
+      },
+      { merge: true }
+    );
+
+    const msg = completed
+      ? `Volledige sync klaar: ${summary.uniqueClimbs} klim(men) in ${datasetId} (deze batch: ${ridesScanned} ritten, ${pagesFetched} pagina’s).`
+      : `Sync batch klaar (${ridesScanned} ritten, pag. ${startPage}–${startPage + pagesFetched - 1}). Nog ${nextPage ? `verder vanaf pag. ${nextPage}` : "meer"} — start opnieuw of laat de app doorgaan.`;
+
+    return {
+      ok: true,
+      completed,
+      nextPage,
+      message: msg,
+      summary,
+    };
+  });
