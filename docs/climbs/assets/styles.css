@@ -719,10 +719,13 @@ header.app-header p#datasetMeta {
 
 .map-batch-done-btn {
   position: absolute;
-  z-index: 900;
-  top: 3.15rem;
+  z-index: 850;
+  /* Rechtsonder: geen overlap met Leaflet-lagen (topright) of zoom (topleft) */
+  top: auto;
+  bottom: 3.65rem;
   right: 0.65rem;
-  max-width: calc(100% - 5.5rem);
+  left: auto;
+  max-width: min(11.5rem, calc(100% - 1.3rem));
   padding: 0.45rem 0.65rem;
   border: none;
   border-radius: 6px;
