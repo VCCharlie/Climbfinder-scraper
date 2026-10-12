@@ -599,31 +599,54 @@ async function matchActivitiesToClimbs({ accessToken, climbs, activities, includ
   return { bestByClimb, ridesScanned: rides.length };
 }
 
+function logFieldTimestampMillis(v) {
+  if (v == null) return 0;
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v.toMillis === "function") return v.toMillis();
+  return 0;
+}
+
+async function writeStravaMatchDoc(db, logCol, datasetId, climbId, hit) {
+  const ref = logCol.doc(logDocId(datasetId, climbId));
+  const nowMs = Date.now();
+  await db.runTransaction(async (tx) => {
+    const snap = await tx.get(ref);
+    const data = snap.exists ? snap.data() : {};
+    const doneUpdatedAt = logFieldTimestampMillis(data.doneUpdatedAt);
+    const wishlistUpdatedAt = logFieldTimestampMillis(data.wishlistUpdatedAt);
+    const patch = {
+      datasetId,
+      climbId,
+      stravaActivityId: hit.activity.id,
+      stravaActivityName: hit.activity.name || null,
+      matchCoverage: hit.coverage,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+    if (nowMs >= doneUpdatedAt) {
+      patch.done = true;
+      patch.doneUpdatedAt = nowMs;
+      patch.source = "strava";
+    }
+    if (nowMs >= wishlistUpdatedAt) {
+      patch.wishlist = false;
+      patch.wishlistUpdatedAt = nowMs;
+    }
+    const nextDone = patch.done !== undefined ? patch.done : Boolean(data.done);
+    const nextWishlist = patch.wishlist !== undefined ? patch.wishlist : Boolean(data.wishlist);
+    if (!nextDone && !nextWishlist) {
+      if (snap.exists) tx.delete(ref);
+      return;
+    }
+    tx.set(ref, patch, { merge: true });
+  });
+}
+
 async function writeStravaMatches(uid, datasetId, bestByClimb) {
   const db = admin.firestore();
   const logCol = db.collection("users").doc(uid).collection("climbLog");
   const entries = [...bestByClimb.entries()];
-  for (let i = 0; i < entries.length; i += 400) {
-    const batch = db.batch();
-    for (const [climbId, hit] of entries.slice(i, i + 400)) {
-      const ref = logCol.doc(logDocId(datasetId, climbId));
-      batch.set(
-        ref,
-        {
-          datasetId,
-          climbId,
-          done: true,
-          wishlist: false,
-          source: "strava",
-          stravaActivityId: hit.activity.id,
-          stravaActivityName: hit.activity.name || null,
-          matchCoverage: hit.coverage,
-          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      );
-    }
-    await batch.commit();
+  for (const [climbId, hit] of entries) {
+    await writeStravaMatchDoc(db, logCol, datasetId, climbId, hit);
   }
 }
 
