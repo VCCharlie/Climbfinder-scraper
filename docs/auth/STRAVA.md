@@ -47,6 +47,8 @@ Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat.
 
 ## 3. Deploy
 
+**Privé-scope blijft rood?** Na OAuth slaat de app `activity:read_all` op (ook als Strava de scope-string anders formatteert). Draai de nieuwste Functions-deploy; open Instellingen opnieuw — vaak geen tweede Strava-login nodig.
+
 Na elke Strava-wijziging in `functions/strava.js`: workflow **Deploy Climbfinder import function** op `main` (deployt ook `setStravaSyncPrefs`, `stravaSyncFull`, …). Zonder deploy: privé-toggle kan “interne serverfout” geven — de site bewaart de voorkeur dan lokaal tot je opnieuw **Koppel Strava** klikt (na deploy).
 
 Workflow **Deploy Climbfinder import function** (deployt ook Strava), of:
