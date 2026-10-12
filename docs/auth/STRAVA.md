@@ -38,12 +38,13 @@ firebase functions:config:set \
   strava.client_secret="YOUR_CLIENT_SECRET" \
   strava.redirect_uri="https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html" \
   strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
+  strava.data_base_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/data" \
   --project JOUW_PROJECT_ID
 ```
 
 `redirect_uri` moet **byte-voor-byte** gelijk zijn aan wat Strava terugstuurt. Als je het weglaat, gebruikt de code dezelfde default als hierboven.
 
-Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat.
+**`strava.data_base_url`:** GitHub Pages-pad naar `data/` (standaard in code + deploy-workflow). Raw `githubusercontent.com` geeft voor deze dataset vaak **404** — gebruik Pages niet raw.
 
 ## 3. Deploy
 

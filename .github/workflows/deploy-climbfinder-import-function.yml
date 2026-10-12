@@ -102,6 +102,7 @@ jobs:
             strava.client_secret="$STRAVA_CLIENT_SECRET" \
             strava.redirect_uri="https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html" \
             strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
+            strava.data_base_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/data" \
             --project "$FIREBASE_PROJECT_ID"
 
       - name: Deploy import callables
