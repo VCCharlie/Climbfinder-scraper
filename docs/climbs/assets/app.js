@@ -3072,16 +3072,44 @@
       : "Carto Voyager (API-sleutel in firebase-config.js)";
   }
 
+  /** Gratis CARTO-sleutel: tegels vaak tot z18 (z19+ → HTTP 403). Zie MAP_TILES.md */
+  const CARTO_VOYAGER_MAX_ZOOM = 18;
+
   function cartoVoyagerTileLayer(apiKey) {
     const keyQuery = apiKey ? `?key=${encodeURIComponent(apiKey)}` : "";
     return L.tileLayer(
       `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png${keyQuery}`,
       {
-        maxZoom: 20,
+        maxZoom: CARTO_VOYAGER_MAX_ZOOM,
+        maxNativeZoom: CARTO_VOYAGER_MAX_ZOOM,
         subdomains: "abcd",
         attribution: CARTO_ATTRIBUTION,
       }
     );
+  }
+
+  function maxZoomForBaseLayer(layer) {
+    if (!layer) return 19;
+    if (typeof layer.getMaxZoom === "function") {
+      const z = layer.getMaxZoom();
+      if (Number.isFinite(z)) return z;
+    }
+    if (typeof layer.eachLayer === "function") {
+      let maxZ = 0;
+      layer.eachLayer((child) => {
+        const cz = child.options?.maxZoom;
+        if (Number.isFinite(cz)) maxZ = Math.max(maxZ, cz);
+      });
+      return maxZ || 19;
+    }
+    return layer.options?.maxZoom ?? 19;
+  }
+
+  function syncMapZoomLimitsToBaseLayer(layer) {
+    if (!state.map || !layer) return;
+    const maxZ = maxZoomForBaseLayer(layer);
+    state.map.setMaxZoom(maxZ);
+    if (state.map.getZoom() > maxZ) state.map.setZoom(maxZ);
   }
 
   function esriWorldTopoBasemap() {
@@ -3101,10 +3129,11 @@
       throw new Error("Leaflet (kaart) is niet geladen. Check netwerk/adblocker.");
     }
     state.map = L.map("map", {
-      zoomControl: true,
+      zoomControl: false,
       keyboard: false,
       tapTolerance: isCoarsePointer() ? 28 : 15,
     });
+    L.control.zoom({ position: "topleft" }).addTo(state.map);
 
     const cartoApiKey = resolveCartoApiKey();
     const cartoVoyagerLabel = cartoVoyagerLayerLabel(Boolean(cartoApiKey));
@@ -3153,7 +3182,11 @@
     const defaultBaseName = cartoApiKey ? cartoVoyagerLabel : "Topo licht (Esri)";
     state.activeBaseLayer = state.baseLayers[defaultBaseName];
     state.activeBaseLayer.addTo(state.map);
+    syncMapZoomLimitsToBaseLayer(state.activeBaseLayer);
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
+    state.map.on("baselayerchange", (e) => {
+      syncMapZoomLimitsToBaseLayer(e.layer);
+    });
     updateSearchHint();
     if (!cartoApiKey && /localhost|127\.0\.0\.1/.test(window.location.hostname)) {
       console.info(
