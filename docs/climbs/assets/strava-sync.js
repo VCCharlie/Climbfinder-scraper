@@ -51,7 +51,7 @@
 
   function setupHint(setup) {
     if (!setup || setup.backendConfigured) return "";
-    return " Server: strava.client_id/secret/redirect_uri nog niet gezet — functions:config:set + Deploy Functions.";
+    return " Server: strava.client_id/secret nog niet gezet — functions:config:set + Deploy Functions.";
   }
 
   function getStoredDatasetId() {
@@ -177,10 +177,24 @@
     }
   }
 
+  function oauthCallbackUrl() {
+    const fromCfg = cfg().strava?.oauthCallbackUrl;
+    if (fromCfg) return fromCfg;
+    return new URL("strava-callback.html", global.location.href).href;
+  }
+
+  function settingsReturnUrl() {
+    const fromCfg = cfg().strava?.settingsUrl;
+    if (fromCfg) return fromCfg;
+    return new URL("settings.html", global.location.href).href;
+  }
+
   async function connect() {
     setStatus("Strava-authorisatie voorbereiden…");
     try {
-      const res = await callable("getStravaConnectUrl")({});
+      const res = await callable("getStravaConnectUrl")({
+        returnUrl: settingsReturnUrl(),
+      });
       const url = res.data?.url;
       if (!url) {
         setStatus("Geen Strava-URL van server — controleer Functions-config.", true);

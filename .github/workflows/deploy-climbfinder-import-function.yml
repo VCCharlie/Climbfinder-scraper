@@ -85,7 +85,7 @@ jobs:
           firebase functions:config:set \
             strava.client_id="$STRAVA_CLIENT_ID" \
             strava.client_secret="$STRAVA_CLIENT_SECRET" \
-            strava.redirect_uri="https://europe-west1-climbfinder-scraper.cloudfunctions.net/stravaOAuthCallback" \
+            strava.redirect_uri="https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html" \
             strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
             --project climbfinder-scraper
 
@@ -93,7 +93,7 @@ jobs:
         run: |
           set -o pipefail
           firebase deploy --only \
-            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:getStravaConnectUrl,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
+            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:getStravaConnectUrl,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
             --project climbfinder-scraper --non-interactive --debug 2>&1 | tee firebase-deploy.log
           DEPLOY_EXIT=${PIPESTATUS[0]}
           if grep -q "0 Functions Errored" firebase-deploy.log && grep -q "Deploy complete!" firebase-deploy.log; then

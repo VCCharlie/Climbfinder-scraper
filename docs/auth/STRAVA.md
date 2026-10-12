@@ -1,69 +1,87 @@
-# Strava — koppelen & proef-sync (Fase A/B)
+# Strava — koppelen & proef-sync
 
-Automatisch **gedaan**-vinkjes op basis van **publieke** Strava-fietritten (geen `activity:read_all`). Strava-sync **overschrijft** handmatige vinkjes voor gematchte klimmen.
+Automatisch **gedaan**-vinkjes op basis van **publieke** Strava-fietritten (`read`, `activity:read`). Sync **overschrijft** handmatige vinkjes voor gematchte klimmen.
+
+## Callback op `vccharlie.github.io` (verplicht bij gedeelde Strava-app)
+
+Strava staat **één Authorization Callback Domain** toe. Als die **`vccharlie.github.io`** is, mag de redirect **niet** naar `cloudfunctions.net`.
+
+Flow:
+
+1. **Koppel Strava** → Strava authoriseert → redirect naar  
+   `https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html?code=…&state=…`
+2. Die pagina (ingelogd met Google) roept **`stravaCompleteOAuth`** aan → tokens in Firestore.
+3. Terug naar **Instellingen** met `?strava=connected`.
+
+In de Strava-app (My API Application):
+
+- **Authorization Callback Domain:** `vccharlie.github.io`
+- De **exacte** redirect URI in Functions moet overeenkomen (zie config hieronder).
+
+Andere GitHub-projecten op hetzelfde domein kunnen een **eigen** pad gebruiken (bv. `…/ander-repo/strava-callback.html`) zolang het domein `vccharlie.github.io` blijft.
 
 ## 1. Strava API-app
 
-1. [Strava → Settings → My API Application](https://www.strava.com/settings/api) → **Create App**.
-2. **Authorization Callback Domain:** `europe-west1-climbfinder-scraper.cloudfunctions.net` (of jouw project-id).
+1. [Strava → Settings → My API Application](https://www.strava.com/settings/api).
+2. **Authorization Callback Domain:** `vccharlie.github.io`
 3. Noteer **Client ID** en **Client Secret**.
 
 ## 2. Firebase Functions config
 
-**Optie A — GitHub Secrets (aanbevolen):** repo **Settings → Secrets → Actions** → `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`. De deploy-workflow zet `strava.*` automatisch.
+**Optie A — GitHub Secrets:** `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`. Workflow **Deploy Climbfinder import function** zet `strava.*`.
 
-**Optie B — handmatig:**
+**Optie B — handmatig** (pas `--project` aan naar je **nieuwe** Firebase-project):
 
 ```bash
 firebase functions:config:set \
   strava.client_id="YOUR_CLIENT_ID" \
   strava.client_secret="YOUR_CLIENT_SECRET" \
-  strava.redirect_uri="https://europe-west1-climbfinder-scraper.cloudfunctions.net/stravaOAuthCallback" \
+  strava.redirect_uri="https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html" \
   strava.site_return_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html" \
-  --project climbfinder-scraper
+  --project JOUW_PROJECT_ID
 ```
 
-Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat (Firebase Storage URL-prefix).
+`redirect_uri` moet **byte-voor-byte** gelijk zijn aan wat Strava terugstuurt. Als je het weglaat, gebruikt de code dezelfde default als hierboven.
 
-## 3. Deploy (verplicht na code-merge)
+Optioneel: `strava.data_base_url` als JSON niet op raw GitHub staat.
 
-Zonder deploy blijft de site **`internal`** of **`not-found`** geven — de browser praat dan nog niet met `getStravaConnectUrl`.
+## 3. Deploy
 
-Workflow **Deploy Climbfinder import function** deployt ook Strava-callables, of handmatig:
+Workflow **Deploy Climbfinder import function** (deployt ook Strava), of:
 
 ```bash
-firebase deploy --only functions:getStravaConnectUrl,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
-  --project climbfinder-scraper
+firebase deploy --only \
+  functions:getStravaConnectUrl,functions:stravaCompleteOAuth,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial \
+  --project JOUW_PROJECT_ID
 ```
 
-## 4. Firestore rules
+(`stravaOAuthCallback` op cloudfunctions.net is **legacy** — niet nodig met GitHub Pages callback.)
 
-Voeg toe (client mag **geen** tokens lezen):
+## 4. Firestore (Native mode)
 
+Strava-tokens en OAuth-state staan in Firestore (`users/…/integrations/strava`, `stravaOAuthStates`). Vereist **Cloud Firestore Native mode** in je Firebase-project — zie [SETUP.md](./SETUP.md).
+
+## 5. Site-config
+
+In `firebase-config.js` (optioneel, voor andere host/pad):
+
+```js
+strava: {
+  enabled: true,
+  oauthCallbackUrl: "https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html",
+  settingsUrl: "https://vccharlie.github.io/Climbfinder-scraper/climbs/settings.html",
+  region: "europe-west1", // zelfde als Functions
+},
 ```
-match /users/{userId}/integrations/{doc} {
-  allow read, write: if false;
-}
-match /stravaOAuthStates/{stateId} {
-  allow read, write: if false;
-}
-```
 
-`climbLog` blijft: alleen eigen `uid` read/write.
+`climbs/settings.html` moet **firebase-functions-compat.js** laden.
 
-## 5. Site-scripts
+## 6. Gebruik
 
-Op **`climbs/index.html`** moet **`firebase-functions-compat.js`** geladen zijn (zelfde versie als app/auth), anders: `functions is not a function` bij Koppel Strava.
+1. **Instellingen** → regio-dataset kiezen → **Koppel Strava** → na callback **Proef-sync (50 ritten)**.
 
-## 6. Gebruik op de site
+Logboek bij match: `source: "strava"`, `stravaActivityId`, `matchCoverage`.
 
-1. **Instellingen** (`climbs/settings.html`) → **Koppel Strava** (OAuth keert hier terug).
-2. Kies een **regio-dataset** op Instellingen (lijst uit `data/index.json`), daarna **Proef-sync (50 ritten)**. Matching: ~65% overlap, 45 m buffer (`functions/climbMatch.js`).
+## 7. Migratie naar nieuw Firebase-project
 
-Logboekvelden bij Strava-match: `source: "strava"`, `stravaActivityId`, `matchCoverage`.
-
-## 7. Volgende fases (nog niet gebouwd)
-
-- Volledige history-backfill + alle regio’s uit `index.json`
-- Strava webhooks / dagelijkse incrementele sync
-- UI-filter “alleen Strava / alleen handmatig”
+Zie [MIGRATE_FIREBASE.md](./MIGRATE_FIREBASE.md).

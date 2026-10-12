@@ -11,6 +11,10 @@ const SCOPES = "read,activity:read";
 const STATE_TTL_MS = 15 * 60 * 1000;
 const TRIAL_ACTIVITY_COUNT = 50;
 
+/** Strava Authorization Callback Domain = vccharlie.github.io (gedeeld met andere repo’s). */
+const DEFAULT_REDIRECT_URI =
+  "https://vccharlie.github.io/Climbfinder-scraper/climbs/strava-callback.html";
+
 function stravaCfg() {
   return functions.config().strava || {};
 }
@@ -31,18 +35,12 @@ function dataBaseUrl() {
 
 function redirectUri() {
   const u = stravaCfg().redirect_uri;
-  if (!u) {
-    throw new functions.https.HttpsError(
-      "failed-precondition",
-      "strava.redirect_uri ontbreekt. Zie docs/auth/STRAVA.md (functions:config:set + deploy)."
-    );
-  }
-  return u;
+  return (u && String(u).trim()) || DEFAULT_REDIRECT_URI;
 }
 
 function stravaBackendConfigured() {
   const c = stravaCfg();
-  return Boolean(c.client_id && c.client_secret && c.redirect_uri);
+  return Boolean(c.client_id && c.client_secret);
 }
 
 function allowedEmail(email) {
@@ -138,7 +136,54 @@ async function loadDataset(datasetId) {
   return { datasetId, climbs: bundle.climbs || [], meta: bundle.meta || {} };
 }
 
-exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (_data, context) => {
+async function consumeOAuthState(state) {
+  const stateRef = admin.firestore().collection("stravaOAuthStates").doc(state);
+  const stateSnap = await stateRef.get();
+  if (!stateSnap.exists) {
+    throw new functions.https.HttpsError("failed-precondition", "Ongeldige of verlopen state.");
+  }
+  const data = stateSnap.data();
+  await stateRef.delete();
+  const createdAt = data.createdAt;
+  if (createdAt?.toMillis && Date.now() - createdAt.toMillis() > STATE_TTL_MS) {
+    throw new functions.https.HttpsError("failed-precondition", "State verlopen — koppel Strava opnieuw.");
+  }
+  return data;
+}
+
+async function exchangeCodeAndStoreIntegration(uid, code) {
+  const clientId = stravaCfg().client_id;
+  const clientSecret = stravaCfg().client_secret;
+  const body = new URLSearchParams({
+    client_id: clientId,
+    client_secret: clientSecret,
+    code,
+    grant_type: "authorization_code",
+    redirect_uri: redirectUri(),
+  });
+  const tokRes = await fetch(STRAVA_TOKEN, { method: "POST", body });
+  if (!tokRes.ok) {
+    const text = await tokRes.text();
+    functions.logger.error("Strava token exchange", text);
+    throw new functions.https.HttpsError("internal", "Strava-token mislukt (redirect_uri moet exact matchen).");
+  }
+  const tok = await tokRes.json();
+  const athlete = tok.athlete || {};
+
+  await (await integrationRef(uid)).set({
+    accessToken: tok.access_token,
+    refreshToken: tok.refresh_token,
+    expiresAt: Date.now() + (tok.expires_in || 21600) * 1000,
+    athleteId: athlete.id || null,
+    athleteName: [athlete.firstname, athlete.lastname].filter(Boolean).join(" ") || null,
+    scope: SCOPES,
+    connectedAt: admin.firestore.FieldValue.serverTimestamp(),
+    lastSyncAt: null,
+    lastSyncSummary: null,
+  });
+}
+
+exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (data, context) => {
   try {
     const uid = requireAuth(context);
     const clientId = stravaCfg().client_id;
@@ -149,10 +194,12 @@ exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (_data
       );
     }
     const redir = redirectUri();
+    const returnUrl = String(data?.returnUrl || siteReturnUrl()).trim() || siteReturnUrl();
 
     const state = crypto.randomBytes(24).toString("hex");
     await admin.firestore().collection("stravaOAuthStates").doc(state).set({
       uid,
+      returnUrl,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -176,6 +223,27 @@ exports.getStravaConnectUrl = functions.region(REGION).https.onCall(async (_data
   }
 });
 
+/** Na redirect op GitHub Pages (strava-callback.html) — ingelogde gebruiker wisselt code voor tokens. */
+exports.stravaCompleteOAuth = functions.region(REGION).https.onCall(async (data, context) => {
+  const uid = requireAuth(context);
+  const code = String(data?.code || "").trim();
+  const state = String(data?.state || "").trim();
+  if (!code || !state) {
+    throw new functions.https.HttpsError("invalid-argument", "code en state zijn verplicht.");
+  }
+  const stateData = await consumeOAuthState(state);
+  if (stateData.uid !== uid) {
+    throw new functions.https.HttpsError(
+      "permission-denied",
+      "State hoort bij een andere login — start Koppel Strava opnieuw."
+    );
+  }
+  await exchangeCodeAndStoreIntegration(uid, code);
+  const returnUrl = String(stateData.returnUrl || siteReturnUrl()).trim() || siteReturnUrl();
+  return { ok: true, returnUrl };
+});
+
+/** Legacy: cloudfunctions.net callback (niet gebruiken als Strava-domain = vccharlie.github.io). */
 exports.stravaOAuthCallback = functions.region(REGION).https.onRequest(async (req, res) => {
   try {
     const code = String(req.query.code || "");
@@ -191,52 +259,11 @@ exports.stravaOAuthCallback = functions.region(REGION).https.onRequest(async (re
       return;
     }
 
-    const stateRef = admin.firestore().collection("stravaOAuthStates").doc(state);
-    const stateSnap = await stateRef.get();
-    if (!stateSnap.exists) {
-      res.status(400).send("Ongeldige of verlopen state");
-      return;
-    }
-    const { uid, createdAt } = stateSnap.data();
-    await stateRef.delete();
-
-    if (createdAt?.toMillis && Date.now() - createdAt.toMillis() > STATE_TTL_MS) {
-      res.status(400).send("State verlopen");
-      return;
-    }
-
-    const clientId = stravaCfg().client_id;
-    const clientSecret = stravaCfg().client_secret;
-    const body = new URLSearchParams({
-      client_id: clientId,
-      client_secret: clientSecret,
-      code,
-      grant_type: "authorization_code",
-      redirect_uri: redirectUri(),
-    });
-    const tokRes = await fetch(STRAVA_TOKEN, { method: "POST", body });
-    if (!tokRes.ok) {
-      const text = await tokRes.text();
-      functions.logger.error("Strava token exchange", text);
-      res.redirect(302, `${siteReturnUrl()}?strava=token_error`);
-      return;
-    }
-    const tok = await tokRes.json();
-    const athlete = tok.athlete || {};
-
-    await (await integrationRef(uid)).set({
-      accessToken: tok.access_token,
-      refreshToken: tok.refresh_token,
-      expiresAt: Date.now() + (tok.expires_in || 21600) * 1000,
-      athleteId: athlete.id || null,
-      athleteName: [athlete.firstname, athlete.lastname].filter(Boolean).join(" ") || null,
-      scope: SCOPES,
-      connectedAt: admin.firestore.FieldValue.serverTimestamp(),
-      lastSyncAt: null,
-      lastSyncSummary: null,
-    });
-
-    res.redirect(302, `${siteReturnUrl()}?strava=connected`);
+    const stateData = await consumeOAuthState(state);
+    const { uid } = stateData;
+    await exchangeCodeAndStoreIntegration(uid, code);
+    const returnUrl = String(stateData.returnUrl || siteReturnUrl()).trim() || siteReturnUrl();
+    res.redirect(302, `${returnUrl}${returnUrl.includes("?") ? "&" : "?"}strava=connected`);
   } catch (e) {
     functions.logger.error("stravaOAuthCallback", e);
     res.redirect(302, `${siteReturnUrl()}?strava=error`);
