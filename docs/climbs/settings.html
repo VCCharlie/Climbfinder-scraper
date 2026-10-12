@@ -50,6 +50,9 @@
       </select>
       <div class="settings-actions">
         <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
+        <button type="button" id="stravaReconnectBtn" class="secondary" hidden>
+          Ververs Strava-toestemming (privé)
+        </button>
         <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
         <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden>
           Proef-sync (50 ritten)
@@ -89,13 +92,16 @@
         <li><a href="import.html">Climbfinder import</a> — regio’s, Klimgebieden, dedupe</li>
         <li><a href="../auth/GITHUB_IMPORT.md">GitHub import &amp; deploy Functions</a></li>
         <li><a href="../auth/STRAVA.md">Strava koppelen (Functions config)</a></li>
-        <li><a href="../auth/STRAVA_ROADMAP.md">Strava roadmap</a> (volledige history, privé-toggle)</li>
+        <li><a href="../auth/STRAVA_ROADMAP.md">Strava roadmap</a> (o.a. sync zonder browser open)</li>
       </ul>
     </section>
 
-    <section class="settings-card settings-card--muted" aria-labelledby="futureSettingsTitle">
-      <h2 id="futureSettingsTitle">Later</h2>
-      <p>Volledige Strava-history en privé-activiteiten — zie <a href="../auth/STRAVA_ROADMAP.md">Strava roadmap</a>. Ook denkbaar: kaartvoorkeuren, batch-vinkjes op de kaart.</p>
+    <section class="settings-card" aria-labelledby="mapPrefsSettingsTitle">
+      <h2 id="mapPrefsSettingsTitle">Kaart (database)</h2>
+      <p>
+        Je laatste <strong>basiskaart</strong> (lagenmenu rechtsboven) wordt op dit apparaat onthouden.
+        Op de <a href="index.html">Database</a>-kaart: <strong>Gedaan: in beeld</strong> zet alle zichtbare klimmen in het huidige kaartvenster op geklommen (met bevestiging).
+      </p>
     </section>
   </div>
 
@@ -106,7 +112,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261012phase2"></script>
-  <script src="assets/strava-sync.js?v=20261012stravaall2"></script>
+  <script src="assets/strava-sync.js?v=20261012stravarecon1"></script>
   <script src="assets/settings-page.js?v=20261012phase2"></script>
 </body>
 </html>

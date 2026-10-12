@@ -9,6 +9,7 @@
   const MOBILE_LAYOUT_MQ = window.matchMedia("(max-width: 900px)");
   const ROUTE_HIT_WEIGHT_COARSE = 22;
   const ROUTE_HIT_WEIGHT_DIM = 16;
+  const MAP_BASE_LAYER_KEY = "fietsklim-map-base-layer";
 
   /** UI-label: geen “(Climbfinder Popular)” suffix in dropdown/headers. */
   function displayRegionTitle(title) {
@@ -559,6 +560,48 @@
     } catch (e) {
       console.error(e);
       alert("Logboek opslaan mislukt: " + (e.message || e));
+    }
+  }
+
+  async function markVisibleClimbsDone() {
+    if (typeof FietsKlimClimbLog === "undefined" || !FietsKlimClimbLog.isReady()) {
+      alert("Logboek niet geladen — log in en wacht tot Firestore klaar is (zie Instellingen).");
+      return;
+    }
+    if (!state.map || state.mapMode === "detail") {
+      alert("Zoom terug naar de kaart (niet in detailweergave).");
+      return;
+    }
+    const entries = entriesInMapBounds().filter((e) => isEntryMapActive(e));
+    if (!entries.length) {
+      alert("Geen klimmen in dit kaartvenster. Zoom in of kies een regio.");
+      return;
+    }
+    const n = entries.length;
+    if (
+      !confirm(
+        `Zet ${n} klim(men) in beeld op «geklommen»?\n\nWishlist-vinkjes blijven staan; alleen «gedaan» wordt aangezet.`
+      )
+    ) {
+      return;
+    }
+    const btn = $("mapMarkVisibleDone");
+    if (btn) btn.disabled = true;
+    try {
+      for (const entry of entries) {
+        const datasetId = entryDatasetId(entry);
+        if (!datasetId) continue;
+        await FietsKlimClimbLog.setDone(datasetId, entry.climb.id, true);
+      }
+      updateClimbLogSummary();
+      refreshViewportClimbs();
+      renderList(state.searchQuery || "");
+      if (state.activeClimb) syncClimbDetailLogToggles();
+    } catch (e) {
+      console.error(e);
+      alert("Batch opslaan mislukt: " + (e.message || e));
+    } finally {
+      if (btn) btn.disabled = false;
     }
   }
 
@@ -3180,12 +3223,24 @@
       ),
     };
     const defaultBaseName = cartoApiKey ? cartoVoyagerLabel : "Topo licht (Esri)";
-    state.activeBaseLayer = state.baseLayers[defaultBaseName];
+    let chosenBaseName = defaultBaseName;
+    try {
+      const savedBase = localStorage.getItem(MAP_BASE_LAYER_KEY);
+      if (savedBase && state.baseLayers[savedBase]) chosenBaseName = savedBase;
+    } catch {
+      /* ignore */
+    }
+    state.activeBaseLayer = state.baseLayers[chosenBaseName];
     state.activeBaseLayer.addTo(state.map);
     syncMapZoomLimitsToBaseLayer(state.activeBaseLayer);
     L.control.layers(state.baseLayers, null, { collapsed: true, position: "topright" }).addTo(state.map);
     state.map.on("baselayerchange", (e) => {
       syncMapZoomLimitsToBaseLayer(e.layer);
+      try {
+        if (e.name) localStorage.setItem(MAP_BASE_LAYER_KEY, e.name);
+      } catch {
+        /* ignore */
+      }
     });
     updateSearchHint();
     if (!cartoApiKey && /localhost|127\.0\.0\.1/.test(window.location.hostname)) {
@@ -3349,6 +3404,9 @@
     $("mapBackOverview")?.addEventListener("click", () => {
       if (state.mapMode === "detail") returnToLocalView();
       else returnToOverview();
+    });
+    $("mapMarkVisibleDone")?.addEventListener("click", () => {
+      void markVisibleClimbsDone();
     });
     $("profileExpandOpen")?.addEventListener("click", () => openProfileExpand());
     $("profileExpandLink")?.addEventListener("click", () => openProfileExpand());

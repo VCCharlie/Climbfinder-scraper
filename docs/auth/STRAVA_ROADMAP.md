@@ -1,6 +1,6 @@
 # Strava — fase na Phase 2 (volledige history & privé)
 
-Status: OAuth via GitHub Pages callback; **toggle privé**; **volledige history** via `stravaSyncFull` (batched); **`__all__`** = alle regio’s in `index.json`; wishlist-clear bij match. **Nog open:** server-side job zonder browser open, snellere spatial index over alle klimmen.
+Status (in de app): privé-toggle, **Ververs Strava-toestemming**, proef/volledige sync, **`__all__`** database-scope, wishlist-clear bij match. **Nog open:** achtergrond-sync zonder browser open, snellere spatial index over alle klimmen.
 
 ## Doel (product)
 
