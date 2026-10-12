@@ -147,9 +147,40 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
   return { matched: coverage >= minCoverage, coverage: Math.round(coverage * 1000) / 1000 };
 }
 
+/** Buiten-fietsen voor klim-match; geen trainer/Zwift/FulGaz (VirtualRide). */
+function isOutdoorCyclingActivity(activity) {
+  if (!activity) return false;
+  if (activity.trainer === true) return false;
+
+  const sport = String(activity.sport_type || activity.type || "")
+    .toLowerCase()
+    .replace(/[\s_-]+/g, "");
+  if (!sport) return false;
+  if (sport === "virtualride" || sport.includes("indoor")) return false;
+
+  const outdoor = new Set([
+    "ride",
+    "mountainbikeride",
+    "gravelride",
+    "ebikeride",
+    "emountainbikeride",
+    "cyclocross",
+    "handcycle",
+    "bikeride",
+  ]);
+  if (!outdoor.has(sport)) return false;
+
+  const distM = Number(activity.distance);
+  if (Number.isFinite(distM) && distM > 0 && distM < 800) {
+    return false;
+  }
+
+  return true;
+}
+
+/** @deprecated alias — sync gebruikt alleen buitenritten */
 function isCyclingActivity(activity) {
-  const t = String(activity.type || activity.sport_type || "").toLowerCase();
-  return t === "ride" || t === "virtualride" || t === "ebikeride";
+  return isOutdoorCyclingActivity(activity);
 }
 
 /** Climbs whose bbox overlaps the activity track bbox (cheap prefilter). */
@@ -172,6 +203,7 @@ module.exports = {
   decodePolyline,
   matchClimbToActivity,
   isCyclingActivity,
+  isOutdoorCyclingActivity,
   bboxFromCoords,
   climbsNearEncodedPolyline,
 };
