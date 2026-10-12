@@ -2,8 +2,9 @@
 (function () {
   if (!("serviceWorker" in navigator)) return;
 
-  var BUILD_STAMP = "20261012sprint1";
+  var BUILD_STAMP = "20261012phase2";
   var SW_RELOAD_SESSION_KEY = "fietsklim-sw-reloading";
+  var BUILD_ACK_KEY = "fietsklim-ack-build";
 
   function climbsScopeUrl() {
     return new URL("./", window.location.href).href;
@@ -51,6 +52,26 @@
   applyStandaloneMarkers();
   if (typeof console !== "undefined" && console.info) {
     console.info("FietsKlim build:", BUILD_STAMP, document.documentElement.classList.contains("standalone") ? "(PWA standalone)" : "");
+  }
+
+  function maybeShowBuildNudge() {
+    try {
+      if (localStorage.getItem(BUILD_ACK_KEY) === BUILD_STAMP) return;
+      if (document.getElementById("fietsklim-pwa-update-nudge")) return;
+      var bar = document.createElement("div");
+      bar.id = "fietsklim-pwa-update-nudge";
+      bar.setAttribute("role", "status");
+      bar.innerHTML =
+        '<span>Nieuwe versie geladen. Hard refresh niet nodig als de pagina net herlaadde.</span>' +
+        '<button type="button">OK</button>';
+      bar.querySelector("button").addEventListener("click", function () {
+        localStorage.setItem(BUILD_ACK_KEY, BUILD_STAMP);
+        bar.remove();
+      });
+      document.body.appendChild(bar);
+    } catch (e) {
+      /* ignore */
+    }
   }
 
   function postSkipWaiting(worker) {
@@ -137,10 +158,15 @@
       });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", registerAndUpdateSw);
-  } else {
+  function onDomReady() {
     registerAndUpdateSw();
+    maybeShowBuildNudge();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", onDomReady);
+  } else {
+    onDomReady();
   }
 
   window.addEventListener("pageshow", function (event) {

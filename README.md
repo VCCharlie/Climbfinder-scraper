@@ -37,6 +37,7 @@ Lokaal / CI (zelfde logica als de workflow):
 
 ```bash
 pip install -r requirements.txt
+python scripts/doctor.py
 python -m playwright install chromium
 python scripts/climbfinder_import.py --locality 288 --meta-id cf-l288-haute-savoie \
   --title "Haute-Savoie" --country FR --region-label "Haute-Savoie" \

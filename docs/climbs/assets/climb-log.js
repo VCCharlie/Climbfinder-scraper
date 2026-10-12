@@ -362,6 +362,74 @@
     state.mode = "none";
   }
 
+  function listEntries() {
+    return [...state.byKey.values()].filter((r) => shouldPersist(r));
+  }
+
+  function exportPayload() {
+    return {
+      version: STORAGE_VERSION,
+      exportedAt: new Date().toISOString(),
+      mode: state.mode,
+      entries: listEntries(),
+    };
+  }
+
+  async function importPayload(payload, options) {
+    const merge = options?.merge !== false;
+    const rows = Array.isArray(payload?.entries) ? payload.entries : [];
+    if (!rows.length) return { imported: 0, skipped: 0 };
+
+    let imported = 0;
+    let skipped = 0;
+    for (const row of rows) {
+      if (!row?.datasetId || !row?.climbId) {
+        skipped += 1;
+        continue;
+      }
+      const patch = {
+        done: Boolean(row.done),
+        wishlist: Boolean(row.wishlist),
+        source: row.source === "strava" ? "strava" : row.source || "import",
+      };
+      if (!merge) {
+        if (state.mode === "firestore" && firebase.firestore && state.uid) {
+          await writeFirestore(row.datasetId, row.climbId, patch);
+        } else {
+          upsertLocal(row.datasetId, row.climbId, patch);
+        }
+        imported += 1;
+        continue;
+      }
+      const prev = getEntry(row.datasetId, row.climbId);
+      const nextDone = prev?.done || patch.done;
+      const nextWishlist = prev?.wishlist || patch.wishlist;
+      if (!nextDone && !nextWishlist) {
+        skipped += 1;
+        continue;
+      }
+      if (state.mode === "firestore" && firebase.firestore && state.uid) {
+        await writeFirestore(row.datasetId, row.climbId, {
+          done: nextDone,
+          wishlist: nextWishlist,
+          source: patch.source,
+        });
+      } else {
+        upsertLocal(row.datasetId, row.climbId, {
+          done: nextDone,
+          wishlist: nextWishlist,
+          source: patch.source,
+        });
+      }
+      imported += 1;
+    }
+    return { imported, skipped };
+  }
+
+  function getMode() {
+    return state.mode;
+  }
+
   global.FietsKlimClimbLog = {
     init,
     teardown,
@@ -378,5 +446,9 @@
     countWishlistForDataset,
     totalDone,
     totalWishlist,
+    listEntries,
+    exportPayload,
+    importPayload,
+    getMode,
   };
 })(window);

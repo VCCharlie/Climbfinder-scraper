@@ -148,3 +148,53 @@
 .settings-doc-links a {
   color: #0f766e;
 }
+
+.settings-file-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #475569;
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.settings-file-btn input {
+  display: none;
+}
+
+#fietsklim-pwa-update-nudge {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 0.65rem 0.85rem;
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+#fietsklim-pwa-update-nudge button {
+  flex-shrink: 0;
+  background: #0f766e;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
