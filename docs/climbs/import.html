@@ -9,7 +9,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <script src="assets/pwa-register.js?v=20261012sprint1"></script>
+  <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -473,6 +473,21 @@
     const DEFAULT_IMPORT_LIMIT = 50;
     /** Vanaf dit aantal: workflow gebruikt pages=all (volledige ranking scrapen tot limit). */
     const USE_ALL_PAGES_FROM_LIMIT = 500;
+    let importLimitUserEdited = false;
+
+    function suggestedImportLimitForLocality(localityId) {
+      const cfTotal = cfPopularCount(localityId);
+      if (cfTotal == null || !Number.isFinite(cfTotal)) return DEFAULT_IMPORT_LIMIT;
+      return Math.min(2000, Math.max(1, cfTotal));
+    }
+
+    function applySuggestedImportLimit(region) {
+      if (!region || importLimitUserEdited) return;
+      const el = document.getElementById("importClimbLimit");
+      if (!el) return;
+      const suggested = suggestedImportLimitForLocality(region.id);
+      el.value = String(suggested);
+    }
 
     function readImportLimit() {
       const el = document.getElementById("importClimbLimit");
@@ -1157,6 +1172,7 @@
         return;
       }
       selectedRegion = { ...opt._region };
+      applySuggestedImportLimit(selectedRegion);
       const meta = document.getElementById("rankingMeta");
       meta.textContent = "Ranking-slugs laden…";
       try {
@@ -1209,8 +1225,14 @@
       document.getElementById("downloadBtn").disabled = false;
     }
 
-    document.getElementById("importClimbLimit")?.addEventListener("input", () => refreshGhCommand());
-    document.getElementById("importClimbLimit")?.addEventListener("change", () => refreshGhCommand());
+    document.getElementById("importClimbLimit")?.addEventListener("input", () => {
+      importLimitUserEdited = true;
+      refreshGhCommand();
+    });
+    document.getElementById("importClimbLimit")?.addEventListener("change", () => {
+      importLimitUserEdited = true;
+      refreshGhCommand();
+    });
 
     document.getElementById("copyGhBtn").addEventListener("click", () => {
       const ta = document.getElementById("ghCmd");
