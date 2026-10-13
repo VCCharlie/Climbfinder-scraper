@@ -97,7 +97,7 @@ exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall
   return {
     ok: true,
     message: publish
-      ? "Import gestart op GitHub Actions. Bij publish_to_site=true komt JSON automatisch op de kaart na de run."
+      ? "Import gestart (unified plan: land/macro → subregio’s, anders één regio). JSON komt op de kaart na de run."
       : "Import gestart. Download JSON bij Artifacts wanneer de run klaar is.",
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_IMPORT}`,
   };

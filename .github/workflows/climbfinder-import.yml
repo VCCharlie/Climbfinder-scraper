@@ -1,9 +1,6 @@
-# Run Climbfinder import server-side (same as scripts/climbfinder_import.py).
+# Run Climbfinder import server-side (unified: subregio’s via plan_locality_import.py).
 # Trigger: GitHub → Actions → Climbfinder import → Run workflow
 # Or: site import page → "Start serverimport" (Firebase Function) / gh workflow run …
-
-# Runner queue: if the job never starts (~15 min) with "not acquired by Runner", re-run on GitHub
-# (Actions → run → Re-run failed jobs). That is infra, not the import script.
 
 name: Climbfinder import
 
@@ -11,16 +8,16 @@ on:
   workflow_dispatch:
     inputs:
       locality:
-        description: "Climbfinder locality id (l=), e.g. 277 for South Holland"
+        description: "Climbfinder locality id (l=). Land/macro → subregio-batch; anders één regio."
         required: true
         type: string
       pages:
-        description: "Ranking pages (25 each), or all for complete Popular list (e.g. l=27 ≈688)"
+        description: "Ranking pages voor enkele subregio (25 each), of all. Batch negeert dit (altijd all)."
         required: false
         default: "2"
         type: string
       meta_id:
-        description: "JSON meta.id / filename stem"
+        description: "JSON meta.id (alleen enkele subregio; batch gebruikt per-regio id’s)"
         required: true
         type: string
       title:
@@ -32,7 +29,7 @@ on:
         required: true
         type: string
       region_label:
-        description: "Region label stored on each climb"
+        description: "Region label stored on each climb (enkele subregio)"
         required: true
         type: string
       locality_label:
@@ -41,7 +38,7 @@ on:
         default: ""
         type: string
       limit:
-        description: "Max climbs to import (use 700+ with pages=all for full South Limburg)"
+        description: "Max climbs (enkele subregio). Batch: per-regio limit uit plan."
         required: false
         default: "50"
         type: string
@@ -54,7 +51,7 @@ on:
           - "true"
           - "false"
       merge_into:
-        description: "Optional: append climbs to data/{name}.json (e.g. nl-popular for combined NL)"
+        description: "Optional: append climbs to data/{name}.json (alleen enkele subregio)"
         required: false
         default: ""
         type: string
@@ -69,7 +66,7 @@ concurrency:
 jobs:
   import:
     runs-on: ubuntu-22.04
-    timeout-minutes: 45
+    timeout-minutes: 360
     steps:
       - name: Runner check
         run: echo "Job started on $(uname -a)"
@@ -85,45 +82,31 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements-climbimport.txt
 
-      - name: Run climbfinder_import.py
+      - name: Build import plan (subregio’s)
+        id: plan
         run: |
-          mkdir -p out
-          LIMIT_ARGS=()
-          if [ -n "${{ inputs.limit }}" ]; then
-            LIMIT_ARGS=(--limit "${{ inputs.limit }}")
-          fi
-          PAGE_ARGS=()
-          if [ "${{ inputs.pages }}" = "all" ] || [ "${{ inputs.pages }}" = "0" ]; then
-            PAGE_ARGS=(--all-pages)
-          else
-            PAGE_ARGS=(--pages "${{ inputs.pages }}")
-          fi
-          LOCALITY_LABEL="${{ inputs.locality_label }}"
-          if [ -z "$LOCALITY_LABEL" ]; then
-            LOCALITY_LABEL="${{ inputs.title }}"
-          fi
-          python scripts/climbfinder_import.py \
+          set -euo pipefail
+          python scripts/plan_locality_import.py \
             --locality "${{ inputs.locality }}" \
-            --locality-label "${{ inputs.locality }}:${LOCALITY_LABEL}" \
-            "${PAGE_ARGS[@]}" \
+            --country-iso "${{ inputs.country }}" \
             --meta-id "${{ inputs.meta_id }}" \
             --title "${{ inputs.title }}" \
-            --country "${{ inputs.country }}" \
             --region-label "${{ inputs.region_label }}" \
-            --out "out/${{ inputs.meta_id }}.json" \
-            "${LIMIT_ARGS[@]}"
+            --limit "${{ inputs.limit }}" \
+            --pages "${{ inputs.pages }}" \
+            > /tmp/import-plan.tsv
+          COUNT=$(grep -c . /tmp/import-plan.tsv || true)
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Import plan (${COUNT} regio(s)):"
+          cat /tmp/import-plan.tsv
 
-      - name: Publish to docs/climbs (map + Pages)
-        if: inputs.publish_to_site == 'true'
+      - name: Run import plan
         run: |
-          MERGE_ARGS=()
-          if [ -n "${{ inputs.merge_into }}" ]; then
-            MERGE_ARGS=(--merge-into "${{ inputs.merge_into }}")
-          fi
-          python scripts/publish_climb_json.py \
-            --bundle "out/${{ inputs.meta_id }}.json" \
-            "${MERGE_ARGS[@]}"
-          python scripts/rebuild_climb_index.py
+          chmod +x scripts/run_climbfinder_import_plan.sh
+          bash scripts/run_climbfinder_import_plan.sh \
+            /tmp/import-plan.tsv \
+            "${{ inputs.publish_to_site }}" \
+            "${{ inputs.merge_into }}"
 
       - name: Commit and push dataset
         if: inputs.publish_to_site == 'true'
@@ -135,12 +118,13 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "data(climbs): import ${{ inputs.meta_id }} (${{ inputs.region_label }})"
+          git commit -m "data(climbs): import l=${{ inputs.locality }} (${{ inputs.region_label }}, ${{ steps.plan.outputs.count }} regio(s))"
           bash scripts/ci_push_main.sh main
 
-      - name: Upload JSON artifact
+      - name: Upload JSON artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: climbfinder-${{ inputs.meta_id }}
-          path: out/${{ inputs.meta_id }}.json
-          if-no-files-found: error
+          name: climbfinder-import-${{ inputs.locality }}-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
