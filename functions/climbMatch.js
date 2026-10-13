@@ -212,6 +212,38 @@ function isOutdoorCyclingActivity(activity) {
   return true;
 }
 
+/** Buiten-fietsen voor klim-match; geen trainer/Zwift/FulGaz (VirtualRide). */
+function isOutdoorCyclingActivity(activity) {
+  if (!activity) return false;
+  if (activity.trainer === true) return false;
+
+  const sport = String(activity.sport_type || activity.type || "")
+    .toLowerCase()
+    .replace(/[\s_-]+/g, "");
+  if (!sport) return false;
+  if (sport === "virtualride" || sport.includes("indoor")) return false;
+
+  const outdoor = new Set([
+    "ride",
+    "mountainbikeride",
+    "gravelride",
+    "ebikeride",
+    "emountainbikeride",
+    "cyclocross",
+    "handcycle",
+    "bikeride",
+  ]);
+  if (!outdoor.has(sport)) return false;
+
+  const distM = Number(activity.distance);
+  if (Number.isFinite(distM) && distM > 0 && distM < 800) {
+    return false;
+  }
+
+  return true;
+}
+
+/** @deprecated alias — sync gebruikt alleen buitenritten */
 function isCyclingActivity(activity) {
   return isOutdoorCyclingActivity(activity);
 }
