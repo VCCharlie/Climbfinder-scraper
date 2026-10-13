@@ -1,11 +1,11 @@
-# Batch-import all non-● localities under one Klimgebieden macro group.
+# Alias: zelfde unified import als climbfinder-import.yml (macro = locality in plan).
 name: Macro klimgebied import batch
 
 on:
   workflow_dispatch:
     inputs:
       macro_locality_id:
-        description: "Macro group locality id (e.g. 36 Alpen, 350 Armoricaans Massief)"
+        description: "Macro group locality id (zelfde als Klimgebieden / climbfinder-import)"
         required: true
         type: string
       country_iso:
@@ -14,7 +14,7 @@ on:
         default: ""
         type: string
       skip_dedupe:
-        description: "Skip dedupe step at end"
+        description: "Deprecated (dedupe always after multi-region). Kept for compatibility."
         required: false
         default: "false"
         type: choice
@@ -52,42 +52,22 @@ jobs:
           ISO="${{ inputs.country_iso }}"
           EXTRA=()
           if [ -n "$ISO" ]; then EXTRA=(--country-iso "$ISO"); fi
-          python scripts/plan_macro_group_import.py --macro "${{ inputs.macro_locality_id }}" "${EXTRA[@]}" > /tmp/macro-import-plan.tsv
-          COUNT=$(grep -c . /tmp/macro-import-plan.tsv || true)
+          python scripts/plan_locality_import.py \
+            --locality "${{ inputs.macro_locality_id }}" \
+            "${EXTRA[@]}" \
+            --meta-id "cf-l${{ inputs.macro_locality_id }}-batch" \
+            --title "macro-${{ inputs.macro_locality_id }}" \
+            --region-label "macro" \
+            > /tmp/import-plan.tsv
+          COUNT=$(grep -c . /tmp/import-plan.tsv || true)
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-          if [ "$COUNT" = "0" ]; then
-            echo "Geen regio's te importeren (alles al ●)."
-          else
-            cat /tmp/macro-import-plan.tsv
-          fi
+          cat /tmp/import-plan.tsv
 
-      - name: Import regions (smallest first)
+      - name: Run import plan
         if: steps.plan.outputs.count != '0'
         run: |
-          set -euo pipefail
-          mkdir -p out
-          while IFS='|' read -r locality meta_id title country limit; do
-            [[ -z "$locality" ]] && continue
-            echo "========== l=${locality} ${title} limit=${limit} =========="
-            python scripts/climbfinder_import.py \
-              --locality "$locality" \
-              --locality-label "${locality}:${title}" \
-              --all-pages \
-              --meta-id "$meta_id" \
-              --title "$title" \
-              --country "$country" \
-              --region-label "$title" \
-              --limit "$limit" \
-              --out "out/${meta_id}.json"
-            python scripts/publish_climb_json.py --bundle "out/${meta_id}.json"
-          done < /tmp/macro-import-plan.tsv
-          python scripts/rebuild_climb_index.py
-
-      - name: Dedupe (keep smallest dataset)
-        if: steps.plan.outputs.count != '0' && inputs.skip_dedupe != 'true'
-        run: |
-          python scripts/dedupe_keep_smallest_region.py
-          python scripts/rebuild_climb_index.py
+          chmod +x scripts/run_climbfinder_import_plan.sh
+          bash scripts/run_climbfinder_import_plan.sh /tmp/import-plan.tsv true ""
 
       - name: Commit and push
         if: steps.plan.outputs.count != '0'
@@ -99,5 +79,5 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "data(climbs): macro l=${{ inputs.macro_locality_id }} batch import + dedupe"
+          git commit -m "data(climbs): macro l=${{ inputs.macro_locality_id }} batch import (${{ steps.plan.outputs.count }} regio(s))"
           bash scripts/ci_push_main.sh main

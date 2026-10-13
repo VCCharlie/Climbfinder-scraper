@@ -70,6 +70,7 @@ def plan_macro_import(
     *,
     country_iso: str | None = None,
     include_full: bool = False,
+    extra_skip: set[int] | None = None,
 ) -> list[dict]:
     hierarchy = json.loads(HIERARCHY.read_text(encoding="utf-8"))
     index = json.loads(INDEX.read_text(encoding="utf-8")) if INDEX.is_file() else {"regions": []}
@@ -85,7 +86,16 @@ def plan_macro_import(
     iso = block["country_iso"]
     pub = load_published_by_locality(index)
 
+    try:
+        from climb_locality_resolve import country_level_locality_ids
+    except ImportError:
+        country_level_locality_ids = None  # type: ignore[assignment,misc]
+
     skip = set(GLOBAL_SKIP) | {macro_id} | EXTRA_SKIP_BY_MACRO.get(macro_id, set())
+    if country_level_locality_ids:
+        skip |= country_level_locality_ids(iso)
+    if extra_skip:
+        skip |= {int(x) for x in extra_skip}
     rows: list[dict] = []
     seen: set[int] = set()
 

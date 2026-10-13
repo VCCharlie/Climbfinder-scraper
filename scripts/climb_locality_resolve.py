@@ -104,6 +104,11 @@ def locality_catalog_name(country_iso: str, locality_id: int) -> str | None:
     return _locality_name(country_iso, locality_id)
 
 
+def country_level_locality_ids(country_iso: str) -> set[int]:
+    """Land-niveau locality-ids (bv. l=45 Switzerland) — niet als eigen dataset importeren."""
+    return set(_country_level_ids().get(str(country_iso or "").upper(), set()))
+
+
 def _is_country_level(iso: str, locality_id: int | None) -> bool:
     if locality_id is None:
         return False
