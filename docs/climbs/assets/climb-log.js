@@ -626,9 +626,85 @@
       });
   }
 
-  function stravaActivityUrl(activityId) {
+  const NAV_BACK_STORAGE_KEY = "fietsklim-nav-back";
+
+  const NAV_BACK_PRESETS = {
+    settings: {
+      href: "settings.html#stravaSettingsCard",
+      label: "Terug naar Instellingen (Strava)",
+    },
+  };
+
+  function isMobileStravaClient() {
+    if (typeof navigator === "undefined") return false;
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+  }
+
+  function stravaActivityWebUrl(activityId) {
     if (!activityId) return null;
     return `https://www.strava.com/activities/${activityId}`;
+  }
+
+  /** Op mobiel: Strava-app (strava://); anders web. */
+  function stravaActivityOpenUrl(activityId) {
+    if (!activityId) return null;
+    const id = String(activityId);
+    if (isMobileStravaClient()) return `strava://activities/${id}`;
+    return stravaActivityWebUrl(id);
+  }
+
+  function stravaActivityUrl(activityId) {
+    return stravaActivityWebUrl(activityId);
+  }
+
+  function databaseClimbUrl(datasetId, climbId, options = {}) {
+    const params = new URLSearchParams();
+    if (datasetId) params.set("dataset", datasetId);
+    if (climbId) params.set("climb", climbId);
+    if (options.back) params.set("back", options.back);
+    const qs = params.toString();
+    return qs ? `index.html?${qs}` : "index.html";
+  }
+
+  function rememberNavBack(key) {
+    const preset = NAV_BACK_PRESETS[key];
+    if (!preset) return;
+    try {
+      sessionStorage.setItem(NAV_BACK_STORAGE_KEY, JSON.stringify(preset));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function getNavBack() {
+    try {
+      const raw = sessionStorage.getItem(NAV_BACK_STORAGE_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  }
+
+  function clearNavBack() {
+    try {
+      sessionStorage.removeItem(NAV_BACK_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function applyStravaActivityAnchor(anchor, activityId) {
+    if (!anchor || !activityId) return;
+    const url = stravaActivityOpenUrl(activityId);
+    if (!url) return;
+    anchor.href = url;
+    anchor.rel = "noopener noreferrer";
+    if (isMobileStravaClient()) {
+      anchor.removeAttribute("target");
+    } else {
+      anchor.target = "_blank";
+    }
   }
 
   async function reinit() {
@@ -663,6 +739,14 @@
     getLogEntry,
     listStravaLinked,
     stravaActivityUrl,
+    stravaActivityWebUrl,
+    stravaActivityOpenUrl,
+    isMobileStravaClient,
+    applyStravaActivityAnchor,
+    databaseClimbUrl,
+    rememberNavBack,
+    getNavBack,
+    clearNavBack,
     /** @internal test hook */
     _mergeFlagsLww: mergeFlagsLww,
     _timestampMillis: timestampMillis,

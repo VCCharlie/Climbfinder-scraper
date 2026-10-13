@@ -301,11 +301,36 @@ header.app-header p#datasetMeta {
   flex-shrink: 0;
 }
 
+.climb-nav-back {
+  display: block;
+  margin: 0 0 0.5rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0f766e;
+  text-decoration: none;
+  background: #f0fdfa;
+  border-radius: 6px;
+  border: 1px solid #99f6e4;
+}
+
+.climb-nav-back:hover {
+  background: #ccfbf1;
+  text-decoration: none;
+}
+
 .climb-detail-strava {
   margin: 0.35rem 0 0.5rem;
   font-size: 0.85rem;
   color: #475569;
   line-height: 1.4;
+}
+
+.climb-detail-strava .strava-link-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .climb-detail-strava a {
