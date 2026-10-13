@@ -104,6 +104,107 @@ function cumulativeDistancesM(coords) {
   return d;
 }
 
+function bearingDeg(lat1, lon1, lat2, lon2) {
+  const toRad = (d) => (d * Math.PI) / 180;
+  const toDeg = (r) => (r * 180) / Math.PI;
+  const φ1 = toRad(lat1);
+  const φ2 = toRad(lat2);
+  const Δλ = toRad(lon2 - lon1);
+  const y = Math.sin(Δλ) * Math.cos(φ2);
+  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+  return (toDeg(Math.atan2(y, x)) + 360) % 360;
+}
+
+function angleDiffDeg(a, b) {
+  const d = Math.abs(((a - b + 540) % 360) - 180);
+  return d;
+}
+
+/** Closest point on polyline + arc-length from track start (activity ride order). */
+function nearestAlongTrackM(lat, lon, track) {
+  const cum = cumulativeDistancesM(track);
+  let bestDist = Infinity;
+  let bestAlong = 0;
+  for (let i = 0; i < track.length - 1; i++) {
+    const [aLat, aLon] = track[i];
+    const [bLat, bLon] = track[i + 1];
+    const segLen = cum[i + 1] - cum[i];
+    if (segLen < 1e-3) continue;
+    const d = pointToSegmentDistM(lat, lon, aLat, aLon, bLat, bLon);
+    if (d >= bestDist) continue;
+    bestDist = d;
+    const dA = haversineM(aLat, aLon, lat, lon);
+    const dB = haversineM(bLat, bLon, lat, lon);
+    const t = Math.max(0, Math.min(1, dA / (dA + dB + 1e-6)));
+    bestAlong = cum[i] + t * segLen;
+  }
+  return { distM: bestDist, alongM: bestAlong };
+}
+
+function pointAtAlongTrackM(track, alongM) {
+  const cum = cumulativeDistancesM(track);
+  if (!track.length) return null;
+  if (alongM <= 0) return track[0];
+  const total = cum[cum.length - 1];
+  if (alongM >= total) return track[track.length - 1];
+  let i = 0;
+  while (i < cum.length - 1 && cum[i + 1] < alongM) i += 1;
+  const segLen = cum[i + 1] - cum[i] || 1;
+  const t = (alongM - cum[i]) / segLen;
+  return [
+    track[i][0] + t * (track[i + 1][0] - track[i][0]),
+    track[i][1] + t * (track[i + 1][1] - track[i][1]),
+  ];
+}
+
+/**
+ * Klim-database: start = voet, eind = top. Rit moet in die volgorde over de polyline rijden.
+ * @returns {{ ok: boolean, forwardAlongM?: number, bearingDiffDeg?: number, wrongDirection?: boolean }}
+ */
+function climbAscentDirectionOk(climbLatLon, track, totalLen, opts = {}) {
+  const minForwardRatio = opts.minForwardRatio ?? 0.35;
+  const minForwardM = opts.minForwardAlongM ?? Math.max(80, totalLen * minForwardRatio);
+  const maxBearingDiffDeg = opts.maxBearingDiffDeg ?? 95;
+
+  const endPt = climbLatLon[climbLatLon.length - 1];
+  const startAlong = nearestAlongTrackM(climbLatLon[0][0], climbLatLon[0][1], track);
+  const endAlong = nearestAlongTrackM(endPt[0], endPt[1], track);
+  const forwardAlongM = endAlong.alongM - startAlong.alongM;
+
+  if (forwardAlongM < minForwardM) {
+    return {
+      ok: false,
+      forwardAlongM,
+      wrongDirection: forwardAlongM < -25,
+    };
+  }
+
+  const p0 = pointAtAlongTrackM(track, startAlong.alongM);
+  const p1 = pointAtAlongTrackM(track, endAlong.alongM);
+  if (!p0 || !p1) {
+    return { ok: false, forwardAlongM };
+  }
+
+  const climbBrg = bearingDeg(
+    climbLatLon[0][0],
+    climbLatLon[0][1],
+    endPt[0],
+    endPt[1]
+  );
+  const actBrg = bearingDeg(p0[0], p0[1], p1[0], p1[1]);
+  const bearingDiffDeg = angleDiffDeg(climbBrg, actBrg);
+  if (bearingDiffDeg > maxBearingDiffDeg) {
+    return {
+      ok: false,
+      forwardAlongM,
+      bearingDiffDeg,
+      wrongDirection: bearingDiffDeg > 110,
+    };
+  }
+
+  return { ok: true, forwardAlongM, bearingDiffDeg };
+}
+
 /** Standaard match-parameters (strakker dan v1 — minder parallelweg/false positives). */
 const DEFAULT_MATCH_OPTS = {
   bufferM: 30,
@@ -112,6 +213,8 @@ const DEFAULT_MATCH_OPTS = {
   bboxPadDeg: 0.008,
   endpointMaxM: 55,
   maxMeanSampleDistM: 70,
+  minForwardRatio: 0.35,
+  maxBearingDiffDeg: 95,
 };
 
 /**
@@ -154,6 +257,21 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
   const totalLen = cum[cum.length - 1];
   if (totalLen < 50) return { matched: false, coverage: 0 };
 
+  const direction = climbAscentDirectionOk(climbLatLon, track, totalLen, {
+    minForwardRatio: opts.minForwardRatio ?? DEFAULT_MATCH_OPTS.minForwardRatio,
+    maxBearingDiffDeg: opts.maxBearingDiffDeg ?? DEFAULT_MATCH_OPTS.maxBearingDiffDeg,
+  });
+  if (!direction.ok) {
+    return {
+      matched: false,
+      coverage: 0,
+      wrongDirection: Boolean(direction.wrongDirection),
+      forwardAlongM: direction.forwardAlongM != null ? Math.round(direction.forwardAlongM) : undefined,
+      bearingDiffDeg:
+        direction.bearingDiffDeg != null ? Math.round(direction.bearingDiffDeg) : undefined,
+    };
+  }
+
   let hit = 0;
   let sampled = 0;
   let distSum = 0;
@@ -178,38 +296,9 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
     matched,
     coverage: Math.round(coverage * 1000) / 1000,
     meanDistM: Math.round(meanDist),
+    forwardAlongM: Math.round(direction.forwardAlongM),
+    bearingDiffDeg: Math.round(direction.bearingDiffDeg),
   };
-}
-
-/** Buiten-fietsen voor klim-match; geen trainer/Zwift/FulGaz (VirtualRide). */
-function isOutdoorCyclingActivity(activity) {
-  if (!activity) return false;
-  if (activity.trainer === true) return false;
-
-  const sport = String(activity.sport_type || activity.type || "")
-    .toLowerCase()
-    .replace(/[\s_-]+/g, "");
-  if (!sport) return false;
-  if (sport === "virtualride" || sport.includes("indoor")) return false;
-
-  const outdoor = new Set([
-    "ride",
-    "mountainbikeride",
-    "gravelride",
-    "ebikeride",
-    "emountainbikeride",
-    "cyclocross",
-    "handcycle",
-    "bikeride",
-  ]);
-  if (!outdoor.has(sport)) return false;
-
-  const distM = Number(activity.distance);
-  if (Number.isFinite(distM) && distM > 0 && distM < 800) {
-    return false;
-  }
-
-  return true;
 }
 
 /** Buiten-fietsen voor klim-match; geen trainer/Zwift/FulGaz (VirtualRide). */
@@ -267,6 +356,8 @@ function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = DEFAULT_MAT
 module.exports = {
   decodePolyline,
   matchClimbToActivity,
+  climbAscentDirectionOk,
+  nearestAlongTrackM,
   isCyclingActivity,
   isOutdoorCyclingActivity,
   DEFAULT_MATCH_OPTS,
