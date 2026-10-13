@@ -826,6 +826,161 @@ header.app-header p#datasetMeta {
   white-space: nowrap;
 }
 
+.map-difficulty-legend-help {
+  pointer-events: auto;
+  margin-left: 0.15rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #f8fafc;
+  font: 800 0.7rem/1 Barlow, system-ui, sans-serif;
+  color: var(--slate-600);
+  cursor: pointer;
+}
+
+.map-difficulty-legend-help:hover {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+}
+
+.climb-klimpunten-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0.15rem 0 0.35rem;
+  font-size: 0.88rem;
+}
+
+.climb-klimpunten-row--lg {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.climb-klimpunten-score {
+  font-weight: 600;
+  color: var(--slate-800);
+}
+
+.climb-klimpunten-score strong {
+  font-size: 1.15em;
+  color: #c2410c;
+}
+
+.climb-klimpunten-help-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--teal-700);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.climb-streetview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+}
+
+.climb-streetview-label {
+  font-weight: 600;
+  color: var(--slate-600);
+}
+
+.climb-streetview-link {
+  color: var(--teal-700);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.climb-streetview-link:hover {
+  text-decoration: underline;
+}
+
+.fietsklim-map-marker-bolt {
+  position: absolute;
+  top: -5px;
+  left: -2px;
+  font-size: 0.55rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 1px #fff);
+}
+
+.fietsklim-route-score-host {
+  background: transparent !important;
+  border: none !important;
+}
+
+.fietsklim-route-score {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--mk-fill, #fef3c7);
+  border: 2.5px solid var(--mk-stroke, #b45309);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 800 11px/1 Barlow, system-ui, sans-serif;
+  color: #0f172a;
+  position: relative;
+}
+
+.fietsklim-route-score-bolt {
+  position: absolute;
+  top: -4px;
+  right: -2px;
+  font-size: 0.5rem;
+}
+
+.klimpunten-help-dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  max-width: min(28rem, calc(100vw - 2rem));
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.25);
+}
+
+.klimpunten-help-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.klimpunten-help-dialog-inner {
+  padding: 1.1rem 1.25rem 1rem;
+}
+
+.klimpunten-help-dialog-inner h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.klimpunten-help-dialog-inner p {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--slate-700);
+}
+
+.klimpunten-help-close {
+  margin-top: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--teal-600);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .map-difficulty-swatch {
   width: 0.75rem;
   height: 0.75rem;

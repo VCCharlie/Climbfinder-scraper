@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261013logbookfilt1" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261013klimpunten1" />
 </head>
 <body class="fietsklim-locked">
   <div id="fietsklim-auth-gate">
@@ -130,7 +130,9 @@
           </span>
           <span class="climb-detail-chevron" aria-hidden="true">↗</span>
         </button>
+        <p id="profileKlimpunten" class="climb-klimpunten-row" hidden></p>
         <p id="profileStats" class="climb-detail-stats"></p>
+        <p id="profileStreetView" class="climb-streetview-row" hidden></p>
         <p id="climbStravaLink" class="climb-detail-strava" hidden></p>
         <div id="profileGradientStripMini" class="profile-gradient-strip profile-gradient-strip--mini" aria-hidden="true"></div>
         <div class="profile-chart-wrap profile-chart-wrap--mini">
@@ -167,6 +169,15 @@
     </main>
   </div>
 
+  <dialog id="klimpuntenHelpDialog" class="klimpunten-help-dialog">
+    <div class="klimpunten-help-dialog-inner">
+      <h2>Klimpunten</h2>
+      <p>De objectieve maat voor de zwaarte van een klim (zoals op Climbfinder). Hogere score = zwaarder. De klim wordt in segmenten bekeken; steilheid en wegdek tellen mee.</p>
+      <p>Scores komen uit de Climbfinder-import (<em>Difficulty points</em>). Zie je alleen categorie (1–5 / HC) op de kaart, dan mist die dataset nog klimpunten — herimport via Import-pagina vult ze aan.</p>
+      <button type="button" id="klimpuntenHelpClose" class="klimpunten-help-close">Sluiten</button>
+    </div>
+  </dialog>
+
   <div id="profileExpandOverlay" class="profile-expand-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="profileTitleFull">
     <div class="profile-expand-backdrop" id="profileExpandBackdrop"></div>
     <div class="profile-expand-card">
@@ -188,7 +199,9 @@
           <span id="profileCategoryBadgeFull"></span>
           <h2 id="profileTitleFull" class="profile-expand-title"></h2>
         </div>
+        <p id="profileKlimpuntenFull" class="climb-klimpunten-row climb-klimpunten-row--lg" hidden></p>
         <p id="profileStatsFull" class="profile-expand-stats"></p>
+        <p id="profileStreetViewFull" class="climb-streetview-row" hidden></p>
         <p id="profileStravaLink" class="climb-detail-strava profile-expand-strava" hidden></p>
         <div id="profileGradientStripFull" class="profile-gradient-strip" aria-label="Gemiddelde helling per segment"></div>
       </div>
@@ -214,9 +227,9 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="assets/climb-metrics.js?v=20261011cfmapstatus"></script>
+  <script src="assets/climb-metrics.js?v=20261013klimpunten1"></script>
   <script src="assets/climb-log.js?v=20261013logbookall1"></script>
   <script src="assets/climb-dedupe.js?v=20261007e"></script>
-  <script src="assets/app.js?v=20261013nlnumbers1"></script>
+  <script src="assets/app.js?v=20261013klimpunten1"></script>
 </body>
 </html>

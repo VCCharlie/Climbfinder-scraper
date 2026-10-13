@@ -394,9 +394,45 @@
     if (!entries?.length) return "Zwaarte";
     const anyLightning = entries.some((c) => climbLightningScore(c) != null);
     const anyCategory = entries.some((c) => climbLightningScore(c) == null && difficultyTierKey(c) !== "unknown");
-    if (anyLightning && !anyCategory) return "Moeilijkheidspunten";
-    if (anyLightning && anyCategory) return "Zwaarte / punten";
+    if (anyLightning && !anyCategory) return "Klimpunten";
+    if (anyLightning && anyCategory) return "Klimpunten / categorie";
     return "Zwaarte";
+  }
+
+  /** Google Maps Street View (geen API-sleutel nodig). */
+  function streetViewMapsUrl(lat, lng) {
+    if (lat == null || lng == null || !Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+    const params = new URLSearchParams({
+      api: "1",
+      map_action: "pano",
+      viewpoint: `${lat},${lng}`,
+    });
+    return `https://www.google.com/maps/@?${params.toString()}`;
+  }
+
+  function climbStreetViewEndpoints(climb) {
+    const out = [];
+    const start = climb?.start;
+    const summit = climb?.summit;
+    if (start?.lat != null && start?.lng != null) {
+      out.push({ role: "start", label: "Start", lat: start.lat, lng: start.lng });
+    }
+    if (summit?.lat != null && summit?.lng != null) {
+      out.push({ role: "summit", label: "Top", lat: summit.lat, lng: summit.lng });
+    }
+    if (out.length >= 2) return out;
+    const coords = climb?.geometry?.coordinates;
+    if (Array.isArray(coords) && coords.length >= 2) {
+      if (!out.some((p) => p.role === "start")) {
+        const [lng, lat] = coords[0];
+        out.unshift({ role: "start", label: "Start", lat, lng });
+      }
+      if (!out.some((p) => p.role === "summit")) {
+        const [lng, lat] = coords[coords.length - 1];
+        out.push({ role: "summit", label: "Top", lat, lng });
+      }
+    }
+    return out;
   }
 
   global.ClimbMetrics = {
@@ -426,6 +462,8 @@
     difficultyMarkerLabel,
     difficultyLegendTiers,
     difficultyLegendTitle,
+    streetViewMapsUrl,
+    climbStreetViewEndpoints,
     LIGHTNING_MAP_COLORS,
     DIFFICULTY_MAP_COLORS,
   };
