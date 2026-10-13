@@ -681,7 +681,11 @@ function buildStravaLogPatch(datasetId, climbId, hit, data, nowMs) {
   }
   if (nowMs >= doneUpdatedAt) {
     patch.done = true;
-    patch.doneUpdatedAt = nowMs;
+    patch.doneUpdatedAt = startAt != null ? startAt : nowMs;
+    patch.source = "strava";
+  } else if (startAt != null && Boolean(data.done)) {
+    // Al handmatig gedaan: Strava-ritdatum voor logboek/statistieken (jaar van de activiteit)
+    patch.doneUpdatedAt = startAt;
     patch.source = "strava";
   }
   if (nowMs >= wishlistUpdatedAt) {
