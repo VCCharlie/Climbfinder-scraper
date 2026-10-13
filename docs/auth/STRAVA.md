@@ -1,6 +1,6 @@
 # Strava — koppelen & proef-sync
 
-Automatisch **gedaan**-vinkjes op basis van Strava-fietritten **buiten** (geen trainer, geen VirtualRide/Zwift/FulGaz; korte ritten &lt; 800 m worden overgeslagen). Standaard **publiek** (`read`, `activity:read`); optioneel **privé** (`activity:read_all`) via Instellingen. Sync zet **gedaan** aan, haalt **wishlist** weg bij match, en **overschrijft** handmatige gedaan-vinkjes voor gematchte klimmen.
+Automatisch **gedaan**-vinkjes op basis van Strava-fietritten **buiten** (geen trainer, geen VirtualRide/Zwift/FulGaz; korte ritten &lt; 800 m worden overgeslagen). Een match telt alleen als je de klim **beklimt in de richting van de database** (voet → top langs de polyline; **afdaling de andere kant op** matcht niet). Standaard **publiek** (`read`, `activity:read`); optioneel **privé** (`activity:read_all`) via Instellingen. Sync zet **gedaan** aan, haalt **wishlist** weg bij match, en **overschrijft** handmatige gedaan-vinkjes voor gematchte klimmen.
 
 ## Callback op `vccharlie.github.io` (verplicht bij gedeelde Strava-app)
 
