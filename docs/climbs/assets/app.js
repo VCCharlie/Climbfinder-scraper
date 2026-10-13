@@ -3484,6 +3484,10 @@
       updateClimbLogSummary();
       renderList(state.searchQuery);
       syncClimbDetailDoneToggle();
+      syncProfileExpandLogToggles();
+      if (state.activeClimb && isMobileMapPaneActive()) {
+        updateMapTouchSheet(state.activeClimb);
+      }
       if (state.globalSearchReady && state.mapMode !== "detail") {
         if (state.mapMode === "overview") syncOverviewMarkers({ fit: false });
         else refreshViewportClimbs();

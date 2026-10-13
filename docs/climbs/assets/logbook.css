@@ -164,7 +164,14 @@
 
 .logbook-strava-mark-inline {
   display: inline-flex;
+  align-items: center;
   vertical-align: middle;
+  margin: 0 0.15rem;
+}
+
+.logbook-strava-mark-svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .logbook-row-status {

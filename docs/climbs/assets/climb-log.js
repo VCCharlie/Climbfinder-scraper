@@ -427,6 +427,30 @@
     return Boolean(getEntry(datasetId, climbId)?.wishlist);
   }
 
+  /** Direct UI-update na Firestore-write (snapshot komt iets later). */
+  function mergeOptimisticLocal(datasetId, climbId, patch) {
+    const key = climbKey(datasetId, climbId);
+    const prev = getEntry(datasetId, climbId) || {
+      datasetId,
+      climbId,
+      done: false,
+      wishlist: false,
+      source: patch.source || "manual",
+      doneUpdatedAt: 0,
+      wishlistUpdatedAt: 0,
+    };
+    const t = nowMs();
+    const attempt = { ...prev, ...patch, datasetId, climbId };
+    if (patch.done !== undefined && patch.doneUpdatedAt == null) attempt.doneUpdatedAt = t;
+    if (patch.wishlist !== undefined && patch.wishlistUpdatedAt == null) {
+      attempt.wishlistUpdatedAt = t;
+    }
+    const merged = mergeFlagsLww(prev, attempt);
+    const next = { ...prev, ...merged, datasetId, climbId };
+    if (shouldPersist(next)) state.byKey.set(key, next);
+    else state.byKey.delete(key);
+  }
+
   async function writeFirestore(datasetId, climbId, patch) {
     const db = firebase.firestore();
     const ref = db
@@ -477,20 +501,26 @@
 
   async function setDone(datasetId, climbId, done) {
     if (!datasetId || !climbId) return;
+    const patch = { done: !!done, source: "manual" };
+    if (patch.done === true) patch.wishlist = false;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {
-      await writeFirestore(datasetId, climbId, { done: !!done, source: "manual" });
+      await writeFirestore(datasetId, climbId, patch);
+      mergeOptimisticLocal(datasetId, climbId, patch);
       return;
     }
-    upsertLocal(datasetId, climbId, { done: !!done, source: "manual" });
+    upsertLocal(datasetId, climbId, patch);
   }
 
   async function setWishlist(datasetId, climbId, wishlist) {
     if (!datasetId || !climbId) return;
+    const patch = { wishlist: !!wishlist };
+    if (patch.wishlist === true) patch.done = false;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {
-      await writeFirestore(datasetId, climbId, { wishlist: !!wishlist });
+      await writeFirestore(datasetId, climbId, patch);
+      mergeOptimisticLocal(datasetId, climbId, patch);
       return;
     }
-    upsertLocal(datasetId, climbId, { wishlist: !!wishlist });
+    upsertLocal(datasetId, climbId, patch);
   }
 
   /** Atomic update of gedaan + wishlist (één Firestore-write). */
@@ -505,6 +535,7 @@
     if (flags.source) patch.source = flags.source;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {
       await writeFirestore(datasetId, climbId, patch);
+      mergeOptimisticLocal(datasetId, climbId, patch);
       return;
     }
     upsertLocal(datasetId, climbId, patch);
@@ -783,6 +814,21 @@
     return null;
   }
 
+  /** Jaar voor logboek-filters: Strava-rit, anders geklommen- of wishlist-datum. */
+  function logbookEntryYear(row) {
+    const rideAt = timestampMillis(row?.stravaActivityStartAt);
+    if (rideAt > 0) return new Date(rideAt).getFullYear();
+    if (row?.done) {
+      const d = timestampMillis(row.doneUpdatedAt);
+      if (d > 0) return new Date(d).getFullYear();
+    }
+    if (row?.wishlist) {
+      const w = timestampMillis(row.wishlistUpdatedAt);
+      if (w > 0) return new Date(w).getFullYear();
+    }
+    return null;
+  }
+
   function formatStravaRideDate(row, locale = "nl-NL") {
     const rideAt = timestampMillis(row?.stravaActivityStartAt);
     if (rideAt <= 0) return "";
@@ -843,6 +889,7 @@
     listStravaLinked,
     clearStravaLink,
     stravaRideYear,
+    logbookEntryYear,
     formatStravaRideDate,
     stravaActivityUrl,
     stravaActivityWebUrl,
