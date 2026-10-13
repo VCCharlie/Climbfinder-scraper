@@ -1,4 +1,4 @@
-/** Logboek-pagina: Strava-koppelingen, filters, statistieken, ontkoppelen. */
+/** Logboek-pagina: alle logboek-klimmen, filters, statistieken, Strava-ontkoppelen. */
 (function (global) {
   const log = global.FietsKlimClimbLog;
   const FILTER_STORAGE_KEY = "fietsklim-logbook-filters-v1";
@@ -136,8 +136,25 @@
     return bundle.climbs.find((c) => String(c.id) === String(climbId)) || null;
   }
 
-  function linkedRows() {
-    return log?.isReady?.() && log.listStravaLinked ? log.listStravaLinked() : [];
+  const STRAVA_MARK_SVG =
+    '<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="#fc4c02" d="M15.387 17.944l-2.089-4.116h-3.116L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.599H4.818L1.984 6.772h3.066l2.089 4.116"/></svg>';
+
+  function logRows() {
+    if (!log?.isReady?.() || !log.listEntries) return [];
+    return log.listEntries().sort((a, b) => {
+      const na = (a.stravaClimbName || a.climbId || "").toLowerCase();
+      const nb = (b.stravaClimbName || b.climbId || "").toLowerCase();
+      return na.localeCompare(nb, "nl");
+    });
+  }
+
+  function stravaMarkElement() {
+    const span = document.createElement("span");
+    span.className = "logbook-strava-mark";
+    span.title = "Gekoppeld via Strava";
+    span.setAttribute("aria-label", "Strava");
+    span.innerHTML = STRAVA_MARK_SVG;
+    return span;
   }
 
   function rowCountry(row) {
@@ -154,19 +171,22 @@
   }
 
   async function rebuildEnrichedCache() {
-    const rows = linkedRows();
+    const rows = logRows();
     const out = [];
     for (const row of rows) {
       const climb = await climbMeta(row.datasetId, row.climbId);
       const elev = Number(climb?.stats?.elevation_gain_m);
+      const displayName = row.stravaClimbName || climb?.name || row.climbId || "Klim";
       out.push({
         row,
+        displayName,
         country: rowCountry(row),
-        year: log?.stravaRideYear?.(row) ?? null,
+        year: log?.logbookEntryYear?.(row) ?? null,
         category: String(climbCategory(climb) || ""),
         elevation: Number.isFinite(elev) ? elev : 0,
       });
     }
+    out.sort((a, b) => a.displayName.localeCompare(b.displayName, "nl"));
     enrichedCache = out;
     return out;
   }
@@ -188,8 +208,10 @@
     if (eMax != null && item.elevation > eMax) return false;
 
     const done = Boolean(item.row.done);
+    const wish = Boolean(item.row.wishlist);
     if (filters.done === "done" && !done) return false;
-    if (filters.done === "notdone" && done) return false;
+    if (filters.done === "wishlist" && !wish) return false;
+    if (filters.done === "strava" && !item.row.stravaActivityId) return false;
 
     return true;
   }
@@ -245,9 +267,9 @@
     }
   }
 
-  function renderListItem(row) {
+  function renderListItem(row, displayName) {
     const li = document.createElement("li");
-    const climbLabel = row.stravaClimbName || row.climbId || "Klim";
+    const climbLabel = displayName || row.stravaClimbName || row.climbId || "Klim";
     const actId = row.stravaActivityId;
     const actLabel = row.stravaActivityName || (actId ? `Rit ${actId}` : "Strava-rit");
     const cc = rowCountry(row);
@@ -266,45 +288,60 @@
     } else {
       strong.textContent = climbLabel;
     }
+    if (row.stravaActivityId) {
+      strong.appendChild(stravaMarkElement());
+    }
+
+    const statusBits = [];
+    if (row.done) statusBits.push("Geklommen");
+    if (row.wishlist) statusBits.push("Bucket list");
+    if (statusBits.length) {
+      const st = document.createElement("span");
+      st.className = "logbook-row-status";
+      st.textContent = ` (${statusBits.join(" · ")})`;
+      strong.appendChild(st);
+    }
 
     const wrap = document.createElement("span");
     wrap.innerHTML = ds;
     li.appendChild(wrap);
     li.appendChild(strong);
-    li.appendChild(document.createTextNode(" → "));
 
-    const stravaLink = document.createElement("a");
-    stravaLink.textContent = actLabel;
-    if (log?.applyStravaActivityAnchor && actId) {
-      log.applyStravaActivityAnchor(stravaLink, actId);
-    } else if (actId) {
-      stravaLink.href = `https://www.strava.com/activities/${actId}`;
-      stravaLink.target = "_blank";
-      stravaLink.rel = "noopener noreferrer";
+    if (row.stravaActivityId) {
+      const stravaLink = document.createElement("a");
+      stravaLink.textContent = actLabel;
+      if (log?.applyStravaActivityAnchor && actId) {
+        log.applyStravaActivityAnchor(stravaLink, actId);
+      } else if (actId) {
+        stravaLink.href = `https://www.strava.com/activities/${actId}`;
+        stravaLink.target = "_blank";
+        stravaLink.rel = "noopener noreferrer";
+      }
+      li.appendChild(document.createTextNode(" → "));
+      li.appendChild(stravaLink);
+
+      const rideDate = log?.formatStravaRideDate?.(row);
+      if (rideDate) {
+        const dateSpan = document.createElement("span");
+        dateSpan.className = "logbook-ride-date";
+        dateSpan.textContent = rideDate;
+        li.appendChild(dateSpan);
+      }
+
+      const unlink = document.createElement("button");
+      unlink.type = "button";
+      unlink.className = "logbook-unlink-btn";
+      unlink.textContent = "Ontkoppel";
+      unlink.title = "Strava-koppeling verwijderen; bij Strava-sync ook gedaan uit";
+      unlink.addEventListener("click", () => {
+        const ok = global.confirm(
+          `Strava-koppeling verwijderen voor “${climbLabel}”?\n\nAls deze klim alleen via Strava als gedaan stond, wordt het vinkje ook uitgezet.`
+        );
+        if (!ok) return;
+        void log.clearStravaLink(row.datasetId, row.climbId).then(() => void refresh());
+      });
+      li.appendChild(unlink);
     }
-    li.appendChild(stravaLink);
-
-    const rideDate = log?.formatStravaRideDate?.(row);
-    if (rideDate) {
-      const dateSpan = document.createElement("span");
-      dateSpan.className = "logbook-ride-date";
-      dateSpan.textContent = rideDate;
-      li.appendChild(dateSpan);
-    }
-
-    const unlink = document.createElement("button");
-    unlink.type = "button";
-    unlink.className = "logbook-unlink-btn";
-    unlink.textContent = "Ontkoppel";
-    unlink.title = "Strava-koppeling verwijderen; bij Strava-sync ook gedaan uit";
-    unlink.addEventListener("click", () => {
-      const ok = global.confirm(
-        `Strava-koppeling verwijderen voor “${climbLabel}”?\n\nAls deze klim alleen via Strava als gedaan stond, wordt het vinkje ook uitgezet.`
-      );
-      if (!ok) return;
-      void log.clearStravaLink(row.datasetId, row.climbId).then(() => void refresh());
-    });
-    li.appendChild(unlink);
 
     return li;
   }
@@ -317,18 +354,18 @@
 
     const items = filteredEnriched();
     ul.innerHTML = "";
-    if (empty) empty.hidden = items.length > 0 || linkedRows().length > 0;
-    if (linkedRows().length === 0 && empty) empty.hidden = false;
+    if (empty) empty.hidden = items.length > 0 || logRows().length > 0;
+    if (logRows().length === 0 && empty) empty.hidden = false;
 
     if (summary) {
-      const total = linkedRows().length;
+      const total = logRows().length;
       summary.textContent =
         total === 0
-          ? "Geen Strava-koppelingen"
-          : `${items.length} van ${total} koppeling(en) binnen je filters`;
+          ? "Nog geen klimmen in je logboek (gedaan of bucket list)."
+          : `${items.length} van ${total} klim(men) binnen je filters`;
     }
-    for (const { row } of items) {
-      ul.appendChild(renderListItem(row));
+    for (const { row, displayName } of items) {
+      ul.appendChild(renderListItem(row, displayName));
     }
   }
 
