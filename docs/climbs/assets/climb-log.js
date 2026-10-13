@@ -499,6 +499,8 @@
     const patch = {};
     if (flags.done !== undefined) patch.done = !!flags.done;
     if (flags.wishlist !== undefined) patch.wishlist = !!flags.wishlist;
+    if (patch.done === true) patch.wishlist = false;
+    if (patch.wishlist === true) patch.done = false;
     if (!Object.keys(patch).length) return;
     if (flags.source) patch.source = flags.source;
     if (state.mode === "firestore" && firebase.firestore && state.uid) {

@@ -635,13 +635,16 @@
     if (typeof FietsKlimClimbLog === "undefined") return;
     const datasetId = entryDatasetId(entry);
     if (!datasetId) return;
+    const patch = { ...flags };
+    if (patch.done === true) patch.wishlist = false;
+    if (patch.wishlist === true) patch.done = false;
     try {
       if (FietsKlimClimbLog.setFlags) {
-        await FietsKlimClimbLog.setFlags(datasetId, entry.climb.id, flags);
+        await FietsKlimClimbLog.setFlags(datasetId, entry.climb.id, patch);
       } else {
-        if (flags.done !== undefined) await FietsKlimClimbLog.setDone(datasetId, entry.climb.id, flags.done);
-        if (flags.wishlist !== undefined) {
-          await FietsKlimClimbLog.setWishlist(datasetId, entry.climb.id, flags.wishlist);
+        if (patch.done !== undefined) await FietsKlimClimbLog.setDone(datasetId, entry.climb.id, patch.done);
+        if (patch.wishlist !== undefined) {
+          await FietsKlimClimbLog.setWishlist(datasetId, entry.climb.id, patch.wishlist);
         }
       }
       refreshUiAfterClimbLogChange();
@@ -660,7 +663,6 @@
   function climbStatusSummaryText(entry) {
     const done = climbIsDone(entry);
     const wish = climbIsWishlist(entry);
-    if (done && wish) return "Geklommen · Bucket list";
     if (done) return "Geklommen";
     if (wish) return "Bucket list";
     return "Nog niet geklommen";

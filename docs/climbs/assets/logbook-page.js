@@ -1,6 +1,7 @@
 /** Logboek-pagina: Strava-koppelingen, filters, statistieken, ontkoppelen. */
 (function (global) {
   const log = global.FietsKlimClimbLog;
+  const FILTER_STORAGE_KEY = "fietsklim-logbook-filters-v1";
 
   const COUNTRY_LABELS = {
     BE: "België",
@@ -18,7 +19,18 @@
   let indexRegions = [];
   const datasetCountry = new Map();
   const bundleCache = new Map();
-  let countryFilter = "";
+  /** @type {Array<{ row: object, country: string, year: number|null, category: string, elevation: number }>} */
+  let enrichedCache = [];
+
+  const filters = {
+    country: "",
+    yearFrom: "",
+    yearTo: "",
+    category: "",
+    elevMin: "",
+    elevMax: "",
+    done: "all",
+  };
 
   function $(id) {
     return document.getElementById(id);
@@ -35,6 +47,58 @@
   function countryLabel(code) {
     if (!code) return "Onbekend";
     return COUNTRY_LABELS[code] || code;
+  }
+
+  function readFiltersFromForm() {
+    filters.country = $("logbookCountryFilter")?.value || "";
+    filters.yearFrom = String($("logbookYearFrom")?.value ?? "").trim();
+    filters.yearTo = String($("logbookYearTo")?.value ?? "").trim();
+    filters.category = $("logbookCategoryFilter")?.value || "";
+    filters.elevMin = String($("logbookElevMin")?.value ?? "").trim();
+    filters.elevMax = String($("logbookElevMax")?.value ?? "").trim();
+    filters.done = $("logbookDoneFilter")?.value || "all";
+    try {
+      sessionStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(filters));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function applyFiltersToForm() {
+    if ($("logbookCountryFilter")) $("logbookCountryFilter").value = filters.country;
+    if ($("logbookYearFrom")) $("logbookYearFrom").value = filters.yearFrom;
+    if ($("logbookYearTo")) $("logbookYearTo").value = filters.yearTo;
+    if ($("logbookCategoryFilter")) $("logbookCategoryFilter").value = filters.category;
+    if ($("logbookElevMin")) $("logbookElevMin").value = filters.elevMin;
+    if ($("logbookElevMax")) $("logbookElevMax").value = filters.elevMax;
+    if ($("logbookDoneFilter")) $("logbookDoneFilter").value = filters.done;
+  }
+
+  function loadFiltersFromStorage() {
+    try {
+      const raw = sessionStorage.getItem(FILTER_STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      Object.assign(filters, saved);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function resetFilters() {
+    filters.country = "";
+    filters.yearFrom = "";
+    filters.yearTo = "";
+    filters.category = "";
+    filters.elevMin = "";
+    filters.elevMax = "";
+    filters.done = "all";
+    applyFiltersToForm();
+    try {
+      sessionStorage.removeItem(FILTER_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
   }
 
   async function loadIndex() {
@@ -80,29 +144,105 @@
     return datasetCountry.get(row.datasetId) || "";
   }
 
-  function filteredRows() {
-    const rows = linkedRows();
-    if (!countryFilter) return rows;
-    return rows.filter((r) => rowCountry(r) === countryFilter);
+  function climbCategory(climb) {
+    return (
+      climb?.climbfinder?.category ||
+      climb?.classification ||
+      climb?.stats?.classification ||
+      ""
+    );
   }
 
-  function fillCountryFilter() {
-    const sel = $("logbookCountryFilter");
-    if (!sel) return;
-    const codes = new Set();
-    for (const r of linkedRows()) {
-      const c = rowCountry(r);
-      if (c) codes.add(c);
+  async function rebuildEnrichedCache() {
+    const rows = linkedRows();
+    const out = [];
+    for (const row of rows) {
+      const climb = await climbMeta(row.datasetId, row.climbId);
+      const elev = Number(climb?.stats?.elevation_gain_m);
+      out.push({
+        row,
+        country: rowCountry(row),
+        year: log?.stravaRideYear?.(row) ?? null,
+        category: String(climbCategory(climb) || ""),
+        elevation: Number.isFinite(elev) ? elev : 0,
+      });
     }
-    const sorted = [...codes].sort();
-    sel.innerHTML =
-      `<option value="">Alle landen</option>` +
-      sorted.map((c) => `<option value="${c}">${escapeHtml(countryLabel(c))}</option>`).join("");
-    sel.value = countryFilter;
-    sel.onchange = () => {
-      countryFilter = sel.value;
-      void renderList();
-    };
+    enrichedCache = out;
+    return out;
+  }
+
+  function passesFilters(item) {
+    if (filters.country && item.country !== filters.country) return false;
+
+    const yFrom = filters.yearFrom ? Number(filters.yearFrom) : null;
+    const yTo = filters.yearTo ? Number(filters.yearTo) : null;
+    if ((yFrom != null || yTo != null) && item.year == null) return false;
+    if (yFrom != null && item.year != null && item.year < yFrom) return false;
+    if (yTo != null && item.year != null && item.year > yTo) return false;
+
+    if (filters.category && item.category !== filters.category) return false;
+
+    const eMin = filters.elevMin ? Number(filters.elevMin) : null;
+    const eMax = filters.elevMax ? Number(filters.elevMax) : null;
+    if (eMin != null && item.elevation < eMin) return false;
+    if (eMax != null && item.elevation > eMax) return false;
+
+    const done = Boolean(item.row.done);
+    if (filters.done === "done" && !done) return false;
+    if (filters.done === "notdone" && done) return false;
+
+    return true;
+  }
+
+  function filteredEnriched() {
+    return enrichedCache.filter(passesFilters);
+  }
+
+  function fillFilterOptions() {
+    const countrySel = $("logbookCountryFilter");
+    const catSel = $("logbookCategoryFilter");
+    const codes = new Set();
+    const cats = new Set();
+    for (const item of enrichedCache) {
+      if (item.country) codes.add(item.country);
+      if (item.category) cats.add(item.category);
+    }
+    if (countrySel) {
+      const sorted = [...codes].sort();
+      countrySel.innerHTML =
+        `<option value="">Alle landen</option>` +
+        sorted.map((c) => `<option value="${c}">${escapeHtml(countryLabel(c))}</option>`).join("");
+      countrySel.value = filters.country;
+    }
+    if (catSel) {
+      const sorted = [...cats].sort((a, b) => String(a).localeCompare(String(b), "nl"));
+      catSel.innerHTML =
+        `<option value="">Alle categorieën</option>` +
+        sorted.map((c) => `<option value="${c}">Cat. ${escapeHtml(c)}</option>`).join("");
+      catSel.value = filters.category;
+    }
+  }
+
+  function bindFilterUi() {
+    $("logbookFiltersApply")?.addEventListener("click", () => {
+      readFiltersFromForm();
+      void renderAll();
+    });
+    $("logbookFiltersReset")?.addEventListener("click", () => {
+      resetFilters();
+      void renderAll();
+    });
+    const autoIds = [
+      "logbookCountryFilter",
+      "logbookCategoryFilter",
+      "logbookDoneFilter",
+    ];
+    for (const id of autoIds) {
+      $(id)?.addEventListener("change", () => {
+        readFiltersFromForm();
+        void renderAll();
+      });
+    }
   }
 
   function renderListItem(row) {
@@ -175,16 +315,19 @@
     const summary = $("logbookListSummary");
     if (!ul) return;
 
-    const rows = filteredRows();
+    const items = filteredEnriched();
     ul.innerHTML = "";
-    if (empty) empty.hidden = rows.length > 0;
+    if (empty) empty.hidden = items.length > 0 || linkedRows().length > 0;
+    if (linkedRows().length === 0 && empty) empty.hidden = false;
+
     if (summary) {
       const total = linkedRows().length;
-      summary.textContent = countryFilter
-        ? `${rows.length} van ${total} koppeling(en) (${countryLabel(countryFilter)})`
-        : `${rows.length} koppeling(en)`;
+      summary.textContent =
+        total === 0
+          ? "Geen Strava-koppelingen"
+          : `${items.length} van ${total} koppeling(en) binnen je filters`;
     }
-    for (const row of rows) {
+    for (const { row } of items) {
       ul.appendChild(renderListItem(row));
     }
   }
@@ -194,11 +337,14 @@
     const grid = $("logbookStatsGrid");
     const details = $("logbookStatsDetails");
     const breakdown = $("logbookStatsBreakdown");
-    const rows = linkedRows().filter((r) => r.done);
+    const items = filteredEnriched().filter((i) => i.row.done);
     if (!summaryEl) return;
 
-    if (!rows.length) {
-      summaryEl.textContent = "Nog geen geklommen klimmen met Strava-koppeling.";
+    if (!items.length) {
+      summaryEl.textContent =
+        filteredEnriched().length === 0
+          ? "Geen rijen binnen de huidige filters."
+          : "Geen geklommen klimmen binnen de huidige filters (pas status-filter aan).";
       if (grid) grid.hidden = true;
       if (details) details.hidden = true;
       return;
@@ -208,33 +354,26 @@
     const byYear = new Map();
     const byCategory = new Map();
     let totalElev = 0;
-    let metaLoaded = 0;
 
-    for (const row of rows) {
-      const cc = rowCountry(row) || "?";
+    for (const item of items) {
+      const row = item.row;
+      const cc = item.country || "?";
       byCountry.set(cc, (byCountry.get(cc) || 0) + 1);
 
-      const year = log?.stravaRideYear?.(row) ?? new Date().getFullYear();
+      const year = item.year ?? log?.stravaRideYear?.(row) ?? new Date().getFullYear();
       byYear.set(year, (byYear.get(year) || 0) + 1);
 
-      const climb = await climbMeta(row.datasetId, row.climbId);
-      metaLoaded += 1;
-      const cat =
-        climb?.climbfinder?.category ||
-        climb?.classification ||
-        climb?.stats?.classification ||
-        "?";
+      const cat = item.category || "?";
       byCategory.set(cat, (byCategory.get(cat) || 0) + 1);
-      const elev = Number(climb?.stats?.elevation_gain_m);
-      if (Number.isFinite(elev)) totalElev += elev;
+      totalElev += item.elevation;
     }
 
-    summaryEl.textContent = `Op basis van ${rows.length} geklommen Strava-koppeling(en) (${metaLoaded} met klimdata). Jaar = Strava-ritdatum (lokaal); zonder datum valt terug op “gedaan” in logboek.`;
+    summaryEl.textContent = `Statistieken over ${items.length} geklommen klim(men) binnen je filters. Jaar = Strava-ritdatum.`;
 
     if (grid) {
       grid.hidden = false;
       grid.innerHTML = `
-        <div class="logbook-stat-card"><strong>${rows.length}</strong><span>geklommen (Strava)</span></div>
+        <div class="logbook-stat-card"><strong>${items.length}</strong><span>geklommen</span></div>
         <div class="logbook-stat-card"><strong>${byCountry.size}</strong><span>landen</span></div>
         <div class="logbook-stat-card"><strong>${Math.round(totalElev)}</strong><span>hoogtemeters (som)</span></div>
         <div class="logbook-stat-card"><strong>${byCategory.size}</strong><span>categorieën</span></div>`;
@@ -261,15 +400,23 @@
     }
   }
 
+  async function renderAll() {
+    await Promise.all([renderList(), renderStats()]);
+  }
+
   async function refresh() {
     if (!log?.isReady?.()) return;
     await loadIndex();
-    fillCountryFilter();
-    await Promise.all([renderList(), renderStats()]);
+    await rebuildEnrichedCache();
+    fillFilterOptions();
+    await renderAll();
   }
 
   async function boot() {
     if (!log) return;
+    loadFiltersFromStorage();
+    applyFiltersToForm();
+    bindFilterUi();
     try {
       await log.init();
     } catch (e) {
