@@ -11,8 +11,8 @@
   <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/settings.css?v=20261013logbook1" />
-  <link rel="stylesheet" href="assets/logbook.css?v=20261013logbookcompact1" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261013logbookfix1" />
+  <link rel="stylesheet" href="assets/logbook.css?v=20261013logbookfix1" />
 </head>
 <body class="fietsklim-locked settings-page logbook-page">
   <div id="fietsklim-auth-gate">
@@ -35,79 +35,33 @@
     <h1>Logboek</h1>
     <p class="settings-lead">Strava-koppelingen, statistieken en handmatig ontkoppelen per klim.</p>
 
-<<<<<<< HEAD
     <section class="settings-card logbook-filters-card" id="logbookFiltersSection" aria-labelledby="logbookFiltersTitle">
       <div class="logbook-filters-head">
         <h2 id="logbookFiltersTitle">Filters</h2>
         <p class="settings-hint logbook-filter-hint">
           Leeg laten = geen grens; lijst en statistieken volgen dezelfde filters.
         </p>
-=======
-    <section class="settings-card" id="logbookFiltersSection" aria-labelledby="logbookFiltersTitle">
-      <h2 id="logbookFiltersTitle">Filters</h2>
-      <p class="settings-hint">
-        Stel zelf bereiken in; lijst en statistieken volgen dezelfde filters. Leeg laten = geen grens aan die kolom.
-      </p>
-      <div class="logbook-filter-grid">
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookCountryFilter">Land</label>
-          <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
-            <option value="">Alle landen</option>
-          </select>
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookYearFrom">Jaar (van)</label>
-          <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2020" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookYearTo">Jaar (tot)</label>
-          <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2025" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookCategoryFilter">Categorie</label>
-          <select id="logbookCategoryFilter" class="settings-select" aria-label="Filter op categorie">
-            <option value="">Alle categorieën</option>
-          </select>
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookElevMin">Hoogtemeters min</label>
-          <input type="number" id="logbookElevMin" class="settings-input" min="0" step="10" placeholder="m" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookElevMax">Hoogtemeters max</label>
-          <input type="number" id="logbookElevMax" class="settings-input" min="0" step="10" placeholder="m" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookDoneFilter">Status</label>
-          <select id="logbookDoneFilter" class="settings-select" aria-label="Filter op status">
-            <option value="all">Alles in logboek</option>
-            <option value="done">Alleen geklommen</option>
-            <option value="wishlist">Alleen bucket list</option>
-            <option value="strava">Alleen met Strava-koppeling</option>
-          </select>
-        </div>
->>>>>>> origin/main
       </div>
       <div class="logbook-filter-bar">
         <div class="logbook-filter-grid">
           <div class="logbook-filter-field logbook-filter-field--land">
             <label class="settings-field-label" for="logbookCountryFilter">Land</label>
             <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
-              <option value="">Alle</option>
+              <option value="">Alle landen</option>
             </select>
           </div>
           <div class="logbook-filter-field logbook-filter-field--year">
             <label class="settings-field-label" for="logbookYearFrom">Jaar van</label>
-            <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="2020" />
+            <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2020" />
           </div>
           <div class="logbook-filter-field logbook-filter-field--year">
             <label class="settings-field-label" for="logbookYearTo">Jaar tot</label>
-            <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="2025" />
+            <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2025" />
           </div>
           <div class="logbook-filter-field">
-            <label class="settings-field-label" for="logbookCategoryFilter">Cat.</label>
+            <label class="settings-field-label" for="logbookCategoryFilter">Categorie</label>
             <select id="logbookCategoryFilter" class="settings-select" aria-label="Filter op categorie">
-              <option value="">Alle</option>
+              <option value="">Alle categorieën</option>
             </select>
           </div>
           <div class="logbook-filter-field logbook-filter-field--elev">
@@ -121,9 +75,10 @@
           <div class="logbook-filter-field logbook-filter-field--status">
             <label class="settings-field-label" for="logbookDoneFilter">Status</label>
             <select id="logbookDoneFilter" class="settings-select" aria-label="Filter op status">
-              <option value="all">Alles</option>
-              <option value="done">Geklommen</option>
-              <option value="notdone">Niet geklommen</option>
+              <option value="all">Alles in logboek</option>
+              <option value="done">Alleen geklommen</option>
+              <option value="wishlist">Alleen bucket list</option>
+              <option value="strava">Alleen met Strava-koppeling</option>
             </select>
           </div>
         </div>
@@ -148,7 +103,8 @@
       <h2 id="stravaLinksTitle">Logboek-klimmen</h2>
       <p class="settings-hint">
         Alle klimmen met <strong>gedaan</strong> of <strong>bucket list</strong>. Strava-koppelingen hebben het
-        <span class="logbook-strava-mark-inline" title="Strava">oranje logo</span> na de naam; daar kun je ook ontkoppelen.
+        <img src="assets/strava-logomark.svg" alt="" class="logbook-strava-mark-inline" width="14" height="14" />
+        na de naam; daar kun je ook ontkoppelen.
         Sync en opschonen: <a href="settings.html#stravaSettingsCard">Instellingen → Strava</a>.
       </p>
       <p id="logbookListSummary" class="settings-status" role="status"></p>
@@ -163,6 +119,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbookall1"></script>
-  <script src="assets/logbook-page.js?v=20261013logbookstats1"></script>
+  <script src="assets/strava-brand.js?v=20261013logbookfix1"></script>
+  <script src="assets/logbook-page.js?v=20261013logbookfix1"></script>
 </body>
 </html>
