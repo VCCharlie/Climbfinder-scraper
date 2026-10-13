@@ -647,6 +647,15 @@ function logFieldTimestampMillis(v) {
   return 0;
 }
 
+/** Ritdatum (lokaal bij voorkeur) als epoch-ms voor logboek-statistieken. */
+function activityStartMillis(activity) {
+  if (!activity) return null;
+  const raw = activity.start_date_local || activity.start_date;
+  if (!raw) return null;
+  const t = Date.parse(String(raw));
+  return Number.isFinite(t) ? t : null;
+}
+
 function buildStravaLogPatch(datasetId, climbId, hit, data, nowMs) {
   const doneUpdatedAt = logFieldTimestampMillis(data.doneUpdatedAt);
   const wishlistUpdatedAt = logFieldTimestampMillis(data.wishlistUpdatedAt);
@@ -666,6 +675,10 @@ function buildStravaLogPatch(datasetId, climbId, hit, data, nowMs) {
     matchCoverage: hit.coverage,
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   };
+  const startAt = activityStartMillis(hit.activity);
+  if (startAt != null) {
+    patch.stravaActivityStartAt = startAt;
+  }
   if (nowMs >= doneUpdatedAt) {
     patch.done = true;
     patch.doneUpdatedAt = nowMs;
@@ -1064,6 +1077,7 @@ async function clearStravaLinkFromLogDoc(ref, row) {
     stravaClimbName: admin.firestore.FieldValue.delete(),
     stravaAscentCount: admin.firestore.FieldValue.delete(),
     matchCoverage: admin.firestore.FieldValue.delete(),
+    stravaActivityStartAt: admin.firestore.FieldValue.delete(),
   };
   if (stravaSourced && done) {
     patch.done = false;
@@ -1161,6 +1175,10 @@ exports.stravaCleanupLogMatches = functions
         await clearStravaLinkFromLogDoc(ref, row);
       } else {
         kept += 1;
+        const startAt = activityStartMillis(act);
+        if (startAt != null && !logFieldTimestampMillis(row.stravaActivityStartAt)) {
+          await ref.set({ stravaActivityStartAt: startAt }, { merge: true });
+        }
       }
     }
 

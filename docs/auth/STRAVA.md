@@ -88,7 +88,7 @@ strava: {
 
 Voorkeuren: Firestore `users/{uid}/prefs/strava` → `{ includePrivate }`.
 
-Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, … Route-match (strak): ~**78%** van de klim binnen **30 m** van de GPS-track, begin **en** eind van de klim binnen **~55 m**, gemiddelde afstand samples **≤ 70 m** (geen parallelweg ~1 km verderop). Alleen **buitenritten** (geen VirtualRide/trainer). Callable **`stravaCleanupLogMatches`** ruimt indoor + losse matches op. Laatste sync-run: `lastSyncSummary.matches` (max 120).
+Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, `stravaActivityStartAt` (epoch-ms, Strava `start_date_local`), … Route-match (strak): ~**78%** van de klim binnen **30 m** van de GPS-track, begin **en** eind van de klim binnen **~55 m**, gemiddelde afstand samples **≤ 70 m** (geen parallelweg ~1 km verderop). Alleen **buitenritten** (geen VirtualRide/trainer). Callable **`stravaCleanupLogMatches`** ruimt indoor + losse matches op. Laatste sync-run: `lastSyncSummary.matches` (max 120).
 
 ## 7. Migratie naar nieuw Firebase-project
 

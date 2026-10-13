@@ -144,6 +144,14 @@
     }
     li.appendChild(stravaLink);
 
+    const rideDate = log?.formatStravaRideDate?.(row);
+    if (rideDate) {
+      const dateSpan = document.createElement("span");
+      dateSpan.className = "logbook-ride-date";
+      dateSpan.textContent = rideDate;
+      li.appendChild(dateSpan);
+    }
+
     const unlink = document.createElement("button");
     unlink.type = "button";
     unlink.className = "logbook-unlink-btn";
@@ -206,9 +214,7 @@
       const cc = rowCountry(row) || "?";
       byCountry.set(cc, (byCountry.get(cc) || 0) + 1);
 
-      const year = row.doneUpdatedAt
-        ? new Date(row.doneUpdatedAt).getFullYear()
-        : new Date().getFullYear();
+      const year = log?.stravaRideYear?.(row) ?? new Date().getFullYear();
       byYear.set(year, (byYear.get(year) || 0) + 1);
 
       const climb = await climbMeta(row.datasetId, row.climbId);
@@ -223,7 +229,7 @@
       if (Number.isFinite(elev)) totalElev += elev;
     }
 
-    summaryEl.textContent = `Op basis van ${rows.length} geklommen Strava-koppeling(en) (${metaLoaded} met klimdata). Jaar = datum “gedaan” in logboek.`;
+    summaryEl.textContent = `Op basis van ${rows.length} geklommen Strava-koppeling(en) (${metaLoaded} met klimdata). Jaar = Strava-ritdatum (lokaal); zonder datum valt terug op “gedaan” in logboek.`;
 
     if (grid) {
       grid.hidden = false;
@@ -250,7 +256,7 @@
         .join("");
       breakdown.innerHTML = `
         <h3>Per land</h3><ul>${countryLines}</ul>
-        <h3>Per jaar (gedaan-datum)</h3><ul>${yearLines}</ul>
+        <h3>Per jaar (Strava-rit)</h3><ul>${yearLines}</ul>
         <h3>Per categorie</h3><ul>${catLines}</ul>`;
     }
   }
