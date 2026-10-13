@@ -2,7 +2,7 @@
 
 (function () {
   const MIN_ZOOM_NEARBY_ROUTES = 12;
-  const MIN_ZOOM_MARKER_LABELS = 13;
+  const MIN_ZOOM_MARKER_LABELS = 12;
   const MAX_NEARBY_ROUTES = 40;
   const MAX_DIM_ROUTES = 35;
   const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
@@ -237,7 +237,7 @@
     active: { color: "#6d28d9", weight: 4, opacity: 0.92 },
     detail: { color: "#5b21b6", weight: 5, opacity: 0.95 },
     dim: { color: "#475569", weight: 2.5, opacity: 0.52 },
-    hover: { color: "#7c3aed", weight: 6, opacity: 1 },
+    hover: { color: "#6d28d9", weight: 8, opacity: 1 },
   };
 
   const state = {
@@ -818,9 +818,13 @@
     const showLabel = zoom >= MIN_ZOOM_MARKER_LABELS && label && !dimmed;
 
     if (showLabel) {
+      const bolt =
+        climbLightningScore(entry.climb) != null
+          ? '<span class="fietsklim-map-marker-bolt" aria-hidden="true">⚡</span>'
+          : "";
       const icon = L.divIcon({
         className: "fietsklim-map-marker-host",
-        html: `<div class="fietsklim-map-marker${active ? " is-active" : ""}${done ? " is-done" : ""}${dimmed ? " is-dim" : ""}" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}"><span class="fietsklim-map-marker-label">${label}</span></div>`,
+        html: `<div class="fietsklim-map-marker${active ? " is-active" : ""}${done ? " is-done" : ""}${dimmed ? " is-dim" : ""}" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}">${bolt}<span class="fietsklim-map-marker-label">${label}</span></div>`,
         iconSize: [30, 30],
         iconAnchor: [15, 15],
       });
@@ -870,11 +874,16 @@
       typeof ClimbMetrics.difficultyLegendTitle === "function"
         ? ClimbMetrics.difficultyLegendTitle(entries.map((e) => e.climb))
         : "Zwaarte";
-    el.innerHTML = `<span class="map-difficulty-legend-title">${legendTitle}</span>${tiers
+    const anyLightning = entries.some((e) => climbLightningScore(e.climb) != null);
+    const helpBtn = anyLightning
+      ? `<button type="button" class="map-difficulty-legend-help" data-klimpunten-help title="Uitleg klimpunten">?</button>`
+      : "";
+    el.innerHTML = `<span class="map-difficulty-legend-title">${legendTitle}</span>${helpBtn}${tiers
       .map((t) => {
         const pal = ClimbMetrics.DIFFICULTY_MAP_COLORS[t];
         const n = counts.get(t) || 0;
-        return `<span class="map-difficulty-legend-item"><span class="map-difficulty-swatch" style="background:${pal.fill};border-color:${pal.stroke}"></span>${pal.label} <span class="map-difficulty-count">(${n})</span></span>`;
+        const bolt = String(t).startsWith("L") ? "⚡ " : "";
+        return `<span class="map-difficulty-legend-item"><span class="map-difficulty-swatch" style="background:${pal.fill};border-color:${pal.stroke}"></span>${bolt}${pal.label} <span class="map-difficulty-count">(${n})</span></span>`;
       })
       .join("")}`;
   }
@@ -1021,6 +1030,95 @@
 
   function latLngsFromClimb(climb) {
     return climb.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+  }
+
+  function climbLightningScore(climb) {
+    return typeof ClimbMetrics !== "undefined" ? ClimbMetrics.climbLightningScore(climb) : null;
+  }
+
+  function klimpuntenListSuffix(climb) {
+    const score = climbLightningScore(climb);
+    if (score == null) return "";
+    return ` · ⚡ ${Math.round(score)} kp`;
+  }
+
+  function syncKlimpuntenRow(climb, elId) {
+    const el = $(elId);
+    if (!el) return;
+    const score = climbLightningScore(climb);
+    if (score == null) {
+      el.hidden = true;
+      el.innerHTML = "";
+      return;
+    }
+    el.hidden = false;
+    el.innerHTML = `<span class="climb-klimpunten-score" title="Climbfinder moeilijkheidspunten">⚡ <strong>${Math.round(score)}</strong> klimpunten</span>
+      <button type="button" class="climb-klimpunten-help-btn" data-klimpunten-help>Klimpunten?</button>`;
+  }
+
+  function syncStreetViewRow(climb, elId) {
+    const el = $(elId);
+    if (!el || typeof ClimbMetrics === "undefined") return;
+    const pts = ClimbMetrics.climbStreetViewEndpoints(climb);
+    if (!pts.length) {
+      el.innerHTML = "";
+      el.hidden = true;
+      return;
+    }
+    el.hidden = false;
+    const links = pts
+      .map((p) => {
+        const url = ClimbMetrics.streetViewMapsUrl(p.lat, p.lng);
+        if (!url) return "";
+        return `<a class="climb-streetview-link" href="${url}" target="_blank" rel="noopener noreferrer">Street View — ${p.label}</a>`;
+      })
+      .filter(Boolean)
+      .join("");
+    el.innerHTML = links
+      ? `<span class="climb-streetview-label">Beelden:</span> ${links}`
+      : "";
+  }
+
+  function openKlimpuntenHelpDialog() {
+    const dlg = $("klimpuntenHelpDialog");
+    if (dlg?.showModal) dlg.showModal();
+  }
+
+  function routeMidpointLatLng(latlngs) {
+    if (!latlngs?.length) return null;
+    return latlngs[Math.floor(latlngs.length / 2)];
+  }
+
+  function addRouteScoreMarker(entry, latlngs, layer) {
+    if (!layer || typeof ClimbMetrics === "undefined") return;
+    const label = ClimbMetrics.difficultyMarkerLabel(entry.climb);
+    if (!label) return;
+    const mid = routeMidpointLatLng(latlngs);
+    if (!mid) return;
+    const colors = difficultyColorsForClimb(entry.climb);
+    const bolt = climbLightningScore(entry.climb) != null ? '<span class="fietsklim-route-score-bolt" aria-hidden="true">⚡</span>' : "";
+    const icon = L.divIcon({
+      className: "fietsklim-route-score-host",
+      html: `<div class="fietsklim-route-score" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}">${bolt}<span>${label}</span></div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    });
+    const marker = L.marker(mid, { icon, interactive: false });
+    layer.addLayer(marker);
+  }
+
+  function ensureHoverRouteVisible(latlngs) {
+    if (!state.map || latlngs.length < 2 || state.mapMode === "detail") return;
+    const bounds = L.latLngBounds(latlngs);
+    const padded = state.map.getBounds().pad(-0.05);
+    if (!padded.intersects(bounds)) {
+      state.map.fitBounds(bounds, {
+        padding: [52, 52],
+        maxZoom: Math.max(state.map.getZoom(), MIN_ZOOM_NEARBY_ROUTES),
+        animate: true,
+        duration: 0.35,
+      });
+    }
   }
 
   function climbEndpointStyles(size = "md") {
@@ -1562,6 +1660,8 @@
     $("profileTitleFull").textContent = state.activeClimb.name;
     syncCategoryBadgeElement(state.activeClimb, "profileCategoryBadgeFull");
     $("profileStatsFull").textContent = climbStatsLine(st, state.activeClimb);
+    syncKlimpuntenRow(state.activeClimb, "profileKlimpuntenFull");
+    syncStreetViewRow(state.activeClimb, "profileStreetViewFull");
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(state.activeClimb) : [];
     renderGradientStrip(buckets, "profileGradientStripFull");
@@ -1634,12 +1734,13 @@
     const latlngs = latLngsFromClimb(entry.climb);
     if (latlngs.length < 2) return;
     clearRouteHoverHighlight();
+    ensureHoverRouteVisible(latlngs);
     state.hoveredEntryKey = entryKey(entry);
     state.hoverHighlightGroup = L.layerGroup();
     L.polyline(latlngs, {
       color: "#ffffff",
-      weight: 10,
-      opacity: 0.96,
+      weight: 14,
+      opacity: 0.98,
       lineCap: "round",
       lineJoin: "round",
       interactive: false,
@@ -1940,6 +2041,9 @@
           tooltip: entry.climb.name,
           onClick: () => void selectClimbFromList(entry.climb.id, entry.regionUrl),
         });
+        if (zoom >= MIN_ZOOM_MARKER_LABELS) {
+          addRouteScoreMarker(entry, latlngs, state.viewportRoutesLayer);
+        }
       }
     };
 
@@ -2214,7 +2318,7 @@
         <div class="climb-item-body">
           <h3 class="climb-item-title">${categoryBadgeHtml(climb, "sm")}<span>${climb.name}</span></h3>
           ${datasetLine}
-          <div class="meta">${formatKm(climb.stats.length_m)} · ${climb.stats.avg_gradient_pct}% gem. · +${formatM(climb.stats.elevation_gain_m)} · ${climb.region || ""}${steepestLabel(climb)}</div>
+          <div class="meta">${formatKm(climb.stats.length_m)} · ${climb.stats.avg_gradient_pct}% gem. · +${formatM(climb.stats.elevation_gain_m)}${klimpuntenListSuffix(climb)} · ${climb.region || ""}${steepestLabel(climb)}</div>
           <div>${tags} ${cf}</div>
         </div>
       `;
@@ -2774,6 +2878,8 @@
     $("profileTitle").textContent = climb.name;
     syncCategoryBadgeElement(climb, "profileCategoryBadge");
     $("profileStats").textContent = climbStatsLine(st, climb);
+    syncKlimpuntenRow(climb, "profileKlimpunten");
+    syncStreetViewRow(climb, "profileStreetView");
 
     const buckets =
       typeof ClimbMetrics !== "undefined" ? ClimbMetrics.profileBuckets(climb) : [];
@@ -3433,6 +3539,15 @@
 
   async function init() {
     initMap();
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("[data-klimpunten-help]")) return;
+      e.preventDefault();
+      openKlimpuntenHelpDialog();
+    });
+    $("klimpuntenHelpClose")?.addEventListener("click", () => {
+      $("klimpuntenHelpDialog")?.close?.();
+    });
 
     const index = await loadJson("data/index.json");
     state.indexRegions = index.regions || [];
