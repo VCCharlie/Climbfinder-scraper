@@ -99,6 +99,11 @@ def _locality_name(iso: str, locality_id: int) -> str | None:
     return str(reg.get("name") or "").strip() or None
 
 
+def locality_catalog_name(country_iso: str, locality_id: int) -> str | None:
+    """Climbfinder-regionaam uit climbfinder-regions.json (voor import-meta)."""
+    return _locality_name(country_iso, locality_id)
+
+
 def _is_country_level(iso: str, locality_id: int | None) -> bool:
     if locality_id is None:
         return False

@@ -35,6 +35,11 @@ on:
         description: "Region label stored on each climb"
         required: true
         type: string
+      locality_label:
+        description: "Label for locality id in JSON meta (default: dataset title)"
+        required: false
+        default: ""
+        type: string
       limit:
         description: "Max climbs to import (use 700+ with pages=all for full South Limburg)"
         required: false
@@ -93,8 +98,13 @@ jobs:
           else
             PAGE_ARGS=(--pages "${{ inputs.pages }}")
           fi
+          LOCALITY_LABEL="${{ inputs.locality_label }}"
+          if [ -z "$LOCALITY_LABEL" ]; then
+            LOCALITY_LABEL="${{ inputs.title }}"
+          fi
           python scripts/climbfinder_import.py \
             --locality "${{ inputs.locality }}" \
+            --locality-label "${{ inputs.locality }}:${LOCALITY_LABEL}" \
             "${PAGE_ARGS[@]}" \
             --meta-id "${{ inputs.meta_id }}" \
             --title "${{ inputs.title }}" \
