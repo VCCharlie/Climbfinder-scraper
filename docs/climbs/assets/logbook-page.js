@@ -136,8 +136,9 @@
     return bundle.climbs.find((c) => String(c.id) === String(climbId)) || null;
   }
 
+  /** Strava-logomark (twee oranje strepen), niet het woordmerk. */
   const STRAVA_MARK_SVG =
-    '<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="#fc4c02" d="M15.387 17.944l-2.089-4.116h-3.116L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.599H4.818L1.984 6.772h3.066l2.089 4.116"/></svg>';
+    '<svg class="logbook-strava-mark-svg" viewBox="0 0 384 512" width="11" height="14" aria-hidden="true"><path fill="#fc4c02" d="M158.4 0L7 292.3h48.7L158.4 75.6l71.1 130.3h63.4L158.4 0zm87.2 216.7l-48.7 89.1L292.7 512h48.7L245.6 216.7h-0z"/></svg>';
 
   function logRows() {
     if (!log?.isReady?.() || !log.listEntries) return [];

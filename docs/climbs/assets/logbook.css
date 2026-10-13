@@ -1,25 +1,105 @@
+/* Logboek-pagina: breder scherm + compacte filterbalk */
+.logbook-page .settings-wrap {
+  max-width: min(1140px, 100%);
+}
+
+.logbook-page .settings-lead {
+  margin-bottom: 0.85rem;
+}
+
+.logbook-page .settings-card {
+  padding: 0.85rem 1rem;
+}
+
+.logbook-filters-card {
+  padding: 0.55rem 0.75rem !important;
+}
+
+.logbook-filters-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.logbook-filters-head h2 {
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+}
+
+.logbook-filter-hint {
+  margin: 0 !important;
+  font-size: 0.76rem !important;
+  flex: 1 1 12rem;
+}
+
+.logbook-page .settings-select {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.logbook-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.45rem 0.65rem;
+}
+
 .logbook-filter-grid {
+  flex: 1 1 520px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-  gap: 0.75rem 1rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 0.5rem;
+  margin-top: 0;
+}
+
+@media (min-width: 560px) {
+  .logbook-filter-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .logbook-filter-grid {
+    grid-template-columns:
+      minmax(6.5rem, 1.35fr)
+      minmax(4.5rem, 0.65fr)
+      minmax(4.5rem, 0.65fr)
+      minmax(4rem, 0.75fr)
+      minmax(4rem, 0.6fr)
+      minmax(4rem, 0.6fr)
+      minmax(5.5rem, 1fr);
+  }
 }
 
 .logbook-filter-field .settings-field-label {
-  margin-bottom: 0.25rem;
+  margin: 0 0 0.08rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
 }
 
-.settings-input {
-  width: 100%;
-  padding: 0.5rem 0.55rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font: inherit;
-  box-sizing: border-box;
+.logbook-page .settings-input,
+.logbook-page .settings-select {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.84rem;
+  line-height: 1.25;
 }
 
 .logbook-filter-actions {
-  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
+
+.logbook-filter-btn {
+  padding: 0.32rem 0.55rem !important;
+  font-size: 0.8rem !important;
+  white-space: nowrap;
 }
 
 .logbook-stats-grid {
@@ -84,7 +164,14 @@
 
 .logbook-strava-mark-inline {
   display: inline-flex;
+  align-items: center;
   vertical-align: middle;
+  margin: 0 0.15rem;
+}
+
+.logbook-strava-mark-svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .logbook-row-status {
