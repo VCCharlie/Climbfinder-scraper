@@ -528,8 +528,14 @@
       await callGithubWorkflow(callableName, payload || {}, label || callableName, actionsPath);
     }
 
+    let cfScoresPickerCtx = { countryIso: "", allCountry: false, bundleFile: "" };
+
     document.getElementById("splitMonolithBtn")?.addEventListener("click", async () => {
-      const bundle = (document.getElementById("splitMonolithBundle")?.value || "cf-l45-switzerland.json").trim();
+      const bundle = (document.getElementById("splitMonolithRegion")?.value || "").trim();
+      if (!bundle) {
+        log("FOUT: kies een land-monolith in de lijst (of dit land is al gesplitst).");
+        return;
+      }
       const btn = document.getElementById("splitMonolithBtn");
       btn.disabled = true;
       try {
@@ -555,26 +561,31 @@
     });
 
     function readCfScoresBatchInputs() {
-      const bundle = (document.getElementById("cfScoresBundle")?.value || "").trim();
+      const countryIso = document.getElementById("cfScoresCountry")?.value || "";
+      const regionVal = document.getElementById("cfScoresRegion")?.value || "";
+      const bundle = regionVal && regionVal !== "__country__" ? regionVal : "";
       let batch = parseInt(document.getElementById("cfScoresBatchSize")?.value, 10);
       if (!Number.isFinite(batch) || batch < 50) batch = 500;
       if (batch > 3000) batch = 3000;
       let offset = parseInt(document.getElementById("cfScoresOffset")?.value, 10);
       if (!Number.isFinite(offset) || offset < 0) offset = 0;
-      return { bundle, limit: String(batch), offset: String(offset) };
+      return { bundle, country_iso: countryIso, limit: String(batch), offset: String(offset) };
     }
 
     async function startCfScoresBatch({ bumpOffset = false } = {}) {
-      const { bundle, limit, offset } = readCfScoresBatchInputs();
+      const { bundle, country_iso, limit, offset } = readCfScoresBatchInputs();
       const batchN = Number(limit);
+      const scope =
+        bundle ? `bundle ${bundle}` : country_iso ? `alle ontbrekende in ${country_iso}` : "alle ontbrekende (wereld)";
       const confirmText =
         `Climbfinder-scores batch starten?\n\n` +
+        `• Scope: ${scope}\n` +
         `• Max ${batchN} klimmen deze run (offset ${offset})\n` +
         `• ~${Math.round(batchN * 0.5)}–${Math.round(batchN * 0.9)} min op GitHub\n` +
         `• Na afloop: opnieuw “Start score-batch” tot alles klaar is\n\nDoorgaan?`;
       await dispatchMaintenanceCallable(
         "requestClimbfinderScoreBackfill",
-        { bundle, limit, offset, refetch_all: "false" },
+        { bundle, country_iso, limit, offset, refetch_all: "false" },
         {
           confirmText,
           actionsPath: "backfill-climbfinder-scores.yml",
@@ -1035,6 +1046,27 @@
     function bootImportPage() {
       void refreshPrimaryImportUi();
       refreshImportLimitHint();
+      if (typeof FietsKlimBundlePicker !== "undefined") {
+        void FietsKlimBundlePicker.init({
+          countrySelectId: "splitMonolithCountry",
+          regionSelectId: "splitMonolithRegion",
+          mode: "monolith",
+          hintId: "splitMonolithHint",
+        }).catch((e) => log("Monolith-lijst: " + e.message));
+        void FietsKlimBundlePicker.init({
+          countrySelectId: "cfScoresCountry",
+          regionSelectId: "cfScoresRegion",
+          mode: "scores",
+          hintId: "cfScoresOffsetHint",
+          onRegionChange(bundleFile, ctx) {
+            cfScoresPickerCtx = {
+              bundleFile,
+              countryIso: ctx.countryIso || "",
+              allCountry: !!ctx.allCountry,
+            };
+          },
+        }).catch((e) => log("Score-bundlelijst: " + e.message));
+      }
       bindClimbNameSearch();
       if (typeof FietsKlimClimbLookup !== "undefined") {
         FietsKlimClimbLookup.init({

@@ -5,7 +5,11 @@ on:
   workflow_dispatch:
     inputs:
       bundle:
-        description: "Optioneel: één bundle in docs/climbs/data (leeg = alle)"
+        description: "Optioneel: één bundle in docs/climbs/data (leeg = alle / land-filter)"
+        required: false
+        default: ""
+      country_iso:
+        description: "Optioneel: alleen bundles van dit land (NL, CH, …)"
         required: false
         default: ""
       limit:
@@ -44,6 +48,9 @@ jobs:
           ARGS=(--delay 0.4)
           if [ -n "${{ inputs.bundle }}" ]; then
             ARGS+=(--bundle "${{ inputs.bundle }}")
+          fi
+          if [ -n "${{ inputs.country_iso }}" ]; then
+            ARGS+=(--country-iso "${{ inputs.country_iso }}")
           fi
           if [ "${{ inputs.refetch_all }}" = "true" ]; then
             ARGS+=(--all)
