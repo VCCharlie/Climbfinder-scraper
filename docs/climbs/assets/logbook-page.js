@@ -49,6 +49,44 @@
     return COUNTRY_LABELS[code] || code;
   }
 
+  function formatNlInteger(n) {
+    if (!Number.isFinite(n)) return "0";
+    return Math.round(n).toLocaleString("nl-NL");
+  }
+
+  /** Interne sleutel voor filter/statistiek: HC, 1–5, of __uncat__ */
+  function normalizeCategoryFromClimb(climb) {
+    const raw =
+      climb?.climbfinder?.category ??
+      climb?.classification ??
+      climb?.stats?.classification;
+    if (raw === undefined || raw === null || raw === "") return "__uncat__";
+    const u = String(raw).trim().toUpperCase();
+    if (u === "HC" || u === "H.C." || u === "HORS CATEGORIE") return "HC";
+    const num = parseInt(u, 10);
+    if (Number.isFinite(num) && num >= 1 && num <= 5) return String(num);
+    if (u === "?" || u === "UNKNOWN" || u === "—" || u === "-") return "__uncat__";
+    return "__uncat__";
+  }
+
+  function categoryDisplayLabel(key) {
+    if (key === "__uncat__") return "ongecategoriseerd";
+    if (key === "HC") return "Cat. HC";
+    return `Cat. ${key}`;
+  }
+
+  function categorySortRank(key) {
+    if (key === "HC") return 0;
+    if (key === "__uncat__") return 100;
+    const num = parseInt(key, 10);
+    if (Number.isFinite(num) && num >= 1 && num <= 5) return num;
+    return 99;
+  }
+
+  function compareCategoryKeys(a, b) {
+    return categorySortRank(a) - categorySortRank(b);
+  }
+
   function readFiltersFromForm() {
     filters.country = $("logbookCountryFilter")?.value || "";
     filters.yearFrom = String($("logbookYearFrom")?.value ?? "").trim();
@@ -162,15 +200,6 @@
     return datasetCountry.get(row.datasetId) || "";
   }
 
-  function climbCategory(climb) {
-    return (
-      climb?.climbfinder?.category ||
-      climb?.classification ||
-      climb?.stats?.classification ||
-      ""
-    );
-  }
-
   async function rebuildEnrichedCache() {
     const rows = logRows();
     const out = [];
@@ -183,7 +212,7 @@
         displayName,
         country: rowCountry(row),
         year: log?.logbookEntryYear?.(row) ?? null,
-        category: String(climbCategory(climb) || ""),
+        category: normalizeCategoryFromClimb(climb),
         elevation: Number.isFinite(elev) ? elev : 0,
       });
     }
@@ -228,7 +257,7 @@
     const cats = new Set();
     for (const item of enrichedCache) {
       if (item.country) codes.add(item.country);
-      if (item.category) cats.add(item.category);
+      cats.add(item.category || "__uncat__");
     }
     if (countrySel) {
       const sorted = [...codes].sort();
@@ -238,10 +267,15 @@
       countrySel.value = filters.country;
     }
     if (catSel) {
-      const sorted = [...cats].sort((a, b) => String(a).localeCompare(String(b), "nl"));
+      const sorted = [...cats].sort(compareCategoryKeys);
       catSel.innerHTML =
         `<option value="">Alle categorieën</option>` +
-        sorted.map((c) => `<option value="${c}">Cat. ${escapeHtml(c)}</option>`).join("");
+        sorted
+          .map(
+            (c) =>
+              `<option value="${escapeHtml(c)}">${escapeHtml(categoryDisplayLabel(c))}</option>`
+          )
+          .join("");
       catSel.value = filters.category;
     }
   }
@@ -363,7 +397,7 @@
       summary.textContent =
         total === 0
           ? "Nog geen klimmen in je logboek (gedaan of bucket list)."
-          : `${items.length} van ${total} klim(men) binnen je filters`;
+          : `${formatNlInteger(items.length)} van ${formatNlInteger(total)} klim(men) binnen je filters`;
     }
     for (const { row, displayName } of items) {
       ul.appendChild(renderListItem(row, displayName));
@@ -394,42 +428,49 @@
     let totalElev = 0;
 
     for (const item of items) {
-      const row = item.row;
       const cc = item.country || "?";
       byCountry.set(cc, (byCountry.get(cc) || 0) + 1);
 
-      const year = item.year ?? log?.stravaRideYear?.(row) ?? new Date().getFullYear();
-      byYear.set(year, (byYear.get(year) || 0) + 1);
+      const year = item.year;
+      const yearKey = year != null ? year : "__unknown_year__";
+      byYear.set(yearKey, (byYear.get(yearKey) || 0) + 1);
 
-      const cat = item.category || "?";
+      const cat = item.category || "__uncat__";
       byCategory.set(cat, (byCategory.get(cat) || 0) + 1);
       totalElev += item.elevation;
     }
 
-    summaryEl.textContent = `Statistieken over ${items.length} geklommen klim(men) binnen je filters. Jaar = Strava-ritdatum.`;
+    summaryEl.textContent = `Statistieken over ${formatNlInteger(items.length)} geklommen klim(men) binnen je filters. Jaar = Strava-ritdatum indien bekend, anders datum van handmatig vinken.`;
 
     if (grid) {
       grid.hidden = false;
       grid.innerHTML = `
-        <div class="logbook-stat-card"><strong>${items.length}</strong><span>geklommen</span></div>
-        <div class="logbook-stat-card"><strong>${byCountry.size}</strong><span>landen</span></div>
-        <div class="logbook-stat-card"><strong>${Math.round(totalElev)}</strong><span>hoogtemeters (som)</span></div>
-        <div class="logbook-stat-card"><strong>${byCategory.size}</strong><span>categorieën</span></div>`;
+        <div class="logbook-stat-card"><strong>${formatNlInteger(items.length)}</strong><span>geklommen</span></div>
+        <div class="logbook-stat-card"><strong>${formatNlInteger(byCountry.size)}</strong><span>landen</span></div>
+        <div class="logbook-stat-card"><strong>${formatNlInteger(Math.round(totalElev))}</strong><span>hoogtemeters (som)</span></div>
+        <div class="logbook-stat-card"><strong>${formatNlInteger(byCategory.size)}</strong><span>categorieën</span></div>`;
     }
 
     if (details && breakdown) {
       details.hidden = false;
       const countryLines = [...byCountry.entries()]
         .sort((a, b) => b[1] - a[1])
-        .map(([c, n]) => `<li>${escapeHtml(countryLabel(c))}: ${n}</li>`)
+        .map(([c, n]) => `<li>${escapeHtml(countryLabel(c))}: ${formatNlInteger(n)}</li>`)
         .join("");
       const yearLines = [...byYear.entries()]
-        .sort((a, b) => b[0] - a[0])
-        .map(([y, n]) => `<li>${y}: ${n}</li>`)
+        .sort((a, b) => {
+          const ya = a[0] === "__unknown_year__" ? -1 : Number(a[0]);
+          const yb = b[0] === "__unknown_year__" ? -1 : Number(b[0]);
+          return yb - ya;
+        })
+        .map(([y, n]) => {
+          const label = y === "__unknown_year__" ? "onbekend jaar" : String(y);
+          return `<li>${escapeHtml(label)}: ${formatNlInteger(n)}</li>`;
+        })
         .join("");
       const catLines = [...byCategory.entries()]
-        .sort((a, b) => String(a[0]).localeCompare(String(b[0]), "nl"))
-        .map(([c, n]) => `<li>Cat. ${escapeHtml(c)}: ${n}</li>`)
+        .sort((a, b) => compareCategoryKeys(a[0], b[0]))
+        .map(([c, n]) => `<li>${escapeHtml(categoryDisplayLabel(c))}: ${formatNlInteger(n)}</li>`)
         .join("");
       breakdown.innerHTML = `
         <h3>Per land</h3><ul>${countryLines}</ul>

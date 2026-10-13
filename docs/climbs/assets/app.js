@@ -1016,7 +1016,7 @@
   }
 
   function formatM(m) {
-    return Math.round(m) + " m";
+    return `${Math.round(m).toLocaleString("nl-NL")} m`;
   }
 
   function latLngsFromClimb(climb) {
