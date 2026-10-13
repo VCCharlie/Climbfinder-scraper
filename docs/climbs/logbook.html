@@ -48,11 +48,11 @@
           </select>
         </div>
         <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookYearFrom">Jaar rit (van)</label>
+          <label class="settings-field-label" for="logbookYearFrom">Jaar (van)</label>
           <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2020" />
         </div>
         <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookYearTo">Jaar rit (tot)</label>
+          <label class="settings-field-label" for="logbookYearTo">Jaar (tot)</label>
           <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2025" />
         </div>
         <div class="logbook-filter-field">
@@ -72,9 +72,10 @@
         <div class="logbook-filter-field">
           <label class="settings-field-label" for="logbookDoneFilter">Status</label>
           <select id="logbookDoneFilter" class="settings-select" aria-label="Filter op status">
-            <option value="all">Alle koppelingen</option>
+            <option value="all">Alles in logboek</option>
             <option value="done">Alleen geklommen</option>
-            <option value="notdone">Gekoppeld, niet geklommen</option>
+            <option value="wishlist">Alleen bucket list</option>
+            <option value="strava">Alleen met Strava-koppeling</option>
           </select>
         </div>
       </div>
@@ -95,14 +96,15 @@
     </section>
 
     <section class="settings-card" id="stravaLinksSection" aria-labelledby="stravaLinksTitle">
-      <h2 id="stravaLinksTitle">Gekoppelde klimmen (Strava)</h2>
+      <h2 id="stravaLinksTitle">Logboek-klimmen</h2>
       <p class="settings-hint">
-        Ontkoppel als een klim ten onrechte als gedaan staat (bv. afdaling). Sync en opschonen blijven in
-        <a href="settings.html#stravaSettingsCard">Instellingen → Strava</a>.
+        Alle klimmen met <strong>gedaan</strong> of <strong>bucket list</strong>. Strava-koppelingen hebben het
+        <span class="logbook-strava-mark-inline" title="Strava">oranje logo</span> na de naam; daar kun je ook ontkoppelen.
+        Sync en opschonen: <a href="settings.html#stravaSettingsCard">Instellingen → Strava</a>.
       </p>
       <p id="logbookListSummary" class="settings-status" role="status"></p>
       <ul id="logbookStravaList" class="strava-match-list logbook-strava-list"></ul>
-      <p id="logbookListEmpty" class="settings-hint" hidden>Nog geen Strava-koppelingen in je logboek.</p>
+      <p id="logbookListEmpty" class="settings-hint" hidden>Nog geen klimmen in je logboek.</p>
     </section>
   </div>
 
@@ -111,7 +113,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
-  <script src="assets/climb-log.js?v=20261013logbookfilt1"></script>
-  <script src="assets/logbook-page.js?v=20261013logbookfilt1"></script>
+  <script src="assets/climb-log.js?v=20261013logbookall1"></script>
+  <script src="assets/logbook-page.js?v=20261013logbookall1"></script>
 </body>
 </html>

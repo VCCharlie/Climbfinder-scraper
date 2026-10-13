@@ -75,6 +75,24 @@
   gap: 0.35rem 0.5rem;
 }
 
+.logbook-strava-mark {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+
+.logbook-strava-mark-inline {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.logbook-row-status {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
 .logbook-ride-date {
   font-size: 0.78rem;
   color: #64748b;
