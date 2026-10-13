@@ -70,7 +70,7 @@ Op `import.html` staat een uitklapbaar **“Wat doet wat?”**-overzicht (downlo
 
 Tab **Duplicaten** leest `published-duplicate-climbs.json`. Per slug in meerdere JSON-bestanden: behoud kopie in het **kleinste dataset** (min. klimmen in dat bestand) — niet hetzelfde als herlabelen van `region`.
 
-Na deploy van Functions (workflow **Deploy Climbfinder import function**): **`requestClimbDuplicateRemovals`**, **`requestClimbDedupeAllSmallest`**, **`requestClimbRegionBackfill`** en **`requestClimbMacroBatchImport`** (Klimgebieden → **Importeer gebied**). Zonder Firebase: de bijbehorende workflows handmatig **Run workflow** op GitHub.
+Na deploy van Functions (workflow **Deploy Climbfinder import function**): **`requestClimbDuplicateRemovals`**, **`requestClimbDedupeAllSmallest`**, **`requestClimbRegionBackfill`**, **`requestClimbMacroBatchImport`** (Klimgebieden → **Importeer gebied**), **`requestSplitMonolithBundle`** (Onderhoud → monolith splitsen) en **`requestClimbfinderScoreBackfill`** (difficulty points op bestaande klimmen). Zonder Firebase: de bijbehorende workflows handmatig **Run workflow** op GitHub.
 
 ### Heel klimgebied (macro) — tab Klimgebieden
 
@@ -214,7 +214,7 @@ firebase functions:config:set \
   github.repo="VCCharlie/Climbfinder-scraper" \
   github.ref="main"
 
-firebase deploy --only functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport
+firebase deploy --only functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill
 ```
 
 In `firebase-config.js`:

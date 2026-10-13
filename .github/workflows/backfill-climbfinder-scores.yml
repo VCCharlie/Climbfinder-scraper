@@ -1,0 +1,62 @@
+# Climbfinder difficulty points + category op bestaande klimmen (geen geometry re-import).
+name: Backfill Climbfinder scores
+
+on:
+  workflow_dispatch:
+    inputs:
+      bundle:
+        description: "Optioneel: één bundle in docs/climbs/data (leeg = alle)"
+        required: false
+        default: ""
+      limit:
+        description: "Max klimmen (0 = alles wat mist)"
+        required: true
+        default: "0"
+      refetch_all:
+        description: "Ook bestaande scores verversen (true/false)"
+        required: true
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backfill-climbfinder-scores-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Backfill Climbfinder scores
+        run: |
+          ARGS=(--delay 0.4)
+          if [ -n "${{ inputs.bundle }}" ]; then
+            ARGS+=(--bundle "${{ inputs.bundle }}")
+          fi
+          if [ "${{ inputs.refetch_all }}" = "true" ]; then
+            ARGS+=(--all)
+          fi
+          if [ "${{ inputs.limit }}" != "0" ]; then
+            ARGS+=(--limit "${{ inputs.limit }}")
+          fi
+          python scripts/backfill_climbfinder_scores.py "${ARGS[@]}"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/climbs/data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "data(climbs): backfill Climbfinder difficulty points"
+          bash scripts/ci_push_main.sh main

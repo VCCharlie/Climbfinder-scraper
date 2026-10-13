@@ -19,6 +19,8 @@ const WORKFLOW_DEDUPE = "remove-duplicate-climbs.yml";
 const WORKFLOW_DEDUPE_ALL = "dedupe-all-smallest-region.yml";
 const WORKFLOW_BACKFILL_REGIONS = "backfill-climb-regions.yml";
 const WORKFLOW_MACRO_BATCH = "macro-klimgebied-import-batch.yml";
+const WORKFLOW_SPLIT_MONOLITH = "split-monolith-bundle.yml";
+const WORKFLOW_BACKFILL_CF_SCORES = "backfill-climbfinder-scores.yml";
 
 function allowedEmail(email) {
   const cfg = functions.config().auth || {};
@@ -270,6 +272,103 @@ exports.requestClimbRegionBackfill = functions.region("europe-west1").https.onCa
     message:
       "Backfill gestart: herlabel region (weergave) + display/resolved locality op alle klimmen. Duurt enkele minuten.",
     actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_REGIONS}`,
+  };
+});
+
+async function dispatchWorkflow(pat, repo, ref, workflowFile, inputs) {
+  const [owner, name] = repo.split("/");
+  if (!owner || !name) {
+    throw new functions.https.HttpsError("internal", "github.repo moet owner/name zijn.");
+  }
+  const url = `https://api.github.com/repos/${owner}/${name}/actions/workflows/${workflowFile}/dispatches`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${pat}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ref, inputs }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    functions.logger.error(`GitHub dispatch failed ${workflowFile}`, res.status, text);
+    throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
+  }
+  return { owner, name };
+}
+
+exports.requestSplitMonolithBundle = functions.region("europe-west1").https.onCall(async (data, context) => {
+  if (!context.auth?.token?.email) {
+    throw new functions.https.HttpsError("unauthenticated", "Log in met Google.");
+  }
+  if (!allowedEmail(context.auth.token.email)) {
+    throw new functions.https.HttpsError("permission-denied", "Geen toegang.");
+  }
+
+  const gh = functions.config().github || {};
+  const pat = gh.pat;
+  if (!pat) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "GitHub PAT niet geconfigureerd op Firebase Functions. Zie docs/auth/GITHUB_IMPORT.md"
+    );
+  }
+
+  const repo = gh.repo || "VCCharlie/Climbfinder-scraper";
+  const ref = gh.ref || "main";
+  const bundle = String(data.bundle || "cf-l45-switzerland.json").trim() || "cf-l45-switzerland.json";
+  const geoFallback = String(data.geo_fallback != null ? data.geo_fallback : "true");
+  const removeSource = String(data.remove_source != null ? data.remove_source : "true");
+
+  const { owner, name } = await dispatchWorkflow(pat, repo, ref, WORKFLOW_SPLIT_MONOLITH, {
+    bundle,
+    geo_fallback: geoFallback,
+    remove_source: removeSource,
+  });
+
+  return {
+    ok: true,
+    message: `Monolith-split gestart voor ${bundle} (geo=${geoFallback}, remove=${removeSource}).`,
+    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_SPLIT_MONOLITH}`,
+  };
+});
+
+exports.requestClimbfinderScoreBackfill = functions.region("europe-west1").https.onCall(async (data, context) => {
+  if (!context.auth?.token?.email) {
+    throw new functions.https.HttpsError("unauthenticated", "Log in met Google.");
+  }
+  if (!allowedEmail(context.auth.token.email)) {
+    throw new functions.https.HttpsError("permission-denied", "Geen toegang.");
+  }
+
+  const gh = functions.config().github || {};
+  const pat = gh.pat;
+  if (!pat) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "GitHub PAT niet geconfigureerd op Firebase Functions. Zie docs/auth/GITHUB_IMPORT.md"
+    );
+  }
+
+  const repo = gh.repo || "VCCharlie/Climbfinder-scraper";
+  const ref = gh.ref || "main";
+  const bundle = String(data.bundle || "").trim();
+  const limit = String(data.limit != null ? data.limit : "0");
+  const refetchAll = String(data.refetch_all != null ? data.refetch_all : "false");
+
+  const { owner, name } = await dispatchWorkflow(pat, repo, ref, WORKFLOW_BACKFILL_CF_SCORES, {
+    bundle,
+    limit,
+    refetch_all: refetchAll,
+  });
+
+  return {
+    ok: true,
+    message:
+      "Climbfinder-scores backfill gestart: difficulty points + categorie op bestaande klimmen (geen route opnieuw).",
+    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_CF_SCORES}`,
   };
 });
 
