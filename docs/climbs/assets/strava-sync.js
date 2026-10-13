@@ -128,8 +128,6 @@
     if (hash !== "stravaSettingsCard") return;
     const card = $("stravaSettingsCard");
     card?.scrollIntoView?.({ behavior: "smooth", block: "start" });
-    const logDetails = $("stravaLogMatchList")?.closest("details");
-    if (logDetails) logDetails.open = true;
   }
 
   function renderStravaMatchPanels() {
@@ -145,8 +143,8 @@
     const linked = log?.isReady?.() && log.listStravaLinked ? log.listStravaLinked() : [];
 
     if (totalEl) {
-      totalEl.textContent = linked.length
-        ? `${linked.length} klim(men) gekoppeld aan een Strava-rit in je logboek`
+      totalEl.innerHTML = linked.length
+        ? `${linked.length} klim(men) gekoppeld — zie <a href="logbook.html">Logboek</a>`
         : "Nog geen klimmen met Strava-rit in je logboek";
     }
 
@@ -154,15 +152,6 @@
     fillMatchList($("stravaLastSyncMatchList"), lastMatches, $("stravaLastSyncMatchEmpty"), {
       back: "settings",
     });
-
-    const logItems = linked.map((r) => ({
-      datasetId: r.datasetId,
-      climbId: r.climbId,
-      climbName: r.stravaClimbName || r.climbId,
-      activityId: r.stravaActivityId,
-      activityName: r.stravaActivityName,
-    }));
-    fillMatchList($("stravaLogMatchList"), logItems, $("stravaLogMatchEmpty"), { back: "settings" });
   }
 
   function setupHint(setup) {

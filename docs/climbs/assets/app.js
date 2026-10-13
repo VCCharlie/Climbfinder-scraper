@@ -736,25 +736,31 @@
     });
   }
 
-  function syncClimbDetailLogToggles() {
-    const logWrap = $("climbDetailLogWrap");
-    const openBtn = $("climbStatusOpen");
-    const summary = $("climbStatusSummary");
-    if (!logWrap || !openBtn) return;
-    if (!state.activeClimb || !state.bundle?.meta?.id || state.mapMode !== "detail") {
-      logWrap.hidden = true;
-      closeClimbStatusMenu();
-      return;
-    }
-    logWrap.hidden = false;
-    const entry = {
+  function activeClimbLogEntry() {
+    if (!state.activeClimb || !state.bundle?.meta?.id) return null;
+    return {
       climb: state.activeClimb,
       regionId: state.bundle.meta.id,
       regionUrl: state.currentRegionUrl,
     };
-    if (summary) summary.textContent = climbStatusSummaryText(entry);
-    bindClimbStatusMenu(entry);
-    syncClimbStatusMenu(entry);
+  }
+
+  function syncClimbDetailLogToggles() {
+    const logWrap = $("climbDetailLogWrap");
+    const toggles = $("climbDetailStatusToggles");
+    if (!logWrap || !toggles) return;
+    const entry = activeClimbLogEntry();
+    if (!entry || state.mapMode !== "detail") {
+      logWrap.hidden = true;
+      return;
+    }
+    logWrap.hidden = false;
+    const done = climbIsDone(entry);
+    const wish = climbIsWishlist(entry);
+    toggles.querySelector(".climb-status-icon-btn--done")?.classList.toggle("is-on", done);
+    toggles.querySelector(".climb-status-icon-btn--done")?.setAttribute("aria-pressed", done ? "true" : "false");
+    toggles.querySelector(".climb-status-icon-btn--wish")?.classList.toggle("is-on", wish);
+    toggles.querySelector(".climb-status-icon-btn--wish")?.setAttribute("aria-pressed", wish ? "true" : "false");
   }
 
   function syncProfileExpandLogToggles() {
@@ -3523,10 +3529,23 @@
         closeClimbStatusMenu();
       }
     }
-    $("climbStatusOpen")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleClimbStatusPicker("climbStatusMenu", "climbStatusOpen", () => syncClimbDetailLogToggles());
-    });
+    const climbDetailToggles = $("climbDetailStatusToggles");
+    if (climbDetailToggles && !climbDetailToggles.dataset.bound) {
+      climbDetailToggles.dataset.bound = "1";
+      climbDetailToggles.addEventListener("click", (e) => {
+        const btn = e.target.closest(".climb-status-icon-btn");
+        if (!btn || !climbDetailToggles.contains(btn)) return;
+        e.stopPropagation();
+        const entry = activeClimbLogEntry();
+        if (!entry) return;
+        const flag = btn.dataset.flag;
+        if (flag === "done") {
+          void applyClimbStatusFlags(entry, { done: !climbIsDone(entry) });
+        } else if (flag === "wishlist") {
+          void applyClimbStatusFlags(entry, { wishlist: !climbIsWishlist(entry) });
+        }
+      });
+    }
     const profileExpandToggles = $("profileExpandStatusToggles");
     if (profileExpandToggles && !profileExpandToggles.dataset.bound) {
       profileExpandToggles.dataset.bound = "1";
