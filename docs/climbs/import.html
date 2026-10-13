@@ -334,9 +334,25 @@
           Slugs met ranking-index → direct; rest via geo-fallback (startpunt → dichtstbijzijnde Climbfinder-regio, geen macro-klimgebieden).
           Daarna index rebuild + dedupe (kleinste dataset wint).
         </p>
+        <label for="splitMonolithBundle">Monolith-bestand (in <code>data/</code>)</label>
+        <input type="text" id="splitMonolithBundle" value="cf-l45-switzerland.json" style="max-width:22rem;margin-bottom:0.5rem" />
+        <button type="button" id="splitMonolithBtn" class="secondary">
+          Splits land-monolith naar subregio’s (GitHub)
+        </button>
         <p class="actions-links">
-          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/split-monolith-bundle.yml" target="_blank" rel="noopener">Open Actions → Split monolith climb bundle</a>
-          · lokaal: <code>python scripts/split_monolith_bundle.py --bundle cf-l45-switzerland.json --geo-fallback --remove-source</code>
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/split-monolith-bundle.yml" target="_blank" rel="noopener">Open Actions → Split monolith</a>
+        </p>
+        <p class="hint" style="margin-top:1rem">
+          <strong>Climbfinder-scores</strong> (difficulty points + HC/1–5): alleen de score van de klimpagina ophalen en
+          koppelen aan bestaande klimmen met dezelfde <code>climbfinder.slug</code> — geen route/profiel opnieuw importeren.
+        </p>
+        <label for="cfScoresBundle">Optioneel: één bundle (leeg = alle ontbrekende scores)</label>
+        <input type="text" id="cfScoresBundle" placeholder="bv. cf-l277-south-holland.json" style="max-width:22rem;margin-bottom:0.5rem" />
+        <button type="button" id="backfillCfScoresBtn" class="secondary">
+          Vul ontbrekende Climbfinder-scores (GitHub)
+        </button>
+        <p class="actions-links">
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climbfinder-scores.yml" target="_blank" rel="noopener">Open Actions → Backfill Climbfinder scores</a>
         </p>
       </div>
 
@@ -913,6 +929,82 @@
           log("");
           log("Tip: deploy Firebase Functions opnieuw (inclusief requestClimbRegionBackfill).");
           log("GitHub → Actions → Deploy Climbfinder import function → Run workflow.");
+        }
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    async function dispatchMaintenanceCallable(callableName, payload, { confirmText, actionsPath, manualHint }) {
+      if (!isUnlocked()) {
+        log("FOUT: eerst inloggen.");
+        return;
+      }
+      if (confirmText && !confirm(confirmText)) {
+        return;
+      }
+      const cfg = githubImportConfig();
+      const actionsUrl = `https://github.com/${GITHUB_REPO}/actions/workflows/${actionsPath}`;
+      if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
+        log(`Start workflow (${callableName})…`);
+        const fn = firebase.app().functions(cfg.region || "europe-west1").httpsCallable(callableName);
+        const res = await fn(payload || {});
+        log(res.data.message || "Workflow gestart.");
+        log(res.data.actionsUrl || actionsUrl);
+        if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
+      } else {
+        log("Firebase één-klik niet actief — start de workflow handmatig op GitHub.");
+        if (manualHint) log(manualHint);
+        window.open(actionsUrl, "_blank", "noopener");
+      }
+    }
+
+    document.getElementById("splitMonolithBtn")?.addEventListener("click", async () => {
+      const bundle = (document.getElementById("splitMonolithBundle")?.value || "cf-l45-switzerland.json").trim();
+      const btn = document.getElementById("splitMonolithBtn");
+      btn.disabled = true;
+      try {
+        await dispatchMaintenanceCallable(
+          "requestSplitMonolithBundle",
+          { bundle, geo_fallback: "true", remove_source: "true" },
+          {
+            confirmText:
+              `Monolith ${bundle} opsplitsen naar subregio-bundles?\n\n` +
+              "Geo-fallback voor slugs zonder index; daarna dedupe. Commit op main via Actions.",
+            actionsPath: "split-monolith-bundle.yml",
+            manualHint: "Actions → Split monolith climb bundle → bundle-naam invullen.",
+          }
+        );
+      } catch (e) {
+        log("FOUT: " + formatCallableError(e));
+        if (/not-found|404|UNIMPLEMENTED/i.test(formatCallableError(e))) {
+          log("Tip: deploy Functions opnieuw (requestSplitMonolithBundle).");
+        }
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("backfillCfScoresBtn")?.addEventListener("click", async () => {
+      const bundle = (document.getElementById("cfScoresBundle")?.value || "").trim();
+      const btn = document.getElementById("backfillCfScoresBtn");
+      btn.disabled = true;
+      try {
+        await dispatchMaintenanceCallable(
+          "requestClimbfinderScoreBackfill",
+          { bundle, limit: "0", refetch_all: "false" },
+          {
+            confirmText:
+              "Ontbrekende Climbfinder difficulty points + categorie ophalen?\n\n" +
+              "Eén HTTP-request per klim (slug); kan ~1 uur duren voor duizenden klimmen. Doorgaan?",
+            actionsPath: "backfill-climbfinder-scores.yml",
+            manualHint: "Actions → Backfill Climbfinder scores → Run workflow.",
+          }
+        );
+      } catch (e) {
+        log("FOUT: " + formatCallableError(e));
+        if (/not-found|404|UNIMPLEMENTED/i.test(formatCallableError(e))) {
+          log("Tip: deploy Functions opnieuw (requestClimbfinderScoreBackfill).");
         }
       } finally {
         btn.disabled = false;
