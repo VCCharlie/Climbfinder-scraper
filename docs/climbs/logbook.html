@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/settings.css?v=20261013logbook1" />
-  <link rel="stylesheet" href="assets/logbook.css?v=20261013logbookfilt1" />
+  <link rel="stylesheet" href="assets/logbook.css?v=20261013logbookcompact1" />
 </head>
 <body class="fietsklim-locked settings-page logbook-page">
   <div id="fietsklim-auth-gate">
@@ -35,52 +35,56 @@
     <h1>Logboek</h1>
     <p class="settings-lead">Strava-koppelingen, statistieken en handmatig ontkoppelen per klim.</p>
 
-    <section class="settings-card" id="logbookFiltersSection" aria-labelledby="logbookFiltersTitle">
-      <h2 id="logbookFiltersTitle">Filters</h2>
-      <p class="settings-hint">
-        Stel zelf bereiken in; lijst en statistieken volgen dezelfde filters. Leeg laten = geen grens aan die kolom.
-      </p>
-      <div class="logbook-filter-grid">
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookCountryFilter">Land</label>
-          <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
-            <option value="">Alle landen</option>
-          </select>
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookYearFrom">Jaar rit (van)</label>
-          <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2020" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookYearTo">Jaar rit (tot)</label>
-          <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2025" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookCategoryFilter">Categorie</label>
-          <select id="logbookCategoryFilter" class="settings-select" aria-label="Filter op categorie">
-            <option value="">Alle categorieën</option>
-          </select>
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookElevMin">Hoogtemeters min</label>
-          <input type="number" id="logbookElevMin" class="settings-input" min="0" step="10" placeholder="m" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookElevMax">Hoogtemeters max</label>
-          <input type="number" id="logbookElevMax" class="settings-input" min="0" step="10" placeholder="m" />
-        </div>
-        <div class="logbook-filter-field">
-          <label class="settings-field-label" for="logbookDoneFilter">Status</label>
-          <select id="logbookDoneFilter" class="settings-select" aria-label="Filter op status">
-            <option value="all">Alle koppelingen</option>
-            <option value="done">Alleen geklommen</option>
-            <option value="notdone">Gekoppeld, niet geklommen</option>
-          </select>
-        </div>
+    <section class="settings-card logbook-filters-card" id="logbookFiltersSection" aria-labelledby="logbookFiltersTitle">
+      <div class="logbook-filters-head">
+        <h2 id="logbookFiltersTitle">Filters</h2>
+        <p class="settings-hint logbook-filter-hint">
+          Leeg laten = geen grens; lijst en statistieken volgen dezelfde filters.
+        </p>
       </div>
-      <div class="settings-actions settings-actions--compact logbook-filter-actions">
-        <button type="button" id="logbookFiltersApply" class="secondary">Toepassen</button>
-        <button type="button" id="logbookFiltersReset" class="secondary">Filters wissen</button>
+      <div class="logbook-filter-bar">
+        <div class="logbook-filter-grid">
+          <div class="logbook-filter-field logbook-filter-field--land">
+            <label class="settings-field-label" for="logbookCountryFilter">Land</label>
+            <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <div class="logbook-filter-field logbook-filter-field--year">
+            <label class="settings-field-label" for="logbookYearFrom">Jaar van</label>
+            <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="2020" />
+          </div>
+          <div class="logbook-filter-field logbook-filter-field--year">
+            <label class="settings-field-label" for="logbookYearTo">Jaar tot</label>
+            <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="2025" />
+          </div>
+          <div class="logbook-filter-field">
+            <label class="settings-field-label" for="logbookCategoryFilter">Cat.</label>
+            <select id="logbookCategoryFilter" class="settings-select" aria-label="Filter op categorie">
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <div class="logbook-filter-field logbook-filter-field--elev">
+            <label class="settings-field-label" for="logbookElevMin">Hm min</label>
+            <input type="number" id="logbookElevMin" class="settings-input" min="0" step="10" placeholder="m" />
+          </div>
+          <div class="logbook-filter-field logbook-filter-field--elev">
+            <label class="settings-field-label" for="logbookElevMax">Hm max</label>
+            <input type="number" id="logbookElevMax" class="settings-input" min="0" step="10" placeholder="m" />
+          </div>
+          <div class="logbook-filter-field logbook-filter-field--status">
+            <label class="settings-field-label" for="logbookDoneFilter">Status</label>
+            <select id="logbookDoneFilter" class="settings-select" aria-label="Filter op status">
+              <option value="all">Alles</option>
+              <option value="done">Geklommen</option>
+              <option value="notdone">Niet geklommen</option>
+            </select>
+          </div>
+        </div>
+        <div class="logbook-filter-actions">
+          <button type="button" id="logbookFiltersApply" class="secondary logbook-filter-btn">Toepassen</button>
+          <button type="button" id="logbookFiltersReset" class="secondary logbook-filter-btn">Wissen</button>
+        </div>
       </div>
     </section>
 
