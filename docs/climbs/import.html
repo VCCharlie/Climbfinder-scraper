@@ -328,6 +328,16 @@
         <p class="actions-links">
           <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml" target="_blank" rel="noopener">Open Actions → Backfill climb regions</a>
         </p>
+        <p class="hint" style="margin-top:1rem">
+          <strong>Land-monolith opsplitsen</strong> (bv. <code>cf-l45-switzerland.json</code> na een hele-land import):
+          verdeel klimmen naar de juiste subregio-bundles <em>zonder</em> opnieuw te downloaden.
+          Slugs met ranking-index → direct; rest via geo-fallback (startpunt → dichtstbijzijnde Climbfinder-regio, geen macro-klimgebieden).
+          Daarna index rebuild + dedupe (kleinste dataset wint).
+        </p>
+        <p class="actions-links">
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/split-monolith-bundle.yml" target="_blank" rel="noopener">Open Actions → Split monolith climb bundle</a>
+          · lokaal: <code>python scripts/split_monolith_bundle.py --bundle cf-l45-switzerland.json --geo-fallback --remove-source</code>
+        </p>
       </div>
 
       <div id="panelManual" class="panel">

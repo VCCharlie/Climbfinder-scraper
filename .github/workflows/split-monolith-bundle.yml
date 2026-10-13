@@ -1,0 +1,67 @@
+# Split een land-monolith (bv. cf-l45-switzerland) naar subregio-bundles zonder re-import.
+name: Split monolith climb bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      bundle:
+        description: "Bundle filename in docs/climbs/data (bv. cf-l45-switzerland.json)"
+        required: true
+        default: "cf-l45-switzerland.json"
+      geo_fallback:
+        description: "Geo-fallback voor slugs zonder index (true/false)"
+        required: true
+        default: "true"
+      remove_source:
+        description: "Verwijder monolith na split als alles toegewezen (true/false)"
+        required: true
+        default: "true"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: split-monolith-bundle-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  split:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build slug resolution index
+        run: python scripts/build_region_hierarchy.py
+
+      - name: Split monolith bundle
+        run: |
+          GEO_FLAG=""
+          if [ "${{ inputs.geo_fallback }}" = "true" ]; then
+            GEO_FLAG="--geo-fallback"
+          fi
+          REMOVE_FLAG=""
+          if [ "${{ inputs.remove_source }}" = "true" ]; then
+            REMOVE_FLAG="--remove-source"
+          fi
+          python scripts/split_monolith_bundle.py \
+            --bundle "docs/climbs/data/${{ inputs.bundle }}" \
+            $GEO_FLAG \
+            $REMOVE_FLAG \
+            --report out/split-monolith-report.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/climbs/data/ out/split-monolith-report.json 2>/dev/null || git add docs/climbs/data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "data(climbs): split monolith ${{ inputs.bundle }} into subregion bundles"
+          bash scripts/ci_push_main.sh main
