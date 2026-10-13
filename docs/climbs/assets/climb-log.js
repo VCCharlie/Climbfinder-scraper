@@ -673,6 +673,7 @@
         stravaClimbName: firebase.firestore.FieldValue.delete(),
         stravaAscentCount: firebase.firestore.FieldValue.delete(),
         matchCoverage: firebase.firestore.FieldValue.delete(),
+        stravaActivityStartAt: firebase.firestore.FieldValue.delete(),
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
       if (src && d) {
@@ -696,6 +697,7 @@
     delete next.stravaClimbName;
     delete next.stravaAscentCount;
     delete next.matchCoverage;
+    delete next.stravaActivityStartAt;
     if (stravaSourced && done) {
       next.done = false;
       next.source = "manual";
@@ -770,6 +772,29 @@
     }
   }
 
+  /** Jaar van de Strava-rit (ms), anders doneUpdatedAt. */
+  function stravaRideYear(row) {
+    const rideAt = timestampMillis(row?.stravaActivityStartAt);
+    if (rideAt > 0) return new Date(rideAt).getFullYear();
+    const doneAt = timestampMillis(row?.doneUpdatedAt);
+    if (doneAt > 0) return new Date(doneAt).getFullYear();
+    return null;
+  }
+
+  function formatStravaRideDate(row, locale = "nl-NL") {
+    const rideAt = timestampMillis(row?.stravaActivityStartAt);
+    if (rideAt <= 0) return "";
+    try {
+      return new Date(rideAt).toLocaleDateString(locale, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    } catch {
+      return "";
+    }
+  }
+
   function applyStravaActivityAnchor(anchor, activityId) {
     if (!anchor || !activityId) return;
     const url = stravaActivityOpenUrl(activityId);
@@ -815,6 +840,8 @@
     getLogEntry,
     listStravaLinked,
     clearStravaLink,
+    stravaRideYear,
+    formatStravaRideDate,
     stravaActivityUrl,
     stravaActivityWebUrl,
     stravaActivityOpenUrl,
