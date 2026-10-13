@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "total_climbs": 29071,
+  "total_climbs": 29070,
   "unique_climbs": 29070,
-  "duplicate_rows_across_regions": 1,
-  "region_count": 88,
+  "duplicate_rows_across_regions": 0,
+  "region_count": 110,
   "regions": [
     {
       "id": "cf-l315-belgian-luxembourg",
@@ -51,13 +51,211 @@
       "locality_id": 357
     },
     {
-      "id": "cf-l45-switzerland",
-      "title": "Switzerland",
-      "displayTitle": "Switzerland",
+      "id": "cf-l507-appenzell",
+      "title": "Appenzell",
+      "displayTitle": "Appenzell",
       "country": "CH",
-      "url": "data/cf-l45-switzerland.json",
-      "count": 2000,
-      "locality_id": 45
+      "url": "data/cf-l507-appenzell.json",
+      "count": 25,
+      "locality_id": 507
+    },
+    {
+      "id": "cf-l503-argovia",
+      "title": "Argovia",
+      "displayTitle": "Argovia",
+      "country": "CH",
+      "url": "data/cf-l503-argovia.json",
+      "count": 309,
+      "locality_id": 503
+    },
+    {
+      "id": "cf-l504-basle-country-city",
+      "title": "Basle-Country & City",
+      "displayTitle": "Basle-Country & City",
+      "country": "CH",
+      "url": "data/cf-l504-basle-country-city.json",
+      "count": 373,
+      "locality_id": 504
+    },
+    {
+      "id": "cf-l499-bern",
+      "title": "Bern",
+      "displayTitle": "Bern",
+      "country": "CH",
+      "url": "data/cf-l499-bern.json",
+      "count": 147,
+      "locality_id": 499
+    },
+    {
+      "id": "cf-l500-fribourg",
+      "title": "Fribourg",
+      "displayTitle": "Fribourg",
+      "country": "CH",
+      "url": "data/cf-l500-fribourg.json",
+      "count": 54,
+      "locality_id": 500
+    },
+    {
+      "id": "cf-l66-geneva",
+      "title": "Geneva",
+      "displayTitle": "Geneva",
+      "country": "CH",
+      "url": "data/cf-l66-geneva.json",
+      "count": 13,
+      "locality_id": 66
+    },
+    {
+      "id": "cf-l508-glarus",
+      "title": "Glarus",
+      "displayTitle": "Glarus",
+      "country": "CH",
+      "url": "data/cf-l508-glarus.json",
+      "count": 38,
+      "locality_id": 508
+    },
+    {
+      "id": "cf-l506-grisons",
+      "title": "Grisons",
+      "displayTitle": "Grisons",
+      "country": "CH",
+      "url": "data/cf-l506-grisons.json",
+      "count": 91,
+      "locality_id": 506
+    },
+    {
+      "id": "cf-l496-kanton-jura",
+      "title": "Kanton Jura",
+      "displayTitle": "Kanton Jura",
+      "country": "CH",
+      "url": "data/cf-l496-kanton-jura.json",
+      "count": 44,
+      "locality_id": 496
+    },
+    {
+      "id": "cf-l505-lucerne",
+      "title": "Lucerne",
+      "displayTitle": "Lucerne",
+      "country": "CH",
+      "url": "data/cf-l505-lucerne.json",
+      "count": 55,
+      "locality_id": 505
+    },
+    {
+      "id": "cf-l497-neuchatel",
+      "title": "Neuchatel",
+      "displayTitle": "Neuchatel",
+      "country": "CH",
+      "url": "data/cf-l497-neuchatel.json",
+      "count": 48,
+      "locality_id": 497
+    },
+    {
+      "id": "cf-l509-nidwald-obwald",
+      "title": "Nidwald & Obwald",
+      "displayTitle": "Nidwald & Obwald",
+      "country": "CH",
+      "url": "data/cf-l509-nidwald-obwald.json",
+      "count": 37,
+      "locality_id": 509
+    },
+    {
+      "id": "cf-l512-saint-gallen",
+      "title": "Saint Gallen",
+      "displayTitle": "Saint Gallen",
+      "country": "CH",
+      "url": "data/cf-l512-saint-gallen.json",
+      "count": 58,
+      "locality_id": 512
+    },
+    {
+      "id": "cf-l510-schaffhausen",
+      "title": "Schaffhausen",
+      "displayTitle": "Schaffhausen",
+      "country": "CH",
+      "url": "data/cf-l510-schaffhausen.json",
+      "count": 17,
+      "locality_id": 510
+    },
+    {
+      "id": "cf-l511-schwyz",
+      "title": "Schwyz",
+      "displayTitle": "Schwyz",
+      "country": "CH",
+      "url": "data/cf-l511-schwyz.json",
+      "count": 55,
+      "locality_id": 511
+    },
+    {
+      "id": "cf-l502-solothurn",
+      "title": "Solothurn",
+      "displayTitle": "Solothurn",
+      "country": "CH",
+      "url": "data/cf-l502-solothurn.json",
+      "count": 138,
+      "locality_id": 502
+    },
+    {
+      "id": "cf-l514-tessin",
+      "title": "Tessin",
+      "displayTitle": "Tessin",
+      "country": "CH",
+      "url": "data/cf-l514-tessin.json",
+      "count": 100,
+      "locality_id": 514
+    },
+    {
+      "id": "cf-l513-thurgovia",
+      "title": "Thurgovia",
+      "displayTitle": "Thurgovia",
+      "country": "CH",
+      "url": "data/cf-l513-thurgovia.json",
+      "count": 27,
+      "locality_id": 513
+    },
+    {
+      "id": "cf-l515-uri",
+      "title": "Uri",
+      "displayTitle": "Uri",
+      "country": "CH",
+      "url": "data/cf-l515-uri.json",
+      "count": 33,
+      "locality_id": 515
+    },
+    {
+      "id": "cf-l365-valais",
+      "title": "Valais",
+      "displayTitle": "Valais",
+      "country": "CH",
+      "url": "data/cf-l365-valais.json",
+      "count": 129,
+      "locality_id": 365
+    },
+    {
+      "id": "cf-l405-vaud",
+      "title": "Vaud",
+      "displayTitle": "Vaud",
+      "country": "CH",
+      "url": "data/cf-l405-vaud.json",
+      "count": 123,
+      "locality_id": 405
+    },
+    {
+      "id": "cf-l516-zug",
+      "title": "Zug",
+      "displayTitle": "Zug",
+      "country": "CH",
+      "url": "data/cf-l516-zug.json",
+      "count": 23,
+      "locality_id": 516
+    },
+    {
+      "id": "cf-l517-z-rich",
+      "title": "Zürich",
+      "displayTitle": "Zürich",
+      "country": "CH",
+      "url": "data/cf-l517-z-rich.json",
+      "count": 63,
+      "locality_id": 517
     },
     {
       "id": "cf-l893-cologne",
@@ -199,7 +397,7 @@
       "displayTitle": "Haute Savoie",
       "country": "FR",
       "url": "data/cf-l288-haute-savoie.json",
-      "count": 237,
+      "count": 236,
       "locality_id": 288
     },
     {
