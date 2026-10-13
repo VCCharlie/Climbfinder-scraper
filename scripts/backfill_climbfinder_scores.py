@@ -109,8 +109,11 @@ def apply_scores(climb: dict, scores: dict) -> bool:
     return changed
 
 
-def build_queue(bundle_filter: str, missing_only: bool) -> list[tuple[Path, int, str]]:
+def build_queue(
+    bundle_filter: str, missing_only: bool, country_iso: str | None = None
+) -> list[tuple[Path, int, str]]:
     queue: list[tuple[Path, int, str]] = []
+    iso_filter = (country_iso or "").strip().upper() or None
     for path in sorted(DATA.glob("*.json")):
         if bundle_filter and path.name != bundle_filter and path.stem != bundle_filter.removesuffix(".json"):
             continue
@@ -118,6 +121,10 @@ def build_queue(bundle_filter: str, missing_only: bool) -> list[tuple[Path, int,
             continue
         with path.open(encoding="utf-8") as f:
             bundle = json.load(f)
+        if iso_filter:
+            meta_country = str((bundle.get("meta") or {}).get("country") or "").upper()
+            if meta_country != iso_filter:
+                continue
         for idx, climb in enumerate(bundle.get("climbs") or []):
             slug = climb_slug(climb)
             if not slug:
@@ -143,6 +150,7 @@ def write_bundle(path: Path, bundle: dict, now: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Backfill Climbfinder difficulty points on published climbs")
     parser.add_argument("--bundle", default="", help="Only this data filename (e.g. cf-l277-south-holland.json)")
+    parser.add_argument("--country-iso", default="", help="Only bundles with meta.country (e.g. CH, FR)")
     parser.add_argument("--all", action="store_true", help="Re-fetch scores even when already present")
     parser.add_argument("--limit", type=int, default=0, help="Max climbs to fetch this run (0 = no cap)")
     parser.add_argument(
@@ -163,12 +171,16 @@ def main() -> int:
     args = parser.parse_args()
 
     bundle_filter = args.bundle.strip()
+    country_iso = args.country_iso.strip().upper() or None
     missing_only = not args.all
-    full_queue = build_queue(bundle_filter, missing_only)
+    full_queue = build_queue(bundle_filter, missing_only, country_iso)
     total_pending = len(full_queue)
 
     if args.count_only:
-        print(f"pending={total_pending} missing_only={missing_only} bundle={bundle_filter or '*'}")
+        print(
+            f"pending={total_pending} missing_only={missing_only} bundle={bundle_filter or '*'} "
+            f"country={country_iso or '*'}"
+        )
         return 0
 
     offset = max(0, args.offset)

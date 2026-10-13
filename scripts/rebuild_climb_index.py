@@ -32,7 +32,17 @@ SKIP_NAMES = {
     "slug-display-region.json",
     "published-climbs-by-slug.json",
     "published-label-counts-by-locality.json",
+    "published-bundle-maintenance.json",
 }
+
+
+def climb_needs_cf_score(climb: dict) -> bool:
+    cf = climb.get("climbfinder") if isinstance(climb.get("climbfinder"), dict) else {}
+    stats = climb.get("stats") if isinstance(climb.get("stats"), dict) else {}
+    if cf.get("difficulty_points") is not None or stats.get("difficulty_points") is not None:
+        return False
+    slug = (cf.get("slug") or climb.get("id") or "").strip() if isinstance(cf, dict) else ""
+    return bool(slug)
 
 
 def locality_id_from_meta(meta: dict) -> int | None:
@@ -244,7 +254,10 @@ def write_duplicate_climbs_report(slug_copies: dict[str, list[dict]]) -> None:
 
 
 def main() -> None:
+    from climb_locality_resolve import country_level_locality_ids
+
     regions = []
+    maintenance_bundles: list[dict] = []
     loc_slugs: dict[int, set[str]] = {}
     global_slugs: set[str] = set()
     slug_copies: dict[str, list[dict]] = defaultdict(list)
@@ -273,6 +286,23 @@ def main() -> None:
         if loc is not None:
             entry["locality_id"] = loc
         regions.append(entry)
+        country_iso = str(meta.get("country") or "XX").upper()
+        missing_scores = sum(1 for c in climbs if climb_needs_cf_score(c))
+        country_levels = country_level_locality_ids(country_iso)
+        is_monolith = loc is not None and int(loc) in country_levels
+        maintenance_bundles.append(
+            {
+                "file": path.name,
+                "meta_id": meta_id,
+                "locality_id": loc,
+                "country": country_iso,
+                "displayTitle": entry["displayTitle"],
+                "count": len(climbs),
+                "missing_cf_scores": missing_scores,
+                "scores_complete": missing_scores == 0,
+                "is_country_monolith": is_monolith,
+            }
+        )
         region_count = len(climbs)
         disp = display_title(meta)
         if loc is not None:
@@ -336,6 +366,20 @@ def main() -> None:
         json.dump(label_payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
     print(f"Wrote label counts → {label_counts_path.relative_to(ROOT)}")
+    maintenance_path = DATA / "published-bundle-maintenance.json"
+    monolith_ids = {
+        iso: sorted(country_level_locality_ids(iso)) for iso in sorted({b["country"] for b in maintenance_bundles})
+    }
+    maintenance_payload = {
+        "schema_version": "1.0",
+        "updated_at": label_payload["updated_at"],
+        "country_monolith_locality_ids": {k: v for k, v in monolith_ids.items() if v},
+        "bundles": maintenance_bundles,
+    }
+    with maintenance_path.open("w", encoding="utf-8") as f:
+        json.dump(maintenance_payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"Wrote bundle maintenance catalog → {maintenance_path.relative_to(ROOT)}")
     payload = {
         "schema_version": "1.0",
         "total_climbs": total_climbs,
