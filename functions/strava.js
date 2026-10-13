@@ -1048,4 +1048,136 @@ async function stravaSyncFullHandler(data, context) {
     };
 }
 
+async function clearStravaLinkFromLogDoc(ref, row) {
+  const wishlist = Boolean(row.wishlist);
+  const done = Boolean(row.done);
+  const stravaSourced = row.source === "strava";
+
+  if (stravaSourced && done && !wishlist) {
+    await ref.delete();
+    return;
+  }
+
+  const patch = {
+    stravaActivityId: admin.firestore.FieldValue.delete(),
+    stravaActivityName: admin.firestore.FieldValue.delete(),
+    stravaClimbName: admin.firestore.FieldValue.delete(),
+    stravaAscentCount: admin.firestore.FieldValue.delete(),
+    matchCoverage: admin.firestore.FieldValue.delete(),
+  };
+  if (stravaSourced && done) {
+    patch.done = false;
+    patch.source = "manual";
+  }
+
+  const nextDone = patch.done !== undefined ? patch.done : done;
+  if (!nextDone && !wishlist) {
+    await ref.delete();
+    return;
+  }
+  await ref.set(patch, { merge: true });
+}
+
+exports.stravaCleanupLogMatches = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 300, memory: "1GB" })
+  .https.onCall(async (data, context) => {
+    const uid = requireAuth(context);
+    const removeIndoor = data?.removeIndoor !== false;
+    const revalidateRoutes = data?.revalidateRoutes !== false;
+    const accessToken = await getValidAccessToken(uid);
+
+    const logCol = admin.firestore().collection("users").doc(uid).collection("climbLog");
+    const snap = await logCol.get();
+    const entries = [];
+    snap.forEach((doc) => {
+      const row = doc.data();
+      if (row?.stravaActivityId) {
+        entries.push({ ref: doc.ref, row });
+      }
+    });
+
+    const activityCache = new Map();
+    const datasetCache = new Map();
+    let removedIndoor = 0;
+    let removedWeak = 0;
+    let kept = 0;
+    let fetchErrors = 0;
+
+    async function getActivity(actId) {
+      if (activityCache.has(actId)) return activityCache.get(actId);
+      try {
+        const act = await stravaFetch(`/activities/${actId}`, accessToken);
+        activityCache.set(actId, act);
+        return act;
+      } catch (e) {
+        functions.logger.warn("stravaCleanupLogMatches activity", actId, e.message);
+        activityCache.set(actId, null);
+        return null;
+      }
+    }
+
+    async function getClimb(datasetId, climbId) {
+      if (!datasetCache.has(datasetId)) {
+        try {
+          datasetCache.set(datasetId, await loadDataset(datasetId));
+        } catch (e) {
+          functions.logger.warn("stravaCleanupLogMatches dataset", datasetId, e.message);
+          datasetCache.set(datasetId, null);
+        }
+      }
+      const bundle = datasetCache.get(datasetId);
+      if (!bundle) return null;
+      return (bundle.climbs || []).find((c) => String(c.id) === String(climbId));
+    }
+
+    for (const { ref, row } of entries) {
+      const act = await getActivity(row.stravaActivityId);
+      if (!act) {
+        fetchErrors += 1;
+        continue;
+      }
+
+      let remove = false;
+      if (removeIndoor && !isCyclingActivity(act)) {
+        remove = true;
+        removedIndoor += 1;
+      } else if (revalidateRoutes) {
+        const climb = await getClimb(row.datasetId, row.climbId);
+        const poly = act.map?.summary_polyline;
+        if (!climb || !poly) {
+          remove = true;
+          removedWeak += 1;
+        } else {
+          const result = matchClimbToActivity(climb, poly);
+          if (!result.matched) {
+            remove = true;
+            removedWeak += 1;
+          }
+        }
+      }
+
+      if (remove) {
+        await clearStravaLinkFromLogDoc(ref, row);
+      } else {
+        kept += 1;
+      }
+    }
+
+    const parts = [];
+    if (removedIndoor) parts.push(`${removedIndoor} indoor/simulator`);
+    if (removedWeak) parts.push(`${removedWeak} losse route-match`);
+    const summary = parts.length ? parts.join(", ") + " verwijderd" : "niets verwijderd";
+
+    return {
+      ok: true,
+      scanned: entries.length,
+      kept,
+      removedIndoor,
+      removedWeak,
+      fetchErrors,
+      message: `Opschoning: ${summary}; ${kept} koppeling(en) behouden.`,
+    };
+  });
+
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
