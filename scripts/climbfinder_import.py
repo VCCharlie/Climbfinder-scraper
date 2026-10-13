@@ -523,9 +523,8 @@ def main() -> None:
         source_meta["ranking_geo"] = geo
         source_meta["ranking_url"] = f"https://climbfinder.com/en/ranking?g={geo}&s=popular"
     if localities:
-        labels = cfg.get("locality_labels") or {}
         source_meta["localities"] = [
-            {"id": lid, "label": labels.get(str(lid), str(lid))} for lid in localities
+            {"id": int(lid), "label": str(lid)} for lid in localities
         ]
         if len(localities) == 1:
             source_meta["locality_id"] = int(localities[0])
