@@ -289,18 +289,9 @@
             .httpsCallable("requestClimbDedupeAllSmallest");
           const res = await fn({});
           opts.log(res.data.message || "Workflow gestart.");
-          if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
+          opts.onWorkflowStarted?.("Dedupe alle duplicaten", res.data);
         } else {
-          const cmd = "gh workflow run dedupe-all-smallest-region.yml";
-          if (cmdTa) cmdTa.value = cmd;
-          opts.log("Firebase niet actief — start handmatig:");
-          opts.log(cmd);
-          opts.log("→ Actions → Dedupe all (keep smallest dataset) → Run workflow");
-          window.open(
-            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/dedupe-all-smallest-region.yml",
-            "_blank",
-            "noopener"
-          );
+          opts.log("FOUT: Firebase import niet geconfigureerd.");
         }
       } catch (e) {
         const fmt = opts.formatCallableError || ((x) => x?.message || String(x));
@@ -347,18 +338,9 @@
             .httpsCallable("requestClimbDuplicateRemovals");
           const res = await fn({ removals: payload });
           opts.log(res.data.message || "Workflow gestart.");
-          if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
+          opts.onWorkflowStarted?.(`Verwijder ${payload.length} duplicaat-kopieën`, res.data);
         } else {
-          opts.log("Firebase niet actief — start handmatig op GitHub:");
-          opts.log("");
-          opts.log(cmdTa.value);
-          opts.log("");
-          opts.log("→ Actions → Remove duplicate climbs → Run workflow");
-          window.open(
-            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/remove-duplicate-climbs.yml",
-            "_blank",
-            "noopener"
-          );
+          opts.log("FOUT: Firebase import niet geconfigureerd.");
         }
       } catch (e) {
         const fmt = opts.formatCallableError || ((x) => x?.message || String(x));
