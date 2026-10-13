@@ -633,7 +633,83 @@
       href: "settings.html#stravaSettingsCard",
       label: "Terug naar Instellingen (Strava)",
     },
+    logbook: {
+      href: "logbook.html#stravaLinksSection",
+      label: "Terug naar Logboek",
+    },
   };
+
+  async function clearStravaLink(datasetId, climbId) {
+    if (!datasetId || !climbId) return;
+    const row = getEntry(datasetId, climbId);
+    if (!row?.stravaActivityId) return;
+
+    const wishlist = Boolean(row.wishlist);
+    const done = Boolean(row.done);
+    const stravaSourced = row.source === "strava";
+
+    if (state.mode === "firestore" && firebase.firestore && state.uid) {
+      const ref = firebase
+        .firestore()
+        .collection("users")
+        .doc(state.uid)
+        .collection("climbLog")
+        .doc(logDocId(datasetId, climbId));
+      const snap = await ref.get();
+      const data = snap.exists ? snap.data() : row;
+      const w = Boolean(data.wishlist);
+      const d = Boolean(data.done);
+      const src = data.source === "strava";
+
+      if (src && d && !w) {
+        await ref.delete();
+        dispatchChanged();
+        return;
+      }
+
+      const patch = {
+        stravaActivityId: firebase.firestore.FieldValue.delete(),
+        stravaActivityName: firebase.firestore.FieldValue.delete(),
+        stravaClimbName: firebase.firestore.FieldValue.delete(),
+        stravaAscentCount: firebase.firestore.FieldValue.delete(),
+        matchCoverage: firebase.firestore.FieldValue.delete(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      if (src && d) {
+        patch.done = false;
+        patch.source = "manual";
+        patch.doneUpdatedAt = nowMs();
+      }
+      const nextDone = patch.done !== undefined ? patch.done : d;
+      if (!nextDone && !w) {
+        await ref.delete();
+      } else {
+        await ref.set(patch, { merge: true });
+      }
+      dispatchChanged();
+      return;
+    }
+
+    const next = { ...row };
+    delete next.stravaActivityId;
+    delete next.stravaActivityName;
+    delete next.stravaClimbName;
+    delete next.stravaAscentCount;
+    delete next.matchCoverage;
+    if (stravaSourced && done) {
+      next.done = false;
+      next.source = "manual";
+      next.doneUpdatedAt = nowMs();
+    }
+    const key = climbKey(datasetId, climbId);
+    if (shouldPersist(next)) {
+      state.byKey.set(key, next);
+    } else {
+      state.byKey.delete(key);
+    }
+    saveLocal();
+    dispatchChanged();
+  }
 
   function isMobileStravaClient() {
     if (typeof navigator === "undefined") return false;
@@ -738,6 +814,7 @@
     getMode,
     getLogEntry,
     listStravaLinked,
+    clearStravaLink,
     stravaActivityUrl,
     stravaActivityWebUrl,
     stravaActivityOpenUrl,

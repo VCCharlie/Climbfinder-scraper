@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logboek — FietsKlim</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <script src="assets/pwa-register.js?v=20261012phase2"></script>
+  <link rel="stylesheet" href="../auth/gate.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261013logbook1" />
+  <link rel="stylesheet" href="assets/logbook.css?v=20261013logbook1" />
+</head>
+<body class="fietsklim-locked settings-page logbook-page">
+  <div id="fietsklim-auth-gate">
+    <div class="fietsklim-auth-card">
+      <h1>FietsKlim — persoonlijk</h1>
+      <p>Log in om je logboek te bekijken.</p>
+      <button type="button" id="fietsklim-google-btn" class="fietsklim-auth-btn">Inloggen met Google</button>
+      <div id="fietsklim-auth-error" class="fietsklim-auth-error" role="alert"></div>
+    </div>
+  </div>
+
+  <div id="fietsklim-app-root" class="settings-wrap">
+    <p class="settings-userbar"><span id="fietsklim-auth-userbar"></span></p>
+    <nav class="fietsklim-site-nav" aria-label="FietsKlim">
+      <a href="index.html">Database</a>
+      <a href="logbook.html" aria-current="page">Logboek</a>
+      <a href="import.html">Import</a>
+      <a href="settings.html">Instellingen</a>
+    </nav>
+    <h1>Logboek</h1>
+    <p class="settings-lead">Strava-koppelingen, statistieken en handmatig ontkoppelen per klim.</p>
+
+    <section class="settings-card" aria-labelledby="logbookStatsTitle">
+      <h2 id="logbookStatsTitle">Statistieken (Strava-koppelingen)</h2>
+      <p id="logbookStatsSummary" class="settings-status">Laden…</p>
+      <div id="logbookStatsGrid" class="logbook-stats-grid" hidden></div>
+      <details class="logbook-stats-details" id="logbookStatsDetails" hidden>
+        <summary>Per land, jaar en categorie</summary>
+        <div id="logbookStatsBreakdown" class="logbook-stats-breakdown"></div>
+      </details>
+    </section>
+
+    <section class="settings-card" id="stravaLinksSection" aria-labelledby="stravaLinksTitle">
+      <h2 id="stravaLinksTitle">Gekoppelde klimmen (Strava)</h2>
+      <p class="settings-hint">
+        Ontkoppel als een klim ten onrechte als gedaan staat (bv. afdaling). Sync en opschonen blijven in
+        <a href="settings.html#stravaSettingsCard">Instellingen → Strava</a>.
+      </p>
+      <label class="settings-field-label" for="logbookCountryFilter">Land</label>
+      <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
+        <option value="">Alle landen</option>
+      </select>
+      <p id="logbookListSummary" class="settings-status" role="status"></p>
+      <ul id="logbookStravaList" class="strava-match-list logbook-strava-list"></ul>
+      <p id="logbookListEmpty" class="settings-hint" hidden>Nog geen Strava-koppelingen in je logboek.</p>
+    </section>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+  <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
+  <script src="../auth/gate.js"></script>
+  <script src="assets/climb-log.js?v=20261013logbook1"></script>
+  <script src="assets/logbook-page.js?v=20261013logbook1"></script>
+</body>
+</html>

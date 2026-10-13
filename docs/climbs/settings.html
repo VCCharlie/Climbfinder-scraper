@@ -27,6 +27,7 @@
     <p class="settings-userbar"><span id="fietsklim-auth-userbar"></span></p>
     <nav class="fietsklim-site-nav" aria-label="FietsKlim">
       <a href="index.html">Database</a>
+      <a href="logbook.html">Logboek</a>
       <a href="import.html">Import</a>
       <a href="settings.html" aria-current="page">Instellingen</a>
     </nav>
@@ -78,11 +79,9 @@
           </p>
           <ul id="stravaLastSyncMatchList" class="strava-match-list"></ul>
         </details>
-        <details class="strava-match-details" open>
-          <summary>Alle Strava-koppelingen in logboek</summary>
-          <p id="stravaLogMatchEmpty" class="settings-hint" hidden>Nog geen gekoppelde klimmen.</p>
-          <ul id="stravaLogMatchList" class="strava-match-list"></ul>
-        </details>
+        <p class="settings-hint">
+          Alle gekoppelde klimmen staan op <a href="logbook.html">Logboek</a> (filter, statistieken, ontkoppelen).
+        </p>
       </div>
     </section>
 
@@ -138,8 +137,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
-  <script src="assets/climb-log.js?v=20261013stravanav1"></script>
-  <script src="assets/strava-sync.js?v=20261013stravanav1"></script>
+  <script src="assets/climb-log.js?v=20261013logbook1"></script>
+  <script src="assets/strava-sync.js?v=20261013logbook1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
