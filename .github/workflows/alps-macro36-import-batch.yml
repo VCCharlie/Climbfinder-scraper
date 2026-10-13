@@ -47,6 +47,7 @@ jobs:
             echo "========== l=${locality} ${title} limit=${limit} =========="
             python scripts/climbfinder_import.py \
               --locality "$locality" \
+              --locality-label "${locality}:${title}" \
               --all-pages \
               --meta-id "$meta_id" \
               --title "$title" \

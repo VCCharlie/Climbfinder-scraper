@@ -396,6 +396,60 @@ def ranking_slugs_playwright(
     return out
 
 
+def _parse_locality_label_args(raw: list[str]) -> dict[str, str]:
+    """--locality-label entries: '45:Switzerland' or bare 'Switzerland' (single locality only)."""
+    out: dict[str, str] = {}
+    bare: list[str] = []
+    for item in raw:
+        s = str(item or "").strip()
+        if not s:
+            continue
+        if ":" in s:
+            lid_s, name = s.split(":", 1)
+            out[str(int(lid_s.strip()))] = name.strip()
+        else:
+            bare.append(s)
+    if bare and not out:
+        out["__bare__"] = bare[-1]
+    return out
+
+
+def locality_labels_for_meta(
+    localities: list[int],
+    country_iso: str,
+    *,
+    explicit: dict[str, str],
+    title: str,
+) -> dict[str, str]:
+    """Map locality id → label for meta.source.localities."""
+    try:
+        from climb_locality_resolve import locality_catalog_name
+    except ImportError:
+        locality_catalog_name = None  # type: ignore[assignment,misc]
+
+    labels: dict[str, str] = {}
+    explicit_map = dict(explicit)
+    bare = explicit_map.pop("__bare__", None)
+    for lid in localities:
+        key = str(int(lid))
+        if key in explicit_map:
+            labels[key] = explicit_map[key]
+            continue
+        if locality_catalog_name:
+            name = locality_catalog_name(country_iso, int(lid))
+            if name:
+                labels[key] = name
+                continue
+        if bare and len(localities) == 1:
+            labels[key] = bare
+            continue
+        if len(localities) == 1 and title:
+            labels[key] = title
+        else:
+            labels[key] = key
+    return labels
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -428,6 +482,13 @@ def main() -> None:
     parser.add_argument("--country", default=None)
     parser.add_argument("--region-label", default=None)
     parser.add_argument("--tag", action="append", default=[])
+    parser.add_argument(
+        "--locality-label",
+        action="append",
+        default=[],
+        metavar="ID:NAME",
+        help="Label in meta.source.localities (repeat). Form: 45:Switzerland or bare name if one --locality.",
+    )
     args = parser.parse_args()
 
     geo = args.geo
@@ -523,8 +584,15 @@ def main() -> None:
         source_meta["ranking_geo"] = geo
         source_meta["ranking_url"] = f"https://climbfinder.com/en/ranking?g={geo}&s=popular"
     if localities:
+        explicit_labels = _parse_locality_label_args(args.locality_label or [])
+        label_map = locality_labels_for_meta(
+            [int(x) for x in localities],
+            country,
+            explicit=explicit_labels,
+            title=title,
+        )
         source_meta["localities"] = [
-            {"id": int(lid), "label": str(lid)} for lid in localities
+            {"id": int(lid), "label": label_map.get(str(int(lid)), str(lid))} for lid in localities
         ]
         if len(localities) == 1:
             source_meta["locality_id"] = int(localities[0])
