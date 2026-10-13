@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/settings.css?v=20261013logbook1" />
-  <link rel="stylesheet" href="assets/logbook.css?v=20261013stravadate1" />
+  <link rel="stylesheet" href="assets/logbook.css?v=20261013logbookfilt1" />
 </head>
 <body class="fietsklim-locked settings-page logbook-page">
   <div id="fietsklim-auth-gate">
@@ -35,8 +35,57 @@
     <h1>Logboek</h1>
     <p class="settings-lead">Strava-koppelingen, statistieken en handmatig ontkoppelen per klim.</p>
 
+    <section class="settings-card" id="logbookFiltersSection" aria-labelledby="logbookFiltersTitle">
+      <h2 id="logbookFiltersTitle">Filters</h2>
+      <p class="settings-hint">
+        Stel zelf bereiken in; lijst en statistieken volgen dezelfde filters. Leeg laten = geen grens aan die kolom.
+      </p>
+      <div class="logbook-filter-grid">
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookCountryFilter">Land</label>
+          <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
+            <option value="">Alle landen</option>
+          </select>
+        </div>
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookYearFrom">Jaar rit (van)</label>
+          <input type="number" id="logbookYearFrom" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2020" />
+        </div>
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookYearTo">Jaar rit (tot)</label>
+          <input type="number" id="logbookYearTo" class="settings-input" min="1980" max="2100" step="1" placeholder="bv. 2025" />
+        </div>
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookCategoryFilter">Categorie</label>
+          <select id="logbookCategoryFilter" class="settings-select" aria-label="Filter op categorie">
+            <option value="">Alle categorieën</option>
+          </select>
+        </div>
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookElevMin">Hoogtemeters min</label>
+          <input type="number" id="logbookElevMin" class="settings-input" min="0" step="10" placeholder="m" />
+        </div>
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookElevMax">Hoogtemeters max</label>
+          <input type="number" id="logbookElevMax" class="settings-input" min="0" step="10" placeholder="m" />
+        </div>
+        <div class="logbook-filter-field">
+          <label class="settings-field-label" for="logbookDoneFilter">Status</label>
+          <select id="logbookDoneFilter" class="settings-select" aria-label="Filter op status">
+            <option value="all">Alle koppelingen</option>
+            <option value="done">Alleen geklommen</option>
+            <option value="notdone">Gekoppeld, niet geklommen</option>
+          </select>
+        </div>
+      </div>
+      <div class="settings-actions settings-actions--compact logbook-filter-actions">
+        <button type="button" id="logbookFiltersApply" class="secondary">Toepassen</button>
+        <button type="button" id="logbookFiltersReset" class="secondary">Filters wissen</button>
+      </div>
+    </section>
+
     <section class="settings-card" aria-labelledby="logbookStatsTitle">
-      <h2 id="logbookStatsTitle">Statistieken (Strava-koppelingen)</h2>
+      <h2 id="logbookStatsTitle">Statistieken (gefilterd)</h2>
       <p id="logbookStatsSummary" class="settings-status">Laden…</p>
       <div id="logbookStatsGrid" class="logbook-stats-grid" hidden></div>
       <details class="logbook-stats-details" id="logbookStatsDetails" hidden>
@@ -51,10 +100,6 @@
         Ontkoppel als een klim ten onrechte als gedaan staat (bv. afdaling). Sync en opschonen blijven in
         <a href="settings.html#stravaSettingsCard">Instellingen → Strava</a>.
       </p>
-      <label class="settings-field-label" for="logbookCountryFilter">Land</label>
-      <select id="logbookCountryFilter" class="settings-select" aria-label="Filter op land">
-        <option value="">Alle landen</option>
-      </select>
       <p id="logbookListSummary" class="settings-status" role="status"></p>
       <ul id="logbookStravaList" class="strava-match-list logbook-strava-list"></ul>
       <p id="logbookListEmpty" class="settings-hint" hidden>Nog geen Strava-koppelingen in je logboek.</p>
@@ -66,7 +111,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
-  <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/logbook-page.js?v=20261013logbook1"></script>
+  <script src="assets/climb-log.js?v=20261013logbookfilt1"></script>
+  <script src="assets/logbook-page.js?v=20261013logbookfilt1"></script>
 </body>
 </html>
