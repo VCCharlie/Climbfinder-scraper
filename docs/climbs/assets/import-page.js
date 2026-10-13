@@ -554,27 +554,64 @@
       }
     });
 
-    document.getElementById("backfillCfScoresBtn")?.addEventListener("click", async () => {
+    function readCfScoresBatchInputs() {
       const bundle = (document.getElementById("cfScoresBundle")?.value || "").trim();
+      let batch = parseInt(document.getElementById("cfScoresBatchSize")?.value, 10);
+      if (!Number.isFinite(batch) || batch < 50) batch = 500;
+      if (batch > 3000) batch = 3000;
+      let offset = parseInt(document.getElementById("cfScoresOffset")?.value, 10);
+      if (!Number.isFinite(offset) || offset < 0) offset = 0;
+      return { bundle, limit: String(batch), offset: String(offset) };
+    }
+
+    async function startCfScoresBatch({ bumpOffset = false } = {}) {
+      const { bundle, limit, offset } = readCfScoresBatchInputs();
+      const batchN = Number(limit);
+      const confirmText =
+        `Climbfinder-scores batch starten?\n\n` +
+        `• Max ${batchN} klimmen deze run (offset ${offset})\n` +
+        `• ~${Math.round(batchN * 0.5)}–${Math.round(batchN * 0.9)} min op GitHub\n` +
+        `• Na afloop: opnieuw “Start score-batch” tot alles klaar is\n\nDoorgaan?`;
+      await dispatchMaintenanceCallable(
+        "requestClimbfinderScoreBackfill",
+        { bundle, limit, offset, refetch_all: "false" },
+        {
+          confirmText,
+          actionsPath: "backfill-climbfinder-scores.yml",
+          label: `CF-scores batch (${limit})`,
+        }
+      );
+      if (bumpOffset) {
+        const offEl = document.getElementById("cfScoresOffset");
+        if (offEl) offEl.value = String(offset + batchN);
+        log(`Offset voor volgende batch (refetch-modus): ${offset + batchN}`);
+      } else {
+        log("Tip: na deze run opnieuw Start score-batch (offset 0) — alleen ontbrekende klimmen blijven over.");
+      }
+    }
+
+    document.getElementById("backfillCfScoresBtn")?.addEventListener("click", async () => {
       const btn = document.getElementById("backfillCfScoresBtn");
       btn.disabled = true;
       try {
-        await dispatchMaintenanceCallable(
-          "requestClimbfinderScoreBackfill",
-          { bundle, limit: "0", refetch_all: "false" },
-          {
-            confirmText:
-              "Ontbrekende Climbfinder difficulty points + categorie ophalen?\n\n" +
-              "Eén HTTP-request per klim (slug); kan ~1 uur duren voor duizenden klimmen. Doorgaan?",
-            actionsPath: "backfill-climbfinder-scores.yml",
-            label: "Climbfinder-scores backfill",
-          }
-        );
+        await startCfScoresBatch({ bumpOffset: false });
       } catch (e) {
         log("FOUT: " + formatCallableError(e));
         if (/not-found|404|UNIMPLEMENTED/i.test(formatCallableError(e))) {
-          log("Tip: deploy Functions opnieuw (requestClimbfinderScoreBackfill).");
+          log("Tip: deploy Functions opnieuw (requestClimbfinderScoreBackfill + offset).");
         }
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("backfillCfScoresNextBtn")?.addEventListener("click", async () => {
+      const btn = document.getElementById("backfillCfScoresNextBtn");
+      btn.disabled = true;
+      try {
+        await startCfScoresBatch({ bumpOffset: false });
+      } catch (e) {
+        log("FOUT: " + formatCallableError(e));
       } finally {
         btn.disabled = false;
       }

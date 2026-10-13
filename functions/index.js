@@ -475,20 +475,24 @@ exports.requestClimbfinderScoreBackfill = functions.region("europe-west1").https
   const repo = gh.repo || "VCCharlie/Climbfinder-scraper";
   const ref = gh.ref || "main";
   const bundle = String(data.bundle || "").trim();
-  const limit = String(data.limit != null ? data.limit : "0");
+  const limit = String(data.limit != null ? data.limit : "500");
+  const offset = String(data.offset != null ? data.offset : "0");
   const refetchAll = String(data.refetch_all != null ? data.refetch_all : "false");
 
   const { owner, name } = await dispatchWorkflow(pat, repo, ref, WORKFLOW_BACKFILL_CF_SCORES, {
     bundle,
     limit,
+    offset,
     refetch_all: refetchAll,
   });
 
+  const limNote = limit === "0" ? "geen limiet (lang!)" : `max ${limit} klimmen`;
+  const offNote = offset !== "0" ? `, offset ${offset}` : "";
   return dispatchResult(
     owner,
     name,
     WORKFLOW_BACKFILL_CF_SCORES,
-    "Climbfinder-scores backfill gestart: difficulty points + categorie op bestaande klimmen (geen route opnieuw)."
+    `Climbfinder-scores batch gestart (${limNote}${offNote}). Herhaal tot de queue leeg is.`
   );
 });
 

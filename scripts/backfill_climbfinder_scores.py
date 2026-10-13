@@ -5,7 +5,8 @@ Fetch Climbfinder difficulty points + category for climbs already in data bundle
 Lightweight: one HTML GET per slug (no geometry/profile re-import). Matches by climbfinder.slug.
 
   python scripts/backfill_climbfinder_scores.py --dry-run --limit 5
-  python scripts/backfill_climbfinder_scores.py
+  python scripts/backfill_climbfinder_scores.py --limit 500
+  python scripts/backfill_climbfinder_scores.py --count-only
 """
 
 from __future__ import annotations
@@ -108,19 +109,8 @@ def apply_scores(climb: dict, scores: dict) -> bool:
     return changed
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Backfill Climbfinder difficulty points on published climbs")
-    parser.add_argument("--bundle", default="", help="Only this data filename (e.g. cf-l277-south-holland.json)")
-    parser.add_argument("--all", action="store_true", help="Re-fetch scores even when already present")
-    parser.add_argument("--limit", type=int, default=0, help="Max climbs to fetch (0 = no cap)")
-    parser.add_argument("--delay", type=float, default=0.35, help="Seconds between HTTP requests")
-    parser.add_argument("--dry-run", action="store_true")
-    args = parser.parse_args()
-
-    bundle_filter = args.bundle.strip()
-    missing_only = not args.all
+def build_queue(bundle_filter: str, missing_only: bool) -> list[tuple[Path, int, str]]:
     queue: list[tuple[Path, int, str]] = []
-
     for path in sorted(DATA.glob("*.json")):
         if bundle_filter and path.name != bundle_filter and path.stem != bundle_filter.removesuffix(".json"):
             continue
@@ -135,17 +125,76 @@ def main() -> int:
             if missing_only and not needs_score_backfill(climb):
                 continue
             queue.append((path, idx, slug))
+    return queue
 
+
+def write_bundle(path: Path, bundle: dict, now: str) -> None:
+    meta = dict(bundle.get("meta") or {})
+    meta["updated_at"] = now
+    notes = meta.setdefault("maintenance", {})
+    if isinstance(notes, dict):
+        notes["climbfinder_scores_backfill"] = now
+    bundle["meta"] = meta
+    with path.open("w", encoding="utf-8") as f:
+        json.dump(bundle, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Backfill Climbfinder difficulty points on published climbs")
+    parser.add_argument("--bundle", default="", help="Only this data filename (e.g. cf-l277-south-holland.json)")
+    parser.add_argument("--all", action="store_true", help="Re-fetch scores even when already present")
+    parser.add_argument("--limit", type=int, default=0, help="Max climbs to fetch this run (0 = no cap)")
+    parser.add_argument(
+        "--offset",
+        type=int,
+        default=0,
+        help="Skip first N climbs in queue (vaste volgorde; bij ontbrekende scores meestal 0)",
+    )
+    parser.add_argument("--delay", type=float, default=0.35, help="Seconds between HTTP requests")
+    parser.add_argument(
+        "--flush-every",
+        type=int,
+        default=40,
+        help="Schrijf gewijzigde bundle naar disk elke N verwerkte klimmen (tussentijds opslaan)",
+    )
+    parser.add_argument("--count-only", action="store_true", help="Print queue size and exit")
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+
+    bundle_filter = args.bundle.strip()
+    missing_only = not args.all
+    full_queue = build_queue(bundle_filter, missing_only)
+    total_pending = len(full_queue)
+
+    if args.count_only:
+        print(f"pending={total_pending} missing_only={missing_only} bundle={bundle_filter or '*'}")
+        return 0
+
+    offset = max(0, args.offset)
+    queue = full_queue[offset:]
     if args.limit > 0:
         queue = queue[: args.limit]
 
-    print(f"Climbs to fetch: {len(queue)} (missing_only={missing_only})")
+    remaining_after = max(0, total_pending - offset - len(queue))
+    print(
+        f"Climbs this run: {len(queue)} (pending total {total_pending}, offset {offset}, "
+        f"remaining after batch ~{remaining_after}, missing_only={missing_only})"
+    )
     if not queue:
         return 0
 
     bundles: dict[Path, dict] = {}
+    dirty_counts: dict[Path, int] = {}
     updated = 0
     errors = 0
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    def flush_path(path: Path) -> None:
+        if path not in bundles or args.dry_run:
+            return
+        write_bundle(path, bundles[path], now)
+        dirty_counts[path] = 0
 
     for i, (path, climb_idx, slug) in enumerate(queue, 1):
         if path not in bundles:
@@ -161,6 +210,7 @@ def main() -> int:
                 continue
             if apply_scores(climb, scores):
                 updated += 1
+                dirty_counts[path] = dirty_counts.get(path, 0) + 1
                 print(
                     f"  [{i}/{len(queue)}] {slug}: "
                     f"points={scores.get('difficulty_points')} cat={scores.get('classification')}"
@@ -170,26 +220,21 @@ def main() -> int:
         except Exception as exc:
             errors += 1
             print(f"  [{i}/{len(queue)}] {slug}: ERROR {exc}", file=sys.stderr)
+        if args.flush_every > 0 and dirty_counts.get(path, 0) >= args.flush_every:
+            flush_path(path)
         if args.delay > 0 and i < len(queue):
             time.sleep(args.delay)
 
-    print(f"Updated {updated} climb(s), errors {errors}, files {len(bundles)}")
+    print(f"Updated {updated} climb(s), errors {errors}, files touched {len(bundles)}")
+    if remaining_after > 0 and not args.dry_run:
+        print(f"TIP: nog ~{remaining_after} klim(men) — start volgende batch (offset {offset + len(queue)} of opnieuw met limit).")
 
     if args.dry_run:
         print("(dry-run — no files written)")
         return 0
 
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    for path, bundle in bundles.items():
-        meta = dict(bundle.get("meta") or {})
-        meta["updated_at"] = now
-        notes = meta.setdefault("maintenance", {})
-        if isinstance(notes, dict):
-            notes["climbfinder_scores_backfill"] = now
-        bundle["meta"] = meta
-        with path.open("w", encoding="utf-8") as f:
-            json.dump(bundle, f, ensure_ascii=False, indent=2)
-            f.write("\n")
+    for path in bundles:
+        flush_path(path)
 
     return 0 if errors == 0 else 1
 
