@@ -124,7 +124,7 @@
           batchN > 0 ? `Importeer gebied (${batchN})` : "Gebied compleet ●";
         batchBtn.disabled = batchN <= 0;
         batchBtn.title =
-          "GitHub batch: alle niet-● regio’s hieronder, pages=all, Policy B, dedupe aan het eind";
+          "Unified importplan: alle niet-● subregio’s (pages=all, dedupe aan het eind)";
         batchBtn.addEventListener("click", () => {
           opts.onPickMacroBatch(loc.locality_id, {
             group: macroCtx.group,

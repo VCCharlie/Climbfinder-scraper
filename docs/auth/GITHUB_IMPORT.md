@@ -64,7 +64,7 @@ Bij **import** krijgt elke klim automatisch **`region`** (weergave: **grootste s
 
 **Bestaande data:** tab **Onderhoud** → **Herlabel alle klimmen op site**, of workflow **Backfill climb regions** / `python scripts/backfill_climb_resolved_regions.py` (na `build_region_hierarchy.py`). Herhaalt weergave-labels op alle JSON’s (handig na `refresh_ranking_slugs.py`, minder *Overig*).
 
-Op `import.html` staat een uitklapbaar **“Wat doet wat?”**-overzicht (download vs onderhoud).
+Op `import.html`: drie workflows (**Import**, **Opschonen**, **Onderhoud**), één knop **Importeer regio/gebied** (unified plan), en een **activity feed** met live GitHub-run status (`getGithubWorkflowRunStatus`).
 
 ### Duplicaten op de importpagina
 

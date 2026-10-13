@@ -28,14 +28,16 @@ function allowedEmail(email) {
   return email && list.includes(email.trim().toLowerCase());
 }
 
-exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall(async (data, context) => {
+function assertImportCaller(context) {
   if (!context.auth?.token?.email) {
     throw new functions.https.HttpsError("unauthenticated", "Log in met Google.");
   }
   if (!allowedEmail(context.auth.token.email)) {
     throw new functions.https.HttpsError("permission-denied", "Geen toegang.");
   }
+}
 
+function githubConfig() {
   const gh = functions.config().github || {};
   const pat = gh.pat;
   if (!pat) {
@@ -44,13 +46,128 @@ exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall
       "GitHub PAT niet geconfigureerd op Firebase Functions. Zie docs/auth/GITHUB_IMPORT.md"
     );
   }
-
   const repo = gh.repo || "VCCharlie/Climbfinder-scraper";
   const ref = gh.ref || "main";
   const [owner, name] = repo.split("/");
   if (!owner || !name) {
     throw new functions.https.HttpsError("internal", "github.repo moet owner/name zijn.");
   }
+  return { pat, repo, ref, owner, name };
+}
+
+function dispatchResult(owner, name, workflowFile, message) {
+  return {
+    ok: true,
+    message,
+    workflowFile,
+    dispatchedAtMs: Date.now(),
+    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${workflowFile}`,
+  };
+}
+
+async function githubFetch(pat, url) {
+  const res = await fetch(url, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${pat}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
+  const text = await res.text();
+  let body = null;
+  try {
+    body = text ? JSON.parse(text) : null;
+  } catch {
+    body = { raw: text };
+  }
+  return { ok: res.ok, status: res.status, body };
+}
+
+/** Poll status van een workflow-run (voor importpagina activity feed). */
+exports.getGithubWorkflowRunStatus = functions.region("europe-west1").https.onCall(async (data, context) => {
+  assertImportCaller(context);
+  const { pat, owner, name } = githubConfig();
+
+  const workflowFile = String(data.workflow_file || "").trim();
+  const runId = data.run_id != null && data.run_id !== "" ? Number(data.run_id) : null;
+  const sinceMs = data.since_ms != null && data.since_ms !== "" ? Number(data.since_ms) : null;
+
+  if (!workflowFile && !runId) {
+    throw new functions.https.HttpsError("invalid-argument", "workflow_file of run_id is verplicht.");
+  }
+
+  if (runId && Number.isFinite(runId)) {
+    const { ok, status, body } = await githubFetch(
+      pat,
+      `https://api.github.com/repos/${owner}/${name}/actions/runs/${runId}`
+    );
+    if (!ok) {
+      functions.logger.error("GitHub run fetch failed", status, body);
+      throw new functions.https.HttpsError("internal", `GitHub run ophalen mislukt (${status}).`);
+    }
+    return formatRunPayload(body);
+  }
+
+  const { ok, status, body } = await githubFetch(
+    pat,
+    `https://api.github.com/repos/${owner}/${name}/actions/workflows/${encodeURIComponent(workflowFile)}/runs?per_page=15`
+  );
+  if (!ok) {
+    functions.logger.error("GitHub workflow runs failed", status, body);
+    throw new functions.https.HttpsError("internal", `GitHub workflow-runs ophalen mislukt (${status}).`);
+  }
+
+  const runs = body?.workflow_runs || [];
+  let pick = runs[0] || null;
+  if (sinceMs && Number.isFinite(sinceMs)) {
+    const floor = sinceMs - 120_000;
+    pick =
+      runs.find((r) => {
+        const t = Date.parse(r.created_at || "");
+        return Number.isFinite(t) && t >= floor;
+      }) || pick;
+  }
+
+  if (!pick) {
+    return {
+      found: false,
+      workflow_file: workflowFile,
+      status: "queued",
+      display_status: "Wachten op run…",
+    };
+  }
+
+  return { found: true, workflow_file: workflowFile, ...formatRunPayload(pick) };
+});
+
+function formatRunPayload(run) {
+  const st = run.status || "unknown";
+  const conclusion = run.conclusion || null;
+  let display_status = st;
+  if (st === "completed") {
+    if (conclusion === "success") display_status = "Geslaagd";
+    else if (conclusion === "failure") display_status = "Mislukt";
+    else if (conclusion === "cancelled") display_status = "Geannuleerd";
+    else display_status = conclusion || "Afgerond";
+  } else if (st === "in_progress") display_status = "Bezig…";
+  else if (st === "queued") display_status = "In wachtrij…";
+  else if (st === "waiting") display_status = "Wacht op runner…";
+
+  return {
+    run_id: run.id,
+    status: st,
+    conclusion,
+    display_status,
+    html_url: run.html_url,
+    created_at: run.created_at,
+    updated_at: run.updated_at,
+    name: run.name,
+  };
+}
+
+exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall(async (data, context) => {
+  assertImportCaller(context);
+  const { pat, ref, owner, name } = githubConfig();
 
   const locality = String(data.locality || "").trim();
   const metaId = String(data.meta_id || "").trim();
@@ -96,13 +213,14 @@ exports.requestClimbfinderImport = functions.region("europe-west1").https.onCall
   }
 
   const publish = String(data.publish_to_site != null ? data.publish_to_site : "true") !== "false";
-  return {
-    ok: true,
-    message: publish
-      ? "Import gestart (unified plan: land/macro → subregio’s, anders één regio). JSON komt op de kaart na de run."
-      : "Import gestart. Download JSON bij Artifacts wanneer de run klaar is.",
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_IMPORT}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_IMPORT,
+    publish
+      ? "Import gestart (gebied of enkele regio). JSON komt op de kaart na de run."
+      : "Import gestart. Download JSON bij Artifacts wanneer de run klaar is."
+  );
 });
 
 exports.requestClimbDuplicateRemovals = functions.region("europe-west1").https.onCall(async (data, context) => {
@@ -168,11 +286,12 @@ exports.requestClimbDuplicateRemovals = functions.region("europe-west1").https.o
     throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
   }
 
-  return {
-    ok: true,
-    message: `Verwijder-workflow gestart (${removals.length} kopieën). Na ~1–3 min: hard refresh import/kaart.`,
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_DEDUPE}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_DEDUPE,
+    `Verwijder-workflow gestart (${removals.length} kopieën). Na ~1–3 min: hard refresh import/kaart.`
+  );
 });
 
 exports.requestClimbDedupeAllSmallest = functions.region("europe-west1").https.onCall(async (_data, context) => {
@@ -217,12 +336,12 @@ exports.requestClimbDedupeAllSmallest = functions.region("europe-west1").https.o
     throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
   }
 
-  return {
-    ok: true,
-    message:
-      "Volledige dedupe gestart (behoud kleinste dataset per slug). Duurt enkele minuten — daarna hard refresh.",
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_DEDUPE_ALL}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_DEDUPE_ALL,
+    "Volledige dedupe gestart (behoud kleinste dataset per slug). Duurt enkele minuten — daarna hard refresh."
+  );
 });
 
 exports.requestClimbRegionBackfill = functions.region("europe-west1").https.onCall(async (_data, context) => {
@@ -267,12 +386,12 @@ exports.requestClimbRegionBackfill = functions.region("europe-west1").https.onCa
     throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
   }
 
-  return {
-    ok: true,
-    message:
-      "Backfill gestart: herlabel region (weergave) + display/resolved locality op alle klimmen. Duurt enkele minuten.",
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_REGIONS}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_BACKFILL_REGIONS,
+    "Backfill gestart: herlabel region (weergave) + display/resolved locality op alle klimmen. Duurt enkele minuten."
+  );
 });
 
 async function dispatchWorkflow(pat, repo, ref, workflowFile, inputs) {
@@ -328,11 +447,12 @@ exports.requestSplitMonolithBundle = functions.region("europe-west1").https.onCa
     remove_source: removeSource,
   });
 
-  return {
-    ok: true,
-    message: `Monolith-split gestart voor ${bundle} (geo=${geoFallback}, remove=${removeSource}).`,
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_SPLIT_MONOLITH}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_SPLIT_MONOLITH,
+    `Monolith-split gestart voor ${bundle} (geo=${geoFallback}, remove=${removeSource}).`
+  );
 });
 
 exports.requestClimbfinderScoreBackfill = functions.region("europe-west1").https.onCall(async (data, context) => {
@@ -364,12 +484,12 @@ exports.requestClimbfinderScoreBackfill = functions.region("europe-west1").https
     refetch_all: refetchAll,
   });
 
-  return {
-    ok: true,
-    message:
-      "Climbfinder-scores backfill gestart: difficulty points + categorie op bestaande klimmen (geen route opnieuw).",
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_BACKFILL_CF_SCORES}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_BACKFILL_CF_SCORES,
+    "Climbfinder-scores backfill gestart: difficulty points + categorie op bestaande klimmen (geen route opnieuw)."
+  );
 });
 
 exports.requestClimbMacroBatchImport = functions.region("europe-west1").https.onCall(async (data, context) => {
@@ -429,11 +549,12 @@ exports.requestClimbMacroBatchImport = functions.region("europe-west1").https.on
     throw new functions.https.HttpsError("internal", `GitHub Actions start mislukt (${res.status}).`);
   }
 
-  return {
-    ok: true,
-    message: `Macro-batch import gestart (l=${macroId}). Alle niet-● subregio’s, pages=all; dedupe aan het eind.`,
-    actionsUrl: `https://github.com/${owner}/${name}/actions/workflows/${WORKFLOW_MACRO_BATCH}`,
-  };
+  return dispatchResult(
+    owner,
+    name,
+    WORKFLOW_MACRO_BATCH,
+    `Macro-batch import gestart (l=${macroId}). Alle niet-● subregio’s, pages=all; dedupe aan het eind.`
+  );
 });
 
 Object.assign(exports, require("./strava"));

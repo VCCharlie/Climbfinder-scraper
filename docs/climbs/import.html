@@ -122,6 +122,21 @@
     .panel-lead { font-size: 0.92rem; font-weight: 600; color: #0f172a; margin: 0 0 0.35rem; }
     .action-group { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #e2e8f0; }
     .action-group h4 { margin: 0 0 0.35rem; font-size: 0.88rem; color: #334155; }
+    .activity-panel { background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 0.65rem 0.85rem; margin: 0.75rem 0 1rem; }
+    .activity-status { font-weight: 700; font-size: 0.9rem; color: #0f766e; }
+    .activity-status--busy { color: #0f766e; }
+    .activity-status--ok { color: #047857; }
+    .activity-status--error { color: #b91c1c; }
+    .activity-status--idle { color: #64748b; font-weight: 600; }
+    #workflowActivityList { margin: 0.35rem 0 0; padding-left: 1.1rem; font-size: 0.82rem; color: #475569; }
+    #workflowActivityList a { color: #0f766e; }
+    .import-cta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.75rem; }
+    .import-cta .grow-hint { flex: 1 1 12rem; min-width: 0; }
+    .sub-tabs { margin-top: 0.5rem; }
+    .sub-tabs button { font-size: 0.85rem; padding: 0.45rem 0.75rem; }
+    details.advanced-fallback { margin-top: 1.25rem; font-size: 0.82rem; color: #64748b; }
+    .maintenance-card { margin-top: 0.75rem; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; background: #fafafa; }
+    .maintenance-card h4 { margin: 0 0 0.35rem; font-size: 0.9rem; color: #334155; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="" />
@@ -139,7 +154,7 @@
 
   <div id="fietsklim-app-root" class="wrap">
     <p class="userbar"><span id="fietsklim-auth-userbar"></span></p>
-    <h1>Climbfinder → JSON</h1>
+    <h1>Data &amp; import</h1>
     <p class="links">
       Polyline + hoogteprofiel per klim.
       <a href="index.html">Database</a> ·
@@ -148,37 +163,10 @@
     </p>
     <p id="siteDatabaseSummary" class="hint" style="margin:0.35rem 0 0.75rem;font-weight:600;color:#0f766e;"></p>
 
-    <details class="import-guide">
-      <summary>Wat doet wat? (import vs onderhoud)</summary>
-      <table class="import-guide-table">
-        <thead>
-          <tr><th>Doel</th><th>Waar op deze pagina</th><th>GitHub Actions</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Nieuwe klimmen binnenhalen</strong></td>
-            <td>Land/regio + <em>aantal klimmen</em> → tab <strong>Regio</strong> → <strong>Start serverimport</strong>. Grote/land-regio’s worden automatisch opgesplitst in subregio’s (zoals <strong>Importeer gebied</strong>).</td>
-            <td><code>climbfinder-import.yml</code> (unified plan)</td>
-          </tr>
-          <tr>
-            <td><strong>Eén klim opzoeken</strong></td>
-            <td>Zoekveld bovenaan → status + kaart. <strong>Download regio</strong> = direct workflow (zonder limit-stap).</td>
-            <td><code>climbfinder-import.yml</code></td>
-          </tr>
-          <tr>
-            <td><strong>Labels op bestaande klimmen</strong></td>
-            <td>Tab <strong>Onderhoud</strong> → herlabel (<code>region</code> weergave + ids). Geen nieuwe downloads.</td>
-            <td><code>backfill-climb-regions.yml</code></td>
-          </tr>
-          <tr>
-            <td><strong>Dubbele rijen verwijderen</strong></td>
-            <td>Tab <strong>Duplicaten</strong>: zelfde slug in meerdere JSON-bestanden → behoud kopie in <em>kleinste dataset</em> (min. klimmen in bestand).</td>
-            <td><code>dedupe-all-smallest-region.yml</code> of <code>remove-duplicate-climbs.yml</code></td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="hint" style="margin:0.35rem 0 0">Log onderaan toont elke actie. Zonder Firebase één-klik: workflow handmatig <strong>Run workflow</strong> op GitHub.</p>
-    </details>
+    <div id="workflowActivityPanel" class="activity-panel" aria-live="polite">
+      <div id="workflowActivityStatus" class="activity-status activity-status--idle">Geen actieve workflow</div>
+      <ul id="workflowActivityList"></ul>
+    </div>
 
     <div class="card">
       <div class="grid2 region-toolbar">
@@ -195,7 +183,7 @@
               </div>
               <button type="button" id="climbLookupSortBtn" class="secondary">Sorteer: klein → groot (Popular)</button>
               <button type="button" id="climbLookupOpenMapTabBtn" class="secondary">Grote regiokaart</button>
-              <button type="button" id="climbLookupImportBtn">Start GitHub-import (direct)</button>
+              <button type="button" id="climbLookupImportBtn">Importeer regio</button>
               <button type="button" id="climbLookupManualBtn" class="secondary">Alleen deze klim (browser)</button>
             </div>
             <p class="hint">Regio’s: Popular-telling (klein = specifieker gebied). Groen op kaart = klim al in dataset; ring = Climbfinder-regio’s waar de slug in ranking-cache staat.</p>
@@ -228,42 +216,43 @@
       <p id="rankingMeta"></p>
 
       <div class="tabs">
-        <button type="button" id="tabRegion" class="active">① Regio → download</button>
-        <button type="button" id="tabHierarchy">Klimgebieden</button>
-        <button type="button" id="tabMap">Kaart</button>
-        <button type="button" id="tabManual">Handmatig</button>
-        <button type="button" id="tabDuplicates">Duplicaten</button>
-        <button type="button" id="tabMaintenance">Onderhoud</button>
+        <button type="button" id="tabImport" class="active">① Import</button>
+        <button type="button" id="tabClean">② Opschonen</button>
+        <button type="button" id="tabMaintenance">③ Onderhoud</button>
       </div>
 
-      <div id="panelHierarchy" class="panel">
-        <p class="panel-lead">Stap 1 — regio kiezen (macro-overzicht)</p>
-        <p class="hint">
-          NL, BE, FR, DE, IT, ES, CH, AT. Per subregio: <strong>Kies regio</strong> → tab Regio.
-          Op de <strong>groene macro-regel</strong>: <strong>Importeer gebied (N)</strong> = batch voor alle niet-● regio’s eronder (<code>pages=all</code>, Policy B, dedupe).
-          <strong>●/○</strong> = apart JSON-bestand; <strong>≈N gelabeld</strong> = weergave-regio op site.
-        </p>
-        <label for="hierCountrySelect">Land</label>
-        <select id="hierCountrySelect"></select>
-        <div id="hierTree"></div>
-      </div>
+      <div id="panelImport" class="panel active">
+        <div class="tabs sub-tabs">
+          <button type="button" id="tabSubRegion" class="active">Regio</button>
+          <button type="button" id="tabSubMap">Kaart</button>
+          <button type="button" id="tabSubHierarchy">Klimgebieden</button>
+        </div>
 
-      <div id="panelRegion" class="panel active">
-        <p class="panel-lead">Stap 2 — download Popular-ranking (GitHub)</p>
-        <p class="hint" id="githubImportHint"><strong>Aanbevolen:</strong> <strong>GitHub Actions</strong> met <code>publish_to_site=true</code> (standaard): na de run staat JSON automatisch op de kaart — geen zip/upload. Optioneel <code>merge_into=nl-popular</code> om meerdere imports samen te voegen. Zie <a href="../auth/GITHUB_IMPORT.md">GITHUB_IMPORT.md</a>.</p>
-        <p class="hint" id="oneClickStatus" hidden></p>
-        <button type="button" id="startGithubBtn">Start serverimport (GitHub Actions)</button>
-        <button type="button" id="copyGhBtn" class="secondary">Kopieer gh-commando</button>
-        <label for="ghCmd" style="margin-top:0.75rem">Workflow (handmatig op GitHub of met <code>gh</code> CLI)</label>
-        <textarea id="ghCmd" readonly></textarea>
-        <p class="actions-links"><a id="actionsLink" href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/climbfinder-import.yml" target="_blank" rel="noopener">Open Actions → Climbfinder import</a></p>
-        <details class="browser-exp">
-          <summary>Browser-import (experimenteel, vaak Failed to fetch)</summary>
-          <button type="button" id="runRegionBtn">Importeer Popular in browser</button>
-        </details>
-      </div>
+        <div id="panelSubRegion" class="panel active">
+          <p class="panel-lead">Import vanaf server (Climbfinder → JSON op site)</p>
+          <p class="hint" id="importPlanHint">Kies land/regio. Macro- of land-regio’s worden automatisch als <strong>gebied</strong> geïmporteerd (subregio’s, dedupe aan het eind).</p>
+          <div class="import-cta">
+            <button type="button" id="startGithubBtn">Importeer regio</button>
+            <p class="hint grow-hint" id="primaryImportMeta"></p>
+          </div>
+          <details class="browser-exp">
+            <summary>Experimenteel — browser of losse slugs</summary>
+            <button type="button" id="runRegionBtn" class="secondary">Popular in browser (regio)</button>
+            <label for="slugs" style="margin-top:0.75rem">Slugs of URL’s (één per regel)</label>
+            <textarea id="slugs" placeholder="cauberg&#10;https://climbfinder.com/en/climbs/col-du-galibier-le-gauche"></textarea>
+            <button type="button" id="runManualBtn">Importeer slugs in browser</button>
+          </details>
+        </div>
 
-      <div id="panelMap" class="panel">
+        <div id="panelSubHierarchy" class="panel">
+          <p class="panel-lead">Klimgebieden — regio kiezen of gebied importeren</p>
+          <p class="hint">Groene macro-regel: <strong>Importeer gebied</strong> gebruikt hetzelfde unified importplan als de hoofdknop. ● = al compleet op site.</p>
+          <label for="hierCountrySelect">Land</label>
+          <select id="hierCountrySelect"></select>
+          <div id="hierTree"></div>
+        </div>
+
+        <div id="panelSubMap" class="panel">
         <p class="panel-lead">Stap 1 — regio kiezen (kaart)</p>
         <p class="hint">Alle Climbfinder-<strong>regio’s</strong> (~866) op de kaart. Stippen = gemiddelde van Popular-klimmen in die regio (Climbfinder API). <strong>Dropdown</strong> (land/regio) past kaart mee aan; klik stip = zelfde keuze. Klik lege kaart = overzicht. Kleur = importstatus. Grote regio’s (bv. “Alps”, “World”) kunnen een breed gebied samenvatten.</p>
         <form id="mapSearchForm" class="map-toolbar" action="#" autocomplete="off">
@@ -275,14 +264,15 @@
         </form>
         <div id="regionMap" role="application" aria-label="Climbfinder-regio’s op kaart"></div>
         <div id="mapLegend" class="cf-legend"></div>
+        </div>
       </div>
 
-      <div id="panelDuplicates" class="panel">
-        <p class="panel-lead">Onderhoud — dubbele rijen (niet hetzelfde als herlabelen)</p>
+      <div id="panelClean" class="panel">
+        <p class="panel-lead">Dubbele rijen (niet hetzelfde als herlabelen)</p>
         <p class="hint">
           Dezelfde <strong>slug</strong> in <strong>meerdere JSON-bestanden</strong> (bijv. Alps + Isère).
           Per klim blijft één kopie in het <strong>kleinste dataset</strong> (min. aantal klimmen in dat bestand).
-          Dit verandert geen <code>region</code>-weergave — daarvoor tab <strong>Onderhoud</strong>.
+          Dit verandert geen <code>region</code>-weergave — daarvoor tab <strong>③ Onderhoud</strong>.
         </p>
         <p id="dupSummary" class="hint" style="font-weight:600;color:#7c3aed;"></p>
         <div class="dup-toolbar">
@@ -295,77 +285,61 @@
           <h4>Alles in één run</h4>
           <div class="dup-actions">
             <button type="button" id="dupApplyAllSmallestBtn" class="dup-danger">
-              Alle duplicaten opschonen — behoud kleinste dataset (GitHub)
+              Alle duplicaten opschonen (behoud kleinste dataset)
             </button>
           </div>
-          <p class="hint">Workflow <code>dedupe-all-smallest-region.yml</code> — geen handmatige vinkjes.</p>
         </div>
         <div class="action-group">
           <h4>Handmatig per klim</h4>
           <div class="dup-actions">
             <button type="button" id="dupSelectAllSmallestBtn" class="secondary">Selecteer extra kopieën (review)</button>
             <button type="button" id="dupApplyBtn">Verwijder selectie (max 120)</button>
-            <button type="button" id="dupCopyGhBtn" class="secondary">Kopieer gh-commando</button>
           </div>
-          <p class="hint">Workflow <code>remove-duplicate-climbs.yml</code>.</p>
         </div>
-        <textarea id="dupGhCmd" readonly aria-label="gh workflow commando"></textarea>
-        <p class="actions-links">
-          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/remove-duplicate-climbs.yml" target="_blank" rel="noopener">Open Actions → Remove duplicate climbs</a>
-        </p>
+        <textarea id="dupGhCmd" readonly aria-label="gh workflow commando" hidden></textarea>
+        <button type="button" id="dupCopyGhBtn" class="secondary" hidden aria-hidden="true">Kopieer gh-commando</button>
       </div>
 
       <div id="panelMaintenance" class="panel">
-        <p class="panel-lead">Onderhoud — labels op bestaande klimmen</p>
-        <p class="hint">
-          Geen nieuwe downloads. Werkt alle bundles bij: <code>region</code> (weergave sub-land / Climbfinder / Overig),
-          <code>display_locality_id</code>, <code>resolved_locality_id</code>.
-          Vooral na <strong>ranking-cache</strong> verversen (minder *Overig*).
-        </p>
-        <button type="button" id="backfillRegionsBtn" class="secondary">
-          Herlabel alle klimmen op site (GitHub)
-        </button>
-        <p class="actions-links">
-          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml" target="_blank" rel="noopener">Open Actions → Backfill climb regions</a>
-        </p>
-        <p class="hint" style="margin-top:1rem">
-          <strong>Land-monolith opsplitsen</strong> (bv. <code>cf-l45-switzerland.json</code> na een hele-land import):
-          verdeel klimmen naar de juiste subregio-bundles <em>zonder</em> opnieuw te downloaden.
-          Slugs met ranking-index → direct; rest via geo-fallback (startpunt → dichtstbijzijnde Climbfinder-regio, geen macro-klimgebieden).
-          Daarna index rebuild + dedupe (kleinste dataset wint).
-        </p>
-        <label for="splitMonolithBundle">Monolith-bestand (in <code>data/</code>)</label>
-        <input type="text" id="splitMonolithBundle" value="cf-l45-switzerland.json" style="max-width:22rem;margin-bottom:0.5rem" />
-        <button type="button" id="splitMonolithBtn" class="secondary">
-          Splits land-monolith naar subregio’s (GitHub)
-        </button>
-        <p class="actions-links">
-          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/split-monolith-bundle.yml" target="_blank" rel="noopener">Open Actions → Split monolith</a>
-        </p>
-        <p class="hint" style="margin-top:1rem">
-          <strong>Climbfinder-scores</strong> (difficulty points + HC/1–5): alleen de score van de klimpagina ophalen en
-          koppelen aan bestaande klimmen met dezelfde <code>climbfinder.slug</code> — geen route/profiel opnieuw importeren.
-        </p>
-        <label for="cfScoresBundle">Optioneel: één bundle (leeg = alle ontbrekende scores)</label>
-        <input type="text" id="cfScoresBundle" placeholder="bv. cf-l277-south-holland.json" style="max-width:22rem;margin-bottom:0.5rem" />
-        <button type="button" id="backfillCfScoresBtn" class="secondary">
-          Vul ontbrekende Climbfinder-scores (GitHub)
-        </button>
-        <p class="actions-links">
-          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climbfinder-scores.yml" target="_blank" rel="noopener">Open Actions → Backfill Climbfinder scores</a>
-        </p>
+        <p class="panel-lead">Labels &amp; scores op bestaande klimmen</p>
+        <div class="maintenance-card">
+          <h4>Herlabel regio-weergave</h4>
+          <p class="hint">Geen nieuwe downloads. Werkt <code>region</code>, <code>display_locality_id</code> en <code>resolved_locality_id</code> bij op alle bundles.</p>
+          <button type="button" id="backfillRegionsBtn">Herlabel alle klimmen</button>
+        </div>
+        <div class="maintenance-card">
+          <h4>Monolith opsplitsen</h4>
+          <p class="hint">Na een hele-land import: verdeel één groot JSON-bestand naar subregio-bundles zonder opnieuw te scrapen.</p>
+          <label for="splitMonolithBundle">Bestand in <code>data/</code></label>
+          <input type="text" id="splitMonolithBundle" value="cf-l45-switzerland.json" style="max-width:22rem;margin-bottom:0.5rem" />
+          <button type="button" id="splitMonolithBtn" class="secondary">Splits naar subregio’s</button>
+        </div>
+        <div class="maintenance-card">
+          <h4>Climbfinder-scores</h4>
+          <p class="hint">Difficulty points + categorie via slug (geen route opnieuw importeren).</p>
+          <label for="cfScoresBundle">Optioneel: één bundle (leeg = alle ontbrekende)</label>
+          <input type="text" id="cfScoresBundle" placeholder="bv. cf-l277-south-holland.json" style="max-width:22rem;margin-bottom:0.5rem" />
+          <button type="button" id="backfillCfScoresBtn" class="secondary">Vul ontbrekende scores</button>
+        </div>
       </div>
 
-      <div id="panelManual" class="panel">
-        <p class="panel-lead">Experimenteel — enkele slugs in browser</p>
-        <p class="hint">Gebruik de <strong>slug</strong> uit de URL (<code>…/climbs/cauberg</code>), geen vrije naam — tenzij die exact overeenkomt met de slug. Meerdere regels = meerdere klimmen.</p>
-        <label for="slugs">Slugs of Climbfinder-URL’s (één per regel)</label>
-        <textarea id="slugs" placeholder="cauberg&#10;https://climbfinder.com/en/climbs/col-du-galibier-le-gauche"></textarea>
-        <button type="button" id="runManualBtn">Start import</button>
-      </div>
+      <button type="button" id="downloadBtn" class="secondary" disabled>Download JSON (browser-import)</button>
 
-      <button type="button" id="downloadBtn" class="secondary" disabled>Download JSON</button>
-      <label for="log" class="hint" style="margin-top:0.75rem;font-weight:600;color:#334155">Actielog (GitHub / fouten)</label>
+      <details class="advanced-fallback" id="advancedFallback">
+        <summary>Geavanceerd / fallback (gh CLI, Actions-links)</summary>
+        <p class="hint">Alleen nodig bij storing van Firebase. Productie gebruikt één-klik via Functions.</p>
+        <button type="button" id="copyGhBtn" class="secondary">Kopieer import-gh-commando</button>
+        <textarea id="ghCmd" readonly style="min-height:72px;font-size:0.75rem;margin-top:0.5rem"></textarea>
+        <p class="actions-links"><a id="actionsLink" href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/climbfinder-import.yml" target="_blank" rel="noopener">Actions → Climbfinder import</a></p>
+        <p class="actions-links">
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml" target="_blank" rel="noopener">Backfill regions</a> ·
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/split-monolith-bundle.yml" target="_blank" rel="noopener">Split monolith</a> ·
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climbfinder-scores.yml" target="_blank" rel="noopener">CF scores</a> ·
+          <a href="https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/dedupe-all-smallest-region.yml" target="_blank" rel="noopener">Dedupe all</a>
+        </p>
+      </details>
+
+      <label for="log" class="hint" style="margin-top:0.75rem;font-weight:600;color:#334155">Actielog</label>
       <div id="log" role="log" aria-live="polite"></div>
     </div>
   </div>
@@ -379,1109 +353,14 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script src="assets/import-status.js?v=20261007f"></script>
-  <script src="assets/duplicate-admin.js?v=20261007dup2"></script>
-  <script src="assets/region-hierarchy-picker.js?v=20261007kies"></script>
+  <script src="assets/duplicate-admin.js?v=20261013stream"></script>
+  <script src="assets/region-hierarchy-picker.js?v=20261013stream"></script>
   <script src="assets/region-picker.js?v=20261007a"></script>
   <script src="assets/climb-lookup.js?v=20261007i"></script>
   <script src="climbfinder-browser.js"></script>
-  <script>
-    let lastBundle = null;
-    let regionsCatalog = null;
-    let regionPopularCounts = null;
-    let publishedByLocality = null;
-    let selectedRegion = null;
-    let regionsBooted = false;
-    let regionPicker = null;
-    let activeImportTab = "region";
-    let climbSlugSearchIndex = null;
-    let climbSearchIndexLoading = null;
 
-    function log(msg) {
-      const el = document.getElementById("log");
-      el.textContent += msg + "\n";
-      el.scrollTop = el.scrollHeight;
-    }
-
-    const GITHUB_REPO = (window.FIETSKLIM_AUTH_CONFIG?.githubImport?.repo) || "VCCharlie/Climbfinder-scraper";
-
-    function githubImportConfig() {
-      return window.FIETSKLIM_AUTH_CONFIG?.githubImport;
-    }
-
-    function githubOneClickActive() {
-      const cfg = githubImportConfig();
-      return !!(cfg?.enabled && typeof firebase !== "undefined" && firebase.app);
-    }
-
-    function formatCallableError(e) {
-      if (!e) return "Onbekende fout";
-      const code = e.code ? String(e.code).replace(/^functions\//, "") : "";
-      const msg = e.message || String(e);
-      if (code && !msg.includes(code)) return `${msg} (${code})`;
-      return msg;
-    }
-
-    function refreshOneClickUi() {
-      const cfg = githubImportConfig();
-      const status = document.getElementById("oneClickStatus");
-      const btn = document.getElementById("startGithubBtn");
-      const hint = document.getElementById("githubImportHint");
-      if (!status || !btn) return;
-      if (cfg?.enabled) {
-        btn.textContent = "Start import (één klik → GitHub Actions)";
-        status.hidden = false;
-        status.innerHTML =
-          "Serverimport staat aan: kies regio → deze knop start de workflow (geen <code>gh</code>, geen handmatig invullen). " +
-          "Eerste keer: deploy Firebase Function — zie <a href=\"../auth/GITHUB_IMPORT.md#deploy-eenmalig\">GITHUB_IMPORT.md</a>.";
-        if (hint) {
-          hint.innerHTML =
-            "<strong>Één klik:</strong> na inloggen start de knop hieronder direct <code>climbfinder-import.yml</code> " +
-            "met de velden uit het workflow-veld hieronder. JSON komt automatisch op de kaart (<code>publish_to_site=true</code>).";
-        }
-      } else {
-        btn.textContent = "Start serverimport (GitHub Actions)";
-        status.hidden = true;
-      }
-    }
-
-    function cfPopularCount(localityId) {
-      if (typeof ClimbfinderBrowser === "undefined") return null;
-      return ClimbfinderBrowser.popularCountForLocality(regionPopularCounts, localityId);
-    }
-
-    function regionSelectLabel(r) {
-      const total = cfPopularCount(r.id);
-      const pub = publishedByLocality?.[String(r.id)]?.count ?? 0;
-      const badge =
-        typeof FietsKlimImportStatus !== "undefined"
-          ? `${FietsKlimImportStatus.formatImportBadge(pub, total)} · `
-          : "";
-      const overlap =
-        typeof FietsKlimImportStatus !== "undefined"
-          ? FietsKlimImportStatus.formatOverlapHint(r.id, publishedByLocality)
-          : "";
-      const suffix = total != null ? ` · ~${total} Popular` : "";
-      return `${badge}${r.name} (l=${r.id}${suffix})${overlap}`;
-    }
-
-    async function refreshSiteDatabaseSummary() {
-      const el = document.getElementById("siteDatabaseSummary");
-      if (!el) return;
-      try {
-        const res = await fetch(new URL("data/index.json", location.href).href, { cache: "no-store" });
-        if (!res.ok) return;
-        const index = await res.json();
-        const total = index.total_climbs ?? (index.regions || []).reduce((s, r) => s + (r.count || 0), 0);
-        const unique = index.unique_climbs;
-        const dup = index.duplicate_rows_across_regions;
-        const n = index.region_count ?? (index.regions || []).length;
-        let text = `Site-database: ${Number(total).toLocaleString("nl-NL")} klimmen in ${n} regio-dataset(s)`;
-        if (unique != null && dup > 0) {
-          text += ` · ${Number(unique).toLocaleString("nl-NL")} unieke klimmen (${Number(dup).toLocaleString("nl-NL")} dubbele regels door overlap)`;
-        }
-        el.textContent = text;
-      } catch {
-        /* optional */
-      }
-    }
-
-    function countryCode(region) {
-      if (region.country_iso) return region.country_iso;
-      const map = {
-        France: "FR", Italy: "IT", Spain: "ES", Netherlands: "NL", Belgium: "BE",
-        Switzerland: "CH", Austria: "AT", Germany: "DE", "United Kingdom": "GB",
-        Portugal: "PT", Andorra: "AD", Slovenia: "SI", Croatia: "HR", Norway: "NO",
-        USA: "US", Colombia: "CO", Denmark: "DK",
-      };
-      return map[region.country] || "XX";
-    }
-
-    const SLUGS_PER_RANKING_PAGE = 25;
-    const DEFAULT_IMPORT_LIMIT = 50;
-    /** Vanaf dit aantal: workflow gebruikt pages=all (volledige ranking scrapen tot limit). */
-    const USE_ALL_PAGES_FROM_LIMIT = 500;
-    let importLimitUserEdited = false;
-
-    function suggestedImportLimitForLocality(localityId) {
-      const cfTotal = cfPopularCount(localityId);
-      if (cfTotal == null || !Number.isFinite(cfTotal)) return DEFAULT_IMPORT_LIMIT;
-      return Math.min(2000, Math.max(1, cfTotal));
-    }
-
-    function applySuggestedImportLimit(region) {
-      if (!region || importLimitUserEdited) return;
-      const el = document.getElementById("importClimbLimit");
-      if (!el) return;
-      const suggested = suggestedImportLimitForLocality(region.id);
-      el.value = String(suggested);
-    }
-
-    function readImportLimit() {
-      const el = document.getElementById("importClimbLimit");
-      let n = parseInt(el?.value, 10);
-      if (!Number.isFinite(n) || n < 1) n = DEFAULT_IMPORT_LIMIT;
-      if (n > 2000) n = 2000;
-      if (el && String(n) !== el.value) el.value = String(n);
-      return n;
-    }
-
-    function pagesAndLimitForImport(limit, region) {
-      const lim = Math.max(1, Math.min(2000, limit));
-      if (lim >= USE_ALL_PAGES_FROM_LIMIT || (region?.id === 27 && lim >= 650)) {
-        return { pages: "all", limit: String(lim) };
-      }
-      const pages = Math.max(1, Math.ceil(lim / SLUGS_PER_RANKING_PAGE));
-      return { pages: String(pages), limit: String(lim) };
-    }
-
-    function refreshImportLimitHint() {
-      const hint = document.getElementById("importLimitHint");
-      if (!hint) return;
-      const limit = readImportLimit();
-      const { pages, limit: limStr } = pagesAndLimitForImport(limit, selectedRegion);
-      const slugCap = pages === "all" ? limStr : String(Number(pages) * SLUGS_PER_RANKING_PAGE);
-      const cfTotal = selectedRegion ? cfPopularCount(selectedRegion.id) : null;
-      const cfNote =
-        cfTotal != null ? ` · Climbfinder Popular in regio: <strong>${cfTotal}</strong>` : "";
-      hint.innerHTML =
-        `Import max. <strong>${limStr}</strong> klimmen · workflow: <code>pages=${pages}</code>, <code>limit=${limStr}</code>` +
-        (pages !== "all"
-          ? ` (tot ${slugCap} slugs ophalen uit ranking)`
-          : " (alle rankingpagina’s tot limit)") +
-        cfNote;
-    }
-
-    /** GitHub Actions: pages × 25 = max slugs (limit kan niet meer importeren dan dat). */
-    function workflowPayload(region) {
-      const cc = countryCode(region);
-      const limit = readImportLimit();
-      const { pages, limit: limitStr } = pagesAndLimitForImport(limit, region);
-      const base = {
-        locality: String(region.id),
-        pages,
-        meta_id: metaIdFromRegion(region),
-        title: region.name,
-        country: cc,
-        region_label: region.name,
-        limit: limitStr,
-        publish_to_site: "true",
-        merge_into: "",
-      };
-      return base;
-    }
-
-    function ghWorkflowCommand(payload) {
-      const f = (k, v) => `-f ${k}=${JSON.stringify(String(v))}`;
-      return (
-        `gh workflow run climbfinder-import.yml \\\n` +
-        `  ${f("locality", payload.locality)} \\\n` +
-        `  ${f("pages", payload.pages)} \\\n` +
-        `  ${f("meta_id", payload.meta_id)} \\\n` +
-        `  ${f("title", payload.title)} \\\n` +
-        `  ${f("country", payload.country)} \\\n` +
-        `  ${f("region_label", payload.region_label)} \\\n` +
-        `  ${f("limit", payload.limit)} \\\n` +
-        `  -f publish_to_site=${JSON.stringify(String(payload.publish_to_site ?? "true"))}` +
-        (payload.merge_into ? ` \\\n  ${f("merge_into", payload.merge_into)}` : "")
-      );
-    }
-
-    function refreshGhCommand() {
-      refreshImportLimitHint();
-      const ta = document.getElementById("ghCmd");
-      if (!selectedRegion) {
-        ta.value = "# Kies een regio…";
-        return;
-      }
-      ta.value = ghWorkflowCommand(workflowPayload(selectedRegion));
-    }
-
-    function metaIdFromRegion(r) {
-      return `cf-l${r.id}-${r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
-    }
-
-    async function fetchIndexEntry(metaId) {
-      const res = await fetch(new URL("data/index.json", document.baseURI || location.href).href, {
-        cache: "no-store",
-      });
-      if (!res.ok) throw new Error(`index.json (${res.status})`);
-      const index = await res.json();
-      return (index.regions || []).find((r) => r.id === metaId) || null;
-    }
-
-    function sleep(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
-    /** Na GitHub dispatch: poll tot count in index.json verandert (publish naar Pages). */
-    async function pollSiteAfterImport(metaId, baselineCount, maxMs = 25 * 60 * 1000) {
-      const start = Date.now();
-      let attempt = 0;
-      log(`Wacht op publish naar site voor ${metaId} (start: ${baselineCount} klimmen)…`);
-      while (Date.now() - start < maxMs) {
-        attempt += 1;
-        await sleep(attempt === 1 ? 20000 : 15000);
-        try {
-          const entry = await fetchIndexEntry(metaId);
-          const count = entry?.count ?? 0;
-          const title = entry?.displayTitle || entry?.title || metaId;
-          if (!entry && baselineCount === 0) {
-            log(`  [${attempt}] nog niet in index.json…`);
-            continue;
-          }
-          if (count !== baselineCount || (baselineCount === 0 && count > 0)) {
-            log(`✓ Site bijgewerkt: ${title} → ${count} klimmen (was ${baselineCount}). Open Database + hard refresh.`);
-            if (typeof FietsKlimImportStatus !== "undefined" && selectedRegion) {
-              void FietsKlimImportStatus.loadPublishedByLocality().then(() => updateRankingMeta());
-            }
-            return;
-          }
-          log(`  [${attempt}] nog ${count} klimmen op site — workflow waarschijnlijk bezig…`);
-        } catch (e) {
-          log(`  [${attempt}] ${e.message}`);
-        }
-      }
-      log("Timeout (25 min): geen wijziging in index.json. Controleer GitHub Actions.");
-    }
-
-    let duplicatesLoaded = false;
-    let hierarchyInited = false;
-
-    function findRegionInCatalog(localityId) {
-      if (!regionsCatalog) return null;
-      for (const block of regionsCatalog.countries) {
-        const r = block.regions.find((x) => x.id === localityId);
-        if (r) return { ...r, country: block.country, country_iso: r.country_iso || null };
-      }
-      return null;
-    }
-
-    function applyRegionSelection(found, localityId) {
-      const countrySel = document.getElementById("countrySelect");
-      countrySel.value = found.country;
-      fillRegionSelect();
-      const regionSel = document.getElementById("regionSelect");
-      regionSel.value = String(localityId);
-      selectedRegion = found;
-      updateRankingMeta();
-      refreshGhCommand();
-    }
-
-    async function triggerGithubRegionImport() {
-      const btn = document.getElementById("startGithubBtn");
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      if (!selectedRegion) {
-        log("FOUT: kies eerst een regio (dropdown, kaart of Klimgebieden).");
-        return;
-      }
-      btn.disabled = true;
-      document.getElementById("log").textContent = "";
-      const payload = workflowPayload(selectedRegion);
-      let baselineCount = 0;
-      if (String(payload.publish_to_site) !== "false") {
-        try {
-          baselineCount = (await fetchIndexEntry(payload.meta_id))?.count ?? 0;
-        } catch {
-          /* poll start zonder baseline */
-        }
-      }
-      const cfg = githubImportConfig();
-      try {
-        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-          log(`Start import: ${selectedRegion.name} (l=${payload.locality})…`);
-          const fn = firebase
-            .app()
-            .functions(cfg.region || "europe-west1")
-            .httpsCallable("requestClimbfinderImport");
-          const res = await fn(payload);
-          log(res.data.message || "Workflow gestart.");
-          log("Controle: Climbfinder import-run op GitHub Actions (In progress binnen ~30 sec).");
-          if (res.data.actionsUrl) {
-            log(res.data.actionsUrl);
-            window.open(res.data.actionsUrl, "_blank", "noopener");
-          }
-          if (String(payload.publish_to_site) !== "false") {
-            void pollSiteAfterImport(payload.meta_id, baselineCount);
-          }
-        } else {
-          log("Firebase één-klik niet actief — regio staat klaar op tab Regio:");
-          log("");
-          log(document.getElementById("ghCmd").value);
-          log("");
-          log("→ Actions → Climbfinder import → Run workflow");
-          window.open(document.getElementById("actionsLink").href, "_blank", "noopener");
-        }
-      } catch (e) {
-        log("FOUT: " + formatCallableError(e));
-        if (String(e?.code || "").includes("failed-precondition")) {
-          log("");
-          log("Tip: eenmalig PAT + deploy — zie docs/auth/GITHUB_IMPORT.md (Optie B).");
-        }
-      } finally {
-        btn.disabled = false;
-      }
-    }
-
-    const MACRO_BATCH_WORKFLOW = "macro-klimgebied-import-batch.yml";
-
-    function ghMacroBatchCommand(macroId, countryIso) {
-      const iso = countryIso ? `\n  -f country_iso=${JSON.stringify(countryIso)}` : "";
-      return (
-        `gh workflow run ${MACRO_BATCH_WORKFLOW} \\\n` +
-        `  -f macro_locality_id=${JSON.stringify(String(macroId))}${iso} \\\n` +
-        `  -f skip_dedupe=false`
-      );
-    }
-
-    async function triggerMacroKlimgebiedBatch(macroId, ctx) {
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      const label = ctx.name || `l=${macroId}`;
-      const n = ctx.batchCount ?? 0;
-      if (
-        !confirm(
-          `Hele klimgebied “${label}” (l=${macroId})?\n\n` +
-            `${n} regio(’s) met status ○ of ◐ worden sequentieel geïmporteerd (pages=all, Policy B).\n` +
-            `Geen monolithische macro-import; ● regio’s worden overgeslagen.\n` +
-            `Aan het eind: dedupe (kleinste dataset).\n\n` +
-            "GitHub Actions — kan een nacht duren. Doorgaan?"
-        )
-      ) {
-        return;
-      }
-      document.getElementById("log").textContent = "";
-      const cfg = githubImportConfig();
-      const payload = {
-        macro_locality_id: String(macroId),
-        country_iso: ctx.countryIso || "",
-        skip_dedupe: "false",
-      };
-      try {
-        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-          log(`Start macro-batch: ${label} (l=${macroId}, ${n} regio’s)…`);
-          const fn = firebase
-            .app()
-            .functions(cfg.region || "europe-west1")
-            .httpsCallable("requestClimbMacroBatchImport");
-          const res = await fn(payload);
-          log(res.data.message || "Batch-workflow gestart.");
-          if (res.data.actionsUrl) {
-            log(res.data.actionsUrl);
-            window.open(res.data.actionsUrl, "_blank", "noopener");
-          }
-        } else {
-          log("Firebase één-klik niet actief — handmatig:");
-          log("");
-          log(ghMacroBatchCommand(macroId, ctx.countryIso));
-          log("");
-          log("→ Actions → Macro klimgebied import batch → Run workflow");
-          window.open(
-            "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/macro-klimgebied-import-batch.yml",
-            "_blank",
-            "noopener"
-          );
-        }
-      } catch (e) {
-        log("FOUT: " + formatCallableError(e));
-        if (/not-found|404|UNIMPLEMENTED/i.test(String(e))) {
-          log("Tip: deploy Functions opnieuw (requestClimbMacroBatchImport).");
-        }
-      }
-    }
-
-    function pickRegionForImport(localityId, { startGithub = false } = {}) {
-      const found = findRegionInCatalog(localityId);
-      if (!found) return false;
-      applyRegionSelection(found, localityId);
-      regionPicker?.syncFromDropdown?.();
-      setTab("region");
-      log(
-        `Regio gekozen: ${found.name} (l=${localityId})` +
-          (startGithub
-            ? " — GitHub import starten…"
-            : " — pas aantal klimmen aan en klik Start serverimport (tab Regio).")
-      );
-      if (startGithub) void triggerGithubRegionImport();
-      else {
-        requestAnimationFrame(() => document.getElementById("importClimbLimit")?.focus({ preventScroll: true }));
-      }
-      return true;
-    }
-
-    async function pickLocalityOnMainMap(localityId, { quiet = false } = {}) {
-      const found = findRegionInCatalog(localityId);
-      if (!found) return false;
-      applyRegionSelection(found, localityId);
-      if (quiet) {
-        setTab("map");
-        if (!regionPicker) await initRegionPicker();
-        await regionPicker?.pickLocality(localityId);
-      } else {
-        regionPicker?.syncFromDropdown?.();
-        setTab("region");
-      }
-      return true;
-    }
-
-    function setTab(which) {
-      activeImportTab = which;
-      document.getElementById("tabRegion").classList.toggle("active", which === "region");
-      document.getElementById("tabMap").classList.toggle("active", which === "map");
-      document.getElementById("tabManual").classList.toggle("active", which === "manual");
-      document.getElementById("tabDuplicates").classList.toggle("active", which === "duplicates");
-      document.getElementById("tabHierarchy").classList.toggle("active", which === "hierarchy");
-      document.getElementById("tabMaintenance").classList.toggle("active", which === "maintenance");
-      document.getElementById("panelRegion").classList.toggle("active", which === "region");
-      document.getElementById("panelMap").classList.toggle("active", which === "map");
-      document.getElementById("panelManual").classList.toggle("active", which === "manual");
-      document.getElementById("panelDuplicates").classList.toggle("active", which === "duplicates");
-      document.getElementById("panelHierarchy").classList.toggle("active", which === "hierarchy");
-      document.getElementById("panelMaintenance").classList.toggle("active", which === "maintenance");
-      document.getElementById("fietsklim-app-root").classList.toggle("wide", which === "map");
-      const panelRegion = document.getElementById("panelRegion");
-      const panelMap = document.getElementById("panelMap");
-      const panelManual = document.getElementById("panelManual");
-      const panelDuplicates = document.getElementById("panelDuplicates");
-      const panelHierarchy = document.getElementById("panelHierarchy");
-      const panelMaintenance = document.getElementById("panelMaintenance");
-      if (panelRegion) panelRegion.inert = which !== "region";
-      if (panelMap) panelMap.inert = which !== "map";
-      if (panelManual) panelManual.inert = which !== "manual";
-      if (panelDuplicates) panelDuplicates.inert = which !== "duplicates";
-      if (panelHierarchy) panelHierarchy.inert = which !== "hierarchy";
-      if (panelMaintenance) panelMaintenance.inert = which !== "maintenance";
-      if (which === "map") {
-        regionPicker?.onMapTabShown();
-        setTimeout(() => document.getElementById("mapRegionSearch")?.focus({ preventScroll: true }), 50);
-      } else {
-        regionPicker?.invalidateSize();
-      }
-      if (which === "duplicates" && !duplicatesLoaded && window.FietsKlimDuplicateAdmin?.refreshReport) {
-        duplicatesLoaded = true;
-        void window.FietsKlimDuplicateAdmin.refreshReport();
-      }
-      if (which === "hierarchy" && !hierarchyInited && window.FietsKlimRegionHierarchy) {
-        hierarchyInited = true;
-        void window.FietsKlimRegionHierarchy.init({
-          onPickImport: (id) => pickRegionForImport(id),
-          onPickMacroBatch: (macroId, ctx) => void triggerMacroKlimgebiedBatch(macroId, ctx),
-          publishedByLocality: () => publishedByLocality || {},
-          importStatus: typeof FietsKlimImportStatus !== "undefined" ? FietsKlimImportStatus : undefined,
-        });
-      }
-    }
-
-    document.getElementById("tabRegion").addEventListener("click", () => setTab("region"));
-    document.getElementById("tabMap").addEventListener("click", () => setTab("map"));
-    document.getElementById("tabManual").addEventListener("click", () => setTab("manual"));
-    document.getElementById("tabDuplicates").addEventListener("click", () => setTab("duplicates"));
-    document.getElementById("tabHierarchy").addEventListener("click", () => setTab("hierarchy"));
-    document.getElementById("tabMaintenance").addEventListener("click", () => setTab("maintenance"));
-
-    document.getElementById("backfillRegionsBtn")?.addEventListener("click", async () => {
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      if (
-        !confirm(
-          "Alle gepubliceerde klimmen opnieuw herlabelen?\n\n" +
-            "region = weergave (grootste sub-land uit ranking-cache, anders CF-naam/Overig).\n" +
-            "resolved_locality_id = kleinste locality (dedupe).\n\n" +
-            "Commit op main via GitHub Actions. Doorgaan?"
-        )
-      ) {
-        return;
-      }
-      const btn = document.getElementById("backfillRegionsBtn");
-      btn.disabled = true;
-      try {
-        const cfg = githubImportConfig();
-        const actionsUrl =
-          "https://github.com/VCCharlie/Climbfinder-scraper/actions/workflows/backfill-climb-regions.yml";
-        if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-          log("Start herlabel-workflow (weergave + resolved)…");
-          const fn = firebase
-            .app()
-            .functions(cfg.region || "europe-west1")
-            .httpsCallable("requestClimbRegionBackfill");
-          const res = await fn({});
-          log(res.data.message || "Workflow gestart.");
-          log("Controle: binnen ~30 sec moet een run verschijnen op:");
-          log(res.data.actionsUrl || actionsUrl);
-          log("(OK in het popup = alleen bevestiging; de run staat pas live na Firebase → GitHub.)");
-          if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
-        } else {
-          log("Firebase één-klik niet actief — OK start GEEN workflow automatisch.");
-          log("Handmatig: GitHub → Actions → Backfill climb regions → Run workflow → Branch main → Run.");
-          log("Of met gh: gh workflow run backfill-climb-regions.yml -R VCCharlie/Climbfinder-scraper");
-          window.open(actionsUrl, "_blank", "noopener");
-        }
-      } catch (e) {
-        const msg = formatCallableError(e);
-        log("FOUT: " + msg);
-        if (/not-found|404|UNIMPLEMENTED/i.test(msg)) {
-          log("");
-          log("Tip: deploy Firebase Functions opnieuw (inclusief requestClimbRegionBackfill).");
-          log("GitHub → Actions → Deploy Climbfinder import function → Run workflow.");
-        }
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-    async function dispatchMaintenanceCallable(callableName, payload, { confirmText, actionsPath, manualHint }) {
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      if (confirmText && !confirm(confirmText)) {
-        return;
-      }
-      const cfg = githubImportConfig();
-      const actionsUrl = `https://github.com/${GITHUB_REPO}/actions/workflows/${actionsPath}`;
-      if (cfg?.enabled && typeof firebase !== "undefined" && firebase.app) {
-        log(`Start workflow (${callableName})…`);
-        const fn = firebase.app().functions(cfg.region || "europe-west1").httpsCallable(callableName);
-        const res = await fn(payload || {});
-        log(res.data.message || "Workflow gestart.");
-        log(res.data.actionsUrl || actionsUrl);
-        if (res.data.actionsUrl) window.open(res.data.actionsUrl, "_blank", "noopener");
-      } else {
-        log("Firebase één-klik niet actief — start de workflow handmatig op GitHub.");
-        if (manualHint) log(manualHint);
-        window.open(actionsUrl, "_blank", "noopener");
-      }
-    }
-
-    document.getElementById("splitMonolithBtn")?.addEventListener("click", async () => {
-      const bundle = (document.getElementById("splitMonolithBundle")?.value || "cf-l45-switzerland.json").trim();
-      const btn = document.getElementById("splitMonolithBtn");
-      btn.disabled = true;
-      try {
-        await dispatchMaintenanceCallable(
-          "requestSplitMonolithBundle",
-          { bundle, geo_fallback: "true", remove_source: "true" },
-          {
-            confirmText:
-              `Monolith ${bundle} opsplitsen naar subregio-bundles?\n\n` +
-              "Geo-fallback voor slugs zonder index; daarna dedupe. Commit op main via Actions.",
-            actionsPath: "split-monolith-bundle.yml",
-            manualHint: "Actions → Split monolith climb bundle → bundle-naam invullen.",
-          }
-        );
-      } catch (e) {
-        log("FOUT: " + formatCallableError(e));
-        if (/not-found|404|UNIMPLEMENTED/i.test(formatCallableError(e))) {
-          log("Tip: deploy Functions opnieuw (requestSplitMonolithBundle).");
-        }
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-    document.getElementById("backfillCfScoresBtn")?.addEventListener("click", async () => {
-      const bundle = (document.getElementById("cfScoresBundle")?.value || "").trim();
-      const btn = document.getElementById("backfillCfScoresBtn");
-      btn.disabled = true;
-      try {
-        await dispatchMaintenanceCallable(
-          "requestClimbfinderScoreBackfill",
-          { bundle, limit: "0", refetch_all: "false" },
-          {
-            confirmText:
-              "Ontbrekende Climbfinder difficulty points + categorie ophalen?\n\n" +
-              "Eén HTTP-request per klim (slug); kan ~1 uur duren voor duizenden klimmen. Doorgaan?",
-            actionsPath: "backfill-climbfinder-scores.yml",
-            manualHint: "Actions → Backfill Climbfinder scores → Run workflow.",
-          }
-        );
-      } catch (e) {
-        log("FOUT: " + formatCallableError(e));
-        if (/not-found|404|UNIMPLEMENTED/i.test(formatCallableError(e))) {
-          log("Tip: deploy Functions opnieuw (requestClimbfinderScoreBackfill).");
-        }
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-    function hideClimbSearchResults() {
-      const el = document.getElementById("climbSearchResults");
-      if (el) {
-        el.innerHTML = "";
-        el.hidden = true;
-      }
-    }
-
-    async function ensureClimbSearchIndex() {
-      if (climbSlugSearchIndex) return climbSlugSearchIndex;
-      if (!climbSearchIndexLoading) {
-        climbSearchIndexLoading = ClimbfinderBrowser.loadClimbSlugSearchIndex()
-          .then((idx) => {
-            climbSlugSearchIndex = idx;
-            return idx;
-          })
-          .catch((e) => {
-            climbSearchIndexLoading = null;
-            throw e;
-          });
-      }
-      return climbSearchIndexLoading;
-    }
-
-    function dedupeClimbMatchesBySlug(matches) {
-      const bySlug = new Map();
-      for (const m of matches) {
-        const prev = bySlug.get(m.slug);
-        if (!prev || (m.score ?? 0) > (prev.score ?? 0)) bySlug.set(m.slug, m);
-      }
-      return [...bySlug.values()].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
-    }
-
-    function renderClimbSearchResults(matches) {
-      const box = document.getElementById("climbSearchResults");
-      if (!box) return;
-      const list = dedupeClimbMatchesBySlug(matches);
-      if (!list.length) {
-        hideClimbSearchResults();
-        return;
-      }
-      box.hidden = false;
-      box.innerHTML = list
-        .map((m) => {
-          const region = m.region_name || `l=${m.locality_id}`;
-          const country = m.country || "?";
-          const multi =
-            matches.filter((x) => x.slug === m.slug).length > 1
-              ? ' <span class="muted">· meerdere regio’s</span>'
-              : "";
-          return `<button type="button" class="cf-search-hit" data-l="${m.locality_id}" data-slug="${String(m.slug).replace(/"/g, "&quot;")}">${m.label} <span class="muted">(${country} · ${m.slug}, l=${m.locality_id})</span>${multi}</button>`;
-        })
-        .join("");
-      box.querySelectorAll(".cf-search-hit").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const slug = btn.getAttribute("data-slug");
-          const match = matches.find((x) => x.slug === slug) || list.find((x) => x.slug === slug);
-          if (match) applyClimbSearchPick(match);
-        });
-      });
-    }
-
-    async function applyClimbSearchPick(entry) {
-      hideClimbSearchResults();
-      const input = document.getElementById("climbNameSearch");
-      if (input) input.value = entry.label;
-      if (!regionsCatalog) {
-        log("Wacht op regio-catalogus…");
-        await initRegions();
-      }
-      if (typeof FietsKlimClimbLookup !== "undefined") {
-        const idx = await ensureClimbSearchIndex();
-        await FietsKlimClimbLookup.showFromSearchEntry(entry, idx);
-        log(`Klim «${entry.label}» (${entry.slug}) — status, regio’s en kaart hierboven.`);
-        return;
-      }
-      if (activeImportTab !== "map") setTab("map");
-      if (!regionPicker) await initRegionPicker();
-      const ok = await regionPicker?.pickLocality(entry.locality_id);
-      if (!ok) log(`FOUT: regio l=${entry.locality_id} niet in catalogus.`);
-    }
-
-    function bindClimbNameSearch() {
-      const input = document.getElementById("climbNameSearch");
-      if (!input || input.dataset.bound) return;
-      input.dataset.bound = "1";
-
-      input.addEventListener("keydown", async (ev) => {
-        if (ev.key !== "Enter") return;
-        ev.preventDefault();
-        const q = input.value.trim();
-        if (q.length < 2) return;
-        try {
-          let idx = await ensureClimbSearchIndex();
-          let matches = ClimbfinderBrowser.searchClimbsByName(q, { index: idx, limit: 18 });
-          if (!matches.length && /climbfinder\.com|^\w[\w-]+$/i.test(q)) {
-            const { slugs } = await ClimbfinderBrowser.resolveLinesToSlugs([q]);
-            if (slugs.length) {
-              const slug = slugs[0];
-              matches = idx.entries.filter((e) => e.slug === slug).slice(0, 18);
-              if (!matches.length) {
-                await applyClimbSearchPick({
-                  slug,
-                  label: slug.replace(/-/g, " "),
-                  locality_id: 0,
-                  region_name: "",
-                  country: "?",
-                  country_iso: null,
-                });
-                return;
-              }
-            }
-          }
-          if (matches.length === 1) await applyClimbSearchPick(matches[0]);
-          else renderClimbSearchResults(matches);
-        } catch (e) {
-          log("Klim-zoeken: " + e.message);
-        }
-      });
-
-      let debounce = null;
-      input.addEventListener("input", () => {
-        clearTimeout(debounce);
-        const q = input.value.trim();
-        if (q.length < 2) {
-          hideClimbSearchResults();
-          return;
-        }
-        debounce = setTimeout(async () => {
-          try {
-            const idx = await ensureClimbSearchIndex();
-            renderClimbSearchResults(
-              ClimbfinderBrowser.searchClimbsByName(q, { index: idx, limit: 18 })
-            );
-          } catch (e) {
-            log("Klim-zoeken: " + e.message);
-            hideClimbSearchResults();
-          }
-        }, 180);
-      });
-
-      document.addEventListener("click", (ev) => {
-        if (!ev.target.closest(".climb-search-block")) hideClimbSearchResults();
-      });
-    }
-
-    function isUnlocked() {
-      return (
-        window.__FIETSKLIM_AUTH_READY === true ||
-        document.body.classList.contains("fietsklim-unlocked")
-      );
-    }
-
-    async function initRegions() {
-      if (regionsBooted) return;
-      regionsBooted = true;
-      const countrySel = document.getElementById("countrySelect");
-      try {
-        if (typeof ClimbfinderBrowser === "undefined") {
-          throw new Error("climbfinder-browser.js niet geladen");
-        }
-        regionsCatalog = await ClimbfinderBrowser.loadRegionsCatalog();
-        try {
-          regionPopularCounts = await ClimbfinderBrowser.loadRegionPopularCounts();
-        } catch (e) {
-          regionPopularCounts = null;
-          log("Popular-tellingen niet geladen: " + e.message);
-        }
-        if (typeof FietsKlimImportStatus !== "undefined") {
-          publishedByLocality = await FietsKlimImportStatus.loadPublishedByLocality();
-          await FietsKlimImportStatus.loadLocalityOverlaps();
-        }
-        void refreshSiteDatabaseSummary();
-      } catch (e) {
-        regionsBooted = false;
-        countrySel.innerHTML = "";
-        const opt = document.createElement("option");
-        opt.value = "";
-        opt.textContent = `Fout: ${e.message}`;
-        countrySel.appendChild(opt);
-        log("FOUT regio’s: " + e.message);
-        throw e;
-      }
-      countrySel.innerHTML = "";
-      for (const block of regionsCatalog.countries) {
-        const opt = document.createElement("option");
-        opt.value = block.country;
-        opt.textContent = `${block.country} (${block.regions.length})`;
-        countrySel.appendChild(opt);
-      }
-      countrySel.addEventListener("change", () => {
-        const prevRegion = document.getElementById("regionSelect").value;
-        fillRegionSelect();
-        const regionSel = document.getElementById("regionSelect");
-        if (prevRegion && [...regionSel.options].some((o) => o.value === prevRegion)) {
-          regionSel.value = prevRegion;
-        }
-        updateRankingMeta();
-        if (activeImportTab === "map") regionPicker?.onMapTabShown();
-        else regionPicker?.refreshCountry();
-      });
-      document.getElementById("regionSelect").addEventListener("change", () => {
-        updateRankingMeta();
-        regionPicker?.syncFromDropdown();
-      });
-      fillRegionSelect();
-      initRegionPicker();
-    }
-
-    async function initRegionPicker() {
-      if (regionPicker || typeof ClimbfinderRegionPicker === "undefined") return;
-      try {
-        regionPicker = await ClimbfinderRegionPicker.init({
-          mapId: "regionMap",
-          countrySelectId: "countrySelect",
-          regionSelectId: "regionSelect",
-          searchId: "mapRegionSearch",
-          searchResultsId: "mapSearchResults",
-          legendId: "mapLegend",
-          onRegionChosen: () => {
-            if (activeImportTab === "map") setTab("region");
-          },
-        });
-        regionPicker.setCatalog(regionsCatalog);
-      } catch (e) {
-        log("Kaart regio’s: " + e.message);
-      }
-    }
-
-    function fillRegionSelect() {
-      const country = document.getElementById("countrySelect").value;
-      const block = regionsCatalog.countries.find((c) => c.country === country);
-      const regionSel = document.getElementById("regionSelect");
-      regionSel.innerHTML = "";
-      regionSel.disabled = !block;
-      selectedRegion = null;
-      document.getElementById("rankingMeta").textContent = "";
-      if (!block) return;
-      for (const r of block.regions) {
-        const opt = document.createElement("option");
-        opt.value = String(r.id);
-        opt.textContent = regionSelectLabel(r);
-        opt._region = { ...r, country, country_iso: r.country_iso || null };
-        regionSel.appendChild(opt);
-      }
-      const emptyOpt = document.createElement("option");
-      emptyOpt.value = "";
-      emptyOpt.textContent = "— kies op kaart of hier —";
-      regionSel.insertBefore(emptyOpt, regionSel.firstChild);
-      regionSel.disabled = false;
-      updateRankingMeta();
-    }
-
-    async function updateRankingMeta() {
-      const regionSel = document.getElementById("regionSelect");
-      const opt = regionSel.selectedOptions[0];
-      if (!opt || !opt.value || !opt._region) {
-        selectedRegion = null;
-        document.getElementById("rankingMeta").textContent = "";
-        refreshGhCommand();
-        refreshImportLimitHint();
-        return;
-      }
-      selectedRegion = { ...opt._region };
-      applySuggestedImportLimit(selectedRegion);
-      const meta = document.getElementById("rankingMeta");
-      meta.textContent = "Ranking-slugs laden…";
-      try {
-        const ranking = await ClimbfinderBrowser.loadPopularRankingSlugs(selectedRegion.id);
-        let warn = "";
-        const expectIso = selectedRegion.country_iso;
-        if (expectIso && ranking.country_iso && expectIso !== ranking.country_iso) {
-          warn = ` · <strong style="color:#b91c1c">ID l=${selectedRegion.id} hoort bij ${ranking.country_iso}, niet ${expectIso} — kies andere regio of ververs catalogus</strong>`;
-        } else if (ranking.country_iso) {
-          warn = ` · climbs: ${ranking.country_iso}`;
-        }
-        const cfTotal = cfPopularCount(selectedRegion.id);
-        let pagesHint = "";
-        if (cfTotal != null) {
-          pagesHint = ` · <strong>Climbfinder Popular: ${cfTotal} klimmen</strong> (max downloadbaar met hoge limit)`;
-        }
-        if (selectedRegion.id === 280) {
-          pagesHint +=
-            ' · <strong>l=280</strong> = provincie Limburg (niet hetzelfde als Zuid-Limburg l=27).';
-        } else if (cfTotal == null) {
-          pagesHint +=
-            " · Pas <strong>aantal klimmen</strong> hierboven aan. Lokale cache toont alleen p.1–2.";
-        } else {
-          pagesHint += " · Zet <strong>aantal klimmen</strong> tot max. Popular-telling hierboven.";
-        }
-        const overlapDetail =
-          typeof FietsKlimImportStatus !== "undefined"
-            ? FietsKlimImportStatus.formatOverlapDetailHtml(selectedRegion.id, publishedByLocality)
-            : "";
-        meta.innerHTML =
-          `${ranking.count} slugs in lokale cache (Popular p.1–2) · bijgewerkt ${ranking.updated_at || "?"}${warn}${pagesHint} · <a href="${ranking.ranking_url}" target="_blank" rel="noopener">Climbfinder ranking</a>${overlapDetail}`;
-      } catch (e) {
-        meta.textContent = e.message;
-      }
-      refreshGhCommand();
-    }
-
-    async function runImport(slugs, meta) {
-      document.getElementById("log").textContent = "";
-      document.getElementById("downloadBtn").disabled = true;
-      lastBundle = null;
-      lastBundle = await ClimbfinderBrowser.importSlugs(slugs, meta, (p) => {
-        if (p.status === "fetch") log(`[${p.i}/${p.total}] ${p.slug}…`);
-        else if (p.status === "ok") log(`  ✓ ${p.slug}`);
-        else if (p.status === "err") log(`  ✗ ${p.slug}: ${p.error}`);
-        else if (p.status === "resolve") log(`Zoek slug: ${p.line}…`);
-        else if (p.status === "resolve_err") log(`  ✗ ${p.line}: ${p.error}`);
-      });
-      log(`\nKlaar: ${lastBundle.climbs.length} klimmen, ${lastBundle.meta.import_errors.length} fouten.`);
-      document.getElementById("downloadBtn").disabled = false;
-    }
-
-    document.getElementById("importClimbLimit")?.addEventListener("input", () => {
-      importLimitUserEdited = true;
-      refreshGhCommand();
-    });
-    document.getElementById("importClimbLimit")?.addEventListener("change", () => {
-      importLimitUserEdited = true;
-      refreshGhCommand();
-    });
-
-    document.getElementById("copyGhBtn").addEventListener("click", () => {
-      const ta = document.getElementById("ghCmd");
-      ta.select();
-      navigator.clipboard?.writeText(ta.value);
-      log("gh-commando gekopieerd.");
-    });
-
-    document.getElementById("startGithubBtn").addEventListener("click", () => {
-      void triggerGithubRegionImport();
-    });
-
-    document.getElementById("runRegionBtn").addEventListener("click", async () => {
-      const btn = document.getElementById("runRegionBtn");
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      if (!selectedRegion) return;
-      btn.disabled = true;
-      try {
-        const ranking = await ClimbfinderBrowser.loadPopularRankingSlugs(selectedRegion.id);
-        if (!ranking.slugs?.length) throw new Error("Geen slugs in ranking-cache voor deze regio");
-        log(`Regio ${selectedRegion.name}: ${ranking.slugs.length} slugs (Popular, ${ranking.pages} pag.)`);
-        const cc = countryCode(selectedRegion);
-        await runImport(ranking.slugs, {
-          metaId: metaIdFromRegion(selectedRegion),
-          title: selectedRegion.name,
-          country: cc,
-          regionLabel: selectedRegion.name,
-          tags: ["climbfinder", "popular", `locality-${selectedRegion.id}`],
-          source: {
-            name: "climbfinder",
-            import: "browser",
-            locality_id: selectedRegion.id,
-            sort: "popular",
-            pages: ranking.pages,
-            ranking_url: ranking.ranking_url,
-          },
-        });
-      } catch (e) {
-        log("FOUT: " + e.message);
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-    document.getElementById("runManualBtn").addEventListener("click", async () => {
-      const btn = document.getElementById("runManualBtn");
-      if (!isUnlocked()) {
-        log("FOUT: eerst inloggen.");
-        return;
-      }
-      btn.disabled = true;
-      try {
-        const lines = document.getElementById("slugs").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
-        if (!lines.length) throw new Error("Geen slugs of URL’s ingevuld");
-
-        log("Slugs controleren…");
-        const { slugs, errors } = await ClimbfinderBrowser.resolveLinesToSlugs(lines, (p) => {
-          if (p.status === "resolve_err") log(`  ✗ ${p.line}: ${p.error}`);
-        });
-        for (const e of errors) log(`  ✗ ${e}`);
-        if (!slugs.length) throw new Error("Geen geldige slugs — gebruik Climbfinder-URL of exacte slug");
-
-        await runImport(slugs, {
-          metaId: "custom-import",
-          title: "Climbfinder handmatige import",
-          country: "XX",
-          regionLabel: "Import",
-          tags: ["climbfinder"],
-        });
-      } catch (e) {
-        log("FOUT: " + e.message);
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-    document.getElementById("downloadBtn").addEventListener("click", () => {
-      if (!lastBundle) return;
-      const name = (lastBundle.meta.id || "climbs") + ".json";
-      const blob = new Blob([JSON.stringify(lastBundle, null, 2) + "\n"], { type: "application/json" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = name;
-      a.click();
-    });
-
-    function bootImportPage() {
-      refreshOneClickUi();
-      refreshImportLimitHint();
-      bindClimbNameSearch();
-      if (typeof FietsKlimClimbLookup !== "undefined") {
-        FietsKlimClimbLookup.init({
-          ensureSearchIndex: ensureClimbSearchIndex,
-          loadPopularCounts: () => ClimbfinderBrowser.loadRegionPopularCounts(),
-          getPublishedByLocality: () => publishedByLocality || {},
-          log,
-          pickLocalityOnMainMap,
-          async startRegionImport(localityId) {
-            if (!pickRegionForImport(localityId, { startGithub: true })) {
-              log(`FOUT: regio l=${localityId} niet in catalogus.`);
-            }
-          },
-          openManualImport(slug, label) {
-            setTab("manual");
-            const ta = document.getElementById("slugs");
-            if (ta) ta.value = slug;
-            log(`Handmatig: «${label}» (${slug}) — Start import (browser) of gebruik GitHub-regio-import.`);
-          },
-        });
-      }
-      initRegions().catch(() => {});
-      if (typeof FietsKlimDuplicateAdminInit === "function") {
-        FietsKlimDuplicateAdminInit({
-          isUnlocked,
-          githubImportConfig,
-          log,
-          formatCallableError,
-        });
-      }
-    }
-
-    document.addEventListener("fietsklim-authenticated", () => bootImportPage());
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", bootImportPage);
-    } else {
-      bootImportPage();
-    }
-
-    /* Regio-JSON is publiek; herhaal als eerste fetch te vroeg was */
-    let regionRetries = 0;
-    const regionTimer = setInterval(() => {
-      regionRetries += 1;
-      if (regionsBooted && regionsCatalog) {
-        clearInterval(regionTimer);
-        return;
-      }
-      if (regionRetries > 24) {
-        clearInterval(regionTimer);
-        return;
-      }
-      bootImportPage();
-    }, 500);
-  </script>
+  <script src="assets/import-plan-client.js?v=20261013stream"></script>
+  <script src="assets/import-activity-feed.js?v=20261013stream"></script>
+  <script src="assets/import-page.js?v=20261013stream"></script>
 </body>
 </html>
