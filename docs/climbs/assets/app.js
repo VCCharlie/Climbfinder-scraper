@@ -876,6 +876,52 @@
     return `https://www.strava.com/activities/${activityId}`;
   }
 
+  function parseExplorerQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const dataset = params.get("dataset");
+    const climb = params.get("climb");
+    const back = params.get("back");
+    if (back && typeof FietsKlimClimbLog !== "undefined") {
+      FietsKlimClimbLog.rememberNavBack?.(back);
+    }
+    if (!dataset && !climb) return null;
+    return { dataset, climb, back };
+  }
+
+  function regionUrlForDatasetId(datasetId) {
+    if (!datasetId || !state.indexRegions?.length) return null;
+    const norm = String(datasetId).toLowerCase();
+    for (const r of state.indexRegions) {
+      if (r.id === datasetId || String(r.id).toLowerCase() === norm) return r.url;
+      const fromUrl =
+        typeof FietsKlimClimbLog !== "undefined"
+          ? FietsKlimClimbLog.datasetIdFromRegionUrl(r.url)
+          : "";
+      if (fromUrl && fromUrl.toLowerCase() === norm) return r.url;
+    }
+    return null;
+  }
+
+  function syncClimbNavBackBar() {
+    const bar = $("climbNavBack");
+    if (!bar) return;
+    const nav =
+      typeof FietsKlimClimbLog !== "undefined" ? FietsKlimClimbLog.getNavBack?.() : null;
+    if (!nav?.href) {
+      bar.hidden = true;
+      return;
+    }
+    bar.href = nav.href;
+    bar.textContent = `← ${nav.label || "Terug"}`;
+    bar.hidden = false;
+  }
+
+  function clearExplorerQueryFromUrl() {
+    if (!window.location.search) return;
+    const url = window.location.pathname + window.location.hash;
+    history.replaceState(null, "", url);
+  }
+
   function renderStravaLinkElement(el, datasetId, climb) {
     if (!el || !climb || !datasetId) {
       if (el) el.hidden = true;
@@ -893,10 +939,25 @@
     }
     const count = Math.max(1, Number(row.stravaAscentCount) || 1);
     const actName = row.stravaActivityName || "Strava-rit";
-    const url = FietsKlimClimbLog.stravaActivityUrl?.(actId) || stravaActivityUrl(actId);
     const countPart = count > 1 ? ` · ${count}× gedetecteerd op Strava` : "";
     el.hidden = false;
-    el.innerHTML = `Strava: <a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(actName)}</a>${countPart}`;
+    el.textContent = "";
+    const label = document.createTextNode("Strava: ");
+    el.appendChild(label);
+    const wrap = document.createElement("span");
+    wrap.className = "strava-link-actions";
+    const a = document.createElement("a");
+    a.textContent = actName;
+    if (FietsKlimClimbLog.applyStravaActivityAnchor) {
+      FietsKlimClimbLog.applyStravaActivityAnchor(a, actId);
+    } else {
+      a.href = stravaActivityUrl(actId);
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
+    wrap.appendChild(a);
+    el.appendChild(wrap);
+    if (countPart) el.appendChild(document.createTextNode(countPart));
   }
 
   function syncClimbDetailStravaLink() {
@@ -2781,9 +2842,10 @@
     updateChart(climb);
     afterClimbSelectedOnMobile(climb);
     syncClimbDetailDoneToggle();
+    syncClimbNavBackBar();
 
     if (window.location.hash !== `#${id}`) {
-      history.replaceState(null, "", `#${id}`);
+      history.replaceState(null, "", window.location.pathname + window.location.search + `#${id}`);
     }
   }
 
@@ -3526,21 +3588,62 @@
       updateSearchHint();
     }
 
+    const explorerQuery = parseExplorerQuery();
+    const queryClimbId = explorerQuery?.climb || null;
     const hashRegion = window.location.hash.replace("#", "");
-    if (select.value) {
+    const initialSelectId =
+      queryClimbId || (hashRegion && !state.selectedId ? hashRegion : null);
+
+    if (explorerQuery?.dataset) {
+      const regionUrl = regionUrlForDatasetId(explorerQuery.dataset);
+      if (regionUrl) {
+        syncCountrySelectForRegionUrl(regionUrl);
+        if (select.value !== regionUrl) select.value = regionUrl;
+        await loadRegion(regionUrl, {
+          keepSearch: true,
+          selectId: initialSelectId,
+        });
+        seedGlobalEntriesFromCurrentRegion();
+      }
+    } else if (select.value) {
       syncCountrySelectForRegionUrl(select.value);
       await loadRegion(select.value, {
-        selectId: hashRegion && !state.selectedId ? hashRegion : null,
+        selectId: initialSelectId,
       });
       seedGlobalEntriesFromCurrentRegion();
     }
 
+    if (explorerQuery?.climb && state.selectedId) {
+      clearExplorerQueryFromUrl();
+      syncClimbNavBackBar();
+    }
+
     void ensureGlobalSearchIndex({ background: true }).then(async () => {
+      if (explorerQuery?.climb && !state.selectedId) {
+        let regionUrl = explorerQuery.dataset
+          ? regionUrlForDatasetId(explorerQuery.dataset)
+          : null;
+        if (!regionUrl) {
+          const hit = state.globalEntries.find(({ climb }) => climb.id === explorerQuery.climb);
+          regionUrl = hit?.regionUrl;
+        }
+        if (regionUrl) {
+          await selectClimbFromList(explorerQuery.climb, regionUrl);
+          clearExplorerQueryFromUrl();
+          syncClimbNavBackBar();
+          return;
+        }
+      }
       const deepLink = window.location.hash.replace("#", "");
       if (deepLink && !state.selectedId) {
         const hit = state.globalEntries.find(({ climb }) => climb.id === deepLink);
         if (hit) await selectClimbFromList(hit.climb.id, hit.regionUrl);
       }
+      syncClimbNavBackBar();
+    });
+
+    $("climbNavBack")?.addEventListener("click", () => {
+      FietsKlimClimbLog?.clearNavBack?.();
     });
   }
 

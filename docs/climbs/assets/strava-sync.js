@@ -70,25 +70,66 @@
       .replace(/"/g, "&quot;");
   }
 
-  function stravaActivityUrl(activityId) {
-    if (!activityId) return "#";
-    return `https://www.strava.com/activities/${activityId}`;
-  }
-
-  function fillMatchList(ul, items, emptyEl) {
+  function fillMatchList(ul, items, emptyEl, options = {}) {
     if (!ul) return;
     ul.innerHTML = "";
     const list = items || [];
     if (emptyEl) emptyEl.hidden = list.length > 0;
+    const log = global.FietsKlimClimbLog;
+    const backKey = options.back || "settings";
+
     for (const m of list) {
       const li = document.createElement("li");
       const climbLabel = m.climbName || m.stravaClimbName || m.climbId || "Klim";
+      const climbId = m.climbId;
+      const datasetId = m.datasetId;
       const actId = m.activityId || m.stravaActivityId;
       const actLabel = m.activityName || m.stravaActivityName || (actId ? `Rit ${actId}` : "Strava-rit");
-      const ds = m.datasetId ? `<span class="strava-match-dataset">${escapeHtml(m.datasetId)}</span> · ` : "";
-      li.innerHTML = `${ds}<strong>${escapeHtml(climbLabel)}</strong> → <a href="${stravaActivityUrl(actId)}" target="_blank" rel="noopener noreferrer">${escapeHtml(actLabel)}</a>`;
+
+      if (m.datasetId) {
+        const dsSpan = document.createElement("span");
+        dsSpan.className = "strava-match-dataset";
+        dsSpan.textContent = m.datasetId;
+        li.appendChild(dsSpan);
+        li.appendChild(document.createTextNode(" · "));
+      }
+
+      const strong = document.createElement("strong");
+      if (datasetId && climbId && log?.databaseClimbUrl) {
+        const climbLink = document.createElement("a");
+        climbLink.href = log.databaseClimbUrl(datasetId, climbId, { back: backKey });
+        climbLink.textContent = climbLabel;
+        climbLink.className = "strava-match-climb-link";
+        climbLink.addEventListener("click", () => log.rememberNavBack?.(backKey));
+        strong.appendChild(climbLink);
+      } else {
+        strong.textContent = climbLabel;
+      }
+      li.appendChild(strong);
+      li.appendChild(document.createTextNode(" → "));
+
+      const stravaLink = document.createElement("a");
+      stravaLink.textContent = actLabel;
+      if (log?.applyStravaActivityAnchor && actId) {
+        log.applyStravaActivityAnchor(stravaLink, actId);
+      } else {
+        stravaLink.href = actId ? `https://www.strava.com/activities/${actId}` : "#";
+        stravaLink.target = "_blank";
+        stravaLink.rel = "noopener noreferrer";
+      }
+      li.appendChild(stravaLink);
+
       ul.appendChild(li);
     }
+  }
+
+  function focusStravaSettingsFromHash() {
+    const hash = (global.location.hash || "").replace("#", "");
+    if (hash !== "stravaSettingsCard") return;
+    const card = $("stravaSettingsCard");
+    card?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    const logDetails = $("stravaLogMatchList")?.closest("details");
+    if (logDetails) logDetails.open = true;
   }
 
   function renderStravaMatchPanels() {
@@ -110,7 +151,9 @@
     }
 
     const lastMatches = statusCache?.lastSyncSummary?.matches;
-    fillMatchList($("stravaLastSyncMatchList"), lastMatches, $("stravaLastSyncMatchEmpty"));
+    fillMatchList($("stravaLastSyncMatchList"), lastMatches, $("stravaLastSyncMatchEmpty"), {
+      back: "settings",
+    });
 
     const logItems = linked.map((r) => ({
       datasetId: r.datasetId,
@@ -119,7 +162,7 @@
       activityId: r.stravaActivityId,
       activityName: r.stravaActivityName,
     }));
-    fillMatchList($("stravaLogMatchList"), logItems, $("stravaLogMatchEmpty"));
+    fillMatchList($("stravaLogMatchList"), logItems, $("stravaLogMatchEmpty"), { back: "settings" });
   }
 
   function setupHint(setup) {
@@ -582,6 +625,8 @@
     if (global.__FIETSKLIM_AUTH_READY) {
       void populateDatasetSelect().then(() => refreshStatus());
     }
+    focusStravaSettingsFromHash();
+    global.addEventListener("hashchange", focusStravaSettingsFromHash);
   }
 
   global.FietsKlimStravaSync = { init, refreshStatus, populateDatasetSelect };
