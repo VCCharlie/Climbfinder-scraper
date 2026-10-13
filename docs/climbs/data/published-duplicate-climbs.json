@@ -1,7 +1,28 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-10-09T19:24:13Z",
-  "duplicate_groups": 0,
-  "extra_rows": 0,
-  "groups": []
+  "updated_at": "2026-10-13T09:43:55Z",
+  "duplicate_groups": 1,
+  "extra_rows": 1,
+  "groups": [
+    {
+      "slug": "clarive-saint-gingolp",
+      "name": "Clarive from Saint-Gingolp via Route du Frénay",
+      "copies": [
+        {
+          "dataset_id": "cf-l288-haute-savoie",
+          "title": "Haute Savoie",
+          "locality_id": 288,
+          "climb_id": "clarive-saint-gingolp",
+          "region_count": 237
+        },
+        {
+          "dataset_id": "cf-l45-switzerland",
+          "title": "Switzerland",
+          "locality_id": 45,
+          "climb_id": "clarive-saint-gingolp",
+          "region_count": 2000
+        }
+      ]
+    }
+  ]
 }
