@@ -316,10 +316,27 @@
         </div>
         <div class="maintenance-card">
           <h4>Climbfinder-scores</h4>
-          <p class="hint">Difficulty points + categorie via slug (geen route opnieuw importeren).</p>
-          <label for="cfScoresBundle">Optioneel: één bundle (leeg = alle ontbrekende)</label>
-          <input type="text" id="cfScoresBundle" placeholder="bv. cf-l277-south-holland.json" style="max-width:22rem;margin-bottom:0.5rem" />
-          <button type="button" id="backfillCfScoresBtn" class="secondary">Vul ontbrekende scores</button>
+          <p class="hint">
+            Difficulty points + categorie via slug. GitHub Actions stopt na ~6 uur — gebruik <strong>batches</strong>
+            (~500 klimmen ≈ 30–45 min) en start opnieuw tot alles klaar is.
+          </p>
+          <div class="grid2" style="margin-top:0.5rem">
+            <div>
+              <label for="cfScoresBundle">Optioneel: één bundle (leeg = alle ontbrekende)</label>
+              <input type="text" id="cfScoresBundle" placeholder="bv. cf-l277-south-holland.json" />
+            </div>
+            <div>
+              <label for="cfScoresBatchSize">Batchgrootte (klimmen per run)</label>
+              <input type="number" id="cfScoresBatchSize" min="50" max="3000" step="50" value="500" inputmode="numeric" />
+            </div>
+            <div>
+              <label for="cfScoresOffset">Offset (meestal 0)</label>
+              <input type="number" id="cfScoresOffset" min="0" step="50" value="0" inputmode="numeric" />
+              <p class="hint" id="cfScoresOffsetHint" style="margin-top:0.25rem">Na elke batch: opnieuw starten met offset 0 (ontbrekende scores) of verhoog offset bij <code>refetch all</code>.</p>
+            </div>
+          </div>
+          <button type="button" id="backfillCfScoresBtn" class="secondary">Start score-batch</button>
+          <button type="button" id="backfillCfScoresNextBtn" class="secondary">Volgende batch (zelfde instellingen)</button>
         </div>
       </div>
 
@@ -361,6 +378,6 @@
 
   <script src="assets/import-plan-client.js?v=20261013stream"></script>
   <script src="assets/import-activity-feed.js?v=20261013stream"></script>
-  <script src="assets/import-page.js?v=20261013stream"></script>
+  <script src="assets/import-page.js?v=20261013cfbatch"></script>
 </body>
 </html>

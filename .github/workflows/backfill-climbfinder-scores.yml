@@ -9,7 +9,11 @@ on:
         required: false
         default: ""
       limit:
-        description: "Max klimmen (0 = alles wat mist)"
+        description: "Max klimmen per run (0 = alles; >6u risico — gebruik bv. 500)"
+        required: true
+        default: "500"
+      offset:
+        description: "Skip eerste N in queue (meestal 0 bij ontbrekende scores)"
         required: true
         default: "0"
       refetch_all:
@@ -27,7 +31,7 @@ concurrency:
 jobs:
   backfill:
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +50,9 @@ jobs:
           fi
           if [ "${{ inputs.limit }}" != "0" ]; then
             ARGS+=(--limit "${{ inputs.limit }}")
+          fi
+          if [ "${{ inputs.offset }}" != "0" ]; then
+            ARGS+=(--offset "${{ inputs.offset }}")
           fi
           python scripts/backfill_climbfinder_scores.py "${ARGS[@]}"
 
