@@ -314,13 +314,14 @@
     return null;
   }
 
-  /** Lightning tier keys (Climbfinder map legend: &lt;4, 4+, 8+, 12+, 34+). */
+  /** Lightning tier keys (Climbfinder map legend: &lt;5, 5+, 9+, 12+, 17+, 34+). */
   function lightningTierKeyFromScore(score) {
     const s = Math.round(score);
-    if (s < 4) return "L0";
-    if (s < 8) return "L4";
-    if (s < 12) return "L8";
-    if (s < 34) return "L12";
+    if (s < 5) return "L0";
+    if (s < 9) return "L5";
+    if (s < 12) return "L9";
+    if (s < 17) return "L12";
+    if (s < 34) return "L17";
     return "L34";
   }
 
@@ -350,10 +351,11 @@
   }
 
   const LIGHTNING_MAP_COLORS = {
-    L0: { fill: "#22c55e", stroke: "#15803d", label: "< 4" },
-    L4: { fill: "#eab308", stroke: "#a16207", label: "4+" },
-    L8: { fill: "#fb923c", stroke: "#c2410c", label: "8+" },
-    L12: { fill: "#ef4444", stroke: "#b91c1c", label: "12+" },
+    L0: { fill: "#22c55e", stroke: "#15803d", label: "< 5" },
+    L5: { fill: "#84cc16", stroke: "#4d7c0f", label: "5+" },
+    L9: { fill: "#eab308", stroke: "#a16207", label: "9+" },
+    L12: { fill: "#fb923c", stroke: "#c2410c", label: "12+" },
+    L17: { fill: "#ef4444", stroke: "#b91c1c", label: "17+" },
     L34: { fill: "#a855f7", stroke: "#6b21a8", label: "34+" },
   };
 
@@ -387,7 +389,20 @@
   }
 
   function difficultyLegendTiers() {
-    return ["L0", "L4", "L8", "L12", "L34", "5", "4", "3", "2", "1", "HC", "SHC", "unknown"];
+    return ["L0", "L5", "L9", "L12", "L17", "L34", "5", "4", "3", "2", "1", "HC", "SHC", "unknown"];
+  }
+
+  /** Summit / top of climb for map markers (Climbfinder-style endpoint). */
+  function climbSummitLatLng(climb) {
+    const pts = climbStreetViewEndpoints(climb);
+    const summit = pts.find((p) => p.role === "summit");
+    if (summit) return [summit.lat, summit.lng];
+    const coords = climb?.geometry?.coordinates;
+    if (coords?.length) {
+      const [lng, lat] = coords[coords.length - 1];
+      return [lat, lng];
+    }
+    return null;
   }
 
   function difficultyLegendTitle(entries) {
@@ -464,6 +479,7 @@
     difficultyLegendTitle,
     streetViewMapsUrl,
     climbStreetViewEndpoints,
+    climbSummitLatLng,
     LIGHTNING_MAP_COLORS,
     DIFFICULTY_MAP_COLORS,
   };

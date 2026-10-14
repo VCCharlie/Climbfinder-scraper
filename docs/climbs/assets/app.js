@@ -3,6 +3,9 @@
 (function () {
   const MIN_ZOOM_NEARBY_ROUTES = 12;
   const MIN_ZOOM_MARKER_LABELS = 12;
+  /** Bij hogere zoom: aparte score per aanloop naar dezelfde top. */
+  const MIN_ZOOM_SUMMIT_SPLIT = 14;
+  const SUMMIT_CLUSTER_RADIUS_M = 55;
   const MAX_NEARBY_ROUTES = 40;
   const MAX_DIM_ROUTES = 35;
   const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
@@ -251,6 +254,7 @@
     markers: [],
     overviewCluster: null,
     viewportLayer: null,
+    viewportSummitLayer: null,
     viewportRoutesLayer: null,
     viewportMoveTimer: null,
     chartMini: null,
@@ -804,9 +808,164 @@
     };
   }
 
+  function haversineMeters(a, b) {
+    const toRad = (d) => (d * Math.PI) / 180;
+    const [lat1, lng1] = a;
+    const [lat2, lng2] = b;
+    const R = 6371000;
+    const dLat = toRad(lat2 - lat1);
+    const dLng = toRad(lng2 - lng1);
+    const x =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(x));
+  }
+
+  function climbSummitLatLng(climb) {
+    if (typeof ClimbMetrics !== "undefined" && ClimbMetrics.climbSummitLatLng) {
+      return ClimbMetrics.climbSummitLatLng(climb);
+    }
+    const coords = climb?.geometry?.coordinates;
+    if (coords?.length) {
+      const [lng, lat] = coords[coords.length - 1];
+      return [lat, lng];
+    }
+    return null;
+  }
+
+  function climbMarkerLatLng(climb) {
+    return climbSummitLatLng(climb) || climbLatLng(climb);
+  }
+
+  function entryLightningScore(entry) {
+    const s = climbLightningScore(entry.climb);
+    return s != null && Number.isFinite(s) ? s : -1;
+  }
+
+  function pickSummitGroupWinner(entries) {
+    let winner = entries[0];
+    let best = entryLightningScore(winner);
+    for (let i = 1; i < entries.length; i++) {
+      const e = entries[i];
+      const s = entryLightningScore(e);
+      if (s > best) {
+        best = s;
+        winner = e;
+      }
+    }
+    return winner;
+  }
+
+  /** Meerdere aanlopen naar dezelfde top → één marker met hoogste score (tot inzoomen). */
+  function groupEntriesBySummit(entries, options = {}) {
+    const { split = false, radiusM = SUMMIT_CLUSTER_RADIUS_M } = options;
+    const groups = [];
+    for (const entry of entries) {
+      const ll = climbMarkerLatLng(entry.climb);
+      if (!ll) continue;
+      let group = null;
+      if (!split) {
+        for (const g of groups) {
+          if (haversineMeters(g.latlng, ll) <= radiusM) {
+            group = g;
+            break;
+          }
+        }
+      }
+      if (!group) {
+        group = { latlng: ll, entries: [] };
+        groups.push(group);
+      }
+      group.entries.push(entry);
+    }
+    for (const g of groups) {
+      g.winner = pickSummitGroupWinner(g.entries);
+    }
+    return groups;
+  }
+
+  function summitPopupHtml(group) {
+    const sorted = group.entries
+      .slice()
+      .sort((a, b) => entryLightningScore(b) - entryLightningScore(a));
+    const rows = sorted
+      .map((entry) => {
+        const label =
+          typeof ClimbMetrics !== "undefined" && ClimbMetrics.difficultyMarkerLabel
+            ? ClimbMetrics.difficultyMarkerLabel(entry.climb)
+            : "";
+        const reg = regionTitleFromIndexEntry(
+          state.indexRegions.find((r) => r.url === entry.regionUrl)
+        );
+        const meta = reg ? ` · ${reg}` : "";
+        const scorePart = label ? `⚡ ${label}` : "";
+        return `<button type="button" class="fietsklim-summit-popup-item" data-climb-id="${entry.climb.id}" data-region-url="${entry.regionUrl || ""}">${entry.climb.name}${meta}${scorePart ? ` — ${scorePart}` : ""}</button>`;
+      })
+      .join("");
+    return `<div class="fietsklim-summit-popup"><p class="fietsklim-summit-popup-title">${sorted.length} aanlopen naar deze top</p>${rows}</div>`;
+  }
+
+  function bindSummitGroupMarker(marker, group, options = {}) {
+    const { active = true, dimmed = false } = options;
+    if (group.entries.length === 1) {
+      const entry = group.entries[0];
+      const regLabel = regionTitleFromIndexEntry(
+        state.indexRegions.find((r) => r.url === entry.regionUrl)
+      );
+      const tip = dimmed
+        ? `${entry.climb.name} · ${regLabel || "andere regio"} — klik = regio kiezen`
+        : entry.climb.name;
+      bindMapTooltip(marker, tip, { direction: "top" });
+      bindMapEntryInteraction(marker, entry);
+      return;
+    }
+    const winner = group.winner;
+    const regLabel = regionTitleFromIndexEntry(
+      state.indexRegions.find((r) => r.url === winner.regionUrl)
+    );
+    bindMapTooltip(
+      marker,
+      `${winner.climb.name} +${group.entries.length - 1} — hoogste score${regLabel ? ` · ${regLabel}` : ""}`,
+      { direction: "top" }
+    );
+    marker.bindPopup(summitPopupHtml(group), { maxWidth: 300, className: "fietsklim-summit-popup-host" });
+    marker.on("popupopen", () => {
+      const host = marker.getPopup()?.getElement();
+      if (!host) return;
+      host.querySelectorAll(".fietsklim-summit-popup-item").forEach((btn) => {
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          const id = btn.getAttribute("data-climb-id");
+          const regionUrl = btn.getAttribute("data-region-url") || null;
+          marker.closePopup();
+          void selectClimbFromList(id, regionUrl || undefined);
+        });
+      });
+    });
+    marker.on("click", (e) => {
+      L.DomEvent.stopPropagation(e);
+      blurMapInteractionFocus();
+      if (!isCoarsePointer()) {
+        onMapRouteHover(winner);
+      }
+      marker.openPopup();
+    });
+    if (!isCoarsePointer()) {
+      marker.on("mouseover", (e) => {
+        L.DomEvent.stopPropagation(e);
+        onMapRouteHover(winner);
+      });
+      marker.on("mouseout", (e) => {
+        L.DomEvent.stopPropagation(e);
+        scheduleClearRouteHover(winner);
+      });
+    }
+  }
+
   function createMapMarkerForEntry(entry, options = {}) {
-    const { active = false, dimmed = false } = options;
-    const latlng = climbLatLng(entry.climb);
+    const { active = false, dimmed = false, latlng: latlngOverride = null, summitGroup = null } =
+      options;
+    const latlng = latlngOverride || climbMarkerLatLng(entry.climb);
     if (!latlng) return null;
     const done = climbIsDone(entry);
     const colors = difficultyColorsForClimb(entry.climb);
@@ -818,29 +977,67 @@
     const showLabel = zoom >= MIN_ZOOM_MARKER_LABELS && label && !dimmed;
 
     if (showLabel) {
-      const bolt =
-        climbLightningScore(entry.climb) != null
-          ? '<span class="fietsklim-map-marker-bolt" aria-hidden="true">⚡</span>'
-          : "";
-      const icon = L.divIcon({
-        className: "fietsklim-map-marker-host",
-        html: `<div class="fietsklim-map-marker${active ? " is-active" : ""}${done ? " is-done" : ""}${dimmed ? " is-dim" : ""}" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}">${bolt}<span class="fietsklim-map-marker-label">${label}</span></div>`,
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-      });
-      return L.marker(latlng, { icon });
+      return createSummitLabelMarker(entry, latlng, { active, dimmed, summitGroup });
     }
 
     const fill = dimmed ? "#cbd5e1" : colors.fill;
     const stroke = dimmed ? "#94a3b8" : done ? "#15803d" : active ? "#5b21b6" : colors.stroke;
     const touch = isCoarsePointer();
-    return L.circleMarker(latlng, {
+    const marker = L.circleMarker(latlng, {
       radius: touch ? (active ? 9 : 7) : active ? 7 : 5,
       color: stroke,
       weight: active || done ? 2.5 : 1.5,
       fillColor: fill,
       fillOpacity: dimmed ? 0.65 : active || done ? 0.95 : 0.88,
     });
+    if (summitGroup) bindSummitGroupMarker(marker, summitGroup, { active, dimmed });
+    return marker;
+  }
+
+  function createSummitLabelMarker(entry, latlng, options = {}) {
+    const { active = false, dimmed = false, summitGroup = null } = options;
+    if (!latlng) return null;
+    const colors = difficultyColorsForClimb(entry.climb);
+    const label =
+      typeof ClimbMetrics !== "undefined" && ClimbMetrics.difficultyMarkerLabel
+        ? ClimbMetrics.difficultyMarkerLabel(entry.climb)
+        : "";
+    if (!label) return null;
+    const done = climbIsDone(entry);
+    const bolt =
+      climbLightningScore(entry.climb) != null
+        ? '<span class="fietsklim-map-marker-bolt" aria-hidden="true">⚡</span>'
+        : "";
+    const icon = L.divIcon({
+      className: "fietsklim-map-marker-host",
+      html: `<div class="fietsklim-map-marker${active ? " is-active" : ""}${done ? " is-done" : ""}${dimmed ? " is-dim" : ""}" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}">${bolt}<span class="fietsklim-map-marker-label">${label}</span></div>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+    });
+    const marker = L.marker(latlng, { icon });
+    if (summitGroup) bindSummitGroupMarker(marker, summitGroup, { active, dimmed });
+    return marker;
+  }
+
+  function addSummitScoreMarkers(entries, layer, options = {}) {
+    if (!layer || !entries?.length) return;
+    const zoom = options.zoom ?? state.map?.getZoom() ?? 0;
+    if (zoom < MIN_ZOOM_MARKER_LABELS) return;
+    const split = zoom >= MIN_ZOOM_SUMMIT_SPLIT;
+    const groups = groupEntriesBySummit(entries, { split });
+    for (const group of groups) {
+      const entry = group.winner;
+      const active = options.dimmed
+        ? false
+        : group.entries.some((e) => isEntryMapActive(e));
+      const dimmed = Boolean(options.dimmed);
+      const marker = createSummitLabelMarker(entry, group.latlng, {
+        active,
+        dimmed,
+        summitGroup: group,
+      });
+      if (marker) layer.addLayer(marker);
+    }
   }
 
   function updateMapDifficultyLegend() {
@@ -1084,29 +1281,6 @@
     if (dlg?.showModal) dlg.showModal();
   }
 
-  function routeMidpointLatLng(latlngs) {
-    if (!latlngs?.length) return null;
-    return latlngs[Math.floor(latlngs.length / 2)];
-  }
-
-  function addRouteScoreMarker(entry, latlngs, layer) {
-    if (!layer || typeof ClimbMetrics === "undefined") return;
-    const label = ClimbMetrics.difficultyMarkerLabel(entry.climb);
-    if (!label) return;
-    const mid = routeMidpointLatLng(latlngs);
-    if (!mid) return;
-    const colors = difficultyColorsForClimb(entry.climb);
-    const bolt = climbLightningScore(entry.climb) != null ? '<span class="fietsklim-route-score-bolt" aria-hidden="true">⚡</span>' : "";
-    const icon = L.divIcon({
-      className: "fietsklim-route-score-host",
-      html: `<div class="fietsklim-route-score" style="--mk-fill:${colors.fill};--mk-stroke:${colors.stroke}">${bolt}<span>${label}</span></div>`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-    });
-    const marker = L.marker(mid, { icon, interactive: false });
-    layer.addLayer(marker);
-  }
-
   function ensureHoverRouteVisible(latlngs) {
     if (!state.map || latlngs.length < 2 || state.mapMode === "detail") return;
     const bounds = L.latLngBounds(latlngs);
@@ -1143,7 +1317,7 @@
 
   /** Groen = start, zacht rood = finish (Climbfinder-achtig). */
   function addClimbStartEndMarkers(latlngs, options = {}) {
-    const { size = "md", layer, onClick, tooltip } = options;
+    const { size = "md", layer, onClick, tooltip, skipEnd = false } = options;
     const styles = climbEndpointStyles(size);
     const created = [];
     if (!latlngs?.length) return created;
@@ -1162,7 +1336,7 @@
     };
 
     attach(L.circleMarker(latlngs[0], styles.start), "start");
-    if (latlngs.length > 1) {
+    if (latlngs.length > 1 && !skipEnd) {
       attach(L.circleMarker(latlngs[latlngs.length - 1], styles.end), "finish");
     }
     return created;
@@ -1711,6 +1885,7 @@
 
   function clearViewportLayers() {
     if (state.viewportLayer) state.viewportLayer.clearLayers();
+    if (state.viewportSummitLayer) state.viewportSummitLayer.clearLayers();
     if (state.viewportRoutesLayer) state.viewportRoutesLayer.clearLayers();
     state.viewportRouteByKey.clear();
   }
@@ -1736,16 +1911,11 @@
     clearRouteHoverHighlight();
     ensureHoverRouteVisible(latlngs);
     state.hoveredEntryKey = entryKey(entry);
-    state.hoverHighlightGroup = L.layerGroup();
-    L.polyline(latlngs, {
-      color: "#ffffff",
-      weight: 14,
-      opacity: 0.98,
-      lineCap: "round",
-      lineJoin: "round",
+    state.hoverHighlightGroup = buildGradientRouteLayer(entry.climb, latlngs, {
+      outlineWeight: 14,
+      segmentWeight: 8,
       interactive: false,
-    }).addTo(state.hoverHighlightGroup);
-    L.polyline(latlngs, { ...ROUTE_STYLE.hover, interactive: false }).addTo(state.hoverHighlightGroup);
+    });
     state.hoverHighlightGroup.addTo(state.map);
     state.hoverHighlightGroup.eachLayer((layer) => {
       if (layer.bringToFront) layer.bringToFront();
@@ -1958,14 +2128,19 @@
     if (!state.viewportRoutesLayer) {
       state.viewportRoutesLayer = L.layerGroup().addTo(state.map);
     }
+    if (!state.viewportSummitLayer) {
+      state.viewportSummitLayer = L.layerGroup().addTo(state.map);
+    }
   }
 
   function entriesInMapBounds(pad = 0.12) {
     if (!state.map) return [];
     const bounds = state.map.getBounds().pad(pad);
     return mapVisibleEntries().filter(({ climb }) => {
-      const ll = climbLatLng(climb);
-      if (ll && bounds.contains(ll)) return true;
+      const start = climbLatLng(climb);
+      const summit = climbMarkerLatLng(climb);
+      if (start && bounds.contains(start)) return true;
+      if (summit && bounds.contains(summit)) return true;
       const b = climb.bbox;
       if (b && b.length >= 4) {
         const cb = L.latLngBounds([b[1], b[0]], [b[3], b[2]]);
@@ -2039,11 +2214,9 @@
           size: isCoarsePointer() ? "md" : "sm",
           layer: state.viewportLayer,
           tooltip: entry.climb.name,
+          skipEnd: zoom >= MIN_ZOOM_MARKER_LABELS,
           onClick: () => void selectClimbFromList(entry.climb.id, entry.regionUrl),
         });
-        if (zoom >= MIN_ZOOM_MARKER_LABELS) {
-          addRouteScoreMarker(entry, latlngs, state.viewportRoutesLayer);
-        }
       }
     };
 
@@ -2073,6 +2246,17 @@
 
     for (const entry of inactiveEntries) addStartMarker(entry, true);
     for (const entry of activeEntries) addStartMarker(entry, false);
+
+    if (zoom >= MIN_ZOOM_MARKER_LABELS) {
+      const routedActive = activeEntries.filter((e) => withRouteKeys.has(entryKey(e)));
+      const routedInactive = inactiveEntries
+        .filter((e) => withRouteKeys.has(entryKey(e)))
+        .slice(0, MAX_DIM_ROUTES);
+      addSummitScoreMarkers(routedActive, state.viewportSummitLayer, { zoom, dimmed: false });
+      if (!strict) {
+        addSummitScoreMarkers(routedInactive, state.viewportSummitLayer, { zoom, dimmed: true });
+      }
+    }
     updateMapDifficultyLegend();
   }
 
@@ -2173,15 +2357,30 @@
     } else {
       fitBounds.push(...boundsForEntries(mapFilterStrictActive() ? entries : allEntries));
     }
-    for (const entry of entries) {
-      const active = isEntryMapActive(entry);
-      const marker = createMapMarkerForEntry(entry, { active, dimmed: !active });
+    const zoom = state.map.getZoom();
+    const split = zoom >= MIN_ZOOM_SUMMIT_SPLIT;
+    const summitGroups = groupEntriesBySummit(entries, { split });
+    for (const group of summitGroups) {
+      const entry = group.winner;
+      const active = group.entries.some((e) => isEntryMapActive(e));
+      const dimmed = !active;
+      const showLabel = zoom >= MIN_ZOOM_MARKER_LABELS;
+      const marker = showLabel
+        ? createSummitLabelMarker(entry, group.latlng, { active, dimmed, summitGroup: group })
+        : createMapMarkerForEntry(entry, {
+            active,
+            dimmed,
+            latlng: group.latlng,
+            summitGroup: group,
+          });
       if (!marker) continue;
-      const reg = entry.regionTitle ? ` · ${displayRegionTitle(entry.regionTitle)}` : "";
-      const activeTip = `${entry.climb.name}${reg}`;
-      const dimTip = `${entry.climb.name}${reg}${reg ? " — klik = regio kiezen" : ""}`;
-      bindMapTooltip(marker, active ? activeTip : dimTip, { direction: "top" });
-      bindMapEntryInteraction(marker, entry);
+      if (!showLabel) {
+        const reg = entry.regionTitle ? ` · ${displayRegionTitle(entry.regionTitle)}` : "";
+        const activeTip = `${entry.climb.name}${reg}`;
+        const dimTip = `${entry.climb.name}${reg}${reg ? " — klik = regio kiezen" : ""}`;
+        bindMapTooltip(marker, active ? activeTip : dimTip, { direction: "top" });
+        bindMapEntryInteraction(marker, entry);
+      }
       state.overviewCluster.addLayer(marker);
     }
     if (fit && shouldAutoFitMapBounds() && fitBounds.length) {
@@ -2900,11 +3099,17 @@
     L.DomEvent.stopPropagation(e);
   }
 
-  function buildDetailRouteLayer(climb, latlngs) {
+  function buildGradientRouteLayer(climb, latlngs, options = {}) {
+    const {
+      outlineWeight = 10,
+      segmentWeight = 7,
+      interactive = true,
+      fallbackStyle = ROUTE_STYLE.detail,
+    } = options;
     const group = L.layerGroup();
     L.polyline(latlngs, {
       color: "#ffffff",
-      weight: 10,
+      weight: outlineWeight,
       opacity: 0.96,
       lineCap: "round",
       lineJoin: "round",
@@ -2918,22 +3123,34 @@
       for (const seg of segments) {
         const line = L.polyline(seg.latlngs, {
           color: seg.color,
-          weight: 7,
+          weight: segmentWeight,
           opacity: 1,
           lineCap: "round",
           lineJoin: "round",
+          interactive,
         });
-        line.bindTooltip(`${seg.gradientPct}% gem.`, { sticky: true, direction: "top" });
-        line.on("click", stopRouteClickToMap);
+        if (interactive) {
+          line.bindTooltip(`${seg.gradientPct}% gem.`, { sticky: true, direction: "top" });
+          line.on("click", stopRouteClickToMap);
+        }
         line.addTo(group);
       }
     } else {
-      const fallback = L.polyline(latlngs, ROUTE_STYLE.detail);
-      fallback.on("click", stopRouteClickToMap);
+      const fallback = L.polyline(latlngs, { ...fallbackStyle, interactive });
+      if (interactive) fallback.on("click", stopRouteClickToMap);
       fallback.addTo(group);
     }
 
     return group;
+  }
+
+  function buildDetailRouteLayer(climb, latlngs) {
+    return buildGradientRouteLayer(climb, latlngs, {
+      outlineWeight: 10,
+      segmentWeight: 7,
+      interactive: true,
+      fallbackStyle: ROUTE_STYLE.detail,
+    });
   }
 
   function selectClimb(id) {
