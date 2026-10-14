@@ -122,6 +122,27 @@ function getTasksClient() {
   return tasksClient;
 }
 
+function cloudTasksErrorMessage(err) {
+  const code = err?.code ?? err?.status;
+  const text = err?.message || String(err);
+  if (code === 5 || /NOT_FOUND/i.test(text)) {
+    return (
+      `Cloud Tasks-queue "${TASK_QUEUE_ID}" ontbreekt in ${REGION}. ` +
+      "Project owner: eenmalig queue aanmaken (Cloud Shell-commando in docs/auth/STRAVA.md)."
+    );
+  }
+  if (code === 7 || /PERMISSION_DENIED/i.test(text)) {
+    return (
+      `Geen rechten om Cloud Tasks te plaatsen. ` +
+      `IAM: ${projectId()}@appspot.gserviceaccount.com → rol Cloud Tasks Enqueuer.`
+    );
+  }
+  if (/worker_secret/i.test(text)) {
+    return text;
+  }
+  return `Server-sync task mislukt: ${text.slice(0, 300)}`;
+}
+
 async function enqueueWorkerTask(payload, delaySeconds = 0) {
   const secret = stravaCfg().worker_secret;
   if (!secret) {
@@ -147,7 +168,14 @@ async function enqueueWorkerTask(payload, delaySeconds = 0) {
     },
     scheduleTime,
   };
-  await client.createTask({ parent, task });
+  try {
+    await client.createTask({ parent, task });
+  } catch (e) {
+    functions.logger.error("enqueueWorkerTask", { parent, url: workerUrl(), err: e });
+    const wrapped = new Error(cloudTasksErrorMessage(e));
+    wrapped.cause = e;
+    throw wrapped;
+  }
 }
 
 async function markJobFailed(uid, jobId, message) {
@@ -171,61 +199,78 @@ exports.stravaEnqueueFullSync = functions
   .region(REGION)
   .runWith({ timeoutSeconds: 120, memory: "256MB" })
   .https.onCall(async (data, context) => {
-    const uid = requireAuth(context);
-    if (!stravaCfg().worker_secret) {
+    try {
+      const uid = requireAuth(context);
+      if (!stravaCfg().worker_secret) {
+        throw new functions.https.HttpsError(
+          "failed-precondition",
+          "Server-sync is nog niet geconfigureerd (strava.worker_secret). Draai Deploy Climbfinder import function opnieuw."
+        );
+      }
+      const datasetId = String(data.datasetId || "").trim();
+      if (!datasetId) {
+        throw new functions.https.HttpsError(
+          "invalid-argument",
+          "datasetId is verplicht (regio-dataset of hele database)."
+        );
+      }
+
+      const existing = await getActiveSyncJob(uid);
+      if (existing) {
+        throw new functions.https.HttpsError(
+          "failed-precondition",
+          `Er loopt al een server-sync (${existing.status}). Wacht tot die klaar is of annuleer.`
+        );
+      }
+
+      const bounds = parseBounds(data);
+      const jobId = admin.firestore().collection("_").doc().id;
+      const now = admin.firestore.FieldValue.serverTimestamp();
+
+      await jobRef(uid, jobId).set({
+        status: "queued",
+        datasetId,
+        afterMs: bounds.afterMs,
+        beforeMs: bounds.beforeMs,
+        batchCount: 0,
+        firstBatchPending: true,
+        createdAt: now,
+        updatedAt: now,
+        error: null,
+        progress: {
+          activitiesScanned: 0,
+          uniqueClimbs: 0,
+          nextPage: 1,
+          regionIndex: 0,
+          completed: false,
+        },
+      });
+
+      try {
+        await enqueueWorkerTask({ uid, jobId }, 0);
+      } catch (enqueueErr) {
+        await jobRef(uid, jobId).delete().catch(() => {});
+        throw new functions.https.HttpsError(
+          "failed-precondition",
+          enqueueErr.message || cloudTasksErrorMessage(enqueueErr)
+        );
+      }
+
+      const created = await jobRef(uid, jobId).get();
+      return {
+        ok: true,
+        jobId,
+        message: "Server-sync gestart — je kunt dit tabblad sluiten. Status ververs op Instellingen.",
+        job: publicJobView(created),
+      };
+    } catch (e) {
+      if (e instanceof functions.https.HttpsError) throw e;
+      functions.logger.error("stravaEnqueueFullSync", e);
       throw new functions.https.HttpsError(
         "failed-precondition",
-        "Server-sync is nog niet geconfigureerd (strava.worker_secret). Draai Deploy Climbfinder import function opnieuw."
+        e.message || "Server-sync kon niet starten — zie Firebase Functions-logs (stravaEnqueueFullSync)."
       );
     }
-    const datasetId = String(data.datasetId || "").trim();
-    if (!datasetId) {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
-        "datasetId is verplicht (regio-dataset of hele database)."
-      );
-    }
-
-    const existing = await getActiveSyncJob(uid);
-    if (existing) {
-      throw new functions.https.HttpsError(
-        "failed-precondition",
-        `Er loopt al een server-sync (${existing.status}). Wacht tot die klaar is.`
-      );
-    }
-
-    const bounds = parseBounds(data);
-    const jobId = admin.firestore().collection("_").doc().id;
-    const now = admin.firestore.FieldValue.serverTimestamp();
-
-    await jobRef(uid, jobId).set({
-      status: "queued",
-      datasetId,
-      afterMs: bounds.afterMs,
-      beforeMs: bounds.beforeMs,
-      batchCount: 0,
-      firstBatchPending: true,
-      createdAt: now,
-      updatedAt: now,
-      error: null,
-      progress: {
-        activitiesScanned: 0,
-        uniqueClimbs: 0,
-        nextPage: 1,
-        regionIndex: 0,
-        completed: false,
-      },
-    });
-
-    await enqueueWorkerTask({ uid, jobId }, 0);
-
-    const created = await jobRef(uid, jobId).get();
-    return {
-      ok: true,
-      jobId,
-      message: "Server-sync gestart — je kunt dit tabblad sluiten. Status ververs op Instellingen.",
-      job: publicJobView(created),
-    };
   });
 
 exports.getStravaSyncJob = functions.region(REGION).https.onCall(async (data, context) => {

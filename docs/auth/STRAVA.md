@@ -110,7 +110,24 @@ Na deploy staan extra callables live: **`stravaEnqueueFullSync`**, **`getStravaS
 
 **Firestore rules:** voeg `users/{uid}/stravaSyncJobs/{jobId}` toe (read eigen user) — zie `docs/auth/firestore.rules.example`.
 
-**GCP:** workflow schakelt **Cloud Tasks API** in, maakt queue **`strava-sync`** aan, en zet `strava.worker_secret` (GitHub secret **`STRAVA_WORKER_SECRET`**, anders per deploy gegenereerd). Runtime (`…@appspot.gserviceaccount.com`) nodig **Cloud Tasks Enqueuer** op project. Bij enqueue-fouten: Functions-logs `stravaEnqueueFullSync` / `stravaSyncWorkerHttp`. Oude Gen2 `stravaSyncWorker` wordt door de deploy-workflow verwijderd (naamconflict).
+**GCP (server-sync vereist dit):**
+
+1. **Cloud Tasks API** aan (workflow probeert dit).
+2. Queue **`strava-sync`** in **`europe-west1`** (workflow kan die niet altijd aanmaken — deploy-SA mist soms `cloudtasks.queues.create`). **Owner, eenmalig in Cloud Shell:**
+
+```bash
+gcloud config set project climb-database
+gcloud tasks queues create strava-sync --location=europe-west1 \
+  --max-dispatches-per-second=2 --max-concurrent-dispatches=1 \
+  --max-attempts=8 --min-backoff=45s --max-backoff=600s
+```
+
+3. **`climb-database@appspot.gserviceaccount.com`** → rol **Cloud Tasks Enqueuer** (projectniveau).
+4. Deploy zet `strava.worker_secret` (GitHub secret **`STRAVA_WORKER_SECRET`**, optioneel).
+
+Worker-URL: `https://europe-west1-climb-database.cloudfunctions.net/stravaSyncWorkerHttp`
+
+Bij fout *Interne serverfout* op de knop: meestal queue ontbreekt of Enqueuer niet gezet — na fix opnieuw **Volledige sync (server, beta)**.
 
 Zie ook [`STRAVA_ROADMAP.md`](./STRAVA_ROADMAP.md).
 
