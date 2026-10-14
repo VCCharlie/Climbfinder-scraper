@@ -7,6 +7,7 @@
 # Optional: FIREBASE_PROJECT_ID — defaults to climb-database (see env below)
 #
 # IAM: deploy SA needs Firebase Admin + Service Account User on @appspot + compute SA
+# + Artifact Registry Writer on project (gcf-artifacts in europe-west1)
 # See docs/auth/GITHUB_IMPORT.md and docs/auth/MIGRATE_FIREBASE.md
 name: Deploy Climbfinder import function
 
@@ -55,6 +56,25 @@ jobs:
         env:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         continue-on-error: true
+
+      - name: Ensure gcf-artifacts (Artifact Registry)
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
+        run: |
+          REGION=europe-west1
+          REPO=gcf-artifacts
+          if gcloud artifacts repositories describe "$REPO" \
+            --location="$REGION" \
+            --project="$FIREBASE_PROJECT_ID" >/dev/null 2>&1; then
+            echo "Artifact Registry repository ${REPO} OK (${REGION})"
+          else
+            echo "Creating ${REPO} in ${REGION} (vereist voor Cloud Functions deploy)…"
+            gcloud artifacts repositories create "$REPO" \
+              --repository-format=docker \
+              --location="$REGION" \
+              --project="$FIREBASE_PROJECT_ID" \
+              --description="Cloud Functions build artifacts (Firebase)"
+          fi
 
       - name: Preflight (App Engine — vereist voor 1st Gen Functions)
         run: |
@@ -114,6 +134,13 @@ jobs:
             functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill,functions:getGithubWorkflowRunStatus,functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull,functions:stravaCleanupLogMatches \
             --project "$FIREBASE_PROJECT_ID" --non-interactive --debug 2>&1 | tee firebase-deploy.log
           DEPLOY_EXIT=${PIPESTATUS[0]}
+          if grep -qE "Failed to (update|create) function" firebase-deploy.log; then
+            echo "::error::Function deploy mislukt (niet alleen cleanup). Controleer gcf-artifacts + IAM Artifact Registry Writer — docs/auth/GITHUB_IMPORT.md"
+            if grep -q "Unable to retrieve the repository metadata" firebase-deploy.log; then
+              echo "::error::Artifact Registry: metadata voor gcf-artifacts niet leesbaar (repo ontbreekt, API uit, of deploy-SA mist Artifact Registry Writer)."
+            fi
+            exit "${DEPLOY_EXIT:-1}"
+          fi
           if grep -q "0 Functions Errored" firebase-deploy.log && grep -q "Deploy complete!" firebase-deploy.log; then
             if [ "$DEPLOY_EXIT" -ne 0 ]; then
               echo "::warning::Functions staan live; Firebase exit ${DEPLOY_EXIT} door cleanup (Artifact Registry delete 403 is normaal zonder extra IAM-rol)."
