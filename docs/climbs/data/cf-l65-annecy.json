@@ -5,7 +5,7 @@
     "title": "Annecy",
     "region_label": "Annecy",
     "country": "FR",
-    "updated_at": "2026-10-08T06:49:18Z",
+    "updated_at": "2026-10-14T17:45:49Z",
     "count": 141,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 65
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-14T17:45:49Z"
+    }
   },
   "climbs": [
     {
@@ -32,7 +35,8 @@
         "slug": "col-de-la-forclaz-ugine-l-ile",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-ugine-l-ile",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 456
       },
       "stats": {
         "length_m": 6782,
@@ -42,7 +46,8 @@
         "max_gradient_pct": 42.9,
         "steepest_100m_pct": 16.1,
         "steepest_1km_pct": 10.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 456
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -1766,7 +1771,8 @@
         "slug": "col-des-aravis-flumet",
         "url": "https://climbfinder.com/en/climbs/col-des-aravis-flumet",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 413
       },
       "stats": {
         "length_m": 11552,
@@ -1776,7 +1782,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 11.2,
         "steepest_1km_pct": 8.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 413
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -3280,7 +3287,8 @@
         "slug": "col-de-tamie-albertville",
         "url": "https://climbfinder.com/en/climbs/col-de-tamie-albertville",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 377
       },
       "stats": {
         "length_m": 9065,
@@ -3290,7 +3298,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.8,
         "steepest_1km_pct": 8.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 377
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -5570,7 +5579,8 @@
         "slug": "signal-de-bisanne-ugine-l-arcy",
         "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-ugine-l-arcy",
         "category": "HC",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 1292
       },
       "stats": {
         "length_m": 20173,
@@ -5580,7 +5590,8 @@
         "max_gradient_pct": 13.4,
         "steepest_100m_pct": 13.4,
         "steepest_1km_pct": 12.0,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1292
       },
       "difficulty_score": null,
       "geometry": {
@@ -6898,7 +6909,8 @@
         "slug": "col-du-frene-saint-pierre-d-albigny",
         "url": "https://climbfinder.com/en/climbs/col-du-frene-saint-pierre-d-albigny",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 483
       },
       "stats": {
         "length_m": 7699,
@@ -6908,7 +6920,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 15.9,
         "steepest_1km_pct": 11.5,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 483
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -8852,7 +8865,8 @@
         "slug": "col-de-la-forclaz-ugine",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-ugine",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 470
       },
       "stats": {
         "length_m": 5588,
@@ -8862,7 +8876,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 16.4,
         "steepest_1km_pct": 10.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 470
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -10294,7 +10309,8 @@
         "slug": "col-des-cyclotouristes-albertville",
         "url": "https://climbfinder.com/en/climbs/col-des-cyclotouristes-albertville",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 770
       },
       "stats": {
         "length_m": 12496,
@@ -10304,7 +10320,8 @@
         "max_gradient_pct": 11.8,
         "steepest_100m_pct": 11.7,
         "steepest_1km_pct": 9.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 770
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -11918,7 +11935,8 @@
         "slug": "col-de-l-arpettaz-ugine-hauteville",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-ugine-hauteville",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 706
       },
       "stats": {
         "length_m": 24090,
@@ -11928,7 +11946,8 @@
         "max_gradient_pct": 8.3,
         "steepest_100m_pct": 8.3,
         "steepest_1km_pct": 7.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 706
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -13488,7 +13507,8 @@
         "slug": "mont-revard-chambery",
         "url": "https://climbfinder.com/en/climbs/mont-revard-chambery",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 773
       },
       "stats": {
         "length_m": 23548,
@@ -13498,7 +13518,8 @@
         "max_gradient_pct": 8.7,
         "steepest_100m_pct": 8.7,
         "steepest_1km_pct": 8.0,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 773
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -15026,7 +15047,8 @@
         "slug": "signal-de-bisanne-queige",
         "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-queige",
         "category": "HC",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 1308
       },
       "stats": {
         "length_m": 16742,
@@ -15036,7 +15058,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 13.1,
         "steepest_1km_pct": 11.3,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1308
       },
       "difficulty_score": null,
       "geometry": {
@@ -17144,7 +17167,8 @@
         "slug": "col-de-la-forclaz-queige",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-queige",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 276
       },
       "stats": {
         "length_m": 4091,
@@ -17154,7 +17178,8 @@
         "max_gradient_pct": 17.2,
         "steepest_100m_pct": 16.3,
         "steepest_1km_pct": 9.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 276
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -18220,7 +18245,8 @@
         "slug": "col-des-pres-pont-d-escorchevel",
         "url": "https://climbfinder.com/en/climbs/col-des-pres-pont-d-escorchevel",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 315
       },
       "stats": {
         "length_m": 14212,
@@ -18230,7 +18256,8 @@
         "max_gradient_pct": 7.8,
         "steepest_100m_pct": 7.7,
         "steepest_1km_pct": 7.5,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 315
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -20034,7 +20061,8 @@
         "slug": "col-du-marais-thones",
         "url": "https://climbfinder.com/en/climbs/col-du-marais-thones",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 88
       },
       "stats": {
         "length_m": 6773,
@@ -20044,7 +20072,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.9,
         "steepest_1km_pct": 4.6,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 88
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -21762,7 +21791,8 @@
         "slug": "chemin-des-riffroids",
         "url": "https://climbfinder.com/en/climbs/chemin-des-riffroids",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 112
       },
       "stats": {
         "length_m": 385,
@@ -21772,7 +21802,8 @@
         "max_gradient_pct": 24.4,
         "steepest_100m_pct": 22.2,
         "steepest_1km_pct": 0.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 112
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -21948,7 +21979,8 @@
         "slug": "col-de-plainpalais-arith",
         "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-arith",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 426
       },
       "stats": {
         "length_m": 13974,
@@ -21958,7 +21990,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.9,
         "steepest_1km_pct": 8.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 426
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -23730,7 +23763,8 @@
         "slug": "col-des-saisies-flons",
         "url": "https://climbfinder.com/en/climbs/col-des-saisies-flons",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 758
       },
       "stats": {
         "length_m": 13987,
@@ -23740,7 +23774,8 @@
         "max_gradient_pct": 20.8,
         "steepest_100m_pct": 19.0,
         "steepest_1km_pct": 10.0,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 758
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -25512,7 +25547,8 @@
         "slug": "la-sambuy-faverges-le-villaret",
         "url": "https://climbfinder.com/en/climbs/la-sambuy-faverges-le-villaret",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 581
       },
       "stats": {
         "length_m": 8626,
@@ -25522,7 +25558,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 15.4,
         "steepest_1km_pct": 10.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 581
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -27698,7 +27735,8 @@
         "slug": "col-de-l-epine-serraval",
         "url": "https://climbfinder.com/en/climbs/col-de-l-epine-serraval",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 153
       },
       "stats": {
         "length_m": 7051,
@@ -27708,7 +27746,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 10.0,
         "steepest_1km_pct": 8.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 153
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -29500,7 +29539,8 @@
         "slug": "col-de-tamie-frontenex",
         "url": "https://climbfinder.com/en/climbs/col-de-tamie-frontenex",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 413
       },
       "stats": {
         "length_m": 9500,
@@ -29510,7 +29550,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 8.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 413
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -31892,7 +31933,8 @@
         "slug": "col-de-l-arpettaz-ugine-le-stapey",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-ugine-le-stapey",
         "category": "HC",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 935
       },
       "stats": {
         "length_m": 19114,
@@ -31902,7 +31944,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 11.4,
         "steepest_1km_pct": 10.0,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 935
       },
       "difficulty_score": null,
       "geometry": {
@@ -34304,7 +34347,8 @@
         "slug": "col-des-fleuries-thorens-glieres",
         "url": "https://climbfinder.com/en/climbs/col-des-fleuries-thorens-glieres",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 119
       },
       "stats": {
         "length_m": 5590,
@@ -34314,7 +34358,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.8,
         "steepest_1km_pct": 5.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 119
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -35778,7 +35823,8 @@
         "slug": "col-de-plainpalais-lescheraines",
         "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-lescheraines",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 388
       },
       "stats": {
         "length_m": 11379,
@@ -35788,7 +35834,8 @@
         "max_gradient_pct": 13.4,
         "steepest_100m_pct": 13.2,
         "steepest_1km_pct": 9.0,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 388
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -37244,7 +37291,8 @@
         "slug": "les-confins-la-clusaz",
         "url": "https://climbfinder.com/en/climbs/les-confins-la-clusaz",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 287
       },
       "stats": {
         "length_m": 5626,
@@ -37254,7 +37302,8 @@
         "max_gradient_pct": 80.0,
         "steepest_100m_pct": 11.2,
         "steepest_1km_pct": 9.6,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 287
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -38698,7 +38747,8 @@
         "slug": "signal-de-bisanne-col-des-saisies",
         "url": "https://climbfinder.com/en/climbs/signal-de-bisanne-col-des-saisies",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 344
       },
       "stats": {
         "length_m": 4009,
@@ -38708,7 +38758,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.7,
         "steepest_1km_pct": 11.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 344
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -39780,7 +39831,8 @@
         "slug": "col-de-plan-bois-manigod",
         "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-manigod",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 430
       },
       "stats": {
         "length_m": 4899,
@@ -39790,7 +39842,8 @@
         "max_gradient_pct": 14.4,
         "steepest_100m_pct": 14.4,
         "steepest_1km_pct": 10.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 430
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -40168,7 +40221,8 @@
         "slug": "col-de-leschaux-pont-detrier",
         "url": "https://climbfinder.com/en/climbs/col-de-leschaux-pont-detrier",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 186
       },
       "stats": {
         "length_m": 6664,
@@ -40178,7 +40232,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 12.0,
         "steepest_1km_pct": 6.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 186
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -41872,7 +41927,8 @@
         "slug": "col-de-marocaz-chambery",
         "url": "https://climbfinder.com/en/climbs/col-de-marocaz-chambery",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 487
       },
       "stats": {
         "length_m": 15302,
@@ -41882,7 +41938,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.6,
         "steepest_1km_pct": 8.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 487
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -43820,7 +43877,8 @@
         "slug": "col-du-merdassier-thones",
         "url": "https://climbfinder.com/en/climbs/col-du-merdassier-thones",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 654
       },
       "stats": {
         "length_m": 14150,
@@ -43830,7 +43888,8 @@
         "max_gradient_pct": 10.6,
         "steepest_100m_pct": 10.6,
         "steepest_1km_pct": 10.3,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 654
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -45622,7 +45681,8 @@
         "slug": "col-des-saisies-flumet-route-notre-dame",
         "url": "https://climbfinder.com/en/climbs/col-des-saisies-flumet-route-notre-dame",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 602
       },
       "stats": {
         "length_m": 13106,
@@ -45632,7 +45692,8 @@
         "max_gradient_pct": 9.8,
         "steepest_100m_pct": 9.7,
         "steepest_1km_pct": 9.0,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 602
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -47328,7 +47389,8 @@
         "slug": "la-perriere-d-here",
         "url": "https://climbfinder.com/en/climbs/la-perriere-d-here",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 565
       },
       "stats": {
         "length_m": 10129,
@@ -47338,7 +47400,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 10.1,
         "steepest_1km_pct": 8.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 565
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -48662,7 +48725,8 @@
         "slug": "col-du-frene-ecole",
         "url": "https://climbfinder.com/en/climbs/col-du-frene-ecole",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 95
       },
       "stats": {
         "length_m": 8075,
@@ -48672,7 +48736,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 8.0,
         "steepest_1km_pct": 6.7,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 95
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -50708,7 +50773,8 @@
         "slug": "les-mouilles-bouchet-mont-charvin",
         "url": "https://climbfinder.com/en/climbs/les-mouilles-bouchet-mont-charvin",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 427
       },
       "stats": {
         "length_m": 3070,
@@ -50718,7 +50784,8 @@
         "max_gradient_pct": 28.0,
         "steepest_100m_pct": 18.4,
         "steepest_1km_pct": 12.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 427
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -51552,7 +51619,8 @@
         "slug": "bluffy-talloires",
         "url": "https://climbfinder.com/en/climbs/bluffy-talloires",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 173
       },
       "stats": {
         "length_m": 3761,
@@ -51562,7 +51630,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.0,
         "steepest_1km_pct": 7.1,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 173
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -52570,7 +52639,8 @@
         "slug": "col-de-la-forclaz-queige-col-de-montessuit",
         "url": "https://climbfinder.com/en/climbs/col-de-la-forclaz-queige-col-de-montessuit",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 479
       },
       "stats": {
         "length_m": 8941,
@@ -52580,7 +52650,8 @@
         "max_gradient_pct": 17.6,
         "steepest_100m_pct": 16.3,
         "steepest_1km_pct": 9.5,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 479
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -54828,7 +54899,8 @@
         "slug": "collet-de-tamie-gilly-sur-isere",
         "url": "https://climbfinder.com/en/climbs/collet-de-tamie-gilly-sur-isere",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 554
       },
       "stats": {
         "length_m": 8936,
@@ -54838,7 +54910,8 @@
         "max_gradient_pct": 22.4,
         "steepest_100m_pct": 20.2,
         "steepest_1km_pct": 10.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 554
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -57086,7 +57159,8 @@
         "slug": "col-de-bluffy-les-granges",
         "url": "https://climbfinder.com/en/climbs/col-de-bluffy-les-granges",
         "category": "",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 4209,
@@ -57096,7 +57170,8 @@
         "max_gradient_pct": 4.2,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 2.8,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -57688,7 +57763,8 @@
         "slug": "col-de-bluffy-chavoire",
         "url": "https://climbfinder.com/en/climbs/col-de-bluffy-chavoire",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 77
       },
       "stats": {
         "length_m": 5670,
@@ -57698,7 +57774,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.7,
         "steepest_1km_pct": 5.2,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 77
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -59148,7 +59225,8 @@
         "slug": "mont-revard-lescheraines-route-revard",
         "url": "https://climbfinder.com/en/climbs/mont-revard-lescheraines-route-revard",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 548
       },
       "stats": {
         "length_m": 21252,
@@ -59158,7 +59236,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.6,
         "steepest_1km_pct": 7.2,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 548
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -60544,7 +60623,8 @@
         "slug": "col-du-vorger-marthod",
         "url": "https://climbfinder.com/en/climbs/col-du-vorger-marthod",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 298
       },
       "stats": {
         "length_m": 4534,
@@ -60554,7 +60634,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.2,
         "steepest_1km_pct": 9.6,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 298
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -61756,7 +61837,8 @@
         "slug": "l-alpettaz-marthod",
         "url": "https://climbfinder.com/en/climbs/l-alpettaz-marthod",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 685
       },
       "stats": {
         "length_m": 10425,
@@ -61766,7 +61848,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 14.5,
         "steepest_1km_pct": 11.5,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 685
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -63126,7 +63209,8 @@
         "slug": "col-des-cyclotouristes-albertville-marolland",
         "url": "https://climbfinder.com/en/climbs/col-des-cyclotouristes-albertville-marolland",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 746
       },
       "stats": {
         "length_m": 16303,
@@ -63136,7 +63220,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 9.3,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 746
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -65196,7 +65281,8 @@
         "slug": "col-de-la-lezette-col-des-saisies",
         "url": "https://climbfinder.com/en/climbs/col-de-la-lezette-col-des-saisies",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 110
       },
       "stats": {
         "length_m": 1794,
@@ -65206,7 +65292,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.4,
         "steepest_1km_pct": 9.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 110
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -65738,7 +65825,8 @@
         "slug": "col-des-cyclotouristes-bonnecine",
         "url": "https://climbfinder.com/en/climbs/col-des-cyclotouristes-bonnecine",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 566
       },
       "stats": {
         "length_m": 11802,
@@ -65748,7 +65836,8 @@
         "max_gradient_pct": 15.0,
         "steepest_100m_pct": 10.1,
         "steepest_1km_pct": 8.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 566
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -67282,7 +67371,8 @@
         "slug": "montee-de-grignon",
         "url": "https://climbfinder.com/en/climbs/montee-de-grignon",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 852
       },
       "stats": {
         "length_m": 10890,
@@ -67292,7 +67382,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 13.0,
         "steepest_1km_pct": 10.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 852
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -68708,7 +68799,8 @@
         "slug": "col-de-l-arpettaz-la-foliette",
         "url": "https://climbfinder.com/en/climbs/col-de-l-arpettaz-la-foliette",
         "category": "HC",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 985
       },
       "stats": {
         "length_m": 14998,
@@ -68718,7 +68810,8 @@
         "max_gradient_pct": 20.4,
         "steepest_100m_pct": 15.0,
         "steepest_1km_pct": 10.1,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 985
       },
       "difficulty_score": null,
       "geometry": {
@@ -70612,7 +70705,8 @@
         "slug": "col-du-goleron-alby-sur-cheran",
         "url": "https://climbfinder.com/en/climbs/col-du-goleron-alby-sur-cheran",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 93
       },
       "stats": {
         "length_m": 5269,
@@ -70622,7 +70716,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.1,
         "steepest_1km_pct": 5.5,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 93
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -71974,7 +72069,8 @@
         "slug": "col-de-montessuit-le-grand-village",
         "url": "https://climbfinder.com/en/climbs/col-de-montessuit-le-grand-village",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 273
       },
       "stats": {
         "length_m": 3938,
@@ -71984,7 +72080,8 @@
         "max_gradient_pct": 21.5,
         "steepest_100m_pct": 20.1,
         "steepest_1km_pct": 9.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 273
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -73036,7 +73133,8 @@
         "slug": "col-du-goleron-cusy",
         "url": "https://climbfinder.com/en/climbs/col-du-goleron-cusy",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 68
       },
       "stats": {
         "length_m": 2453,
@@ -73046,7 +73144,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.3,
         "steepest_1km_pct": 5.3,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 68
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -73730,7 +73829,8 @@
         "slug": "col-de-marocaz-thoiry",
         "url": "https://climbfinder.com/en/climbs/col-de-marocaz-thoiry",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 173
       },
       "stats": {
         "length_m": 11714,
@@ -73740,7 +73840,8 @@
         "max_gradient_pct": 12.1,
         "steepest_100m_pct": 8.7,
         "steepest_1km_pct": 6.6,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 173
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -75238,7 +75339,8 @@
         "slug": "col-des-contrebandiers-sur-les-bois",
         "url": "https://climbfinder.com/en/climbs/col-des-contrebandiers-sur-les-bois",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 487
       },
       "stats": {
         "length_m": 8317,
@@ -75248,7 +75350,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.6,
         "steepest_1km_pct": 10.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 487
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -77344,7 +77447,8 @@
         "slug": "col-des-glieres-le-petit-bornand-les-glieres",
         "url": "https://climbfinder.com/en/climbs/col-des-glieres-le-petit-bornand-les-glieres",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 842
       },
       "stats": {
         "length_m": 8765,
@@ -77354,7 +77458,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 18.6,
         "steepest_1km_pct": 13.4,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 842
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -79560,7 +79665,8 @@
         "slug": "route-d-hery",
         "url": "https://climbfinder.com/en/climbs/route-d-hery",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 342
       },
       "stats": {
         "length_m": 11413,
@@ -79570,7 +79676,8 @@
         "max_gradient_pct": 10.2,
         "steepest_100m_pct": 10.2,
         "steepest_1km_pct": 7.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 342
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -81054,7 +81161,8 @@
         "slug": "parking-les-sardoches-le-bouchet-mont-charvin",
         "url": "https://climbfinder.com/en/climbs/parking-les-sardoches-le-bouchet-mont-charvin",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 418
       },
       "stats": {
         "length_m": 6523,
@@ -81064,7 +81172,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 12.1,
         "steepest_1km_pct": 9.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 418
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -82722,7 +82831,8 @@
         "slug": "combe-d-ire-chevaline",
         "url": "https://climbfinder.com/en/climbs/combe-d-ire-chevaline",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 506
       },
       "stats": {
         "length_m": 9520,
@@ -82732,7 +82842,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 12.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 506
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -85122,7 +85233,8 @@
         "slug": "le-danay-saint-jean-de-sixt",
         "url": "https://climbfinder.com/en/climbs/le-danay-saint-jean-de-sixt",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 631
       },
       "stats": {
         "length_m": 4978,
@@ -85132,7 +85244,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 15.2,
         "steepest_1km_pct": 14.2,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 631
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -86446,7 +86559,8 @@
         "slug": "planfait-talloires",
         "url": "https://climbfinder.com/en/climbs/planfait-talloires",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 494
       },
       "stats": {
         "length_m": 6924,
@@ -86456,7 +86570,8 @@
         "max_gradient_pct": 19.6,
         "steepest_100m_pct": 19.1,
         "steepest_1km_pct": 12.2,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 494
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -88210,7 +88325,8 @@
         "slug": "rue-de-la-rochette-67725",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-rochette-67725",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 180
       },
       "stats": {
         "length_m": 1072,
@@ -88220,7 +88336,8 @@
         "max_gradient_pct": 22.0,
         "steepest_100m_pct": 20.1,
         "steepest_1km_pct": 12.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 180
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -88586,7 +88703,8 @@
         "slug": "monthion-grignon",
         "url": "https://climbfinder.com/en/climbs/monthion-grignon",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 159
       },
       "stats": {
         "length_m": 1964,
@@ -88596,7 +88714,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.2,
         "steepest_1km_pct": 10.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 159
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -89174,7 +89293,8 @@
         "slug": "collet-de-tamie-albertville-version-classique",
         "url": "https://climbfinder.com/en/climbs/collet-de-tamie-albertville-version-classique",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 469
       },
       "stats": {
         "length_m": 10779,
@@ -89184,7 +89304,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 10.0,
         "steepest_1km_pct": 8.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 469
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -90588,7 +90709,8 @@
         "slug": "naves-parmelan-dingy-saint-clair",
         "url": "https://climbfinder.com/en/climbs/naves-parmelan-dingy-saint-clair",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 90
       },
       "stats": {
         "length_m": 4231,
@@ -90598,7 +90720,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.3,
         "steepest_1km_pct": 5.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 90
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -91726,7 +91849,8 @@
         "slug": "la-blonniere-dingy-saint-clair",
         "url": "https://climbfinder.com/en/climbs/la-blonniere-dingy-saint-clair",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 400
       },
       "stats": {
         "length_m": 5037,
@@ -91736,7 +91860,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 15.8,
         "steepest_1km_pct": 10.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 400
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -93034,7 +93159,8 @@
         "slug": "col-du-vorger-albertville",
         "url": "https://climbfinder.com/en/climbs/col-du-vorger-albertville",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 309
       },
       "stats": {
         "length_m": 6513,
@@ -93044,7 +93170,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.9,
         "steepest_1km_pct": 10.0,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 309
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -94702,7 +94829,8 @@
         "slug": "col-de-cherel-ecole",
         "url": "https://climbfinder.com/en/climbs/col-de-cherel-ecole",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 759
       },
       "stats": {
         "length_m": 9281,
@@ -94712,7 +94840,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.9,
         "steepest_1km_pct": 12.4,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 759
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -97046,7 +97175,8 @@
         "slug": "mont-revard-telepherique",
         "url": "https://climbfinder.com/en/climbs/mont-revard-telepherique",
         "category": "HC",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 932
       },
       "stats": {
         "length_m": 19373,
@@ -97056,7 +97186,8 @@
         "max_gradient_pct": 15.0,
         "steepest_100m_pct": 14.5,
         "steepest_1km_pct": 11.9,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 932
       },
       "difficulty_score": null,
       "geometry": {
@@ -99488,7 +99619,8 @@
         "slug": "la-culaz-le-grand-bornand",
         "url": "https://climbfinder.com/en/climbs/la-culaz-le-grand-bornand",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 314
       },
       "stats": {
         "length_m": 2212,
@@ -99498,7 +99630,8 @@
         "max_gradient_pct": 21.2,
         "steepest_100m_pct": 20.4,
         "steepest_1km_pct": 13.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 314
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -100142,7 +100275,8 @@
         "slug": "les-roseaux-frontenex",
         "url": "https://climbfinder.com/en/climbs/les-roseaux-frontenex",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 425
       },
       "stats": {
         "length_m": 6931,
@@ -100152,7 +100286,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 15.3,
         "steepest_1km_pct": 10.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 425
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -101912,7 +102047,8 @@
         "slug": "chaucisse-flumet",
         "url": "https://climbfinder.com/en/climbs/chaucisse-flumet",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 391
       },
       "stats": {
         "length_m": 6697,
@@ -101922,7 +102058,8 @@
         "max_gradient_pct": 16.0,
         "steepest_100m_pct": 15.9,
         "steepest_1km_pct": 10.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 391
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -103622,7 +103759,8 @@
         "slug": "la-closette-thones",
         "url": "https://climbfinder.com/en/climbs/la-closette-thones",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 586
       },
       "stats": {
         "length_m": 5173,
@@ -103632,7 +103770,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.7,
         "steepest_1km_pct": 12.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 586
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -104990,7 +105129,8 @@
         "slug": "le-sappey-thones",
         "url": "https://climbfinder.com/en/climbs/le-sappey-thones",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 445
       },
       "stats": {
         "length_m": 3319,
@@ -105000,7 +105140,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 14.8,
         "steepest_1km_pct": 12.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 445
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -105896,7 +106037,8 @@
         "slug": "mont-baron-sur-les-bois",
         "url": "https://climbfinder.com/en/climbs/mont-baron-sur-les-bois",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 588
       },
       "stats": {
         "length_m": 7331,
@@ -105906,7 +106048,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 19.1,
         "steepest_1km_pct": 13.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 588
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -107764,7 +107907,8 @@
         "slug": "mur-du-ramponnet-le-petit-port",
         "url": "https://climbfinder.com/en/climbs/mur-du-ramponnet-le-petit-port",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 59
       },
       "stats": {
         "length_m": 349,
@@ -107774,7 +107918,8 @@
         "max_gradient_pct": 17.9,
         "steepest_100m_pct": 14.1,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 59
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -107936,7 +108081,8 @@
         "slug": "chalet-du-soliet-bellecombe-en-bauges",
         "url": "https://climbfinder.com/en/climbs/chalet-du-soliet-bellecombe-en-bauges",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 891
       },
       "stats": {
         "length_m": 4980,
@@ -107946,7 +108092,8 @@
         "max_gradient_pct": 26.4,
         "steepest_100m_pct": 25.7,
         "steepest_1km_pct": 19.6,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 891
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -109260,7 +109407,8 @@
         "slug": "pre-vernet-domaine-st-laurent",
         "url": "https://climbfinder.com/en/climbs/pre-vernet-domaine-st-laurent",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 395
       },
       "stats": {
         "length_m": 6267,
@@ -109270,7 +109418,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.4,
         "steepest_1km_pct": 10.2,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 395
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -110866,7 +111015,8 @@
         "slug": "margeriaz-aillon-le-vieux",
         "url": "https://climbfinder.com/en/climbs/margeriaz-aillon-le-vieux",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 438
       },
       "stats": {
         "length_m": 6242,
@@ -110876,7 +111026,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.1,
         "steepest_1km_pct": 10.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 438
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -112466,7 +112617,8 @@
         "slug": "mont-derriere-col-du-marais",
         "url": "https://climbfinder.com/en/climbs/mont-derriere-col-du-marais",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 325
       },
       "stats": {
         "length_m": 4418,
@@ -112476,7 +112628,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.5,
         "steepest_1km_pct": 9.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 325
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -113648,7 +113801,8 @@
         "slug": "plan-montmin-vesonne",
         "url": "https://climbfinder.com/en/climbs/plan-montmin-vesonne",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 526
       },
       "stats": {
         "length_m": 6761,
@@ -113658,7 +113812,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 11.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 526
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -115376,7 +115531,8 @@
         "slug": "nantbellet-saint-ferreol",
         "url": "https://climbfinder.com/en/climbs/nantbellet-saint-ferreol",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 675
       },
       "stats": {
         "length_m": 3915,
@@ -115386,7 +115542,8 @@
         "max_gradient_pct": 22.4,
         "steepest_100m_pct": 21.3,
         "steepest_1km_pct": 15.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 675
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -116432,7 +116589,8 @@
         "slug": "col-de-plan-bois-le-foux",
         "url": "https://climbfinder.com/en/climbs/col-de-plan-bois-le-foux",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 538
       },
       "stats": {
         "length_m": 7966,
@@ -116442,7 +116600,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 13.7,
         "steepest_1km_pct": 11.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 538
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -118452,7 +118611,8 @@
         "slug": "le-planchard-faverges",
         "url": "https://climbfinder.com/en/climbs/le-planchard-faverges",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 373
       },
       "stats": {
         "length_m": 6188,
@@ -118462,7 +118622,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 15.0,
         "steepest_1km_pct": 10.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 373
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -120040,7 +120201,8 @@
         "slug": "pres-ronds-vesonne",
         "url": "https://climbfinder.com/en/climbs/pres-ronds-vesonne",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 782
       },
       "stats": {
         "length_m": 9075,
@@ -120050,7 +120212,8 @@
         "max_gradient_pct": 22.8,
         "steepest_100m_pct": 17.5,
         "steepest_1km_pct": 13.4,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 782
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -122330,7 +122493,8 @@
         "slug": "montremond-thones",
         "url": "https://climbfinder.com/en/climbs/montremond-thones",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 113
       },
       "stats": {
         "length_m": 4742,
@@ -122340,7 +122504,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 6.8,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 113
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -123592,7 +123757,8 @@
         "slug": "col-de-plance-bellecombe-en-bauges",
         "url": "https://climbfinder.com/en/climbs/col-de-plance-bellecombe-en-bauges",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 328
       },
       "stats": {
         "length_m": 6677,
@@ -123602,7 +123768,8 @@
         "max_gradient_pct": 15.0,
         "steepest_100m_pct": 12.9,
         "steepest_1km_pct": 9.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 328
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -125302,7 +125469,8 @@
         "slug": "la-frasse",
         "url": "https://climbfinder.com/en/climbs/la-frasse",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 241
       },
       "stats": {
         "length_m": 3882,
@@ -125312,7 +125480,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.3,
         "steepest_1km_pct": 8.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 241
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -126352,7 +126521,8 @@
         "slug": "saint-ruph-faverges",
         "url": "https://climbfinder.com/en/climbs/saint-ruph-faverges",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 316
       },
       "stats": {
         "length_m": 4117,
@@ -126362,7 +126532,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.1,
         "steepest_1km_pct": 9.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 316
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -127458,7 +127629,8 @@
         "slug": "belchamp-thones",
         "url": "https://climbfinder.com/en/climbs/belchamp-thones",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 415
       },
       "stats": {
         "length_m": 3230,
@@ -127468,7 +127640,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 14.8,
         "steepest_1km_pct": 12.2,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 415
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -128346,7 +128519,8 @@
         "slug": "bois-brule-villaz",
         "url": "https://climbfinder.com/en/climbs/bois-brule-villaz",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 449
       },
       "stats": {
         "length_m": 5192,
@@ -128356,7 +128530,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 18.3,
         "steepest_1km_pct": 10.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 449
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -129720,7 +129895,8 @@
         "slug": "chez-bardet-annecy",
         "url": "https://climbfinder.com/en/climbs/chez-bardet-annecy",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 148
       },
       "stats": {
         "length_m": 7785,
@@ -129730,7 +129906,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.0,
         "steepest_1km_pct": 5.9,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 148
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -131698,7 +131875,8 @@
         "slug": "col-de-plainpalais-saint-alban-leysse",
         "url": "https://climbfinder.com/en/climbs/col-de-plainpalais-saint-alban-leysse",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 600
       },
       "stats": {
         "length_m": 13816,
@@ -131708,7 +131886,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 10.1,
         "steepest_1km_pct": 8.1,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 600
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -133462,7 +133641,8 @@
         "slug": "le-rosay-le-grand-bornand",
         "url": "https://climbfinder.com/en/climbs/le-rosay-le-grand-bornand",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 223
       },
       "stats": {
         "length_m": 2808,
@@ -133472,7 +133652,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.5,
         "steepest_1km_pct": 9.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 223
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -134244,7 +134425,8 @@
         "slug": "tanneries-le-petit-bornand",
         "url": "https://climbfinder.com/en/climbs/tanneries-le-petit-bornand",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 644
       },
       "stats": {
         "length_m": 6452,
@@ -134254,7 +134436,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 12.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 644
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -135898,7 +136081,8 @@
         "slug": "le-mont-le-pohets",
         "url": "https://climbfinder.com/en/climbs/le-mont-le-pohets",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 486
       },
       "stats": {
         "length_m": 3151,
@@ -135908,7 +136092,8 @@
         "max_gradient_pct": 19.6,
         "steepest_100m_pct": 18.5,
         "steepest_1km_pct": 13.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 486
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -136766,7 +136951,8 @@
         "slug": "route-d-outrechenais-queige",
         "url": "https://climbfinder.com/en/climbs/route-d-outrechenais-queige",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 444
       },
       "stats": {
         "length_m": 5790,
@@ -136776,7 +136962,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 11.3,
         "steepest_1km_pct": 9.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 444
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -138256,7 +138443,8 @@
         "slug": "riere-bellevaux-ecole",
         "url": "https://climbfinder.com/en/climbs/riere-bellevaux-ecole",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 379
       },
       "stats": {
         "length_m": 7793,
@@ -138266,7 +138454,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 16.5,
         "steepest_1km_pct": 13.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 379
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -140234,7 +140423,8 @@
         "slug": "saint-sylvestre-le-pissieux",
         "url": "https://climbfinder.com/en/climbs/saint-sylvestre-le-pissieux",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 207
       },
       "stats": {
         "length_m": 3398,
@@ -140244,7 +140434,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 18.2,
         "steepest_1km_pct": 11.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 207
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -141158,7 +141349,8 @@
         "slug": "montgeliaz-route-de-saury",
         "url": "https://climbfinder.com/en/climbs/montgeliaz-route-de-saury",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 192
       },
       "stats": {
         "length_m": 2579,
@@ -141168,7 +141360,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 14.7,
         "steepest_1km_pct": 10.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 192
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -141882,7 +142075,8 @@
         "slug": "les-aroles-ecole",
         "url": "https://climbfinder.com/en/climbs/les-aroles-ecole",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 235
       },
       "stats": {
         "length_m": 3180,
@@ -141892,7 +142086,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.2,
         "steepest_1km_pct": 9.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 235
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -142756,7 +142951,8 @@
         "slug": "rte-de-lancon-albertville",
         "url": "https://climbfinder.com/en/climbs/rte-de-lancon-albertville",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 168
       },
       "stats": {
         "length_m": 3260,
@@ -142766,7 +142962,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.4,
         "steepest_1km_pct": 8.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 168
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -143650,7 +143847,8 @@
         "slug": "ferme-du-morbier-aillon-le-jeune",
         "url": "https://climbfinder.com/en/climbs/ferme-du-morbier-aillon-le-jeune",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 218
       },
       "stats": {
         "length_m": 9333,
@@ -143660,7 +143858,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 11.9,
         "steepest_1km_pct": 7.6,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 218
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -146006,7 +146205,8 @@
         "slug": "saury-lathuile",
         "url": "https://climbfinder.com/en/climbs/saury-lathuile",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 189
       },
       "stats": {
         "length_m": 2912,
@@ -146016,7 +146216,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 8.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 189
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -146812,7 +147013,8 @@
         "slug": "col-de-fretallaz-mercier",
         "url": "https://climbfinder.com/en/climbs/col-de-fretallaz-mercier",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 117
       },
       "stats": {
         "length_m": 2320,
@@ -146822,7 +147024,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 10.5,
         "steepest_1km_pct": 7.9,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 117
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -147492,7 +147695,8 @@
         "slug": "les-cornes-la-compote",
         "url": "https://climbfinder.com/en/climbs/les-cornes-la-compote",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 414
       },
       "stats": {
         "length_m": 6959,
@@ -147502,7 +147706,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 11.1,
         "steepest_1km_pct": 9.2,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 414
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -149268,7 +149473,8 @@
         "slug": "comburce-tournance",
         "url": "https://climbfinder.com/en/climbs/comburce-tournance",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 232
       },
       "stats": {
         "length_m": 1694,
@@ -149278,7 +149484,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 12.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 232
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -149784,7 +149991,8 @@
         "slug": "borny-col-de-leschaux",
         "url": "https://climbfinder.com/en/climbs/borny-col-de-leschaux",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 2081,
@@ -149794,7 +150002,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 8.0,
         "steepest_1km_pct": 3.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 29
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -150404,7 +150613,8 @@
         "slug": "le-borbois-albertville",
         "url": "https://climbfinder.com/en/climbs/le-borbois-albertville",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 359
       },
       "stats": {
         "length_m": 6284,
@@ -150414,7 +150624,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.5,
         "steepest_1km_pct": 9.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 359
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -152016,7 +152227,8 @@
         "slug": "l-anglettaz-disonche",
         "url": "https://climbfinder.com/en/climbs/l-anglettaz-disonche",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 779
       },
       "stats": {
         "length_m": 8718,
@@ -152026,7 +152238,8 @@
         "max_gradient_pct": 22.8,
         "steepest_100m_pct": 20.5,
         "steepest_1km_pct": 10.9,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 779
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -154220,7 +154433,8 @@
         "slug": "cote-de-sechenal-gruyere",
         "url": "https://climbfinder.com/en/climbs/cote-de-sechenal-gruyere",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 130
       },
       "stats": {
         "length_m": 3776,
@@ -154230,7 +154444,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.5,
         "steepest_1km_pct": 8.8,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 130
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -155244,7 +155459,8 @@
         "slug": "sous-l-aiguille-thones",
         "url": "https://climbfinder.com/en/climbs/sous-l-aiguille-thones",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 442
       },
       "stats": {
         "length_m": 12156,
@@ -155254,7 +155470,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.9,
         "steepest_1km_pct": 9.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 442
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -156832,7 +157049,8 @@
         "slug": "cote-de-sechenal-argonay",
         "url": "https://climbfinder.com/en/climbs/cote-de-sechenal-argonay",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 137
       },
       "stats": {
         "length_m": 1590,
@@ -156842,7 +157060,8 @@
         "max_gradient_pct": 17.2,
         "steepest_100m_pct": 15.3,
         "steepest_1km_pct": 10.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 137
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -157322,7 +157541,8 @@
         "slug": "apiyaute-le-petit-bornand-les-glieres",
         "url": "https://climbfinder.com/en/climbs/apiyaute-le-petit-bornand-les-glieres",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 222
       },
       "stats": {
         "length_m": 2435,
@@ -157332,7 +157552,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 10.6,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 222
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -158034,7 +158255,8 @@
         "slug": "nanchard",
         "url": "https://climbfinder.com/en/climbs/nanchard",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 702
       },
       "stats": {
         "length_m": 6520,
@@ -158044,7 +158266,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 17.9,
         "steepest_1km_pct": 14.1,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 702
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -159702,7 +159925,8 @@
         "slug": "orange-montisel-thorens",
         "url": "https://climbfinder.com/en/climbs/orange-montisel-thorens",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 229
       },
       "stats": {
         "length_m": 9941,
@@ -159712,7 +159936,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 8.1,
         "steepest_1km_pct": 6.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 229
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -162204,7 +162429,8 @@
         "slug": "cotes-des-cyclos-menthon-saint-bernard",
         "url": "https://climbfinder.com/en/climbs/cotes-des-cyclos-menthon-saint-bernard",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 2309,
@@ -162214,7 +162440,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 7.9,
         "steepest_1km_pct": 4.9,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 36
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -162884,7 +163111,8 @@
         "slug": "le-borbois",
         "url": "https://climbfinder.com/en/climbs/le-borbois",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 178
       },
       "stats": {
         "length_m": 3127,
@@ -162894,7 +163122,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 12.7,
         "steepest_1km_pct": 8.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 178
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -163746,7 +163975,8 @@
         "slug": "les-granges-viuz-la-chiesaz",
         "url": "https://climbfinder.com/en/climbs/les-granges-viuz-la-chiesaz",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 195
       },
       "stats": {
         "length_m": 1538,
@@ -163756,7 +163986,8 @@
         "max_gradient_pct": 17.6,
         "steepest_100m_pct": 16.6,
         "steepest_1km_pct": 12.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 195
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -164224,7 +164455,8 @@
         "slug": "montee-du-cret-du-merle",
         "url": "https://climbfinder.com/en/climbs/montee-du-cret-du-merle",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 399
       },
       "stats": {
         "length_m": 3489,
@@ -164234,7 +164466,8 @@
         "max_gradient_pct": 14.4,
         "steepest_100m_pct": 14.1,
         "steepest_1km_pct": 11.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 399
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -165174,7 +165407,8 @@
         "slug": "plan-dessert",
         "url": "https://climbfinder.com/en/climbs/plan-dessert",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 111
       },
       "stats": {
         "length_m": 3893,
@@ -165184,7 +165418,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.7,
         "steepest_1km_pct": 7.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 111
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -166224,7 +166459,8 @@
         "slug": "route-de-bongain-albertville",
         "url": "https://climbfinder.com/en/climbs/route-de-bongain-albertville",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 224
       },
       "stats": {
         "length_m": 3999,
@@ -166234,7 +166470,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 9.1,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 224
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -167298,7 +167535,8 @@
         "slug": "cote-de-flon",
         "url": "https://climbfinder.com/en/climbs/cote-de-flon",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 196
       },
       "stats": {
         "length_m": 2752,
@@ -167308,7 +167546,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 8.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 196
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -168066,7 +168305,8 @@
         "slug": "les-granges",
         "url": "https://climbfinder.com/en/climbs/les-granges",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 872,
@@ -168076,7 +168316,8 @@
         "max_gradient_pct": 16.0,
         "steepest_100m_pct": 7.8,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 36
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -168386,7 +168627,8 @@
         "slug": "la-roche-pourrie",
         "url": "https://climbfinder.com/en/climbs/la-roche-pourrie",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 300
       },
       "stats": {
         "length_m": 4522,
@@ -168396,7 +168638,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 11.8,
         "steepest_1km_pct": 10.0,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 300
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -169592,7 +169835,8 @@
         "slug": "cote-de-villaz-route-du-pont-d-onnex",
         "url": "https://climbfinder.com/en/climbs/cote-de-villaz-route-du-pont-d-onnex",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 162
       },
       "stats": {
         "length_m": 3956,
@@ -169602,7 +169846,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 9.8,
         "steepest_1km_pct": 7.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 162
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -170660,7 +170905,8 @@
         "slug": "route-panoramique-flumet",
         "url": "https://climbfinder.com/en/climbs/route-panoramique-flumet",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 71
       },
       "stats": {
         "length_m": 1350,
@@ -170670,7 +170916,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 7.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 71
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -171086,7 +171333,8 @@
         "slug": "chemin-de-la-puya",
         "url": "https://climbfinder.com/en/climbs/chemin-de-la-puya",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 66
       },
       "stats": {
         "length_m": 699,
@@ -171096,7 +171344,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 14.4,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 66
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -171356,7 +171605,8 @@
         "slug": "cote-de-villaz-route-de-la-filiere",
         "url": "https://climbfinder.com/en/climbs/cote-de-villaz-route-de-la-filiere",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 170
       },
       "stats": {
         "length_m": 3293,
@@ -171366,7 +171616,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 10.7,
         "steepest_1km_pct": 8.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 170
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -172256,7 +172507,8 @@
         "slug": "bluffy-voie-communale-de-menthon-saint-bernard-a-bluffy",
         "url": "https://climbfinder.com/en/climbs/bluffy-voie-communale-de-menthon-saint-bernard-a-bluffy",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 120
       },
       "stats": {
         "length_m": 867,
@@ -172266,7 +172518,8 @@
         "max_gradient_pct": 19.2,
         "steepest_100m_pct": 17.1,
         "steepest_1km_pct": 0.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 120
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -172576,7 +172829,8 @@
         "slug": "borny-saint-jorioz",
         "url": "https://climbfinder.com/en/climbs/borny-saint-jorioz",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 294
       },
       "stats": {
         "length_m": 9563,
@@ -172586,7 +172840,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 8.1,
         "steepest_1km_pct": 7.1,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 294
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -174988,7 +175243,8 @@
         "slug": "les-aires-le-plot-169833",
         "url": "https://climbfinder.com/en/climbs/les-aires-le-plot-169833",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 91
       },
       "stats": {
         "length_m": 1560,
@@ -174998,7 +175254,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 13.5,
         "steepest_1km_pct": 7.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 91
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -175472,7 +175729,8 @@
         "slug": "mont-revard-mouxy",
         "url": "https://climbfinder.com/en/climbs/mont-revard-mouxy",
         "category": "1",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 770
       },
       "stats": {
         "length_m": 17990,
@@ -175482,7 +175740,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.6,
         "steepest_1km_pct": 8.7,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 770
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -177742,7 +178001,8 @@
         "slug": "cote-de-grecy",
         "url": "https://climbfinder.com/en/climbs/cote-de-grecy",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 163
       },
       "stats": {
         "length_m": 2834,
@@ -177752,7 +178012,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 13.1,
         "steepest_1km_pct": 8.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 163
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -178530,7 +178791,8 @@
         "slug": "col-des-saisies-le-grand-bornand",
         "url": "https://climbfinder.com/en/climbs/col-des-saisies-le-grand-bornand",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 353
       },
       "stats": {
         "length_m": 11647,
@@ -178540,7 +178802,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.8,
         "steepest_1km_pct": 7.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 353
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -180050,7 +180313,8 @@
         "slug": "conflans-plaine-de-conflans",
         "url": "https://climbfinder.com/en/climbs/conflans-plaine-de-conflans",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 62
       },
       "stats": {
         "length_m": 953,
@@ -180060,7 +180324,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 10.9,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 62
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -180398,7 +180663,8 @@
         "slug": "cote-de-capiou",
         "url": "https://climbfinder.com/en/climbs/cote-de-capiou",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 89
       },
       "stats": {
         "length_m": 3375,
@@ -180408,7 +180674,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 6.1,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 89
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -181316,7 +181583,8 @@
         "slug": "route-des-resses",
         "url": "https://climbfinder.com/en/climbs/route-des-resses",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 80
       },
       "stats": {
         "length_m": 1500,
@@ -181326,7 +181594,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 12.9,
         "steepest_1km_pct": 8.1,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 80
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -181780,7 +182049,8 @@
         "slug": "cote-des-combes-429777",
         "url": "https://climbfinder.com/en/climbs/cote-des-combes-429777",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 141
       },
       "stats": {
         "length_m": 1543,
@@ -181790,7 +182060,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.5,
         "steepest_1km_pct": 10.2,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 141
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -182258,7 +182529,8 @@
         "slug": "chateau-de-miolans",
         "url": "https://climbfinder.com/en/climbs/chateau-de-miolans",
         "category": "3",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 173
       },
       "stats": {
         "length_m": 1987,
@@ -182268,7 +182540,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.5,
         "steepest_1km_pct": 9.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 173
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -182852,7 +183125,8 @@
         "slug": "vieugy-alby-sur-cheran",
         "url": "https://climbfinder.com/en/climbs/vieugy-alby-sur-cheran",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 131
       },
       "stats": {
         "length_m": 7058,
@@ -182862,7 +183136,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.9,
         "steepest_1km_pct": 5.4,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 131
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -184654,7 +184929,8 @@
         "slug": "vieugy-annecy",
         "url": "https://climbfinder.com/en/climbs/vieugy-annecy",
         "category": "4",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 84
       },
       "stats": {
         "length_m": 3352,
@@ -184664,7 +184940,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.3,
         "steepest_1km_pct": 6.5,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 84
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -185572,7 +185849,8 @@
         "slug": "route-du-chatelard",
         "url": "https://climbfinder.com/en/climbs/route-du-chatelard",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 625,
@@ -185582,7 +185860,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.9,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 29
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -185822,7 +186101,8 @@
         "slug": "route-de-la-motte",
         "url": "https://climbfinder.com/en/climbs/route-de-la-motte",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 52
       },
       "stats": {
         "length_m": 1397,
@@ -185832,7 +186112,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 8.1,
         "steepest_1km_pct": 6.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 52
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -186260,7 +186541,8 @@
         "slug": "gorges-de-l-arly",
         "url": "https://climbfinder.com/en/climbs/gorges-de-l-arly",
         "category": "2",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 313
       },
       "stats": {
         "length_m": 20699,
@@ -186270,7 +186552,8 @@
         "max_gradient_pct": 7.3,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 6.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 313
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -187618,7 +187901,8 @@
         "slug": "route-de-naves",
         "url": "https://climbfinder.com/en/climbs/route-de-naves",
         "category": "5",
-        "resolved_locality_id": 65
+        "resolved_locality_id": 65,
+        "difficulty_points": 54
       },
       "stats": {
         "length_m": 1355,
@@ -187628,7 +187912,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 6.4,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 54
       },
       "difficulty_score": 5.0,
       "geometry": {
