@@ -1403,8 +1403,8 @@
     return {
       start: {
         radius: r,
-        color: "#166534",
-        fillColor: "#4ade80",
+        color: "#037A03",
+        fillColor: "#05C605",
         weight: 2,
         fillOpacity: 1,
       },
