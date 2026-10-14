@@ -1,6 +1,6 @@
 # Strava — fase na Phase 2 (volledige history & privé)
 
-Status (in de app): privé-toggle, **Ververs Strava-toestemming**, proef/volledige sync, **`__all__`** database-scope, wishlist-clear bij match, **checkpoint-hervatting** (client: `sessionStorage` + auto-resume op instellingen na terugkeer, Screen Wake Lock tijdens sync). **Nog open:** echte achtergrond-sync zonder tab open (Scheduler/queue + Functions-deploy), snellere spatial index over alle klimmen.
+Status (in de app): privé-toggle, **Ververs Strava-toestemming**, proef/volledige sync, **`__all__`** database-scope, wishlist-clear bij match, **checkpoint-hervatting**, **ritdatum van/tot** (Strava `after`/`before`), **strakkere match** (spike-split, detail-polyline). **Nog open:** echte achtergrond-sync zonder tab open (Scheduler/queue + Functions-deploy), snellere spatial index over alle klimmen.
 
 ## Doel (product)
 

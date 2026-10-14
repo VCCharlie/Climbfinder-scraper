@@ -103,6 +103,28 @@
     return document.getElementById(id);
   }
 
+  function getSyncDateBoundsPayload() {
+    const from = $("stravaSyncDateFrom")?.value?.trim();
+    const to = $("stravaSyncDateTo")?.value?.trim();
+    const payload = {};
+    if (from) {
+      const after = new Date(`${from}T00:00:00`).getTime();
+      if (Number.isFinite(after)) payload.after = after;
+    }
+    if (to) {
+      const before = new Date(`${to}T23:59:59.999`).getTime();
+      if (Number.isFinite(before)) payload.before = before;
+    }
+    if (
+      payload.after != null &&
+      payload.before != null &&
+      payload.after >= payload.before
+    ) {
+      return { error: "Datum ‘tot’ moet na ‘van’ liggen." };
+    }
+    return { payload };
+  }
+
   function setStatus(text, isError) {
     const el = $("stravaSyncStatus");
     if (!el) return;
@@ -512,9 +534,24 @@
     }
     const btn = $("stravaTrialSyncBtn");
     if (btn) btn.disabled = true;
-    setStatus(`Proef-sync: laatste ${DEFAULT_PER_PAGE} ritten vs ${datasetId}…`);
+    const dateBounds = getSyncDateBoundsPayload();
+    if (dateBounds.error) {
+      setStatus(dateBounds.error, true);
+      if (btn) btn.disabled = false;
+      return;
+    }
+    const hasRange = dateBounds.payload.after != null || dateBounds.payload.before != null;
+    setStatus(
+      hasRange
+        ? `Proef-sync: ritten in gekozen periode vs ${datasetId}…`
+        : `Proef-sync: laatste ${DEFAULT_PER_PAGE} ritten vs ${datasetId}…`
+    );
     try {
-      const res = await callable("stravaSyncTrial")({ datasetId, perPage: DEFAULT_PER_PAGE });
+      const res = await callable("stravaSyncTrial")({
+        datasetId,
+        perPage: DEFAULT_PER_PAGE,
+        ...dateBounds.payload,
+      });
       setStatus(res.data?.message || "Klaar.");
       global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
     } catch (e) {
@@ -581,6 +618,15 @@
     let loops = 0;
     let reset = !resumeFromCheckpoint;
     let syncFailed = false;
+    const dateBounds = getSyncDateBoundsPayload();
+    if (dateBounds.error) {
+      setStatus(dateBounds.error, true);
+      fullSyncRunning = false;
+      if (btn) btn.disabled = false;
+      if (trialBtn) trialBtn.disabled = false;
+      return;
+    }
+
     if (!resumeFromCheckpoint) {
       sessionStorage.setItem(FULL_SYNC_WANTED_KEY, datasetId);
     }
@@ -595,7 +641,11 @@
         );
         let res;
         try {
-          res = await callable("stravaSyncFull")({ datasetId, reset });
+          res = await callable("stravaSyncFull")({
+            datasetId,
+            reset,
+            ...dateBounds.payload,
+          });
         } catch (batchErr) {
           syncFailed = true;
           const errText = formatCallableError(batchErr);

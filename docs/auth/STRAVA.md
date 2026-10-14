@@ -88,7 +88,13 @@ strava: {
 
 Voorkeuren: Firestore `users/{uid}/prefs/strava` → `{ includePrivate }`.
 
-Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, `stravaActivityStartAt` (epoch-ms, Strava `start_date_local`), … Route-match (strak): ~**78%** van de klim binnen **30 m** van de GPS-track, begin **en** eind van de klim binnen **~55 m**, gemiddelde afstand samples **≤ 70 m** (geen parallelweg ~1 km verderop). Alleen **buitenritten** (geen VirtualRide/trainer). Callable **`stravaCleanupLogMatches`** ruimt indoor + losse matches op. Laatste sync-run: `lastSyncSummary.matches` (max 120).
+Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaActivityId`, `stravaActivityStartAt` (epoch-ms, Strava `start_date_local`), …
+
+**Route-match (strak):** ~**82%** van de klim binnen **28 m** van de GPS-track, begin **en** eind binnen **~45 m**, gemiddelde sample-afstand **≤ 58 m**, rijrichting voet→top. Strava-polylines worden gesplitst bij GPS-**spikes** (&gt; **350 m** tussen opeenvolgende punten) zodat een rechte “teleport”-lijn geen match 7 km verderop geeft. Detail-activiteit (`map.polyline` indien aanwezig) i.p.v. alleen summary. Alleen **buitenritten** (geen VirtualRide/trainer).
+
+**Datumfilter (Instellingen):** velden *Ritdatum van/tot* → Strava `after`/`before` op alle sync-knoppen (proef + volledige history). Leeg = geen datumfilter (proef = laatste 50 ritten).
+
+Callable **`stravaCleanupLogMatches`** ruimt indoor + losse matches op (zelfde match-engine). Laatste sync-run: `lastSyncSummary.matches` (max 120).
 
 ## 7. Migratie naar nieuw Firebase-project
 
