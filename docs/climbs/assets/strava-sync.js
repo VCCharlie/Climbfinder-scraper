@@ -116,9 +116,16 @@
   function formatCallableError(e) {
     if (!e) return "Onbekende fout";
     const code = e.code ? String(e.code).replace(/^functions\//, "") : "";
+    const details = typeof e.details === "string" ? e.details.trim() : "";
     const msg = e.message || String(e);
+    if (details && details !== msg && details !== code) {
+      return details;
+    }
+    if (code === "failed-precondition" && msg && msg !== "failed-precondition") {
+      return msg;
+    }
     if (code === "internal" && (msg === "internal" || msg === "INTERNAL")) {
-      return "Interne serverfout — meestal: Strava Functions niet gedeployed of Firestore uit. Zie docs/auth/STRAVA.md.";
+      return "Interne serverfout — bij server-sync: vaak Cloud Tasks-queue strava-sync of Enqueuer op @appspot. Zie docs/auth/STRAVA.md (Phase 3).";
     }
     if (code === "deadline-exceeded") {
       return msg || "Sync-batch timeout — klik opnieuw Volledige history sync (loopt verder).";
