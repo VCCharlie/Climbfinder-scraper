@@ -61,8 +61,9 @@
           <input type="date" id="stravaSyncDateTo" class="settings-input" />
         </div>
       </div>
-      <p class="settings-hint">
-        Met datum(s) worden alleen ritten in die periode opgehaald (proef-sync en volledige sync). Leeg = geen datumfilter.
+      <p class="settings-hint" id="stravaDateRangeHint">
+        Vul <strong>van</strong> en/of <strong>tot</strong> in en klik <strong>Sync datumbereik</strong> om alleen die ritten te matchen (zonder hele history).
+        Leeg laten = <em>Proef-sync</em> gebruikt de laatste 50 ritten; <em>Volledige history sync</em> doorloopt alles.
       </p>
       <div class="settings-actions">
         <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
@@ -70,6 +71,9 @@
           Ververs Strava-toestemming (privé)
         </button>
         <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
+        <button type="button" id="stravaPeriodSyncBtn" class="secondary strava-sync-primary" hidden>
+          Sync datumbereik
+        </button>
         <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden>
           Proef-sync (50 ritten)
         </button>
@@ -153,7 +157,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261014stravadate1"></script>
+  <script src="assets/strava-sync.js?v=20261014stravaperiodbtn1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
