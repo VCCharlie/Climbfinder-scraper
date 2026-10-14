@@ -1,7 +1,7 @@
 /* FietsKlim climbs PWA — installable on Android Chrome (GitHub Pages / docs/climbs/).
  * Geolocation is not intercepted here (only same-origin GET for static assets). */
 /** Bump on every HTML/JS/CSS change — see docs/climbs/PWA_UPDATES.md */
-const CACHE_VERSION = "20261013logbook1";
+const CACHE_VERSION = "20261014mapteal1";
 const CACHE_NAME = `fietsklim-climbs-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -12,9 +12,6 @@ const PRECACHE_URLS = [
   "./assets/settings.css",
   "./assets/settings-page.js",
   "./manifest.webmanifest",
-  "./assets/styles.css",
-  "./assets/app.js",
-  "./assets/climb-metrics.js",
   "./assets/climb-log.js",
   "./assets/pwa-register.js",
   "./assets/region-picker.js",
@@ -40,6 +37,16 @@ function isSameOriginClimbs(requestUrl) {
 function isFirebaseConfigRequest(requestUrl) {
   try {
     return new URL(requestUrl).pathname.endsWith("/auth/firebase-config.js");
+  } catch {
+    return false;
+  }
+}
+
+/** JS/CSS die vaak wijzigt — altijd netwerk eerst, geen oude SW-cache (ignoreSearch). */
+function isMutableAssetRequest(requestUrl) {
+  try {
+    const path = new URL(requestUrl).pathname;
+    return /\/assets\/.*\.(js|css)$/.test(path);
   } catch {
     return false;
   }
@@ -117,6 +124,11 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  if (isMutableAssetRequest(request.url)) {
+    event.respondWith(networkFirstNoStore(request, false));
+    return;
+  }
+
   event.respondWith(
     fetch(request)
       .then((response) => {
@@ -126,6 +138,6 @@ self.addEventListener("fetch", (event) => {
         }
         return response;
       })
-      .catch(() => caches.match(request, { ignoreSearch: true }))
+      .catch(() => caches.match(request))
   );
 });
