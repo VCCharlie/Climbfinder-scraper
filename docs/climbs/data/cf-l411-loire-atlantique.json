@@ -5,7 +5,7 @@
     "title": "Loire-Atlantique",
     "region_label": "Loire-Atlantique",
     "country": "FR",
-    "updated_at": "2026-10-08T10:17:16Z",
+    "updated_at": "2026-10-14T18:22:58Z",
     "count": 33,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 411
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-14T18:22:58Z"
+    }
   },
   "climbs": [
     {
@@ -32,7 +35,8 @@
         "slug": "mont-piron",
         "url": "https://climbfinder.com/en/climbs/mont-piron",
         "category": "4",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 84
       },
       "stats": {
         "length_m": 522,
@@ -42,7 +46,8 @@
         "max_gradient_pct": 19.6,
         "steepest_100m_pct": 16.3,
         "steepest_1km_pct": 0.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 84
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -254,7 +259,8 @@
         "slug": "mur-du-cellier-rue-des-coteaux",
         "url": "https://climbfinder.com/en/climbs/mur-du-cellier-rue-des-coteaux",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 49
       },
       "stats": {
         "length_m": 273,
@@ -264,7 +270,8 @@
         "max_gradient_pct": 22.4,
         "steepest_100m_pct": 18.7,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 49
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -406,7 +413,8 @@
         "slug": "mur-de-saint-fiacre",
         "url": "https://climbfinder.com/en/climbs/mur-de-saint-fiacre",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 270,
@@ -416,7 +424,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 14.5,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 37
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -558,7 +567,8 @@
         "slug": "chemin-pave",
         "url": "https://climbfinder.com/en/climbs/chemin-pave",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 46
       },
       "stats": {
         "length_m": 508,
@@ -568,7 +578,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 13.2,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 46
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -780,7 +791,8 @@
         "slug": "cote-de-l-auray",
         "url": "https://climbfinder.com/en/climbs/cote-de-l-auray",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 1105,
@@ -790,7 +802,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 5.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 35
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1170,7 +1183,8 @@
         "slug": "pont-caffino-chateau-thebaud",
         "url": "https://climbfinder.com/en/climbs/pont-caffino-chateau-thebaud",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 761,
@@ -1180,7 +1194,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -1462,7 +1477,8 @@
         "slug": "cote-de-la-fosse-garreau-chemin-du-pont-rideau",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-fosse-garreau-chemin-du-pont-rideau",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 40
       },
       "stats": {
         "length_m": 479,
@@ -1472,7 +1488,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.5,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 40
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1676,7 +1693,8 @@
         "slug": "cote-de-la-ravardiere-bouguenais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-ravardiere-bouguenais",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 25
       },
       "stats": {
         "length_m": 423,
@@ -1686,7 +1704,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.8,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 25
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1870,7 +1889,8 @@
         "slug": "cote-de-la-boissiere-lacets-de-barbechat",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-boissiere-lacets-de-barbechat",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 1143,
@@ -1880,7 +1900,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.5,
         "steepest_1km_pct": 5.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 30
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -2266,7 +2287,8 @@
         "slug": "cote-du-moulin-de-la-paquelais",
         "url": "https://climbfinder.com/en/climbs/cote-du-moulin-de-la-paquelais",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 795,
@@ -2276,7 +2298,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.6,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 30
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -2564,7 +2587,8 @@
         "slug": "cote-de-la-baule-escoublac",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-baule-escoublac",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 1001,
@@ -2574,7 +2598,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.2,
         "steepest_1km_pct": 3.1,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -2926,7 +2951,8 @@
         "slug": "cote-de-saint-vincent",
         "url": "https://climbfinder.com/en/climbs/cote-de-saint-vincent",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 1168,
@@ -2936,7 +2962,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 4.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 29
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -3330,7 +3357,8 @@
         "slug": "pouille-les-coteaux",
         "url": "https://climbfinder.com/en/climbs/pouille-les-coteaux",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 986,
@@ -3340,7 +3368,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -3684,7 +3713,8 @@
         "slug": "la-bosse-au-seigneur",
         "url": "https://climbfinder.com/en/climbs/la-bosse-au-seigneur",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 31
       },
       "stats": {
         "length_m": 1486,
@@ -3694,7 +3724,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 8.6,
         "steepest_1km_pct": 4.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 31
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -4148,7 +4179,8 @@
         "slug": "cote-de-la-haie-fouassiere",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-haie-fouassiere",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 614,
@@ -4158,7 +4190,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 5.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -4398,7 +4431,8 @@
         "slug": "colline-de-beausoleil",
         "url": "https://climbfinder.com/en/climbs/colline-de-beausoleil",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 4230,
@@ -4408,7 +4442,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.9,
         "steepest_1km_pct": 4.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 26
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5536,7 +5571,8 @@
         "slug": "mur-du-chateau-d-oudon",
         "url": "https://climbfinder.com/en/climbs/mur-du-chateau-d-oudon",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 57
       },
       "stats": {
         "length_m": 531,
@@ -5546,7 +5582,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 13.3,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 57
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5764,7 +5801,8 @@
         "slug": "la-colle",
         "url": "https://climbfinder.com/en/climbs/la-colle",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 27
       },
       "stats": {
         "length_m": 1445,
@@ -5774,7 +5812,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 4.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 27
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -6216,7 +6255,8 @@
         "slug": "cote-du-gout",
         "url": "https://climbfinder.com/en/climbs/cote-du-gout",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 1419,
@@ -6226,7 +6266,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.9,
         "steepest_1km_pct": 5.4,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 33
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -6662,7 +6703,8 @@
         "slug": "cote-de-la-paquelais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-paquelais",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 3381,
@@ -6672,7 +6714,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 5.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 33
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -7586,7 +7629,8 @@
         "slug": "cote-de-vandel",
         "url": "https://climbfinder.com/en/climbs/cote-de-vandel",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 34
       },
       "stats": {
         "length_m": 1653,
@@ -7596,7 +7640,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.4,
         "steepest_1km_pct": 4.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 34
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -8096,7 +8141,8 @@
         "slug": "la-poirie",
         "url": "https://climbfinder.com/en/climbs/la-poirie",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 875,
@@ -8106,7 +8152,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -8416,7 +8463,8 @@
         "slug": "cote-des-nouelles",
         "url": "https://climbfinder.com/en/climbs/cote-des-nouelles",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 625,
@@ -8426,7 +8474,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -8666,7 +8715,8 @@
         "slug": "cote-du-ferry-route-du-ferry",
         "url": "https://climbfinder.com/en/climbs/cote-du-ferry-route-du-ferry",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 39
       },
       "stats": {
         "length_m": 1291,
@@ -8676,7 +8726,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.1,
         "steepest_1km_pct": 5.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 39
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -9078,7 +9129,8 @@
         "slug": "les-grandes-freches",
         "url": "https://climbfinder.com/en/climbs/les-grandes-freches",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 1172,
@@ -9088,7 +9140,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.3,
         "steepest_1km_pct": 4.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -9482,7 +9535,8 @@
         "slug": "route-de-la-blordrais",
         "url": "https://climbfinder.com/en/climbs/route-de-la-blordrais",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 25
       },
       "stats": {
         "length_m": 644,
@@ -9492,7 +9546,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.8,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 25
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -9738,7 +9793,8 @@
         "slug": "cote-des-pommes-chemin-de-gralan",
         "url": "https://climbfinder.com/en/climbs/cote-des-pommes-chemin-de-gralan",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 31
       },
       "stats": {
         "length_m": 1175,
@@ -9748,7 +9804,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 7.1,
         "steepest_1km_pct": 5.4,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 31
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -10142,7 +10199,8 @@
         "slug": "mur-de-mazaire",
         "url": "https://climbfinder.com/en/climbs/mur-de-mazaire",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 481,
@@ -10152,7 +10210,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 10.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -10356,7 +10415,8 @@
         "slug": "cote-de-la-bernardais",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-bernardais",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 349,
@@ -10366,7 +10426,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 7.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -10528,7 +10589,8 @@
         "slug": "route-de-juigne-chateaubriant",
         "url": "https://climbfinder.com/en/climbs/route-de-juigne-chateaubriant",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 425,
@@ -10538,7 +10600,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -10722,7 +10785,8 @@
         "slug": "rue-de-la-source-pornic",
         "url": "https://climbfinder.com/en/climbs/rue-de-la-source-pornic",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 250,
@@ -10732,7 +10796,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 11.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -10866,7 +10931,8 @@
         "slug": "rue-saint-michel-suce-sur-erdre",
         "url": "https://climbfinder.com/en/climbs/rue-saint-michel-suce-sur-erdre",
         "category": "",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 125,
@@ -10876,7 +10942,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 8.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -10976,7 +11043,8 @@
         "slug": "la-drouetterie-saint-crespin-sur-moine",
         "url": "https://climbfinder.com/en/climbs/la-drouetterie-saint-crespin-sur-moine",
         "category": "5",
-        "resolved_locality_id": 411
+        "resolved_locality_id": 411,
+        "difficulty_points": 47
       },
       "stats": {
         "length_m": 1018,
@@ -10986,7 +11054,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 6.3,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 47
       },
       "difficulty_score": 5.0,
       "geometry": {
