@@ -8,6 +8,12 @@
   const SUMMIT_CLUSTER_RADIUS_M = 55;
   const MAX_NEARBY_ROUTES = 40;
   const MAX_DIM_ROUTES = 35;
+  const MAX_VIEWPORT_POINT_MARKERS = 48;
+  const MAX_MAP_POLYLINE_POINTS = 96;
+  const MAX_OVERVIEW_MAP_ENTRIES = 2200;
+  const SPATIAL_CELL_DEG = 0.018;
+  const VIEWPORT_REFRESH_MS = 300;
+  const HOVER_GRADIENT_MAX_SEGMENTS = 28;
   const COARSE_POINTER_MQ = window.matchMedia("(pointer: coarse)");
   const MOBILE_LAYOUT_MQ = window.matchMedia("(max-width: 900px)");
   const ROUTE_HIT_WEIGHT_COARSE = 22;
@@ -279,6 +285,11 @@
     globalIndexProgress: null,
     regionPreviewCluster: null,
     mapSyncTimer: null,
+    spatialGrid: null,
+    spatialGridPoolSize: 0,
+    legendTimer: null,
+    viewportRefreshToken: 0,
+    viewportRefreshRaf: 0,
     searchBusy: false,
     searchQuery: "",
     mapMode: "overview",
@@ -808,19 +819,6 @@
     };
   }
 
-  function haversineMeters(a, b) {
-    const toRad = (d) => (d * Math.PI) / 180;
-    const [lat1, lng1] = a;
-    const [lat2, lng2] = b;
-    const R = 6371000;
-    const dLat = toRad(lat2 - lat1);
-    const dLng = toRad(lng2 - lng1);
-    const x =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
-    return 2 * R * Math.asin(Math.sqrt(x));
-  }
-
   function climbSummitLatLng(climb) {
     if (typeof ClimbMetrics !== "undefined" && ClimbMetrics.climbSummitLatLng) {
       return ClimbMetrics.climbSummitLatLng(climb);
@@ -859,28 +857,34 @@
   /** Meerdere aanlopen naar dezelfde top → één marker met hoogste score (tot inzoomen). */
   function groupEntriesBySummit(entries, options = {}) {
     const { split = false, radiusM = SUMMIT_CLUSTER_RADIUS_M } = options;
-    const groups = [];
+    if (split) {
+      return entries
+        .map((entry) => {
+          const ll = climbMarkerLatLng(entry.climb);
+          if (!ll) return null;
+          return { latlng: ll, entries: [entry], winner: entry };
+        })
+        .filter(Boolean);
+    }
+    const cellDeg = Math.max(radiusM / 111000, 0.00045);
+    const buckets = new Map();
     for (const entry of entries) {
       const ll = climbMarkerLatLng(entry.climb);
       if (!ll) continue;
-      let group = null;
-      if (!split) {
-        for (const g of groups) {
-          if (haversineMeters(g.latlng, ll) <= radiusM) {
-            group = g;
-            break;
-          }
-        }
-      }
+      const key = `${Math.round(ll[0] / cellDeg)},${Math.round(ll[1] / cellDeg)}`;
+      let group = buckets.get(key);
       if (!group) {
-        group = { latlng: ll, entries: [] };
-        groups.push(group);
+        group = { latlng: ll, entries: [], latSum: 0, lngSum: 0, n: 0 };
+        buckets.set(key, group);
       }
       group.entries.push(entry);
+      group.latSum += ll[0];
+      group.lngSum += ll[1];
+      group.n += 1;
+      group.latlng = [group.latSum / group.n, group.lngSum / group.n];
     }
-    for (const g of groups) {
-      g.winner = pickSummitGroupWinner(g.entries);
-    }
+    const groups = [...buckets.values()];
+    for (const g of groups) g.winner = pickSummitGroupWinner(g.entries);
     return groups;
   }
 
@@ -1041,6 +1045,14 @@
   }
 
   function updateMapDifficultyLegend() {
+    if (state.legendTimer) clearTimeout(state.legendTimer);
+    state.legendTimer = setTimeout(() => {
+      state.legendTimer = null;
+      updateMapDifficultyLegendNow();
+    }, 160);
+  }
+
+  function updateMapDifficultyLegendNow() {
     const el = $("mapDifficultyLegend");
     if (!el || !state.map || state.mapMode === "detail") {
       if (el) el.hidden = true;
@@ -1051,7 +1063,7 @@
       return;
     }
     const entries =
-      state.mapMode === "overview" ? entriesForMapDisplay() : entriesInMapBounds();
+      state.mapMode === "overview" ? entriesForMapMarkers() : entriesInMapBounds();
     const counts = new Map();
     for (const entry of entries) {
       const key = ClimbMetrics.difficultyTierKey(entry.climb);
@@ -1227,6 +1239,95 @@
 
   function latLngsFromClimb(climb) {
     return climb.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+  }
+
+  function latLngsForMapDisplay(climb, maxPoints = MAX_MAP_POLYLINE_POINTS) {
+    const latlngs = latLngsFromClimb(climb);
+    if (latlngs.length <= maxPoints) return latlngs;
+    const out = [latlngs[0]];
+    const step = (latlngs.length - 1) / (maxPoints - 1);
+    for (let i = 1; i < maxPoints - 1; i++) {
+      out.push(latlngs[Math.min(latlngs.length - 1, Math.round(i * step))]);
+    }
+    out.push(latlngs[latlngs.length - 1]);
+    return out;
+  }
+
+  function invalidateSpatialIndex() {
+    state.spatialGrid = null;
+    state.spatialGridPoolSize = 0;
+  }
+
+  function spatialCellKey(lat, lng) {
+    const gx = Math.floor(lat / SPATIAL_CELL_DEG);
+    const gy = Math.floor(lng / SPATIAL_CELL_DEG);
+    return `${gx},${gy}`;
+  }
+
+  function ensureSpatialIndex(pool) {
+    if (state.spatialGrid && state.spatialGridPoolSize === pool.length) return state.spatialGrid;
+    const grid = new Map();
+    for (const entry of pool) {
+      const ll = climbMarkerLatLng(entry.climb) || climbLatLng(entry.climb);
+      if (ll) {
+        const key = spatialCellKey(ll[0], ll[1]);
+        let bucket = grid.get(key);
+        if (!bucket) {
+          bucket = [];
+          grid.set(key, bucket);
+        }
+        bucket.push(entry);
+        continue;
+      }
+      const b = entry.climb?.bbox;
+      if (b && b.length >= 4) {
+        const lat = (b[1] + b[3]) / 2;
+        const lng = (b[0] + b[2]) / 2;
+        const key = spatialCellKey(lat, lng);
+        let bucket = grid.get(key);
+        if (!bucket) {
+          bucket = [];
+          grid.set(key, bucket);
+        }
+        bucket.push(entry);
+      }
+    }
+    state.spatialGrid = grid;
+    state.spatialGridPoolSize = pool.length;
+    return grid;
+  }
+
+  function entryIntersectsBounds(entry, bounds) {
+    const start = climbLatLng(entry.climb);
+    const summit = climbMarkerLatLng(entry.climb);
+    if (start && bounds.contains(start)) return true;
+    if (summit && bounds.contains(summit)) return true;
+    const b = entry.climb.bbox;
+    if (b && b.length >= 4) {
+      const cb = L.latLngBounds([b[1], b[0]], [b[3], b[2]]);
+      return bounds.intersects(cb);
+    }
+    return false;
+  }
+
+  /** Beperk pool vóór bounds-check (regio/land-filter). */
+  function narrowedMapPool() {
+    const pool = mapVisibleEntries();
+    if (!mapFilterStrictActive()) return pool;
+    if (state.currentRegionUrl) {
+      return pool.filter((e) => e.regionUrl === state.currentRegionUrl);
+    }
+    const country = selectedCountryCode();
+    if (country) {
+      return pool.filter((e) => String(e.country || "").toUpperCase() === country);
+    }
+    return pool;
+  }
+
+  function entriesForMapMarkers() {
+    const entries = entriesForMapDisplay();
+    if (!state.map || entries.length <= 700) return entries;
+    return entriesInMapBounds(0.16, entries);
   }
 
   function climbLightningScore(climb) {
@@ -1906,16 +2007,31 @@
 
   function applyRouteHoverHighlight(entry) {
     if (!state.map || state.mapMode === "detail") return;
-    const latlngs = latLngsFromClimb(entry.climb);
+    const latlngs = latLngsForMapDisplay(entry.climb);
     if (latlngs.length < 2) return;
     clearRouteHoverHighlight();
     ensureHoverRouteVisible(latlngs);
     state.hoveredEntryKey = entryKey(entry);
-    state.hoverHighlightGroup = buildGradientRouteLayer(entry.climb, latlngs, {
-      outlineWeight: 14,
-      segmentWeight: 8,
-      interactive: false,
-    });
+    const segments =
+      typeof ClimbMetrics !== "undefined" ? ClimbMetrics.routeGradientSegments(entry.climb) : [];
+    if (segments.length > HOVER_GRADIENT_MAX_SEGMENTS) {
+      state.hoverHighlightGroup = L.layerGroup();
+      L.polyline(latlngs, {
+        color: "#ffffff",
+        weight: 14,
+        opacity: 0.98,
+        lineCap: "round",
+        lineJoin: "round",
+        interactive: false,
+      }).addTo(state.hoverHighlightGroup);
+      L.polyline(latlngs, { ...ROUTE_STYLE.hover, interactive: false }).addTo(state.hoverHighlightGroup);
+    } else {
+      state.hoverHighlightGroup = buildGradientRouteLayer(entry.climb, latlngs, {
+        outlineWeight: 14,
+        segmentWeight: 8,
+        interactive: false,
+      });
+    }
     state.hoverHighlightGroup.addTo(state.map);
     state.hoverHighlightGroup.eachLayer((layer) => {
       if (layer.bringToFront) layer.bringToFront();
@@ -2133,24 +2249,40 @@
     }
   }
 
-  function entriesInMapBounds(pad = 0.12) {
+  function entriesInMapBounds(pad = 0.12, poolOverride = null) {
     if (!state.map) return [];
     const bounds = state.map.getBounds().pad(pad);
-    return mapVisibleEntries().filter(({ climb }) => {
-      const start = climbLatLng(climb);
-      const summit = climbMarkerLatLng(climb);
-      if (start && bounds.contains(start)) return true;
-      if (summit && bounds.contains(summit)) return true;
-      const b = climb.bbox;
-      if (b && b.length >= 4) {
-        const cb = L.latLngBounds([b[1], b[0]], [b[3], b[2]]);
-        return bounds.intersects(cb);
+    const pool = poolOverride || narrowedMapPool();
+    if (pool.length <= 400) {
+      return pool.filter((entry) => entryIntersectsBounds(entry, bounds));
+    }
+    const grid = ensureSpatialIndex(pool);
+    const sw = bounds.getSouthWest();
+    const ne = bounds.getNorthEast();
+    const minGx = Math.floor(sw.lat / SPATIAL_CELL_DEG) - 1;
+    const maxGx = Math.floor(ne.lat / SPATIAL_CELL_DEG) + 1;
+    const minGy = Math.floor(sw.lng / SPATIAL_CELL_DEG) - 1;
+    const maxGy = Math.floor(ne.lng / SPATIAL_CELL_DEG) + 1;
+    const seen = new Set();
+    const out = [];
+    for (let gx = minGx; gx <= maxGx; gx++) {
+      for (let gy = minGy; gy <= maxGy; gy++) {
+        const bucket = grid.get(`${gx},${gy}`);
+        if (!bucket) continue;
+        for (const entry of bucket) {
+          const k = entryKey(entry);
+          if (seen.has(k)) continue;
+          if (entryIntersectsBounds(entry, bounds)) {
+            seen.add(k);
+            out.push(entry);
+          }
+        }
       }
-      return false;
-    });
+    }
+    return out;
   }
 
-  function refreshViewportClimbs() {
+  function refreshViewportClimbsNow() {
     if (!state.map || !mapEntriesAvailable() || state.mapMode === "detail") return;
 
     const zoom = state.map.getZoom();
@@ -2175,7 +2307,7 @@
     const withRouteKeys = new Set();
 
     const addRoute = (entry, style) => {
-      const latlngs = latLngsFromClimb(entry.climb);
+      const latlngs = latLngsForMapDisplay(entry.climb);
       if (latlngs.length < 2) return;
       withRouteKeys.add(entryKey(entry));
       const isDim = style === ROUTE_STYLE.dim;
@@ -2244,8 +2376,8 @@
       state.viewportLayer.addLayer(marker);
     };
 
-    for (const entry of inactiveEntries) addStartMarker(entry, true);
-    for (const entry of activeEntries) addStartMarker(entry, false);
+    for (const entry of inactiveEntries.slice(0, MAX_VIEWPORT_POINT_MARKERS)) addStartMarker(entry, true);
+    for (const entry of activeEntries.slice(0, MAX_VIEWPORT_POINT_MARKERS)) addStartMarker(entry, false);
 
     if (zoom >= MIN_ZOOM_MARKER_LABELS) {
       const routedActive = activeEntries.filter((e) => withRouteKeys.has(entryKey(e)));
@@ -2260,9 +2392,20 @@
     updateMapDifficultyLegend();
   }
 
+  function refreshViewportClimbs() {
+    state.viewportRefreshToken += 1;
+    const token = state.viewportRefreshToken;
+    if (state.viewportRefreshRaf) cancelAnimationFrame(state.viewportRefreshRaf);
+    state.viewportRefreshRaf = requestAnimationFrame(() => {
+      state.viewportRefreshRaf = 0;
+      if (token !== state.viewportRefreshToken) return;
+      refreshViewportClimbsNow();
+    });
+  }
+
   function scheduleViewportRefresh() {
     if (state.viewportMoveTimer) clearTimeout(state.viewportMoveTimer);
-    state.viewportMoveTimer = setTimeout(() => refreshViewportClimbs(), 120);
+    state.viewportMoveTimer = setTimeout(() => refreshViewportClimbs(), VIEWPORT_REFRESH_MS);
   }
 
   function clearDetailSelection() {
@@ -2329,6 +2472,9 @@
       showCoverageOnHover: false,
       maxClusterRadius: 42,
       spiderfyOnMaxZoom: true,
+      chunkedLoading: true,
+      chunkInterval: 100,
+      chunkDelay: 40,
     });
     state.map.addLayer(state.overviewCluster);
   }
@@ -2349,7 +2495,10 @@
     }
     state.overviewCluster.clearLayers();
     const allEntries = mapVisibleEntries();
-    const entries = entriesForMapDisplay();
+    let entries = entriesForMapMarkers();
+    if (entries.length > MAX_OVERVIEW_MAP_ENTRIES) {
+      entries = entries.slice(0, MAX_OVERVIEW_MAP_ENTRIES);
+    }
     const fitBounds = [];
     if (fit && state.currentRegionUrl && !state.searchQuery.trim()) {
       const regionEntries = allEntries.filter((e) => e.regionUrl === state.currentRegionUrl);
@@ -2386,8 +2535,11 @@
     if (fit && shouldAutoFitMapBounds() && fitBounds.length) {
       state.map.fitBounds(fitBounds, { padding: [36, 36], maxZoom: 14 });
     }
-    refreshViewportClimbs();
-    updateMapDifficultyLegend();
+    if (zoom >= MIN_ZOOM_NEARBY_ROUTES) {
+      refreshViewportClimbs();
+    } else {
+      updateMapDifficultyLegend();
+    }
     updateSearchHint();
   }
 
@@ -2604,6 +2756,7 @@
       seenRegionKeys.add(regionKey);
       state.globalEntries.push(entry);
     }
+    invalidateSpatialIndex();
   }
 
   function seedGlobalEntriesFromCurrentRegion() {
@@ -2612,6 +2765,7 @@
     if (!r) return;
     state.globalEntries = [];
     state.globalEntryByClimbKey = new Map();
+    invalidateSpatialIndex();
     mergeBundleIntoGlobalEntries(r, state.bundle);
     syncOverviewMarkers({ fit: shouldAutoFitMapBounds() });
     updateSearchHint();
