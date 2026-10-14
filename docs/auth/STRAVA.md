@@ -98,7 +98,7 @@ Callable **`stravaCleanupLogMatches`** ruimt indoor + losse matches op (zelfde m
 
 ### Phase 3 — server-sync (parallel aan browser-loop)
 
-Na deploy staan extra callables live: **`stravaEnqueueFullSync`**, **`getStravaSyncJob`**, **`stravaCancelSyncJob`**, task worker **`stravaSyncWorker`** (Firebase Task Queue, ~22 s tussen batches).
+Na deploy staan extra callables live: **`stravaEnqueueFullSync`**, **`getStravaSyncJob`**, **`stravaCancelSyncJob`**, HTTP worker **`stravaSyncWorker`** (1st Gen + Cloud Tasks queue `strava-sync` in `europe-west1`, ~22 s tussen batches).
 
 | `firebase-config.js` → `strava` | Effect |
 |---------------------------------|--------|
@@ -110,7 +110,7 @@ Na deploy staan extra callables live: **`stravaEnqueueFullSync`**, **`getStravaS
 
 **Firestore rules:** voeg `users/{uid}/stravaSyncJobs/{jobId}` toe (read eigen user) — zie `docs/auth/firestore.rules.example`.
 
-**GCP:** workflow schakelt **Cloud Tasks API** in; eerste deploy van `stravaSyncWorker` maakt de task queue aan. Bij enqueue-fouten: Functions-logs `stravaSyncWorker` / IAM Cloud Tasks Enqueuer op runtime-SA.
+**GCP:** workflow schakelt **Cloud Tasks API** in, maakt queue **`strava-sync`** aan, en zet `strava.worker_secret` (GitHub secret **`STRAVA_WORKER_SECRET`**, anders per deploy gegenereerd). Runtime (`…@appspot.gserviceaccount.com`) nodig **Cloud Tasks Enqueuer** op project. Bij enqueue-fouten: Functions-logs `stravaEnqueueFullSync` / `stravaSyncWorker`.
 
 Zie ook [`STRAVA_ROADMAP.md`](./STRAVA_ROADMAP.md).
 

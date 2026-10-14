@@ -58,6 +58,31 @@ jobs:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         continue-on-error: true
 
+      - name: Enable Cloud Tasks API (Strava server-sync)
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
+        run: |
+          gcloud services enable cloudtasks.googleapis.com --project "$FIREBASE_PROJECT_ID"
+
+      - name: Ensure Strava Cloud Tasks queue
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
+        run: |
+          REGION=europe-west1
+          QUEUE=strava-sync
+          if gcloud tasks queues describe "$QUEUE" --location="$REGION" --project="$FIREBASE_PROJECT_ID" >/dev/null 2>&1; then
+            echo "Cloud Tasks queue ${QUEUE} OK (${REGION})"
+          else
+            gcloud tasks queues create "$QUEUE" \
+              --location="$REGION" \
+              --project="$FIREBASE_PROJECT_ID" \
+              --max-dispatches-per-second=2 \
+              --max-concurrent-dispatches=1 \
+              --max-attempts=8 \
+              --min-backoff=45s \
+              --max-backoff=600s
+          fi
+
       - name: Ensure gcf-artifacts (Artifact Registry)
         env:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
@@ -126,6 +151,23 @@ jobs:
             strava.data_base_url="https://vccharlie.github.io/Climbfinder-scraper/climbs/data" \
             --project "$FIREBASE_PROJECT_ID"
 
+      - name: Set Strava worker config (Phase 3 HTTP + Cloud Tasks)
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
+          STRAVA_WORKER_SECRET: ${{ secrets.STRAVA_WORKER_SECRET }}
+        run: |
+          REGION=europe-west1
+          SECRET="${STRAVA_WORKER_SECRET:-}"
+          if [ -z "$SECRET" ]; then
+            SECRET=$(openssl rand -hex 24)
+            echo "::warning::Secret STRAVA_WORKER_SECRET ontbreekt — gegenereerd voor deze deploy. Voeg een vaste secret toe in GitHub Actions om worker-auth stabiel te houden."
+          fi
+          WORKER_URL="https://${REGION}-${FIREBASE_PROJECT_ID}.cloudfunctions.net/stravaSyncWorker"
+          firebase functions:config:set \
+            strava.worker_secret="$SECRET" \
+            strava.worker_url="$WORKER_URL" \
+            --project "$FIREBASE_PROJECT_ID"
+
       - name: Deploy import callables
         env:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
@@ -135,7 +177,7 @@ jobs:
             functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill,functions:getGithubWorkflowRunStatus,functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull,functions:stravaCleanupLogMatches,functions:stravaEnqueueFullSync,functions:getStravaSyncJob,functions:stravaCancelSyncJob,functions:stravaSyncWorker \
             --project "$FIREBASE_PROJECT_ID" --non-interactive --debug 2>&1 | tee firebase-deploy.log
           DEPLOY_EXIT=${PIPESTATUS[0]}
-          if grep -qE "Failed to (update|create) function" firebase-deploy.log; then
+          if grep -qE "Failed to (update|create|upsert).*function" firebase-deploy.log; then
             echo "::error::Function deploy mislukt (niet alleen cleanup). Controleer gcf-artifacts + IAM Artifact Registry Writer — docs/auth/GITHUB_IMPORT.md"
             if grep -q "Unable to retrieve the repository metadata" firebase-deploy.log; then
               echo "::error::Artifact Registry: metadata voor gcf-artifacts niet leesbaar (repo ontbreekt, API uit, of deploy-SA mist Artifact Registry Writer)."

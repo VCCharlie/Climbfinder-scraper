@@ -179,6 +179,8 @@ export CLIMBFINDER_IMPORT_PAT="github_pat_…"   # fine-grained, Actions read+wr
    | **Firebase Admin** | `functions:config:set` + deploy (eenvoudig; persoonlijk project) |
    | *of* **Cloud Functions Admin** + **Cloud Build Editor** | Strakkere variant |
    | **Artifact Registry Writer** | Deploy/upload naar `gcf-artifacts` in `europe-west1` (zonder dit: *Failed to update function* / metadata `gcf-artifacts` niet leesbaar) |
+   | **Cloud Tasks Enqueuer** (op runtime `@appspot`) | Strava Phase 3: tasks naar `strava-sync` queue (enqueue vanuit Functions) |
+   | **Cloud Tasks Admin** (optioneel, deploy-SA) | Workflow mag queue `strava-sync` aanmaken in `europe-west1` |
    | **Artifact Registry Administrator** (optioneel) | Voorkomt rode workflow na *Deploy complete* door cleanup `artifactregistry.packages.delete` 403 |
 
 3. **Belangrijk (veel deploy-fouten):** je **deploy-SA** moet **Service Account User** (`iam.serviceAccounts.actAs`) op **twee** runtime-accounts hebben — herhaal per account: tab **Principals with access** → **Grant access** → principal = deploy-SA (`client_email` uit JSON) → rol **Service Account User**:

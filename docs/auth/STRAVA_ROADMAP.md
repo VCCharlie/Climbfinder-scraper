@@ -160,7 +160,7 @@ Geen wijziging aan Strava **callback-domein** (`vccharlie.github.io`). Zie [`STR
 ### Implementatievolgorde (Phase 3)
 
 1. ✅ Refactor: `runStravaSyncBatch` (`functions/strava.js`).
-2. ✅ Firestore job + `stravaEnqueueFullSync` + `stravaSyncWorker` (`functions/stravaBackgroundSync.js`).
+2. ✅ Firestore job + `stravaEnqueueFullSync` + Gen1 HTTP `stravaSyncWorker` + Cloud Tasks queue `strava-sync` (`functions/stravaBackgroundSync.js`).
 3. ✅ `__all__` + datumbereik via dezelfde batch-code als callable.
 4. ✅ UI: beta server-knop + poll status; cutover via `strava.backgroundSync` in `firebase-config.js`.
 5. Optioneel: Scheduler + notificaties; spatial index; 429-backoff in `stravaFetch`.
