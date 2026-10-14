@@ -30,6 +30,23 @@
     return [...map.values()].sort((a, b) => a.iso.localeCompare(b.iso));
   }
 
+  /** Bundles die nog actie nodig hebben (per picker-mode). */
+  function eligibleBundles(allBundles, mode) {
+    if (mode === "monolith") {
+      return allBundles.filter((b) => b.is_country_monolith);
+    }
+    if (mode === "scores") {
+      let list = allBundles.filter((b) => !b.scores_complete && (b.missing_cf_scores || 0) > 0);
+      const regionalCountries = new Set(
+        list.filter((b) => !b.is_country_monolith).map((b) => b.country || "XX")
+      );
+      return list.filter(
+        (b) => !b.is_country_monolith || !regionalCountries.has(b.country || "XX")
+      );
+    }
+    return allBundles;
+  }
+
   function fillSelect(el, options, placeholder) {
     if (!el) return;
     el.innerHTML = "";
@@ -62,28 +79,54 @@
 
     const data = await loadCatalog();
     const allBundles = data.bundles || [];
+    const pending = eligibleBundles(allBundles, opts.mode);
+    const countries = uniqueCountries(pending);
 
-    const countries = uniqueCountries(allBundles);
+    const catalogStamp = data.updated_at
+      ? `Catalogus ${new Date(data.updated_at).toLocaleString("nl-NL")}. `
+      : "";
+
+    if (!pending.length) {
+      const emptyLabel =
+        opts.mode === "monolith"
+          ? "Geen land-monoliths meer op site"
+          : "Geen openstaande scores (alles compleet)";
+      fillSelect(countrySel, [], emptyLabel);
+      countrySel.disabled = true;
+      fillSelect(regionSel, [], "—");
+      regionSel.disabled = true;
+      if (hintEl) {
+        hintEl.textContent =
+          opts.mode === "monolith"
+            ? `${catalogStamp}Alle landen zijn al opgesplitst naar regio-bundles.`
+            : `${catalogStamp}Alle bundles hebben Climbfinder-scores; niets meer te backfillen.`;
+      }
+      opts.onRegionChange?.("", { countryIso: "" });
+      return { reload: async () => { catalog = null; await loadCatalog(); return init(opts); } };
+    }
+
     fillSelect(
       countrySel,
-      countries.map((c) => ({ value: c.iso, label: `${c.iso} (${c.count} datasets)` })),
+      countries.map((c) => ({
+        value: c.iso,
+        label:
+          opts.mode === "scores"
+            ? `${c.iso} (${c.count} regio${c.count === 1 ? "" : "’s"} met ontbrekende scores)`
+            : `${c.iso} (${c.count} monolith${c.count === 1 ? "" : "s"})`,
+      })),
       "— kies land —"
     );
+    countrySel.disabled = false;
+    if (countries.length === 1) {
+      countrySel.value = countries[0].iso;
+    }
 
     function bundlesForCountry(iso) {
-      let list = allBundles.filter((b) => (b.country || "XX") === iso);
-      if (opts.mode === "monolith") {
-        list = list.filter((b) => b.is_country_monolith);
-      } else if (opts.mode === "scores") {
-        list = list.filter((b) => !b.scores_complete && (b.missing_cf_scores || 0) > 0);
-        const hasRegionalBundles = list.some((b) => !b.is_country_monolith);
-        if (hasRegionalBundles) {
-          list = list.filter((b) => !b.is_country_monolith);
-        }
-      }
-      return list.sort((a, b) =>
-        String(a.displayTitle || a.file).localeCompare(String(b.displayTitle || b.file), "nl")
-      );
+      return pending
+        .filter((b) => (b.country || "XX") === iso)
+        .sort((a, b) =>
+          String(a.displayTitle || a.file).localeCompare(String(b.displayTitle || b.file), "nl")
+        );
     }
 
     function refreshRegions() {
@@ -132,9 +175,6 @@
             label: `${b.displayTitle} · ${b.missing_cf_scores}/${b.count} zonder score`,
           });
         }
-        const catalogStamp = data.updated_at
-          ? `Catalogus ${new Date(data.updated_at).toLocaleString("nl-NL")}. `
-          : "";
         if (list.length === 0) {
           fillSelect(regionSel, [], `Geen openstaande scores in ${iso}`);
           regionSel.disabled = true;
