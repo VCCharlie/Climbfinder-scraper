@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/settings.css?v=20261013logbookfix1" />
-  <link rel="stylesheet" href="assets/logbook.css?v=20261013stravamark2" />
+  <link rel="stylesheet" href="assets/logbook.css?v=20261014logbooktable1" />
 </head>
 <body class="fietsklim-locked settings-page logbook-page">
   <div id="fietsklim-auth-gate">
@@ -110,7 +110,38 @@
         Sync en opschonen: <a href="settings.html#stravaSettingsCard">Instellingen → Strava</a>.
       </p>
       <p id="logbookListSummary" class="settings-status" role="status"></p>
-      <ul id="logbookStravaList" class="strava-match-list logbook-strava-list"></ul>
+      <div class="logbook-table-toolbar">
+        <label class="logbook-table-search-label" for="logbookTableSearch">
+          Zoek in tabel
+          <input
+            type="search"
+            id="logbookTableSearch"
+            class="settings-input logbook-table-search"
+            placeholder="Naam, land, regio, dataset…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </label>
+      </div>
+      <div class="logbook-table-wrap" id="logbookTableWrap" hidden>
+        <table class="logbook-table" id="logbookTable">
+          <thead>
+            <tr>
+              <th scope="col" class="logbook-th-sort" data-sort="name" aria-sort="ascending" tabindex="0">Klim</th>
+              <th scope="col" class="logbook-th-sort" data-sort="country" tabindex="0">Land</th>
+              <th scope="col" class="logbook-th-sort" data-sort="region" tabindex="0">Regio</th>
+              <th scope="col" class="logbook-th-sort logbook-th-num" data-sort="category" tabindex="0">Cat.</th>
+              <th scope="col" class="logbook-th-sort logbook-th-num" data-sort="elevation" tabindex="0">Hm</th>
+              <th scope="col" class="logbook-th-sort logbook-th-num" data-sort="year" tabindex="0">Jaar</th>
+              <th scope="col" class="logbook-th-sort" data-sort="status" tabindex="0">Status</th>
+              <th scope="col">Strava-rit</th>
+              <th scope="col" class="logbook-th-sort" data-sort="rideDate" tabindex="0">Datum</th>
+              <th scope="col" class="logbook-th-actions">Actie</th>
+            </tr>
+          </thead>
+          <tbody id="logbookTableBody"></tbody>
+        </table>
+      </div>
       <p id="logbookListEmpty" class="settings-hint" hidden>Nog geen klimmen in je logboek.</p>
     </section>
   </div>
@@ -122,6 +153,6 @@
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbookall1"></script>
   <script src="assets/strava-brand.js?v=20261013stravamark2"></script>
-  <script src="assets/logbook-page.js?v=20261013stravamark2"></script>
+  <script src="assets/logbook-page.js?v=20261014logbooktable1"></script>
 </body>
 </html>
