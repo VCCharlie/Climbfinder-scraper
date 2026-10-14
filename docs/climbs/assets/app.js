@@ -241,15 +241,15 @@
     return isMobileLayout() && root?.classList.contains("mobile-pane-map");
   }
 
-  /** Goed zichtbaar op groen OSM-terrein (geen paars). */
+  /** Lichte, Climbfinder-achtige lijnen (kleur komt uit score-tier fill). */
   const ROUTE_STYLE = {
-    active: { color: "#0f766e", weight: 4, opacity: 0.92 },
-    detail: { color: "#115e59", weight: 5, opacity: 0.95 },
-    dim: { color: "#475569", weight: 2.5, opacity: 0.52 },
-    hover: { color: "#0d9488", weight: 8, opacity: 1 },
+    active: { color: "#fb923c", weight: 3.5, opacity: 0.9 },
+    detail: { color: "#f97316", weight: 4.5, opacity: 0.92 },
+    dim: { color: "#94a3b8", weight: 2.5, opacity: 0.42 },
+    hover: { color: "#fbbf24", weight: 6, opacity: 0.95 },
   };
 
-  const MAP_ACCENT_STROKE = "#0f766e";
+  const MAP_MARKER_RING = "#1e293b";
 
   const state = {
     bundle: null,
@@ -816,7 +816,7 @@
     const dimmed = baseStyle === ROUTE_STYLE.dim;
     return {
       ...baseStyle,
-      color: dimmed ? baseStyle.color : colors.stroke,
+      color: dimmed ? baseStyle.color : colors.fill,
       fillColor: colors.fill,
     };
   }
@@ -987,7 +987,7 @@
     }
 
     const fill = dimmed ? "#cbd5e1" : colors.fill;
-    const stroke = dimmed ? "#94a3b8" : done ? "#15803d" : active ? MAP_ACCENT_STROKE : colors.stroke;
+    const stroke = dimmed ? "#94a3b8" : done ? "#15803d" : active ? MAP_MARKER_RING : colors.stroke;
     const touch = isCoarsePointer();
     const marker = L.circleMarker(latlng, {
       radius: touch ? (active ? 9 : 7) : active ? 7 : 5,
@@ -2317,8 +2317,21 @@
         state.indexRegions.find((r) => r.url === entry.regionUrl)
       );
       const tip = regLabel ? `${entry.climb.name} · ${regLabel}` : entry.climb.name;
+      const routePaint = routeStyleForEntry(entry, style);
+      if (!isDim) {
+        L.polyline(latlngs, {
+          color: "#ffffff",
+          weight: routePaint.weight + 3,
+          opacity: 0.92,
+          lineCap: "round",
+          lineJoin: "round",
+          interactive: false,
+        }).addTo(state.viewportRoutesLayer);
+      }
       const line = L.polyline(latlngs, {
-        ...routeStyleForEntry(entry, style),
+        ...routePaint,
+        lineCap: "round",
+        lineJoin: "round",
         interactive: !isCoarsePointer() && !isDim,
       });
       bindMapTooltip(line, tip);
