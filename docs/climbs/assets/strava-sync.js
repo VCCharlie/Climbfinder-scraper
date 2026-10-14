@@ -364,17 +364,30 @@
     }
   }
 
+  function hasSyncDateRange() {
+    const bounds = getSyncDateBoundsPayload();
+    if (bounds.error) return false;
+    return bounds.payload.after != null || bounds.payload.before != null;
+  }
+
   function updateSyncButtonsVisibility(connected) {
     const datasetOk = Boolean(getSelectedDatasetId());
+    const period = $("stravaPeriodSyncBtn");
     const trial = $("stravaTrialSyncBtn");
     const full = $("stravaFullSyncBtn");
     const cleanup = $("stravaCleanupBtn");
     const show = connected && datasetOk;
-    trial?.toggleAttribute("hidden", !show);
+    const range = hasSyncDateRange();
+    period?.toggleAttribute("hidden", !show || !range);
+    trial?.toggleAttribute("hidden", !show || range);
     full?.toggleAttribute("hidden", !show);
+    if (period) period.disabled = !show || !range;
+    if (trial) trial.disabled = !show || range;
+    if (full) {
+      full.disabled = !show || Boolean(statusCache?.needsReconnect && includePrivateChecked());
+      full.textContent = range ? "Volledige sync in periode" : "Volledige history sync";
+    }
     cleanup?.toggleAttribute("hidden", !connected);
-    if (trial) trial.disabled = !show;
-    if (full) full.disabled = !show || Boolean(statusCache?.needsReconnect && includePrivateChecked());
     if (cleanup) cleanup.disabled = !connected;
     const sel = $("stravaDatasetSelect");
     if (sel && global.__FIETSKLIM_AUTH_READY) sel.removeAttribute("hidden");
@@ -526,13 +539,16 @@
     await refreshStatus();
   }
 
-  async function trialSync() {
+  async function runTrialSync(options = {}) {
+    const requireDateRange = Boolean(options.requireDateRange);
     const datasetId = getSelectedDatasetId();
     if (!datasetId) {
       setStatus("Kies eerst een regio-dataset.", true);
       return;
     }
-    const btn = $("stravaTrialSyncBtn");
+    const btn =
+      (requireDateRange ? $("stravaPeriodSyncBtn") : $("stravaTrialSyncBtn")) ||
+      $("stravaTrialSyncBtn");
     if (btn) btn.disabled = true;
     const dateBounds = getSyncDateBoundsPayload();
     if (dateBounds.error) {
@@ -541,10 +557,21 @@
       return;
     }
     const hasRange = dateBounds.payload.after != null || dateBounds.payload.before != null;
+    if (requireDateRange && !hasRange) {
+      setStatus("Vul Ritdatum van en/of tot in voor Sync datumbereik.", true);
+      if (btn) btn.disabled = false;
+      return;
+    }
+    if (!requireDateRange && hasRange) {
+      setStatus("Gebruik Sync datumbereik (datums ingevuld) of wis de datums voor Proef-sync.", true);
+      if (btn) btn.disabled = false;
+      return;
+    }
+    const scopeLabel = datasetId === ALL_DATASETS ? "hele database" : datasetId;
     setStatus(
       hasRange
-        ? `Proef-sync: ritten in gekozen periode vs ${datasetId}…`
-        : `Proef-sync: laatste ${DEFAULT_PER_PAGE} ritten vs ${datasetId}…`
+        ? `Sync datumbereik: ritten in periode vs ${scopeLabel}…`
+        : `Proef-sync: laatste ${DEFAULT_PER_PAGE} ritten vs ${scopeLabel}…`
     );
     try {
       const res = await callable("stravaSyncTrial")({
@@ -560,6 +587,14 @@
       if (btn) btn.disabled = false;
       await refreshStatus();
     }
+  }
+
+  async function trialSync() {
+    return runTrialSync({ requireDateRange: false });
+  }
+
+  async function periodSync() {
+    return runTrialSync({ requireDateRange: true });
   }
 
   async function cleanupLogMatches() {
@@ -717,8 +752,14 @@
     $("stravaDisconnectBtn")?.addEventListener("click", () =>
       void disconnect().catch((e) => setStatus(formatCallableError(e), true))
     );
+    $("stravaPeriodSyncBtn")?.addEventListener("click", () => void periodSync());
     $("stravaTrialSyncBtn")?.addEventListener("click", () => void trialSync());
     $("stravaFullSyncBtn")?.addEventListener("click", () => void fullSync());
+    const onDateRangeInput = () => updateSyncButtonsVisibility(Boolean(statusCache?.connected));
+    $("stravaSyncDateFrom")?.addEventListener("change", onDateRangeInput);
+    $("stravaSyncDateFrom")?.addEventListener("input", onDateRangeInput);
+    $("stravaSyncDateTo")?.addEventListener("change", onDateRangeInput);
+    $("stravaSyncDateTo")?.addEventListener("input", onDateRangeInput);
     $("stravaCleanupBtn")?.addEventListener("click", () => void cleanupLogMatches());
     global.addEventListener("fietsklim-authenticated", () => {
       void populateDatasetSelect().then(() => refreshStatus());
