@@ -62,26 +62,37 @@ jobs:
         env:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         run: |
-          gcloud services enable cloudtasks.googleapis.com --project "$FIREBASE_PROJECT_ID"
+          gcloud services enable cloudtasks.googleapis.com --project "$FIREBASE_PROJECT_ID" || \
+            echo "::warning::Deploy-SA kon Cloud Tasks API niet inschakelen — owner: console API Enable, daarna workflow opnieuw."
+        continue-on-error: true
 
       - name: Ensure Strava Cloud Tasks queue
         env:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
         run: |
+          # Niet blokkeren: deploy-SA heeft vaak geen cloudtasks.queues.create (owner maakt queue eenmalig).
           REGION=europe-west1
           QUEUE=strava-sync
           if gcloud tasks queues describe "$QUEUE" --location="$REGION" --project="$FIREBASE_PROJECT_ID" >/dev/null 2>&1; then
             echo "Cloud Tasks queue ${QUEUE} OK (${REGION})"
-          else
-            gcloud tasks queues create "$QUEUE" \
-              --location="$REGION" \
-              --project="$FIREBASE_PROJECT_ID" \
-              --max-dispatches-per-second=2 \
-              --max-concurrent-dispatches=1 \
-              --max-attempts=8 \
-              --min-backoff=45s \
-              --max-backoff=600s
+            exit 0
           fi
+          if gcloud tasks queues create "$QUEUE" \
+            --location="$REGION" \
+            --project="$FIREBASE_PROJECT_ID" \
+            --max-dispatches-per-second=2 \
+            --max-concurrent-dispatches=1 \
+            --max-attempts=8 \
+            --min-backoff=45s \
+            --max-backoff=600s; then
+            echo "Cloud Tasks queue ${QUEUE} aangemaakt"
+            exit 0
+          fi
+          echo "::warning::Queue ${QUEUE} ontbreekt en kon niet worden aangemaakt (PERMISSION_DENIED cloudtasks.queues.create op github-deploy-functions@…)."
+          echo "::warning::Functions-deploy gaat door. Strava server-sync (beta) werkt pas na queue + Enqueuer op @appspot — zie docs/auth/GITHUB_IMPORT.md"
+          echo "Owner Cloud Shell:"
+          echo "  gcloud tasks queues create ${QUEUE} --location=${REGION} --project=${FIREBASE_PROJECT_ID} \\"
+          echo "    --max-dispatches-per-second=2 --max-concurrent-dispatches=1 --max-attempts=8 --min-backoff=45s --max-backoff=600s"
 
       - name: Ensure gcf-artifacts (Artifact Registry)
         env:
