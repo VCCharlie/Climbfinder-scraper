@@ -352,8 +352,8 @@
 
   /** Climbfinder-achtig: heldere vulling, donkere rand (geen paars). */
   const LIGHTNING_MAP_COLORS = {
-    L0: { fill: "#4ade80", stroke: "#15803d", label: "< 5" },
-    L5: { fill: "#22c55e", stroke: "#166534", label: "5+" },
+    L0: { fill: "#3BEB3B", stroke: "#048804", label: "< 5" },
+    L5: { fill: "#05C605", stroke: "#037A03", label: "5+" },
     L9: { fill: "#fbbf24", stroke: "#d97706", label: "9+" },
     L12: { fill: "#fdba74", stroke: "#c2410c", label: "12+" },
     L17: { fill: "#fca5a5", stroke: "#dc2626", label: "17+" },
@@ -362,8 +362,8 @@
 
   const DIFFICULTY_MAP_COLORS = {
     ...LIGHTNING_MAP_COLORS,
-    5: { fill: "#86efac", stroke: "#166534", label: "Cat. 5" },
-    4: { fill: "#fde047", stroke: "#a16207", label: "Cat. 4" },
+    5: { fill: "#05C605", stroke: "#037A03", label: "Cat. 5" },
+    4: { fill: "#fbbf24", stroke: "#d97706", label: "Cat. 4" },
     3: { fill: "#fdba74", stroke: "#c2410c", label: "Cat. 3" },
     2: { fill: "#fb923c", stroke: "#ea580c", label: "Cat. 2" },
     1: { fill: "#fca5a5", stroke: "#dc2626", label: "Cat. 1" },
