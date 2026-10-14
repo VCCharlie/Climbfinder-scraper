@@ -4,7 +4,7 @@
     "id": "cf-l357-voer-region",
     "title": "Voer-Region (Climbfinder Popular)",
     "country": "BE",
-    "updated_at": "2026-10-07T14:31:34Z",
+    "updated_at": "2026-10-14T09:20:38Z",
     "count": 38,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,8 @@
     "import_errors": [],
     "maintenance": {
       "resolved_regions_backfill": "2026-10-07T13:19:01Z",
-      "macro_region_labels_backfill": "2026-10-07T14:31:34Z"
+      "macro_region_labels_backfill": "2026-10-07T14:31:34Z",
+      "climbfinder_scores_backfill": "2026-10-14T09:20:38Z"
     }
   },
   "climbs": [
@@ -33,7 +34,8 @@
         "slug": "kasteelstraat",
         "url": "https://climbfinder.com/en/climbs/kasteelstraat",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 58
       },
       "stats": {
         "length_m": 1271,
@@ -43,7 +45,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.7,
         "steepest_1km_pct": 6.9,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 58
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -439,7 +442,8 @@
         "slug": "planck",
         "url": "https://climbfinder.com/en/climbs/planck",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 49
       },
       "stats": {
         "length_m": 1697,
@@ -449,7 +453,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.9,
         "steepest_1km_pct": 6.3,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 49
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -955,7 +960,8 @@
         "slug": "schophemerheide",
         "url": "https://climbfinder.com/en/climbs/schophemerheide",
         "category": "4",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 84
       },
       "stats": {
         "length_m": 2147,
@@ -965,7 +971,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 8.4,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 84
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -1589,7 +1596,8 @@
         "slug": "op-de-eiken",
         "url": "https://climbfinder.com/en/climbs/op-de-eiken",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 56
       },
       "stats": {
         "length_m": 1822,
@@ -1599,7 +1607,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.6,
         "steepest_1km_pct": 4.6,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 56
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -2139,7 +2148,8 @@
         "slug": "gieveld",
         "url": "https://climbfinder.com/en/climbs/gieveld",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 44
       },
       "stats": {
         "length_m": 1471,
@@ -2149,7 +2159,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.3,
         "steepest_1km_pct": 5.6,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 44
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -2597,7 +2608,8 @@
         "slug": "rullen-brabant",
         "url": "https://climbfinder.com/en/climbs/rullen-brabant",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 63
       },
       "stats": {
         "length_m": 953,
@@ -2607,7 +2619,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.5,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 63
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -2945,7 +2958,8 @@
         "slug": "magnebos",
         "url": "https://climbfinder.com/en/climbs/magnebos",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 65
       },
       "stats": {
         "length_m": 2153,
@@ -2955,7 +2969,8 @@
         "max_gradient_pct": 30.0,
         "steepest_100m_pct": 10.3,
         "steepest_1km_pct": 7.3,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 65
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -3563,7 +3578,8 @@
         "slug": "magis",
         "url": "https://climbfinder.com/en/climbs/magis",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 65
       },
       "stats": {
         "length_m": 2880,
@@ -3573,7 +3589,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 9.7,
         "steepest_1km_pct": 7.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 65
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -4363,7 +4380,8 @@
         "slug": "smidt-neubau-mabrouck",
         "url": "https://climbfinder.com/en/climbs/smidt-neubau-mabrouck",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 58
       },
       "stats": {
         "length_m": 2997,
@@ -4373,7 +4391,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.9,
         "steepest_1km_pct": 4.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 58
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5217,7 +5236,8 @@
         "slug": "altenbroek-voeren",
         "url": "https://climbfinder.com/en/climbs/altenbroek-voeren",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 48
       },
       "stats": {
         "length_m": 2082,
@@ -5227,7 +5247,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 9.6,
         "steepest_1km_pct": 5.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 48
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5837,7 +5858,8 @@
         "slug": "kultien",
         "url": "https://climbfinder.com/en/climbs/kultien",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 41
       },
       "stats": {
         "length_m": 1400,
@@ -5847,7 +5869,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 5.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 41
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -6275,7 +6298,8 @@
         "slug": "vrouwenbos-sint-pieters-voeren",
         "url": "https://climbfinder.com/en/climbs/vrouwenbos-sint-pieters-voeren",
         "category": "4",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 83
       },
       "stats": {
         "length_m": 557,
@@ -6285,7 +6309,8 @@
         "max_gradient_pct": 17.2,
         "steepest_100m_pct": 14.2,
         "steepest_1km_pct": 0.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 83
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -6511,7 +6536,8 @@
         "slug": "kasteelstraat-obsinnich",
         "url": "https://climbfinder.com/en/climbs/kasteelstraat-obsinnich",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 53
       },
       "stats": {
         "length_m": 1150,
@@ -6521,7 +6547,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.5,
         "steepest_1km_pct": 6.9,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 53
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -6907,7 +6934,8 @@
         "slug": "de-plank-nurop",
         "url": "https://climbfinder.com/en/climbs/de-plank-nurop",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 1292,
@@ -6917,7 +6945,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.6,
         "steepest_1km_pct": 5.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 35
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -7319,7 +7348,8 @@
         "slug": "kloosterhofstraat",
         "url": "https://climbfinder.com/en/climbs/kloosterhofstraat",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 2038,
@@ -7329,7 +7359,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 4.6,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 35
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -7927,7 +7958,8 @@
         "slug": "cote-de-teuven-varn-straat-teuven",
         "url": "https://climbfinder.com/en/climbs/cote-de-teuven-varn-straat-teuven",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 1298,
@@ -7937,7 +7969,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 5.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 29
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -8365,7 +8398,8 @@
         "slug": "kinkenberg-s-gravenvoeren",
         "url": "https://climbfinder.com/en/climbs/kinkenberg-s-gravenvoeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 441,
@@ -8375,7 +8409,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {
@@ -8565,7 +8600,8 @@
         "slug": "teuven-gieveldstraat",
         "url": "https://climbfinder.com/en/climbs/teuven-gieveldstraat",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 387,
@@ -8575,7 +8611,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -8751,7 +8788,8 @@
         "slug": "komberg-sint-martens-voeren",
         "url": "https://climbfinder.com/en/climbs/komberg-sint-martens-voeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 179,
@@ -8761,7 +8799,8 @@
         "max_gradient_pct": 12.5,
         "steepest_100m_pct": 10.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -8881,7 +8920,8 @@
         "slug": "gijberg-s-gravenvoeren",
         "url": "https://climbfinder.com/en/climbs/gijberg-s-gravenvoeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 335,
@@ -8891,7 +8931,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 11.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -9053,7 +9094,8 @@
         "slug": "veurs-sint-martens-voeren",
         "url": "https://climbfinder.com/en/climbs/veurs-sint-martens-voeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1733,
@@ -9063,7 +9105,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 3.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -9583,7 +9626,8 @@
         "slug": "lusberg-sint-pieters-voeren",
         "url": "https://climbfinder.com/en/climbs/lusberg-sint-pieters-voeren",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 46
       },
       "stats": {
         "length_m": 355,
@@ -9593,7 +9637,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.1,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 46
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -9763,7 +9808,8 @@
         "slug": "chemin-du-bois-du-roi-s-gravenvoeren",
         "url": "https://climbfinder.com/en/climbs/chemin-du-bois-du-roi-s-gravenvoeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 1712,
@@ -9773,7 +9819,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 5.7,
         "steepest_1km_pct": 2.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -10287,7 +10334,8 @@
         "slug": "peerds-zwaeneberg",
         "url": "https://climbfinder.com/en/climbs/peerds-zwaeneberg",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 38
       },
       "stats": {
         "length_m": 468,
@@ -10297,7 +10345,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.4,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 38
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -10495,7 +10544,8 @@
         "slug": "teuven-hoofstraat",
         "url": "https://climbfinder.com/en/climbs/teuven-hoofstraat",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 495,
@@ -10505,7 +10555,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -10709,7 +10760,8 @@
         "slug": "peerds-drink",
         "url": "https://climbfinder.com/en/climbs/peerds-drink",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 43
       },
       "stats": {
         "length_m": 564,
@@ -10719,7 +10771,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.5,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 43
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -10945,7 +10998,8 @@
         "slug": "moelingerweg-moelingen",
         "url": "https://climbfinder.com/en/climbs/moelingerweg-moelingen",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 1113,
@@ -10955,7 +11009,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.1,
         "steepest_1km_pct": 2.7,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -11335,7 +11390,8 @@
         "slug": "rozengaerden-billen",
         "url": "https://climbfinder.com/en/climbs/rozengaerden-billen",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 38
       },
       "stats": {
         "length_m": 1035,
@@ -11345,7 +11401,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 9.4,
         "steepest_1km_pct": 4.4,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 38
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -11703,7 +11760,8 @@
         "slug": "knap-sint-martens-voeren",
         "url": "https://climbfinder.com/en/climbs/knap-sint-martens-voeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 648,
@@ -11713,7 +11771,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -11959,7 +12018,8 @@
         "slug": "crutzberg-koebeek",
         "url": "https://climbfinder.com/en/climbs/crutzberg-koebeek",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 899,
@@ -11969,7 +12029,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {
@@ -12285,7 +12346,8 @@
         "slug": "rozengaerden-born",
         "url": "https://climbfinder.com/en/climbs/rozengaerden-born",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 1107,
@@ -12295,7 +12357,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.4,
         "steepest_1km_pct": 5.1,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 32
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -12675,7 +12738,8 @@
         "slug": "rozengaerden-pontus",
         "url": "https://climbfinder.com/en/climbs/rozengaerden-pontus",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 1303,
@@ -12685,7 +12749,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 5.1,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 33
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -13095,7 +13160,8 @@
         "slug": "crutzberg-voort",
         "url": "https://climbfinder.com/en/climbs/crutzberg-voort",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 519,
@@ -13105,7 +13171,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 7.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -13317,7 +13384,8 @@
         "slug": "snauwenberg-s-gravenvoeren",
         "url": "https://climbfinder.com/en/climbs/snauwenberg-s-gravenvoeren",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 66
       },
       "stats": {
         "length_m": 1895,
@@ -13327,7 +13395,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.9,
         "steepest_1km_pct": 6.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 66
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -13885,7 +13954,8 @@
         "slug": "boomstraat-s-gravenvoeren",
         "url": "https://climbfinder.com/en/climbs/boomstraat-s-gravenvoeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 595,
@@ -13895,7 +13965,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -14127,7 +14198,8 @@
         "slug": "moelingerweg-s-gravenvoeren",
         "url": "https://climbfinder.com/en/climbs/moelingerweg-s-gravenvoeren",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 370,
@@ -14137,7 +14209,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -14307,7 +14380,8 @@
         "slug": "hoeneveldje",
         "url": "https://climbfinder.com/en/climbs/hoeneveldje",
         "category": "",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 885,
@@ -14317,7 +14391,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -14633,7 +14708,8 @@
         "slug": "mariahof-sint-martens-voeren",
         "url": "https://climbfinder.com/en/climbs/mariahof-sint-martens-voeren",
         "category": "5",
-        "resolved_locality_id": 357
+        "resolved_locality_id": 357,
+        "difficulty_points": 56
       },
       "stats": {
         "length_m": 1500,
@@ -14643,7 +14719,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.3,
         "steepest_1km_pct": 5.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 56
       },
       "difficulty_score": 5.0,
       "geometry": {
