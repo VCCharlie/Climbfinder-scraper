@@ -23,7 +23,7 @@ function projectId() {
 function workerUrl() {
   const custom = stravaCfg().worker_url;
   if (custom && String(custom).trim()) return String(custom).trim();
-  return `https://${REGION}-${projectId()}.cloudfunctions.net/stravaSyncWorker`;
+  return `https://${REGION}-${projectId()}.cloudfunctions.net/stravaSyncWorkerHttp`;
 }
 
 function jobsCol(uid) {
@@ -345,7 +345,8 @@ async function processStravaSyncJob(uid, jobId) {
   await enqueueWorkerTask({ uid, jobId }, BATCH_DELAY_SECONDS);
 }
 
-exports.stravaSyncWorker = functions
+/** Gen1 HTTP worker (niet `stravaSyncWorker` — die naam kan nog als Gen2 task-queue in GCP staan). */
+exports.stravaSyncWorkerHttp = functions
   .region(REGION)
   .runWith({ timeoutSeconds: 300, memory: "1GB" })
   .https.onRequest(async (req, res) => {
