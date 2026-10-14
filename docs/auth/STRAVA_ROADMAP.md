@@ -1,6 +1,6 @@
 # Strava — fase na Phase 2 (volledige history & privé)
 
-Status (in de app): privé-toggle, **Ververs Strava-toestemming**, proef/volledige sync, **`__all__`** database-scope, wishlist-clear bij match, **checkpoint-hervatting**, **ritdatum van/tot** (Strava `after`/`before`), **strakkere match** (spike-split, detail-polyline). **Nog open:** echte achtergrond-sync zonder tab open (Scheduler/queue + Functions-deploy), snellere spatial index over alle klimmen.
+Status (in de app): privé-toggle, **Ververs Strava-toestemming**, proef/volledige sync, **`__all__`** database-scope, wishlist-clear bij match, **checkpoint-hervatting**, **ritdatum van/tot** (Strava `after`/`before`), **strakkere match** (spike-split, detail-polyline). **Phase 3 (in repo):** `stravaEnqueueFullSync` + `stravaSyncWorker` (Task Queue), beta-knop op Instellingen; standaard blijft browser-loop tot `strava.backgroundSync: true`. **Nog open:** cutover default, optionele Scheduler/FCM, snellere spatial index over alle klimmen.
 
 ## Doel (product)
 
@@ -159,11 +159,11 @@ Geen wijziging aan Strava **callback-domein** (`vccharlie.github.io`). Zie [`STR
 
 ### Implementatievolgorde (Phase 3)
 
-1. Refactor: `runStravaSyncBatch(uid, { datasetId, reset })` uit `stravaSyncFullHandler` (unit-testbaar).
-2. Firestore job + `stravaEnqueueFullSync` + worker + Tasks queue (één dataset).
-3. `__all__`-scope in worker (zelfde cursor `mode: "all"` als nu).
-4. UI: job-status i.p.v. lange browser-loop; behoud proef-sync callable.
-5. Optioneel: Scheduler + notificaties; spatial index voor snellere `__all__`-matches (los van jobs).
+1. ✅ Refactor: `runStravaSyncBatch` (`functions/strava.js`).
+2. ✅ Firestore job + `stravaEnqueueFullSync` + `stravaSyncWorker` (`functions/stravaBackgroundSync.js`).
+3. ✅ `__all__` + datumbereik via dezelfde batch-code als callable.
+4. ✅ UI: beta server-knop + poll status; cutover via `strava.backgroundSync` in `firebase-config.js`.
+5. Optioneel: Scheduler + notificaties; spatial index; 429-backoff in `stravaFetch`.
 
 ### Niet in Phase 3
 

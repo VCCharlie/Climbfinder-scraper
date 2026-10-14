@@ -96,6 +96,24 @@ Logboek bij match: `done: true`, `wishlist: false`, `source: "strava"`, `stravaA
 
 Callable **`stravaCleanupLogMatches`** ruimt indoor + losse matches op (zelfde match-engine). Laatste sync-run: `lastSyncSummary.matches` (max 120).
 
+### Phase 3 — server-sync (parallel aan browser-loop)
+
+Na deploy staan extra callables live: **`stravaEnqueueFullSync`**, **`getStravaSyncJob`**, **`stravaCancelSyncJob`**, task worker **`stravaSyncWorker`** (Firebase Task Queue, ~22 s tussen batches).
+
+| `firebase-config.js` → `strava` | Effect |
+|---------------------------------|--------|
+| `backgroundSync: false` (default) | **Volledige history sync** = browser-loop (`stravaSyncFull`), zoals nu |
+| `showServerSyncBeta: true` | Extra knop **Volledige sync (server, beta)** → enqueue; tab mag dicht |
+| `backgroundSync: true` | Standaardknop volledige sync gebruikt de server-queue (cutover) |
+
+**Eén sync tegelijk:** tijdens een actieve server-job (`queued`/`running`) weigert `stravaSyncFull` (geen gedeelde cursor corruptie).
+
+**Firestore rules:** voeg `users/{uid}/stravaSyncJobs/{jobId}` toe (read eigen user) — zie `docs/auth/firestore.rules.example`.
+
+**GCP:** workflow schakelt **Cloud Tasks API** in; eerste deploy van `stravaSyncWorker` maakt de task queue aan. Bij enqueue-fouten: Functions-logs `stravaSyncWorker` / IAM Cloud Tasks Enqueuer op runtime-SA.
+
+Zie ook [`STRAVA_ROADMAP.md`](./STRAVA_ROADMAP.md).
+
 ## 7. Migratie naar nieuw Firebase-project
 
 Zie [MIGRATE_FIREBASE.md](./MIGRATE_FIREBASE.md).

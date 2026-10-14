@@ -574,6 +574,12 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
       return { connected: false, setup, includePrivate: prefs.includePrivate };
     }
     const scopeInfo = await resolvePrivateScopeForStatus(uid, data, prefs);
+    let activeSyncJob = null;
+    try {
+      activeSyncJob = await require("./stravaBackgroundSync").getActiveSyncJob(uid);
+    } catch (e) {
+      functions.logger.warn("getStravaStatus activeSyncJob", e);
+    }
     return {
       connected: true,
       athleteName: data.athleteName || null,
@@ -584,6 +590,7 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
       needsReconnect: scopeInfo.needsReconnect,
       grantedScope: scopeInfo.scope || null,
       fullSyncCursor: data.fullSyncCursor || null,
+      activeSyncJob,
       setup,
     };
   } catch (e) {
@@ -909,8 +916,8 @@ exports.stravaSyncFull = functions
     }
   });
 
-async function stravaSyncFullHandler(data, context) {
-    const uid = requireAuth(context);
+/** Eén batch volledige Strava-sync (Phase 2 callable + Phase 3 worker). */
+async function runStravaSyncBatch(uid, data) {
     const datasetId = String(data.datasetId || "").trim();
     if (!datasetId) {
       throw new functions.https.HttpsError(
@@ -1135,6 +1142,24 @@ async function stravaSyncFullHandler(data, context) {
     };
 }
 
+async function stravaSyncFullHandler(data, context) {
+  const uid = requireAuth(context);
+  try {
+    const bg = require("./stravaBackgroundSync");
+    const active = await bg.getActiveSyncJob(uid);
+    if (active && (active.status === "queued" || active.status === "running")) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "Er loopt al een server-sync — wacht tot die klaar is of annuleer die eerst."
+      );
+    }
+  } catch (e) {
+    if (e instanceof functions.https.HttpsError) throw e;
+    functions.logger.warn("stravaSyncFull active job check", e);
+  }
+  return runStravaSyncBatch(uid, data);
+}
+
 async function clearStravaLinkFromLogDoc(ref, row) {
   const wishlist = Boolean(row.wishlist);
   const done = Boolean(row.done);
@@ -1273,3 +1298,5 @@ exports.stravaCleanupLogMatches = functions
   });
 
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
+exports.runStravaSyncBatch = runStravaSyncBatch;
+Object.assign(exports, require("./stravaBackgroundSync"));

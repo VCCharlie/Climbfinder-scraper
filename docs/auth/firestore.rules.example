@@ -11,6 +11,11 @@ service cloud.firestore {
     match /users/{userId}/integrations/{doc} {
       allow read, write: if false;
     }
+    // Phase 3 Strava server-sync: status lezen in Instellingen; schrijven alleen via Functions.
+    match /users/{userId}/stravaSyncJobs/{jobId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
     match /stravaOAuthStates/{stateId} {
       allow read, write: if false;
     }
