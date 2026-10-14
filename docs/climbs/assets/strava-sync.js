@@ -6,9 +6,60 @@
   const DEFAULT_PER_PAGE = 50;
   const FULL_SYNC_MAX_LOOPS = 80;
   const FULL_SYNC_MAX_LOOPS_ALL = 800;
+  const FULL_SYNC_WANTED_KEY = "fietsklim-strava-full-sync-wanted";
 
   let statusCache = null;
   let prefsSaveTimer = null;
+  let fullSyncRunning = false;
+  let wakeLockSentinel = null;
+
+  async function acquireWakeLock() {
+    try {
+      if (global.navigator?.wakeLock?.request) {
+        wakeLockSentinel = await navigator.wakeLock.request("screen");
+        wakeLockSentinel?.addEventListener?.("release", () => {
+          wakeLockSentinel = null;
+        });
+      }
+    } catch (_) {
+      /* optional API */
+    }
+  }
+
+  function releaseWakeLock() {
+    try {
+      void wakeLockSentinel?.release();
+    } catch (_) {
+      /* ignore */
+    }
+    wakeLockSentinel = null;
+  }
+
+  function lastSyncIncomplete(d) {
+    const s = d?.lastSyncSummary;
+    return Boolean(s && s.kind === "full" && s.completed === false);
+  }
+
+  function syncScopeMatchesWanted(wanted, summary) {
+    if (!wanted || !summary) return false;
+    if (wanted === ALL_DATASETS) return Boolean(summary.allDatasets);
+    return wanted === summary.datasetId;
+  }
+
+  function maybeResumeFullSync(d) {
+    if (fullSyncRunning) return;
+    const wanted = sessionStorage.getItem(FULL_SYNC_WANTED_KEY);
+    if (!wanted || !lastSyncIncomplete(d) || !syncScopeMatchesWanted(wanted, d.lastSyncSummary)) {
+      return;
+    }
+    const select = $("stravaDatasetSelect");
+    if (select && select.value !== wanted) {
+      select.value = wanted;
+      setStoredDatasetId(wanted);
+    }
+    setStatus("Volledige sync hervatten (checkpoint op server)…", false);
+    void fullSync({ resumeFromCheckpoint: true });
+  }
 
   function cfg() {
     return global.FIETSKLIM_AUTH_CONFIG || {};
@@ -397,6 +448,7 @@
           msg += ` · sync ${new Date(d.lastSyncAt).toLocaleString("nl-NL")}`;
         }
         setStatus(msg);
+        maybeResumeFullSync(d);
       } else {
         setStatus(
           "Strava niet gekoppeld." + setupHint(d.setup),
@@ -505,7 +557,8 @@
     }
   }
 
-  async function fullSync() {
+  async function fullSync(options = {}) {
+    const resumeFromCheckpoint = Boolean(options.resumeFromCheckpoint);
     const datasetId = getSelectedDatasetId();
     if (!datasetId) {
       setStatus("Kies eerst een regio-dataset.", true);
@@ -515,6 +568,9 @@
       setStatus("Koppel Strava eerst opnieuw voor privé-activiteiten.", true);
       return;
     }
+    if (fullSyncRunning) return;
+    fullSyncRunning = true;
+
     const btn = $("stravaFullSyncBtn");
     const trialBtn = $("stravaTrialSyncBtn");
     if (btn) btn.disabled = true;
@@ -523,14 +579,18 @@
     const isAll = datasetId === ALL_DATASETS;
     const maxLoops = isAll ? FULL_SYNC_MAX_LOOPS_ALL : FULL_SYNC_MAX_LOOPS;
     let loops = 0;
-    let reset = true;
+    let reset = !resumeFromCheckpoint;
     let syncFailed = false;
+    if (!resumeFromCheckpoint) {
+      sessionStorage.setItem(FULL_SYNC_WANTED_KEY, datasetId);
+    }
+    await acquireWakeLock();
     try {
       while (loops < maxLoops) {
         loops += 1;
         const scopeLabel = isAll ? "hele database" : datasetId;
         setStatus(
-          `Volledige sync (${scopeLabel}): stap ${loops}… (laat dit scherm open tot “klaar” verschijnt)`,
+          `Volledige sync (${scopeLabel}): stap ${loops}… (tab open laten; hervat automatisch na terugkeer)`,
           false
         );
         let res;
@@ -546,7 +606,10 @@
         const data = res.data || {};
         setStatus(data.message || "Batch klaar.", false);
         global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
-        if (data.completed) break;
+        if (data.completed) {
+          sessionStorage.removeItem(FULL_SYNC_WANTED_KEY);
+          break;
+        }
         if (!isAll && !data.nextPage) break;
       }
       if (!syncFailed && loops >= maxLoops) {
@@ -559,6 +622,8 @@
       syncFailed = true;
       setStatus(formatCallableError(e), true);
     } finally {
+      releaseWakeLock();
+      fullSyncRunning = false;
       if (btn) btn.disabled = false;
       if (trialBtn) trialBtn.disabled = false;
       if (!syncFailed) {
@@ -616,6 +681,11 @@
     }
     focusStravaSettingsFromHash();
     global.addEventListener("hashchange", focusStravaSettingsFromHash);
+    global.document?.addEventListener?.("visibilitychange", () => {
+      if (global.document.visibilityState === "visible" && fullSyncRunning) {
+        void acquireWakeLock();
+      }
+    });
   }
 
   global.FietsKlimStravaSync = { init, refreshStatus, populateDatasetSelect };
