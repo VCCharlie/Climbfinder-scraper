@@ -4,7 +4,7 @@
     "id": "cf-l280-limburg",
     "title": "Limburg (Climbfinder Popular)",
     "country": "NL",
-    "updated_at": "2026-10-07T14:31:32Z",
+    "updated_at": "2026-10-14T13:26:33Z",
     "count": 146,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,8 @@
     "import_errors": [],
     "maintenance": {
       "resolved_regions_backfill": "2026-10-07T13:30:44Z",
-      "macro_region_labels_backfill": "2026-10-07T14:31:32Z"
+      "macro_region_labels_backfill": "2026-10-07T14:31:32Z",
+      "climbfinder_scores_backfill": "2026-10-14T13:26:33Z"
     }
   },
   "climbs": [
@@ -32,14 +33,17 @@
         "slug": "keutenberg",
         "url": "https://climbfinder.com/en/climbs/keutenberg",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 90
       },
       "stats": {
         "length_m": 1618,
         "elevation_gain_m": 88,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.5,
-        "max_gradient_pct": 19.6
+        "max_gradient_pct": 19.6,
+        "difficulty_points": 90,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -475,7 +479,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "cauberg",
@@ -487,14 +492,17 @@
         "slug": "cauberg",
         "url": "https://climbfinder.com/en/climbs/cauberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 53
       },
       "stats": {
         "length_m": 1200,
         "elevation_gain_m": 66,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.5,
-        "max_gradient_pct": 12.0
+        "max_gradient_pct": 12.0,
+        "difficulty_points": 53,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -828,7 +836,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "camerig",
@@ -840,14 +849,17 @@
         "slug": "camerig",
         "url": "https://climbfinder.com/en/climbs/camerig",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 113
       },
       "stats": {
         "length_m": 4153,
         "elevation_gain_m": 181,
         "elevation_loss_m": 21,
         "avg_gradient_pct": 4.4,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 113,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -1895,7 +1907,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "eyserbosweg",
@@ -1907,14 +1920,17 @@
         "slug": "eyserbosweg",
         "url": "https://climbfinder.com/en/climbs/eyserbosweg",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 82
       },
       "stats": {
         "length_m": 1075,
         "elevation_gain_m": 85,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.9,
-        "max_gradient_pct": 14.4
+        "max_gradient_pct": 14.4,
+        "difficulty_points": 82,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -2218,7 +2234,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "doodeman",
@@ -2230,14 +2247,17 @@
         "slug": "doodeman",
         "url": "https://climbfinder.com/en/climbs/doodeman",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 85
       },
       "stats": {
         "length_m": 1047,
         "elevation_gain_m": 80,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.6,
-        "max_gradient_pct": 15.2
+        "max_gradient_pct": 15.2,
+        "difficulty_points": 85,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -2535,7 +2555,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "vaalserberg",
@@ -2547,14 +2568,17 @@
         "slug": "vaalserberg",
         "url": "https://climbfinder.com/en/climbs/vaalserberg",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 78
       },
       "stats": {
         "length_m": 3360,
         "elevation_gain_m": 139,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 4.2,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 78,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -3410,7 +3434,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "kruisberg",
@@ -3422,14 +3447,17 @@
         "slug": "kruisberg",
         "url": "https://climbfinder.com/en/climbs/kruisberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 59
       },
       "stats": {
         "length_m": 700,
         "elevation_gain_m": 58,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.3,
-        "max_gradient_pct": 14.0
+        "max_gradient_pct": 14.0,
+        "difficulty_points": 59,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -3643,7 +3671,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "gulperberg-partij",
@@ -3655,14 +3684,17 @@
         "slug": "gulperberg-partij",
         "url": "https://climbfinder.com/en/climbs/gulperberg-partij",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 65
       },
       "stats": {
         "length_m": 424,
         "elevation_gain_m": 51,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 12.1,
-        "max_gradient_pct": 16.4
+        "max_gradient_pct": 16.4,
+        "difficulty_points": 65,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -3810,7 +3842,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "gulperberg",
@@ -3822,14 +3855,17 @@
         "slug": "gulperberg",
         "url": "https://climbfinder.com/en/climbs/gulperberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 54
       },
       "stats": {
         "length_m": 923,
         "elevation_gain_m": 54,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.9,
-        "max_gradient_pct": 16.4
+        "max_gradient_pct": 16.4,
+        "difficulty_points": 54,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -4097,7 +4133,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bemelerberg",
@@ -4109,14 +4146,16 @@
         "slug": "bemelerberg",
         "url": "https://climbfinder.com/en/climbs/bemelerberg",
         "category": "",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 892,
         "elevation_gain_m": 44,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.9,
-        "max_gradient_pct": 6.4
+        "max_gradient_pct": 6.4,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -4390,14 +4429,17 @@
         "slug": "loorberg",
         "url": "https://climbfinder.com/en/climbs/loorberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 45
       },
       "stats": {
         "length_m": 1442,
         "elevation_gain_m": 79,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.5,
-        "max_gradient_pct": 6.4
+        "max_gradient_pct": 6.4,
+        "difficulty_points": 45,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -4791,7 +4833,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "fromberg",
@@ -4803,14 +4846,17 @@
         "slug": "fromberg",
         "url": "https://climbfinder.com/en/climbs/fromberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 1675,
         "elevation_gain_m": 66,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.9,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 36,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5258,7 +5304,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "geulhemmerberg",
@@ -5270,14 +5317,17 @@
         "slug": "geulhemmerberg",
         "url": "https://climbfinder.com/en/climbs/geulhemmerberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 899,
         "elevation_gain_m": 57,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.4,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 37,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5539,7 +5589,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "camerig-groenenweg",
@@ -5551,14 +5602,17 @@
         "slug": "camerig-groenenweg",
         "url": "https://climbfinder.com/en/climbs/camerig-groenenweg",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 99
       },
       "stats": {
         "length_m": 4237,
         "elevation_gain_m": 169,
         "elevation_loss_m": 8,
         "avg_gradient_pct": 4.0,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 99,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -6624,7 +6678,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "slingerberg",
@@ -6636,14 +6691,17 @@
         "slug": "slingerberg",
         "url": "https://climbfinder.com/en/climbs/slingerberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 1250,
         "elevation_gain_m": 64,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.1,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 35,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -6989,7 +7047,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "schweiberg",
@@ -7001,14 +7060,17 @@
         "slug": "schweiberg",
         "url": "https://climbfinder.com/en/climbs/schweiberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 60
       },
       "stats": {
         "length_m": 2975,
         "elevation_gain_m": 114,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.8,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 60,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -7768,7 +7830,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "lange-bosweg",
@@ -7780,14 +7843,17 @@
         "slug": "lange-bosweg",
         "url": "https://climbfinder.com/en/climbs/lange-bosweg",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 79
       },
       "stats": {
         "length_m": 2325,
         "elevation_gain_m": 99,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 4.2,
-        "max_gradient_pct": 13.6
+        "max_gradient_pct": 13.6,
+        "difficulty_points": 79,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -8391,7 +8457,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "kersenpad",
@@ -8403,14 +8470,17 @@
         "slug": "kersenpad",
         "url": "https://climbfinder.com/en/climbs/kersenpad",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 79
       },
       "stats": {
         "length_m": 1075,
         "elevation_gain_m": 79,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.4,
-        "max_gradient_pct": 17.2
+        "max_gradient_pct": 17.2,
+        "difficulty_points": 79,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -8714,7 +8784,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "brakkeberg",
@@ -8726,14 +8797,17 @@
         "slug": "brakkeberg",
         "url": "https://climbfinder.com/en/climbs/brakkeberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 64
       },
       "stats": {
         "length_m": 668,
         "elevation_gain_m": 64,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 9.6,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 64,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -8941,7 +9015,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "koning-van-spanje",
@@ -8953,14 +9028,17 @@
         "slug": "koning-van-spanje",
         "url": "https://climbfinder.com/en/climbs/koning-van-spanje",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 46
       },
       "stats": {
         "length_m": 1650,
         "elevation_gain_m": 76,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.6,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 46,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -9402,7 +9480,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "sibbergrubbe",
@@ -9414,14 +9493,17 @@
         "slug": "sibbergrubbe",
         "url": "https://climbfinder.com/en/climbs/sibbergrubbe",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 1766,
         "elevation_gain_m": 73,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.1,
-        "max_gradient_pct": 8.0
+        "max_gradient_pct": 8.0,
+        "difficulty_points": 36,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -9893,7 +9975,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kromhagerweg",
@@ -9905,14 +9988,17 @@
         "slug": "kromhagerweg",
         "url": "https://climbfinder.com/en/climbs/kromhagerweg",
         "category": "4",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 81
       },
       "stats": {
         "length_m": 583,
         "elevation_gain_m": 64,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 11.1,
-        "max_gradient_pct": 16.0
+        "max_gradient_pct": 16.0,
+        "difficulty_points": 81,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -10102,7 +10188,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "epenerbaan",
@@ -10114,14 +10201,17 @@
         "slug": "epenerbaan",
         "url": "https://climbfinder.com/en/climbs/epenerbaan",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 55
       },
       "stats": {
         "length_m": 2800,
         "elevation_gain_m": 99,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 3.5,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 55,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -10839,7 +10929,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "maasberg",
@@ -10851,14 +10942,17 @@
         "slug": "maasberg",
         "url": "https://climbfinder.com/en/climbs/maasberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 27
       },
       "stats": {
         "length_m": 670,
         "elevation_gain_m": 25,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.7,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 27,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -11066,7 +11160,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "rugweg",
@@ -11078,14 +11173,17 @@
         "slug": "rugweg",
         "url": "https://climbfinder.com/en/climbs/rugweg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 62
       },
       "stats": {
         "length_m": 3896,
         "elevation_gain_m": 141,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 3.6,
-        "max_gradient_pct": 8.0
+        "max_gradient_pct": 8.0,
+        "difficulty_points": 62,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -12067,7 +12165,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "schilberg",
@@ -12079,14 +12178,17 @@
         "slug": "schilberg",
         "url": "https://climbfinder.com/en/climbs/schilberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 57
       },
       "stats": {
         "length_m": 957,
         "elevation_gain_m": 66,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.9,
-        "max_gradient_pct": 14.4
+        "max_gradient_pct": 14.4,
+        "difficulty_points": 57,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -12366,7 +12468,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "oude-huls",
@@ -12378,14 +12481,17 @@
         "slug": "oude-huls",
         "url": "https://climbfinder.com/en/climbs/oude-huls",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 68
       },
       "stats": {
         "length_m": 984,
         "elevation_gain_m": 77,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.9,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 68,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -12671,7 +12777,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "sint-pietersberg",
@@ -12683,14 +12790,17 @@
         "slug": "sint-pietersberg",
         "url": "https://climbfinder.com/en/climbs/sint-pietersberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 47
       },
       "stats": {
         "length_m": 1049,
         "elevation_gain_m": 59,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.6,
-        "max_gradient_pct": 14.8
+        "max_gradient_pct": 14.8,
+        "difficulty_points": 47,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -12988,7 +13098,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "hulsberg",
@@ -13000,14 +13111,17 @@
         "slug": "hulsberg",
         "url": "https://climbfinder.com/en/climbs/hulsberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 61
       },
       "stats": {
         "length_m": 1003,
         "elevation_gain_m": 77,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.7,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 61,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -13299,7 +13413,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "adsteeg",
@@ -13311,14 +13426,16 @@
         "slug": "adsteeg",
         "url": "https://climbfinder.com/en/climbs/adsteeg",
         "category": "",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 674,
         "elevation_gain_m": 32,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.7,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -13538,14 +13655,16 @@
         "slug": "oude-molenstraat",
         "url": "https://climbfinder.com/en/climbs/oude-molenstraat",
         "category": "",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 104,
         "elevation_gain_m": 15,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 14.2,
-        "max_gradient_pct": 16.8
+        "max_gradient_pct": 16.8,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -13633,14 +13752,17 @@
         "slug": "snijdersberg",
         "url": "https://climbfinder.com/en/climbs/snijdersberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 51
       },
       "stats": {
         "length_m": 950,
         "elevation_gain_m": 59,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.2,
-        "max_gradient_pct": 13.2
+        "max_gradient_pct": 13.2,
+        "difficulty_points": 51,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -13914,7 +14036,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "eperheide",
@@ -13926,14 +14049,17 @@
         "slug": "eperheide",
         "url": "https://climbfinder.com/en/climbs/eperheide",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 51
       },
       "stats": {
         "length_m": 1455,
         "elevation_gain_m": 83,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.7,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 51,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -14333,7 +14459,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "trintelerberg",
@@ -14345,14 +14472,17 @@
         "slug": "trintelerberg",
         "url": "https://climbfinder.com/en/climbs/trintelerberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 50
       },
       "stats": {
         "length_m": 2149,
         "elevation_gain_m": 94,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.4,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 50,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -14914,7 +15044,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "dikkebuiksweg",
@@ -14926,14 +15057,17 @@
         "slug": "dikkebuiksweg",
         "url": "https://climbfinder.com/en/climbs/dikkebuiksweg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 72
       },
       "stats": {
         "length_m": 2019,
         "elevation_gain_m": 95,
         "elevation_loss_m": 13,
         "avg_gradient_pct": 4.7,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 72,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -15465,7 +15599,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bergseweg",
@@ -15477,14 +15612,17 @@
         "slug": "bergseweg",
         "url": "https://climbfinder.com/en/climbs/bergseweg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 38
       },
       "stats": {
         "length_m": 2724,
         "elevation_gain_m": 88,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.2,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 38,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -16184,7 +16322,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "vrakelberg",
@@ -16196,14 +16335,17 @@
         "slug": "vrakelberg",
         "url": "https://climbfinder.com/en/climbs/vrakelberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 45
       },
       "stats": {
         "length_m": 525,
         "elevation_gain_m": 46,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.8,
-        "max_gradient_pct": 13.2
+        "max_gradient_pct": 13.2,
+        "difficulty_points": 45,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -16375,7 +16517,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "koulenberg",
@@ -16387,14 +16530,17 @@
         "slug": "koulenberg",
         "url": "https://climbfinder.com/en/climbs/koulenberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 571,
         "elevation_gain_m": 38,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.7,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 30,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -16578,7 +16724,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "piemert",
@@ -16590,14 +16737,17 @@
         "slug": "piemert",
         "url": "https://climbfinder.com/en/climbs/piemert",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 47
       },
       "stats": {
         "length_m": 792,
         "elevation_gain_m": 54,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.9,
-        "max_gradient_pct": 11.2
+        "max_gradient_pct": 11.2,
+        "difficulty_points": 47,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -16835,7 +16985,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "wolfsberg",
@@ -16847,14 +16998,17 @@
         "slug": "wolfsberg",
         "url": "https://climbfinder.com/en/climbs/wolfsberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 825,
         "elevation_gain_m": 35,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 4.3,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 26,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -17098,7 +17252,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "daalhemmerweg",
@@ -17110,14 +17265,17 @@
         "slug": "daalhemmerweg",
         "url": "https://climbfinder.com/en/climbs/daalhemmerweg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 1885,
         "elevation_gain_m": 66,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.5,
-        "max_gradient_pct": 8.0
+        "max_gradient_pct": 8.0,
+        "difficulty_points": 32,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -17619,7 +17777,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "wolfhaag",
@@ -17631,14 +17790,17 @@
         "slug": "wolfhaag",
         "url": "https://climbfinder.com/en/climbs/wolfhaag",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 59
       },
       "stats": {
         "length_m": 1865,
         "elevation_gain_m": 91,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 4.9,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 59,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -18134,7 +18296,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "heiweg",
@@ -18146,14 +18309,17 @@
         "slug": "heiweg",
         "url": "https://climbfinder.com/en/climbs/heiweg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 1530,
         "elevation_gain_m": 62,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 4.0,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 32,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -18571,7 +18737,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "pannisberg",
@@ -18583,14 +18750,17 @@
         "slug": "pannisberg",
         "url": "https://climbfinder.com/en/climbs/pannisberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 59
       },
       "stats": {
         "length_m": 3400,
         "elevation_gain_m": 117,
         "elevation_loss_m": 3,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 59,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -19452,7 +19622,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "lange-raarberg",
@@ -19464,14 +19635,17 @@
         "slug": "lange-raarberg",
         "url": "https://climbfinder.com/en/climbs/lange-raarberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 1697,
         "elevation_gain_m": 67,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.9,
-        "max_gradient_pct": 9.6
+        "max_gradient_pct": 9.6,
+        "difficulty_points": 33,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -19925,7 +20099,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kruisberg-nijswiller",
@@ -19937,14 +20112,17 @@
         "slug": "kruisberg-nijswiller",
         "url": "https://climbfinder.com/en/climbs/kruisberg-nijswiller",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 1049,
         "elevation_gain_m": 51,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.9,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 37,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -20242,7 +20420,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bukel",
@@ -20254,14 +20433,16 @@
         "slug": "bukel",
         "url": "https://climbfinder.com/en/climbs/bukel",
         "category": "",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 939,
         "elevation_gain_m": 40,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.3,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -20547,14 +20728,17 @@
         "slug": "grensheuvel",
         "url": "https://climbfinder.com/en/climbs/grensheuvel",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 43
       },
       "stats": {
         "length_m": 549,
         "elevation_gain_m": 44,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.0,
-        "max_gradient_pct": 13.2
+        "max_gradient_pct": 13.2,
+        "difficulty_points": 43,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -20732,7 +20916,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "groeve-t-rooth",
@@ -20744,14 +20929,17 @@
         "slug": "groeve-t-rooth",
         "url": "https://climbfinder.com/en/climbs/groeve-t-rooth",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 47
       },
       "stats": {
         "length_m": 1636,
         "elevation_gain_m": 64,
         "elevation_loss_m": 12,
         "avg_gradient_pct": 3.9,
-        "max_gradient_pct": 11.6
+        "max_gradient_pct": 11.6,
+        "difficulty_points": 47,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -21193,7 +21381,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "oerenberg",
@@ -21205,14 +21394,17 @@
         "slug": "oerenberg",
         "url": "https://climbfinder.com/en/climbs/oerenberg",
         "category": "5",
-        "resolved_locality_id": 27
+        "resolved_locality_id": 27,
+        "difficulty_points": 40
       },
       "stats": {
         "length_m": 580,
         "elevation_gain_m": 42,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.2,
-        "max_gradient_pct": 14.4
+        "max_gradient_pct": 14.4,
+        "difficulty_points": 40,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -21402,7 +21594,8 @@
         }
       ],
       "resolved_locality_id": 27,
-      "display_locality_id": 27
+      "display_locality_id": 27,
+      "classification": "5"
     },
     {
       "id": "vrakelbergerweg-wijlre",
@@ -21414,14 +21607,16 @@
         "slug": "vrakelbergerweg-wijlre",
         "url": "https://climbfinder.com/en/climbs/vrakelbergerweg-wijlre",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 4469,
         "elevation_gain_m": 88,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.0,
-        "max_gradient_pct": 4.0
+        "max_gradient_pct": 4.0,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -22553,14 +22748,17 @@
         "slug": "goudsberg",
         "url": "https://climbfinder.com/en/climbs/goudsberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 2393,
         "elevation_gain_m": 70,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 32,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -23182,7 +23380,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "beversberg",
@@ -23194,14 +23393,17 @@
         "slug": "beversberg",
         "url": "https://climbfinder.com/en/climbs/beversberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 54
       },
       "stats": {
         "length_m": 2400,
         "elevation_gain_m": 87,
         "elevation_loss_m": 7,
         "avg_gradient_pct": 3.6,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 54,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -23823,7 +24025,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "sweikhuizerberg",
@@ -23835,14 +24038,17 @@
         "slug": "sweikhuizerberg",
         "url": "https://climbfinder.com/en/climbs/sweikhuizerberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 1086,
         "elevation_gain_m": 57,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.2,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 36,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -24152,7 +24358,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kuitenberg",
@@ -24164,14 +24371,17 @@
         "slug": "kuitenberg",
         "url": "https://climbfinder.com/en/climbs/kuitenberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 28
       },
       "stats": {
         "length_m": 2550,
         "elevation_gain_m": 66,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 2.6,
-        "max_gradient_pct": 8.0
+        "max_gradient_pct": 8.0,
+        "difficulty_points": 28,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -24829,7 +25039,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "schieversberg",
@@ -24841,14 +25052,17 @@
         "slug": "schieversberg",
         "url": "https://climbfinder.com/en/climbs/schieversberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 49
       },
       "stats": {
         "length_m": 1150,
         "elevation_gain_m": 58,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.1,
-        "max_gradient_pct": 12.8
+        "max_gradient_pct": 12.8,
+        "difficulty_points": 49,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -25170,7 +25384,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "duivels-bosch",
@@ -25182,14 +25397,17 @@
         "slug": "duivels-bosch",
         "url": "https://climbfinder.com/en/climbs/duivels-bosch",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 48
       },
       "stats": {
         "length_m": 1000,
         "elevation_gain_m": 50,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 5.0,
-        "max_gradient_pct": 16.0
+        "max_gradient_pct": 16.0,
+        "difficulty_points": 48,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -25475,7 +25693,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kruisberg-eys-zwartebrugweg",
@@ -25487,14 +25706,17 @@
         "slug": "kruisberg-eys-zwartebrugweg",
         "url": "https://climbfinder.com/en/climbs/kruisberg-eys-zwartebrugweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 45
       },
       "stats": {
         "length_m": 951,
         "elevation_gain_m": 55,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.8,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 45,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -25774,7 +25996,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kloosterberg",
@@ -25786,14 +26009,17 @@
         "slug": "kloosterberg",
         "url": "https://climbfinder.com/en/climbs/kloosterberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 39
       },
       "stats": {
         "length_m": 1244,
         "elevation_gain_m": 61,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.9,
-        "max_gradient_pct": 9.6
+        "max_gradient_pct": 9.6,
+        "difficulty_points": 39,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -26139,7 +26365,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "mathieu-van-der-poel-allee-terblijt",
@@ -26151,14 +26378,16 @@
         "slug": "mathieu-van-der-poel-allee-terblijt",
         "url": "https://climbfinder.com/en/climbs/mathieu-van-der-poel-allee-terblijt",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 1723,
         "elevation_gain_m": 30,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 1.7,
-        "max_gradient_pct": 4.8
+        "max_gradient_pct": 4.8,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -26630,14 +26859,17 @@
         "slug": "stammenderbos",
         "url": "https://climbfinder.com/en/climbs/stammenderbos",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 44
       },
       "stats": {
         "length_m": 637,
         "elevation_gain_m": 44,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.9,
-        "max_gradient_pct": 15.6
+        "max_gradient_pct": 15.6,
+        "difficulty_points": 44,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -26839,7 +27071,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "rasberg",
@@ -26851,14 +27084,17 @@
         "slug": "rasberg",
         "url": "https://climbfinder.com/en/climbs/rasberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 2250,
         "elevation_gain_m": 64,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.8,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 26,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -27444,7 +27680,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "vrouwendelweg",
@@ -27456,14 +27693,17 @@
         "slug": "vrouwendelweg",
         "url": "https://climbfinder.com/en/climbs/vrouwendelweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 54
       },
       "stats": {
         "length_m": 930,
         "elevation_gain_m": 63,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.7,
-        "max_gradient_pct": 14.8
+        "max_gradient_pct": 14.8,
+        "difficulty_points": 54,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -27737,7 +27977,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "walem",
@@ -27749,14 +27990,17 @@
         "slug": "walem",
         "url": "https://climbfinder.com/en/climbs/walem",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 39
       },
       "stats": {
         "length_m": 1441,
         "elevation_gain_m": 65,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.5,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 39,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -28150,7 +28394,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "korte-raarberg",
@@ -28162,14 +28407,17 @@
         "slug": "korte-raarberg",
         "url": "https://climbfinder.com/en/climbs/korte-raarberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 47
       },
       "stats": {
         "length_m": 1525,
         "elevation_gain_m": 70,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.6,
-        "max_gradient_pct": 11.6
+        "max_gradient_pct": 11.6,
+        "difficulty_points": 47,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -28581,7 +28829,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "visweg",
@@ -28593,14 +28842,17 @@
         "slug": "visweg",
         "url": "https://climbfinder.com/en/climbs/visweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 950,
         "elevation_gain_m": 53,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.6,
-        "max_gradient_pct": 9.6
+        "max_gradient_pct": 9.6,
+        "difficulty_points": 37,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -28874,7 +29126,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "elkenraderweg",
@@ -28886,14 +29139,17 @@
         "slug": "elkenraderweg",
         "url": "https://climbfinder.com/en/climbs/elkenraderweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 58
       },
       "stats": {
         "length_m": 2134,
         "elevation_gain_m": 96,
         "elevation_loss_m": 15,
         "avg_gradient_pct": 4.5,
-        "max_gradient_pct": 9.2
+        "max_gradient_pct": 9.2,
+        "difficulty_points": 58,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -29455,7 +29711,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "fromberg-west",
@@ -29467,14 +29724,17 @@
         "slug": "fromberg-west",
         "url": "https://climbfinder.com/en/climbs/fromberg-west",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 48
       },
       "stats": {
         "length_m": 1525,
         "elevation_gain_m": 74,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.8,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 48,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -29886,7 +30146,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "ingbergrachtweg",
@@ -29898,14 +30159,17 @@
         "slug": "ingbergrachtweg",
         "url": "https://climbfinder.com/en/climbs/ingbergrachtweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 2300,
         "elevation_gain_m": 79,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 32,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -30503,7 +30767,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bronckweg",
@@ -30515,14 +30780,17 @@
         "slug": "bronckweg",
         "url": "https://climbfinder.com/en/climbs/bronckweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 2295,
         "elevation_gain_m": 67,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 35,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -31120,7 +31388,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bergenhuizen",
@@ -31132,14 +31401,17 @@
         "slug": "bergenhuizen",
         "url": "https://climbfinder.com/en/climbs/bergenhuizen",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 46
       },
       "stats": {
         "length_m": 1193,
         "elevation_gain_m": 56,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.7,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 46,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -31473,7 +31745,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kleeberg",
@@ -31485,14 +31758,16 @@
         "slug": "kleeberg",
         "url": "https://climbfinder.com/en/climbs/kleeberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 1014,
         "elevation_gain_m": 47,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.6,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -31796,14 +32071,17 @@
         "slug": "schey",
         "url": "https://climbfinder.com/en/climbs/schey",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 2060,
         "elevation_gain_m": 65,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 3.2,
-        "max_gradient_pct": 9.2
+        "max_gradient_pct": 9.2,
+        "difficulty_points": 30,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -32347,7 +32625,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "klimmen-valkenburg",
@@ -32359,14 +32638,16 @@
         "slug": "klimmen-valkenburg",
         "url": "https://climbfinder.com/en/climbs/klimmen-valkenburg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 3324,
         "elevation_gain_m": 68,
         "elevation_loss_m": 3,
         "avg_gradient_pct": 2.1,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -33222,14 +33503,17 @@
         "slug": "slavante",
         "url": "https://climbfinder.com/en/climbs/slavante",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 28
       },
       "stats": {
         "length_m": 300,
         "elevation_gain_m": 29,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 9.5,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 28,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -33347,7 +33631,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kleverberg",
@@ -33359,14 +33644,17 @@
         "slug": "kleverberg",
         "url": "https://climbfinder.com/en/climbs/kleverberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 2185,
         "elevation_gain_m": 64,
         "elevation_loss_m": 6,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 29,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -33940,7 +34228,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "sint-pietersberg-luikerweg",
@@ -33952,14 +34241,17 @@
         "slug": "sint-pietersberg-luikerweg",
         "url": "https://climbfinder.com/en/climbs/sint-pietersberg-luikerweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 1074,
         "elevation_gain_m": 48,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.5,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 30,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -34263,7 +34555,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "vroelen",
@@ -34275,14 +34568,17 @@
         "slug": "vroelen",
         "url": "https://climbfinder.com/en/climbs/vroelen",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 1950,
         "elevation_gain_m": 74,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.8,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 35,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -34796,7 +35092,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "meinweg",
@@ -34808,14 +35105,17 @@
         "slug": "meinweg",
         "url": "https://climbfinder.com/en/climbs/meinweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 5015,
         "elevation_gain_m": 82,
         "elevation_loss_m": 22,
         "avg_gradient_pct": 1.6,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 33,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -36067,7 +36367,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "keunestraat",
@@ -36079,14 +36380,16 @@
         "slug": "keunestraat",
         "url": "https://climbfinder.com/en/climbs/keunestraat",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 663,
         "elevation_gain_m": 34,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.2,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -36306,14 +36609,17 @@
         "slug": "zandberg",
         "url": "https://climbfinder.com/en/climbs/zandberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 25
       },
       "stats": {
         "length_m": 359,
         "elevation_gain_m": 27,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.6,
-        "max_gradient_pct": 14.8
+        "max_gradient_pct": 14.8,
+        "difficulty_points": 25,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -36449,7 +36755,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "waterval-meerssen",
@@ -36461,14 +36768,16 @@
         "slug": "waterval-meerssen",
         "url": "https://climbfinder.com/en/climbs/waterval-meerssen",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 2166,
         "elevation_gain_m": 49,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.3,
-        "max_gradient_pct": 6.0
+        "max_gradient_pct": 6.0,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -37048,14 +37357,17 @@
         "slug": "groenendalsberg",
         "url": "https://climbfinder.com/en/climbs/groenendalsberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 41
       },
       "stats": {
         "length_m": 506,
         "elevation_gain_m": 42,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.4,
-        "max_gradient_pct": 14.0
+        "max_gradient_pct": 14.0,
+        "difficulty_points": 41,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -37227,7 +37539,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "sint-antoniusbank",
@@ -37239,14 +37552,17 @@
         "slug": "sint-antoniusbank",
         "url": "https://climbfinder.com/en/climbs/sint-antoniusbank",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 1366,
         "elevation_gain_m": 52,
         "elevation_loss_m": 5,
         "avg_gradient_pct": 3.8,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 30,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -37622,7 +37938,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "putberg",
@@ -37634,14 +37951,17 @@
         "slug": "putberg",
         "url": "https://climbfinder.com/en/climbs/putberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 2100,
         "elevation_gain_m": 72,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 33,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -38191,7 +38511,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bundersberg",
@@ -38203,14 +38524,17 @@
         "slug": "bundersberg",
         "url": "https://climbfinder.com/en/climbs/bundersberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 28
       },
       "stats": {
         "length_m": 900,
         "elevation_gain_m": 44,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.9,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 28,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -38472,7 +38796,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kollenberg-sittard",
@@ -38484,14 +38809,16 @@
         "slug": "kollenberg-sittard",
         "url": "https://climbfinder.com/en/climbs/kollenberg-sittard",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 615,
         "elevation_gain_m": 30,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.8,
-        "max_gradient_pct": 10.7
+        "max_gradient_pct": 10.7,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -38699,14 +39026,17 @@
         "slug": "savelsbos",
         "url": "https://climbfinder.com/en/climbs/savelsbos",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 2603,
         "elevation_gain_m": 81,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 3.1,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 37,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -39382,7 +39712,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "emmaberg",
@@ -39394,14 +39725,16 @@
         "slug": "emmaberg",
         "url": "https://climbfinder.com/en/climbs/emmaberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 1500,
         "elevation_gain_m": 57,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.8,
-        "max_gradient_pct": 5.6
+        "max_gradient_pct": 5.6,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -39819,14 +40152,17 @@
         "slug": "schaapsdries",
         "url": "https://climbfinder.com/en/climbs/schaapsdries",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 43
       },
       "stats": {
         "length_m": 1557,
         "elevation_gain_m": 78,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.0,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 43,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -40250,7 +40586,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "sint-joseph",
@@ -40262,14 +40599,17 @@
         "slug": "sint-joseph",
         "url": "https://climbfinder.com/en/climbs/sint-joseph",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 40
       },
       "stats": {
         "length_m": 1455,
         "elevation_gain_m": 62,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.3,
-        "max_gradient_pct": 11.2
+        "max_gradient_pct": 11.2,
+        "difficulty_points": 40,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -40669,7 +41009,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "reijmerstokkerdorpsstraat",
@@ -40681,14 +41022,16 @@
         "slug": "reijmerstokkerdorpsstraat",
         "url": "https://climbfinder.com/en/climbs/reijmerstokkerdorpsstraat",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 3306,
         "elevation_gain_m": 66,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.0,
-        "max_gradient_pct": 4.4
+        "max_gradient_pct": 4.4,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -41544,14 +41887,16 @@
         "slug": "bergstraat",
         "url": "https://climbfinder.com/en/climbs/bergstraat",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 712,
         "elevation_gain_m": 33,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.6,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {
@@ -41783,14 +42128,17 @@
         "slug": "boschweg",
         "url": "https://climbfinder.com/en/climbs/boschweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 35
       },
       "stats": {
         "length_m": 464,
         "elevation_gain_m": 38,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.1,
-        "max_gradient_pct": 13.2
+        "max_gradient_pct": 13.2,
+        "difficulty_points": 35,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -41950,7 +42298,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kruisberg-eys-kelderweg",
@@ -41962,14 +42311,17 @@
         "slug": "kruisberg-eys-kelderweg",
         "url": "https://climbfinder.com/en/climbs/kruisberg-eys-kelderweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 43
       },
       "stats": {
         "length_m": 836,
         "elevation_gain_m": 50,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.0,
-        "max_gradient_pct": 12.8
+        "max_gradient_pct": 12.8,
+        "difficulty_points": 43,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -42219,7 +42571,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "klingeleberg",
@@ -42231,14 +42584,17 @@
         "slug": "klingeleberg",
         "url": "https://climbfinder.com/en/climbs/klingeleberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 41
       },
       "stats": {
         "length_m": 1573,
         "elevation_gain_m": 65,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.2,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 41,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -42662,7 +43018,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "ravensbosch",
@@ -42674,14 +43031,17 @@
         "slug": "ravensbosch",
         "url": "https://climbfinder.com/en/climbs/ravensbosch",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 751,
         "elevation_gain_m": 49,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.5,
-        "max_gradient_pct": 11.6
+        "max_gradient_pct": 11.6,
+        "difficulty_points": 37,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -42913,7 +43273,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "wachelderberg",
@@ -42925,14 +43286,17 @@
         "slug": "wachelderberg",
         "url": "https://climbfinder.com/en/climbs/wachelderberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 43
       },
       "stats": {
         "length_m": 2745,
         "elevation_gain_m": 86,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.1,
-        "max_gradient_pct": 11.6
+        "max_gradient_pct": 11.6,
+        "difficulty_points": 43,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -43638,7 +44002,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "kruisberg-meerssen",
@@ -43650,14 +44015,16 @@
         "slug": "kruisberg-meerssen",
         "url": "https://climbfinder.com/en/climbs/kruisberg-meerssen",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 1450,
         "elevation_gain_m": 56,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.8,
-        "max_gradient_pct": 5.6
+        "max_gradient_pct": 5.6,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -44063,14 +44430,17 @@
         "slug": "scheumermolenweg",
         "url": "https://climbfinder.com/en/climbs/scheumermolenweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 51
       },
       "stats": {
         "length_m": 1515,
         "elevation_gain_m": 77,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.1,
-        "max_gradient_pct": 9.6
+        "max_gradient_pct": 9.6,
+        "difficulty_points": 51,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -44482,7 +44852,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "moerslag",
@@ -44494,14 +44865,16 @@
         "slug": "moerslag",
         "url": "https://climbfinder.com/en/climbs/moerslag",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 640,
         "elevation_gain_m": 34,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.3,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -44715,14 +45088,16 @@
         "slug": "harles",
         "url": "https://climbfinder.com/en/climbs/harles",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 1097,
         "elevation_gain_m": 37,
         "elevation_loss_m": 3,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -45044,14 +45419,17 @@
         "slug": "hurpesch",
         "url": "https://climbfinder.com/en/climbs/hurpesch",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 1650,
         "elevation_gain_m": 62,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 3.7,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 29,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -45493,7 +45871,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "luijtenweg-schin-op-geul",
@@ -45505,14 +45884,17 @@
         "slug": "luijtenweg-schin-op-geul",
         "url": "https://climbfinder.com/en/climbs/luijtenweg-schin-op-geul",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 55
       },
       "stats": {
         "length_m": 2167,
         "elevation_gain_m": 80,
         "elevation_loss_m": 3,
         "avg_gradient_pct": 3.7,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 55,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -46080,7 +46462,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "dorpsstraat-mheer",
@@ -46092,14 +46475,17 @@
         "slug": "dorpsstraat-mheer",
         "url": "https://climbfinder.com/en/climbs/dorpsstraat-mheer",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 25
       },
       "stats": {
         "length_m": 425,
         "elevation_gain_m": 29,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.8,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 25,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -46247,7 +46633,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "heerderberg",
@@ -46259,14 +46646,17 @@
         "slug": "heerderberg",
         "url": "https://climbfinder.com/en/climbs/heerderberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 2084,
         "elevation_gain_m": 70,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 4.4
+        "max_gradient_pct": 4.4,
+        "difficulty_points": 26,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -46816,7 +47206,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "mingersberg",
@@ -46828,14 +47219,17 @@
         "slug": "mingersberg",
         "url": "https://climbfinder.com/en/climbs/mingersberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 39
       },
       "stats": {
         "length_m": 922,
         "elevation_gain_m": 50,
         "elevation_loss_m": 7,
         "avg_gradient_pct": 5.4,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 39,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -47103,7 +47497,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "hulsveld",
@@ -47115,14 +47510,17 @@
         "slug": "hulsveld",
         "url": "https://climbfinder.com/en/climbs/hulsveld",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 64
       },
       "stats": {
         "length_m": 875,
         "elevation_gain_m": 71,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.1,
-        "max_gradient_pct": 11.2
+        "max_gradient_pct": 11.2,
+        "difficulty_points": 64,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -47378,7 +47776,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "hobbelrade",
@@ -47390,14 +47789,16 @@
         "slug": "hobbelrade",
         "url": "https://climbfinder.com/en/climbs/hobbelrade",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 1650,
         "elevation_gain_m": 48,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 5.6
+        "max_gradient_pct": 5.6,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -47851,14 +48252,16 @@
         "slug": "panoramaweg-gulpen",
         "url": "https://climbfinder.com/en/climbs/panoramaweg-gulpen",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 14
       },
       "stats": {
         "length_m": 3984,
         "elevation_gain_m": 62,
         "elevation_loss_m": 5,
         "avg_gradient_pct": 1.6,
-        "max_gradient_pct": 4.0
+        "max_gradient_pct": 4.0,
+        "difficulty_points": 14
       },
       "difficulty_score": null,
       "geometry": {
@@ -48876,14 +49279,17 @@
         "slug": "kampsweg-pesaken",
         "url": "https://climbfinder.com/en/climbs/kampsweg-pesaken",
         "category": "4",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 87
       },
       "stats": {
         "length_m": 870,
         "elevation_gain_m": 72,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.2,
-        "max_gradient_pct": 15.2
+        "max_gradient_pct": 15.2,
+        "difficulty_points": 87,
+        "classification": "4"
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -49139,7 +49545,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "4"
     },
     {
       "id": "kalleberg",
@@ -49151,14 +49558,16 @@
         "slug": "kalleberg",
         "url": "https://climbfinder.com/en/climbs/kalleberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 500,
         "elevation_gain_m": 26,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.1,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -49336,14 +49745,17 @@
         "slug": "n278",
         "url": "https://climbfinder.com/en/climbs/n278",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 31
       },
       "stats": {
         "length_m": 2200,
         "elevation_gain_m": 80,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.6,
-        "max_gradient_pct": 4.4
+        "max_gradient_pct": 4.4,
+        "difficulty_points": 31,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -49917,7 +50329,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "hellebeuk",
@@ -49929,14 +50342,16 @@
         "slug": "hellebeuk",
         "url": "https://climbfinder.com/en/climbs/hellebeuk",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 800,
         "elevation_gain_m": 34,
         "elevation_loss_m": 3,
         "avg_gradient_pct": 4.2,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -50186,14 +50601,16 @@
         "slug": "wolfhagen",
         "url": "https://climbfinder.com/en/climbs/wolfhagen",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 775,
         "elevation_gain_m": 37,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.8,
-        "max_gradient_pct": 8.0
+        "max_gradient_pct": 8.0,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -50437,14 +50854,16 @@
         "slug": "biesenberg",
         "url": "https://climbfinder.com/en/climbs/biesenberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 950,
         "elevation_gain_m": 36,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.7,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -50730,14 +51149,16 @@
         "slug": "plettenberg-wittem",
         "url": "https://climbfinder.com/en/climbs/plettenberg-wittem",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 1046,
         "elevation_gain_m": 43,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.1,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -51047,14 +51468,17 @@
         "slug": "bronkweg",
         "url": "https://climbfinder.com/en/climbs/bronkweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 44
       },
       "stats": {
         "length_m": 757,
         "elevation_gain_m": 55,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 7.2,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 44,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -51286,7 +51710,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "mingersborg",
@@ -51298,14 +51723,16 @@
         "slug": "mingersborg",
         "url": "https://climbfinder.com/en/climbs/mingersborg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 784,
         "elevation_gain_m": 32,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.1,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -51555,14 +51982,17 @@
         "slug": "hamelsbach",
         "url": "https://climbfinder.com/en/climbs/hamelsbach",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 25
       },
       "stats": {
         "length_m": 1100,
         "elevation_gain_m": 43,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.9,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 25,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -51872,7 +52302,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "hegge",
@@ -51884,14 +52315,17 @@
         "slug": "hegge",
         "url": "https://climbfinder.com/en/climbs/hegge",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 27
       },
       "stats": {
         "length_m": 1389,
         "elevation_gain_m": 47,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 27,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -52273,7 +52707,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "oude-elkenraderweg",
@@ -52285,14 +52720,17 @@
         "slug": "oude-elkenraderweg",
         "url": "https://climbfinder.com/en/climbs/oude-elkenraderweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 51
       },
       "stats": {
         "length_m": 1631,
         "elevation_gain_m": 76,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.7,
-        "max_gradient_pct": 10.4
+        "max_gradient_pct": 10.4,
+        "difficulty_points": 51,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -52734,7 +53172,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "trintelerberg-simpelveld",
@@ -52746,14 +53185,16 @@
         "slug": "trintelerberg-simpelveld",
         "url": "https://climbfinder.com/en/climbs/trintelerberg-simpelveld",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 2350,
         "elevation_gain_m": 66,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.8,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -53375,14 +53816,16 @@
         "slug": "duivenstraat",
         "url": "https://climbfinder.com/en/climbs/duivenstraat",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 1363,
         "elevation_gain_m": 48,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.5,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -53770,14 +54213,16 @@
         "slug": "rondelenstraat",
         "url": "https://climbfinder.com/en/climbs/rondelenstraat",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 1318,
         "elevation_gain_m": 46,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 3.5,
-        "max_gradient_pct": 8.8
+        "max_gradient_pct": 8.8,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -54153,14 +54598,17 @@
         "slug": "hooggats",
         "url": "https://climbfinder.com/en/climbs/hooggats",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 38
       },
       "stats": {
         "length_m": 2450,
         "elevation_gain_m": 79,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 3.2,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 38,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -54794,7 +55242,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "smidsberg",
@@ -54806,14 +55255,17 @@
         "slug": "smidsberg",
         "url": "https://climbfinder.com/en/climbs/smidsberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 34
       },
       "stats": {
         "length_m": 1404,
         "elevation_gain_m": 60,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.3,
-        "max_gradient_pct": 9.2
+        "max_gradient_pct": 9.2,
+        "difficulty_points": 34,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -55201,7 +55653,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "moorheide",
@@ -55213,14 +55666,17 @@
         "slug": "moorheide",
         "url": "https://climbfinder.com/en/climbs/moorheide",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 54
       },
       "stats": {
         "length_m": 2400,
         "elevation_gain_m": 95,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.0,
-        "max_gradient_pct": 10.8
+        "max_gradient_pct": 10.8,
+        "difficulty_points": 54,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -55842,7 +56298,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "noorbeekerweg",
@@ -55854,14 +56311,16 @@
         "slug": "noorbeekerweg",
         "url": "https://climbfinder.com/en/climbs/noorbeekerweg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 850,
         "elevation_gain_m": 36,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.3,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -56123,14 +56582,17 @@
         "slug": "holleweg-schin-op-geul",
         "url": "https://climbfinder.com/en/climbs/holleweg-schin-op-geul",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 699,
         "elevation_gain_m": 37,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.4,
-        "max_gradient_pct": 9.6
+        "max_gradient_pct": 9.6,
+        "difficulty_points": 26,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -56344,7 +56806,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "toupsberg",
@@ -56356,14 +56819,17 @@
         "slug": "toupsberg",
         "url": "https://climbfinder.com/en/climbs/toupsberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 337,
         "elevation_gain_m": 32,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 9.6,
-        "max_gradient_pct": 14.4
+        "max_gradient_pct": 14.4,
+        "difficulty_points": 33,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -56493,7 +56959,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "slakweg",
@@ -56505,14 +56972,16 @@
         "slug": "slakweg",
         "url": "https://climbfinder.com/en/climbs/slakweg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1086,
         "elevation_gain_m": 42,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.9,
-        "max_gradient_pct": 9.2
+        "max_gradient_pct": 9.2,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -56834,14 +57303,17 @@
         "slug": "colmont",
         "url": "https://climbfinder.com/en/climbs/colmont",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 306,
         "elevation_gain_m": 26,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 8.6,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 26,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -56965,7 +57437,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "nijswillerberg",
@@ -56977,14 +57450,16 @@
         "slug": "nijswillerberg",
         "url": "https://climbfinder.com/en/climbs/nijswillerberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 22
       },
       "stats": {
         "length_m": 1575,
         "elevation_gain_m": 56,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.5,
-        "max_gradient_pct": 5.2
+        "max_gradient_pct": 5.2,
+        "difficulty_points": 22
       },
       "difficulty_score": null,
       "geometry": {
@@ -57420,14 +57895,17 @@
         "slug": "hilleshagen",
         "url": "https://climbfinder.com/en/climbs/hilleshagen",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 27
       },
       "stats": {
         "length_m": 2454,
         "elevation_gain_m": 72,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 27,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -58067,7 +58545,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "stoepert",
@@ -58079,14 +58558,16 @@
         "slug": "stoepert",
         "url": "https://climbfinder.com/en/climbs/stoepert",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 2534,
         "elevation_gain_m": 61,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.4,
-        "max_gradient_pct": 4.4
+        "max_gradient_pct": 4.4,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -58756,14 +59237,17 @@
         "slug": "ribbelheideweg",
         "url": "https://climbfinder.com/en/climbs/ribbelheideweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 1024,
         "elevation_gain_m": 53,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.2,
-        "max_gradient_pct": 12.0
+        "max_gradient_pct": 12.0,
+        "difficulty_points": 36,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -59055,7 +59539,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "bommerigerweg",
@@ -59067,14 +59552,17 @@
         "slug": "bommerigerweg",
         "url": "https://climbfinder.com/en/climbs/bommerigerweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 31
       },
       "stats": {
         "length_m": 721,
         "elevation_gain_m": 40,
         "elevation_loss_m": 6,
         "avg_gradient_pct": 5.5,
-        "max_gradient_pct": 11.2
+        "max_gradient_pct": 11.2,
+        "difficulty_points": 31,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -59294,7 +59782,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "schatsberg",
@@ -59306,14 +59795,16 @@
         "slug": "schatsberg",
         "url": "https://climbfinder.com/en/climbs/schatsberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 688,
         "elevation_gain_m": 30,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.4,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -59539,14 +60030,16 @@
         "slug": "schelberg-west",
         "url": "https://climbfinder.com/en/climbs/schelberg-west",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 704,
         "elevation_gain_m": 32,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.6,
-        "max_gradient_pct": 9.6
+        "max_gradient_pct": 9.6,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -59778,14 +60271,16 @@
         "slug": "wanenberg",
         "url": "https://climbfinder.com/en/climbs/wanenberg",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 22
       },
       "stats": {
         "length_m": 650,
         "elevation_gain_m": 33,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.1,
-        "max_gradient_pct": 12.0
+        "max_gradient_pct": 12.0,
+        "difficulty_points": 22
       },
       "difficulty_score": null,
       "geometry": {
@@ -59999,14 +60494,17 @@
         "slug": "kaffeberg",
         "url": "https://climbfinder.com/en/climbs/kaffeberg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 354,
         "elevation_gain_m": 33,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 9.4,
-        "max_gradient_pct": 13.2
+        "max_gradient_pct": 13.2,
+        "difficulty_points": 32,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -60142,7 +60640,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "oude-akerweg-gulpen",
@@ -60154,14 +60653,16 @@
         "slug": "oude-akerweg-gulpen",
         "url": "https://climbfinder.com/en/climbs/oude-akerweg-gulpen",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 14
       },
       "stats": {
         "length_m": 585,
         "elevation_gain_m": 23,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.9,
-        "max_gradient_pct": 9.2
+        "max_gradient_pct": 9.2,
+        "difficulty_points": 14
       },
       "difficulty_score": null,
       "geometry": {
@@ -60363,14 +60864,16 @@
         "slug": "banholtergrubbe",
         "url": "https://climbfinder.com/en/climbs/banholtergrubbe",
         "category": "",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1150,
         "elevation_gain_m": 42,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.6,
-        "max_gradient_pct": 6.0
+        "max_gradient_pct": 6.0,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -60704,14 +61207,17 @@
         "slug": "sint-pietersberg-schutterijweg",
         "url": "https://climbfinder.com/en/climbs/sint-pietersberg-schutterijweg",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 37
       },
       "stats": {
         "length_m": 725,
         "elevation_gain_m": 50,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 6.9,
-        "max_gradient_pct": 12.4
+        "max_gradient_pct": 12.4,
+        "difficulty_points": 37,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -60931,7 +61437,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     },
     {
       "id": "heikop",
@@ -60943,14 +61450,17 @@
         "slug": "heikop",
         "url": "https://climbfinder.com/en/climbs/heikop",
         "category": "5",
-        "resolved_locality_id": 280
+        "resolved_locality_id": 280,
+        "difficulty_points": 27
       },
       "stats": {
         "length_m": 2805,
         "elevation_gain_m": 73,
         "elevation_loss_m": 4,
         "avg_gradient_pct": 2.6,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 27,
+        "classification": "5"
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -61674,7 +62184,8 @@
         }
       ],
       "resolved_locality_id": 280,
-      "display_locality_id": 280
+      "display_locality_id": 280,
+      "classification": "5"
     }
   ]
 }

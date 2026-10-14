@@ -5,7 +5,7 @@
     "title": "Niederrheinischer Höhenzug",
     "region_label": "Niederrheinischer Höhenzug",
     "country": "NL",
-    "updated_at": "2026-10-09T19:24:03Z",
+    "updated_at": "2026-10-14T13:26:33Z",
     "count": 157,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 90
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-14T13:26:33Z"
+    }
   },
   "climbs": [
     {
@@ -32,7 +35,8 @@
         "slug": "klever-berg",
         "url": "https://climbfinder.com/en/climbs/klever-berg",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 41
       },
       "stats": {
         "length_m": 1725,
@@ -42,7 +46,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.1,
         "steepest_1km_pct": 4.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 41
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -556,7 +561,8 @@
         "slug": "brandenberg",
         "url": "https://climbfinder.com/en/climbs/brandenberg",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 1163,
@@ -566,7 +572,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 5.4,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 33
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -960,7 +967,8 @@
         "slug": "geldenberg-kleve",
         "url": "https://climbfinder.com/en/climbs/geldenberg-kleve",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 42
       },
       "stats": {
         "length_m": 1409,
@@ -970,7 +978,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 10.3,
         "steepest_1km_pct": 4.8,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 42
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1406,7 +1415,8 @@
         "slug": "geldenberg-frasselt",
         "url": "https://climbfinder.com/en/climbs/geldenberg-frasselt",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 1297,
@@ -1416,7 +1426,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.1,
         "steepest_1km_pct": 4.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 29
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1844,7 +1855,8 @@
         "slug": "klever-berg-nutterden",
         "url": "https://climbfinder.com/en/climbs/klever-berg-nutterden",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 2970,
@@ -1854,7 +1866,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 2.6,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -2662,7 +2675,8 @@
         "slug": "dursberg-sonsbeck",
         "url": "https://climbfinder.com/en/climbs/dursberg-sonsbeck",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 1281,
@@ -2672,7 +2686,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 7.0,
         "steepest_1km_pct": 4.1,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -3100,7 +3115,8 @@
         "slug": "op-den-hovel",
         "url": "https://climbfinder.com/en/climbs/op-den-hovel",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 1401,
@@ -3110,7 +3126,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.3,
         "steepest_1km_pct": 4.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 32
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -3546,7 +3563,8 @@
         "slug": "hunskobel",
         "url": "https://climbfinder.com/en/climbs/hunskobel",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 1125,
@@ -3556,7 +3574,8 @@
         "max_gradient_pct": 4.0,
         "steepest_100m_pct": 3.8,
         "steepest_1km_pct": 2.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -3936,7 +3955,8 @@
         "slug": "tuschenwald-sonsbeck",
         "url": "https://climbfinder.com/en/climbs/tuschenwald-sonsbeck",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 2525,
@@ -3946,7 +3966,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.2,
         "steepest_1km_pct": 3.6,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -4668,7 +4689,8 @@
         "slug": "heidestrasse-donsbruggen",
         "url": "https://climbfinder.com/en/climbs/heidestrasse-donsbruggen",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 33
       },
       "stats": {
         "length_m": 1122,
@@ -4678,7 +4700,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 5.4,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 33
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -5058,7 +5081,8 @@
         "slug": "kartenspielerweg-grafwegen",
         "url": "https://climbfinder.com/en/climbs/kartenspielerweg-grafwegen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 485,
@@ -5068,7 +5092,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -5272,7 +5297,8 @@
         "slug": "brandenberg-south",
         "url": "https://climbfinder.com/en/climbs/brandenberg-south",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 925,
@@ -5282,7 +5308,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -5606,7 +5633,8 @@
         "slug": "wolfsberg-nutterden",
         "url": "https://climbfinder.com/en/climbs/wolfsberg-nutterden",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 565,
@@ -5616,7 +5644,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -5842,7 +5871,8 @@
         "slug": "annaberg",
         "url": "https://climbfinder.com/en/climbs/annaberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 557,
@@ -5852,7 +5882,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -6078,7 +6109,8 @@
         "slug": "heyberg",
         "url": "https://climbfinder.com/en/climbs/heyberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 14
       },
       "stats": {
         "length_m": 425,
@@ -6088,7 +6120,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 14
       },
       "difficulty_score": null,
       "geometry": {
@@ -6272,7 +6305,8 @@
         "slug": "tuschenwald-xanten",
         "url": "https://climbfinder.com/en/climbs/tuschenwald-xanten",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 22
       },
       "stats": {
         "length_m": 2150,
@@ -6282,7 +6316,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.5,
         "steepest_1km_pct": 3.2,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 22
       },
       "difficulty_score": null,
       "geometry": {
@@ -6906,7 +6941,8 @@
         "slug": "klinkenberg-kranenburg",
         "url": "https://climbfinder.com/en/climbs/klinkenberg-kranenburg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 437,
@@ -6916,7 +6952,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 5.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -7106,7 +7143,8 @@
         "slug": "uedemer-hochwald-uedemerbruch",
         "url": "https://climbfinder.com/en/climbs/uedemer-hochwald-uedemerbruch",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1328,
@@ -7116,7 +7154,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.8,
         "steepest_1km_pct": 3.7,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -7532,7 +7571,8 @@
         "slug": "scholasterberg",
         "url": "https://climbfinder.com/en/climbs/scholasterberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 306,
@@ -7542,7 +7582,8 @@
         "max_gradient_pct": 14.4,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {
@@ -7698,7 +7739,8 @@
         "slug": "klever-berg-schweizer-strasse",
         "url": "https://climbfinder.com/en/climbs/klever-berg-schweizer-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 2179,
@@ -7708,7 +7750,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 5.5,
         "steepest_1km_pct": 3.2,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -8322,7 +8365,8 @@
         "slug": "sonsbecker-hohe",
         "url": "https://climbfinder.com/en/climbs/sonsbecker-hohe",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1174,
@@ -8332,7 +8376,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 3.7,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -8726,7 +8771,8 @@
         "slug": "xantener-strasse-xanten",
         "url": "https://climbfinder.com/en/climbs/xantener-strasse-xanten",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1125,
@@ -8736,7 +8782,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 5.2,
         "steepest_1km_pct": 4.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -9116,7 +9163,8 @@
         "slug": "moylander-allee",
         "url": "https://climbfinder.com/en/climbs/moylander-allee",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 786,
@@ -9126,7 +9174,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -9414,7 +9463,8 @@
         "slug": "hulser-berg-rennstieg",
         "url": "https://climbfinder.com/en/climbs/hulser-berg-rennstieg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 527,
@@ -9424,7 +9474,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -9642,7 +9693,8 @@
         "slug": "ginsterweg-kalkar",
         "url": "https://climbfinder.com/en/climbs/ginsterweg-kalkar",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 643,
@@ -9652,7 +9704,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -9898,7 +9951,8 @@
         "slug": "beginenberg-schwarzer-weg",
         "url": "https://climbfinder.com/en/climbs/beginenberg-schwarzer-weg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 1433,
@@ -9908,7 +9962,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.6,
         "steepest_1km_pct": 3.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -10350,7 +10405,8 @@
         "slug": "furstenberg-xanten",
         "url": "https://climbfinder.com/en/climbs/furstenberg-xanten",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 975,
@@ -10360,7 +10416,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -10698,7 +10755,8 @@
         "slug": "halde-norddeutschland",
         "url": "https://climbfinder.com/en/climbs/halde-norddeutschland",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 46
       },
       "stats": {
         "length_m": 1071,
@@ -10708,7 +10766,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.6,
         "steepest_1km_pct": 6.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 46
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -11074,7 +11133,8 @@
         "slug": "romerstrasse-schottheide",
         "url": "https://climbfinder.com/en/climbs/romerstrasse-schottheide",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 539,
@@ -11084,7 +11144,8 @@
         "max_gradient_pct": 4.0,
         "steepest_100m_pct": 3.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -11302,7 +11363,8 @@
         "slug": "bergstrasse-schottheide",
         "url": "https://climbfinder.com/en/climbs/bergstrasse-schottheide",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 797,
@@ -11312,7 +11374,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -11600,7 +11663,8 @@
         "slug": "weberstrasse-kleve",
         "url": "https://climbfinder.com/en/climbs/weberstrasse-kleve",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 500,
@@ -11610,7 +11674,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -11814,7 +11879,8 @@
         "slug": "sonsbecker-hohe-labbeck",
         "url": "https://climbfinder.com/en/climbs/sonsbecker-hohe-labbeck",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 2243,
@@ -11824,7 +11890,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 5.1,
         "steepest_1km_pct": 2.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -12474,7 +12541,8 @@
         "slug": "bergstrasse-heyberg",
         "url": "https://climbfinder.com/en/climbs/bergstrasse-heyberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 625,
@@ -12484,7 +12552,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -12724,7 +12793,8 @@
         "slug": "monreberg-kalkar",
         "url": "https://climbfinder.com/en/climbs/monreberg-kalkar",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 770,
@@ -12734,7 +12804,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -13016,7 +13087,8 @@
         "slug": "wiegestrasse",
         "url": "https://climbfinder.com/en/climbs/wiegestrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 1288,
@@ -13026,7 +13098,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 4.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -13428,7 +13501,8 @@
         "slug": "brandenberg-schrammstrasse",
         "url": "https://climbfinder.com/en/climbs/brandenberg-schrammstrasse",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 25
       },
       "stats": {
         "length_m": 1230,
@@ -13438,7 +13512,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 4.3,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 25
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -13852,7 +13927,8 @@
         "slug": "totenhugel-south",
         "url": "https://climbfinder.com/en/climbs/totenhugel-south",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 956,
@@ -13862,7 +13938,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 3.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -14200,7 +14277,8 @@
         "slug": "postweg-kalkar",
         "url": "https://climbfinder.com/en/climbs/postweg-kalkar",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 19
       },
       "stats": {
         "length_m": 405,
@@ -14210,7 +14288,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 19
       },
       "difficulty_score": null,
       "geometry": {
@@ -14394,7 +14473,8 @@
         "slug": "furstenberg-birten",
         "url": "https://climbfinder.com/en/climbs/furstenberg-birten",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 1374,
@@ -14404,7 +14484,8 @@
         "max_gradient_pct": 4.0,
         "steepest_100m_pct": 3.4,
         "steepest_1km_pct": 3.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -14826,7 +14907,8 @@
         "slug": "bergstrasse-frasselt",
         "url": "https://climbfinder.com/en/climbs/bergstrasse-frasselt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 808,
@@ -14836,7 +14918,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -15132,7 +15215,8 @@
         "slug": "totenhugel-north",
         "url": "https://climbfinder.com/en/climbs/totenhugel-north",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 1103,
@@ -15142,7 +15226,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 2.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -15522,7 +15607,8 @@
         "slug": "xantener-strasse-sonsbeck",
         "url": "https://climbfinder.com/en/climbs/xantener-strasse-sonsbeck",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 1698,
@@ -15532,7 +15618,8 @@
         "max_gradient_pct": 3.6,
         "steepest_100m_pct": 3.6,
         "steepest_1km_pct": 2.6,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -16038,7 +16125,8 @@
         "slug": "tuschenwald-labbecker-strasse",
         "url": "https://climbfinder.com/en/climbs/tuschenwald-labbecker-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 1806,
@@ -16048,7 +16136,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 2.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -16588,7 +16677,8 @@
         "slug": "hulser-berg-huls",
         "url": "https://climbfinder.com/en/climbs/hulser-berg-huls",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 350,
@@ -16598,7 +16688,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -16760,7 +16851,8 @@
         "slug": "asperberg-asperden",
         "url": "https://climbfinder.com/en/climbs/asperberg-asperden",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 311,
@@ -16770,7 +16862,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -16926,7 +17019,8 @@
         "slug": "op-den-hovel-xantener-strasse",
         "url": "https://climbfinder.com/en/climbs/op-den-hovel-xantener-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 336,
@@ -16936,7 +17030,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -17098,7 +17193,8 @@
         "slug": "marienbaumerstrasse",
         "url": "https://climbfinder.com/en/climbs/marienbaumerstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 1153,
@@ -17108,7 +17204,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.7,
         "steepest_1km_pct": 2.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -17502,7 +17599,8 @@
         "slug": "hoch-zur-muhle",
         "url": "https://climbfinder.com/en/climbs/hoch-zur-muhle",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 774,
@@ -17512,7 +17610,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -17794,7 +17893,8 @@
         "slug": "dursberg-sporenstrasse",
         "url": "https://climbfinder.com/en/climbs/dursberg-sporenstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 325,
@@ -17804,7 +17904,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 7.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -17960,7 +18061,8 @@
         "slug": "halde-pattberg",
         "url": "https://climbfinder.com/en/climbs/halde-pattberg",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 48
       },
       "stats": {
         "length_m": 1502,
@@ -17970,7 +18072,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 5.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 48
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -18432,7 +18535,8 @@
         "slug": "zum-brandenberg-frasselt",
         "url": "https://climbfinder.com/en/climbs/zum-brandenberg-frasselt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 550,
@@ -18442,7 +18546,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -18660,7 +18765,8 @@
         "slug": "katzenberg-uedemerfeld",
         "url": "https://climbfinder.com/en/climbs/katzenberg-uedemerfeld",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 871,
@@ -18670,7 +18776,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -18980,7 +19087,8 @@
         "slug": "an-der-ley",
         "url": "https://climbfinder.com/en/climbs/an-der-ley",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 530,
@@ -18990,7 +19098,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -19208,7 +19317,8 @@
         "slug": "die-hees",
         "url": "https://climbfinder.com/en/climbs/die-hees",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 625,
@@ -19218,7 +19328,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -19458,7 +19569,8 @@
         "slug": "talstrasse-kalkar",
         "url": "https://climbfinder.com/en/climbs/talstrasse-kalkar",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 510,
@@ -19468,7 +19580,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -19680,7 +19793,8 @@
         "slug": "rother-berg",
         "url": "https://climbfinder.com/en/climbs/rother-berg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 1131,
@@ -19690,7 +19804,8 @@
         "max_gradient_pct": 3.2,
         "steepest_100m_pct": 3.1,
         "steepest_1km_pct": 1.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -20076,7 +20191,8 @@
         "slug": "krobsberg-kervenheimer-weg",
         "url": "https://climbfinder.com/en/climbs/krobsberg-kervenheimer-weg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 518,
@@ -20086,7 +20202,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 6.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -20298,7 +20415,8 @@
         "slug": "wolfsberg-xanten",
         "url": "https://climbfinder.com/en/climbs/wolfsberg-xanten",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 611,
@@ -20308,7 +20426,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -20548,7 +20667,8 @@
         "slug": "brandenberg-hovel",
         "url": "https://climbfinder.com/en/climbs/brandenberg-hovel",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 27
       },
       "stats": {
         "length_m": 1328,
@@ -20558,7 +20678,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 4.3,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 27
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -20974,7 +21095,8 @@
         "slug": "wolfsberg-veen",
         "url": "https://climbfinder.com/en/climbs/wolfsberg-veen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 841,
@@ -20984,7 +21106,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -21286,7 +21409,8 @@
         "slug": "muhlenstrasse-bedburg-hau",
         "url": "https://climbfinder.com/en/climbs/muhlenstrasse-bedburg-hau",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 979,
@@ -21296,7 +21420,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -21640,7 +21765,8 @@
         "slug": "hulser-berg",
         "url": "https://climbfinder.com/en/climbs/hulser-berg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 1118,
@@ -21650,7 +21776,8 @@
         "max_gradient_pct": 4.0,
         "steepest_100m_pct": 3.9,
         "steepest_1km_pct": 1.8,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -22030,7 +22157,8 @@
         "slug": "saelhuyser-berg-am-schaephuyser-steg",
         "url": "https://climbfinder.com/en/climbs/saelhuyser-berg-am-schaephuyser-steg",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 26
       },
       "stats": {
         "length_m": 983,
@@ -22040,7 +22168,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 10.8,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 26
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -22384,7 +22513,8 @@
         "slug": "rheurdter-berge-rheurdt",
         "url": "https://climbfinder.com/en/climbs/rheurdter-berge-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 953,
@@ -22394,7 +22524,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -22732,7 +22863,8 @@
         "slug": "hulser-berg-niep",
         "url": "https://climbfinder.com/en/climbs/hulser-berg-niep",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 379,
@@ -22742,7 +22874,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -22918,7 +23051,8 @@
         "slug": "oermtschen-berg",
         "url": "https://climbfinder.com/en/climbs/oermtschen-berg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 1244,
@@ -22928,7 +23062,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 5.3,
         "steepest_1km_pct": 2.1,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -23342,7 +23477,8 @@
         "slug": "lilienweg-rheurdt",
         "url": "https://climbfinder.com/en/climbs/lilienweg-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 792,
@@ -23352,7 +23488,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -23640,7 +23777,8 @@
         "slug": "bergstrase-tonisberg",
         "url": "https://climbfinder.com/en/climbs/bergstrase-tonisberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 825,
@@ -23650,7 +23788,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 5.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -23946,7 +24085,8 @@
         "slug": "monreberg-kehrum",
         "url": "https://climbfinder.com/en/climbs/monreberg-kehrum",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 14
       },
       "stats": {
         "length_m": 2182,
@@ -23956,7 +24096,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 3.3,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 14
       },
       "difficulty_score": null,
       "geometry": {
@@ -24592,7 +24733,8 @@
         "slug": "kloster-kamp-kamp-lintfort",
         "url": "https://climbfinder.com/en/climbs/kloster-kamp-kamp-lintfort",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 276,
@@ -24602,7 +24744,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -24750,7 +24893,8 @@
         "slug": "oermter-berg-rheurdt",
         "url": "https://climbfinder.com/en/climbs/oermter-berg-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 930,
@@ -24760,7 +24904,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -25090,7 +25235,8 @@
         "slug": "wolfsberg-achterberg",
         "url": "https://climbfinder.com/en/climbs/wolfsberg-achterberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 526,
@@ -25100,7 +25246,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -25318,7 +25465,8 @@
         "slug": "oermter-berg-oermten",
         "url": "https://climbfinder.com/en/climbs/oermter-berg-oermten",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 1584,
@@ -25328,7 +25476,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 2.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -25808,7 +25957,8 @@
         "slug": "schwalbenstrasse-rheurdt",
         "url": "https://climbfinder.com/en/climbs/schwalbenstrasse-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 307,
@@ -25818,7 +25968,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 7.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -25974,7 +26125,8 @@
         "slug": "treppkesweg-esperance",
         "url": "https://climbfinder.com/en/climbs/treppkesweg-esperance",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 1183,
@@ -25984,7 +26136,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 2.8,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -26384,7 +26537,8 @@
         "slug": "warzberg-finkenstrasse",
         "url": "https://climbfinder.com/en/climbs/warzberg-finkenstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 822,
@@ -26394,7 +26548,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -26690,7 +26845,8 @@
         "slug": "muhlenberg-steinstrasse",
         "url": "https://climbfinder.com/en/climbs/muhlenberg-steinstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 688,
@@ -26700,7 +26856,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -26960,7 +27117,8 @@
         "slug": "windberg-zarsweg",
         "url": "https://climbfinder.com/en/climbs/windberg-zarsweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 921,
@@ -26970,7 +27128,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -27294,7 +27453,8 @@
         "slug": "rheurdter-strasse-rheurdt",
         "url": "https://climbfinder.com/en/climbs/rheurdter-strasse-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 951,
@@ -27304,7 +27464,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 3.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -27642,7 +27803,8 @@
         "slug": "rheurdter-strasse-aldekerk",
         "url": "https://climbfinder.com/en/climbs/rheurdter-strasse-aldekerk",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 946,
@@ -27652,7 +27814,8 @@
         "max_gradient_pct": 3.2,
         "steepest_100m_pct": 3.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -27982,7 +28145,8 @@
         "slug": "kirchweg-kellesweg",
         "url": "https://climbfinder.com/en/climbs/kirchweg-kellesweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 1000,
@@ -27992,7 +28156,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 3.1,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -28336,7 +28501,8 @@
         "slug": "warzberg-aldekerker-strasse",
         "url": "https://climbfinder.com/en/climbs/warzberg-aldekerker-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 972,
@@ -28346,7 +28512,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 4.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -28684,7 +28851,8 @@
         "slug": "holthuyser-strasse",
         "url": "https://climbfinder.com/en/climbs/holthuyser-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 928,
@@ -28694,7 +28862,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -29024,7 +29193,8 @@
         "slug": "oermter-berg-rheurdt-fussenhecke",
         "url": "https://climbfinder.com/en/climbs/oermter-berg-rheurdt-fussenhecke",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 28
       },
       "stats": {
         "length_m": 644,
@@ -29034,7 +29204,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.0,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 28
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -29280,7 +29451,8 @@
         "slug": "windberg-lind",
         "url": "https://climbfinder.com/en/climbs/windberg-lind",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 679,
@@ -29290,7 +29462,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -29550,7 +29723,8 @@
         "slug": "rheurdter-berge-kengen",
         "url": "https://climbfinder.com/en/climbs/rheurdter-berge-kengen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 924,
@@ -29560,7 +29734,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 7.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -29884,7 +30059,8 @@
         "slug": "wanderparkplatz-schaephuysener-berg-schaephuysen",
         "url": "https://climbfinder.com/en/climbs/wanderparkplatz-schaephuysener-berg-schaephuysen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 790,
@@ -29894,7 +30070,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -30182,7 +30359,8 @@
         "slug": "warzberg-rheurdt",
         "url": "https://climbfinder.com/en/climbs/warzberg-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 866,
@@ -30192,7 +30370,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -30502,7 +30681,8 @@
         "slug": "reiherweg-rheurdt-fasanenstrasse",
         "url": "https://climbfinder.com/en/climbs/reiherweg-rheurdt-fasanenstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 633,
@@ -30512,7 +30692,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 5.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -30758,7 +30939,8 @@
         "slug": "bergstrase-vinnbruck",
         "url": "https://climbfinder.com/en/climbs/bergstrase-vinnbruck",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 368,
@@ -30768,7 +30950,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -30938,7 +31121,8 @@
         "slug": "tonisberger-muhle-tonisberg",
         "url": "https://climbfinder.com/en/climbs/tonisberger-muhle-tonisberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 468,
@@ -30948,7 +31132,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -31146,7 +31331,8 @@
         "slug": "treppkesweg",
         "url": "https://climbfinder.com/en/climbs/treppkesweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 1000,
@@ -31156,7 +31342,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 2.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -31500,7 +31687,8 @@
         "slug": "tonisberger-muhle-haag",
         "url": "https://climbfinder.com/en/climbs/tonisberger-muhle-haag",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 541,
@@ -31510,7 +31698,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -31728,7 +31917,8 @@
         "slug": "hahnenberg-lind",
         "url": "https://climbfinder.com/en/climbs/hahnenberg-lind",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 624,
@@ -31738,7 +31928,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -31978,7 +32169,8 @@
         "slug": "saelhuyser-berg-wanderparkplatz-schaephuysener-berg",
         "url": "https://climbfinder.com/en/climbs/saelhuyser-berg-wanderparkplatz-schaephuysener-berg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 481,
@@ -31988,7 +32180,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -32192,7 +32385,8 @@
         "slug": "bresserberg-konigsallee",
         "url": "https://climbfinder.com/en/climbs/bresserberg-konigsallee",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 660,
@@ -32202,7 +32396,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -32456,7 +32651,8 @@
         "slug": "hahnenberg-linder-steg",
         "url": "https://climbfinder.com/en/climbs/hahnenberg-linder-steg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 531,
@@ -32466,7 +32662,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -32684,7 +32881,8 @@
         "slug": "saelhuyser-berg-kornweg",
         "url": "https://climbfinder.com/en/climbs/saelhuyser-berg-kornweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 946,
@@ -32694,7 +32892,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -33024,7 +33223,8 @@
         "slug": "aldekerker-strasse-rheurdt",
         "url": "https://climbfinder.com/en/climbs/aldekerker-strasse-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 775,
@@ -33034,7 +33234,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -33316,7 +33517,8 @@
         "slug": "rattmanns-berg-tonisberg",
         "url": "https://climbfinder.com/en/climbs/rattmanns-berg-tonisberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 706,
@@ -33326,7 +33528,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -33594,7 +33797,8 @@
         "slug": "aldekerker-strasse-niederend",
         "url": "https://climbfinder.com/en/climbs/aldekerker-strasse-niederend",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 862,
@@ -33604,7 +33808,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 4.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -33914,7 +34119,8 @@
         "slug": "hahnenberg-saelhuysen",
         "url": "https://climbfinder.com/en/climbs/hahnenberg-saelhuysen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 618,
@@ -33924,7 +34130,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -34164,7 +34371,8 @@
         "slug": "reiherweg-rheurdt-schwalbenstrase",
         "url": "https://climbfinder.com/en/climbs/reiherweg-rheurdt-schwalbenstrase",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 696,
@@ -34174,7 +34382,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -34434,7 +34643,8 @@
         "slug": "gocherstrasse-kalkar",
         "url": "https://climbfinder.com/en/climbs/gocherstrasse-kalkar",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 408,
@@ -34444,7 +34654,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -34628,7 +34839,8 @@
         "slug": "muhlenberg-geerkensteg",
         "url": "https://climbfinder.com/en/climbs/muhlenberg-geerkensteg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 653,
@@ -34638,7 +34850,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -34892,7 +35105,8 @@
         "slug": "rattmanns-berg-siebenhauser",
         "url": "https://climbfinder.com/en/climbs/rattmanns-berg-siebenhauser",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 519,
@@ -34902,7 +35116,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -35114,7 +35329,8 @@
         "slug": "schardenberg-dufhaussteg",
         "url": "https://climbfinder.com/en/climbs/schardenberg-dufhaussteg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 975,
@@ -35124,7 +35340,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -35462,7 +35679,8 @@
         "slug": "muhlenberg-michaelsturm-schaephuysen",
         "url": "https://climbfinder.com/en/climbs/muhlenberg-michaelsturm-schaephuysen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 807,
@@ -35472,7 +35690,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -35768,7 +35987,8 @@
         "slug": "schardenberg-rheurdt-bongarzsteg",
         "url": "https://climbfinder.com/en/climbs/schardenberg-rheurdt-bongarzsteg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 1027,
@@ -35778,7 +35998,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.2,
         "steepest_1km_pct": 3.8,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {
@@ -36136,7 +36357,8 @@
         "slug": "hufelsweg",
         "url": "https://climbfinder.com/en/climbs/hufelsweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 541,
@@ -36146,7 +36368,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -36364,7 +36587,8 @@
         "slug": "kengen-rheurdt",
         "url": "https://climbfinder.com/en/climbs/kengen-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 931,
@@ -36374,7 +36598,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -36704,7 +36929,8 @@
         "slug": "eschenweg-goch",
         "url": "https://climbfinder.com/en/climbs/eschenweg-goch",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 278,
@@ -36714,7 +36940,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -36862,7 +37089,8 @@
         "slug": "saelhuyser-berg-am-maassensteg",
         "url": "https://climbfinder.com/en/climbs/saelhuyser-berg-am-maassensteg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 828,
@@ -36872,7 +37100,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -37174,7 +37403,8 @@
         "slug": "kengen-finkenberg",
         "url": "https://climbfinder.com/en/climbs/kengen-finkenberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 1009,
@@ -37184,7 +37414,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.3,
         "steepest_1km_pct": 3.2,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -37536,7 +37767,8 @@
         "slug": "tuschenwald-hufschen-weg",
         "url": "https://climbfinder.com/en/climbs/tuschenwald-hufschen-weg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 1425,
@@ -37546,7 +37778,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.3,
         "steepest_1km_pct": 2.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -37982,7 +38215,8 @@
         "slug": "saelhuyser-berg-hochend",
         "url": "https://climbfinder.com/en/climbs/saelhuyser-berg-hochend",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 1029,
@@ -37992,7 +38226,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 3.2,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -38350,7 +38585,8 @@
         "slug": "tuschenwald-rosentalweg",
         "url": "https://climbfinder.com/en/climbs/tuschenwald-rosentalweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 950,
@@ -38360,7 +38596,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -38690,7 +38927,8 @@
         "slug": "oermter-berg-nenneper-fleuth",
         "url": "https://climbfinder.com/en/climbs/oermter-berg-nenneper-fleuth",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 727,
@@ -38700,7 +38938,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -38974,7 +39213,8 @@
         "slug": "bongarzsteg-rheurdt",
         "url": "https://climbfinder.com/en/climbs/bongarzsteg-rheurdt",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 901,
@@ -38984,7 +39224,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {
@@ -39308,7 +39549,8 @@
         "slug": "kuhstrasse-goch",
         "url": "https://climbfinder.com/en/climbs/kuhstrasse-goch",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 579,
@@ -39318,7 +39560,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -39550,7 +39793,8 @@
         "slug": "balberg-kervenheimer-weg",
         "url": "https://climbfinder.com/en/climbs/balberg-kervenheimer-weg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 1425,
@@ -39560,7 +39804,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 2.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -39996,7 +40241,8 @@
         "slug": "katzenberg-meursfeldstrasse",
         "url": "https://climbfinder.com/en/climbs/katzenberg-meursfeldstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 325,
@@ -40006,7 +40252,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 7.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -40162,7 +40409,8 @@
         "slug": "drei-baumchen-berg",
         "url": "https://climbfinder.com/en/climbs/drei-baumchen-berg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 20
       },
       "stats": {
         "length_m": 500,
@@ -40172,7 +40420,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 20
       },
       "difficulty_score": null,
       "geometry": {
@@ -40376,7 +40625,8 @@
         "slug": "treppkesweg-materborn",
         "url": "https://climbfinder.com/en/climbs/treppkesweg-materborn",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 1326,
@@ -40386,7 +40636,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 2.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -40802,7 +41053,8 @@
         "slug": "kervenheimer-weg-hohe-ley",
         "url": "https://climbfinder.com/en/climbs/kervenheimer-weg-hohe-ley",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 1575,
@@ -40812,7 +41064,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.9,
         "steepest_1km_pct": 2.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -41286,7 +41539,8 @@
         "slug": "aussichtsturm",
         "url": "https://climbfinder.com/en/climbs/aussichtsturm",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 1151,
@@ -41296,7 +41550,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.3,
         "steepest_1km_pct": 4.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -41690,7 +41945,8 @@
         "slug": "fasanenweg-hamstrasse",
         "url": "https://climbfinder.com/en/climbs/fasanenweg-hamstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 1788,
@@ -41700,7 +41956,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.0,
         "steepest_1km_pct": 2.3,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -42232,7 +42489,8 @@
         "slug": "wartsberg-niederrheinstrasse",
         "url": "https://climbfinder.com/en/climbs/wartsberg-niederrheinstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 572,
@@ -42242,7 +42500,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -42468,7 +42727,8 @@
         "slug": "rayener-berg-bergweg",
         "url": "https://climbfinder.com/en/climbs/rayener-berg-bergweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 178,
@@ -42478,7 +42738,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 10.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -42598,7 +42859,8 @@
         "slug": "klever-berg-nimweger-strasse",
         "url": "https://climbfinder.com/en/climbs/klever-berg-nimweger-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 818,
@@ -42608,7 +42870,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -42904,7 +43167,8 @@
         "slug": "auf-dem-berg-uedemer-strasse-labbeck",
         "url": "https://climbfinder.com/en/climbs/auf-dem-berg-uedemer-strasse-labbeck",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 1392,
@@ -42914,7 +43178,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 3.1,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -43342,7 +43607,8 @@
         "slug": "xantener-strasse",
         "url": "https://climbfinder.com/en/climbs/xantener-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 792,
@@ -43352,7 +43618,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 7.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -43640,7 +43907,8 @@
         "slug": "katzenberg",
         "url": "https://climbfinder.com/en/climbs/katzenberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 377,
@@ -43650,7 +43918,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -43826,7 +44095,8 @@
         "slug": "am-lowenberg",
         "url": "https://climbfinder.com/en/climbs/am-lowenberg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 15
       },
       "stats": {
         "length_m": 1280,
@@ -43836,7 +44106,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 2.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 15
       },
       "difficulty_score": null,
       "geometry": {
@@ -44238,7 +44509,8 @@
         "slug": "klever-berg-brabanterstrasse",
         "url": "https://climbfinder.com/en/climbs/klever-berg-brabanterstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 21
       },
       "stats": {
         "length_m": 943,
@@ -44248,7 +44520,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 21
       },
       "difficulty_score": null,
       "geometry": {
@@ -44578,7 +44851,8 @@
         "slug": "rother-berg-kettelerstrasse",
         "url": "https://climbfinder.com/en/climbs/rother-berg-kettelerstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 698,
@@ -44588,7 +44862,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 4.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -44848,7 +45123,8 @@
         "slug": "rother-berg-kiefernweg",
         "url": "https://climbfinder.com/en/climbs/rother-berg-kiefernweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 650,
@@ -44858,7 +45134,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 4.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -45104,7 +45381,8 @@
         "slug": "furstberg-veener-weg",
         "url": "https://climbfinder.com/en/climbs/furstberg-veener-weg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 850,
@@ -45114,7 +45392,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -45416,7 +45695,8 @@
         "slug": "tannenberg-weierkampsweg",
         "url": "https://climbfinder.com/en/climbs/tannenberg-weierkampsweg",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 31
       },
       "stats": {
         "length_m": 2033,
@@ -45426,7 +45706,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.3,
         "steepest_1km_pct": 2.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 31
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -46024,7 +46305,8 @@
         "slug": "achersheide-georgsweg",
         "url": "https://climbfinder.com/en/climbs/achersheide-georgsweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 546,
@@ -46034,7 +46316,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -46252,7 +46535,8 @@
         "slug": "tannenberg-holtgessteg",
         "url": "https://climbfinder.com/en/climbs/tannenberg-holtgessteg",
         "category": "5",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 791,
@@ -46262,7 +46546,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 8.4,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 32
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -46550,7 +46835,8 @@
         "slug": "rheinberger-strasse-alpen",
         "url": "https://climbfinder.com/en/climbs/rheinberger-strasse-alpen",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 378,
@@ -46560,7 +46846,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -46736,7 +47023,8 @@
         "slug": "hauptstrasse-louisendorf",
         "url": "https://climbfinder.com/en/climbs/hauptstrasse-louisendorf",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 786,
@@ -46746,7 +47034,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -47034,7 +47323,8 @@
         "slug": "uedemer-strasse-klever-ring",
         "url": "https://climbfinder.com/en/climbs/uedemer-strasse-klever-ring",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 735,
@@ -47044,7 +47334,8 @@
         "max_gradient_pct": 3.2,
         "steepest_100m_pct": 3.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -47318,7 +47609,8 @@
         "slug": "paulinenhohe-moylander-strasse",
         "url": "https://climbfinder.com/en/climbs/paulinenhohe-moylander-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 652,
@@ -47328,7 +47620,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -47582,7 +47875,8 @@
         "slug": "uedemer-hochwald",
         "url": "https://climbfinder.com/en/climbs/uedemer-hochwald",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 922,
@@ -47592,7 +47886,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -47916,7 +48211,8 @@
         "slug": "castra-vetera",
         "url": "https://climbfinder.com/en/climbs/castra-vetera",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 797,
@@ -47926,7 +48222,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -48214,7 +48511,8 @@
         "slug": "von-laer-strasse",
         "url": "https://climbfinder.com/en/climbs/von-laer-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 644,
@@ -48224,7 +48522,8 @@
         "max_gradient_pct": 4.0,
         "steepest_100m_pct": 3.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -48470,7 +48769,8 @@
         "slug": "schluchtweg-altfelder-strasse",
         "url": "https://climbfinder.com/en/climbs/schluchtweg-altfelder-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 500,
@@ -48480,7 +48780,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -48684,7 +48985,8 @@
         "slug": "haagscher-berg",
         "url": "https://climbfinder.com/en/climbs/haagscher-berg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 583,
@@ -48694,7 +48996,8 @@
         "max_gradient_pct": 4.4,
         "steepest_100m_pct": 4.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -48926,7 +49229,8 @@
         "slug": "benholter-strasse",
         "url": "https://climbfinder.com/en/climbs/benholter-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 219,
@@ -48936,7 +49240,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -49064,7 +49369,8 @@
         "slug": "neuloisendorfer-strasse-kehrum",
         "url": "https://climbfinder.com/en/climbs/neuloisendorfer-strasse-kehrum",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 1344,
@@ -49074,7 +49380,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 2.7,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -49490,7 +49797,8 @@
         "slug": "winnenthaler-strasse",
         "url": "https://climbfinder.com/en/climbs/winnenthaler-strasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 949,
@@ -49500,7 +49808,8 @@
         "max_gradient_pct": 2.8,
         "steepest_100m_pct": 2.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -49830,7 +50139,8 @@
         "slug": "xantener-strasse-saalhoff",
         "url": "https://climbfinder.com/en/climbs/xantener-strasse-saalhoff",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 1508,
@@ -49840,7 +50150,8 @@
         "max_gradient_pct": 2.8,
         "steepest_100m_pct": 2.5,
         "steepest_1km_pct": 2.1,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -50302,7 +50613,8 @@
         "slug": "heideberg-marktstrasse",
         "url": "https://climbfinder.com/en/climbs/heideberg-marktstrasse",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 23
       },
       "stats": {
         "length_m": 441,
@@ -50312,7 +50624,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 10.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 23
       },
       "difficulty_score": null,
       "geometry": {
@@ -50502,7 +50815,8 @@
         "slug": "schlosstorstrasse-schwanenburg",
         "url": "https://climbfinder.com/en/climbs/schlosstorstrasse-schwanenburg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 385,
@@ -50512,7 +50826,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 8.5,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -50688,7 +51003,8 @@
         "slug": "nachtigallenweg",
         "url": "https://climbfinder.com/en/climbs/nachtigallenweg",
         "category": "",
-        "resolved_locality_id": 90
+        "resolved_locality_id": 90,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 375,
@@ -50698,7 +51014,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 5.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {

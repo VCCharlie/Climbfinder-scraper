@@ -4,7 +4,7 @@
     "id": "cf-l277-south-holland",
     "title": "South Holland (Climbfinder Popular)",
     "country": "NL",
-    "updated_at": "2026-10-07T14:31:32Z",
+    "updated_at": "2026-10-14T13:26:33Z",
     "count": 21,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,8 @@
     "import_errors": [],
     "maintenance": {
       "resolved_regions_backfill": "2026-10-07T13:18:58Z",
-      "macro_region_labels_backfill": "2026-10-07T14:31:32Z"
+      "macro_region_labels_backfill": "2026-10-07T14:31:32Z",
+      "climbfinder_scores_backfill": "2026-10-14T13:26:33Z"
     }
   },
   "climbs": [
@@ -32,14 +33,16 @@
         "slug": "maeslantkering",
         "url": "https://climbfinder.com/en/climbs/maeslantkering",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 325,
         "elevation_gain_m": 14,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.2,
-        "max_gradient_pct": 5.2
+        "max_gradient_pct": 5.2,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -175,14 +178,16 @@
         "slug": "wassenaarseslag-wassenaar",
         "url": "https://climbfinder.com/en/climbs/wassenaarseslag-wassenaar",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 525,
         "elevation_gain_m": 15,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 4.8
+        "max_gradient_pct": 4.8,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -366,14 +371,16 @@
         "slug": "van-bergenlaan-wassenaar",
         "url": "https://climbfinder.com/en/climbs/van-bergenlaan-wassenaar",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 381,
         "elevation_gain_m": 16,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.1,
-        "max_gradient_pct": 10.0
+        "max_gradient_pct": 10.0,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -527,14 +534,16 @@
         "slug": "erasmusweg",
         "url": "https://climbfinder.com/en/climbs/erasmusweg",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 756,
         "elevation_gain_m": 23,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.0,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -778,14 +787,16 @@
         "slug": "duindamseslag-noordwijkerhout",
         "url": "https://climbfinder.com/en/climbs/duindamseslag-noordwijkerhout",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 883,
         "elevation_gain_m": 19,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 2.2,
-        "max_gradient_pct": 5.6
+        "max_gradient_pct": 5.6,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -1059,14 +1070,16 @@
         "slug": "hollands-duin-noordwijk-aan-zee",
         "url": "https://climbfinder.com/en/climbs/hollands-duin-noordwijk-aan-zee",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 3
       },
       "stats": {
         "length_m": 924,
         "elevation_gain_m": 13,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 1.4,
-        "max_gradient_pct": 3.6
+        "max_gradient_pct": 3.6,
+        "difficulty_points": 3
       },
       "difficulty_score": null,
       "geometry": {
@@ -1346,14 +1359,16 @@
         "slug": "boerhaaveweg-koepelweg",
         "url": "https://climbfinder.com/en/climbs/boerhaaveweg-koepelweg",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 561,
         "elevation_gain_m": 19,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 3.4,
-        "max_gradient_pct": 7.2
+        "max_gradient_pct": 7.2,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -1549,14 +1564,16 @@
         "slug": "buytenpark-stompwijksepad",
         "url": "https://climbfinder.com/en/climbs/buytenpark-stompwijksepad",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 400,
         "elevation_gain_m": 11,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 6.4
+        "max_gradient_pct": 6.4,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -1710,14 +1727,16 @@
         "slug": "boerhaaveweg-ligusterweg",
         "url": "https://climbfinder.com/en/climbs/boerhaaveweg-ligusterweg",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 574,
         "elevation_gain_m": 17,
         "elevation_loss_m": 1,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -1913,14 +1932,16 @@
         "slug": "erasmusweg-rudolf-tappenbeckweg",
         "url": "https://climbfinder.com/en/climbs/erasmusweg-rudolf-tappenbeckweg",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 741,
         "elevation_gain_m": 16,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.2,
-        "max_gradient_pct": 5.6
+        "max_gradient_pct": 5.6,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -2158,14 +2179,16 @@
         "slug": "duindamseslag-weideweg-randweg",
         "url": "https://climbfinder.com/en/climbs/duindamseslag-weideweg-randweg",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 372,
         "elevation_gain_m": 11,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.0,
-        "max_gradient_pct": 5.0
+        "max_gradient_pct": 5.0,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -2313,14 +2336,16 @@
         "slug": "de-slufter-maasvlakteboulevard",
         "url": "https://climbfinder.com/en/climbs/de-slufter-maasvlakteboulevard",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 609,
         "elevation_gain_m": 18,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 6.0
+        "max_gradient_pct": 6.0,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -2528,14 +2553,16 @@
         "slug": "dobbelmannduin-prins-hendrikweg",
         "url": "https://climbfinder.com/en/climbs/dobbelmannduin-prins-hendrikweg",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 574,
         "elevation_gain_m": 16,
         "elevation_loss_m": 2,
         "avg_gradient_pct": 2.7,
-        "max_gradient_pct": 6.8
+        "max_gradient_pct": 6.8,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -2731,14 +2758,16 @@
         "slug": "prinsenweg-meijendel",
         "url": "https://climbfinder.com/en/climbs/prinsenweg-meijendel",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 3
       },
       "stats": {
         "length_m": 275,
         "elevation_gain_m": 8,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.9,
-        "max_gradient_pct": 4.4
+        "max_gradient_pct": 4.4,
+        "difficulty_points": 3
       },
       "difficulty_score": null,
       "geometry": {
@@ -2862,14 +2891,16 @@
         "slug": "hollands-duin-noordwijkerhout",
         "url": "https://climbfinder.com/en/climbs/hollands-duin-noordwijkerhout",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 548,
         "elevation_gain_m": 13,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.4,
-        "max_gradient_pct": 5.6
+        "max_gradient_pct": 5.6,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -3059,14 +3090,16 @@
         "slug": "buytenpark-skipad",
         "url": "https://climbfinder.com/en/climbs/buytenpark-skipad",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 335,
         "elevation_gain_m": 11,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.3,
-        "max_gradient_pct": 5.2
+        "max_gradient_pct": 5.2,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -3208,14 +3241,16 @@
         "slug": "prinsenweg-scheveningen",
         "url": "https://climbfinder.com/en/climbs/prinsenweg-scheveningen",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 3
       },
       "stats": {
         "length_m": 409,
         "elevation_gain_m": 11,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 2.6,
-        "max_gradient_pct": 3.6
+        "max_gradient_pct": 3.6,
+        "difficulty_points": 3
       },
       "difficulty_score": null,
       "geometry": {
@@ -3375,14 +3410,16 @@
         "slug": "maeslantkering-southwest",
         "url": "https://climbfinder.com/en/climbs/maeslantkering-southwest",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 11
       },
       "stats": {
         "length_m": 292,
         "elevation_gain_m": 16,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 5.7,
-        "max_gradient_pct": 8.4
+        "max_gradient_pct": 8.4,
+        "difficulty_points": 11
       },
       "difficulty_score": null,
       "geometry": {
@@ -3512,14 +3549,16 @@
         "slug": "landtong-de-punt",
         "url": "https://climbfinder.com/en/climbs/landtong-de-punt",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 574,
         "elevation_gain_m": 19,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.3,
-        "max_gradient_pct": 4.8
+        "max_gradient_pct": 4.8,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -3715,14 +3754,16 @@
         "slug": "de-gorzen-noord",
         "url": "https://climbfinder.com/en/climbs/de-gorzen-noord",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 350,
         "elevation_gain_m": 12,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 3.3,
-        "max_gradient_pct": 6.4
+        "max_gradient_pct": 6.4,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -3864,14 +3905,16 @@
         "slug": "de-gorzen-zuid",
         "url": "https://climbfinder.com/en/climbs/de-gorzen-zuid",
         "category": "",
-        "resolved_locality_id": 277
+        "resolved_locality_id": 277,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 308,
         "elevation_gain_m": 13,
         "elevation_loss_m": 0,
         "avg_gradient_pct": 4.1,
-        "max_gradient_pct": 7.6
+        "max_gradient_pct": 7.6,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {

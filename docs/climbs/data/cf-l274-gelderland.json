@@ -5,7 +5,7 @@
     "title": "Gelderland",
     "region_label": "Gelderland",
     "country": "NL",
-    "updated_at": "2026-10-09T19:24:03Z",
+    "updated_at": "2026-10-14T13:26:33Z",
     "count": 24,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 274
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-14T13:26:33Z"
+    }
   },
   "climbs": [
     {
@@ -32,7 +35,8 @@
         "slug": "peeskesbult",
         "url": "https://climbfinder.com/en/climbs/peeskesbult",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 18
       },
       "stats": {
         "length_m": 910,
@@ -42,7 +46,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 18
       },
       "difficulty_score": null,
       "geometry": {
@@ -366,7 +371,8 @@
         "slug": "paasberg",
         "url": "https://climbfinder.com/en/climbs/paasberg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 448,
@@ -376,7 +382,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -566,7 +573,8 @@
         "slug": "motte-van-montferland",
         "url": "https://climbfinder.com/en/climbs/motte-van-montferland",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 1005,
@@ -576,7 +584,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 3.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
@@ -928,7 +937,8 @@
         "slug": "peeskesbult-s-heerenberg",
         "url": "https://climbfinder.com/en/climbs/peeskesbult-s-heerenberg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 14
       },
       "stats": {
         "length_m": 1650,
@@ -938,7 +948,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.2,
         "steepest_1km_pct": 3.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 14
       },
       "difficulty_score": null,
       "geometry": {
@@ -1432,7 +1443,8 @@
         "slug": "rijsberg",
         "url": "https://climbfinder.com/en/climbs/rijsberg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 1700,
@@ -1442,7 +1454,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 3.2,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -1948,7 +1961,8 @@
         "slug": "needse-berg-kerkhofsweg",
         "url": "https://climbfinder.com/en/climbs/needse-berg-kerkhofsweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 488,
@@ -1958,7 +1972,8 @@
         "max_gradient_pct": 3.6,
         "steepest_100m_pct": 3.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -2162,7 +2177,8 @@
         "slug": "rijsberg-zeddam",
         "url": "https://climbfinder.com/en/climbs/rijsberg-zeddam",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 1301,
@@ -2172,7 +2188,8 @@
         "max_gradient_pct": 3.6,
         "steepest_100m_pct": 3.2,
         "steepest_1km_pct": 1.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -2582,7 +2599,8 @@
         "slug": "needse-berg-de-venneriet",
         "url": "https://climbfinder.com/en/climbs/needse-berg-de-venneriet",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 525,
@@ -2592,7 +2610,8 @@
         "max_gradient_pct": 3.6,
         "steepest_100m_pct": 3.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -2804,7 +2823,8 @@
         "slug": "mengelenberg-zeddam",
         "url": "https://climbfinder.com/en/climbs/mengelenberg-zeddam",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 776,
@@ -2814,7 +2834,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 4.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -3102,7 +3123,8 @@
         "slug": "rijsberg-loerbeek",
         "url": "https://climbfinder.com/en/climbs/rijsberg-loerbeek",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 6
       },
       "stats": {
         "length_m": 1225,
@@ -3112,7 +3134,8 @@
         "max_gradient_pct": 3.6,
         "steepest_100m_pct": 3.4,
         "steepest_1km_pct": 2.2,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 6
       },
       "difficulty_score": null,
       "geometry": {
@@ -3520,7 +3543,8 @@
         "slug": "mengelenberg-lengel",
         "url": "https://climbfinder.com/en/climbs/mengelenberg-lengel",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 1548,
@@ -3530,7 +3554,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 2.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -3998,7 +4023,8 @@
         "slug": "paasberg-bosweg",
         "url": "https://climbfinder.com/en/climbs/paasberg-bosweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 9
       },
       "stats": {
         "length_m": 420,
@@ -4008,7 +4034,8 @@
         "max_gradient_pct": 8.5,
         "steepest_100m_pct": 6.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 9
       },
       "difficulty_score": null,
       "geometry": {
@@ -4192,7 +4219,8 @@
         "slug": "mengelenberg-s-heerenberg",
         "url": "https://climbfinder.com/en/climbs/mengelenberg-s-heerenberg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 12
       },
       "stats": {
         "length_m": 1775,
@@ -4202,7 +4230,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.1,
         "steepest_1km_pct": 1.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 12
       },
       "difficulty_score": null,
       "geometry": {
@@ -4728,7 +4757,8 @@
         "slug": "den-aam-lengel",
         "url": "https://climbfinder.com/en/climbs/den-aam-lengel",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 602,
@@ -4738,7 +4768,8 @@
         "max_gradient_pct": 5.0,
         "steepest_100m_pct": 3.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -4978,7 +5009,8 @@
         "slug": "paasberg-zeddam-beekseweg",
         "url": "https://climbfinder.com/en/climbs/paasberg-zeddam-beekseweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 736,
@@ -4988,7 +5020,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 4.9,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -5262,7 +5295,8 @@
         "slug": "paasberg-doctor-cartier-van-disselweg",
         "url": "https://climbfinder.com/en/climbs/paasberg-doctor-cartier-van-disselweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 524,
@@ -5272,7 +5306,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -5484,7 +5519,8 @@
         "slug": "molenberg-stokkum",
         "url": "https://climbfinder.com/en/climbs/molenberg-stokkum",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 4
       },
       "stats": {
         "length_m": 614,
@@ -5494,7 +5530,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 4.6,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 4
       },
       "difficulty_score": null,
       "geometry": {
@@ -5734,7 +5771,8 @@
         "slug": "hoge-distel-maria-van-nassaulaan",
         "url": "https://climbfinder.com/en/climbs/hoge-distel-maria-van-nassaulaan",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 304,
@@ -5744,7 +5782,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.8,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -5900,7 +5939,8 @@
         "slug": "paasberg-burgemeester-wittewaallweg",
         "url": "https://climbfinder.com/en/climbs/paasberg-burgemeester-wittewaallweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 491,
@@ -5910,7 +5950,8 @@
         "max_gradient_pct": 8.7,
         "steepest_100m_pct": 6.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
@@ -6114,7 +6155,8 @@
         "slug": "groeneweg-schapenweg",
         "url": "https://climbfinder.com/en/climbs/groeneweg-schapenweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 442,
@@ -6124,7 +6166,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -6314,7 +6357,8 @@
         "slug": "hoge-distel-nieuwstraat",
         "url": "https://climbfinder.com/en/climbs/hoge-distel-nieuwstraat",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 475,
@@ -6324,7 +6368,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.2,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -6522,7 +6567,8 @@
         "slug": "hoge-distel-plantsoensingel-noord",
         "url": "https://climbfinder.com/en/climbs/hoge-distel-plantsoensingel-noord",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 5
       },
       "stats": {
         "length_m": 451,
@@ -6532,7 +6578,8 @@
         "max_gradient_pct": 4.8,
         "steepest_100m_pct": 4.1,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 5
       },
       "difficulty_score": null,
       "geometry": {
@@ -6730,7 +6777,8 @@
         "slug": "oude-eltenseweg-stokkum",
         "url": "https://climbfinder.com/en/climbs/oude-eltenseweg-stokkum",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 10
       },
       "stats": {
         "length_m": 825,
@@ -6740,7 +6788,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 10
       },
       "difficulty_score": null,
       "geometry": {
@@ -7036,7 +7085,8 @@
         "slug": "hulzenberg-oude-eltenseweg",
         "url": "https://climbfinder.com/en/climbs/hulzenberg-oude-eltenseweg",
         "category": "",
-        "resolved_locality_id": 297
+        "resolved_locality_id": 297,
+        "difficulty_points": 8
       },
       "stats": {
         "length_m": 1375,
@@ -7046,7 +7096,8 @@
         "max_gradient_pct": 5.2,
         "steepest_100m_pct": 5.0,
         "steepest_1km_pct": 2.4,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 8
       },
       "difficulty_score": null,
       "geometry": {
