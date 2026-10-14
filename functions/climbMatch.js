@@ -205,16 +205,40 @@ function climbAscentDirectionOk(climbLatLon, track, totalLen, opts = {}) {
   return { ok: true, forwardAlongM, bearingDiffDeg };
 }
 
-/** Standaard match-parameters (strakker dan v1 — minder parallelweg/false positives). */
+/**
+ * Strava summary polylines kunnen GPS-spikes hebben (rechte lijnen over km’s).
+ * Match alleen op continue segmenten; geen “teleport”-chords.
+ */
+function splitTrackAtJumpGaps(track, maxJumpM = 350) {
+  if (!track || track.length < 2) return track?.length ? [track] : [];
+  const segments = [];
+  let current = [track[0]];
+  for (let i = 1; i < track.length; i++) {
+    const prev = track[i - 1];
+    const pt = track[i];
+    const jump = haversineM(prev[0], prev[1], pt[0], pt[1]);
+    if (jump > maxJumpM) {
+      if (current.length >= 2) segments.push(current);
+      current = [pt];
+    } else {
+      current.push(pt);
+    }
+  }
+  if (current.length >= 2) segments.push(current);
+  return segments;
+}
+
+/** Standaard match-parameters (strakker — minder parallelweg / polyline-spikes). */
 const DEFAULT_MATCH_OPTS = {
-  bufferM: 30,
-  minCoverage: 0.78,
+  bufferM: 28,
+  minCoverage: 0.82,
   sampleStepM: 25,
-  bboxPadDeg: 0.008,
-  endpointMaxM: 55,
-  maxMeanSampleDistM: 70,
+  bboxPadDeg: 0.006,
+  endpointMaxM: 45,
+  maxMeanSampleDistM: 58,
   minForwardRatio: 0.35,
-  maxBearingDiffDeg: 95,
+  maxBearingDiffDeg: 85,
+  maxSegmentJumpM: 350,
 };
 
 /**
@@ -222,7 +246,7 @@ const DEFAULT_MATCH_OPTS = {
  * @param {string} encodedPolyline — Strava summary polyline
  * @param {{ bufferM?: number, minCoverage?: number, sampleStepM?: number }} opts
  */
-function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
+function matchClimbToTrackSegment(climbLatLon, track, opts) {
   const bufferM = opts.bufferM ?? DEFAULT_MATCH_OPTS.bufferM;
   const minCoverage = opts.minCoverage ?? DEFAULT_MATCH_OPTS.minCoverage;
   const sampleStepM = opts.sampleStepM ?? DEFAULT_MATCH_OPTS.sampleStepM;
@@ -230,8 +254,6 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
   const endpointMaxM = opts.endpointMaxM ?? DEFAULT_MATCH_OPTS.endpointMaxM;
   const maxMeanSampleDistM = opts.maxMeanSampleDistM ?? DEFAULT_MATCH_OPTS.maxMeanSampleDistM;
 
-  const climbLatLon = climbCoordsLonLat(climb);
-  const track = decodePolyline(encodedPolyline);
   if (climbLatLon.length < 2 || track.length < 2) {
     return { matched: false, coverage: 0 };
   }
@@ -242,11 +264,7 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
     return { matched: false, coverage: 0 };
   }
 
-  const startDist = minDistToTrackM(
-    climbLatLon[0][0],
-    climbLatLon[0][1],
-    track
-  );
+  const startDist = minDistToTrackM(climbLatLon[0][0], climbLatLon[0][1], track);
   const endPt = climbLatLon[climbLatLon.length - 1];
   const endDist = minDistToTrackM(endPt[0], endPt[1], track);
   if (startDist > endpointMaxM || endDist > endpointMaxM) {
@@ -290,8 +308,7 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
 
   const coverage = sampled ? hit / sampled : 0;
   const meanDist = sampled ? distSum / sampled : Infinity;
-  const matched =
-    coverage >= minCoverage && meanDist <= maxMeanSampleDistM;
+  const matched = coverage >= minCoverage && meanDist <= maxMeanSampleDistM;
   return {
     matched,
     coverage: Math.round(coverage * 1000) / 1000,
@@ -299,6 +316,28 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
     forwardAlongM: Math.round(direction.forwardAlongM),
     bearingDiffDeg: Math.round(direction.bearingDiffDeg),
   };
+}
+
+function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
+  const climbLatLon = climbCoordsLonLat(climb);
+  const track = decodePolyline(encodedPolyline);
+  if (climbLatLon.length < 2 || track.length < 2) {
+    return { matched: false, coverage: 0 };
+  }
+
+  const maxJumpM = opts.maxSegmentJumpM ?? DEFAULT_MATCH_OPTS.maxSegmentJumpM;
+  const segments = splitTrackAtJumpGaps(track, maxJumpM);
+  let best = { matched: false, coverage: 0 };
+
+  for (const segment of segments) {
+    const result = matchClimbToTrackSegment(climbLatLon, segment, opts);
+    if (result.matched && result.coverage > best.coverage) {
+      best = result;
+    } else if (!best.matched && result.coverage > best.coverage) {
+      best = result;
+    }
+  }
+  return best;
 }
 
 /** Buiten-fietsen voor klim-match; geen trainer/Zwift/FulGaz (VirtualRide). */
@@ -341,13 +380,21 @@ function isCyclingActivity(activity) {
 function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = DEFAULT_MATCH_OPTS.bboxPadDeg) {
   const track = decodePolyline(encodedPolyline);
   if (track.length < 2) return [];
-  const trackBox = bboxFromCoords(track);
+  const segments = splitTrackAtJumpGaps(track, DEFAULT_MATCH_OPTS.maxSegmentJumpM);
   const out = [];
-  for (const climb of climbs) {
-    const coords = climbCoordsLonLat(climb);
-    if (coords.length < 2) continue;
-    if (bboxesOverlap(bboxFromCoords(coords), trackBox, padDeg)) {
-      out.push(climb);
+  const seen = new Set();
+  for (const segment of segments) {
+    if (segment.length < 2) continue;
+    const trackBox = bboxFromCoords(segment);
+    for (const climb of climbs) {
+      const id = climb.id || climb.name;
+      if (id && seen.has(id)) continue;
+      const coords = climbCoordsLonLat(climb);
+      if (coords.length < 2) continue;
+      if (bboxesOverlap(bboxFromCoords(coords), trackBox, padDeg)) {
+        if (id) seen.add(id);
+        out.push(climb);
+      }
     }
   }
   return out;
@@ -356,6 +403,8 @@ function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = DEFAULT_MAT
 module.exports = {
   decodePolyline,
   matchClimbToActivity,
+  matchClimbToTrackSegment,
+  splitTrackAtJumpGaps,
   climbAscentDirectionOk,
   nearestAlongTrackM,
   isCyclingActivity,

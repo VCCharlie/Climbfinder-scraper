@@ -607,17 +607,15 @@ async function matchActivitiesToClimbs({ accessToken, climbs, activities, includ
 
   for (const act of rides) {
     let activityRecord = act;
-    let poly = act.map?.summary_polyline;
-    if (!poly) {
-      try {
-        const detail = await stravaFetch(`/activities/${act.id}`, accessToken);
-        if (!isCyclingActivity(detail)) continue;
-        activityRecord = detail;
-        poly = detail.map?.summary_polyline;
-      } catch (e) {
-        functions.logger.warn("activity detail skip", act.id, e.message);
-        continue;
-      }
+    let poly = activityPolylineFromRecord(act);
+    try {
+      const detail = await stravaFetch(`/activities/${act.id}`, accessToken);
+      if (!isCyclingActivity(detail)) continue;
+      activityRecord = detail;
+      poly = activityPolylineFromRecord(detail) || poly;
+    } catch (e) {
+      functions.logger.warn("activity detail skip", act.id, e.message);
+      if (!isCyclingActivity(activityRecord) || !poly) continue;
     }
     if (!isCyclingActivity(activityRecord)) continue;
     if (!poly) continue;
@@ -723,16 +721,45 @@ async function writeStravaMatches(uid, datasetId, bestByClimb) {
   }
 }
 
-async function fetchActivityPages(accessToken, { startPage, maxPages, perPage }) {
+function parseActivityEpochBounds(data) {
+  const afterMs = data?.after != null && data.after !== "" ? Number(data.after) : null;
+  const beforeMs = data?.before != null && data.before !== "" ? Number(data.before) : null;
+  const afterSec =
+    afterMs != null && Number.isFinite(afterMs) ? Math.floor(afterMs / 1000) : null;
+  const beforeSec =
+    beforeMs != null && Number.isFinite(beforeMs) ? Math.floor(beforeMs / 1000) : null;
+  if (afterSec != null && beforeSec != null && afterSec >= beforeSec) {
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      "Datum ‘tot’ moet na ‘van’ liggen."
+    );
+  }
+  return { afterSec, beforeSec, afterMs, beforeMs };
+}
+
+function activityListQuery(page, perPage, bounds) {
+  const params = new URLSearchParams();
+  params.set("per_page", String(perPage));
+  params.set("page", String(page));
+  if (bounds?.afterSec != null) params.set("after", String(bounds.afterSec));
+  if (bounds?.beforeSec != null) params.set("before", String(bounds.beforeSec));
+  return `/athlete/activities?${params.toString()}`;
+}
+
+function activityPolylineFromRecord(activity) {
+  const map = activity?.map;
+  if (!map) return null;
+  return map.polyline || map.summary_polyline || null;
+}
+
+async function fetchActivityPages(accessToken, { startPage, maxPages, perPage, afterSec, beforeSec }) {
+  const bounds = { afterSec, beforeSec };
   const all = [];
   let page = Math.max(1, startPage);
   let pagesFetched = 0;
   let lastPageEmpty = false;
   while (pagesFetched < maxPages) {
-    const chunk = await stravaFetch(
-      `/athlete/activities?per_page=${perPage}&page=${page}`,
-      accessToken
-    );
+    const chunk = await stravaFetch(activityListQuery(page, perPage, bounds), accessToken);
     if (!chunk || !chunk.length) {
       lastPageEmpty = true;
       break;
@@ -763,14 +790,24 @@ exports.stravaSyncTrial = functions
       );
     }
     const perPage = Math.min(Number(data.perPage) || TRIAL_ACTIVITY_COUNT, 50);
+    const bounds = parseActivityEpochBounds(data);
     const prefs = await getStravaPrefs(uid);
     await assertPrivateScopeIfNeeded(uid, prefs);
 
     const accessToken = await getValidAccessToken(uid);
-    const activities = await stravaFetch(
-      `/athlete/activities?per_page=${perPage}&page=1`,
-      accessToken
-    );
+    let activities;
+    if (bounds.afterSec != null || bounds.beforeSec != null) {
+      const fetched = await fetchActivityPages(accessToken, {
+        startPage: 1,
+        maxPages: 40,
+        perPage: 50,
+        afterSec: bounds.afterSec,
+        beforeSec: bounds.beforeSec,
+      });
+      activities = fetched.activities;
+    } else {
+      activities = await stravaFetch(activityListQuery(1, perPage, null), accessToken);
+    }
     const ridesScanned = countRideActivities(activities, prefs.includePrivate);
 
     let matchesWritten = 0;
@@ -801,6 +838,8 @@ exports.stravaSyncTrial = functions
         matches: result.matches.slice(0, SYNC_SUMMARY_MATCH_LIMIT),
         perPage,
         includePrivate: prefs.includePrivate,
+        after: bounds.afterMs,
+        before: bounds.beforeMs,
       };
     } else {
       const { climbs } = await loadDataset(datasetId);
@@ -824,6 +863,8 @@ exports.stravaSyncTrial = functions
         matches: summaryMatchesFromMap(datasetId, bestByClimb),
         perPage,
         includePrivate: prefs.includePrivate,
+        after: bounds.afterMs,
+        before: bounds.beforeMs,
       };
     }
 
@@ -836,9 +877,11 @@ exports.stravaSyncTrial = functions
     );
 
     const scopeLabel = isAllDatasetsToken(datasetId) ? "hele database" : datasetId;
+    const rangeNote =
+      bounds.afterSec != null || bounds.beforeSec != null ? " (gefilterde periode)" : "";
     return {
       ok: true,
-      message: `Proef-sync: ${matchesWritten} klim(men) gematcht (${scopeLabel}, ${ridesScanned} ritten).`,
+      message: `Proef-sync: ${matchesWritten} klim(men) gematcht (${scopeLabel}, ${ridesScanned} ritten${rangeNote}).`,
       summary,
     };
   });
@@ -879,9 +922,18 @@ async function stravaSyncFullHandler(data, context) {
     await assertPrivateScopeIfNeeded(uid, prefs);
 
     const reset = Boolean(data.reset);
+    const bounds = parseActivityEpochBounds(data);
     const integration = await getStoredIntegration(uid);
     const allMode = isAllDatasetsToken(datasetId);
     const accessToken = await getValidAccessToken(uid);
+
+    function cursorBoundsMatch(cursor) {
+      if (!cursor) return false;
+      return (
+        (cursor.afterSec ?? null) === (bounds.afterSec ?? null) &&
+        (cursor.beforeSec ?? null) === (bounds.beforeSec ?? null)
+      );
+    }
 
     if (!allMode) {
       let startPage = 1;
@@ -889,7 +941,8 @@ async function stravaSyncFullHandler(data, context) {
         !reset &&
         integration?.fullSyncCursor?.mode !== "all" &&
         integration?.fullSyncCursor?.datasetId === datasetId &&
-        integration.fullSyncCursor.nextPage
+        integration.fullSyncCursor.nextPage &&
+        cursorBoundsMatch(integration.fullSyncCursor)
       ) {
         startPage = Number(integration.fullSyncCursor.nextPage) || 1;
       }
@@ -908,6 +961,8 @@ async function stravaSyncFullHandler(data, context) {
         startPage,
         maxPages,
         perPage: FULL_SYNC_PER_PAGE,
+        afterSec: bounds.afterSec,
+        beforeSec: bounds.beforeSec,
       });
 
       const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
@@ -920,7 +975,14 @@ async function stravaSyncFullHandler(data, context) {
 
       const cursor = completed
         ? null
-        : { mode: "single", datasetId, nextPage, updatedAt: new Date().toISOString() };
+        : {
+            mode: "single",
+            datasetId,
+            nextPage,
+            afterSec: bounds.afterSec,
+            beforeSec: bounds.beforeSec,
+            updatedAt: new Date().toISOString(),
+          };
 
       const summary = {
         kind: "full",
@@ -935,6 +997,8 @@ async function stravaSyncFullHandler(data, context) {
         uniqueClimbs: bestByClimb.size,
         matches: summaryMatchesFromMap(datasetId, bestByClimb),
         includePrivate: prefs.includePrivate,
+        after: bounds.afterMs,
+        before: bounds.beforeMs,
       };
 
       await (await integrationRef(uid)).set(
@@ -961,7 +1025,7 @@ async function stravaSyncFullHandler(data, context) {
     let startPage = 1;
     let nextDatasetIndex = 0;
     const prev = integration?.fullSyncCursor;
-    if (!reset && prev?.mode === "all") {
+    if (!reset && prev?.mode === "all" && cursorBoundsMatch(prev)) {
       startPage = Number(prev.nextPage) || 1;
       nextDatasetIndex = Number(prev.nextDatasetIndex) || 0;
     }
@@ -980,6 +1044,8 @@ async function stravaSyncFullHandler(data, context) {
         startPage,
         maxPages,
         perPage: FULL_SYNC_PER_PAGE,
+        afterSec: bounds.afterSec,
+        beforeSec: bounds.beforeSec,
       });
 
     const ridesScanned = countRideActivities(activities, prefs.includePrivate);
@@ -1013,6 +1079,8 @@ async function stravaSyncFullHandler(data, context) {
         mode: "all",
         nextPage: nextPageForCursor,
         nextDatasetIndex: nextDatasetIndexAfter,
+        afterSec: bounds.afterSec,
+        beforeSec: bounds.beforeSec,
         updatedAt: new Date().toISOString(),
       };
     }
@@ -1041,6 +1109,8 @@ async function stravaSyncFullHandler(data, context) {
       uniqueClimbs: matchesWritten,
       matches: batchMatches.slice(0, SYNC_SUMMARY_MATCH_LIMIT),
       includePrivate: prefs.includePrivate,
+      after: bounds.afterMs,
+      before: bounds.beforeMs,
     };
 
     await (await integrationRef(uid)).set(
@@ -1162,7 +1232,7 @@ exports.stravaCleanupLogMatches = functions
         removedIndoor += 1;
       } else if (revalidateRoutes) {
         const climb = await getClimb(row.datasetId, row.climbId);
-        const poly = act.map?.summary_polyline;
+        const poly = activityPolylineFromRecord(act);
         if (!climb || !poly) {
           remove = true;
           removedWeak += 1;

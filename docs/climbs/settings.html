@@ -51,6 +51,19 @@
       <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio-dataset voor Strava-sync">
         <option value="">Laden…</option>
       </select>
+      <div class="strava-date-range-grid">
+        <div>
+          <label class="settings-field-label" for="stravaSyncDateFrom">Ritdatum van (optioneel)</label>
+          <input type="date" id="stravaSyncDateFrom" class="settings-input" />
+        </div>
+        <div>
+          <label class="settings-field-label" for="stravaSyncDateTo">Ritdatum tot (optioneel)</label>
+          <input type="date" id="stravaSyncDateTo" class="settings-input" />
+        </div>
+      </div>
+      <p class="settings-hint">
+        Met datum(s) worden alleen ritten in die periode opgehaald (proef-sync en volledige sync). Leeg = geen datumfilter.
+      </p>
       <div class="settings-actions">
         <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
         <button type="button" id="stravaReconnectBtn" class="secondary" hidden>
@@ -140,7 +153,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261014stravaresume1"></script>
+  <script src="assets/strava-sync.js?v=20261014stravadate1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
