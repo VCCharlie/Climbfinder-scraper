@@ -76,6 +76,10 @@
         list = list.filter((b) => b.is_country_monolith);
       } else if (opts.mode === "scores") {
         list = list.filter((b) => !b.scores_complete && (b.missing_cf_scores || 0) > 0);
+        const hasRegionalBundles = list.some((b) => !b.is_country_monolith);
+        if (hasRegionalBundles) {
+          list = list.filter((b) => !b.is_country_monolith);
+        }
       }
       return list.sort((a, b) =>
         String(a.displayTitle || a.file).localeCompare(String(b.displayTitle || b.file), "nl")
