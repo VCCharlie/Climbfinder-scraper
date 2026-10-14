@@ -352,9 +352,9 @@
 
   /** Climbfinder-achtig: heldere vulling, donkere rand (geen paars). */
   const LIGHTNING_MAP_COLORS = {
-    L0: { fill: "#86efac", stroke: "#166534", label: "< 5" },
-    L5: { fill: "#bef264", stroke: "#4d7c0f", label: "5+" },
-    L9: { fill: "#fde047", stroke: "#a16207", label: "9+" },
+    L0: { fill: "#4ade80", stroke: "#15803d", label: "< 5" },
+    L5: { fill: "#22c55e", stroke: "#166534", label: "5+" },
+    L9: { fill: "#fbbf24", stroke: "#d97706", label: "9+" },
     L12: { fill: "#fdba74", stroke: "#c2410c", label: "12+" },
     L17: { fill: "#fca5a5", stroke: "#dc2626", label: "17+" },
     L34: { fill: "#fb7185", stroke: "#e11d48", label: "34+" },
