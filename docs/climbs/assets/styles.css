@@ -1147,27 +1147,7 @@ header.app-header p#datasetMeta {
 
 .map-touch-status .climb-status-toggles {
   justify-content: flex-start;
-  margin: 0.35rem 0 0.5rem;
-}
-
-.map-touch-status-clear {
-  display: block;
-  width: 100%;
-  margin-top: 0.25rem;
-  padding: 0.5rem 0.65rem;
-  border: none;
-  border-radius: 8px;
-  background: #f1f5f9;
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--slate-700);
-  cursor: pointer;
-  text-align: left;
-}
-
-.map-touch-status-clear:hover {
-  background: #e2e8f0;
+  margin: 0.35rem 0 0;
 }
 
 #map {
