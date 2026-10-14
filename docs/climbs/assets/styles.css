@@ -696,6 +696,57 @@ header.app-header p#datasetMeta {
   margin-left: 0.15rem;
 }
 
+/* Leaflet-attributie uit (tegeldata staat in .map-data-credit); geen overlap met bottom sheet */
+.map-panel .leaflet-control-attribution {
+  display: none !important;
+}
+
+.map-data-credit {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  z-index: 750;
+  margin: 0;
+  padding: 0.15rem 0.35rem;
+  max-width: min(11rem, 42vw);
+  font-size: 0.58rem;
+  line-height: 1.25;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 4px;
+  pointer-events: auto;
+  opacity: 0.55;
+}
+
+.map-data-credit a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.map-data-credit a:hover {
+  text-decoration: underline;
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .map-data-credit {
+    top: auto;
+    bottom: 0.4rem;
+    left: 0.4rem;
+    right: auto;
+    max-width: min(9.5rem, 38vw);
+  }
+}
+
+@media (min-width: 901px) {
+  .map-data-credit {
+    top: auto;
+    bottom: 0.35rem;
+    right: 0.45rem;
+    opacity: 0.5;
+  }
+}
+
 .fietsklim-locate-control {
   margin-bottom: 0 !important;
   clear: both;
@@ -1692,7 +1743,8 @@ html.standalone .profile-expand-map-panel {
   }
 
   .map-touch-sheet {
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     left: 0;
     right: 0;
@@ -1701,10 +1753,34 @@ html.standalone .profile-expand-map-panel {
     background: #fff;
     border-top: 1px solid var(--slate-200);
     border-radius: 12px 12px 0 0;
-    padding: 0.65rem 0.85rem max(0.85rem, env(safe-area-inset-bottom, 0px));
+    padding: 0.55rem 0.85rem 0;
     box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.12);
-    max-height: 42%;
+    max-height: min(48dvh, 22rem);
+  }
+
+  .map-touch-sheet-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow: auto;
+    padding-bottom: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .map-touch-sheet-footer {
+    flex-shrink: 0;
+    padding: 0.5rem 0 max(0.65rem, env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .map-panel.map-touch-sheet-open .map-data-credit {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .map-panel.map-touch-sheet-open .leaflet-bottom.leaflet-right {
+    margin-bottom: calc(min(48dvh, 22rem) + 0.35rem);
+    transition: margin-bottom 0.2s ease;
   }
 
   .map-touch-sheet[hidden] {
