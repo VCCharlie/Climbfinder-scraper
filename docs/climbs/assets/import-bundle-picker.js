@@ -128,14 +128,19 @@
             label: `${b.displayTitle} · ${b.missing_cf_scores}/${b.count} zonder score`,
           });
         }
+        const catalogStamp = data.updated_at
+          ? `Catalogus ${new Date(data.updated_at).toLocaleString("nl-NL")}. `
+          : "";
         if (list.length === 0) {
           fillSelect(regionSel, [], `Geen openstaande scores in ${iso}`);
           regionSel.disabled = true;
-          if (hintEl) hintEl.textContent = "Alle bundles in dit land zijn compleet (scores).";
+          if (hintEl) {
+            hintEl.textContent = `${catalogStamp}Alle bundles in dit land zijn compleet (scores).`;
+          }
         } else {
           fillSelect(regionSel, optsList, "— kies regio of heel land —");
           if (hintEl) {
-            hintEl.textContent = `${list.length} bundle(s) met ontbrekende scores. Voltooide bundles worden niet getoond.`;
+            hintEl.textContent = `${catalogStamp}${list.length} bundle(s) met ontbrekende scores. Voltooide regio’s verdwijnen na backfill + catalogus-rebuild op main.`;
           }
         }
       }
