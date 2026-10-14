@@ -5,7 +5,7 @@
     "title": "Paris",
     "region_label": "Paris",
     "country": "FR",
-    "updated_at": "2026-10-07T14:31:39Z",
+    "updated_at": "2026-10-14T18:14:48Z",
     "count": 10,
     "source": {
       "name": "climbfinder",
@@ -21,7 +21,8 @@
     "import_errors": [],
     "maintenance": {
       "resolved_regions_backfill": "2026-10-07T13:19:09Z",
-      "macro_region_labels_backfill": "2026-10-07T14:31:39Z"
+      "macro_region_labels_backfill": "2026-10-07T14:31:39Z",
+      "climbfinder_scores_backfill": "2026-10-14T18:14:48Z"
     }
   },
   "climbs": [
@@ -36,7 +37,8 @@
         "slug": "montmartre-rue-lepic",
         "url": "https://climbfinder.com/en/climbs/montmartre-rue-lepic",
         "category": "5",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 64
       },
       "stats": {
         "length_m": 883,
@@ -46,7 +48,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 9.0,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 64
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -362,7 +365,8 @@
         "slug": "avenue-des-champs-elysees",
         "url": "https://climbfinder.com/en/climbs/avenue-des-champs-elysees",
         "category": "",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 7
       },
       "stats": {
         "length_m": 1138,
@@ -372,7 +376,8 @@
         "max_gradient_pct": 3.8,
         "steepest_100m_pct": 3.2,
         "steepest_1km_pct": 1.9,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 7
       },
       "difficulty_score": null,
       "geometry": {
@@ -758,7 +763,8 @@
         "slug": "montmartre-clignancourt",
         "url": "https://climbfinder.com/en/climbs/montmartre-clignancourt",
         "category": "4",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 85
       },
       "stats": {
         "length_m": 1216,
@@ -768,7 +774,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.7,
         "steepest_1km_pct": 6.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 85
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -1176,7 +1183,8 @@
         "slug": "cote-de-la-butte-montmartre",
         "url": "https://climbfinder.com/en/climbs/cote-de-la-butte-montmartre",
         "category": "",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 24
       },
       "stats": {
         "length_m": 875,
@@ -1186,7 +1194,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 24
       },
       "difficulty_score": null,
       "geometry": {
@@ -1496,7 +1505,8 @@
         "slug": "rue-menilmontant-boulevard-de-belleville",
         "url": "https://climbfinder.com/en/climbs/rue-menilmontant-boulevard-de-belleville",
         "category": "5",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 32
       },
       "stats": {
         "length_m": 872,
@@ -1506,7 +1516,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.2,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 32
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1816,7 +1827,8 @@
         "slug": "rue-gasnier-guy",
         "url": "https://climbfinder.com/en/climbs/rue-gasnier-guy",
         "category": "",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 615,
@@ -1826,7 +1838,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -2066,7 +2079,8 @@
         "slug": "place-des-fetes-rue-compans",
         "url": "https://climbfinder.com/en/climbs/place-des-fetes-rue-compans",
         "category": "5",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 38
       },
       "stats": {
         "length_m": 778,
@@ -2076,7 +2090,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.8,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 38
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -2364,7 +2379,8 @@
         "slug": "belleville-boulevard-davout",
         "url": "https://climbfinder.com/en/climbs/belleville-boulevard-davout",
         "category": "",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 22
       },
       "stats": {
         "length_m": 2871,
@@ -2374,7 +2390,8 @@
         "max_gradient_pct": 6.8,
         "steepest_100m_pct": 6.3,
         "steepest_1km_pct": 4.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 22
       },
       "difficulty_score": null,
       "geometry": {
@@ -3158,7 +3175,8 @@
         "slug": "rue-de-l-estrapade",
         "url": "https://climbfinder.com/en/climbs/rue-de-l-estrapade",
         "category": "",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 13
       },
       "stats": {
         "length_m": 561,
@@ -3168,7 +3186,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.4,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 13
       },
       "difficulty_score": null,
       "geometry": {
@@ -3394,7 +3413,8 @@
         "slug": "boulevard-serurier-place-du-general-cochet",
         "url": "https://climbfinder.com/en/climbs/boulevard-serurier-place-du-general-cochet",
         "category": "",
-        "resolved_locality_id": 959
+        "resolved_locality_id": 959,
+        "difficulty_points": 17
       },
       "stats": {
         "length_m": 603,
@@ -3404,7 +3424,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.7,
         "steepest_1km_pct": 0.0,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 17
       },
       "difficulty_score": null,
       "geometry": {
