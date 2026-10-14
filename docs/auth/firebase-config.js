@@ -42,4 +42,14 @@ window.FIETSKLIM_AUTH_CONFIG = {
   mapTiles: {
     cartoApiKey: "cb1_4h4w_1_2e6e2d0ac33b270f2dace12d",
   },
+  /**
+   * Strava (Instellingen). Phase 3: backgroundSync true = volledige sync via server (tab mag dicht).
+   * showServerSyncBeta: extra knop zolang backgroundSync nog false is (testen na deploy).
+   */
+  strava: {
+    enabled: true,
+    region: "europe-west1",
+    backgroundSync: false,
+    showServerSyncBeta: true,
+  },
 };

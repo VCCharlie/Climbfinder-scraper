@@ -7,8 +7,10 @@
   const FULL_SYNC_MAX_LOOPS = 80;
   const FULL_SYNC_MAX_LOOPS_ALL = 800;
   const FULL_SYNC_WANTED_KEY = "fietsklim-strava-full-sync-wanted";
+  const SERVER_JOB_POLL_MS = 15000;
 
   let statusCache = null;
+  let serverJobPollTimer = null;
   let prefsSaveTimer = null;
   let fullSyncRunning = false;
   let wakeLockSentinel = null;
@@ -48,6 +50,10 @@
 
   function maybeResumeFullSync(d) {
     if (fullSyncRunning) return;
+    if (serverJobActive(d?.activeSyncJob)) {
+      startServerJobPolling();
+      return;
+    }
     const wanted = sessionStorage.getItem(FULL_SYNC_WANTED_KEY);
     if (!wanted || !lastSyncIncomplete(d) || !syncScopeMatchesWanted(wanted, d.lastSyncSummary)) {
       return;
@@ -67,6 +73,44 @@
 
   function fnRegion() {
     return cfg().strava?.region || cfg().githubImport?.region || "europe-west1";
+  }
+
+  function useBackgroundFullSync() {
+    return Boolean(cfg().strava?.backgroundSync);
+  }
+
+  function showServerSyncBetaButton() {
+    return cfg().strava?.showServerSyncBeta !== false;
+  }
+
+  function serverJobActive(job) {
+    return job && (job.status === "queued" || job.status === "running");
+  }
+
+  function stopServerJobPolling() {
+    if (serverJobPollTimer) {
+      clearInterval(serverJobPollTimer);
+      serverJobPollTimer = null;
+    }
+  }
+
+  function startServerJobPolling() {
+    stopServerJobPolling();
+    serverJobPollTimer = setInterval(() => {
+      void refreshStatus();
+    }, SERVER_JOB_POLL_MS);
+  }
+
+  function formatServerJobLine(job) {
+    if (!job) return "";
+    const p = job.progress || {};
+    const parts = [`server-sync: ${job.status}`];
+    if (p.regionProgress) parts.push(p.regionProgress);
+    if (p.nextPage) parts.push(`Strava pag. ${p.nextPage}`);
+    if (p.activitiesScanned) parts.push(`${p.activitiesScanned} ritten (laatste batch)`);
+    if (job.batchCount) parts.push(`batch ${job.batchCount}`);
+    if (job.lastMessage) parts.push(job.lastMessage);
+    return parts.join(" · ");
   }
 
   function formatCallableError(e) {
@@ -389,6 +433,21 @@
     }
     cleanup?.toggleAttribute("hidden", !connected);
     if (cleanup) cleanup.disabled = !connected;
+    const serverBtn = $("stravaServerFullSyncBtn");
+    const cancelServer = $("stravaCancelServerSyncBtn");
+    const job = statusCache?.activeSyncJob;
+    const jobRunning = serverJobActive(job);
+    const showBeta = connected && datasetOk && showServerSyncBetaButton() && !useBackgroundFullSync();
+    serverBtn?.toggleAttribute("hidden", !showBeta || jobRunning);
+    cancelServer?.toggleAttribute("hidden", !connected || !jobRunning);
+    if (serverBtn) {
+      serverBtn.disabled =
+        !showBeta || jobRunning || Boolean(statusCache?.needsReconnect && includePrivateChecked());
+    }
+    if (cancelServer) cancelServer.disabled = !jobRunning;
+    if (full && useBackgroundFullSync()) {
+      full.textContent = range ? "Volledige sync in periode (server)" : "Volledige history sync (server)";
+    }
     const sel = $("stravaDatasetSelect");
     if (sel && global.__FIETSKLIM_AUTH_READY) sel.removeAttribute("hidden");
   }
@@ -470,12 +529,25 @@
         if (d.needsReconnect) {
           msg += " · klik Ververs Strava-toestemming (privé) of Koppel opnieuw";
         }
+        if (serverJobActive(d.activeSyncJob)) {
+          msg += ` · ${formatServerJobLine(d.activeSyncJob)}`;
+          startServerJobPolling();
+        } else {
+          stopServerJobPolling();
+        }
+        if (d.activeSyncJob?.status === "completed") {
+          msg += ` · server-sync afgerond`;
+          global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
+        }
+        if (d.activeSyncJob?.status === "failed") {
+          msg += ` · server-sync mislukt: ${d.activeSyncJob.error || "?"}`;
+        }
         if (d.lastSyncSummary) {
           const s = d.lastSyncSummary;
           const kind = s.kind === "full" ? "volledige sync" : "proef";
           const scope = s.allDatasets ? "alle regio’s" : s.datasetId;
           msg += ` · laatste ${kind}: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten (${scope})`;
-          if (s.kind === "full" && s.completed === false) {
+          if (s.kind === "full" && s.completed === false && !serverJobActive(d.activeSyncJob)) {
             if (s.allDatasets && s.regionProgress) msg += ` · ${s.regionProgress}`;
             if (s.nextPage) msg += ` · Strava pag. ${s.nextPage}`;
           }
@@ -629,7 +701,74 @@
     }
   }
 
+  async function fullSyncServer() {
+    const datasetId = getSelectedDatasetId();
+    if (!datasetId) {
+      setStatus("Kies eerst een regio-dataset.", true);
+      return;
+    }
+    if (statusCache?.needsReconnect && includePrivateChecked()) {
+      setStatus("Koppel Strava eerst opnieuw voor privé-activiteiten.", true);
+      return;
+    }
+    if (serverJobActive(statusCache?.activeSyncJob)) {
+      setStatus("Server-sync loopt al — status wordt ververst.", false);
+      startServerJobPolling();
+      return;
+    }
+    const dateBounds = getSyncDateBoundsPayload();
+    if (dateBounds.error) {
+      setStatus(dateBounds.error, true);
+      return;
+    }
+    const serverBtn = $("stravaServerFullSyncBtn");
+    const fullBtn = $("stravaFullSyncBtn");
+    if (serverBtn) serverBtn.disabled = true;
+    if (fullBtn) fullBtn.disabled = true;
+    setStatus("Server-sync starten… (je kunt dit tabblad daarna sluiten)");
+    try {
+      const res = await callable("stravaEnqueueFullSync")({
+        datasetId,
+        ...dateBounds.payload,
+      });
+      setStatus(res.data?.message || "Server-sync gestart.");
+      startServerJobPolling();
+      await refreshStatus();
+    } catch (e) {
+      const msg = formatCallableError(e);
+      setStatus(
+        /not-found|UNIMPLEMENTED/i.test(msg)
+          ? `${msg} → Deploy workflow met stravaEnqueueFullSync / stravaSyncWorker.`
+          : msg,
+        true
+      );
+    } finally {
+      updateSyncButtonsVisibility(statusCache?.connected);
+    }
+  }
+
+  async function cancelServerSync() {
+    const job = statusCache?.activeSyncJob;
+    if (!job?.id) return;
+    const btn = $("stravaCancelServerSyncBtn");
+    if (btn) btn.disabled = true;
+    try {
+      const res = await callable("stravaCancelSyncJob")({ jobId: job.id });
+      setStatus(res.data?.message || "Server-sync geannuleerd.");
+      stopServerJobPolling();
+      await refreshStatus();
+    } catch (e) {
+      setStatus(formatCallableError(e), true);
+    } finally {
+      if (btn) btn.disabled = false;
+      updateSyncButtonsVisibility(statusCache?.connected);
+    }
+  }
+
   async function fullSync(options = {}) {
+    if (!options.resumeFromCheckpoint && useBackgroundFullSync()) {
+      return fullSyncServer();
+    }
     const resumeFromCheckpoint = Boolean(options.resumeFromCheckpoint);
     const datasetId = getSelectedDatasetId();
     if (!datasetId) {
@@ -755,6 +894,8 @@
     $("stravaPeriodSyncBtn")?.addEventListener("click", () => void periodSync());
     $("stravaTrialSyncBtn")?.addEventListener("click", () => void trialSync());
     $("stravaFullSyncBtn")?.addEventListener("click", () => void fullSync());
+    $("stravaServerFullSyncBtn")?.addEventListener("click", () => void fullSyncServer());
+    $("stravaCancelServerSyncBtn")?.addEventListener("click", () => void cancelServerSync());
     const onDateRangeInput = () => updateSyncButtonsVisibility(Boolean(statusCache?.connected));
     $("stravaSyncDateFrom")?.addEventListener("change", onDateRangeInput);
     $("stravaSyncDateFrom")?.addEventListener("input", onDateRangeInput);

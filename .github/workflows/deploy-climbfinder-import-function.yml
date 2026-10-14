@@ -50,6 +50,7 @@ jobs:
             cloudfunctions.googleapis.com \
             cloudbuild.googleapis.com \
             artifactregistry.googleapis.com \
+            cloudtasks.googleapis.com \
             compute.googleapis.com \
             appengine.googleapis.com \
             --project "$FIREBASE_PROJECT_ID"
@@ -131,7 +132,7 @@ jobs:
         run: |
           set -o pipefail
           firebase deploy --only \
-            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill,functions:getGithubWorkflowRunStatus,functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull,functions:stravaCleanupLogMatches \
+            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill,functions:getGithubWorkflowRunStatus,functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull,functions:stravaCleanupLogMatches,functions:stravaEnqueueFullSync,functions:getStravaSyncJob,functions:stravaCancelSyncJob,functions:stravaSyncWorker \
             --project "$FIREBASE_PROJECT_ID" --non-interactive --debug 2>&1 | tee firebase-deploy.log
           DEPLOY_EXIT=${PIPESTATUS[0]}
           if grep -qE "Failed to (update|create) function" firebase-deploy.log; then
