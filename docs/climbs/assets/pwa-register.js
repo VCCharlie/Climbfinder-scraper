@@ -2,7 +2,7 @@
 (function () {
   if (!("serviceWorker" in navigator)) return;
 
-  var BUILD_STAMP = "20261014mapteal1";
+  var BUILD_STAMP = "20261014playful1";
   var SW_RELOAD_SESSION_KEY = "fietsklim-sw-reloading";
   var BUILD_ACK_KEY = "fietsklim-ack-build";
 
