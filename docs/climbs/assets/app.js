@@ -2163,12 +2163,8 @@
       };
       statusHost.innerHTML = `
         <p class="map-touch-sheet-kicker">Mijn status</p>
-        ${climbStatusToggleButtonsHtml(entry)}
-        <button type="button" class="map-touch-status-clear" data-status-action="none">Nog niet geklommen</button>`;
+        ${climbStatusToggleButtonsHtml(entry)}`;
       bindClimbStatusToggleButtons(statusHost, entry);
-      statusHost.querySelector(".map-touch-status-clear")?.addEventListener("click", () => {
-        void applyClimbStatusFlags(entry, { done: false, wishlist: false });
-      });
       statusHost.hidden = false;
     } else if (statusHost) {
       statusHost.hidden = true;
