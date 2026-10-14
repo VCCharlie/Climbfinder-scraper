@@ -82,6 +82,24 @@
         job.conclusion = d.conclusion;
         job.displayStatus = d.display_status;
         job.htmlUrl = d.html_url;
+        const prevStatus = job._lastPolledStatus;
+        job._lastPolledStatus = job.status;
+        if (
+          job.status === "completed" &&
+          job.conclusion === "success" &&
+          prevStatus !== "completed" &&
+          !job.completionNotified
+        ) {
+          job.completionNotified = true;
+          global.dispatchEvent(
+            new CustomEvent("fietsklim-workflow-complete", {
+              detail: {
+                workflowFile: job.workflowFile,
+                label: job.label,
+              },
+            })
+          );
+        }
         changed = true;
       } catch {
         /* volgende poll */

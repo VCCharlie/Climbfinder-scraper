@@ -7,6 +7,7 @@
     let selectedRegion = null;
     let regionsBooted = false;
     let regionPicker = null;
+    let cfScoresPickerReload = null;
     let activeImportTab = "import";
     let activeImportSubTab = "region";
     let climbSlugSearchIndex = null;
@@ -1044,6 +1045,20 @@
     });
 
     function bootImportPage() {
+      if (!window.__fietsklimCfPickerRefreshBound) {
+        window.__fietsklimCfPickerRefreshBound = true;
+        window.addEventListener("fietsklim-workflow-complete", (ev) => {
+          const wf = ev.detail?.workflowFile || "";
+          if (!wf.includes("backfill-climbfinder-scores")) return;
+          if (cfScoresPickerReload) {
+            void cfScoresPickerReload().then(() =>
+              log("Score-dropdown ververst (bundle-catalogus opnieuw geladen).")
+            );
+          } else {
+            log("Score-backfill afgerond — ververs de pagina als de regio-lijst niet klopt.");
+          }
+        });
+      }
       void refreshPrimaryImportUi();
       refreshImportLimitHint();
       if (typeof FietsKlimBundlePicker !== "undefined") {
@@ -1065,7 +1080,11 @@
               allCountry: !!ctx.allCountry,
             };
           },
-        }).catch((e) => log("Score-bundlelijst: " + e.message));
+        })
+          .then((api) => {
+            cfScoresPickerReload = api?.reload || null;
+          })
+          .catch((e) => log("Score-bundlelijst: " + e.message));
       }
       bindClimbNameSearch();
       if (typeof FietsKlimClimbLookup !== "undefined") {
