@@ -356,7 +356,7 @@
     L9: { fill: "#eab308", stroke: "#a16207", label: "9+" },
     L12: { fill: "#fb923c", stroke: "#c2410c", label: "12+" },
     L17: { fill: "#ef4444", stroke: "#b91c1c", label: "17+" },
-    L34: { fill: "#a855f7", stroke: "#6b21a8", label: "34+" },
+    L34: { fill: "#991b1b", stroke: "#450a0a", label: "34+" },
   };
 
   const DIFFICULTY_MAP_COLORS = {
@@ -366,8 +366,8 @@
     3: { fill: "#fb923c", stroke: "#c2410c", label: "Cat. 3" },
     2: { fill: "#f97316", stroke: "#ea580c", label: "Cat. 2" },
     1: { fill: "#ef4444", stroke: "#b91c1c", label: "Cat. 1" },
-    HC: { fill: "#c084fc", stroke: "#7e22ce", label: "HC" },
-    SHC: { fill: "#7e22ce", stroke: "#581c87", label: "SHC" },
+    HC: { fill: "#b91c1c", stroke: "#7f1d1d", label: "HC" },
+    SHC: { fill: "#7f1d1d", stroke: "#450a0a", label: "SHC" },
     unknown: { fill: "#cbd5e1", stroke: "#64748b", label: "Onbekend" },
   };
 

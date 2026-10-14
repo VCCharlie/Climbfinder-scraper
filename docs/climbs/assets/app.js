@@ -241,13 +241,15 @@
     return isMobileLayout() && root?.classList.contains("mobile-pane-map");
   }
 
-  /** Goed zichtbaar op groen OSM-terrein (niet teal). */
+  /** Goed zichtbaar op groen OSM-terrein (geen paars). */
   const ROUTE_STYLE = {
-    active: { color: "#6d28d9", weight: 4, opacity: 0.92 },
-    detail: { color: "#5b21b6", weight: 5, opacity: 0.95 },
+    active: { color: "#0f766e", weight: 4, opacity: 0.92 },
+    detail: { color: "#115e59", weight: 5, opacity: 0.95 },
     dim: { color: "#475569", weight: 2.5, opacity: 0.52 },
-    hover: { color: "#6d28d9", weight: 8, opacity: 1 },
+    hover: { color: "#0d9488", weight: 8, opacity: 1 },
   };
+
+  const MAP_ACCENT_STROKE = "#0f766e";
 
   const state = {
     bundle: null,
@@ -985,7 +987,7 @@
     }
 
     const fill = dimmed ? "#cbd5e1" : colors.fill;
-    const stroke = dimmed ? "#94a3b8" : done ? "#15803d" : active ? "#5b21b6" : colors.stroke;
+    const stroke = dimmed ? "#94a3b8" : done ? "#15803d" : active ? MAP_ACCENT_STROKE : colors.stroke;
     const touch = isCoarsePointer();
     const marker = L.circleMarker(latlng, {
       radius: touch ? (active ? 9 : 7) : active ? 7 : 5,
