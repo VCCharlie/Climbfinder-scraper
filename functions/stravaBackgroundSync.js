@@ -1,16 +1,30 @@
 /**
- * Phase 3 — Strava full sync via Firebase Task Queue (parallel aan browser-loop).
+ * Phase 3 — Strava full sync via Cloud Tasks → Gen1 HTTP worker (parallel aan browser-loop).
  */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const { onTaskDispatched } = require("firebase-functions/v2/tasks");
-const { getFunctions } = require("firebase-admin/functions");
+const { CloudTasksClient } = require("@google-cloud/tasks");
 
 const REGION = "europe-west1";
-const TASK_QUEUE_SUFFIX = "functions/stravaSyncWorker";
+const TASK_QUEUE_ID = "strava-sync";
 const JOB_COLLECTION = "stravaSyncJobs";
 const ACTIVE_STATUSES = ["queued", "running"];
 const BATCH_DELAY_SECONDS = 22;
+const WORKER_SECRET_HEADER = "x-fietsklim-worker-secret";
+
+function stravaCfg() {
+  return functions.config().strava || {};
+}
+
+function projectId() {
+  return process.env.GCLOUD_PROJECT || admin.app().options.projectId || "climb-database";
+}
+
+function workerUrl() {
+  const custom = stravaCfg().worker_url;
+  if (custom && String(custom).trim()) return String(custom).trim();
+  return `https://${REGION}-${projectId()}.cloudfunctions.net/stravaSyncWorker`;
+}
 
 function jobsCol(uid) {
   return admin.firestore().collection("users").doc(uid).collection(JOB_COLLECTION);
@@ -102,16 +116,38 @@ function progressFromSummary(summary) {
   };
 }
 
-async function taskQueue() {
-  return getFunctions().taskQueue(`locations/${REGION}/${TASK_QUEUE_SUFFIX}`);
+let tasksClient;
+function getTasksClient() {
+  if (!tasksClient) tasksClient = new CloudTasksClient();
+  return tasksClient;
 }
 
 async function enqueueWorkerTask(payload, delaySeconds = 0) {
-  const queue = await taskQueue();
-  await queue.enqueue(payload, {
-    scheduleDelaySeconds: Math.max(0, delaySeconds),
-    dispatchDeadlineSeconds: 300,
-  });
+  const secret = stravaCfg().worker_secret;
+  if (!secret) {
+    throw new Error(
+      "strava.worker_secret ontbreekt — zet via deploy-workflow (STRAVA_WORKER_SECRET) of functions:config:set"
+    );
+  }
+  const client = getTasksClient();
+  const parent = client.queuePath(projectId(), REGION, TASK_QUEUE_ID);
+  const scheduleTime =
+    delaySeconds > 0
+      ? { seconds: Math.floor(Date.now() / 1000) + delaySeconds }
+      : undefined;
+  const task = {
+    httpRequest: {
+      httpMethod: "POST",
+      url: workerUrl(),
+      headers: {
+        "Content-Type": "application/json",
+        [WORKER_SECRET_HEADER]: String(secret),
+      },
+      body: Buffer.from(JSON.stringify(payload)).toString("base64"),
+    },
+    scheduleTime,
+  };
+  await client.createTask({ parent, task });
 }
 
 async function markJobFailed(uid, jobId, message) {
@@ -128,7 +164,7 @@ async function markJobFailed(uid, jobId, message) {
 exports.getActiveSyncJob = getActiveSyncJob;
 
 exports.isBackgroundSyncConfigured = function isBackgroundSyncConfigured() {
-  return true;
+  return Boolean(stravaCfg().worker_secret);
 };
 
 exports.stravaEnqueueFullSync = functions
@@ -136,6 +172,12 @@ exports.stravaEnqueueFullSync = functions
   .runWith({ timeoutSeconds: 120, memory: "256MB" })
   .https.onCall(async (data, context) => {
     const uid = requireAuth(context);
+    if (!stravaCfg().worker_secret) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "Server-sync is nog niet geconfigureerd (strava.worker_secret). Draai Deploy Climbfinder import function opnieuw."
+      );
+    }
     const datasetId = String(data.datasetId || "").trim();
     if (!datasetId) {
       throw new functions.https.HttpsError(
@@ -222,7 +264,11 @@ exports.stravaCancelSyncJob = functions.region(REGION).https.onCall(async (data,
     },
     { merge: true }
   );
-  return { ok: true, message: "Server-sync geannuleerd.", job: publicJobView({ id: jobId, data: () => ({ ...snap.data(), status: "cancelled" }) }) };
+  return {
+    ok: true,
+    message: "Server-sync geannuleerd.",
+    job: publicJobView({ id: jobId, data: () => ({ ...snap.data(), status: "cancelled" }) }),
+  };
 });
 
 async function processStravaSyncJob(uid, jobId) {
@@ -255,7 +301,6 @@ async function processStravaSyncJob(uid, jobId) {
   try {
     result = await runStravaSyncBatch(uid, payload);
   } catch (e) {
-    const msg = e.message || String(e);
     if (e instanceof functions.https.HttpsError) {
       if (e.code === "failed-precondition" || e.code === "unauthenticated") {
         await markJobFailed(uid, jobId, e.message);
@@ -300,27 +345,40 @@ async function processStravaSyncJob(uid, jobId) {
   await enqueueWorkerTask({ uid, jobId }, BATCH_DELAY_SECONDS);
 }
 
-exports.stravaSyncWorker = onTaskDispatched(
-  {
-    region: REGION,
-    retryConfig: {
-      maxAttempts: 8,
-      minBackoffSeconds: 45,
-      maxBackoffSeconds: 600,
-    },
-    rateLimits: {
-      maxConcurrentDispatches: 1,
-    },
-    timeoutSeconds: 300,
-    memory: "1GiB",
-  },
-  async (req) => {
-    const uid = String(req.data?.uid || "");
-    const jobId = String(req.data?.jobId || "");
-    if (!uid || !jobId) {
-      functions.logger.error("stravaSyncWorker bad payload", req.data);
+exports.stravaSyncWorker = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 300, memory: "1GB" })
+  .https.onRequest(async (req, res) => {
+    if (req.method !== "POST") {
+      res.status(405).send("Method Not Allowed");
       return;
     }
-    await processStravaSyncJob(uid, jobId);
-  }
-);
+    const secret = stravaCfg().worker_secret;
+    const header = req.get(WORKER_SECRET_HEADER) || req.get(WORKER_SECRET_HEADER.toUpperCase());
+    if (!secret || header !== String(secret)) {
+      res.status(403).send("Forbidden");
+      return;
+    }
+    let body = req.body;
+    if (typeof body === "string") {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        res.status(400).send("Bad JSON");
+        return;
+      }
+    }
+    const uid = String(body?.uid || "");
+    const jobId = String(body?.jobId || "");
+    if (!uid || !jobId) {
+      res.status(400).send("uid and jobId required");
+      return;
+    }
+    try {
+      await processStravaSyncJob(uid, jobId);
+      res.status(200).json({ ok: true });
+    } catch (e) {
+      functions.logger.error("stravaSyncWorker", e);
+      res.status(500).send(e.message || "batch failed");
+    }
+  });
