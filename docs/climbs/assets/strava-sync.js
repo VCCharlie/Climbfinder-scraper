@@ -738,7 +738,7 @@
       const msg = formatCallableError(e);
       setStatus(
         /not-found|UNIMPLEMENTED/i.test(msg)
-          ? `${msg} → Deploy workflow met stravaEnqueueFullSync / stravaSyncWorker.`
+          ? `${msg} → Deploy workflow met stravaEnqueueFullSync / stravaSyncWorkerHttp.`
           : msg,
         true
       );

@@ -125,6 +125,19 @@ jobs:
         env:
           FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
 
+      - name: Remove legacy Gen2 stravaSyncWorker (naamconflict met Gen1 HTTP)
+        env:
+          FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}
+        continue-on-error: true
+        run: |
+          REGION=europe-west1
+          if gcloud functions describe stravaSyncWorker --region="$REGION" --gen2 --project="$FIREBASE_PROJECT_ID" >/dev/null 2>&1; then
+            echo "Verwijderen oude Gen2 task-queue function stravaSyncWorker…"
+            gcloud functions delete stravaSyncWorker --region="$REGION" --gen2 --project="$FIREBASE_PROJECT_ID" --quiet
+          else
+            echo "Geen Gen2 stravaSyncWorker — OK"
+          fi
+
       - name: Install function dependencies
         run: npm ci
         working-directory: functions
@@ -173,7 +186,7 @@ jobs:
             SECRET=$(openssl rand -hex 24)
             echo "::warning::Secret STRAVA_WORKER_SECRET ontbreekt — gegenereerd voor deze deploy. Voeg een vaste secret toe in GitHub Actions om worker-auth stabiel te houden."
           fi
-          WORKER_URL="https://${REGION}-${FIREBASE_PROJECT_ID}.cloudfunctions.net/stravaSyncWorker"
+          WORKER_URL="https://${REGION}-${FIREBASE_PROJECT_ID}.cloudfunctions.net/stravaSyncWorkerHttp"
           firebase functions:config:set \
             strava.worker_secret="$SECRET" \
             strava.worker_url="$WORKER_URL" \
@@ -185,10 +198,10 @@ jobs:
         run: |
           set -o pipefail
           firebase deploy --only \
-            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill,functions:getGithubWorkflowRunStatus,functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull,functions:stravaCleanupLogMatches,functions:stravaEnqueueFullSync,functions:getStravaSyncJob,functions:stravaCancelSyncJob,functions:stravaSyncWorker \
+            functions:requestClimbfinderImport,functions:requestClimbDuplicateRemovals,functions:requestClimbDedupeAllSmallest,functions:requestClimbRegionBackfill,functions:requestClimbMacroBatchImport,functions:requestSplitMonolithBundle,functions:requestClimbfinderScoreBackfill,functions:getGithubWorkflowRunStatus,functions:getStravaConnectUrl,functions:setStravaSyncPrefs,functions:stravaCompleteOAuth,functions:stravaOAuthCallback,functions:stravaDisconnect,functions:getStravaStatus,functions:stravaSyncTrial,functions:stravaSyncFull,functions:stravaCleanupLogMatches,functions:stravaEnqueueFullSync,functions:getStravaSyncJob,functions:stravaCancelSyncJob,functions:stravaSyncWorkerHttp \
             --project "$FIREBASE_PROJECT_ID" --non-interactive --debug 2>&1 | tee firebase-deploy.log
           DEPLOY_EXIT=${PIPESTATUS[0]}
-          if grep -qE "Failed to (update|create|upsert).*function" firebase-deploy.log; then
+          if grep -qE "Failed to (update|create|upsert).*function|Cannot set CPU on the functions" firebase-deploy.log; then
             echo "::error::Function deploy mislukt (niet alleen cleanup). Controleer gcf-artifacts + IAM Artifact Registry Writer — docs/auth/GITHUB_IMPORT.md"
             if grep -q "Unable to retrieve the repository metadata" firebase-deploy.log; then
               echo "::error::Artifact Registry: metadata voor gcf-artifacts niet leesbaar (repo ontbreekt, API uit, of deploy-SA mist Artifact Registry Writer)."
