@@ -2134,9 +2134,14 @@
     }
   }
 
+  function setMapTouchSheetOpen(open) {
+    document.querySelector(".map-panel")?.classList.toggle("map-touch-sheet-open", Boolean(open));
+  }
+
   function hideMapTouchSheet() {
     const sheet = $("mapTouchSheet");
     if (sheet) sheet.hidden = true;
+    setMapTouchSheetOpen(false);
   }
 
   function updateMapTouchSheet(climb) {
@@ -2170,6 +2175,7 @@
       statusHost.innerHTML = "";
     }
     sheet.hidden = false;
+    setMapTouchSheetOpen(true);
   }
 
   function setMobilePane(pane) {
@@ -3772,6 +3778,7 @@
     state.map = L.map("map", {
       zoomControl: false,
       keyboard: false,
+      attributionControl: false,
       tapTolerance: isCoarsePointer() ? 28 : 15,
     });
     L.control.zoom({ position: "topleft" }).addTo(state.map);
