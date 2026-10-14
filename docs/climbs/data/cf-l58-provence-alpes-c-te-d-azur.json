@@ -5,7 +5,7 @@
     "title": "Provence-Alpes-Côte d'Azur",
     "region_label": "Provence-Alpes-Côte d'Azur",
     "country": "FR",
-    "updated_at": "2026-10-08T06:49:14Z",
+    "updated_at": "2026-10-14T18:17:02Z",
     "count": 5,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 58
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-14T18:17:02Z"
+    }
   },
   "climbs": [
     {
@@ -32,7 +35,8 @@
         "slug": "col-de-veaux-le-toulourenc",
         "url": "https://climbfinder.com/en/climbs/col-de-veaux-le-toulourenc",
         "category": "5",
-        "resolved_locality_id": 58
+        "resolved_locality_id": 58,
+        "difficulty_points": 38
       },
       "stats": {
         "length_m": 2914,
@@ -42,7 +46,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.7,
         "steepest_1km_pct": 4.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 38
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -838,7 +843,8 @@
         "slug": "col-des-veaux-veaux",
         "url": "https://climbfinder.com/en/climbs/col-des-veaux-veaux",
         "category": "4",
-        "resolved_locality_id": 58
+        "resolved_locality_id": 58,
+        "difficulty_points": 130
       },
       "stats": {
         "length_m": 6741,
@@ -848,7 +854,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.7,
         "steepest_1km_pct": 6.8,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 130
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -2560,7 +2567,8 @@
         "slug": "col-du-reychasset-pres-du-fonds",
         "url": "https://climbfinder.com/en/climbs/col-du-reychasset-pres-du-fonds",
         "category": "3",
-        "resolved_locality_id": 58
+        "resolved_locality_id": 58,
+        "difficulty_points": 261
       },
       "stats": {
         "length_m": 10898,
@@ -2570,7 +2578,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 11.1,
         "steepest_1km_pct": 8.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 261
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -3986,7 +3995,8 @@
         "slug": "pas-du-voltigeur-la-vouronnade",
         "url": "https://climbfinder.com/en/climbs/pas-du-voltigeur-la-vouronnade",
         "category": "5",
-        "resolved_locality_id": 58
+        "resolved_locality_id": 58,
+        "difficulty_points": 29
       },
       "stats": {
         "length_m": 1408,
@@ -3996,7 +4006,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 4.9,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 29
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -4432,7 +4443,8 @@
         "slug": "rampe-du-motty",
         "url": "https://climbfinder.com/en/climbs/rampe-du-motty",
         "category": "3",
-        "resolved_locality_id": 58
+        "resolved_locality_id": 58,
+        "difficulty_points": 154
       },
       "stats": {
         "length_m": 2425,
@@ -4442,7 +4454,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 14.9,
         "steepest_1km_pct": 9.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 154
       },
       "difficulty_score": 3.0,
       "geometry": {
