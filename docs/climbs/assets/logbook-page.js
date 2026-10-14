@@ -2,6 +2,7 @@
 (function (global) {
   const log = global.FietsKlimClimbLog;
   const FILTER_STORAGE_KEY = "fietsklim-logbook-filters-v1";
+  const TABLE_SEARCH_KEY = "fietsklim-logbook-table-search-v1";
 
   const COUNTRY_LABELS = {
     BE: "België",
@@ -18,9 +19,15 @@
 
   let indexRegions = [];
   const datasetCountry = new Map();
+  const datasetRegionLabel = new Map();
   const bundleCache = new Map();
-  /** @type {Array<{ row: object, country: string, year: number|null, category: string, elevation: number }>} */
+  /** @type {Array<object>} */
   let enrichedCache = [];
+
+  let tableSearchQuery = "";
+  let tableSortKey = "name";
+  let tableSortDir = "asc";
+  let tableSearchTimer = null;
 
   const filters = {
     country: "",
@@ -132,8 +139,12 @@
     filters.elevMax = "";
     filters.done = "all";
     applyFiltersToForm();
+    tableSearchQuery = "";
+    const searchEl = $("logbookTableSearch");
+    if (searchEl) searchEl.value = "";
     try {
       sessionStorage.removeItem(FILTER_STORAGE_KEY);
+      sessionStorage.removeItem(TABLE_SEARCH_KEY);
     } catch {
       /* ignore */
     }
@@ -146,7 +157,9 @@
     indexRegions = data.regions || [];
     for (const r of indexRegions) {
       const id = r.id || log?.datasetIdFromRegionUrl?.(r.url);
-      if (id) datasetCountry.set(id, r.country || "");
+      if (!id) continue;
+      datasetCountry.set(id, r.country || "");
+      datasetRegionLabel.set(id, r.displayTitle || r.title || id);
     }
     return indexRegions;
   }
@@ -202,6 +215,23 @@
     return datasetCountry.get(row.datasetId) || "";
   }
 
+  function rowRegionLabel(row) {
+    return datasetRegionLabel.get(row.datasetId) || row.datasetId || "";
+  }
+
+  function rowStatusLabel(row) {
+    const bits = [];
+    if (row.done) bits.push("Geklommen");
+    if (row.wishlist) bits.push("Bucket list");
+    return bits.join(" · ") || "—";
+  }
+
+  function rideDateSortKey(row) {
+    const raw = row.stravaActivityStartAt ?? row.doneAt ?? row.updatedAt;
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : 0;
+  }
+
   async function rebuildEnrichedCache() {
     const rows = logRows();
     const out = [];
@@ -209,16 +239,22 @@
       const climb = await climbMeta(row.datasetId, row.climbId);
       const elev = Number(climb?.stats?.elevation_gain_m);
       const displayName = row.stravaClimbName || climb?.name || row.climbId || "Klim";
+      const category = normalizeCategoryFromClimb(climb);
       out.push({
         row,
         displayName,
         country: rowCountry(row),
+        regionLabel: rowRegionLabel(row),
         year: log?.logbookEntryYear?.(row) ?? null,
-        category: normalizeCategoryFromClimb(climb),
+        category,
+        categoryLabel: categoryDisplayLabel(category),
         elevation: Number.isFinite(elev) ? elev : 0,
+        statusLabel: rowStatusLabel(row),
+        rideDateLabel: log?.formatStravaRideDate?.(row) || "",
+        rideDateSort: rideDateSortKey(row),
+        hasStrava: Boolean(row.stravaActivityId),
       });
     }
-    out.sort((a, b) => a.displayName.localeCompare(b.displayName, "nl"));
     enrichedCache = out;
     return out;
   }
@@ -248,8 +284,91 @@
     return true;
   }
 
-  function filteredEnriched() {
+  function passesTableSearch(item) {
+    const q = tableSearchQuery.trim().toLowerCase();
+    if (!q) return true;
+    const hay = [
+      item.displayName,
+      item.country,
+      countryLabel(item.country),
+      item.regionLabel,
+      item.row.datasetId,
+      item.row.climbId,
+      item.statusLabel,
+      item.categoryLabel,
+      item.row.stravaActivityName,
+      String(item.row.stravaActivityId || ""),
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    return hay.includes(q);
+  }
+
+  function compareEnriched(a, b) {
+    const dir = tableSortDir === "desc" ? -1 : 1;
+    const key = tableSortKey;
+    const cmpStr = (x, y) => String(x ?? "").localeCompare(String(y ?? ""), "nl", { sensitivity: "base" });
+    const cmpNum = (x, y) => {
+      const nx = Number(x);
+      const ny = Number(y);
+      if (!Number.isFinite(nx) && !Number.isFinite(ny)) return 0;
+      if (!Number.isFinite(nx)) return 1;
+      if (!Number.isFinite(ny)) return -1;
+      return nx - ny;
+    };
+    let c = 0;
+    switch (key) {
+      case "name":
+        c = cmpStr(a.displayName, b.displayName);
+        break;
+      case "country":
+        c = cmpStr(countryLabel(a.country), countryLabel(b.country));
+        break;
+      case "region":
+        c = cmpStr(a.regionLabel, b.regionLabel);
+        break;
+      case "category":
+        c = compareCategoryKeys(a.category, b.category);
+        break;
+      case "elevation":
+        c = cmpNum(a.elevation, b.elevation);
+        break;
+      case "year":
+        c = cmpNum(a.year, b.year);
+        break;
+      case "status":
+        c = cmpStr(a.statusLabel, b.statusLabel);
+        break;
+      case "rideDate":
+        c = cmpNum(a.rideDateSort, b.rideDateSort);
+        break;
+      default:
+        c = cmpStr(a.displayName, b.displayName);
+    }
+    if (c === 0) c = cmpStr(a.displayName, b.displayName);
+    return c * dir;
+  }
+
+  function filteredByPanelFilters() {
     return enrichedCache.filter(passesFilters);
+  }
+
+  function filteredEnriched() {
+    return filteredByPanelFilters().filter(passesTableSearch).sort(compareEnriched);
+  }
+
+  function updateSortHeaderAria() {
+    const table = $("logbookTable");
+    if (!table) return;
+    for (const th of table.querySelectorAll(".logbook-th-sort")) {
+      const key = th.getAttribute("data-sort");
+      if (key === tableSortKey) {
+        th.setAttribute("aria-sort", tableSortDir === "asc" ? "ascending" : "descending");
+      } else {
+        th.setAttribute("aria-sort", "none");
+      }
+    }
   }
 
   function fillFilterOptions() {
@@ -302,48 +421,95 @@
         void renderAll();
       });
     }
+    const searchEl = $("logbookTableSearch");
+    searchEl?.addEventListener("input", () => {
+      clearTimeout(tableSearchTimer);
+      tableSearchTimer = setTimeout(() => {
+        tableSearchQuery = searchEl.value || "";
+        try {
+          sessionStorage.setItem(TABLE_SEARCH_KEY, tableSearchQuery);
+        } catch {
+          /* ignore */
+        }
+        void renderAll();
+      }, 180);
+    });
+    $("logbookTable")?.querySelectorAll(".logbook-th-sort").forEach((th) => {
+      th.addEventListener("click", () => {
+        const key = th.getAttribute("data-sort");
+        if (!key) return;
+        if (tableSortKey === key) {
+          tableSortDir = tableSortDir === "asc" ? "desc" : "asc";
+        } else {
+          tableSortKey = key;
+          tableSortDir = key === "name" || key === "country" || key === "region" ? "asc" : "desc";
+        }
+        updateSortHeaderAria();
+        void renderAll();
+      });
+      th.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          th.click();
+        }
+      });
+    });
   }
 
-  function renderListItem(row, displayName) {
-    const li = document.createElement("li");
-    const climbLabel = displayName || row.stravaClimbName || row.climbId || "Klim";
+  function renderTableRow(item) {
+    const row = item.row;
+    const tr = document.createElement("tr");
+    const climbLabel = item.displayName;
     const actId = row.stravaActivityId;
-    const actLabel = row.stravaActivityName || (actId ? `Rit ${actId}` : "Strava-rit");
-    const cc = rowCountry(row);
-    const ds = row.datasetId
-      ? `<span class="strava-match-dataset">${escapeHtml(row.datasetId)}</span>${cc ? ` · ${escapeHtml(countryLabel(cc))}` : ""} · `
-      : "";
+    const actLabel = row.stravaActivityName || (actId ? `Rit ${actId}` : "—");
 
-    const strong = document.createElement("strong");
+    const tdName = document.createElement("td");
+    tdName.className = "logbook-td-name";
     if (row.datasetId && row.climbId && log?.databaseClimbUrl) {
       const climbLink = document.createElement("a");
       climbLink.href = log.databaseClimbUrl(row.datasetId, row.climbId, { back: "logbook" });
       climbLink.textContent = climbLabel;
       climbLink.className = "strava-match-climb-link";
       climbLink.addEventListener("click", () => log.rememberNavBack?.("logbook"));
-      strong.appendChild(climbLink);
+      tdName.appendChild(climbLink);
     } else {
-      strong.textContent = climbLabel;
+      tdName.textContent = climbLabel;
     }
     if (row.stravaActivityId) {
-      strong.appendChild(stravaMarkElement());
+      tdName.appendChild(stravaMarkElement());
     }
+    const dsHint = document.createElement("span");
+    dsHint.className = "logbook-td-dataset";
+    dsHint.textContent = row.datasetId || "";
+    dsHint.title = row.datasetId || "";
+    tdName.appendChild(dsHint);
 
-    const statusBits = [];
-    if (row.done) statusBits.push("Geklommen");
-    if (row.wishlist) statusBits.push("Bucket list");
-    if (statusBits.length) {
-      const st = document.createElement("span");
-      st.className = "logbook-row-status";
-      st.textContent = ` (${statusBits.join(" · ")})`;
-      strong.appendChild(st);
-    }
+    const tdCountry = document.createElement("td");
+    tdCountry.textContent = countryLabel(item.country);
 
-    const wrap = document.createElement("span");
-    wrap.innerHTML = ds;
-    li.appendChild(wrap);
-    li.appendChild(strong);
+    const tdRegion = document.createElement("td");
+    tdRegion.className = "logbook-td-region";
+    tdRegion.textContent = item.regionLabel;
+    tdRegion.title = item.regionLabel;
 
+    const tdCat = document.createElement("td");
+    tdCat.className = "logbook-td-num";
+    tdCat.textContent = item.category === "__uncat__" ? "—" : item.category === "HC" ? "HC" : item.category;
+
+    const tdElev = document.createElement("td");
+    tdElev.className = "logbook-td-num";
+    tdElev.textContent = item.elevation ? formatNlInteger(item.elevation) : "—";
+
+    const tdYear = document.createElement("td");
+    tdYear.className = "logbook-td-num";
+    tdYear.textContent = item.year != null ? String(item.year) : "—";
+
+    const tdStatus = document.createElement("td");
+    tdStatus.className = "logbook-td-status";
+    tdStatus.textContent = item.statusLabel;
+
+    const tdRide = document.createElement("td");
+    tdRide.className = "logbook-td-ride";
     if (row.stravaActivityId) {
       const stravaLink = document.createElement("a");
       stravaLink.textContent = actLabel;
@@ -354,17 +520,18 @@
         stravaLink.target = "_blank";
         stravaLink.rel = "noopener noreferrer";
       }
-      li.appendChild(document.createTextNode(" → "));
-      li.appendChild(stravaLink);
+      tdRide.appendChild(stravaLink);
+    } else {
+      tdRide.textContent = "—";
+    }
 
-      const rideDate = log?.formatStravaRideDate?.(row);
-      if (rideDate) {
-        const dateSpan = document.createElement("span");
-        dateSpan.className = "logbook-ride-date";
-        dateSpan.textContent = rideDate;
-        li.appendChild(dateSpan);
-      }
+    const tdDate = document.createElement("td");
+    tdDate.className = "logbook-td-date";
+    tdDate.textContent = item.rideDateLabel || "—";
 
+    const tdAction = document.createElement("td");
+    tdAction.className = "logbook-td-actions";
+    if (row.stravaActivityId) {
       const unlink = document.createElement("button");
       unlink.type = "button";
       unlink.className = "logbook-unlink-btn";
@@ -377,32 +544,38 @@
         if (!ok) return;
         void log.clearStravaLink(row.datasetId, row.climbId).then(() => void refresh());
       });
-      li.appendChild(unlink);
+      tdAction.appendChild(unlink);
+    } else {
+      tdAction.textContent = "—";
     }
 
-    return li;
+    tr.append(tdName, tdCountry, tdRegion, tdCat, tdElev, tdYear, tdStatus, tdRide, tdDate, tdAction);
+    return tr;
   }
 
   async function renderList() {
-    const ul = $("logbookStravaList");
+    const tbody = $("logbookTableBody");
+    const wrap = $("logbookTableWrap");
     const empty = $("logbookListEmpty");
     const summary = $("logbookListSummary");
-    if (!ul) return;
+    if (!tbody) return;
 
     const items = filteredEnriched();
-    ul.innerHTML = "";
-    if (empty) empty.hidden = items.length > 0 || logRows().length > 0;
-    if (logRows().length === 0 && empty) empty.hidden = false;
+    const total = logRows().length;
+    tbody.innerHTML = "";
+    if (wrap) wrap.hidden = total === 0;
+    if (empty) empty.hidden = total > 0;
+
+    updateSortHeaderAria();
 
     if (summary) {
-      const total = logRows().length;
       summary.textContent =
         total === 0
           ? "Nog geen klimmen in je logboek (gedaan of bucket list)."
-          : `${formatNlInteger(items.length)} van ${formatNlInteger(total)} klim(men) binnen je filters`;
+          : `${formatNlInteger(items.length)} van ${formatNlInteger(total)} klim(men) binnen je filters en zoekterm`;
     }
-    for (const { row, displayName } of items) {
-      ul.appendChild(renderListItem(row, displayName));
+    for (const item of items) {
+      tbody.appendChild(renderTableRow(item));
     }
   }
 
@@ -411,12 +584,12 @@
     const grid = $("logbookStatsGrid");
     const details = $("logbookStatsDetails");
     const breakdown = $("logbookStatsBreakdown");
-    const items = filteredEnriched().filter((i) => i.row.done);
+    const items = filteredByPanelFilters().filter((i) => i.row.done);
     if (!summaryEl) return;
 
     if (!items.length) {
       summaryEl.textContent =
-        filteredEnriched().length === 0
+        filteredByPanelFilters().length === 0
           ? "Geen rijen binnen de huidige filters."
           : "Geen geklommen klimmen binnen de huidige filters (pas status-filter aan).";
       if (grid) grid.hidden = true;
@@ -493,9 +666,20 @@
     await renderAll();
   }
 
+  function loadTableSearchFromStorage() {
+    try {
+      tableSearchQuery = sessionStorage.getItem(TABLE_SEARCH_KEY) || "";
+    } catch {
+      tableSearchQuery = "";
+    }
+    const searchEl = $("logbookTableSearch");
+    if (searchEl) searchEl.value = tableSearchQuery;
+  }
+
   async function boot() {
     if (!log) return;
     loadFiltersFromStorage();
+    loadTableSearchFromStorage();
     applyFiltersToForm();
     bindFilterUi();
     try {

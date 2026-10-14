@@ -160,11 +160,172 @@
   padding-left: 1.2rem;
 }
 
-.logbook-strava-list li {
+.logbook-table-toolbar {
+  margin: 0.5rem 0 0.65rem;
+}
+
+.logbook-table-search-label {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.5rem;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  max-width: 22rem;
+}
+
+.logbook-table-search {
+  width: 100%;
+  margin: 0;
+}
+
+.logbook-table-wrap {
+  overflow: auto;
+  max-height: min(70vh, 42rem);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.logbook-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.logbook-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f1f5f9;
+  box-shadow: 0 1px 0 #e2e8f0;
+}
+
+.logbook-table th,
+.logbook-table td {
+  padding: 0.4rem 0.55rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.logbook-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.logbook-th-sort {
+  cursor: pointer;
+  user-select: none;
+}
+
+.logbook-th-sort:hover {
+  color: #0f766e;
+  background: #e2e8f0;
+}
+
+.logbook-th-sort:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: -2px;
+}
+
+.logbook-th-num,
+.logbook-td-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.logbook-th-actions,
+.logbook-td-actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.logbook-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.logbook-table tbody tr:hover {
+  background: #ecfdf5;
+}
+
+.logbook-td-name {
+  min-width: 9rem;
+  max-width: 14rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.logbook-td-name .strava-match-climb-link {
+  font-weight: 600;
+}
+
+.logbook-td-dataset {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: #94a3b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 13rem;
+}
+
+.logbook-td-region {
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logbook-td-status {
+  font-size: 0.78rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.logbook-td-ride a {
+  color: #fc4c02;
+  text-decoration: none;
+  max-width: 10rem;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.logbook-td-ride a:hover {
+  text-decoration: underline;
+}
+
+.logbook-td-date {
+  font-size: 0.78rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.logbook-table .logbook-unlink-btn {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #64748b;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.logbook-table .logbook-unlink-btn:hover {
+  border-color: #b91c1c;
+  color: #b91c1c;
 }
 
 .logbook-strava-mark {
