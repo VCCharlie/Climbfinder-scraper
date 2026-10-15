@@ -46,4 +46,11 @@ const diag = bg.syncJobDiagnostics({
 assert.strictEqual(diag.staleRunning, true);
 assert.ok(diag.hints.length >= 2);
 
+const strava = require("./strava");
+const dailyErr = {
+  stravaRateLimit: { limit15: 100, limitDay: 1000, usage15: 50, usageDay: 1000 },
+};
+assert.ok(strava.rateLimitBatchDelaySeconds(dailyErr) >= 1800);
+assert.ok(/daglimiet/i.test(strava.formatRateLimitJobMessage(dailyErr, 7200)));
+
 console.log("stravaSyncJob.test.js OK");

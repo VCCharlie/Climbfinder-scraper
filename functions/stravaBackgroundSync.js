@@ -10,8 +10,8 @@ const TASK_QUEUE_ID = "strava-sync";
 const JOB_COLLECTION = "stravaSyncJobs";
 const ACTIVE_STATUSES = ["queued", "running"];
 const BATCH_DELAY_SECONDS = 22;
-/** Na Strava 429: hele batch later opnieuw (read quota reset ~15 min). */
-const RATE_LIMIT_BATCH_DELAY_SECONDS = 900;
+/** Stop automatische 429-retries zonder voortgang (batchCount blijft 0). */
+const MAX_RATE_LIMIT_RETRIES_WITHOUT_PROGRESS = 10;
 const WORKER_SECRET_HEADER = "x-fietsklim-worker-secret";
 /** Gen1 worker timeout (runWith) — jobs die langer op `running` blijven zijn vastgelopen. */
 const WORKER_TIMEOUT_SECONDS = 300;
@@ -464,20 +464,50 @@ async function processStravaSyncJob(uid, jobId) {
       functions.logger.info("stravaSyncWorker batch aborted (cancelled)", uid, jobId);
       return;
     }
-    const { isStravaRateLimitError } = require("./strava");
+    const {
+      isStravaRateLimitError,
+      rateLimitBatchDelaySeconds,
+      formatRateLimitJobMessage,
+    } = require("./strava");
     if (isStravaRateLimitError(e)) {
-      functions.logger.warn("stravaSyncWorker Strava rate limit — reschedule batch", uid, jobId);
+      const retryCount = (job.rateLimitRetryCount || 0) + 1;
+      const batchCount = job.batchCount || 0;
+      if (
+        retryCount > MAX_RATE_LIMIT_RETRIES_WITHOUT_PROGRESS &&
+        batchCount === 0
+      ) {
+        const rl = e.stravaRateLimit;
+        const quota =
+          rl && rl.usageDay != null && rl.limitDay != null
+            ? `${rl.usageDay}/${rl.limitDay} reads vandaag`
+            : "quota uitgeput";
+        await markJobFailed(
+          uid,
+          jobId,
+          `Strava blijft 429 (${quota}). Annuleer eventuele server-sync, wacht tot UTC-midnight of morgen, sync dan opnieuw (of eerst één regio).`
+        );
+        return;
+      }
+      const delaySec = rateLimitBatchDelaySeconds(e);
+      functions.logger.warn("stravaSyncWorker Strava rate limit — reschedule batch", {
+        uid,
+        jobId,
+        retryCount,
+        delaySec,
+        stravaRateLimit: e.stravaRateLimit || null,
+      });
       await ref.set(
         {
           status: "queued",
-          lastMessage: "Strava rate limit — batch opnieuw gepland over ~15 min.",
+          rateLimitRetryCount: retryCount,
+          lastMessage: formatRateLimitJobMessage(e, delaySec),
           error: null,
           updatedAt: admin.firestore.FieldValue.serverTimestamp(),
         },
         { merge: true }
       );
       try {
-        await enqueueWorkerTask({ uid, jobId }, RATE_LIMIT_BATCH_DELAY_SECONDS);
+        await enqueueWorkerTask({ uid, jobId }, delaySec);
       } catch (enqueueErr) {
         await markJobFailed(
           uid,
