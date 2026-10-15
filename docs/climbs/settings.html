@@ -110,6 +110,28 @@
       </div>
     </section>
 
+    <section class="settings-card" id="cplSettingsCard" aria-labelledby="cplSettingsTitle">
+      <h2 id="cplSettingsTitle">Climb Performance Lab</h2>
+      <p>
+        Match klimmen uit je <strong>Performance Lab</strong>-activiteiten (Firestore), zonder Strava API-limieten.
+        Routes komen uit <code>strava_map</code> of <code>intervals_map</code> in CPL. Ritdatum <strong>van/tot</strong> hieronder
+        zijn dezelfde velden als bij Strava-sync.
+      </p>
+      <div class="settings-actions">
+        <button type="button" id="cplServerFullSyncBtn" class="secondary strava-sync-primary" hidden>
+          Volledige database (server)
+        </button>
+        <button type="button" id="cplCancelServerSyncBtn" class="secondary" hidden>
+          Annuleer CPL server-sync
+        </button>
+      </div>
+      <p id="cplSyncStatus" class="settings-status" role="status"></p>
+      <p class="settings-hint">
+        Eerste keer: IAM + <code>cpl.worker_secret</code> en queue <code>cpl-sync</code> — zie
+        <a href="../auth/CPL_SYNC.md">docs/auth/CPL_SYNC.md</a>.
+      </p>
+    </section>
+
     <section class="settings-card" aria-labelledby="logbookSettingsTitle">
       <h2 id="logbookSettingsTitle">Logboek</h2>
       <p id="logbookSyncStatus" class="settings-sync-line" role="status">Sync: laden…</p>
@@ -164,6 +186,7 @@
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
   <script src="assets/strava-sync.js?v=20261014stravaenqueueerr1"></script>
+  <script src="assets/cpl-sync.js?v=20261015cpl1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>

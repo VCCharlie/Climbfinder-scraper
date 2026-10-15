@@ -1426,6 +1426,8 @@ exports.stravaCleanupLogMatches = functions
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
 exports.runStravaSyncBatch = runStravaSyncBatch;
 exports.isStravaRateLimitError = isStravaRateLimitError;
+exports.loadDataset = loadDataset;
+exports.loadRegionDatasetIds = loadRegionDatasetIds;
 exports.rateLimitBatchDelaySeconds = rateLimitBatchDelaySeconds;
 exports.formatRateLimitJobMessage = formatRateLimitJobMessage;
 Object.assign(exports, require("./stravaBackgroundSync"));
