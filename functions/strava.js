@@ -238,6 +238,90 @@ async function getStoredIntegration(uid) {
   return snap.exists ? snap.data() : null;
 }
 
+function parseStravaRateLimitFromHeaders(res) {
+  const splitNums = (h) =>
+    String(h || "")
+      .split(",")
+      .map((s) => Number(s.trim()))
+      .filter((n) => Number.isFinite(n));
+  const limits = splitNums(
+    res.headers.get("x-ratelimit-limit") || res.headers.get("X-RateLimit-Limit")
+  );
+  const usage = splitNums(
+    res.headers.get("x-ratelimit-usage") || res.headers.get("X-RateLimit-Usage")
+  );
+  return {
+    limit15: limits[0] ?? null,
+    limitDay: limits[1] ?? null,
+    usage15: usage[0] ?? null,
+    usageDay: usage[1] ?? null,
+  };
+}
+
+function stravaRateLimitError(res, bodyText) {
+  const err = new Error(
+    `Strava API 429: ${(bodyText || "").slice(0, 200) || "Rate Limit Exceeded"}`
+  );
+  err.stravaRateLimit = parseStravaRateLimitFromHeaders(res);
+  return err;
+}
+
+/** Delay before server-sync batch retry after 429 (seconds). */
+function rateLimitBatchDelaySeconds(err) {
+  const rl = err?.stravaRateLimit;
+  const DEFAULT = 900;
+  if (!rl) return DEFAULT;
+  if (
+    rl.limitDay != null &&
+    rl.usageDay != null &&
+    rl.usageDay >= rl.limitDay
+  ) {
+    const now = new Date();
+    const nextUtc = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() + 1,
+      0,
+      10,
+      0
+    );
+    return Math.max(1800, Math.ceil((nextUtc - now.getTime()) / 1000));
+  }
+  if (
+    rl.limit15 != null &&
+    rl.usage15 != null &&
+    rl.usage15 >= rl.limit15
+  ) {
+    return DEFAULT;
+  }
+  return DEFAULT;
+}
+
+function formatRateLimitJobMessage(err, delaySec) {
+  const rl = err?.stravaRateLimit;
+  const mins = Math.max(1, Math.round(delaySec / 60));
+  if (
+    rl &&
+    rl.limitDay != null &&
+    rl.usageDay != null &&
+    rl.usageDay >= rl.limitDay
+  ) {
+    const hours = Math.max(1, Math.round(mins / 60));
+    return (
+      `Strava daglimiet bereikt (${rl.usageDay}/${rl.limitDay} API-reads vandaag) — ` +
+      `batch opnieuw gepland over ~${hours} uur (UTC-reset). ` +
+      `Annuleer server-sync om automatische retries te stoppen.`
+    );
+  }
+  if (rl && rl.limit15 != null && rl.usage15 != null) {
+    return (
+      `Strava rate limit (${rl.usage15}/${rl.limit15} reads per 15 min) — ` +
+      `batch opnieuw gepland over ~${mins} min.`
+    );
+  }
+  return `Strava rate limit — batch opnieuw gepland over ~${mins} min.`;
+}
+
 function stravaRateLimitWaitMs(res, attempt) {
   const resetHeader = res.headers.get("x-ratelimit-reset") || res.headers.get("X-RateLimit-Reset");
   if (resetHeader) {
@@ -270,11 +354,17 @@ async function stravaFetch(path, accessToken, opts = {}) {
     }
     if (!res.ok) {
       lastText = await res.text();
+      if (res.status === 429) {
+        throw stravaRateLimitError(res, lastText);
+      }
       throw new Error(`Strava API ${res.status}: ${lastText.slice(0, 200)}`);
     }
     return res.json();
   }
-  throw new Error(`Strava API 429: ${lastText.slice(0, 200) || "Rate Limit Exceeded"}`);
+  throw stravaRateLimitError(
+    { headers: { get: () => null } },
+    lastText || "Rate Limit Exceeded"
+  );
 }
 
 function isStravaRateLimitError(err) {
@@ -346,6 +436,9 @@ async function assertPrivateScopeIfNeeded(uid, prefs) {
   const integration = await getStoredIntegration(uid);
   if (!integration) {
     throw new functions.https.HttpsError("failed-precondition", "Strava is niet gekoppeld.");
+  }
+  if (integrationHasPrivateScope(integration.scope)) {
+    return;
   }
   const scopeInfo = await resolvePrivateScopeForStatus(uid, integration, prefs);
   if (!scopeInfo.hasPrivateScope) {
@@ -1335,5 +1428,6 @@ exports.runStravaSyncBatch = runStravaSyncBatch;
 exports.isStravaRateLimitError = isStravaRateLimitError;
 exports.loadDataset = loadDataset;
 exports.loadRegionDatasetIds = loadRegionDatasetIds;
-exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
+exports.rateLimitBatchDelaySeconds = rateLimitBatchDelaySeconds;
+exports.formatRateLimitJobMessage = formatRateLimitJobMessage;
 Object.assign(exports, require("./stravaBackgroundSync"));
