@@ -143,7 +143,10 @@ severity>=ERROR
 
 4. **Cloud Tasks** → queue `strava-sync` (`europe-west1`): laatste taak → HTTP-status **403** = `strava.worker_secret` mismatch; **5xx** = batch-fout (zie log `stravaSyncWorker batch`).
 
-Typische oorzaak bij **hele database**: eerste batch laadt meerdere grote regio-JSON’s + Strava-activiteiten; bij **Functions time-out (300 s)** bleef de job-doc eerder eeuwig op `running` staan — annuleren hielp soms niet omdat een lopende worker daarna alsnog `queued` zette.
+Typische oorzaken:
+
+- **Strava 429 (Rate Limit Exceeded)** bij `fetchActivityPages` — zie log `stravaSyncWorker batch … Strava API 429`. Job blijft dan `batchCount: 0` / `firstBatchPending: true`. Oplossing: wacht ~15 min (geen browser-sync parallel), start server-sync opnieuw; na deploy wordt de batch automatisch opnieuw gepland i.p.v. vast op `running`.
+- **Functions time-out (300 s)** bij hele database (grote regio-JSON’s); stale-lease zet zo’n job op `failed` na ~7 min zonder update.
 
 Zie ook [`STRAVA_ROADMAP.md`](./STRAVA_ROADMAP.md).
 

@@ -10,6 +10,8 @@ const TASK_QUEUE_ID = "strava-sync";
 const JOB_COLLECTION = "stravaSyncJobs";
 const ACTIVE_STATUSES = ["queued", "running"];
 const BATCH_DELAY_SECONDS = 22;
+/** Na Strava 429: hele batch later opnieuw (read quota reset ~15 min). */
+const RATE_LIMIT_BATCH_DELAY_SECONDS = 900;
 const WORKER_SECRET_HEADER = "x-fietsklim-worker-secret";
 /** Gen1 worker timeout (runWith) — jobs die langer op `running` blijven zijn vastgelopen. */
 const WORKER_TIMEOUT_SECONDS = 300;
@@ -460,6 +462,29 @@ async function processStravaSyncJob(uid, jobId) {
   } catch (e) {
     if (await jobWasCancelled(uid, jobId)) {
       functions.logger.info("stravaSyncWorker batch aborted (cancelled)", uid, jobId);
+      return;
+    }
+    const { isStravaRateLimitError } = require("./strava");
+    if (isStravaRateLimitError(e)) {
+      functions.logger.warn("stravaSyncWorker Strava rate limit — reschedule batch", uid, jobId);
+      await ref.set(
+        {
+          status: "queued",
+          lastMessage: "Strava rate limit — batch opnieuw gepland over ~15 min.",
+          error: null,
+          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+      try {
+        await enqueueWorkerTask({ uid, jobId }, RATE_LIMIT_BATCH_DELAY_SECONDS);
+      } catch (enqueueErr) {
+        await markJobFailed(
+          uid,
+          jobId,
+          `Strava rate limit en Cloud Task mislukt: ${enqueueErr.message || enqueueErr}`
+        );
+      }
       return;
     }
     if (e instanceof functions.https.HttpsError) {
