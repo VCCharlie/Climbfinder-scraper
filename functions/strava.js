@@ -238,15 +238,48 @@ async function getStoredIntegration(uid) {
   return snap.exists ? snap.data() : null;
 }
 
-async function stravaFetch(path, accessToken) {
-  const res = await fetch(`${STRAVA_API}${path}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Strava API ${res.status}: ${text.slice(0, 200)}`);
+function stravaRateLimitWaitMs(res, attempt) {
+  const resetHeader = res.headers.get("x-ratelimit-reset") || res.headers.get("X-RateLimit-Reset");
+  if (resetHeader) {
+    const resetSec = Number(resetHeader);
+    if (Number.isFinite(resetSec) && resetSec > 0) {
+      const until = resetSec * 1000 - Date.now();
+      if (until > 0) return Math.min(until, 120_000);
+    }
   }
-  return res.json();
+  const retryAfter = res.headers.get("retry-after") || res.headers.get("Retry-After");
+  if (retryAfter) {
+    const sec = Number(retryAfter);
+    if (Number.isFinite(sec) && sec > 0) return Math.min(sec * 1000, 120_000);
+  }
+  return Math.min(15_000 * attempt, 60_000);
+}
+
+async function stravaFetch(path, accessToken, opts = {}) {
+  const maxAttempts = Math.max(1, Number(opts.maxAttempts) || 3);
+  let lastText = "";
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const res = await fetch(`${STRAVA_API}${path}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (res.status === 429 && attempt < maxAttempts) {
+      const waitMs = stravaRateLimitWaitMs(res, attempt);
+      functions.logger.warn("Strava 429, retry", { path, attempt, waitMs });
+      await new Promise((r) => setTimeout(r, waitMs));
+      continue;
+    }
+    if (!res.ok) {
+      lastText = await res.text();
+      throw new Error(`Strava API ${res.status}: ${lastText.slice(0, 200)}`);
+    }
+    return res.json();
+  }
+  throw new Error(`Strava API 429: ${lastText.slice(0, 200) || "Rate Limit Exceeded"}`);
+}
+
+function isStravaRateLimitError(err) {
+  const msg = err?.message || String(err);
+  return /Strava API 429|Rate Limit Exceeded/i.test(msg);
 }
 
 async function refreshAccessToken(integration) {
@@ -1299,4 +1332,5 @@ exports.stravaCleanupLogMatches = functions
 
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
 exports.runStravaSyncBatch = runStravaSyncBatch;
+exports.isStravaRateLimitError = isStravaRateLimitError;
 Object.assign(exports, require("./stravaBackgroundSync"));
