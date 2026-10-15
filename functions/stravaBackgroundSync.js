@@ -11,6 +11,71 @@ const JOB_COLLECTION = "stravaSyncJobs";
 const ACTIVE_STATUSES = ["queued", "running"];
 const BATCH_DELAY_SECONDS = 22;
 const WORKER_SECRET_HEADER = "x-fietsklim-worker-secret";
+/** Gen1 worker timeout (runWith) — jobs die langer op `running` blijven zijn vastgelopen. */
+const WORKER_TIMEOUT_SECONDS = 300;
+const RUNNING_STALE_MS = (WORKER_TIMEOUT_SECONDS + 120) * 1000;
+
+function jobUpdatedAtMs(job) {
+  if (!job) return 0;
+  const u = job.updatedAt;
+  if (u?.toMillis) return u.toMillis();
+  if (typeof u === "string") {
+    const t = Date.parse(u);
+    if (Number.isFinite(t)) return t;
+  }
+  if (typeof u === "number" && Number.isFinite(u)) return u;
+  return 0;
+}
+
+function isStaleRunningJob(job, nowMs = Date.now()) {
+  if (!job || job.status !== "running") return false;
+  const updated = jobUpdatedAtMs(job);
+  if (!updated) return true;
+  return nowMs - updated > RUNNING_STALE_MS;
+}
+
+function staleRunningErrorMessage(job) {
+  const updated = jobUpdatedAtMs(job);
+  const ageMin = updated ? Math.max(1, Math.round((Date.now() - updated) / 60_000)) : null;
+  const agePart = ageMin != null ? `${ageMin} min` : "onbekende duur";
+  return (
+    `Server-sync hing vast op 'running' (${agePart}). ` +
+    "Waarschijnlijk time-out of crash in stravaSyncWorkerHttp — zie Firebase Logs (stravaSyncWorker / stravaSyncWorker batch). " +
+    "Annuleer of wacht tot deze melding verschijnt, start daarna opnieuw (cursor in Strava-integratie blijft behouden)."
+  );
+}
+
+function syncJobDiagnostics(job) {
+  if (!job) return null;
+  const updated = jobUpdatedAtMs(job);
+  const stale = isStaleRunningJob(job);
+  const hints = [];
+  if (job.status === "running" && !stale) {
+    hints.push(
+      "Worker is actief of wacht op Strava/dataset-matching. Bij hele database duurt batch 1 soms enkele minuten (max ~5 min Functions-timeout)."
+    );
+  }
+  if (stale) {
+    hints.push(staleRunningErrorMessage(job));
+    hints.push(
+      "Cloud Console → Logging: filter resource.labels.function_name=stravaSyncWorkerHttp AND severity>=ERROR."
+    );
+    hints.push(
+      "Cloud Tasks → queue strava-sync (europe-west1): mislukte taken tonen HTTP-status (403=worker_secret, 5xx=batch-crash)."
+    );
+  }
+  if (job.status === "queued" && updated && Date.now() - updated > 10 * 60_000) {
+    hints.push(
+      "Job blijft lang 'queued' — worker-task wordt niet uitgevoerd (queue, IAM Enqueuer, of verkeerde worker-URL)."
+    );
+  }
+  return {
+    runningAgeMs: updated ? Date.now() - updated : null,
+    staleRunning: stale,
+    workerTimeoutSeconds: WORKER_TIMEOUT_SECONDS,
+    hints,
+  };
+}
 
 function stravaCfg() {
   return functions.config().strava || {};
@@ -54,6 +119,24 @@ function publicJobView(doc) {
   };
 }
 
+async function reconcileStaleRunningJob(uid, docSnap) {
+  const data = docSnap.data();
+  if (!isStaleRunningJob(data)) return docSnap;
+  const msg = staleRunningErrorMessage(data);
+  functions.logger.warn("stravaSyncJob stale running → failed", { uid, jobId: docSnap.id, msg });
+  await jobRef(uid, docSnap.id).set(
+    {
+      status: "failed",
+      error: msg.slice(0, 500),
+      lastMessage: "Automatisch afgebroken (stale lease).",
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    },
+    { merge: true }
+  );
+  const refreshed = await jobRef(uid, docSnap.id).get();
+  return refreshed;
+}
+
 async function getActiveSyncJob(uid) {
   const snap = await jobsCol(uid).where("status", "in", ACTIVE_STATUSES).limit(10).get();
   if (snap.empty) return null;
@@ -65,6 +148,13 @@ async function getActiveSyncJob(uid) {
       best = doc;
       bestMs = ms;
     }
+  }
+  if (best.data().status === "running") {
+    best = await reconcileStaleRunningJob(uid, best);
+  }
+  const status = best.data().status;
+  if (status !== "queued" && status !== "running") {
+    return null;
   }
   return publicJobView(best);
 }
@@ -190,6 +280,9 @@ async function markJobFailed(uid, jobId, message) {
 }
 
 exports.getActiveSyncJob = getActiveSyncJob;
+exports.isStaleRunningJob = isStaleRunningJob;
+exports.RUNNING_STALE_MS = RUNNING_STALE_MS;
+exports.syncJobDiagnostics = syncJobDiagnostics;
 
 exports.isBackgroundSyncConfigured = function isBackgroundSyncConfigured() {
   return Boolean(stravaCfg().worker_secret);
@@ -277,14 +370,21 @@ exports.getStravaSyncJob = functions.region(REGION).https.onCall(async (data, co
   const uid = requireAuth(context);
   const jobId = String(data.jobId || "").trim();
   if (jobId) {
-    const snap = await jobRef(uid, jobId).get();
+    let snap = await jobRef(uid, jobId).get();
     if (!snap.exists) {
       throw new functions.https.HttpsError("not-found", "Sync-job niet gevonden.");
     }
-    return { job: publicJobView(snap) };
+    if (snap.data().status === "running") {
+      snap = await reconcileStaleRunningJob(uid, snap);
+    }
+    const job = publicJobView(snap);
+    return { job, diagnostics: syncJobDiagnostics(snap.data()) };
   }
   const active = await getActiveSyncJob(uid);
-  return { job: active };
+  return {
+    job: active,
+    diagnostics: active ? syncJobDiagnostics({ ...active, updatedAt: active.updatedAt }) : null,
+  };
 });
 
 exports.stravaCancelSyncJob = functions.region(REGION).https.onCall(async (data, context) => {
@@ -316,6 +416,11 @@ exports.stravaCancelSyncJob = functions.region(REGION).https.onCall(async (data,
   };
 });
 
+async function jobWasCancelled(uid, jobId) {
+  const snap = await jobRef(uid, jobId).get();
+  return snap.exists && snap.data().status === "cancelled";
+}
+
 async function processStravaSyncJob(uid, jobId) {
   const ref = jobRef(uid, jobId);
   const snap = await ref.get();
@@ -323,13 +428,20 @@ async function processStravaSyncJob(uid, jobId) {
     functions.logger.warn("stravaSyncWorker missing job", uid, jobId);
     return;
   }
-  const job = snap.data();
+  let job = snap.data();
   if (job.status === "cancelled" || job.status === "completed" || job.status === "failed") {
     return;
   }
+  if (job.status === "running" && isStaleRunningJob(job)) {
+    functions.logger.warn("stravaSyncWorker taking over stale running job", uid, jobId);
+  }
 
   await ref.set(
-    { status: "running", updatedAt: admin.firestore.FieldValue.serverTimestamp() },
+    {
+      status: "running",
+      workerStartedAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    },
     { merge: true }
   );
 
@@ -346,14 +458,33 @@ async function processStravaSyncJob(uid, jobId) {
   try {
     result = await runStravaSyncBatch(uid, payload);
   } catch (e) {
+    if (await jobWasCancelled(uid, jobId)) {
+      functions.logger.info("stravaSyncWorker batch aborted (cancelled)", uid, jobId);
+      return;
+    }
     if (e instanceof functions.https.HttpsError) {
       if (e.code === "failed-precondition" || e.code === "unauthenticated") {
         await markJobFailed(uid, jobId, e.message);
         return;
       }
     }
+    const detail = e?.message || String(e);
+    if (/deadline|timeout|DEADLINE_EXCEEDED|memory|ENOMEM/i.test(detail)) {
+      await markJobFailed(
+        uid,
+        jobId,
+        `Batch time-out of geheugenlimiet: ${detail.slice(0, 200)}. Probeer kleinere scope (één regio) of later opnieuw.`
+      );
+      return;
+    }
     functions.logger.error("stravaSyncWorker batch", uid, jobId, e);
-    throw e;
+    await markJobFailed(uid, jobId, detail.slice(0, 500));
+    return;
+  }
+
+  if (await jobWasCancelled(uid, jobId)) {
+    functions.logger.info("stravaSyncWorker skip enqueue (cancelled)", uid, jobId);
+    return;
   }
 
   const summary = result.summary || {};
@@ -387,7 +518,16 @@ async function processStravaSyncJob(uid, jobId) {
     { merge: true }
   );
 
-  await enqueueWorkerTask({ uid, jobId }, BATCH_DELAY_SECONDS);
+  try {
+    await enqueueWorkerTask({ uid, jobId }, BATCH_DELAY_SECONDS);
+  } catch (enqueueErr) {
+    functions.logger.error("stravaSyncWorker enqueue next batch", uid, jobId, enqueueErr);
+    await markJobFailed(
+      uid,
+      jobId,
+      enqueueErr.message || cloudTasksErrorMessage(enqueueErr)
+    );
+  }
 }
 
 /** Gen1 HTTP worker (niet `stravaSyncWorker` — die naam kan nog als Gen2 task-queue in GCP staan). */
@@ -425,6 +565,16 @@ exports.stravaSyncWorkerHttp = functions
       res.status(200).json({ ok: true });
     } catch (e) {
       functions.logger.error("stravaSyncWorker", e);
+      try {
+        const ref = jobRef(uid, jobId);
+        const snap = await ref.get();
+        const st = snap.data()?.status;
+        if (snap.exists && (st === "running" || st === "queued")) {
+          await markJobFailed(uid, jobId, e.message || "Worker onverwachte fout");
+        }
+      } catch (markErr) {
+        functions.logger.error("stravaSyncWorker markJobFailed", markErr);
+      }
       res.status(500).send(e.message || "batch failed");
     }
   });
