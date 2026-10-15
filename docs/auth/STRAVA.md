@@ -129,6 +129,22 @@ Worker-URL: `https://europe-west1-climb-database.cloudfunctions.net/stravaSyncWo
 
 Bij fout *Interne serverfout* op de knop: meestal queue ontbreekt of Enqueuer niet gezet — na fix opnieuw **Volledige sync (server, beta)**.
 
+**Diagnose als status urenlang `server-sync: running` blijft (Strava pag. 1, geen batch-voortgang):**
+
+1. **Firestore** (Console → `users/{uid}/stravaSyncJobs/{jobId}`): `status`, `updatedAt`, `batchCount`, `progress`, `error`. Blijft `running` terwijl `updatedAt` > ~7 min geleden → worker-crash/time-out; na deploy met stale-lease wordt de job automatisch `failed` bij volgende **Instellingen**-refresh.
+2. **Callable `getStravaSyncJob`** (zonder `jobId`): levert `diagnostics.hints` (stale lease, Cloud Tasks, Logging-filters).
+3. **Logging** (project `climb-database`):
+
+```text
+resource.type="cloud_function"
+resource.labels.function_name="stravaSyncWorkerHttp"
+severity>=ERROR
+```
+
+4. **Cloud Tasks** → queue `strava-sync` (`europe-west1`): laatste taak → HTTP-status **403** = `strava.worker_secret` mismatch; **5xx** = batch-fout (zie log `stravaSyncWorker batch`).
+
+Typische oorzaak bij **hele database**: eerste batch laadt meerdere grote regio-JSON’s + Strava-activiteiten; bij **Functions time-out (300 s)** bleef de job-doc eerder eeuwig op `running` staan — annuleren hielp soms niet omdat een lopende worker daarna alsnog `queued` zette.
+
 Zie ook [`STRAVA_ROADMAP.md`](./STRAVA_ROADMAP.md).
 
 ## 7. Migratie naar nieuw Firebase-project
