@@ -5,12 +5,15 @@
     "title": "Taranto",
     "country": "IT",
     "count": 3,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T10:22:09Z",
     "source": {
       "locality_id": 721,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T10:22:09Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "muro-di-mottola",
         "url": "https://climbfinder.com/en/climbs/muro-di-mottola",
         "category": "3",
-        "resolved_locality_id": 721
+        "resolved_locality_id": 721,
+        "difficulty_points": 210
       },
       "stats": {
         "length_m": 2392,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 16.5,
         "steepest_100m_pct": 16.3,
         "steepest_1km_pct": 10.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 210
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -723,7 +728,8 @@
         "slug": "roccaforzata-faggiano",
         "url": "https://climbfinder.com/en/climbs/roccaforzata-faggiano",
         "category": "5",
-        "resolved_locality_id": 721
+        "resolved_locality_id": 721,
+        "difficulty_points": 36
       },
       "stats": {
         "length_m": 1890,
@@ -733,7 +739,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.5,
         "steepest_1km_pct": 5.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 36
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -1291,7 +1298,8 @@
         "slug": "salita-delle-vasche-masseria-gaudella",
         "url": "https://climbfinder.com/en/climbs/salita-delle-vasche-masseria-gaudella",
         "category": "3",
-        "resolved_locality_id": 721
+        "resolved_locality_id": 721,
+        "difficulty_points": 172
       },
       "stats": {
         "length_m": 8421,
@@ -1301,7 +1309,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 10.2,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 172
       },
       "difficulty_score": 3.0,
       "geometry": {
