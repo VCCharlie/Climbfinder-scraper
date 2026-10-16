@@ -5,12 +5,15 @@
     "title": "Ragusa",
     "country": "IT",
     "count": 4,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T14:46:27Z",
     "source": {
       "locality_id": 796,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T14:46:27Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "monte-lauro-giarratana",
         "url": "https://climbfinder.com/en/climbs/monte-lauro-giarratana",
         "category": "3",
-        "resolved_locality_id": 796
+        "resolved_locality_id": 796,
+        "difficulty_points": 257
       },
       "stats": {
         "length_m": 8546,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 12.3,
         "steepest_1km_pct": 7.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 257
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -2187,7 +2192,8 @@
         "slug": "ragusa-corso-giuseppe-mazzini",
         "url": "https://climbfinder.com/en/climbs/ragusa-corso-giuseppe-mazzini",
         "category": "3",
-        "resolved_locality_id": 796
+        "resolved_locality_id": 796,
+        "difficulty_points": 163
       },
       "stats": {
         "length_m": 4328,
@@ -2197,7 +2203,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 10.0,
         "steepest_1km_pct": 8.1,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 163
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -3349,7 +3356,8 @@
         "slug": "monte-arcibessi",
         "url": "https://climbfinder.com/en/climbs/monte-arcibessi",
         "category": "2",
-        "resolved_locality_id": 796
+        "resolved_locality_id": 796,
+        "difficulty_points": 361
       },
       "stats": {
         "length_m": 8921,
@@ -3359,7 +3367,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.1,
         "steepest_1km_pct": 8.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 361
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -5601,7 +5610,8 @@
         "slug": "parco-forza",
         "url": "https://climbfinder.com/en/climbs/parco-forza",
         "category": "5",
-        "resolved_locality_id": 796
+        "resolved_locality_id": 796,
+        "difficulty_points": 31
       },
       "stats": {
         "length_m": 1414,
@@ -5611,7 +5621,8 @@
         "max_gradient_pct": 7.1,
         "steepest_100m_pct": 6.2,
         "steepest_1km_pct": 5.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 31
       },
       "difficulty_score": 5.0,
       "geometry": {

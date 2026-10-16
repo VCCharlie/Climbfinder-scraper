@@ -5,12 +5,15 @@
     "title": "Caltanissetta",
     "country": "IT",
     "count": 1,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T14:46:27Z",
     "source": {
       "locality_id": 792,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T14:46:27Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "mussomeli",
         "url": "https://climbfinder.com/en/climbs/mussomeli",
         "category": "1",
-        "resolved_locality_id": 792
+        "resolved_locality_id": 792,
+        "difficulty_points": 623
       },
       "stats": {
         "length_m": 9093,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 17.8,
         "steepest_1km_pct": 12.9,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 623
       },
       "difficulty_score": 1.0,
       "geometry": {

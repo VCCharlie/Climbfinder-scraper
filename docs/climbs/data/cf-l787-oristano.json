@@ -5,12 +5,15 @@
     "title": "Oristano",
     "country": "IT",
     "count": 37,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T14:46:27Z",
     "source": {
       "locality_id": 787,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T14:46:27Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "passo-montresta-bosa",
         "url": "https://climbfinder.com/en/climbs/passo-montresta-bosa",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 299
       },
       "stats": {
         "length_m": 10840,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 9.0,
         "steepest_100m_pct": 8.8,
         "steepest_1km_pct": 7.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 299
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -1445,7 +1450,8 @@
         "slug": "monte-arci-ales-abas",
         "url": "https://climbfinder.com/en/climbs/monte-arci-ales-abas",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 376
       },
       "stats": {
         "length_m": 9973,
@@ -1455,7 +1461,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 11.3,
         "steepest_1km_pct": 8.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 376
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -3953,7 +3960,8 @@
         "slug": "passo-badde-urbara-santu-lussurgiu",
         "url": "https://climbfinder.com/en/climbs/passo-badde-urbara-santu-lussurgiu",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 166
       },
       "stats": {
         "length_m": 8437,
@@ -3963,7 +3971,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.8,
         "steepest_1km_pct": 5.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 166
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -6089,7 +6098,8 @@
         "slug": "passo-badde-urbara-cuglieri",
         "url": "https://climbfinder.com/en/climbs/passo-badde-urbara-cuglieri",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 238
       },
       "stats": {
         "length_m": 9443,
@@ -6099,7 +6109,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.8,
         "steepest_1km_pct": 6.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 238
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -8469,7 +8480,8 @@
         "slug": "valico-sa-casa-nureci",
         "url": "https://climbfinder.com/en/climbs/valico-sa-casa-nureci",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 371
       },
       "stats": {
         "length_m": 23400,
@@ -8479,7 +8491,8 @@
         "max_gradient_pct": 6.6,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 6.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 371
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -9995,7 +10008,8 @@
         "slug": "colombariu",
         "url": "https://climbfinder.com/en/climbs/colombariu",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 253
       },
       "stats": {
         "length_m": 2106,
@@ -10005,7 +10019,8 @@
         "max_gradient_pct": 26.8,
         "steepest_100m_pct": 21.5,
         "steepest_1km_pct": 11.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 253
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -10623,7 +10638,8 @@
         "slug": "passo-badde-urbara-san-leonardo-de-siete-fuentes",
         "url": "https://climbfinder.com/en/climbs/passo-badde-urbara-san-leonardo-de-siete-fuentes",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 89
       },
       "stats": {
         "length_m": 6192,
@@ -10633,7 +10649,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 6.5,
         "steepest_1km_pct": 4.8,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 89
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -12211,7 +12228,8 @@
         "slug": "trebina-lada-bruncu-mutziu-uras",
         "url": "https://climbfinder.com/en/climbs/trebina-lada-bruncu-mutziu-uras",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 508
       },
       "stats": {
         "length_m": 14482,
@@ -12221,7 +12239,8 @@
         "max_gradient_pct": 13.8,
         "steepest_100m_pct": 13.6,
         "steepest_1km_pct": 9.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 508
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -14055,7 +14074,8 @@
         "slug": "trebina-lada-bruncu-mutziu-ales",
         "url": "https://climbfinder.com/en/climbs/trebina-lada-bruncu-mutziu-ales",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 416
       },
       "stats": {
         "length_m": 10162,
@@ -14065,7 +14085,8 @@
         "max_gradient_pct": 13.4,
         "steepest_100m_pct": 13.3,
         "steepest_1km_pct": 9.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 416
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -15395,7 +15416,8 @@
         "slug": "monte-arci-beda-manca-ales",
         "url": "https://climbfinder.com/en/climbs/monte-arci-beda-manca-ales",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 370
       },
       "stats": {
         "length_m": 8562,
@@ -15405,7 +15427,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.0,
         "steepest_1km_pct": 8.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 370
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -17563,7 +17586,8 @@
         "slug": "alto-di-neoneli-ponte-tirso",
         "url": "https://climbfinder.com/en/climbs/alto-di-neoneli-ponte-tirso",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 253
       },
       "stats": {
         "length_m": 11898,
@@ -17573,7 +17597,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.5,
         "steepest_1km_pct": 6.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 253
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -19113,7 +19138,8 @@
         "slug": "ruinas-fiume-massari",
         "url": "https://climbfinder.com/en/climbs/ruinas-fiume-massari",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 149
       },
       "stats": {
         "length_m": 6105,
@@ -19123,7 +19149,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.6,
         "steepest_1km_pct": 6.2,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 149
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -20683,7 +20710,8 @@
         "slug": "samugheo-allai",
         "url": "https://climbfinder.com/en/climbs/samugheo-allai",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 171
       },
       "stats": {
         "length_m": 7063,
@@ -20693,7 +20721,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 171
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -22485,7 +22514,8 @@
         "slug": "vedetta-monte-grighine-allai",
         "url": "https://climbfinder.com/en/climbs/vedetta-monte-grighine-allai",
         "category": "1",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 600
       },
       "stats": {
         "length_m": 8887,
@@ -22495,7 +22525,8 @@
         "max_gradient_pct": 18.0,
         "steepest_100m_pct": 17.5,
         "steepest_1km_pct": 14.3,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 600
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -24731,7 +24762,8 @@
         "slug": "nuraghe-inus-uras",
         "url": "https://climbfinder.com/en/climbs/nuraghe-inus-uras",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 347
       },
       "stats": {
         "length_m": 6426,
@@ -24741,7 +24773,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 18.2,
         "steepest_1km_pct": 11.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 347
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -26379,7 +26412,8 @@
         "slug": "monte-arci-beda-manca-villa-verde",
         "url": "https://climbfinder.com/en/climbs/monte-arci-beda-manca-villa-verde",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 362
       },
       "stats": {
         "length_m": 7024,
@@ -26389,7 +26423,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 13.0,
         "steepest_1km_pct": 8.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 362
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -28169,7 +28204,8 @@
         "slug": "nuraghe-inus-masullas-siris",
         "url": "https://climbfinder.com/en/climbs/nuraghe-inus-masullas-siris",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 303
       },
       "stats": {
         "length_m": 4059,
@@ -28179,7 +28215,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 18.0,
         "steepest_1km_pct": 11.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 303
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -29263,7 +29300,8 @@
         "slug": "giara-di-siddi-gonnostramatza",
         "url": "https://climbfinder.com/en/climbs/giara-di-siddi-gonnostramatza",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 148
       },
       "stats": {
         "length_m": 4013,
@@ -29273,7 +29311,8 @@
         "max_gradient_pct": 14.4,
         "steepest_100m_pct": 10.0,
         "steepest_1km_pct": 6.5,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 148
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -30345,7 +30384,8 @@
         "slug": "valico-sa-casa-gadoni",
         "url": "https://climbfinder.com/en/climbs/valico-sa-casa-gadoni",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 268
       },
       "stats": {
         "length_m": 17741,
@@ -30355,7 +30395,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.6,
         "steepest_1km_pct": 6.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 268
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -32585,7 +32626,8 @@
         "slug": "samugheo-ruinas",
         "url": "https://climbfinder.com/en/climbs/samugheo-ruinas",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 161
       },
       "stats": {
         "length_m": 8121,
@@ -32595,7 +32637,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 9.3,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 161
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -34643,7 +34686,8 @@
         "slug": "corongiu-arrubiu-masullas",
         "url": "https://climbfinder.com/en/climbs/corongiu-arrubiu-masullas",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 101
       },
       "stats": {
         "length_m": 663,
@@ -34653,7 +34697,8 @@
         "max_gradient_pct": 20.8,
         "steepest_100m_pct": 18.6,
         "steepest_1km_pct": 0.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 101
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -34907,7 +34952,8 @@
         "slug": "genoni-senis",
         "url": "https://climbfinder.com/en/climbs/genoni-senis",
         "category": "5",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 71
       },
       "stats": {
         "length_m": 5499,
@@ -34917,7 +34963,8 @@
         "max_gradient_pct": 7.6,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 5.2,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 71
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -36323,7 +36370,8 @@
         "slug": "valico-santa-vittoria-ponte-omodeo-via-sa-funtanedda",
         "url": "https://climbfinder.com/en/climbs/valico-santa-vittoria-ponte-omodeo-via-sa-funtanedda",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 380
       },
       "stats": {
         "length_m": 8756,
@@ -36333,7 +36381,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 18.1,
         "steepest_1km_pct": 9.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 380
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -38539,7 +38588,8 @@
         "slug": "cabirada-assolo",
         "url": "https://climbfinder.com/en/climbs/cabirada-assolo",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 304
       },
       "stats": {
         "length_m": 2006,
@@ -38549,7 +38599,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 17.2,
         "steepest_1km_pct": 13.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 304
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -39141,7 +39192,8 @@
         "slug": "complanare-ovest-carcaxia",
         "url": "https://climbfinder.com/en/climbs/complanare-ovest-carcaxia",
         "category": "5",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 34
       },
       "stats": {
         "length_m": 1644,
@@ -39151,7 +39203,8 @@
         "max_gradient_pct": 7.2,
         "steepest_100m_pct": 7.0,
         "steepest_1km_pct": 4.9,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 34
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -39645,7 +39698,8 @@
         "slug": "tramesu-e-bruncus-uras",
         "url": "https://climbfinder.com/en/climbs/tramesu-e-bruncus-uras",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 166
       },
       "stats": {
         "length_m": 5250,
@@ -39655,7 +39709,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.3,
         "steepest_1km_pct": 8.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 166
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -41001,7 +41056,8 @@
         "slug": "giara-gonnosno",
         "url": "https://climbfinder.com/en/climbs/giara-gonnosno",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 294
       },
       "stats": {
         "length_m": 3861,
@@ -41011,7 +41067,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.6,
         "steepest_1km_pct": 9.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 294
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -42045,7 +42102,8 @@
         "slug": "tramesu-e-bruncus-masullas",
         "url": "https://climbfinder.com/en/climbs/tramesu-e-bruncus-masullas",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 127
       },
       "stats": {
         "length_m": 1598,
@@ -42055,7 +42113,8 @@
         "max_gradient_pct": 17.6,
         "steepest_100m_pct": 16.6,
         "steepest_1km_pct": 10.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 127
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -42535,7 +42594,8 @@
         "slug": "valico-santa-vittoria-ponte-omodeo-bidoni",
         "url": "https://climbfinder.com/en/climbs/valico-santa-vittoria-ponte-omodeo-bidoni",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 303
       },
       "stats": {
         "length_m": 11181,
@@ -42545,7 +42605,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 9.1,
         "steepest_1km_pct": 6.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 303
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -43999,7 +44060,8 @@
         "slug": "funtana-raminosa",
         "url": "https://climbfinder.com/en/climbs/funtana-raminosa",
         "category": "2",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 456
       },
       "stats": {
         "length_m": 3762,
@@ -44009,7 +44071,8 @@
         "max_gradient_pct": 17.6,
         "steepest_100m_pct": 16.8,
         "steepest_1km_pct": 14.5,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 456
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -45017,7 +45080,8 @@
         "slug": "santa-maria-di-abbasassa-asuni",
         "url": "https://climbfinder.com/en/climbs/santa-maria-di-abbasassa-asuni",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 201
       },
       "stats": {
         "length_m": 4673,
@@ -45027,7 +45091,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 9.8,
         "steepest_1km_pct": 7.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 201
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -46261,7 +46326,8 @@
         "slug": "valico-quassoli-curcuris",
         "url": "https://climbfinder.com/en/climbs/valico-quassoli-curcuris",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 80
       },
       "stats": {
         "length_m": 1516,
@@ -46271,7 +46337,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.6,
         "steepest_1km_pct": 8.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 80
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -46733,7 +46800,8 @@
         "slug": "valico-s-isca-sa-mela-atzara",
         "url": "https://climbfinder.com/en/climbs/valico-s-isca-sa-mela-atzara",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 191
       },
       "stats": {
         "length_m": 8327,
@@ -46743,7 +46811,8 @@
         "max_gradient_pct": 8.4,
         "steepest_100m_pct": 7.8,
         "steepest_1km_pct": 6.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 191
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -48845,7 +48914,8 @@
         "slug": "valico-quassoli-pompu",
         "url": "https://climbfinder.com/en/climbs/valico-quassoli-pompu",
         "category": "5",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 41
       },
       "stats": {
         "length_m": 1971,
@@ -48855,7 +48925,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 5.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 41
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -49433,7 +49504,8 @@
         "slug": "s-acqua-saida-gergei",
         "url": "https://climbfinder.com/en/climbs/s-acqua-saida-gergei",
         "category": "4",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 147
       },
       "stats": {
         "length_m": 3606,
@@ -49443,7 +49515,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.4,
         "steepest_1km_pct": 7.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 147
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -50415,7 +50488,8 @@
         "slug": "genna-maria-gonnostramatza",
         "url": "https://climbfinder.com/en/climbs/genna-maria-gonnostramatza",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 154
       },
       "stats": {
         "length_m": 6328,
@@ -50425,7 +50499,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 9.9,
         "steepest_1km_pct": 7.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 154
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -52039,7 +52114,8 @@
         "slug": "parco-sa-fogaia-siddi",
         "url": "https://climbfinder.com/en/climbs/parco-sa-fogaia-siddi",
         "category": "3",
-        "resolved_locality_id": 787
+        "resolved_locality_id": 787,
+        "difficulty_points": 155
       },
       "stats": {
         "length_m": 594,
@@ -52049,7 +52125,8 @@
         "max_gradient_pct": 24.8,
         "steepest_100m_pct": 23.9,
         "steepest_1km_pct": 0.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 155
       },
       "difficulty_score": 3.0,
       "geometry": {

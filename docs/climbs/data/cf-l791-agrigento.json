@@ -5,12 +5,15 @@
     "title": "Agrigento",
     "country": "IT",
     "count": 4,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T14:46:27Z",
     "source": {
       "locality_id": 791,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T14:46:27Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "caltabellotta",
         "url": "https://climbfinder.com/en/climbs/caltabellotta",
         "category": "2",
-        "resolved_locality_id": 791
+        "resolved_locality_id": 791,
+        "difficulty_points": 392
       },
       "stats": {
         "length_m": 16290,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 7.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 392
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -2089,7 +2094,8 @@
         "slug": "caltabellotta-san-carlo",
         "url": "https://climbfinder.com/en/climbs/caltabellotta-san-carlo",
         "category": "3",
-        "resolved_locality_id": 791
+        "resolved_locality_id": 791,
+        "difficulty_points": 296
       },
       "stats": {
         "length_m": 10609,
@@ -2099,7 +2105,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 7.9,
         "steepest_1km_pct": 6.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 296
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -3485,7 +3492,8 @@
         "slug": "casteltermini-campofranco",
         "url": "https://climbfinder.com/en/climbs/casteltermini-campofranco",
         "category": "3",
-        "resolved_locality_id": 791
+        "resolved_locality_id": 791,
+        "difficulty_points": 250
       },
       "stats": {
         "length_m": 8769,
@@ -3495,7 +3503,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.0,
         "steepest_1km_pct": 8.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 250
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -5701,7 +5710,8 @@
         "slug": "monte-cammarata-cammarata",
         "url": "https://climbfinder.com/en/climbs/monte-cammarata-cammarata",
         "category": "1",
-        "resolved_locality_id": 791
+        "resolved_locality_id": 791,
+        "difficulty_points": 801
       },
       "stats": {
         "length_m": 7885,
@@ -5711,7 +5721,8 @@
         "max_gradient_pct": 20.4,
         "steepest_100m_pct": 19.9,
         "steepest_1km_pct": 13.1,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 801
       },
       "difficulty_score": 1.0,
       "geometry": {
