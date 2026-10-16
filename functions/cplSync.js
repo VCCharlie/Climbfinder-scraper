@@ -4,7 +4,10 @@ const {
   cplCfg,
   cplSyncConfigured,
   getCplFirestore,
-  resolveCplOwnerByEmail,
+  resolveCplOwnerFromContext,
+  resolveCplOwner,
+  authIdentityFromContext,
+  cplProjectId,
 } = require("./cplClient");
 const {
   cplActivityToMatchRecord,
@@ -273,18 +276,26 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   };
 }
 
-async function resolveCplOwnerForUid(uid, email) {
-  const owner = await resolveCplOwnerByEmail(email);
+async function resolveCplOwnerForUid(uid, identityOrContext) {
+  let owner = null;
+  if (identityOrContext?.auth) {
+    owner = await resolveCplOwnerFromContext(identityOrContext);
+  } else if (typeof identityOrContext === "string") {
+    owner = await resolveCplOwner({ email: identityOrContext });
+  } else {
+    owner = await resolveCplOwner(identityOrContext || {});
+  }
   if (!owner) {
     throw new functions.https.HttpsError(
       "failed-precondition",
-      "Geen Climb Performance Lab-account gevonden voor dit e-mailadres. Log daar eerst in met dezelfde Google-account."
+      "Geen Climb Performance Lab-account gevonden voor dit Google-account. Log in bij CPL (zelfde Google) en controleer Authentication → Users in project climb-performance-lab."
     );
   }
   await integrationRef(uid).set(
     {
       cplOwnerId: owner.uid,
       cplEmail: owner.email,
+      cplMatchedVia: owner.matchedVia || null,
       linkedAt: admin.firestore.FieldValue.serverTimestamp(),
     },
     { merge: true }
@@ -292,7 +303,7 @@ async function resolveCplOwnerForUid(uid, email) {
   return owner.uid;
 }
 
-async function runCplSyncBatch(uid, email, data) {
+async function runCplSyncBatch(uid, identityOrEmail, data) {
   const datasetId = String(data.datasetId || "").trim();
   if (datasetId !== ALL_DATASETS_TOKEN) {
     throw new functions.https.HttpsError(
@@ -303,7 +314,7 @@ async function runCplSyncBatch(uid, email, data) {
 
   const bounds = parseActivityEpochBounds(data);
   const reset = Boolean(data.reset);
-  const cplOwnerId = await resolveCplOwnerForUid(uid, email);
+  const cplOwnerId = await resolveCplOwnerForUid(uid, identityOrEmail);
 
   const integrationSnap = await integrationRef(uid).get();
   const integration = integrationSnap.exists ? integrationSnap.data() : {};
@@ -399,12 +410,13 @@ exports.getCplStatus = functions.region(REGION).https.onCall(async (_data, conte
   let cplOwner = null;
   let linkReason = null;
   let linkHint = null;
+  const identity = authIdentityFromContext(context);
   try {
-    cplOwner = await resolveCplOwnerByEmail(email);
+    cplOwner = await resolveCplOwnerFromContext(context);
     if (!cplOwner) {
       linkReason = "no_cpl_account";
       linkHint =
-        "Geen Firebase-login in Climb Performance Lab met deze Google-mail — log daar in met hetzelfde account.";
+        "Geen Firebase Auth-gebruiker in project climb-performance-lab voor deze Google-login. Controleer CPL → Authentication → Users, of log opnieuw in bij CPL.";
     }
   } catch (e) {
     functions.logger.warn("getCplStatus resolveCplOwner", e);
@@ -438,7 +450,10 @@ exports.getCplStatus = functions.region(REGION).https.onCall(async (_data, conte
   }
   return {
     linked: Boolean(cplOwner),
-    emailChecked: email,
+    emailChecked: identity.email || email,
+    googleUidChecked: identity.googleUid || null,
+    matchedVia: cplOwner?.matchedVia || null,
+    cplProjectId: cplProjectId(),
     linkReason,
     linkHint,
     cplOwnerId: cplOwner?.uid || data.cplOwnerId || null,

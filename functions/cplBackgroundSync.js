@@ -4,7 +4,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { CloudTasksClient } = require("@google-cloud/tasks");
-const { cplCfg } = require("./cplClient");
+const { cplCfg, authIdentityFromContext } = require("./cplClient");
 
 const REGION = "europe-west1";
 const TASK_QUEUE_ID = "cpl-sync";
@@ -215,7 +215,12 @@ async function assertNoOtherRouteSyncJob(uid) {
  * @param {string} email
  * @param {{ datasetId?: string, after?: number, before?: number }} data
  */
-async function enqueueFullSyncJob(uid, email, data) {
+async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
+  const identity =
+    typeof emailOrIdentity === "string"
+      ? { email: emailOrIdentity, googleUid: null }
+      : emailOrIdentity || {};
+  const email = identity.email || "";
   if (!cplCfg().worker_secret) {
     throw new functions.https.HttpsError(
       "failed-precondition",
@@ -247,7 +252,10 @@ async function enqueueFullSyncJob(uid, email, data) {
     progress: { activitiesScanned: 0, uniqueClimbs: 0, completed: false },
   });
   try {
-    await enqueueWorkerTask({ uid, jobId, email }, 0);
+    await enqueueWorkerTask(
+      { uid, jobId, email, googleUid: identity.googleUid || null },
+      0
+    );
   } catch (enqueueErr) {
     await jobRef(uid, jobId).delete().catch(() => {});
     throw new functions.https.HttpsError("failed-precondition", enqueueErr.message || String(enqueueErr));
@@ -271,8 +279,8 @@ exports.cplEnqueueFullSync = functions
   .region(REGION)
   .runWith({ timeoutSeconds: 120, memory: "256MB" })
   .https.onCall(async (data, context) => {
-    const { uid, email } = requireAuth(context);
-    return enqueueFullSyncJob(uid, email, data);
+    const { uid } = requireAuth(context);
+    return enqueueFullSyncJob(uid, authIdentityFromContext(context), data);
   });
 
 exports.getCplSyncJob = functions.region(REGION).https.onCall(async (data, context) => {
@@ -318,7 +326,9 @@ async function jobWasCancelled(uid, jobId) {
   return snap.exists && snap.data().status === "cancelled";
 }
 
-async function processCplSyncJob(uid, jobId, email) {
+async function processCplSyncJob(uid, jobId, identity) {
+  const email = typeof identity === "string" ? identity : identity?.email || "";
+  const googleUid = typeof identity === "object" ? identity?.googleUid : null;
   const ref = jobRef(uid, jobId);
   const snap = await ref.get();
   if (!snap.exists) return;
@@ -340,7 +350,7 @@ async function processCplSyncJob(uid, jobId, email) {
 
   let result;
   try {
-    result = await runCplSyncBatch(uid, email, payload);
+    result = await runCplSyncBatch(uid, { email, googleUid }, payload);
   } catch (e) {
     if (await jobWasCancelled(uid, jobId)) return;
     if (e instanceof functions.https.HttpsError) {
@@ -385,7 +395,10 @@ async function processCplSyncJob(uid, jobId, email) {
   );
 
   try {
-    await enqueueWorkerTask({ uid, jobId, email }, BATCH_DELAY_SECONDS);
+    await enqueueWorkerTask(
+      { uid, jobId, email, googleUid: googleUid || null },
+      BATCH_DELAY_SECONDS
+    );
   } catch (enqueueErr) {
     await markJobFailed(uid, jobId, enqueueErr.message || String(enqueueErr));
   }
@@ -417,12 +430,13 @@ exports.cplSyncWorkerHttp = functions
     const uid = String(body?.uid || "");
     const jobId = String(body?.jobId || "");
     const email = String(body?.email || "");
+    const googleUid = body?.googleUid ? String(body.googleUid) : null;
     if (!uid || !jobId || !email) {
       res.status(400).send("uid, jobId and email required");
       return;
     }
     try {
-      await processCplSyncJob(uid, jobId, email);
+      await processCplSyncJob(uid, jobId, { email, googleUid });
       res.status(200).json({ ok: true });
     } catch (e) {
       functions.logger.error("cplSyncWorker", e);

@@ -2,7 +2,7 @@
  * Route-based climb matching: prefer CPL stored polylines over Strava API (no 429).
  */
 const functions = require("firebase-functions");
-const { resolveCplOwnerByEmail, cplCfg } = require("./cplClient");
+const { resolveCplOwnerFromContext, cplCfg } = require("./cplClient");
 
 const ALL_DATASETS_TOKEN = "__all__";
 
@@ -18,12 +18,12 @@ function cplWorkerConfigured() {
 
 /**
  * Hele-database server-sync mag CPL-routes + climbMatch gebruiken i.p.v. Strava API.
- * @param {string} email
+ * @param {import("firebase-functions").https.CallableContext} context
  */
-async function preferFullDatabaseRouteSyncViaCpl(email) {
+async function preferFullDatabaseRouteSyncViaCpl(context) {
   if (!preferCplRouteSyncConfig() || !cplWorkerConfigured()) return false;
   try {
-    const owner = await resolveCplOwnerByEmail(email);
+    const owner = await resolveCplOwnerFromContext(context);
     return Boolean(owner?.uid);
   } catch (e) {
     functions.logger.warn("preferFullDatabaseRouteSyncViaCpl", e?.message || e);

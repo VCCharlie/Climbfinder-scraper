@@ -126,10 +126,16 @@
       el.textContent = `Performance Lab: account gevonden · ${cpl.linkHint || "server-sync nog niet geconfigureerd"}`;
       return;
     }
+    const reason =
+      cpl.linkReason === "cpl_auth_lookup_denied"
+        ? "server IAM"
+        : cpl.linkReason === "lookup_failed"
+          ? "lookup-fout"
+          : "geen Auth-user";
     const hint =
       cpl.linkHint ||
       "Log in bij Climb Performance Lab met dezelfde Google-mail als FietsKlim.";
-    el.textContent = `Performance Lab: niet gekoppeld · ${hint}`;
+    el.textContent = `Performance Lab: niet gekoppeld (${reason}) · ${hint}`;
   }
 
   function formatServerJobLine(job) {

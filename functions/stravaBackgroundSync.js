@@ -316,9 +316,10 @@ exports.stravaEnqueueFullSync = functions
         preferFullDatabaseRouteSyncViaCpl,
       } = require("./routeSyncPolicy");
 
-      if (isAllDatasetsToken(datasetId) && (await preferFullDatabaseRouteSyncViaCpl(email))) {
+      if (isAllDatasetsToken(datasetId) && (await preferFullDatabaseRouteSyncViaCpl(context))) {
         const cplBg = require("./cplBackgroundSync");
-        return cplBg.enqueueFullSyncJob(uid, email, data);
+        const { authIdentityFromContext } = require("./cplClient");
+        return cplBg.enqueueFullSyncJob(uid, authIdentityFromContext(context), data);
       }
 
       const existing = await getActiveSyncJob(uid);
