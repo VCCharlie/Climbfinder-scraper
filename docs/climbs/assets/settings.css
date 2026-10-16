@@ -170,6 +170,27 @@
   color: #0f766e;
 }
 
+.settings-actions--logbook-primary {
+  margin-top: 0.5rem;
+}
+
+.strava-browser-sync-details {
+  margin: 0.65rem 0 0.25rem;
+  font-size: 0.92rem;
+  color: #475569;
+}
+
+.strava-browser-sync-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+.strava-browser-sync-details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
 .strava-date-range-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
