@@ -412,6 +412,9 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     before: bounds.beforeMs,
     dateQueryIndexRequired: Boolean(page.dateQueryIndexRequired),
     periodSyncAllRegionsInBatch: hasDateBounds && datasetsPerCall === regionIds.length,
+    regionProgress: syncCompleted
+      ? `${regionCount}/${regionCount} regio’s`
+      : `${Math.min(nextDatasetIndexAfter, regionCount)}/${regionCount} regio’s`,
   };
 
   await integrationRef(uid).set(
