@@ -354,6 +354,13 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     startAfterId: activityCursor?.startAfterId,
   });
 
+  if (page.dateQueryIndexRequired) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "CPL datumbereik: maak in project climb-performance-lab een Firestore composite index op collection activities: ownerId (Ascending) + date (Descending). Zie docs/cpl-firestore-index-578c/README.md"
+    );
+  }
+
   const { ids: regionIds, totalClimbs, regionCount } = await loadRegionDatasetIds();
 
   const hasDateBounds = bounds.afterMs != null || bounds.beforeMs != null;
