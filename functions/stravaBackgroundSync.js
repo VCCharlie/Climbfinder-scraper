@@ -310,11 +310,29 @@ exports.stravaEnqueueFullSync = functions
         );
       }
 
+      const email = context.auth.token.email.trim();
+      const {
+        isAllDatasetsToken,
+        preferFullDatabaseRouteSyncViaCpl,
+      } = require("./routeSyncPolicy");
+
+      if (isAllDatasetsToken(datasetId) && (await preferFullDatabaseRouteSyncViaCpl(email))) {
+        const cplBg = require("./cplBackgroundSync");
+        return cplBg.enqueueFullSyncJob(uid, email, data);
+      }
+
       const existing = await getActiveSyncJob(uid);
       if (existing) {
         throw new functions.https.HttpsError(
           "failed-precondition",
           `Er loopt al een server-sync (${existing.status}). Wacht tot die klaar is of annuleer.`
+        );
+      }
+      const cplActive = await require("./cplBackgroundSync").getActiveSyncJob(uid);
+      if (cplActive) {
+        throw new functions.https.HttpsError(
+          "failed-precondition",
+          `Er loopt al een Performance Lab server-sync (${cplActive.status}). Wacht of annuleer die eerst.`
         );
       }
 

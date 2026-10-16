@@ -83,6 +83,10 @@
         <button type="button" id="stravaServerFullSyncBtn" class="secondary" hidden>
           Volledige sync (server, beta)
         </button>
+      <p class="settings-hint">
+        Bij scope <strong>hele database</strong> en gekoppeld Performance Lab-account gebruikt server-sync
+        CPL-routes (<code>strava_map</code> / <code>intervals_map</code>) met dezelfde strikte polyline-match als Strava-sync — zonder Strava API (geen 429).
+      </p>
         <button type="button" id="stravaCancelServerSyncBtn" class="secondary" hidden>
           Annuleer server-sync
         </button>
@@ -113,9 +117,8 @@
     <section class="settings-card" id="cplSettingsCard" aria-labelledby="cplSettingsTitle">
       <h2 id="cplSettingsTitle">Climb Performance Lab</h2>
       <p>
-        Match klimmen uit je <strong>Performance Lab</strong>-activiteiten (Firestore), zonder Strava API-limieten.
-        Routes komen uit <code>strava_map</code> of <code>intervals_map</code> in CPL. Ritdatum <strong>van/tot</strong> hieronder
-        zijn dezelfde velden als bij Strava-sync.
+        Zelfde server-sync als bij Strava → <strong>hele database (server)</strong> wanneer je Performance Lab-account gekoppeld is.
+        Deze knop is een alias; je hoeft niet twee syncs te starten.
       </p>
       <div class="settings-actions">
         <button type="button" id="cplServerFullSyncBtn" class="secondary strava-sync-primary" hidden>

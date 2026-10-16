@@ -57,7 +57,7 @@ function publicJobView(doc) {
   const d = doc.data ? doc.data() : doc;
   const id = doc.id || d.id;
   if (!id || !d) return null;
-  return {
+  const view = {
     id,
     status: d.status,
     datasetId: d.datasetId,
@@ -70,6 +70,8 @@ function publicJobView(doc) {
     batchCount: d.batchCount ?? 0,
     lastMessage: d.lastMessage || null,
   };
+  view.routeSource = "cpl";
+  return view;
 }
 
 async function reconcileStaleRunningJob(uid, docSnap) {
@@ -197,53 +199,80 @@ exports.isBackgroundSyncConfigured = function isBackgroundSyncConfigured() {
   return Boolean(cplCfg().worker_secret);
 };
 
+async function assertNoOtherRouteSyncJob(uid) {
+  const stravaBg = require("./stravaBackgroundSync");
+  const stravaActive = await stravaBg.getActiveSyncJob(uid);
+  if (stravaActive) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      `Er loopt al een Strava server-sync (${stravaActive.status}). Wacht of annuleer die eerst.`
+    );
+  }
+}
+
+/**
+ * @param {string} uid
+ * @param {string} email
+ * @param {{ datasetId?: string, after?: number, before?: number }} data
+ */
+async function enqueueFullSyncJob(uid, email, data) {
+  if (!cplCfg().worker_secret) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "CPL server-sync is nog niet geconfigureerd (cpl.worker_secret)."
+    );
+  }
+  const datasetId = String(data.datasetId || "__all__").trim();
+  const existing = await getActiveSyncJob(uid);
+  if (existing) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      `Er loopt al een CPL server-sync (${existing.status}).`
+    );
+  }
+  await assertNoOtherRouteSyncJob(uid);
+  const bounds = parseBounds(data);
+  const jobId = admin.firestore().collection("_").doc().id;
+  const now = admin.firestore.FieldValue.serverTimestamp();
+  await jobRef(uid, jobId).set({
+    status: "queued",
+    datasetId,
+    afterMs: bounds.afterMs,
+    beforeMs: bounds.beforeMs,
+    batchCount: 0,
+    firstBatchPending: true,
+    createdAt: now,
+    updatedAt: now,
+    error: null,
+    progress: { activitiesScanned: 0, uniqueClimbs: 0, completed: false },
+  });
+  try {
+    await enqueueWorkerTask({ uid, jobId, email }, 0);
+  } catch (enqueueErr) {
+    await jobRef(uid, jobId).delete().catch(() => {});
+    throw new functions.https.HttpsError("failed-precondition", enqueueErr.message || String(enqueueErr));
+  }
+  const created = await jobRef(uid, jobId).get();
+  const job = publicJobView(created);
+  if (job) job.routeSource = "cpl";
+  return {
+    ok: true,
+    jobId,
+    routeSource: "cpl",
+    message:
+      "Server-sync gestart via Performance Lab-routes (zelfde polyline-check als Strava-sync, geen Strava API).",
+    job,
+  };
+}
+
+exports.enqueueFullSyncJob = enqueueFullSyncJob;
+
 exports.cplEnqueueFullSync = functions
   .region(REGION)
   .runWith({ timeoutSeconds: 120, memory: "256MB" })
   .https.onCall(async (data, context) => {
     const { uid, email } = requireAuth(context);
-    if (!cplCfg().worker_secret) {
-      throw new functions.https.HttpsError(
-        "failed-precondition",
-        "CPL server-sync is nog niet geconfigureerd (cpl.worker_secret)."
-      );
-    }
-    const datasetId = String(data.datasetId || "__all__").trim();
-    const existing = await getActiveSyncJob(uid);
-    if (existing) {
-      throw new functions.https.HttpsError(
-        "failed-precondition",
-        `Er loopt al een CPL server-sync (${existing.status}).`
-      );
-    }
-    const bounds = parseBounds(data);
-    const jobId = admin.firestore().collection("_").doc().id;
-    const now = admin.firestore.FieldValue.serverTimestamp();
-    await jobRef(uid, jobId).set({
-      status: "queued",
-      datasetId,
-      afterMs: bounds.afterMs,
-      beforeMs: bounds.beforeMs,
-      batchCount: 0,
-      firstBatchPending: true,
-      createdAt: now,
-      updatedAt: now,
-      error: null,
-      progress: { activitiesScanned: 0, uniqueClimbs: 0, completed: false },
-    });
-    try {
-      await enqueueWorkerTask({ uid, jobId, email }, 0);
-    } catch (enqueueErr) {
-      await jobRef(uid, jobId).delete().catch(() => {});
-      throw new functions.https.HttpsError("failed-precondition", enqueueErr.message || String(enqueueErr));
-    }
-    const created = await jobRef(uid, jobId).get();
-    return {
-      ok: true,
-      jobId,
-      message: "CPL server-sync gestart — status op Instellingen.",
-      job: publicJobView(created),
-    };
+    return enqueueFullSyncJob(uid, email, data);
   });
 
 exports.getCplSyncJob = functions.region(REGION).https.onCall(async (data, context) => {

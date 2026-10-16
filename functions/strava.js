@@ -700,23 +700,66 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
       return { connected: false, setup, includePrivate: prefs.includePrivate };
     }
     const scopeInfo = await resolvePrivateScopeForStatus(uid, data, prefs);
-    let activeSyncJob = null;
+    let activeStravaSyncJob = null;
+    let activeCplSyncJob = null;
     try {
-      activeSyncJob = await require("./stravaBackgroundSync").getActiveSyncJob(uid);
+      activeStravaSyncJob = await require("./stravaBackgroundSync").getActiveSyncJob(uid);
     } catch (e) {
-      functions.logger.warn("getStravaStatus activeSyncJob", e);
+      functions.logger.warn("getStravaStatus activeStravaSyncJob", e);
     }
+    try {
+      activeCplSyncJob = await require("./cplBackgroundSync").getActiveSyncJob(uid);
+    } catch (e) {
+      functions.logger.warn("getStravaStatus activeCplSyncJob", e);
+    }
+    const email = context.auth.token.email.trim();
+    const routePolicy = require("./routeSyncPolicy");
+    let fullDatabaseUsesCpl = false;
+    try {
+      fullDatabaseUsesCpl = await routePolicy.preferFullDatabaseRouteSyncViaCpl(email);
+    } catch (e) {
+      functions.logger.warn("getStravaStatus routeSync", e);
+    }
+    let cplLastSyncSummary = null;
+    let cplLastSyncAt = null;
+    try {
+      const cplSnap = await admin
+        .firestore()
+        .collection("users")
+        .doc(uid)
+        .collection("integrations")
+        .doc("cpl")
+        .get();
+      if (cplSnap.exists) {
+        const cplData = cplSnap.data();
+        cplLastSyncSummary = cplData.lastSyncSummary || null;
+        cplLastSyncAt = cplData.lastSyncAt?.toDate?.()?.toISOString?.() || null;
+      }
+    } catch (e) {
+      functions.logger.warn("getStravaStatus cpl integration", e);
+    }
+    const activeSyncJob = activeCplSyncJob || activeStravaSyncJob;
+    const lastSyncSummary =
+      fullDatabaseUsesCpl && cplLastSyncSummary ? cplLastSyncSummary : data.lastSyncSummary || null;
+    const lastSyncAt =
+      fullDatabaseUsesCpl && cplLastSyncAt ? cplLastSyncAt : data.lastSyncAt?.toDate?.()?.toISOString?.() || null;
     return {
       connected: true,
       athleteName: data.athleteName || null,
-      lastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
-      lastSyncSummary: data.lastSyncSummary || null,
+      lastSyncAt,
+      lastSyncSummary,
       includePrivate: prefs.includePrivate,
       hasPrivateScope: scopeInfo.hasPrivateScope,
       needsReconnect: scopeInfo.needsReconnect,
       grantedScope: scopeInfo.scope || null,
       fullSyncCursor: data.fullSyncCursor || null,
       activeSyncJob,
+      activeStravaSyncJob,
+      activeCplSyncJob,
+      routeSync: {
+        fullDatabaseUsesCpl,
+        cplWorkerConfigured: routePolicy.cplWorkerConfigured(),
+      },
       setup,
     };
   } catch (e) {
