@@ -5,12 +5,15 @@
     "title": "Caserta",
     "country": "IT",
     "count": 2,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T10:53:46Z",
     "source": {
       "locality_id": 734,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T10:53:46Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "bocca-della-selva-sella-del-perrone",
         "url": "https://climbfinder.com/en/climbs/bocca-della-selva-sella-del-perrone",
         "category": "4",
-        "resolved_locality_id": 734
+        "resolved_locality_id": 734,
+        "difficulty_points": 77
       },
       "stats": {
         "length_m": 3928,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.3,
         "steepest_1km_pct": 6.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 77
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -1087,7 +1092,8 @@
         "slug": "piano-della-corte-sella-del-perrone",
         "url": "https://climbfinder.com/en/climbs/piano-della-corte-sella-del-perrone",
         "category": "3",
-        "resolved_locality_id": 734
+        "resolved_locality_id": 734,
+        "difficulty_points": 296
       },
       "stats": {
         "length_m": 8110,
@@ -1097,7 +1103,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 11.4,
         "steepest_1km_pct": 8.1,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 296
       },
       "difficulty_score": 3.0,
       "geometry": {

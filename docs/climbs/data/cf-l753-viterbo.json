@@ -5,12 +5,15 @@
     "title": "Viterbo",
     "country": "IT",
     "count": 1,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T10:53:46Z",
     "source": {
       "locality_id": 753,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T10:53:46Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "passo-di-monte-panaro-torre-san-severo",
         "url": "https://climbfinder.com/en/climbs/passo-di-monte-panaro-torre-san-severo",
         "category": "",
-        "resolved_locality_id": 753
+        "resolved_locality_id": 753,
+        "difficulty_points": 16
       },
       "stats": {
         "length_m": 1320,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 6.0,
         "steepest_100m_pct": 5.6,
         "steepest_1km_pct": 3.5,
-        "classification": null
+        "classification": null,
+        "difficulty_points": 16
       },
       "difficulty_score": null,
       "geometry": {

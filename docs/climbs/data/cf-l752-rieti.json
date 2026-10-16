@@ -5,12 +5,15 @@
     "title": "Rieti",
     "country": "IT",
     "count": 1,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T10:53:46Z",
     "source": {
       "locality_id": 752,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T10:53:46Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "casa-cantoniera-fontechiaruccia",
         "url": "https://climbfinder.com/en/climbs/casa-cantoniera-fontechiaruccia",
         "category": "4",
-        "resolved_locality_id": 752
+        "resolved_locality_id": 752,
+        "difficulty_points": 108
       },
       "stats": {
         "length_m": 5812,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 8.0,
         "steepest_100m_pct": 7.1,
         "steepest_1km_pct": 5.5,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 108
       },
       "difficulty_score": 4.0,
       "geometry": {

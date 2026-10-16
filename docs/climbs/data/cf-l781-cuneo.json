@@ -5,7 +5,7 @@
     "title": "Cuneo",
     "region_label": "Cuneo",
     "country": "IT",
-    "updated_at": "2026-10-09T07:30:32Z",
+    "updated_at": "2026-10-16T10:53:46Z",
     "count": 320,
     "source": {
       "name": "climbfinder",
@@ -18,7 +18,10 @@
       ],
       "locality_id": 781
     },
-    "import_errors": []
+    "import_errors": [],
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T10:53:46Z"
+    }
   },
   "climbs": [
     {
@@ -32,7 +35,8 @@
         "slug": "colle-dell-agnello-casteldelfino",
         "url": "https://climbfinder.com/en/climbs/colle-dell-agnello-casteldelfino",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1416
       },
       "stats": {
         "length_m": 31572,
@@ -42,7 +46,8 @@
         "max_gradient_pct": 12.7,
         "steepest_100m_pct": 12.7,
         "steepest_1km_pct": 11.6,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1416
       },
       "difficulty_score": null,
       "geometry": {
@@ -2066,7 +2071,8 @@
         "slug": "colle-fauniera-demonte",
         "url": "https://climbfinder.com/en/climbs/colle-fauniera-demonte",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1428
       },
       "stats": {
         "length_m": 24404,
@@ -2076,7 +2082,8 @@
         "max_gradient_pct": 50.0,
         "steepest_100m_pct": 12.6,
         "steepest_1km_pct": 11.0,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1428
       },
       "difficulty_score": null,
       "geometry": {
@@ -3660,7 +3667,8 @@
         "slug": "col-de-la-lombarde-pratolungo",
         "url": "https://climbfinder.com/en/climbs/col-de-la-lombarde-pratolungo",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1115
       },
       "stats": {
         "length_m": 20416,
@@ -3670,7 +3678,8 @@
         "max_gradient_pct": 10.9,
         "steepest_100m_pct": 10.9,
         "steepest_1km_pct": 9.6,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1115
       },
       "difficulty_score": null,
       "geometry": {
@@ -5006,7 +5015,8 @@
         "slug": "colle-della-maddalena-cuneo",
         "url": "https://climbfinder.com/en/climbs/colle-della-maddalena-cuneo",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 522
       },
       "stats": {
         "length_m": 58289,
@@ -5016,7 +5026,8 @@
         "max_gradient_pct": 6.6,
         "steepest_100m_pct": 6.6,
         "steepest_1km_pct": 6.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 522
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -6544,7 +6555,8 @@
         "slug": "colle-fauniera-pradleves",
         "url": "https://climbfinder.com/en/climbs/colle-fauniera-pradleves",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1465
       },
       "stats": {
         "length_m": 21960,
@@ -6554,7 +6566,8 @@
         "max_gradient_pct": 12.3,
         "steepest_100m_pct": 12.3,
         "steepest_1km_pct": 11.6,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1465
       },
       "difficulty_score": null,
       "geometry": {
@@ -7982,7 +7995,8 @@
         "slug": "colle-di-sampeyre-sampeyre",
         "url": "https://climbfinder.com/en/climbs/colle-di-sampeyre-sampeyre",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1226
       },
       "stats": {
         "length_m": 15762,
@@ -7992,7 +8006,8 @@
         "max_gradient_pct": 16.6,
         "steepest_100m_pct": 15.6,
         "steepest_1km_pct": 10.9,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1226
       },
       "difficulty_score": null,
       "geometry": {
@@ -9984,7 +9999,8 @@
         "slug": "col-de-tende-limone-piemonte",
         "url": "https://climbfinder.com/en/climbs/col-de-tende-limone-piemonte",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 682
       },
       "stats": {
         "length_m": 19925,
@@ -9994,7 +10010,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 9.1,
         "steepest_1km_pct": 8.2,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 682
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -12492,7 +12509,8 @@
         "slug": "colle-fauniera-ponte-marmora",
         "url": "https://climbfinder.com/en/climbs/colle-fauniera-ponte-marmora",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1215
       },
       "stats": {
         "length_m": 21557,
@@ -12502,7 +12520,8 @@
         "max_gradient_pct": 19.6,
         "steepest_100m_pct": 19.6,
         "steepest_1km_pct": 9.8,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1215
       },
       "difficulty_score": null,
       "geometry": {
@@ -13906,7 +13925,8 @@
         "slug": "pian-del-re-paesana",
         "url": "https://climbfinder.com/en/climbs/pian-del-re-paesana",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1112
       },
       "stats": {
         "length_m": 18924,
@@ -13916,7 +13936,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 13.0,
         "steepest_1km_pct": 10.5,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1112
       },
       "difficulty_score": null,
       "geometry": {
@@ -16292,7 +16313,8 @@
         "slug": "colle-di-sampeyre-stroppo",
         "url": "https://climbfinder.com/en/climbs/colle-di-sampeyre-stroppo",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1287
       },
       "stats": {
         "length_m": 17733,
@@ -16302,7 +16324,8 @@
         "max_gradient_pct": 14.4,
         "steepest_100m_pct": 14.2,
         "steepest_1km_pct": 10.9,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1287
       },
       "difficulty_score": null,
       "geometry": {
@@ -18532,7 +18555,8 @@
         "slug": "santuario-della-madonna-del-colletto-valdieri",
         "url": "https://climbfinder.com/en/climbs/santuario-della-madonna-del-colletto-valdieri",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 535
       },
       "stats": {
         "length_m": 5877,
@@ -18542,7 +18566,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 15.7,
         "steepest_1km_pct": 11.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 535
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -20046,7 +20071,8 @@
         "slug": "santuario-di-sant-anna-di-vinadio-pratolungo",
         "url": "https://climbfinder.com/en/climbs/santuario-di-sant-anna-di-vinadio-pratolungo",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1018
       },
       "stats": {
         "length_m": 14858,
@@ -20056,7 +20082,8 @@
         "max_gradient_pct": 28.7,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 11.0,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1018
       },
       "difficulty_score": null,
       "geometry": {
@@ -21938,7 +21965,8 @@
         "slug": "santuario-della-madonna-del-colletto-festiona",
         "url": "https://climbfinder.com/en/climbs/santuario-della-madonna-del-colletto-festiona",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 586
       },
       "stats": {
         "length_m": 6464,
@@ -21948,7 +21976,8 @@
         "max_gradient_pct": 17.6,
         "steepest_100m_pct": 15.3,
         "steepest_1km_pct": 10.5,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 586
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -23592,7 +23621,8 @@
         "slug": "colle-san-bernardo-garessio",
         "url": "https://climbfinder.com/en/climbs/colle-san-bernardo-garessio",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 259
       },
       "stats": {
         "length_m": 6528,
@@ -23602,7 +23632,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 12.4,
         "steepest_1km_pct": 8.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 259
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -25266,7 +25297,8 @@
         "slug": "prato-nevoso-villanova-mondovi",
         "url": "https://climbfinder.com/en/climbs/prato-nevoso-villanova-mondovi",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 836
       },
       "stats": {
         "length_m": 18676,
@@ -25276,7 +25308,8 @@
         "max_gradient_pct": 14.2,
         "steepest_100m_pct": 13.9,
         "steepest_1km_pct": 9.9,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 836
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -27622,7 +27655,8 @@
         "slug": "colle-di-sampeyre-elva",
         "url": "https://climbfinder.com/en/climbs/colle-di-sampeyre-elva",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1234
       },
       "stats": {
         "length_m": 15787,
@@ -27632,7 +27666,8 @@
         "max_gradient_pct": 17.2,
         "steepest_100m_pct": 17.2,
         "steepest_1km_pct": 12.0,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1234
       },
       "difficulty_score": null,
       "geometry": {
@@ -29624,7 +29659,8 @@
         "slug": "colle-del-preit-ponte-marmora",
         "url": "https://climbfinder.com/en/climbs/colle-del-preit-ponte-marmora",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1096
       },
       "stats": {
         "length_m": 13899,
@@ -29634,7 +29670,8 @@
         "max_gradient_pct": 20.2,
         "steepest_100m_pct": 18.4,
         "steepest_1km_pct": 13.4,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1096
       },
       "difficulty_score": null,
       "geometry": {
@@ -31394,7 +31431,8 @@
         "slug": "col-de-la-lombarde-la-maigheria",
         "url": "https://climbfinder.com/en/climbs/col-de-la-lombarde-la-maigheria",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1115
       },
       "stats": {
         "length_m": 20047,
@@ -31404,7 +31442,8 @@
         "max_gradient_pct": 11.1,
         "steepest_100m_pct": 11.1,
         "steepest_1km_pct": 10.5,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1115
       },
       "difficulty_score": null,
       "geometry": {
@@ -32716,7 +32755,8 @@
         "slug": "prato-nevoso-corsagliola",
         "url": "https://climbfinder.com/en/climbs/prato-nevoso-corsagliola",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 834
       },
       "stats": {
         "length_m": 19708,
@@ -32726,7 +32766,8 @@
         "max_gradient_pct": 14.2,
         "steepest_100m_pct": 14.0,
         "steepest_1km_pct": 11.1,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 834
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -35200,7 +35241,8 @@
         "slug": "rucas-bagnolo-piemonte",
         "url": "https://climbfinder.com/en/climbs/rucas-bagnolo-piemonte",
         "category": "HC",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 1096
       },
       "stats": {
         "length_m": 15556,
@@ -35210,7 +35252,8 @@
         "max_gradient_pct": 14.2,
         "steepest_100m_pct": 13.9,
         "steepest_1km_pct": 12.2,
-        "classification": "HC"
+        "classification": "HC",
+        "difficulty_points": 1096
       },
       "difficulty_score": null,
       "geometry": {
@@ -37178,7 +37221,8 @@
         "slug": "colle-della-ciabra-valmala",
         "url": "https://climbfinder.com/en/climbs/colle-della-ciabra-valmala",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 295
       },
       "stats": {
         "length_m": 4791,
@@ -37188,7 +37232,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 12.1,
         "steepest_1km_pct": 9.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 295
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -38452,7 +38497,8 @@
         "slug": "montemale-di-cuneo-dronero",
         "url": "https://climbfinder.com/en/climbs/montemale-di-cuneo-dronero",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 254
       },
       "stats": {
         "length_m": 3610,
@@ -38462,7 +38508,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.3,
         "steepest_1km_pct": 9.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 254
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -39434,7 +39481,8 @@
         "slug": "colletto-del-moro-boves",
         "url": "https://climbfinder.com/en/climbs/colletto-del-moro-boves",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 415
       },
       "stats": {
         "length_m": 2938,
@@ -39444,7 +39492,8 @@
         "max_gradient_pct": 22.3,
         "steepest_100m_pct": 17.3,
         "steepest_1km_pct": 14.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 415
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -40246,7 +40295,8 @@
         "slug": "colletta-di-rossana-rossana",
         "url": "https://climbfinder.com/en/climbs/colletta-di-rossana-rossana",
         "category": "5",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 30
       },
       "stats": {
         "length_m": 4277,
@@ -40256,7 +40306,8 @@
         "max_gradient_pct": 5.6,
         "steepest_100m_pct": 5.2,
         "steepest_1km_pct": 3.1,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 30
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -41396,7 +41447,8 @@
         "slug": "laggo-delle-rovine-valdieri",
         "url": "https://climbfinder.com/en/climbs/laggo-delle-rovine-valdieri",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 658
       },
       "stats": {
         "length_m": 12692,
@@ -41406,7 +41458,8 @@
         "max_gradient_pct": 15.0,
         "steepest_100m_pct": 14.8,
         "steepest_1km_pct": 11.2,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 658
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -43046,7 +43099,8 @@
         "slug": "colletto-di-brondello-pagno",
         "url": "https://climbfinder.com/en/climbs/colletto-di-brondello-pagno",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 356
       },
       "stats": {
         "length_m": 6759,
@@ -43056,7 +43110,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 13.3,
         "steepest_1km_pct": 10.0,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 356
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -44774,7 +44829,8 @@
         "slug": "mombarcaro-fausto-coppi-valle",
         "url": "https://climbfinder.com/en/climbs/mombarcaro-fausto-coppi-valle",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 215
       },
       "stats": {
         "length_m": 3394,
@@ -44784,7 +44840,8 @@
         "max_gradient_pct": 14.4,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 9.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 215
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -45698,7 +45755,8 @@
         "slug": "lequio-berria-salita-marco-pantani-bosia",
         "url": "https://climbfinder.com/en/climbs/lequio-berria-salita-marco-pantani-bosia",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 341
       },
       "stats": {
         "length_m": 6790,
@@ -45708,7 +45766,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 19.0,
         "steepest_1km_pct": 10.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 341
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -47432,7 +47491,8 @@
         "slug": "chiappera-acceglio",
         "url": "https://climbfinder.com/en/climbs/chiappera-acceglio",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 411
       },
       "stats": {
         "length_m": 7685,
@@ -47442,7 +47502,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 18.7,
         "steepest_1km_pct": 11.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 411
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -49386,7 +49447,8 @@
         "slug": "colletto-del-moro-robilante",
         "url": "https://climbfinder.com/en/climbs/colletto-del-moro-robilante",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 254
       },
       "stats": {
         "length_m": 3007,
@@ -49396,7 +49458,8 @@
         "max_gradient_pct": 16.0,
         "steepest_100m_pct": 14.9,
         "steepest_1km_pct": 9.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 254
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -50218,7 +50281,8 @@
         "slug": "colle-del-quazzo-garessio",
         "url": "https://climbfinder.com/en/climbs/colle-del-quazzo-garessio",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 454
       },
       "stats": {
         "length_m": 7105,
@@ -50228,7 +50292,8 @@
         "max_gradient_pct": 16.0,
         "steepest_100m_pct": 14.3,
         "steepest_1km_pct": 9.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 454
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -52032,7 +52097,8 @@
         "slug": "colle-di-caprauna-cantarana",
         "url": "https://climbfinder.com/en/climbs/colle-di-caprauna-cantarana",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 542
       },
       "stats": {
         "length_m": 8224,
@@ -52042,7 +52108,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 10.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 542
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -54114,7 +54181,8 @@
         "slug": "colletto-di-brondello-isasca",
         "url": "https://climbfinder.com/en/climbs/colletto-di-brondello-isasca",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 165
       },
       "stats": {
         "length_m": 4732,
@@ -54124,7 +54192,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.6,
         "steepest_1km_pct": 7.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 165
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -55376,7 +55445,8 @@
         "slug": "monte-bracco-mondarello",
         "url": "https://climbfinder.com/en/climbs/monte-bracco-mondarello",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 617
       },
       "stats": {
         "length_m": 5021,
@@ -55386,7 +55456,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 18.9,
         "steepest_1km_pct": 12.6,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 617
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -56678,7 +56749,8 @@
         "slug": "colletta-delle-salse-ponte-di-nava",
         "url": "https://climbfinder.com/en/climbs/colletta-delle-salse-ponte-di-nava",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 610
       },
       "stats": {
         "length_m": 20892,
@@ -56688,7 +56760,8 @@
         "max_gradient_pct": 11.7,
         "steepest_100m_pct": 11.7,
         "steepest_1km_pct": 10.6,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 610
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -58048,7 +58121,8 @@
         "slug": "eremo-di-belmonte-busca",
         "url": "https://climbfinder.com/en/climbs/eremo-di-belmonte-busca",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 314
       },
       "stats": {
         "length_m": 3960,
@@ -58058,7 +58132,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 15.3,
         "steepest_1km_pct": 11.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 314
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -59116,7 +59191,8 @@
         "slug": "bossolasco-niella-nelbo",
         "url": "https://climbfinder.com/en/climbs/bossolasco-niella-nelbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 160
       },
       "stats": {
         "length_m": 3373,
@@ -59126,7 +59202,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 160
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -60034,7 +60111,8 @@
         "slug": "ferrere-bersezio",
         "url": "https://climbfinder.com/en/climbs/ferrere-bersezio",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 342
       },
       "stats": {
         "length_m": 4864,
@@ -60044,7 +60122,8 @@
         "max_gradient_pct": 18.0,
         "steepest_100m_pct": 16.8,
         "steepest_1km_pct": 9.2,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 342
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -61298,7 +61377,8 @@
         "slug": "pian-della-regina-pietraporzio",
         "url": "https://climbfinder.com/en/climbs/pian-della-regina-pietraporzio",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 312
       },
       "stats": {
         "length_m": 1902,
@@ -61308,7 +61388,8 @@
         "max_gradient_pct": 22.8,
         "steepest_100m_pct": 21.8,
         "steepest_1km_pct": 14.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 312
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -61874,7 +61955,8 @@
         "slug": "colletta-di-paesana-barge",
         "url": "https://climbfinder.com/en/climbs/colletta-di-paesana-barge",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 133
       },
       "stats": {
         "length_m": 4491,
@@ -61884,7 +61966,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.9,
         "steepest_1km_pct": 6.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 133
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -63074,7 +63157,8 @@
         "slug": "la-morra-garbelletto",
         "url": "https://climbfinder.com/en/climbs/la-morra-garbelletto",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 192
       },
       "stats": {
         "length_m": 4612,
@@ -63084,7 +63168,8 @@
         "max_gradient_pct": 11.2,
         "steepest_100m_pct": 10.6,
         "steepest_1km_pct": 7.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 192
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -64306,7 +64391,8 @@
         "slug": "colle-del-morte-chiusa-di-pesio",
         "url": "https://climbfinder.com/en/climbs/colle-del-morte-chiusa-di-pesio",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 122
       },
       "stats": {
         "length_m": 2623,
@@ -64316,7 +64402,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 16.1,
         "steepest_1km_pct": 8.5,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 122
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -65038,7 +65125,8 @@
         "slug": "la-morra-gallo-d-alba",
         "url": "https://climbfinder.com/en/climbs/la-morra-gallo-d-alba",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 211
       },
       "stats": {
         "length_m": 6187,
@@ -65048,7 +65136,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.4,
         "steepest_1km_pct": 8.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 211
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -66626,7 +66715,8 @@
         "slug": "bossolasco-dogliani",
         "url": "https://climbfinder.com/en/climbs/bossolasco-dogliani",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 228
       },
       "stats": {
         "length_m": 10545,
@@ -66636,7 +66726,8 @@
         "max_gradient_pct": 8.2,
         "steepest_100m_pct": 8.0,
         "steepest_1km_pct": 6.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 228
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -68010,7 +68101,8 @@
         "slug": "monte-rai-entracque",
         "url": "https://climbfinder.com/en/climbs/monte-rai-entracque",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 848
       },
       "stats": {
         "length_m": 10337,
@@ -68020,7 +68112,8 @@
         "max_gradient_pct": 13.4,
         "steepest_100m_pct": 13.3,
         "steepest_1km_pct": 9.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 848
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -69368,7 +69461,8 @@
         "slug": "albaretto-della-torre-sinio",
         "url": "https://climbfinder.com/en/climbs/albaretto-della-torre-sinio",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 358
       },
       "stats": {
         "length_m": 3249,
@@ -69378,7 +69472,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 14.3,
         "steepest_1km_pct": 11.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 358
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -70256,7 +70351,8 @@
         "slug": "costalunga-san-benedetto-belbo",
         "url": "https://climbfinder.com/en/climbs/costalunga-san-benedetto-belbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 284
       },
       "stats": {
         "length_m": 4320,
@@ -70266,7 +70362,8 @@
         "max_gradient_pct": 17.6,
         "steepest_100m_pct": 16.2,
         "steepest_1km_pct": 9.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 284
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -71412,7 +71509,8 @@
         "slug": "colle-del-morte-roccaforte-mondovi",
         "url": "https://climbfinder.com/en/climbs/colle-del-morte-roccaforte-mondovi",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 87
       },
       "stats": {
         "length_m": 3172,
@@ -71422,7 +71520,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.5,
         "steepest_1km_pct": 7.6,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 87
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -72280,7 +72379,8 @@
         "slug": "montemale-di-cuneo-valgrana",
         "url": "https://climbfinder.com/en/climbs/montemale-di-cuneo-valgrana",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 251
       },
       "stats": {
         "length_m": 3295,
@@ -72290,7 +72390,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 9.6,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 251
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -73180,7 +73281,8 @@
         "slug": "lunetta-san-benedetto-belbo",
         "url": "https://climbfinder.com/en/climbs/lunetta-san-benedetto-belbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 237
       },
       "stats": {
         "length_m": 3357,
@@ -73190,7 +73292,8 @@
         "max_gradient_pct": 15.2,
         "steepest_100m_pct": 14.4,
         "steepest_1km_pct": 9.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 237
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -74098,7 +74201,8 @@
         "slug": "gorzegno-niella-belbo",
         "url": "https://climbfinder.com/en/climbs/gorzegno-niella-belbo",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 449
       },
       "stats": {
         "length_m": 6091,
@@ -74108,7 +74212,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 19.1,
         "steepest_1km_pct": 12.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 449
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -75662,7 +75767,8 @@
         "slug": "bergolo-pezzolo-valle-uzzone",
         "url": "https://climbfinder.com/en/climbs/bergolo-pezzolo-valle-uzzone",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 363
       },
       "stats": {
         "length_m": 2610,
@@ -75672,7 +75778,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 17.4,
         "steepest_1km_pct": 14.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 363
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -76394,7 +76501,8 @@
         "slug": "san-grato-santo-stefano-belbo",
         "url": "https://climbfinder.com/en/climbs/san-grato-santo-stefano-belbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 253
       },
       "stats": {
         "length_m": 8510,
@@ -76404,7 +76512,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.1,
         "steepest_1km_pct": 7.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 253
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -78550,7 +78659,8 @@
         "slug": "la-morra-cappella-delle-brunate",
         "url": "https://climbfinder.com/en/climbs/la-morra-cappella-delle-brunate",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 337
       },
       "stats": {
         "length_m": 3072,
@@ -78560,7 +78670,8 @@
         "max_gradient_pct": 19.2,
         "steepest_100m_pct": 18.8,
         "steepest_1km_pct": 12.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 337
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -79394,7 +79505,8 @@
         "slug": "la-morra-sant-antonio",
         "url": "https://climbfinder.com/en/climbs/la-morra-sant-antonio",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 247
       },
       "stats": {
         "length_m": 5299,
@@ -79404,7 +79516,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.5,
         "steepest_1km_pct": 10.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 247
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -80762,7 +80875,8 @@
         "slug": "san-grato-chiesetta-di-san-bovo",
         "url": "https://climbfinder.com/en/climbs/san-grato-chiesetta-di-san-bovo",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 411
       },
       "stats": {
         "length_m": 5096,
@@ -80772,7 +80886,8 @@
         "max_gradient_pct": 23.2,
         "steepest_100m_pct": 21.9,
         "steepest_1km_pct": 12.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 411
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -82112,7 +82227,8 @@
         "slug": "colle-dei-giovetti-bagnasco",
         "url": "https://climbfinder.com/en/climbs/colle-dei-giovetti-bagnasco",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 260
       },
       "stats": {
         "length_m": 8490,
@@ -82122,7 +82238,8 @@
         "max_gradient_pct": 11.6,
         "steepest_100m_pct": 10.5,
         "steepest_1km_pct": 6.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 260
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -84260,7 +84377,8 @@
         "slug": "la-morra-mascarelli",
         "url": "https://climbfinder.com/en/climbs/la-morra-mascarelli",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 171
       },
       "stats": {
         "length_m": 6476,
@@ -84270,7 +84388,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.4,
         "steepest_1km_pct": 6.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 171
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -85920,7 +86039,8 @@
         "slug": "murazzano-dogliani",
         "url": "https://climbfinder.com/en/climbs/murazzano-dogliani",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 255
       },
       "stats": {
         "length_m": 6707,
@@ -85930,7 +86050,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 11.5,
         "steepest_1km_pct": 7.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 255
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -87636,7 +87757,8 @@
         "slug": "muro-di-somano",
         "url": "https://climbfinder.com/en/climbs/muro-di-somano",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 160
       },
       "stats": {
         "length_m": 780,
@@ -87646,7 +87768,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 17.1,
         "steepest_1km_pct": 0.0,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 160
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -87934,7 +88057,8 @@
         "slug": "bergolo-cortemilia",
         "url": "https://climbfinder.com/en/climbs/bergolo-cortemilia",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 200
       },
       "stats": {
         "length_m": 7549,
@@ -87944,7 +88068,8 @@
         "max_gradient_pct": 10.8,
         "steepest_100m_pct": 9.6,
         "steepest_1km_pct": 5.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 200
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -89852,7 +89977,8 @@
         "slug": "colla-di-casotto-garessio-mindino",
         "url": "https://climbfinder.com/en/climbs/colla-di-casotto-garessio-mindino",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 611
       },
       "stats": {
         "length_m": 11737,
@@ -89862,7 +89988,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.4,
         "steepest_1km_pct": 10.8,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 611
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -91384,7 +91511,8 @@
         "slug": "colla-di-casotto-pamparato",
         "url": "https://climbfinder.com/en/climbs/colla-di-casotto-pamparato",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 386
       },
       "stats": {
         "length_m": 10678,
@@ -91394,7 +91522,8 @@
         "max_gradient_pct": 10.0,
         "steepest_100m_pct": 9.9,
         "steepest_1km_pct": 7.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 386
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -92786,7 +92915,8 @@
         "slug": "bossolaschetto-cissone",
         "url": "https://climbfinder.com/en/climbs/bossolaschetto-cissone",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 321
       },
       "stats": {
         "length_m": 5798,
@@ -92796,7 +92926,8 @@
         "max_gradient_pct": 18.0,
         "steepest_100m_pct": 17.0,
         "steepest_1km_pct": 10.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 321
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -94310,7 +94441,8 @@
         "slug": "bergolo-laurent-fignon-cortemilia",
         "url": "https://climbfinder.com/en/climbs/bergolo-laurent-fignon-cortemilia",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 257
       },
       "stats": {
         "length_m": 5061,
@@ -94320,7 +94452,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.7,
         "steepest_1km_pct": 8.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 257
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -95624,7 +95757,8 @@
         "slug": "castino-strada-monta-castino",
         "url": "https://climbfinder.com/en/climbs/castino-strada-monta-castino",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 166
       },
       "stats": {
         "length_m": 5086,
@@ -95634,7 +95768,8 @@
         "max_gradient_pct": 12.7,
         "steepest_100m_pct": 9.6,
         "steepest_1km_pct": 6.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 166
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -96944,7 +97079,8 @@
         "slug": "guarene-vaccheria",
         "url": "https://climbfinder.com/en/climbs/guarene-vaccheria",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 157
       },
       "stats": {
         "length_m": 3459,
@@ -96954,7 +97090,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 7.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 157
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -97888,7 +98025,8 @@
         "slug": "san-grato-from-cossano-belbo",
         "url": "https://climbfinder.com/en/climbs/san-grato-from-cossano-belbo",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 314
       },
       "stats": {
         "length_m": 4097,
@@ -97898,7 +98036,8 @@
         "max_gradient_pct": 12.8,
         "steepest_100m_pct": 12.0,
         "steepest_1km_pct": 9.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 314
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -98988,7 +99127,8 @@
         "slug": "san-grato-chiesetta-di-santa-libera",
         "url": "https://climbfinder.com/en/climbs/san-grato-chiesetta-di-santa-libera",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 374
       },
       "stats": {
         "length_m": 4541,
@@ -98998,7 +99138,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 18.6,
         "steepest_1km_pct": 12.3,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 374
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -100200,7 +100341,8 @@
         "slug": "roddino-monforte-d-alba",
         "url": "https://climbfinder.com/en/climbs/roddino-monforte-d-alba",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 79
       },
       "stats": {
         "length_m": 4484,
@@ -100210,7 +100352,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 8.9,
         "steepest_1km_pct": 6.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 79
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -101400,7 +101543,8 @@
         "slug": "colletta-di-rossana-morra-san-giovanni",
         "url": "https://climbfinder.com/en/climbs/colletta-di-rossana-morra-san-giovanni",
         "category": "5",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 50
       },
       "stats": {
         "length_m": 2076,
@@ -101410,7 +101554,8 @@
         "max_gradient_pct": 30.0,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 5.5,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 50
       },
       "difficulty_score": 5.0,
       "geometry": {
@@ -102020,7 +102165,8 @@
         "slug": "viviere-acceglio",
         "url": "https://climbfinder.com/en/climbs/viviere-acceglio",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 805
       },
       "stats": {
         "length_m": 6018,
@@ -102030,7 +102176,8 @@
         "max_gradient_pct": 24.8,
         "steepest_100m_pct": 23.6,
         "steepest_1km_pct": 13.1,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 805
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -103566,7 +103713,8 @@
         "slug": "castino-via-molino",
         "url": "https://climbfinder.com/en/climbs/castino-via-molino",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 247
       },
       "stats": {
         "length_m": 2941,
@@ -103576,7 +103724,8 @@
         "max_gradient_pct": 19.2,
         "steepest_100m_pct": 17.9,
         "steepest_1km_pct": 11.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 247
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -104378,7 +104527,8 @@
         "slug": "boscasso-charly-gaul-campetto",
         "url": "https://climbfinder.com/en/climbs/boscasso-charly-gaul-campetto",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 306
       },
       "stats": {
         "length_m": 4696,
@@ -104388,7 +104538,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 15.6,
         "steepest_1km_pct": 10.9,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 306
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -105628,7 +105779,8 @@
         "slug": "todocco",
         "url": "https://climbfinder.com/en/climbs/todocco",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 423
       },
       "stats": {
         "length_m": 5530,
@@ -105638,7 +105790,8 @@
         "max_gradient_pct": 21.2,
         "steepest_100m_pct": 19.5,
         "steepest_1km_pct": 10.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 423
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -107058,7 +107211,8 @@
         "slug": "palanfre-vernante",
         "url": "https://climbfinder.com/en/climbs/palanfre-vernante",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 540
       },
       "stats": {
         "length_m": 8732,
@@ -107068,7 +107222,8 @@
         "max_gradient_pct": 13.6,
         "steepest_100m_pct": 13.1,
         "steepest_1km_pct": 11.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 540
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -109268,7 +109423,8 @@
         "slug": "roddino-dogliani",
         "url": "https://climbfinder.com/en/climbs/roddino-dogliani",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 254
       },
       "stats": {
         "length_m": 9295,
@@ -109278,7 +109434,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.8,
         "steepest_1km_pct": 8.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 254
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -111612,7 +111769,8 @@
         "slug": "tre-cunei-alba-diano-d-alba",
         "url": "https://climbfinder.com/en/climbs/tre-cunei-alba-diano-d-alba",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 282
       },
       "stats": {
         "length_m": 16552,
@@ -111622,7 +111780,8 @@
         "max_gradient_pct": 7.4,
         "steepest_100m_pct": 7.3,
         "steepest_1km_pct": 5.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 282
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -113712,7 +113871,8 @@
         "slug": "belvedere-langhe-dogliani",
         "url": "https://climbfinder.com/en/climbs/belvedere-langhe-dogliani",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 241
       },
       "stats": {
         "length_m": 7268,
@@ -113722,7 +113882,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.4,
         "steepest_1km_pct": 7.5,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 241
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -115562,7 +115723,8 @@
         "slug": "pian-della-regina-sambuco",
         "url": "https://climbfinder.com/en/climbs/pian-della-regina-sambuco",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 529
       },
       "stats": {
         "length_m": 4313,
@@ -115572,7 +115734,8 @@
         "max_gradient_pct": 26.4,
         "steepest_100m_pct": 25.4,
         "steepest_1km_pct": 16.0,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 529
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -116718,7 +116881,8 @@
         "slug": "pedaggera-cerreto-langhe",
         "url": "https://climbfinder.com/en/climbs/pedaggera-cerreto-langhe",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 272
       },
       "stats": {
         "length_m": 5458,
@@ -116728,7 +116892,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 12.6,
         "steepest_1km_pct": 10.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 272
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -118128,7 +118293,8 @@
         "slug": "castino-rocchetta-belbo",
         "url": "https://climbfinder.com/en/climbs/castino-rocchetta-belbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 289
       },
       "stats": {
         "length_m": 2413,
@@ -118138,7 +118304,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 15.9,
         "steepest_1km_pct": 11.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 289
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -118834,7 +119001,8 @@
         "slug": "colla-di-casotto-garessio-cappello",
         "url": "https://climbfinder.com/en/climbs/colla-di-casotto-garessio-cappello",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 568
       },
       "stats": {
         "length_m": 12492,
@@ -118844,7 +119012,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 12.3,
         "steepest_1km_pct": 8.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 568
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -120458,7 +120627,8 @@
         "slug": "eremo-di-belmonte-morra-san-giovanni",
         "url": "https://climbfinder.com/en/climbs/eremo-di-belmonte-morra-san-giovanni",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 272
       },
       "stats": {
         "length_m": 4911,
@@ -120468,7 +120638,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.9,
         "steepest_1km_pct": 11.1,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 272
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -121764,7 +121935,8 @@
         "slug": "san-grato-strada-cossanetto",
         "url": "https://climbfinder.com/en/climbs/san-grato-strada-cossanetto",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 358
       },
       "stats": {
         "length_m": 4284,
@@ -121774,7 +121946,8 @@
         "max_gradient_pct": 18.0,
         "steepest_100m_pct": 17.1,
         "steepest_1km_pct": 12.8,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 358
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -122914,7 +123087,8 @@
         "slug": "manero-borgomale",
         "url": "https://climbfinder.com/en/climbs/manero-borgomale",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 187
       },
       "stats": {
         "length_m": 5203,
@@ -122924,7 +123098,8 @@
         "max_gradient_pct": 13.3,
         "steepest_100m_pct": 11.2,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 187
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -124296,7 +124471,8 @@
         "slug": "bergolo",
         "url": "https://climbfinder.com/en/climbs/bergolo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 232
       },
       "stats": {
         "length_m": 7352,
@@ -124306,7 +124482,8 @@
         "max_gradient_pct": 30.0,
         "steepest_100m_pct": 10.4,
         "steepest_1km_pct": 8.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 232
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -126170,7 +126347,8 @@
         "slug": "bossolasco-borgata-curine",
         "url": "https://climbfinder.com/en/climbs/bossolasco-borgata-curine",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 132
       },
       "stats": {
         "length_m": 1413,
@@ -126180,7 +126358,8 @@
         "max_gradient_pct": 18.0,
         "steepest_100m_pct": 14.7,
         "steepest_1km_pct": 9.6,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 132
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -126616,7 +126795,8 @@
         "slug": "pian-mune-erasca",
         "url": "https://climbfinder.com/en/climbs/pian-mune-erasca",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 657
       },
       "stats": {
         "length_m": 12674,
@@ -126626,7 +126806,8 @@
         "max_gradient_pct": 12.4,
         "steepest_100m_pct": 12.2,
         "steepest_1km_pct": 8.5,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 657
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -128240,7 +128421,8 @@
         "slug": "frabosa-soprana-villanova-mondovi",
         "url": "https://climbfinder.com/en/climbs/frabosa-soprana-villanova-mondovi",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 247
       },
       "stats": {
         "length_m": 8214,
@@ -128250,7 +128432,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 10.9,
         "steepest_1km_pct": 8.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 247
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -130322,7 +130505,8 @@
         "slug": "castino-osteria-del-ponte",
         "url": "https://climbfinder.com/en/climbs/castino-osteria-del-ponte",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 123
       },
       "stats": {
         "length_m": 3695,
@@ -130332,7 +130516,8 @@
         "max_gradient_pct": 9.2,
         "steepest_100m_pct": 8.6,
         "steepest_1km_pct": 7.2,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 123
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -131322,7 +131507,8 @@
         "slug": "todocco-pezzolo-valle-uzzone",
         "url": "https://climbfinder.com/en/climbs/todocco-pezzolo-valle-uzzone",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 328
       },
       "stats": {
         "length_m": 7074,
@@ -131332,7 +131518,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 13.5,
         "steepest_1km_pct": 8.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 328
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -133124,7 +133311,8 @@
         "slug": "san-grato-strada-madovito",
         "url": "https://climbfinder.com/en/climbs/san-grato-strada-madovito",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 252
       },
       "stats": {
         "length_m": 6653,
@@ -133134,7 +133322,8 @@
         "max_gradient_pct": 21.2,
         "steepest_100m_pct": 19.1,
         "steepest_1km_pct": 11.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 252
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -134828,7 +135017,8 @@
         "slug": "san-grato-strada-pianella",
         "url": "https://climbfinder.com/en/climbs/san-grato-strada-pianella",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 386
       },
       "stats": {
         "length_m": 4963,
@@ -134838,7 +135028,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 17.4,
         "steepest_1km_pct": 12.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 386
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -136146,7 +136337,8 @@
         "slug": "san-giacomo-di-roburent-corsagliola",
         "url": "https://climbfinder.com/en/climbs/san-giacomo-di-roburent-corsagliola",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 262
       },
       "stats": {
         "length_m": 6892,
@@ -136156,7 +136348,8 @@
         "max_gradient_pct": 14.8,
         "steepest_100m_pct": 13.0,
         "steepest_1km_pct": 8.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 262
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -137904,7 +138097,8 @@
         "slug": "colombata-villaro",
         "url": "https://climbfinder.com/en/climbs/colombata-villaro",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 307
       },
       "stats": {
         "length_m": 1716,
@@ -137914,7 +138108,8 @@
         "max_gradient_pct": 18.4,
         "steepest_100m_pct": 18.3,
         "steepest_1km_pct": 15.6,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 307
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -138428,7 +138623,8 @@
         "slug": "brignacchi-ormea",
         "url": "https://climbfinder.com/en/climbs/brignacchi-ormea",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 658
       },
       "stats": {
         "length_m": 7883,
@@ -138438,7 +138634,8 @@
         "max_gradient_pct": 21.2,
         "steepest_100m_pct": 19.5,
         "steepest_1km_pct": 11.3,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 658
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -140430,7 +140627,8 @@
         "slug": "niella-belbo-bossolasco",
         "url": "https://climbfinder.com/en/climbs/niella-belbo-bossolasco",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 206
       },
       "stats": {
         "length_m": 4383,
@@ -140440,7 +140638,8 @@
         "max_gradient_pct": 13.2,
         "steepest_100m_pct": 11.7,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 206
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -141604,7 +141803,8 @@
         "slug": "colletto-ramonda-robilante",
         "url": "https://climbfinder.com/en/climbs/colletto-ramonda-robilante",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 96
       },
       "stats": {
         "length_m": 719,
@@ -141614,7 +141814,8 @@
         "max_gradient_pct": 18.8,
         "steepest_100m_pct": 17.9,
         "steepest_1km_pct": 0.0,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 96
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -141882,7 +142083,8 @@
         "slug": "bossolasco-dogliani-219700",
         "url": "https://climbfinder.com/en/climbs/bossolasco-dogliani-219700",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 259
       },
       "stats": {
         "length_m": 12380,
@@ -141892,7 +142094,8 @@
         "max_gradient_pct": 8.6,
         "steepest_100m_pct": 8.5,
         "steepest_1km_pct": 7.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 259
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -143494,7 +143697,8 @@
         "slug": "la-morra-garbelletto-barolo",
         "url": "https://climbfinder.com/en/climbs/la-morra-garbelletto-barolo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 163
       },
       "stats": {
         "length_m": 7197,
@@ -143504,7 +143708,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 6.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 163
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -145326,7 +145531,8 @@
         "slug": "san-bartolomeo-sant-antonio",
         "url": "https://climbfinder.com/en/climbs/san-bartolomeo-sant-antonio",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 194
       },
       "stats": {
         "length_m": 5183,
@@ -145336,7 +145542,8 @@
         "max_gradient_pct": 16.4,
         "steepest_100m_pct": 15.1,
         "steepest_1km_pct": 9.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 194
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -146670,7 +146877,8 @@
         "slug": "la-morra-monchiero-barolo",
         "url": "https://climbfinder.com/en/climbs/la-morra-monchiero-barolo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 156
       },
       "stats": {
         "length_m": 13239,
@@ -146680,7 +146888,8 @@
         "max_gradient_pct": 8.6,
         "steepest_100m_pct": 8.5,
         "steepest_1km_pct": 5.9,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 156
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -148362,7 +148571,8 @@
         "slug": "todocco-vassalli",
         "url": "https://climbfinder.com/en/climbs/todocco-vassalli",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 313
       },
       "stats": {
         "length_m": 6247,
@@ -148372,7 +148582,8 @@
         "max_gradient_pct": 15.6,
         "steepest_100m_pct": 14.1,
         "steepest_1km_pct": 8.0,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 313
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -149962,7 +150173,8 @@
         "slug": "roddino-cissone",
         "url": "https://climbfinder.com/en/climbs/roddino-cissone",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 147
       },
       "stats": {
         "length_m": 2587,
@@ -149972,7 +150184,8 @@
         "max_gradient_pct": 18.0,
         "steepest_100m_pct": 17.4,
         "steepest_1km_pct": 10.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 147
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -150686,7 +150899,8 @@
         "slug": "colla-della-giacobba-vasco",
         "url": "https://climbfinder.com/en/climbs/colla-della-giacobba-vasco",
         "category": "4",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 92
       },
       "stats": {
         "length_m": 3950,
@@ -150696,7 +150910,8 @@
         "max_gradient_pct": 8.8,
         "steepest_100m_pct": 8.2,
         "steepest_1km_pct": 6.3,
-        "classification": "4"
+        "classification": "4",
+        "difficulty_points": 92
       },
       "difficulty_score": 4.0,
       "geometry": {
@@ -151748,7 +151963,8 @@
         "slug": "todocco-carpeneta",
         "url": "https://climbfinder.com/en/climbs/todocco-carpeneta",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 364
       },
       "stats": {
         "length_m": 5879,
@@ -151758,7 +151974,8 @@
         "max_gradient_pct": 25.0,
         "steepest_100m_pct": 15.6,
         "steepest_1km_pct": 10.4,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 364
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -153262,7 +153479,8 @@
         "slug": "roddino-baudana",
         "url": "https://climbfinder.com/en/climbs/roddino-baudana",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 245
       },
       "stats": {
         "length_m": 9945,
@@ -153272,7 +153490,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 11.0,
         "steepest_1km_pct": 7.3,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 245
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -155764,7 +155983,8 @@
         "slug": "pilone-chiarle-gianni-bugno-rocchetta-belbo",
         "url": "https://climbfinder.com/en/climbs/pilone-chiarle-gianni-bugno-rocchetta-belbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 262
       },
       "stats": {
         "length_m": 4966,
@@ -155774,7 +155994,8 @@
         "max_gradient_pct": 14.0,
         "steepest_100m_pct": 12.9,
         "steepest_1km_pct": 9.7,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 262
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -157082,7 +157303,8 @@
         "slug": "brignacchi-ponte-di-nava",
         "url": "https://climbfinder.com/en/climbs/brignacchi-ponte-di-nava",
         "category": "1",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 605
       },
       "stats": {
         "length_m": 6149,
@@ -157092,7 +157314,8 @@
         "max_gradient_pct": 20.0,
         "steepest_100m_pct": 18.9,
         "steepest_1km_pct": 12.6,
-        "classification": "1"
+        "classification": "1",
+        "difficulty_points": 605
       },
       "difficulty_score": 1.0,
       "geometry": {
@@ -158658,7 +158881,8 @@
         "slug": "niella-belbo-bosia",
         "url": "https://climbfinder.com/en/climbs/niella-belbo-bosia",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 264
       },
       "stats": {
         "length_m": 15271,
@@ -158668,7 +158892,8 @@
         "max_gradient_pct": 11.8,
         "steepest_100m_pct": 11.6,
         "steepest_1km_pct": 6.2,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 264
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -160600,7 +160825,8 @@
         "slug": "diano-d-alba-romino-ricca-di-diano-d-alba",
         "url": "https://climbfinder.com/en/climbs/diano-d-alba-romino-ricca-di-diano-d-alba",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 282
       },
       "stats": {
         "length_m": 2244,
@@ -160610,7 +160836,8 @@
         "max_gradient_pct": 16.8,
         "steepest_100m_pct": 16.3,
         "steepest_1km_pct": 11.8,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 282
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -161260,7 +161487,8 @@
         "slug": "santa-libera-claudio-chiappucci-santo-stefano-belbo",
         "url": "https://climbfinder.com/en/climbs/santa-libera-claudio-chiappucci-santo-stefano-belbo",
         "category": "3",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 204
       },
       "stats": {
         "length_m": 6878,
@@ -161270,7 +161498,8 @@
         "max_gradient_pct": 10.4,
         "steepest_100m_pct": 10.0,
         "steepest_1km_pct": 7.4,
-        "classification": "3"
+        "classification": "3",
+        "difficulty_points": 204
       },
       "difficulty_score": 3.0,
       "geometry": {
@@ -163018,7 +163247,8 @@
         "slug": "bric-puschera-cortemilia",
         "url": "https://climbfinder.com/en/climbs/bric-puschera-cortemilia",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 318
       },
       "stats": {
         "length_m": 13676,
@@ -163028,7 +163258,8 @@
         "max_gradient_pct": 9.6,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 8.1,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 318
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -164764,7 +164995,8 @@
         "slug": "gias-delle-mosche-borgo-san-dalmazzo",
         "url": "https://climbfinder.com/en/climbs/gias-delle-mosche-borgo-san-dalmazzo",
         "category": "2",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 510
       },
       "stats": {
         "length_m": 26851,
@@ -164774,7 +165006,8 @@
         "max_gradient_pct": 13.1,
         "steepest_100m_pct": 9.5,
         "steepest_1km_pct": 7.7,
-        "classification": "2"
+        "classification": "2",
+        "difficulty_points": 510
       },
       "difficulty_score": 2.0,
       "geometry": {
@@ -166480,7 +166713,8 @@
         "slug": "bossolasco-strada-galli",
         "url": "https://climbfinder.com/en/climbs/bossolasco-strada-galli",
         "category": "5",
-        "resolved_locality_id": 781
+        "resolved_locality_id": 781,
+        "difficulty_points": 45
       },
       "stats": {
         "length_m": 796,
@@ -166490,7 +166724,8 @@
         "max_gradient_pct": 12.0,
         "steepest_100m_pct": 10.2,
         "steepest_1km_pct": 0.0,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 45
       },
       "difficulty_score": 5.0,
       "geometry": {

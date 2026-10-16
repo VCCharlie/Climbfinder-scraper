@@ -5,12 +5,15 @@
     "title": "Imperia",
     "country": "IT",
     "count": 1,
-    "updated_at": "2026-10-15T06:59:16Z",
+    "updated_at": "2026-10-16T10:53:46Z",
     "source": {
       "locality_id": 755,
       "split_from_monolith": [
         "cf-l47-italy"
       ]
+    },
+    "maintenance": {
+      "climbfinder_scores_backfill": "2026-10-16T10:53:46Z"
     }
   },
   "climbs": [
@@ -25,7 +28,8 @@
         "slug": "colle-di-nava-ponte-di-nava",
         "url": "https://climbfinder.com/en/climbs/colle-di-nava-ponte-di-nava",
         "category": "5",
-        "resolved_locality_id": 755
+        "resolved_locality_id": 755,
+        "difficulty_points": 43
       },
       "stats": {
         "length_m": 3737,
@@ -35,7 +39,8 @@
         "max_gradient_pct": 6.4,
         "steepest_100m_pct": 5.9,
         "steepest_1km_pct": 4.7,
-        "classification": "5"
+        "classification": "5",
+        "difficulty_points": 43
       },
       "difficulty_score": 5.0,
       "geometry": {
