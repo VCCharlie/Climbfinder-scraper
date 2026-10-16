@@ -269,7 +269,13 @@ async function matchAndWriteForDatasets(uid, matchActivities, datasetIds) {
  * @param {string} cplOwnerId
  * @param {{ afterMs?: number|null, beforeMs?: number|null, pageSize?: number, startAfterDate?: string|null, startAfterId?: string|null }} opts
  */
+function normalizeRouteMapPolicy(raw) {
+  if (raw === "intervals_only" || raw === "strava_only") return raw;
+  return "default";
+}
+
 async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
+  const routeMapPolicy = normalizeRouteMapPolicy(opts.routeMapPolicy);
   const pageSize = Math.min(Math.max(1, opts.pageSize || CPL_ACTIVITIES_PAGE_SIZE), 120);
   const db = getCplFirestore();
   let q = db.collection("activities").where("ownerId", "==", cplOwnerId).orderBy("date", "desc");
@@ -337,7 +343,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
       skippedOutOfBounds += 1;
       continue;
     }
-    const matchAct = cplActivityToMatchRecord(doc.id, data);
+    const matchAct = cplActivityToMatchRecord(doc.id, data, routeMapPolicy);
     if (matchAct.map?.summary_polyline) {
       records.push(matchAct);
     } else {
@@ -425,6 +431,8 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
 
   let activityCursor = null;
   let nextDatasetIndex = 0;
+  const routeMapPolicy = normalizeRouteMapPolicy(data.routeMapPolicy ?? prev?.routeMapPolicy);
+
   if (!reset && prev?.mode === "all") {
     activityCursor = prev.activityCursor || null;
     nextDatasetIndex = Number(prev.nextDatasetIndex) || 0;
@@ -433,6 +441,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   const page = await fetchCplActivitiesPage(cplOwnerId, {
     afterMs: bounds.afterMs,
     beforeMs: bounds.beforeMs,
+    routeMapPolicy,
     startAfterDate: activityCursor?.startAfterDate,
     startAfterId: activityCursor?.startAfterId,
   });
@@ -478,6 +487,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
         nextDatasetIndex: nextDatasetIndexAfter,
         afterMs: bounds.afterMs,
         beforeMs: bounds.beforeMs,
+        routeMapPolicy,
         updatedAt: new Date().toISOString(),
       };
 
@@ -485,6 +495,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   const summary = {
     kind: "full",
     source: "cpl",
+    routeMapPolicy,
     datasetId: ALL_DATASETS_TOKEN,
     allDatasets: true,
     regionCount,

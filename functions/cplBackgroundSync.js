@@ -70,7 +70,9 @@ function publicJobView(doc) {
     batchCount: d.batchCount ?? 0,
     lastMessage: d.lastMessage || null,
   };
-  view.routeSource = "cpl";
+  const policy = d.routeMapPolicy === "intervals_only" ? "intervals_only" : "default";
+  view.routeMapPolicy = policy;
+  view.routeSource = policy === "intervals_only" ? "cpl-intervals" : "cpl";
   return view;
 }
 
@@ -237,11 +239,14 @@ async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
   }
   await assertNoOtherRouteSyncJob(uid);
   const bounds = parseBounds(data);
+  const routeMapPolicy =
+    data.routeMapPolicy === "intervals_only" ? "intervals_only" : "default";
   const jobId = admin.firestore().collection("_").doc().id;
   const now = admin.firestore.FieldValue.serverTimestamp();
   await jobRef(uid, jobId).set({
     status: "queued",
     datasetId,
+    routeMapPolicy,
     afterMs: bounds.afterMs,
     beforeMs: bounds.beforeMs,
     batchCount: 0,
@@ -262,13 +267,20 @@ async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
   }
   const created = await jobRef(uid, jobId).get();
   const job = publicJobView(created);
-  if (job) job.routeSource = "cpl";
+  if (job) {
+    job.routeMapPolicy = routeMapPolicy;
+    job.routeSource = routeMapPolicy === "intervals_only" ? "cpl-intervals" : "cpl";
+  }
+  const policyLabel =
+    routeMapPolicy === "intervals_only"
+      ? "alleen Intervals-map uit CPL"
+      : "Intervals-map, anders Strava-map uit CPL";
   return {
     ok: true,
     jobId,
-    routeSource: "cpl",
-    message:
-      "Server-sync gestart via Performance Lab-routes (zelfde polyline-check als Strava-sync, geen Strava API).",
+    routeMapPolicy,
+    routeSource: routeMapPolicy === "intervals_only" ? "cpl-intervals" : "cpl",
+    message: `Server-sync via Performance Lab (${policyLabel}, geen Strava API).`,
     job,
   };
 }
@@ -344,6 +356,7 @@ async function processCplSyncJob(uid, jobId, identity) {
   const payload = {
     datasetId: job.datasetId,
     reset: Boolean(job.firstBatchPending),
+    routeMapPolicy: job.routeMapPolicy === "intervals_only" ? "intervals_only" : "default",
     ...(job.afterMs != null ? { after: job.afterMs } : {}),
     ...(job.beforeMs != null ? { before: job.beforeMs } : {}),
   };

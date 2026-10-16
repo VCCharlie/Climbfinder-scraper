@@ -40,8 +40,9 @@
       <h2 id="logbookSyncTitle">Logboek sync</h2>
       <p id="logbookRouteStatus" class="settings-sync-line" role="status">Performance Lab: laden…</p>
       <p class="settings-hint settings-hint--tight">
-        Volgorde routes: <strong>CPL</strong> (Intervals-map, anders Strava-map) → anders <strong>Strava API</strong>.
-        Sync zet <strong>gedaan</strong> aan en <strong>wishlist</strong> uit bij match (buitenritten; geen indoor/Zwift).
+        Vul <strong>ritdatum van/tot</strong> in en start daarna één server-sync: <strong>CPL</strong> (Firestore),
+        <strong>Intervals-map</strong> (alleen <code>intervals_map</code> in CPL), of <strong>Strava API</strong>.
+        Match zet <strong>gedaan</strong> aan en <strong>wishlist</strong> uit (buitenritten; geen indoor/Zwift).
       </p>
       <label class="settings-field-label" for="stravaDatasetSelect">Logboek-scope</label>
       <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio of hele database">
@@ -57,14 +58,24 @@
           <input type="date" id="stravaSyncDateTo" class="settings-input" aria-label="Ritdatum tot (optioneel)" />
         </div>
       </div>
-      <div class="settings-actions settings-actions--logbook-primary">
-        <button type="button" id="stravaServerFullSyncBtn" class="secondary strava-sync-primary" hidden>
-          Logboek sync (server)
+      <div class="settings-actions settings-actions--logbook-primary settings-actions--logbook-channels">
+        <button type="button" id="logbookSyncCplBtn" class="secondary strava-sync-primary" hidden>
+          Logboek · CPL (server)
+        </button>
+        <button type="button" id="logbookSyncIntervalsBtn" class="secondary" hidden>
+          Logboek · Intervals-map (server)
+        </button>
+        <button type="button" id="logbookSyncStravaBtn" class="secondary" hidden>
+          Logboek · Strava API (server)
         </button>
         <button type="button" id="stravaCancelServerSyncBtn" class="secondary" hidden>
           Annuleer server-job
         </button>
       </div>
+      <p id="logbookSyncChannelHint" class="settings-hint settings-hint--tight" hidden>
+        Server-sync per periode: vul ritdatum <strong>van</strong> en <strong>tot</strong> in. CPL/Intervals vereisen logboek-scope
+        <strong>hele database</strong> en gekoppeld Performance Lab.
+      </p>
       <details id="stravaOAuthDetails" class="strava-browser-sync-details">
         <summary>Strava API · koppeling</summary>
         <label class="settings-switch" for="stravaIncludePrivate">
@@ -179,7 +190,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261016cpl-run-panel2"></script>
+  <script src="assets/strava-sync.js?v=20261016logbook-channels1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
