@@ -15,6 +15,15 @@ const {
   summaryMatchesFromMap,
 } = require("./cplMatch");
 
+function polylineHintPresent(raw) {
+  if (raw == null) return false;
+  if (typeof raw === "object" && raw.summary_polyline) {
+    return String(raw.summary_polyline).trim().length > 0;
+  }
+  const s = String(raw).trim();
+  return s.length > 0 && s !== "[object Object]";
+}
+
 const REGION = "europe-west1";
 const ALL_DATASETS_TOKEN = "__all__";
 const CPL_ACTIVITIES_PAGE_SIZE = 60;
@@ -82,21 +91,40 @@ function ymdDayAfterLocal(ms) {
   return ymdFromMsLocal(d.getTime());
 }
 
-function activityCalendarYmd(data) {
-  const raw = data?.date || data?.start_date_local || data?.start_date;
+function cplDateRawString(data) {
+  const raw = data?.date ?? data?.start_date_local ?? data?.start_date;
   if (raw == null) return null;
+  if (typeof raw.toDate === "function") {
+    try {
+      const d = raw.toDate();
+      if (d instanceof Date && Number.isFinite(d.getTime())) return d.toISOString();
+    } catch {
+      /* ignore */
+    }
+  }
+  if (raw instanceof Date && Number.isFinite(raw.getTime())) return raw.toISOString();
   const s = String(raw).trim();
+  return s || null;
+}
+
+function activityCalendarYmd(data) {
+  const s = cplDateRawString(data);
   if (!s) return null;
   if (s.includes("T")) return s.slice(0, 10);
   return s.length >= 10 ? s.slice(0, 10) : s;
 }
 
 function activityDateMsFromCpl(data) {
-  const raw = data?.date || data?.start_date_local || data?.start_date;
-  if (!raw) return null;
-  const s = String(raw);
+  const s = cplDateRawString(data);
+  if (!s) return null;
   const t = Date.parse(s.includes("T") ? s : `${s.slice(0, 10)}T12:00:00Z`);
   return Number.isFinite(t) ? t : null;
+}
+
+/** Firestore `startAfter` for orderBy `date` must use the stored field value, not YMD-only. */
+function activityDateCursorValue(data) {
+  const s = cplDateRawString(data);
+  return s || null;
 }
 
 function activityInBounds(data, afterMs, beforeMs) {
@@ -286,6 +314,8 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   const records = [];
   let skippedNoMap = 0;
   let skippedOutOfBounds = 0;
+  /** @type {{ id: string, title: string|null, date: string|null, hasIntervalsMap: boolean, hasStravaMap: boolean }[]} */
+  const noMapSamples = [];
   const fromYmdFilter = fromYmd;
   const toYmdFilter = opts.beforeMs != null ? ymdFromMsLocal(opts.beforeMs) : null;
   for (const doc of snap.docs) {
@@ -312,6 +342,16 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
       records.push(matchAct);
     } else {
       skippedNoMap += 1;
+      if (noMapSamples.length < 5) {
+        const d = doc.data();
+        noMapSamples.push({
+          id: doc.id,
+          title: d?.title || d?.name || null,
+          date: cplDateRawString(d),
+          hasIntervalsMap: Boolean(polylineHintPresent(d?.intervals_map)),
+          hasStravaMap: Boolean(polylineHintPresent(d?.strava_map)),
+        });
+      }
     }
     if (records.length >= pageSize) break;
   }
@@ -322,7 +362,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   const cursor =
     lastDoc && !completed
       ? {
-          startAfterDate: String(lastData?.date || "").slice(0, 10) || null,
+          startAfterDate: activityDateCursorValue(lastData) || null,
           startAfterId: lastDoc.id,
         }
       : null;
@@ -333,6 +373,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
     scannedDocs: snap.docs.length,
     skippedNoMap,
     skippedOutOfBounds,
+    noMapSamples,
     completed: completed || !cursor,
     cursor,
   };
@@ -453,6 +494,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     docsScanned: page.scannedDocs,
     skippedNoMap: page.skippedNoMap ?? 0,
     skippedOutOfBounds: page.skippedOutOfBounds ?? 0,
+    noMapSamples: page.noMapSamples ?? [],
     nextDatasetIndex: nextDatasetIndexAfter,
     datasetsInBatch: batchIds.length,
     completed: syncCompleted,

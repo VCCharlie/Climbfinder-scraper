@@ -232,8 +232,26 @@
       }
       if (summary.skippedNoMap > 0) {
         facts.push(
-          `${summary.skippedNoMap} doc(s) in query zonder intervals_map/strava_map (andere rit of map ontbreekt in Firestore)`
+          `${summary.skippedNoMap} doc(s) in query zonder route-polyline (intervals_map/strava_map leeg in Firestore)`
         );
+      }
+      if (summary.skippedOutOfBounds > 0) {
+        facts.push(
+          `${summary.skippedOutOfBounds} doc(s) buiten gekozen periode (filter na query)`
+        );
+      }
+      const noMapSamples = summary.noMapSamples || [];
+      if (noMapSamples.length && (summary.activitiesWithMap ?? summary.activitiesScanned ?? 0) === 0) {
+        for (const s of noMapSamples.slice(0, 3)) {
+          const title = s.title ? `“${s.title}”` : s.id;
+          const flags = [
+            s.hasIntervalsMap ? "intervals_map≠leeg" : null,
+            s.hasStravaMap ? "strava_map≠leeg" : null,
+          ].filter(Boolean);
+          facts.push(
+            `CPL-activiteit zonder leesbare polyline: ${title} (${s.date || "?"})${flags.length ? ` — veld aanwezig maar niet parseerbaar: ${flags.join(", ")}` : " — run Strava/Intervals map-backfill in CPL"}`
+          );
+        }
       }
       facts.push(
         `Logboek bijgewerkt (matchesWritten): ${summary.matchesWritten ?? summary.uniqueClimbs ?? 0}`
@@ -250,7 +268,7 @@
         (summary.after != null || summary.before != null)
       ) {
         facts.push(
-          "0 ritten met route in deze periode → check in CPL: intervals_map/strava_map + ownerId + datum"
+          "0 ritten met route → na deploy: datumbereik gebruikt date < dag+1 (ISO-tijden op dezelfde dag). Anders: ownerId + intervals_map/strava_map in CPL Firestore"
         );
       } else if ((summary.matchesWritten ?? 0) === 0 && (summary.activitiesScanned ?? 0) > 0) {
         facts.push(
