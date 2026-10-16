@@ -13,7 +13,7 @@
   <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/settings.css?v=20261012stravamatch1" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261016logbookux1" />
 </head>
 <body class="fietsklim-locked settings-page">
   <div id="fietsklim-auth-gate">
@@ -47,57 +47,52 @@
         <input type="checkbox" id="stravaIncludePrivate" class="settings-switch-input" role="switch" />
       </label>
       <p id="stravaPrivateHint" class="settings-status" hidden></p>
-      <label class="settings-field-label" for="stravaDatasetSelect">Sync-scope (één regio of hele database)</label>
-      <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio-dataset voor Strava-sync">
+      <label class="settings-field-label" for="stravaDatasetSelect">Logboek-scope</label>
+      <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio of hele database">
         <option value="">Laden…</option>
       </select>
       <div class="strava-date-range-grid">
         <div>
-          <label class="settings-field-label" for="stravaSyncDateFrom">Ritdatum van (optioneel)</label>
-          <input type="date" id="stravaSyncDateFrom" class="settings-input" />
+          <label class="settings-field-label" for="stravaSyncDateFrom">Ritdatum van</label>
+          <input type="date" id="stravaSyncDateFrom" class="settings-input" aria-label="Ritdatum van (optioneel)" />
         </div>
         <div>
-          <label class="settings-field-label" for="stravaSyncDateTo">Ritdatum tot (optioneel)</label>
-          <input type="date" id="stravaSyncDateTo" class="settings-input" />
+          <label class="settings-field-label" for="stravaSyncDateTo">Ritdatum tot</label>
+          <input type="date" id="stravaSyncDateTo" class="settings-input" aria-label="Ritdatum tot (optioneel)" />
         </div>
       </div>
-      <p class="settings-hint" id="stravaDateRangeHint">
-        Vul <strong>van</strong> en/of <strong>tot</strong> in en klik <strong>Sync datumbereik</strong> om alleen die ritten te matchen (zonder hele history).
-        Leeg laten = <em>Proef-sync</em> gebruikt de laatste 50 ritten; <em>Volledige history sync</em> doorloopt alles.
-      </p>
-      <div class="settings-actions">
+      <div class="settings-actions settings-actions--logbook-primary">
         <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
         <button type="button" id="stravaReconnectBtn" class="secondary" hidden>
           Ververs Strava-toestemming (privé)
         </button>
         <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
-        <button type="button" id="stravaPeriodSyncBtn" class="secondary strava-sync-primary" hidden>
-          Sync datumbereik
+        <button type="button" id="stravaServerFullSyncBtn" class="secondary strava-sync-primary" hidden>
+          Logboek sync (server)
         </button>
-        <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden>
-          Proef-sync (50 ritten)
-        </button>
-        <button type="button" id="stravaFullSyncBtn" class="secondary" hidden>
-          Volledige history sync
-        </button>
-        <button type="button" id="stravaServerFullSyncBtn" class="secondary" hidden>
-          Volledige sync (server, beta)
-        </button>
-      <p class="settings-hint">
-        Bij scope <strong>hele database</strong> en gekoppeld Performance Lab-account gebruikt server-sync
-        CPL-routes (<code>strava_map</code> / <code>intervals_map</code>) met dezelfde strikte polyline-match als Strava-sync — zonder Strava API (geen 429).
-      </p>
         <button type="button" id="stravaCancelServerSyncBtn" class="secondary" hidden>
-          Annuleer server-sync
+          Annuleer server-job
         </button>
+      </div>
+      <details id="stravaBrowserSyncDetails" class="strava-browser-sync-details" hidden>
+        <summary>Strava API · browser</summary>
+        <div class="settings-actions settings-actions--compact">
+          <button type="button" id="stravaPeriodSyncBtn" class="secondary" hidden>
+            Strava API · datumbereik (browser)
+          </button>
+          <button type="button" id="stravaTrialSyncBtn" class="secondary" hidden>
+            Strava API · 50 ritten (browser)
+          </button>
+          <button type="button" id="stravaFullSyncBtn" class="secondary" hidden>
+            Strava API · volledig (browser)
+          </button>
+        </div>
+      </details>
+      <div class="settings-actions settings-actions--compact">
         <button type="button" id="stravaCleanupBtn" class="secondary" hidden>
           Opschonen Strava-koppelingen
         </button>
       </div>
-      <p class="settings-hint">
-        Opschonen verwijdert indoor/simulator-koppelingen en matches die niet (meer) op de route liggen
-        (striktere GPS-check, <strong>rijrichting voet→top</strong> — afdalingen tellen niet).
-      </p>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
       <div id="stravaMatchPanels" class="strava-match-panels" hidden>
         <p id="stravaMatchTotal" class="settings-status strava-match-total"></p>
@@ -112,27 +107,6 @@
           Alle gekoppelde klimmen staan op <a href="logbook.html">Logboek</a> (filter, statistieken, ontkoppelen).
         </p>
       </div>
-    </section>
-
-    <section class="settings-card" id="cplSettingsCard" aria-labelledby="cplSettingsTitle">
-      <h2 id="cplSettingsTitle">Climb Performance Lab</h2>
-      <p>
-        Zelfde server-sync als bij Strava → <strong>hele database (server)</strong> wanneer je Performance Lab-account gekoppeld is.
-        Deze knop is een alias; je hoeft niet twee syncs te starten.
-      </p>
-      <div class="settings-actions">
-        <button type="button" id="cplServerFullSyncBtn" class="secondary strava-sync-primary" hidden>
-          Volledige database (server)
-        </button>
-        <button type="button" id="cplCancelServerSyncBtn" class="secondary" hidden>
-          Annuleer CPL server-sync
-        </button>
-      </div>
-      <p id="cplSyncStatus" class="settings-status" role="status"></p>
-      <p class="settings-hint">
-        Eerste keer: IAM + <code>cpl.worker_secret</code> en queue <code>cpl-sync</code> — zie
-        <a href="../auth/CPL_SYNC.md">docs/auth/CPL_SYNC.md</a>.
-      </p>
     </section>
 
     <section class="settings-card" aria-labelledby="logbookSettingsTitle">
@@ -188,8 +162,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261014stravaenqueueerr1"></script>
-  <script src="assets/cpl-sync.js?v=20261015cpl1"></script>
+  <script src="assets/strava-sync.js?v=20261016logbookux1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>

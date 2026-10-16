@@ -54,6 +54,9 @@
       startServerJobPolling();
       return;
     }
+    if (getSelectedDatasetId() === ALL_DATASETS && fullDatabaseUsesCplRoutes()) {
+      return;
+    }
     const wanted = sessionStorage.getItem(FULL_SYNC_WANTED_KEY);
     if (!wanted || !lastSyncIncomplete(d) || !syncScopeMatchesWanted(wanted, d.lastSyncSummary)) {
       return;
@@ -104,28 +107,46 @@
   function formatServerJobLine(job) {
     if (!job) return "";
     const p = job.progress || {};
-    const viaCpl = job.routeSource === "cpl";
-    const parts = [`server-sync: ${job.status}${viaCpl ? " (Performance Lab routes)" : ""}`];
+    const viaCpl = job.routeSource === "cpl" || statusCache?.activeCplSyncJob?.id === job.id;
+    const channel = viaCpl ? "Logboek · CPL-routes" : "Logboek · Strava API";
+    const parts = [`${channel} · server · ${job.status}`];
     if (p.regionProgress) parts.push(p.regionProgress);
     if (!viaCpl && p.nextPage) parts.push(`Strava pag. ${p.nextPage}`);
-    if (p.activitiesScanned) parts.push(`${p.activitiesScanned} ritten (laatste batch)`);
+    if (p.activitiesScanned) parts.push(`${p.activitiesScanned} ritten`);
     if (job.batchCount) parts.push(`batch ${job.batchCount}`);
     if (job.lastMessage) parts.push(job.lastMessage);
     return parts.join(" · ");
   }
 
   function fullDatabaseUsesCplRoutes() {
-    return Boolean(statusCache?.routeSync?.fullDatabaseUsesCpl);
+    if (getSelectedDatasetId() !== ALL_DATASETS) return false;
+    if (statusCache?.routeSync?.fullDatabaseUsesCpl) return true;
+    const cpl = statusCache?.cplStatus;
+    return Boolean(cpl?.linked && cpl?.serverSyncConfigured);
   }
 
   function serverSyncButtonLabel() {
     const range = hasSyncDateRange();
-    if (getSelectedDatasetId() === ALL_DATASETS && fullDatabaseUsesCplRoutes()) {
+    const all = getSelectedDatasetId() === ALL_DATASETS;
+    const cpl = all && fullDatabaseUsesCplRoutes();
+    if (cpl) {
       return range
-        ? "Volledige sync in periode (server, CPL routes)"
-        : "Volledige database (server, CPL routes)";
+        ? "Logboek · CPL-routes · periode (server)"
+        : "Logboek · CPL-routes · hele database (server)";
     }
-    return range ? "Volledige sync in periode (server, beta)" : "Volledige sync (server, beta)";
+    if (all) {
+      return range
+        ? "Logboek · Strava API · periode (server)"
+        : "Logboek · Strava API · hele database (server)";
+    }
+    return range
+      ? "Logboek · Strava API · periode (server)"
+      : "Logboek · Strava API · regio (server)";
+  }
+
+  function browserSyncAllowed() {
+    if (!fullDatabaseUsesCplRoutes()) return true;
+    return getSelectedDatasetId() !== ALL_DATASETS;
   }
 
   function formatCallableError(e) {
@@ -442,16 +463,22 @@
     const trial = $("stravaTrialSyncBtn");
     const full = $("stravaFullSyncBtn");
     const cleanup = $("stravaCleanupBtn");
+    const browserDetails = $("stravaBrowserSyncDetails");
     const show = connected && datasetOk;
     const range = hasSyncDateRange();
-    period?.toggleAttribute("hidden", !show || !range);
-    trial?.toggleAttribute("hidden", !show || range);
-    full?.toggleAttribute("hidden", !show);
-    if (period) period.disabled = !show || !range;
-    if (trial) trial.disabled = !show || range;
+    const browserOk = show && browserSyncAllowed();
+    browserDetails?.toggleAttribute("hidden", !browserOk);
+    period?.toggleAttribute("hidden", !browserOk || !range);
+    trial?.toggleAttribute("hidden", !browserOk || range);
+    full?.toggleAttribute("hidden", !browserOk);
+    if (period) period.disabled = !browserOk || !range;
+    if (trial) trial.disabled = !browserOk || range;
     if (full) {
-      full.disabled = !show || Boolean(statusCache?.needsReconnect && includePrivateChecked());
-      full.textContent = range ? "Volledige sync in periode" : "Volledige history sync";
+      full.disabled =
+        !browserOk || Boolean(statusCache?.needsReconnect && includePrivateChecked());
+      full.textContent = range
+        ? "Strava API · volledig · periode (browser)"
+        : "Strava API · volledig (browser)";
     }
     cleanup?.toggleAttribute("hidden", !connected);
     if (cleanup) cleanup.disabled = !connected;
@@ -459,18 +486,21 @@
     const cancelServer = $("stravaCancelServerSyncBtn");
     const job = statusCache?.activeSyncJob;
     const jobRunning = serverJobActive(job);
-    const showBeta = connected && datasetOk && showServerSyncBetaButton() && !useBackgroundFullSync();
-    serverBtn?.toggleAttribute("hidden", !showBeta || jobRunning);
+    const showServer =
+      connected &&
+      datasetOk &&
+      (useBackgroundFullSync() || showServerSyncBetaButton() || fullDatabaseUsesCplRoutes());
+    serverBtn?.toggleAttribute("hidden", !showServer || jobRunning);
     cancelServer?.toggleAttribute("hidden", !connected || !jobRunning);
     if (serverBtn) {
       serverBtn.disabled =
-        !showBeta || jobRunning || Boolean(statusCache?.needsReconnect && includePrivateChecked());
+        !showServer || jobRunning || Boolean(statusCache?.needsReconnect && includePrivateChecked());
       serverBtn.textContent = serverSyncButtonLabel();
+      serverBtn.title = fullDatabaseUsesCplRoutes()
+        ? "Server: CPL-routes (intervals_map/strava_map), logboek source cpl"
+        : "Server: Strava API, tab mag dicht";
     }
     if (cancelServer) cancelServer.disabled = !jobRunning;
-    if (full && useBackgroundFullSync()) {
-      full.textContent = range ? "Volledige sync in periode (server)" : "Volledige history sync (server)";
-    }
     const sel = $("stravaDatasetSelect");
     if (sel && global.__FIETSKLIM_AUTH_READY) sel.removeAttribute("hidden");
   }
@@ -529,6 +559,18 @@
       const res = await callable("getStravaStatus")({});
       const d = res.data || {};
       statusCache = d;
+      try {
+        const cplRes = await callable("getCplStatus")({});
+        statusCache.cplStatus = cplRes.data || {};
+        if (!statusCache.routeSync && statusCache.cplStatus?.linked) {
+          statusCache.routeSync = {
+            fullDatabaseUsesCpl: Boolean(statusCache.cplStatus.serverSyncConfigured),
+            cplWorkerConfigured: Boolean(statusCache.cplStatus.serverSyncConfigured),
+          };
+        }
+      } catch (cplErr) {
+        statusCache.cplStatus = statusCache.cplStatus || null;
+      }
       $("stravaConnectBtn")?.toggleAttribute("hidden", d.connected);
       $("stravaReconnectBtn")?.toggleAttribute(
         "hidden",
@@ -552,8 +594,12 @@
         if (d.needsReconnect) {
           msg += " · klik Ververs Strava-toestemming (privé) of Koppel opnieuw";
         }
-        if (fullDatabaseUsesCplRoutes() && getSelectedDatasetId() === ALL_DATASETS) {
-          msg += " · hele database server-sync: Performance Lab routes (geen Strava API)";
+        if (
+          getSelectedDatasetId() === ALL_DATASETS &&
+          statusCache.cplStatus &&
+          !statusCache.cplStatus.linked
+        ) {
+          msg += " · CPL niet gekoppeld → server gebruikt Strava API";
         }
         if (serverJobActive(d.activeSyncJob)) {
           msg += ` · ${formatServerJobLine(d.activeSyncJob)}`;
@@ -562,11 +608,15 @@
           stopServerJobPolling();
         }
         if (d.activeSyncJob?.status === "completed") {
-          msg += ` · server-sync afgerond`;
+          const ch =
+            d.activeSyncJob.routeSource === "cpl" ? "Logboek · CPL-routes" : "Logboek · Strava API";
+          msg += ` · ${ch} · server · afgerond`;
           global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
         }
         if (d.activeSyncJob?.status === "failed") {
-          msg += ` · server-sync mislukt: ${d.activeSyncJob.error || "?"}`;
+          const ch =
+            d.activeSyncJob.routeSource === "cpl" ? "Logboek · CPL-routes" : "Logboek · Strava API";
+          msg += ` · ${ch} · server · mislukt: ${d.activeSyncJob.error || "?"}`;
         }
         if (d.lastSyncSummary) {
           const s = d.lastSyncSummary;
@@ -658,20 +708,20 @@
     }
     const hasRange = dateBounds.payload.after != null || dateBounds.payload.before != null;
     if (requireDateRange && !hasRange) {
-      setStatus("Vul Ritdatum van en/of tot in voor Sync datumbereik.", true);
+      setStatus("Strava API · browser: vul Ritdatum van en/of tot in.", true);
       if (btn) btn.disabled = false;
       return;
     }
     if (!requireDateRange && hasRange) {
-      setStatus("Gebruik Sync datumbereik (datums ingevuld) of wis de datums voor Proef-sync.", true);
+      setStatus("Strava API · browser: gebruik datumbereik-knop of wis de datums voor 50 ritten.", true);
       if (btn) btn.disabled = false;
       return;
     }
     const scopeLabel = datasetId === ALL_DATASETS ? "hele database" : datasetId;
     setStatus(
       hasRange
-        ? `Sync datumbereik: ritten in periode vs ${scopeLabel}…`
-        : `Proef-sync: laatste ${DEFAULT_PER_PAGE} ritten vs ${scopeLabel}…`
+        ? `Strava API · browser · datumbereik · ${scopeLabel}…`
+        : `Strava API · browser · ${DEFAULT_PER_PAGE} ritten · ${scopeLabel}…`
     );
     try {
       const res = await callable("stravaSyncTrial")({
@@ -753,19 +803,19 @@
     const fullBtn = $("stravaFullSyncBtn");
     if (serverBtn) serverBtn.disabled = true;
     if (fullBtn) fullBtn.disabled = true;
-    const viaCpl =
-      datasetId === ALL_DATASETS && fullDatabaseUsesCplRoutes();
-    setStatus(
-      viaCpl
-        ? "Server-sync starten via Performance Lab-routes (geen Strava API)…"
-        : "Server-sync starten… (je kunt dit tabblad daarna sluiten)"
-    );
+    const viaCpl = datasetId === ALL_DATASETS && fullDatabaseUsesCplRoutes();
+    const channel = viaCpl ? "Logboek · CPL-routes" : "Logboek · Strava API";
+    setStatus(`${channel} · server wordt gestart… (tab mag dicht)`);
     try {
-      const res = await callable("stravaEnqueueFullSync")({
-        datasetId,
+      const enqueueName =
+        viaCpl && !statusCache?.routeSync?.fullDatabaseUsesCpl
+          ? "cplEnqueueFullSync"
+          : "stravaEnqueueFullSync";
+      const res = await callable(enqueueName)({
+        datasetId: viaCpl ? ALL_DATASETS : datasetId,
         ...dateBounds.payload,
       });
-      setStatus(res.data?.message || "Server-sync gestart.");
+      setStatus(res.data?.message || `${channel} · server-job gestart.`);
       startServerJobPolling();
       await refreshStatus();
     } catch (e) {
@@ -811,6 +861,9 @@
       setStatus("Kies eerst een regio-dataset.", true);
       return;
     }
+    if (!options.resumeFromCheckpoint && datasetId === ALL_DATASETS && fullDatabaseUsesCplRoutes()) {
+      return fullSyncServer();
+    }
     if (statusCache?.needsReconnect && includePrivateChecked()) {
       setStatus("Koppel Strava eerst opnieuw voor privé-activiteiten.", true);
       return;
@@ -846,7 +899,7 @@
         loops += 1;
         const scopeLabel = isAll ? "hele database" : datasetId;
         setStatus(
-          `Volledige sync (${scopeLabel}): stap ${loops}… (tab open laten; hervat automatisch na terugkeer)`,
+          `Strava API · browser · stap ${loops} · ${scopeLabel} (tab open houden)`,
           false
         );
         let res;
@@ -859,7 +912,7 @@
         } catch (batchErr) {
           syncFailed = true;
           const errText = formatCallableError(batchErr);
-          setStatus(`Sync gestopt in stap ${loops}: ${errText}`, true);
+          setStatus(`Strava API · browser · stap ${loops} mislukt: ${errText}`, true);
           break;
         }
         reset = false;
