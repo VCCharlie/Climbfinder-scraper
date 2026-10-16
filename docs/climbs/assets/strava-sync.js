@@ -659,6 +659,9 @@
             if (s.allDatasets && s.regionProgress) msg += ` · ${s.regionProgress}`;
             if (s.source === "cpl") {
               if (s.activitiesWithMap != null) msg += ` · ${s.activitiesWithMap} ritten met route`;
+              if (s.dateQueryIndexRequired) {
+                msg += " · datumbereik: Firestore-index ownerId+date nodig in CPL";
+              }
             } else if (s.nextPage) msg += ` · Strava pag. ${s.nextPage}`;
           }
         } else if (d.lastSyncAt) {
