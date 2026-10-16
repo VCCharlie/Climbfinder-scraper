@@ -48,4 +48,8 @@ Als de CPL-activiteit een `strava_id` heeft, worden ook de bestaande Strava-logv
 
 ## UI
 
-Instellingen → **Performance Lab**: knop **Volledige database (server)** gebruikt dezelfde ritdatum **van/tot** als de Strava-sync (velden boven de Strava-sectie).
+Instellingen → **Strava** → scope **hele database** → **Volledige sync (server)**: als je Google-account ook in Performance Lab staat, start automatisch **CPL route-sync** (zelfde `climbMatch` polyline-check als Strava server-sync, **geen Strava API**). Ritdatum **van/tot** = Strava-datums op dezelfde pagina.
+
+De sectie **Climb Performance Lab** onderaan is hetzelfde pad (alias-knop).
+
+Zet `cpl.prefer_route_sync=false` in Functions-config om voor hele database terug te vallen op Strava API-sync.

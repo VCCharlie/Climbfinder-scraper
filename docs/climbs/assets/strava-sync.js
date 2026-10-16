@@ -104,13 +104,28 @@
   function formatServerJobLine(job) {
     if (!job) return "";
     const p = job.progress || {};
-    const parts = [`server-sync: ${job.status}`];
+    const viaCpl = job.routeSource === "cpl";
+    const parts = [`server-sync: ${job.status}${viaCpl ? " (Performance Lab routes)" : ""}`];
     if (p.regionProgress) parts.push(p.regionProgress);
-    if (p.nextPage) parts.push(`Strava pag. ${p.nextPage}`);
+    if (!viaCpl && p.nextPage) parts.push(`Strava pag. ${p.nextPage}`);
     if (p.activitiesScanned) parts.push(`${p.activitiesScanned} ritten (laatste batch)`);
     if (job.batchCount) parts.push(`batch ${job.batchCount}`);
     if (job.lastMessage) parts.push(job.lastMessage);
     return parts.join(" · ");
+  }
+
+  function fullDatabaseUsesCplRoutes() {
+    return Boolean(statusCache?.routeSync?.fullDatabaseUsesCpl);
+  }
+
+  function serverSyncButtonLabel() {
+    const range = hasSyncDateRange();
+    if (getSelectedDatasetId() === ALL_DATASETS && fullDatabaseUsesCplRoutes()) {
+      return range
+        ? "Volledige sync in periode (server, CPL routes)"
+        : "Volledige database (server, CPL routes)";
+    }
+    return range ? "Volledige sync in periode (server, beta)" : "Volledige sync (server, beta)";
   }
 
   function formatCallableError(e) {
@@ -450,6 +465,7 @@
     if (serverBtn) {
       serverBtn.disabled =
         !showBeta || jobRunning || Boolean(statusCache?.needsReconnect && includePrivateChecked());
+      serverBtn.textContent = serverSyncButtonLabel();
     }
     if (cancelServer) cancelServer.disabled = !jobRunning;
     if (full && useBackgroundFullSync()) {
@@ -536,6 +552,9 @@
         if (d.needsReconnect) {
           msg += " · klik Ververs Strava-toestemming (privé) of Koppel opnieuw";
         }
+        if (fullDatabaseUsesCplRoutes() && getSelectedDatasetId() === ALL_DATASETS) {
+          msg += " · hele database server-sync: Performance Lab routes (geen Strava API)";
+        }
         if (serverJobActive(d.activeSyncJob)) {
           msg += ` · ${formatServerJobLine(d.activeSyncJob)}`;
           startServerJobPolling();
@@ -556,7 +575,9 @@
           msg += ` · laatste ${kind}: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten (${scope})`;
           if (s.kind === "full" && s.completed === false && !serverJobActive(d.activeSyncJob)) {
             if (s.allDatasets && s.regionProgress) msg += ` · ${s.regionProgress}`;
-            if (s.nextPage) msg += ` · Strava pag. ${s.nextPage}`;
+            if (s.source === "cpl") {
+              if (s.activitiesWithMap != null) msg += ` · ${s.activitiesWithMap} ritten met route`;
+            } else if (s.nextPage) msg += ` · Strava pag. ${s.nextPage}`;
           }
         } else if (d.lastSyncAt) {
           msg += ` · sync ${new Date(d.lastSyncAt).toLocaleString("nl-NL")}`;
@@ -732,7 +753,13 @@
     const fullBtn = $("stravaFullSyncBtn");
     if (serverBtn) serverBtn.disabled = true;
     if (fullBtn) fullBtn.disabled = true;
-    setStatus("Server-sync starten… (je kunt dit tabblad daarna sluiten)");
+    const viaCpl =
+      datasetId === ALL_DATASETS && fullDatabaseUsesCplRoutes();
+    setStatus(
+      viaCpl
+        ? "Server-sync starten via Performance Lab-routes (geen Strava API)…"
+        : "Server-sync starten… (je kunt dit tabblad daarna sluiten)"
+    );
     try {
       const res = await callable("stravaEnqueueFullSync")({
         datasetId,
@@ -759,8 +786,10 @@
     if (!job?.id) return;
     const btn = $("stravaCancelServerSyncBtn");
     if (btn) btn.disabled = true;
+    const cancelFn =
+      statusCache?.activeCplSyncJob?.id === job.id ? "cplCancelSyncJob" : "stravaCancelSyncJob";
     try {
-      const res = await callable("stravaCancelSyncJob")({ jobId: job.id });
+      const res = await callable(cancelFn)({ jobId: job.id });
       setStatus(res.data?.message || "Server-sync geannuleerd.");
       stopServerJobPolling();
       await refreshStatus();
