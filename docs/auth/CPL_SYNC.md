@@ -48,8 +48,8 @@ Als de CPL-activiteit een `strava_id` heeft, worden ook de bestaande Strava-logv
 
 ## UI
 
-Instellingen → **Strava** → scope **hele database** → **Volledige sync (server)**: als je Google-account ook in Performance Lab staat, start automatisch **CPL route-sync** (zelfde `climbMatch` polyline-check als Strava server-sync, **geen Strava API**). Ritdatum **van/tot** = Strava-datums op dezelfde pagina.
+Instellingen → **Logboek sync**: bovenaan zie je **Performance Lab: gekoppeld / niet gekoppeld**. Koppeling = dezelfde **Google-mail** als Firebase Auth in project `climb-performance-lab` (geen aparte “koppel CPL”-knop).
 
-De sectie **Climb Performance Lab** onderaan is hetzelfde pad (alias-knop).
+Scope **hele database** → primaire server-knop **CPL · Intervals→Strava** wanneer gekoppeld. Routes: eerst `intervals_map`, anders `strava_map`. Zonder CPL valt server-sync terug op **Strava API**. Ritdatum **van/tot** op dezelfde pagina.
 
 Zet `cpl.prefer_route_sync=false` in Functions-config om voor hele database terug te vallen op Strava API-sync.

@@ -397,10 +397,29 @@ async function runCplSyncBatch(uid, email, data) {
 exports.getCplStatus = functions.region(REGION).https.onCall(async (_data, context) => {
   const { uid, email } = requireAuth(context);
   let cplOwner = null;
+  let linkReason = null;
+  let linkHint = null;
   try {
     cplOwner = await resolveCplOwnerByEmail(email);
+    if (!cplOwner) {
+      linkReason = "no_cpl_account";
+      linkHint =
+        "Geen Firebase-login in Climb Performance Lab met deze Google-mail — log daar in met hetzelfde account.";
+    }
   } catch (e) {
     functions.logger.warn("getCplStatus resolveCplOwner", e);
+    const code = e?.code || "";
+    if (code === "auth/user-not-found") {
+      linkReason = "no_cpl_account";
+      linkHint = linkHint || "Geen CPL-account voor deze mail.";
+    } else if (/permission|forbidden|insufficient/i.test(String(code) + String(e?.message))) {
+      linkReason = "cpl_auth_lookup_denied";
+      linkHint =
+        "Server kan CPL-gebruiker niet opzoeken (IAM: Firebase Auth Admin op project climb-performance-lab).";
+    } else {
+      linkReason = "lookup_failed";
+      linkHint = "CPL-status tijdelijk niet op te halen — zie Functions-logs.";
+    }
   }
   let activeSyncJob = null;
   try {
@@ -410,14 +429,25 @@ exports.getCplStatus = functions.region(REGION).https.onCall(async (_data, conte
   }
   const integ = await integrationRef(uid).get();
   const data = integ.exists ? integ.data() : {};
+  const serverSyncConfigured = Boolean(cplCfg().worker_secret);
+  if (cplOwner && !serverSyncConfigured) {
+    linkHint =
+      "CPL-account gevonden, maar server-sync niet geconfigureerd (cpl.worker_secret op climb-database).";
+  } else if (cplOwner && serverSyncConfigured) {
+    linkHint = "Routes uit CPL: Intervals-map, anders Strava-map (geen Strava API bij hele database).";
+  }
   return {
     linked: Boolean(cplOwner),
+    emailChecked: email,
+    linkReason,
+    linkHint,
     cplOwnerId: cplOwner?.uid || data.cplOwnerId || null,
     lastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
     lastSyncSummary: data.lastSyncSummary || null,
     fullSyncCursor: data.fullSyncCursor || null,
     activeSyncJob,
-    serverSyncConfigured: Boolean(cplCfg().worker_secret),
+    serverSyncConfigured,
+    routePriority: "intervals_map_then_strava_map",
   };
 });
 

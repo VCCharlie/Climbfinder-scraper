@@ -8,7 +8,7 @@ function activityVisibleForPrefs(activity) {
 }
 
 function encodedPolylineFromCplData(data) {
-  const raw = data?.strava_map || data?.intervals_map;
+  const raw = data?.intervals_map || data?.strava_map;
   if (raw == null) return null;
   const s = String(raw).trim();
   return s || null;

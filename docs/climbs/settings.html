@@ -13,7 +13,7 @@
   <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/settings.css?v=20261016logbookux1" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261016logbookux2" />
 </head>
 <body class="fietsklim-locked settings-page">
   <div id="fietsklim-auth-gate">
@@ -36,17 +36,13 @@
     <h1>Instellingen</h1>
     <p class="settings-lead">Koppelingen, logboek en documentatie voor je persoonlijke FietsKlim-omgeving.</p>
 
-    <section class="settings-card" id="stravaSettingsCard" aria-labelledby="stravaSettingsTitle">
-      <h2 id="stravaSettingsTitle">Strava</h2>
-      <p>
-        Koppel Strava en match <strong>buiten</strong>-fietsritten met klimmen (strikte route-check; geen indoor/Zwift/FulGaz). Bij sync: <strong>gedaan</strong> aan,
-        <strong>wishlist</strong> uit bij match. Handmatige gedaan-vinkjes voor gematchte klimmen worden overschreven.
+    <section class="settings-card" id="stravaSettingsCard" aria-labelledby="logbookSyncTitle">
+      <h2 id="logbookSyncTitle">Logboek sync</h2>
+      <p id="logbookRouteStatus" class="settings-sync-line" role="status">Performance Lab: laden…</p>
+      <p class="settings-hint settings-hint--tight">
+        Volgorde routes: <strong>CPL</strong> (Intervals-map, anders Strava-map) → anders <strong>Strava API</strong>.
+        Sync zet <strong>gedaan</strong> aan en <strong>wishlist</strong> uit bij match (buitenritten; geen indoor/Zwift).
       </p>
-      <label class="settings-switch" for="stravaIncludePrivate">
-        <span class="settings-switch-label">Privé-activiteiten</span>
-        <input type="checkbox" id="stravaIncludePrivate" class="settings-switch-input" role="switch" />
-      </label>
-      <p id="stravaPrivateHint" class="settings-status" hidden></p>
       <label class="settings-field-label" for="stravaDatasetSelect">Logboek-scope</label>
       <select id="stravaDatasetSelect" class="settings-select" aria-label="Regio of hele database">
         <option value="">Laden…</option>
@@ -62,11 +58,6 @@
         </div>
       </div>
       <div class="settings-actions settings-actions--logbook-primary">
-        <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
-        <button type="button" id="stravaReconnectBtn" class="secondary" hidden>
-          Ververs Strava-toestemming (privé)
-        </button>
-        <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
         <button type="button" id="stravaServerFullSyncBtn" class="secondary strava-sync-primary" hidden>
           Logboek sync (server)
         </button>
@@ -74,6 +65,21 @@
           Annuleer server-job
         </button>
       </div>
+      <details id="stravaOAuthDetails" class="strava-browser-sync-details">
+        <summary>Strava API · koppeling</summary>
+        <label class="settings-switch" for="stravaIncludePrivate">
+          <span class="settings-switch-label">Privé-activiteiten</span>
+          <input type="checkbox" id="stravaIncludePrivate" class="settings-switch-input" role="switch" />
+        </label>
+        <p id="stravaPrivateHint" class="settings-status" hidden></p>
+        <div class="settings-actions settings-actions--compact">
+          <button type="button" id="stravaConnectBtn" class="secondary">Koppel Strava</button>
+          <button type="button" id="stravaReconnectBtn" class="secondary" hidden>
+            Ververs Strava-toestemming (privé)
+          </button>
+          <button type="button" id="stravaDisconnectBtn" class="secondary" hidden>Loskoppelen</button>
+        </div>
+      </details>
       <details id="stravaBrowserSyncDetails" class="strava-browser-sync-details" hidden>
         <summary>Strava API · browser</summary>
         <div class="settings-actions settings-actions--compact">
@@ -162,7 +168,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261016logbookux1"></script>
+  <script src="assets/strava-sync.js?v=20261016logbookux2"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>

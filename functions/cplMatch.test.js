@@ -17,7 +17,7 @@ assert.strictEqual(rec.map.summary_polyline, "abcPoly");
 
 assert.strictEqual(
   encodedPolylineFromCplData({ strava_map: "s", intervals_map: "i" }),
-  "s"
+  "i"
 );
 
 const hit = {
