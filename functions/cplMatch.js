@@ -18,7 +18,17 @@ function polylineStringFromMapField(raw) {
   return s;
 }
 
-function encodedPolylineFromCplData(data) {
+/** @param {'default'|'intervals_only'|'strava_only'} [routeMapPolicy] */
+function encodedPolylineFromCplData(data, routeMapPolicy = "default") {
+  const policy = routeMapPolicy === "intervals_only" || routeMapPolicy === "strava_only"
+    ? routeMapPolicy
+    : "default";
+  if (policy === "intervals_only") {
+    return polylineStringFromMapField(data?.intervals_map);
+  }
+  if (policy === "strava_only") {
+    return polylineStringFromMapField(data?.strava_map);
+  }
   const fromIntervals = polylineStringFromMapField(data?.intervals_map);
   if (fromIntervals) return fromIntervals;
   const fromStrava = polylineStringFromMapField(data?.strava_map);
@@ -53,9 +63,9 @@ function distanceMetersFromCpl(data) {
  * @param {string} docId
  * @param {object} data — CPL Firestore activity row
  */
-function cplActivityToMatchRecord(docId, data) {
+function cplActivityToMatchRecord(docId, data, routeMapPolicy = "default") {
   const id = String(docId || data?.id || "").trim();
-  const poly = encodedPolylineFromCplData(data);
+  const poly = encodedPolylineFromCplData(data, routeMapPolicy);
   const dateRaw = data?.date || data?.start_date_local || data?.start_date || null;
   const startLocal =
     dateRaw && String(dateRaw).includes("T")

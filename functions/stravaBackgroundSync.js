@@ -110,6 +110,7 @@ function publicJobView(doc) {
     id,
     status: d.status,
     datasetId: d.datasetId,
+    routeSource: "strava",
     error: d.error || null,
     createdAt: d.createdAt?.toDate?.()?.toISOString?.() || null,
     updatedAt: d.updatedAt?.toDate?.()?.toISOString?.() || null,
@@ -316,7 +317,12 @@ exports.stravaEnqueueFullSync = functions
         preferFullDatabaseRouteSyncViaCpl,
       } = require("./routeSyncPolicy");
 
-      if (isAllDatasetsToken(datasetId) && (await preferFullDatabaseRouteSyncViaCpl(context))) {
+      const forceStravaApi = data?.forceStravaApi === true || data?.forceStravaApi === "true";
+      if (
+        !forceStravaApi &&
+        isAllDatasetsToken(datasetId) &&
+        (await preferFullDatabaseRouteSyncViaCpl(context))
+      ) {
         const cplBg = require("./cplBackgroundSync");
         const { authIdentityFromContext } = require("./cplClient");
         return cplBg.enqueueFullSyncJob(uid, authIdentityFromContext(context), data);
