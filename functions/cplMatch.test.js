@@ -19,6 +19,10 @@ assert.strictEqual(
   encodedPolylineFromCplData({ strava_map: "s", intervals_map: "i" }),
   "i"
 );
+assert.strictEqual(
+  encodedPolylineFromCplData({ map: { summary_polyline: "nested" } }),
+  "nested"
+);
 
 const hit = {
   activity: {

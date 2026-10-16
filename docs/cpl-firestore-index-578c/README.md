@@ -6,12 +6,28 @@ FietsKlim CPL-sync met **ritdatum van/tot** gebruikt:
 
 Zonder composite index faalt de query; sync geeft dan **0 ritten** (`dateQueryIndexRequired` in `lastSyncSummary`).
 
-## Index aanmaken
+## Index aanmaken (eenmalig)
 
-Firebase Console → project **climb-performance-lab** → Firestore → **Indexes** → composite index:
+Project: **climb-performance-lab** (CPL), niet climb-database.
 
-| Collection | Fields |
-|------------|--------|
-| `activities` | `ownerId` Asc, `date` Desc |
+### Optie A — Firebase Console
 
-Of via `firestore.indexes.json` in Climb-Performance-Lab en deploy indexes.
+1. [Firestore → Indexes](https://console.firebase.google.com/project/climb-performance-lab/firestore/indexes)
+2. **Create index** → Composite  
+3. Collection: **`activities`**  
+4. Velden: **`ownerId`** Ascending, **`date`** Descending  
+5. **Create** — bouwen duurt enkele minuten (status *Building* → *Enabled*).
+
+### Optie B — CLI (CPL-repo root)
+
+Kopieer `firestore.indexes.json` uit deze map naar de CPL-repo (of merge met bestaande), dan:
+
+```bash
+firebase deploy --only firestore:indexes --project climb-performance-lab
+```
+
+### Daarna
+
+1. Lopende zinloze CPL-job op FietsKlim: **Annuleer server-job**.  
+2. Instellingen → zelfde datumbereik → **Logboek · CPL · periode (server)** opnieuw.  
+3. In het CPL-run paneel: **Ritten met route** moet > 0 zijn als CPL die dagen maps heeft.

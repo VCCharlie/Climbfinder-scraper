@@ -15,6 +15,15 @@ const {
   summaryMatchesFromMap,
 } = require("./cplMatch");
 
+function polylineHintPresent(raw) {
+  if (raw == null) return false;
+  if (typeof raw === "object" && raw.summary_polyline) {
+    return String(raw.summary_polyline).trim().length > 0;
+  }
+  const s = String(raw).trim();
+  return s.length > 0 && s !== "[object Object]";
+}
+
 const REGION = "europe-west1";
 const ALL_DATASETS_TOKEN = "__all__";
 const CPL_ACTIVITIES_PAGE_SIZE = 60;
@@ -73,12 +82,49 @@ function ymdFromMsLocal(ms) {
   return `${y}-${m}-${day}`;
 }
 
+/** Exclusive upper bound for Firestore `date` strings that include time (2022-06-04T…). */
+function ymdDayAfterLocal(ms) {
+  if (ms == null || !Number.isFinite(ms)) return null;
+  const d = new Date(ms);
+  d.setHours(12, 0, 0, 0);
+  d.setDate(d.getDate() + 1);
+  return ymdFromMsLocal(d.getTime());
+}
+
+function cplDateRawString(data) {
+  const raw = data?.date ?? data?.start_date_local ?? data?.start_date;
+  if (raw == null) return null;
+  if (typeof raw.toDate === "function") {
+    try {
+      const d = raw.toDate();
+      if (d instanceof Date && Number.isFinite(d.getTime())) return d.toISOString();
+    } catch {
+      /* ignore */
+    }
+  }
+  if (raw instanceof Date && Number.isFinite(raw.getTime())) return raw.toISOString();
+  const s = String(raw).trim();
+  return s || null;
+}
+
+function activityCalendarYmd(data) {
+  const s = cplDateRawString(data);
+  if (!s) return null;
+  if (s.includes("T")) return s.slice(0, 10);
+  return s.length >= 10 ? s.slice(0, 10) : s;
+}
+
 function activityDateMsFromCpl(data) {
-  const raw = data?.date || data?.start_date_local || data?.start_date;
-  if (!raw) return null;
-  const s = String(raw);
+  const s = cplDateRawString(data);
+  if (!s) return null;
   const t = Date.parse(s.includes("T") ? s : `${s.slice(0, 10)}T12:00:00Z`);
   return Number.isFinite(t) ? t : null;
+}
+
+/** Firestore `startAfter` for orderBy `date` must use the stored field value, not YMD-only. */
+function activityDateCursorValue(data) {
+  const s = cplDateRawString(data);
+  return s || null;
 }
 
 function activityInBounds(data, afterMs, beforeMs) {
@@ -229,9 +275,9 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   let q = db.collection("activities").where("ownerId", "==", cplOwnerId).orderBy("date", "desc");
 
   const fromYmd = ymdFromMsLocal(opts.afterMs);
-  const toYmd = ymdFromMsLocal(opts.beforeMs);
+  const toExclusiveYmd = opts.beforeMs != null ? ymdDayAfterLocal(opts.beforeMs) : null;
   if (fromYmd) q = q.where("date", ">=", fromYmd);
-  if (toYmd) q = q.where("date", "<=", toYmd);
+  if (toExclusiveYmd) q = q.where("date", "<", toExclusiveYmd);
 
   q = q.limit(pageSize + 5);
 
@@ -244,7 +290,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
     snap = await q.get();
   } catch (e) {
     functions.logger.warn("fetchCplActivitiesPage indexed query failed", e?.message || e);
-    if (fromYmd || toYmd) {
+    if (fromYmd || toExclusiveYmd) {
       return {
         activities: [],
         ridesWithMap: 0,
@@ -266,12 +312,46 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   }
 
   const records = [];
+  let skippedNoMap = 0;
+  let skippedOutOfBounds = 0;
+  /** @type {{ id: string, title: string|null, date: string|null, hasIntervalsMap: boolean, hasStravaMap: boolean }[]} */
+  const noMapSamples = [];
+  const fromYmdFilter = fromYmd;
+  const toYmdFilter = opts.beforeMs != null ? ymdFromMsLocal(opts.beforeMs) : null;
   for (const doc of snap.docs) {
     const data = doc.data();
-    if (!activityInBounds(data, opts.afterMs ?? null, opts.beforeMs ?? null)) continue;
+    if (fromYmdFilter || toYmdFilter) {
+      const ymd = activityCalendarYmd(data);
+      if (ymd) {
+        if (fromYmdFilter && ymd < fromYmdFilter) {
+          skippedOutOfBounds += 1;
+          continue;
+        }
+        if (toYmdFilter && ymd > toYmdFilter) {
+          skippedOutOfBounds += 1;
+          continue;
+        }
+      }
+    }
+    if (!activityInBounds(data, opts.afterMs ?? null, opts.beforeMs ?? null)) {
+      skippedOutOfBounds += 1;
+      continue;
+    }
     const matchAct = cplActivityToMatchRecord(doc.id, data);
     if (matchAct.map?.summary_polyline) {
       records.push(matchAct);
+    } else {
+      skippedNoMap += 1;
+      if (noMapSamples.length < 5) {
+        const d = doc.data();
+        noMapSamples.push({
+          id: doc.id,
+          title: d?.title || d?.name || null,
+          date: cplDateRawString(d),
+          hasIntervalsMap: Boolean(polylineHintPresent(d?.intervals_map)),
+          hasStravaMap: Boolean(polylineHintPresent(d?.strava_map)),
+        });
+      }
     }
     if (records.length >= pageSize) break;
   }
@@ -282,7 +362,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   const cursor =
     lastDoc && !completed
       ? {
-          startAfterDate: String(lastData?.date || "").slice(0, 10) || null,
+          startAfterDate: activityDateCursorValue(lastData) || null,
           startAfterId: lastDoc.id,
         }
       : null;
@@ -291,6 +371,9 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
     activities: records,
     ridesWithMap: records.length,
     scannedDocs: snap.docs.length,
+    skippedNoMap,
+    skippedOutOfBounds,
+    noMapSamples,
     completed: completed || !cursor,
     cursor,
   };
@@ -354,6 +437,13 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     startAfterId: activityCursor?.startAfterId,
   });
 
+  if (page.dateQueryIndexRequired) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "CPL datumbereik: maak in project climb-performance-lab een Firestore composite index op collection activities: ownerId (Ascending) + date (Descending). Zie docs/cpl-firestore-index-578c/README.md"
+    );
+  }
+
   const { ids: regionIds, totalClimbs, regionCount } = await loadRegionDatasetIds();
 
   const hasDateBounds = bounds.afterMs != null || bounds.beforeMs != null;
@@ -402,6 +492,9 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     activitiesScanned: ridesScanned,
     activitiesWithMap: ridesScanned,
     docsScanned: page.scannedDocs,
+    skippedNoMap: page.skippedNoMap ?? 0,
+    skippedOutOfBounds: page.skippedOutOfBounds ?? 0,
+    noMapSamples: page.noMapSamples ?? [],
     nextDatasetIndex: nextDatasetIndexAfter,
     datasetsInBatch: batchIds.length,
     completed: syncCompleted,

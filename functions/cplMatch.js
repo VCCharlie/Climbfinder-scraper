@@ -7,11 +7,35 @@ function activityVisibleForPrefs(activity) {
   return true;
 }
 
-function encodedPolylineFromCplData(data) {
-  const raw = data?.intervals_map || data?.strava_map;
+function polylineStringFromMapField(raw) {
   if (raw == null) return null;
+  if (typeof raw === "object" && raw.summary_polyline) {
+    const s = String(raw.summary_polyline).trim();
+    return s || null;
+  }
   const s = String(raw).trim();
-  return s || null;
+  if (!s || s === "[object Object]") return null;
+  return s;
+}
+
+function encodedPolylineFromCplData(data) {
+  const fromIntervals = polylineStringFromMapField(data?.intervals_map);
+  if (fromIntervals) return fromIntervals;
+  const fromStrava = polylineStringFromMapField(data?.strava_map);
+  if (fromStrava) return fromStrava;
+  const fromRootMap = polylineStringFromMapField(data?.map);
+  if (fromRootMap) return fromRootMap;
+  const overview = data?.map?.overview_polyline;
+  if (overview != null) {
+    const s = String(overview).trim();
+    if (s) return s;
+  }
+  const poly = data?.polyline ?? data?.summary_polyline ?? data?.route_polyline;
+  if (poly != null) {
+    const s = String(poly).trim();
+    if (s && s !== "[object Object]") return s;
+  }
+  return null;
 }
 
 function distanceMetersFromCpl(data) {
