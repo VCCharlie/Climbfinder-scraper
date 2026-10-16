@@ -63,6 +63,16 @@ function ymdFromMs(ms) {
   return new Date(ms).toISOString().slice(0, 10);
 }
 
+/** Ritdatum voor CPL Firestore `date` (YYYY-MM-DD) — zelfde kalenderdag als UI date-input (lokaal). */
+function ymdFromMsLocal(ms) {
+  if (ms == null || !Number.isFinite(ms)) return null;
+  const d = new Date(ms);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function activityDateMsFromCpl(data) {
   const raw = data?.date || data?.start_date_local || data?.start_date;
   if (!raw) return null;
@@ -218,8 +228,8 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   const db = getCplFirestore();
   let q = db.collection("activities").where("ownerId", "==", cplOwnerId).orderBy("date", "desc");
 
-  const fromYmd = ymdFromMs(opts.afterMs);
-  const toYmd = ymdFromMs(opts.beforeMs);
+  const fromYmd = ymdFromMsLocal(opts.afterMs);
+  const toYmd = ymdFromMsLocal(opts.beforeMs);
   if (fromYmd) q = q.where("date", ">=", fromYmd);
   if (toYmd) q = q.where("date", "<=", toYmd);
 
@@ -233,7 +243,17 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   try {
     snap = await q.get();
   } catch (e) {
-    functions.logger.warn("fetchCplActivitiesPage indexed query failed, fallback", e?.message || e);
+    functions.logger.warn("fetchCplActivitiesPage indexed query failed", e?.message || e);
+    if (fromYmd || toYmd) {
+      return {
+        activities: [],
+        ridesWithMap: 0,
+        scannedDocs: 0,
+        completed: true,
+        cursor: null,
+        dateQueryIndexRequired: true,
+      };
+    }
     q = db
       .collection("activities")
       .where("ownerId", "==", cplOwnerId)
@@ -336,7 +356,10 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
 
   const { ids: regionIds, totalClimbs, regionCount } = await loadRegionDatasetIds();
 
-  const batchIds = regionIds.slice(nextDatasetIndex, nextDatasetIndex + CPL_DATASETS_PER_CALL);
+  const hasDateBounds = bounds.afterMs != null || bounds.beforeMs != null;
+  const datasetsPerCall =
+    hasDateBounds && page.activities.length > 0 ? regionIds.length : CPL_DATASETS_PER_CALL;
+  const batchIds = regionIds.slice(nextDatasetIndex, nextDatasetIndex + datasetsPerCall);
   const { matchesWritten, matches: batchMatches } = await matchAndWriteForDatasets(
     uid,
     page.activities,
@@ -387,6 +410,8 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     matches: batchMatches.slice(0, 120),
     after: bounds.afterMs,
     before: bounds.beforeMs,
+    dateQueryIndexRequired: Boolean(page.dateQueryIndexRequired),
+    periodSyncAllRegionsInBatch: hasDateBounds && datasetsPerCall === regionIds.length,
   };
 
   await integrationRef(uid).set(
@@ -398,9 +423,18 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     { merge: true }
   );
 
-  const msg = syncCompleted
-    ? `CPL-sync klaar: ${matchesWritten} match(es) in deze batch · hele database (${regionCount} regio’s).`
-    : `CPL-sync batch: ${matchesWritten} match(es), ${ridesScanned} ritten met route, regio’s ${nextDatasetIndex}–${nextDatasetIndex + batchIds.length - 1} van ${regionCount}.`;
+  let msg;
+  if (page.dateQueryIndexRequired) {
+    msg =
+      "CPL-sync: datumbereik-query mislukt (Firestore-index ownerId+date ontbreekt in climb-performance-lab). Zie Functions-log fetchCplActivitiesPage.";
+  } else if (syncCompleted && ridesScanned === 0 && hasDateBounds) {
+    msg =
+      "CPL-sync klaar: 0 ritten met route in deze periode (controleer CPL-activiteit: intervals_map/strava_map + ownerId + datum).";
+  } else if (syncCompleted) {
+    msg = `CPL-sync klaar: ${matchesWritten} match(es) · ${ridesScanned} rit(ten) met route · ${regionCount} regio’s.`;
+  } else {
+    msg = `CPL-sync batch: ${matchesWritten} match(es), ${ridesScanned} ritten met route, regio’s ${nextDatasetIndex}–${nextDatasetIndex + batchIds.length - 1} van ${regionCount}.`;
+  }
 
   return { ok: true, completed: syncCompleted, message: msg, summary };
 }
