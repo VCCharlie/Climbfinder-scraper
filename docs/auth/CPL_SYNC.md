@@ -4,13 +4,15 @@ Server-sync leest **routes uit CPL Firestore** (`strava_map` of `intervals_map`)
 
 ## Vereisten
 
-1. **Zelfde Google-account** in FietsKlim en in [Climb Performance Lab](https://github.com/VCCharlie/Climb-Performance-Lab) (CPL Auth uid ≠ FietsKlim uid; koppeling via e-mail).
+1. **Zelfde Google-account** in FietsKlim en in [Climb Performance Lab](https://github.com/VCCharlie/Climb-Performance-Lab) (CPL Auth uid ≠ FietsKlim uid; koppeling via **e-mail** of **google.com provider-id** in Firebase Auth).
 2. **Routes in CPL**: Strava-enrich (`strava_map`) of Intervals map-backfill (`intervals_map`) op activiteiten.
 3. **IAM op project `climb-performance-lab`** voor de Functions service account van `climb-database`:
    - `roles/datastore.viewer` (Firestore read)
    - `roles/firebaseauth.viewer` + `firebaseauth.users.get` (of **Firebase Authentication Admin** voor `getUserByEmail`)
 
-   Service account: `climb-database@appspot.gserviceaccount.com` (of de runtime SA van je Functions).
+   Service account: `climb-database@appspot.gserviceaccount.com` (App Engine default — wat 1st-gen Functions normaal gebruiken).
+
+   **“CPL niet gekoppeld” terwijl IAM goed lijkt?** Dat is meestal **geen IAM-fout** maar `auth/user-not-found`: er staat geen gebruiker in **CPL → Firebase Authentication → Users** voor jouw mail. Log opnieuw in bij CPL en controleer die lijst. Als de gebruiker wél staat, redeploy `getCplStatus` (google-uid fallback) en kijk in FietsKlim-status naar `linkReason` / `linkHint`.
 
 ## Firebase Functions config (`climb-database`)
 

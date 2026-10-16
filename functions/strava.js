@@ -712,11 +712,10 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
     } catch (e) {
       functions.logger.warn("getStravaStatus activeCplSyncJob", e);
     }
-    const email = context.auth.token.email.trim();
     const routePolicy = require("./routeSyncPolicy");
     let fullDatabaseUsesCpl = false;
     try {
-      fullDatabaseUsesCpl = await routePolicy.preferFullDatabaseRouteSyncViaCpl(email);
+      fullDatabaseUsesCpl = await routePolicy.preferFullDatabaseRouteSyncViaCpl(context);
     } catch (e) {
       functions.logger.warn("getStravaStatus routeSync", e);
     }
