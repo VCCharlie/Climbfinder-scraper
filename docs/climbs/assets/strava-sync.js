@@ -230,6 +230,11 @@
       if (summary.docsScanned != null) {
         facts.push(`Firestore docs gescand: ${summary.docsScanned}`);
       }
+      if (summary.skippedNoMap > 0) {
+        facts.push(
+          `${summary.skippedNoMap} doc(s) in query zonder intervals_map/strava_map (andere rit of map ontbreekt in Firestore)`
+        );
+      }
       facts.push(
         `Logboek bijgewerkt (matchesWritten): ${summary.matchesWritten ?? summary.uniqueClimbs ?? 0}`
       );

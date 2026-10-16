@@ -73,6 +73,24 @@ function ymdFromMsLocal(ms) {
   return `${y}-${m}-${day}`;
 }
 
+/** Exclusive upper bound for Firestore `date` strings that include time (2022-06-04T…). */
+function ymdDayAfterLocal(ms) {
+  if (ms == null || !Number.isFinite(ms)) return null;
+  const d = new Date(ms);
+  d.setHours(12, 0, 0, 0);
+  d.setDate(d.getDate() + 1);
+  return ymdFromMsLocal(d.getTime());
+}
+
+function activityCalendarYmd(data) {
+  const raw = data?.date || data?.start_date_local || data?.start_date;
+  if (raw == null) return null;
+  const s = String(raw).trim();
+  if (!s) return null;
+  if (s.includes("T")) return s.slice(0, 10);
+  return s.length >= 10 ? s.slice(0, 10) : s;
+}
+
 function activityDateMsFromCpl(data) {
   const raw = data?.date || data?.start_date_local || data?.start_date;
   if (!raw) return null;
@@ -229,9 +247,9 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   let q = db.collection("activities").where("ownerId", "==", cplOwnerId).orderBy("date", "desc");
 
   const fromYmd = ymdFromMsLocal(opts.afterMs);
-  const toYmd = ymdFromMsLocal(opts.beforeMs);
+  const toExclusiveYmd = opts.beforeMs != null ? ymdDayAfterLocal(opts.beforeMs) : null;
   if (fromYmd) q = q.where("date", ">=", fromYmd);
-  if (toYmd) q = q.where("date", "<=", toYmd);
+  if (toExclusiveYmd) q = q.where("date", "<", toExclusiveYmd);
 
   q = q.limit(pageSize + 5);
 
@@ -244,7 +262,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
     snap = await q.get();
   } catch (e) {
     functions.logger.warn("fetchCplActivitiesPage indexed query failed", e?.message || e);
-    if (fromYmd || toYmd) {
+    if (fromYmd || toExclusiveYmd) {
       return {
         activities: [],
         ridesWithMap: 0,
@@ -266,12 +284,34 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   }
 
   const records = [];
+  let skippedNoMap = 0;
+  let skippedOutOfBounds = 0;
+  const fromYmdFilter = fromYmd;
+  const toYmdFilter = opts.beforeMs != null ? ymdFromMsLocal(opts.beforeMs) : null;
   for (const doc of snap.docs) {
     const data = doc.data();
-    if (!activityInBounds(data, opts.afterMs ?? null, opts.beforeMs ?? null)) continue;
+    if (fromYmdFilter || toYmdFilter) {
+      const ymd = activityCalendarYmd(data);
+      if (ymd) {
+        if (fromYmdFilter && ymd < fromYmdFilter) {
+          skippedOutOfBounds += 1;
+          continue;
+        }
+        if (toYmdFilter && ymd > toYmdFilter) {
+          skippedOutOfBounds += 1;
+          continue;
+        }
+      }
+    }
+    if (!activityInBounds(data, opts.afterMs ?? null, opts.beforeMs ?? null)) {
+      skippedOutOfBounds += 1;
+      continue;
+    }
     const matchAct = cplActivityToMatchRecord(doc.id, data);
     if (matchAct.map?.summary_polyline) {
       records.push(matchAct);
+    } else {
+      skippedNoMap += 1;
     }
     if (records.length >= pageSize) break;
   }
@@ -291,6 +331,8 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
     activities: records,
     ridesWithMap: records.length,
     scannedDocs: snap.docs.length,
+    skippedNoMap,
+    skippedOutOfBounds,
     completed: completed || !cursor,
     cursor,
   };
@@ -409,6 +451,8 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     activitiesScanned: ridesScanned,
     activitiesWithMap: ridesScanned,
     docsScanned: page.scannedDocs,
+    skippedNoMap: page.skippedNoMap ?? 0,
+    skippedOutOfBounds: page.skippedOutOfBounds ?? 0,
     nextDatasetIndex: nextDatasetIndexAfter,
     datasetsInBatch: batchIds.length,
     completed: syncCompleted,
