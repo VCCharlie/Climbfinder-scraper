@@ -13,7 +13,7 @@
   <script src="assets/pwa-register.js?v=20261012phase2"></script>
   <link rel="stylesheet" href="../auth/gate.css" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/settings.css?v=20261016logbookux2" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261016cpl-run-panel1" />
 </head>
 <body class="fietsklim-locked settings-page">
   <div id="fietsklim-auth-gate">
@@ -100,6 +100,17 @@
         </button>
       </div>
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
+      <div id="logbookCplRunPanel" class="logbook-cpl-run-panel" hidden aria-live="polite">
+        <p id="logbookCplRunHeadline" class="settings-sync-line"></p>
+        <ul id="logbookCplRunFacts" class="logbook-cpl-run-facts"></ul>
+        <details id="logbookCplRunMatchesDetails" class="strava-match-details" hidden>
+          <summary>Laatste CPL-run · gekoppelde klimmen</summary>
+          <p id="logbookCplRunMatchEmpty" class="settings-hint" hidden>
+            Geen matches in deze run (0 ritten met route, geen polyline-match, of run nog niet klaar).
+          </p>
+          <ul id="logbookCplRunMatchList" class="strava-match-list"></ul>
+        </details>
+      </div>
       <div id="stravaMatchPanels" class="strava-match-panels" hidden>
         <p id="stravaMatchTotal" class="settings-status strava-match-total"></p>
         <details class="strava-match-details">
@@ -168,7 +179,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261016cpl-link1"></script>
+  <script src="assets/strava-sync.js?v=20261016cpl-run-panel1"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
