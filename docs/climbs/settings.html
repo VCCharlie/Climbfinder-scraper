@@ -113,7 +113,10 @@
       <p id="stravaSyncStatus" class="settings-status" role="status"></p>
       <div id="logbookCplRunPanel" class="logbook-cpl-run-panel" hidden aria-live="polite">
         <p id="logbookCplRunHeadline" class="settings-sync-line"></p>
-        <ul id="logbookCplRunFacts" class="logbook-cpl-run-facts"></ul>
+        <details id="logbookCplRunTechDetails" class="strava-browser-sync-details" hidden>
+          <summary>Technische details</summary>
+          <ul id="logbookCplRunFacts" class="logbook-cpl-run-facts"></ul>
+        </details>
         <details id="logbookCplRunMatchesDetails" class="strava-match-details" hidden>
           <summary>Laatste CPL-run · gekoppelde klimmen</summary>
           <p id="logbookCplRunMatchEmpty" class="settings-hint" hidden>
@@ -190,7 +193,7 @@
   <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
   <script src="../auth/gate.js"></script>
   <script src="assets/climb-log.js?v=20261013logbook1"></script>
-  <script src="assets/strava-sync.js?v=20261016logbook-channels1"></script>
+  <script src="assets/strava-sync.js?v=20261018sync-status2"></script>
   <script src="assets/settings-page.js?v=20261012logsync1"></script>
 </body>
 </html>
