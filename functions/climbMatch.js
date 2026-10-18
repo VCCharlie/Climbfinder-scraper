@@ -292,6 +292,21 @@ const DEFAULT_MATCH_OPTS = {
   maxSegmentJumpM: 350,
 };
 
+/** Sync pipeline default: more detections; parallelweg-test blijft ~40 m naast klim false. */
+const DETECTION_MATCH_OPTS = {
+  ...DEFAULT_MATCH_OPTS,
+  bufferM: 28,
+  minCoverage: 0.8,
+  bboxPadM: 260,
+  riddenCorridorPadM: 240,
+  endpointMaxM: 45,
+  maxMeanSampleDistM: 48,
+  maxP90SampleDistM: 34,
+  maxSampleMissRatio: 0.18,
+  minForwardRatio: 0.32,
+  maxBearingDiffDeg: 92,
+};
+
 /**
  * @param {object} climb — climb JSON with geometry
  * @param {string} encodedPolyline — Strava summary polyline
@@ -456,22 +471,31 @@ function isCyclingActivity(activity) {
 }
 
 /** Climbs whose bbox overlaps the activity track bbox (cheap prefilter). */
-function climbsNearEncodedPolyline(climbs, encodedPolyline, padM = DEFAULT_MATCH_OPTS.bboxPadM) {
+function climbsNearEncodedPolyline(
+  climbs,
+  encodedPolyline,
+  padM = DEFAULT_MATCH_OPTS.bboxPadM,
+  spatialIndex = null
+) {
   const track = decodePolyline(encodedPolyline);
   if (track.length < 2) return [];
   const segments = splitTrackAtJumpGaps(track, DEFAULT_MATCH_OPTS.maxSegmentJumpM);
+  const corridorPadM = DEFAULT_MATCH_OPTS.riddenCorridorPadM;
   const out = [];
   const seen = new Set();
   for (const segment of segments) {
     if (segment.length < 2) continue;
     const trackBox = bboxFromCoords(segment);
-    for (const climb of climbs) {
+    const pool = spatialIndex
+      ? require("./climbSpatialIndex").queryClimbsInTrackBox(spatialIndex, trackBox, padM)
+      : climbs;
+    for (const climb of pool) {
       const id = climb.id || climb.name;
       if (id && seen.has(id)) continue;
       const coords = climbCoordsLonLat(climb);
       if (coords.length < 2) continue;
-      if (!bboxesOverlapM(bboxFromCoords(coords), trackBox, padM)) continue;
-      if (!climbWithinRiddenCorridor(coords, segment, DEFAULT_MATCH_OPTS.riddenCorridorPadM)) {
+      if (!spatialIndex && !bboxesOverlapM(bboxFromCoords(coords), trackBox, padM)) continue;
+      if (!climbWithinRiddenCorridor(coords, segment, corridorPadM)) {
         continue;
       }
       if (id) seen.add(id);
@@ -492,6 +516,7 @@ module.exports = {
   isCyclingActivity,
   isOutdoorCyclingActivity,
   DEFAULT_MATCH_OPTS,
+  DETECTION_MATCH_OPTS,
   bboxFromCoords,
   expandBBoxM,
   climbWithinRiddenCorridor,

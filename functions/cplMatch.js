@@ -1,5 +1,6 @@
 /** Match CPL / stored activity polylines against climb datasets (no Strava API). */
-const { matchClimbToActivity, isCyclingActivity, climbsNearEncodedPolyline } = require("./climbMatch");
+const { isCyclingActivity, climbsNearEncodedPolyline } = require("./climbMatch");
+const { matchStoredActivitiesToClimbs } = require("./syncPipeline");
 
 function activityVisibleForPrefs(activity) {
   if (!activity) return false;
@@ -92,46 +93,6 @@ function cplActivityToMatchRecord(docId, data, routeMapPolicy = "default") {
     strava_id: stravaId || undefined,
     _cplSource: true,
   };
-}
-
-function polylineFromMatchActivity(activity) {
-  const map = activity?.map;
-  if (!map) return null;
-  return map.summary_polyline || map.polyline || null;
-}
-
-/**
- * @param {{ climbs: object[], activities: object[], includePrivate?: boolean }} params
- */
-function matchStoredActivitiesToClimbs({ climbs, activities, includePrivate = true }) {
-  const rides = (activities || [])
-    .filter(isCyclingActivity)
-    .filter((act) => includePrivate || activityVisibleForPrefs(act));
-
-  /** @type {Map<string, { activity: object, coverage: number, climbName: string }>} */
-  const bestByClimb = new Map();
-
-  for (const act of rides) {
-    const poly = polylineFromMatchActivity(act);
-    if (!poly) continue;
-    const candidates = climbsNearEncodedPolyline(climbs, poly);
-    for (const climb of candidates) {
-      const result = matchClimbToActivity(climb, poly);
-      if (!result.matched) continue;
-      const climbId = climb.id;
-      const prev = bestByClimb.get(climbId);
-      const climbName = climb.name || climb.title || String(climbId);
-      if (!prev || result.coverage > prev.coverage) {
-        bestByClimb.set(climbId, {
-          activity: act,
-          coverage: result.coverage,
-          climbName,
-        });
-      }
-    }
-  }
-
-  return { bestByClimb, ridesScanned: rides.length };
 }
 
 function summaryMatchesFromMap(datasetId, bestByClimb, limit = 120) {
