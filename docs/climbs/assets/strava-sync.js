@@ -7,7 +7,6 @@
   const FULL_SYNC_MAX_LOOPS = 80;
   const FULL_SYNC_MAX_LOOPS_ALL = 800;
   const FULL_SYNC_WANTED_KEY = "fietsklim-strava-full-sync-wanted";
-  const WEBHOOK_CPL_AUTO_PREFIX = "fietsklim-webhook-cpl-auto";
   const SERVER_JOB_POLL_MS = 15000;
 
   let statusCache = null;
@@ -185,19 +184,25 @@
     if (!job) return "";
     const p = job.progress || {};
     const chKey = logbookChannelFromJob(job);
-    const channel = logbookChannelLabel(chKey);
     const viaCpl = chKey === "cpl" || chKey === "intervals";
-    const parts = [`${channel} · server · ${job.status}`];
-    if (viaCpl && p.uniqueClimbs != null) parts.push(`${p.uniqueClimbs} klim-match`);
+    const parts = [viaCpl ? "CPL server" : "Strava server", job.status];
+    if (p.uniqueClimbs != null) parts.push(`${p.uniqueClimbs} klimmen`);
+    if (p.activitiesScanned != null) parts.push(`${p.activitiesScanned} ritten`);
+    if (!viaCpl && p.stravaDetailReads != null) parts.push(`${p.stravaDetailReads} detail-reads`);
     if (p.regionProgress) parts.push(p.regionProgress);
-    if (!viaCpl && p.nextPage) parts.push(`Strava pag. ${p.nextPage}`);
-    if (!viaCpl && p.stravaDetailReads != null) {
-      parts.push(`${p.stravaDetailReads} Strava-detail read(s)`);
-    }
-    if (p.activitiesScanned != null) parts.push(`${p.activitiesScanned} rit(ten)`);
-    if (job.batchCount) parts.push(`batch ${job.batchCount}`);
-    if (job.lastMessage) parts.push(job.lastMessage);
     return parts.join(" · ");
+  }
+
+  function primaryLogbookChannel(d) {
+    if (d?.primaryLogbookChannel) return d.primaryLogbookChannel;
+    if (d?.routeSync?.primaryLogbookChannel) return d.routeSync.primaryLogbookChannel;
+    return fullDatabaseUsesCplRoutes() ? "cpl" : "strava";
+  }
+
+  function activeLogbookJob(d) {
+    const ch = primaryLogbookChannel(d || statusCache || {});
+    if (ch === "cpl") return d?.activeCplSyncJob || statusCache?.activeCplSyncJob || null;
+    return d?.activeStravaSyncJob || d?.activeSyncJob || statusCache?.activeStravaSyncJob || null;
   }
 
   function renderCplSyncRunPanel() {
@@ -221,89 +226,29 @@
     const facts = [];
 
     if (jobLive) {
-      headline.textContent = `CPL server-sync loopt · ${formatServerJobLine(job)}`;
-      facts.push("Tab mag dicht; status ververst automatisch.");
+      headline.textContent = formatServerJobLine(job);
       if (job.after != null || job.before != null) {
-        facts.push(`Job-periode: ${formatCplPeriodLabel(job.after, job.before)}`);
+        facts.push(`Periode: ${formatCplPeriodLabel(job.after, job.before)}`);
       }
     } else if (job?.status === "failed") {
-      headline.textContent = `CPL server-sync mislukt`;
+      headline.textContent = "CPL server-sync mislukt";
       facts.push(job.error || "Onbekende fout");
-    } else if (job?.status === "completed") {
-      headline.textContent = `CPL server-sync afgerond`;
-      if (job.lastMessage) facts.push(job.lastMessage);
     } else if (summary) {
       const n = summary.matchesWritten ?? summary.uniqueClimbs ?? 0;
       const rides = summary.activitiesWithMap ?? summary.activitiesScanned ?? 0;
-      headline.textContent =
-        summary.completed
-          ? `Laatste CPL-run: ${n} logboek-koppeling(en) · ${rides} rit(ten) met route`
-          : `Laatste CPL-run (nog niet klaar): ${n} koppeling(en) tot nu toe`;
-    } else {
-      headline.textContent = "CPL server-sync — nog geen run gestart";
-    }
-
-    if (summary) {
-      facts.push(`Periode in run: ${formatCplPeriodLabel(summary.after, summary.before)}`);
-      if (summary.routeMapPolicy === "intervals_only") {
-        facts.push("Route-bron in deze run: alleen intervals_map (CPL Firestore)");
-      } else if (summary.source === "cpl") {
-        facts.push("Route-bron in deze run: intervals_map, anders strava_map (CPL Firestore)");
-      }
-      facts.push(
-        `Ritten met route in CPL (deze batch/run): ${summary.activitiesWithMap ?? summary.activitiesScanned ?? 0}`
-      );
-      if (summary.docsScanned != null) {
-        facts.push(`Firestore docs gescand: ${summary.docsScanned}`);
-      }
-      if (summary.skippedNoMap > 0) {
-        facts.push(
-          `${summary.skippedNoMap} doc(s) in query zonder route-polyline (intervals_map/strava_map leeg in Firestore)`
-        );
-      }
-      if (summary.skippedOutOfBounds > 0) {
-        facts.push(
-          `${summary.skippedOutOfBounds} doc(s) buiten gekozen periode (filter na query)`
-        );
-      }
-      const noMapSamples = summary.noMapSamples || [];
-      if (noMapSamples.length && (summary.activitiesWithMap ?? summary.activitiesScanned ?? 0) === 0) {
-        for (const s of noMapSamples.slice(0, 3)) {
-          const title = s.title ? `“${s.title}”` : s.id;
-          const flags = [
-            s.hasIntervalsMap ? "intervals_map≠leeg" : null,
-            s.hasStravaMap ? "strava_map≠leeg" : null,
-          ].filter(Boolean);
-          facts.push(
-            `CPL-activiteit zonder leesbare polyline: ${title} (${s.date || "?"})${flags.length ? ` — veld aanwezig maar niet parseerbaar: ${flags.join(", ")}` : " — run Strava/Intervals map-backfill in CPL"}`
-          );
-        }
-      }
-      facts.push(
-        `Logboek bijgewerkt (matchesWritten): ${summary.matchesWritten ?? summary.uniqueClimbs ?? 0}`
-      );
-      if (summary.regionProgress) facts.push(`Regio’s: ${summary.regionProgress}`);
-      if (summary.completed) facts.push("Status run: afgerond");
-      else if (!jobLive) facts.push("Status run: onderbroken of wacht op volgende batch");
+      headline.textContent = summary.completed
+        ? `Laatste run: ${n} klim(men) · ${rides} ritten met route`
+        : `Run onvolledig: ${n} klim(men) tot nu toe`;
+      facts.push(`Periode: ${formatCplPeriodLabel(summary.after, summary.before)}`);
+      if (summary.regionProgress) facts.push(summary.regionProgress);
       if (summary.dateQueryIndexRequired) {
-        facts.push(
-          "Datumbereik-query mislukt — composite index activities (ownerId + date) op climb-performance-lab"
-        );
-      } else if (
-        (summary.activitiesWithMap ?? summary.activitiesScanned ?? 0) === 0 &&
-        (summary.after != null || summary.before != null)
-      ) {
-        facts.push(
-          "0 ritten met route → na deploy: datumbereik gebruikt date < dag+1 (ISO-tijden op dezelfde dag). Anders: ownerId + intervals_map/strava_map in CPL Firestore"
-        );
-      } else if ((summary.matchesWritten ?? 0) === 0 && (summary.activitiesScanned ?? 0) > 0) {
-        facts.push(
-          "Ritten gevonden maar 0 klim-match → strikte polyline-check (route moet op klim liggen; afdaling telt niet)"
-        );
+        facts.push("CPL-index ownerId+date ontbreekt (zie docs/cpl-firestore-index-578c).");
       }
       if (cpl?.lastSyncAt) {
-        facts.push(`Laatst opgeslagen: ${new Date(cpl.lastSyncAt).toLocaleString("nl-NL")}`);
+        facts.push(`Opgeslagen: ${new Date(cpl.lastSyncAt).toLocaleString("nl-NL")}`);
       }
+    } else {
+      headline.textContent = "CPL — nog geen server-run";
     }
 
     factsEl.innerHTML = "";
@@ -483,8 +428,11 @@
     if (!wrap) return;
 
     const connected = Boolean(statusCache?.connected);
-    wrap.hidden = !connected;
-    if (!connected) return;
+    if (!connected || primaryLogbookChannel(statusCache) === "cpl") {
+      wrap.hidden = true;
+      return;
+    }
+    wrap.hidden = false;
 
     const log = global.FietsKlimClimbLog;
     const linked = log?.isReady?.() && log.listStravaLinked ? log.listStravaLinked() : [];
@@ -771,65 +719,66 @@
     prefsSaveTimer = setTimeout(() => void savePrefsFromToggle(), 300);
   }
 
-  function formatStravaDetailReadsLine(summary) {
-    if (!summary || summary.source === "cpl") return "";
-    if (summary.stravaDetailReads == null) return "";
-    return ` · ${summary.stravaDetailReads} Strava-detail read(s) in laatste batch`;
-  }
+  function renderLogbookSyncStatusLine(d) {
+    const channel = primaryLogbookChannel(d);
+    const job = activeLogbookJob(d);
+    const parts = [];
 
-  let webhookAutoSyncInFlight = false;
-
-  /**
-   * Strava webhook hint → incremental CPL server-sync (geen extra Strava API voor routes).
-   */
-  async function maybeAutoCplSyncFromWebhook(d) {
-    const pending = d?.webhookPending;
-    if (!pending || webhookAutoSyncInFlight) return;
-    const cpl = d.cplStatus;
-    if (!cpl?.linked || !cpl?.serverSyncConfigured) return;
-    if (serverJobActive(d.activeCplSyncJob) || serverJobActive(d.activeStravaSyncJob)) return;
-
-    const dedupeKey = `${WEBHOOK_CPL_AUTO_PREFIX}:${pending.objectId || "?"}:${pending.aspectType || "?"}:${pending.eventTime || "?"}`;
-    if (sessionStorage.getItem(dedupeKey)) return;
-
-    webhookAutoSyncInFlight = true;
-    sessionStorage.setItem(dedupeKey, String(Date.now()));
-
-    const eventSec = Number(pending.eventTime);
-    const after =
-      Number.isFinite(eventSec) && eventSec > 0
-        ? (eventSec - 86400) * 1000
-        : Date.now() - 7 * 86400000;
-
-    setStatus(
-      "Strava-webhook: activiteit bijgewerkt — CPL server-sync (hele database, recente ritten)…",
-      false
-    );
-    try {
-      const res = await callable("cplEnqueueFullSync")({
-        datasetId: ALL_DATASETS,
-        after,
-      });
-      try {
-        await callable("stravaAckWebhookPending")({});
-      } catch (ackErr) {
-        console.warn("stravaAckWebhookPending", ackErr);
+    if (channel === "cpl") {
+      parts.push("Logboek-sync: CPL (routes uit Performance Lab, geen Strava API)");
+      if (serverJobActive(job)) {
+        parts.push(formatServerJobLine(job));
+        startServerJobPolling();
+      } else {
+        stopServerJobPolling();
+        const s = d.lastSyncSummary;
+        if (s) {
+          parts.push(
+            `${s.matchesWritten ?? s.uniqueClimbs ?? 0} klim(men) · ${formatCplPeriodLabel(s.after, s.before)}`
+          );
+          if (s.completed) parts.push("afgerond");
+        } else if (d.lastSyncAt) {
+          parts.push(`laatst ${new Date(d.lastSyncAt).toLocaleString("nl-NL")}`);
+        }
       }
-      setStatus(res.data?.message || "CPL-sync na webhook gestart.");
-      const panel = $("logbookCplRunPanel");
-      if (panel) panel.hidden = false;
-      startServerJobPolling();
-    } catch (e) {
-      setStatus(formatCallableError(e), true);
-      sessionStorage.removeItem(dedupeKey);
-    } finally {
-      webhookAutoSyncInFlight = false;
+      if (d.webhookPending?.objectId) {
+        parts.push(`webhook: activiteit ${d.webhookPending.objectId} (server start CPL)`);
+      }
+      setStatus(parts.join(" · "), false);
+      return;
     }
+
+    if (!d.connected) {
+      setStatus("Logboek-sync: Strava API — niet gekoppeld.", !d.setup?.backendConfigured);
+      return;
+    }
+
+    parts.push(`Logboek-sync: Strava API · ${d.athleteName || "gekoppeld"}`);
+    if (serverJobActive(job)) {
+      parts.push(formatServerJobLine(job));
+      startServerJobPolling();
+    } else {
+      stopServerJobPolling();
+      if (job?.status === "failed") {
+        setStatus(`${parts.join(" · ")} · mislukt: ${job.error || "?"}`, true);
+        return;
+      }
+      const s = d.lastSyncSummary;
+      if (s) {
+        parts.push(`${s.uniqueClimbs ?? 0} klim(men) · ${s.activitiesScanned ?? 0} ritten`);
+        if (s.stravaDetailReads != null) parts.push(`${s.stravaDetailReads} detail-reads`);
+      }
+    }
+    if (d.needsReconnect) {
+      setStatus(`${parts.join(" · ")} · privé-scope ontbreekt (open Strava-koppeling)`, true);
+      return;
+    }
+    setStatus(parts.join(" · "), false);
   }
 
   async function refreshStatus() {
     if (typeof firebase === "undefined" || !firebase.auth?.().currentUser) {
-      setStatus("Log in om Strava te koppelen.");
+      setStatus("Log in om logboek-sync te beheren.");
       updateSyncButtonsVisibility(false);
       return;
     }
@@ -865,61 +814,15 @@
         setStatus(`Firestore-fout: ${d.hint || "?"}${setupHint(d.setup)}`, true);
         return;
       }
-      if (d.connected) {
-        const mode = d.includePrivate ? "publiek + privé" : "alleen publiek";
-        let msg = `Strava: ${d.athleteName || "gekoppeld"} (${mode})`;
-        const ds = getSelectedDatasetId();
-        if (ds) {
-          msg += ds === ALL_DATASETS ? " · scope: hele database" : ` · dataset: ${ds}`;
+      statusCache.primaryLogbookChannel = primaryLogbookChannel(d);
+      if (d.connected || primaryLogbookChannel(d) === "cpl") {
+        renderLogbookSyncStatusLine({ ...d, cplStatus: statusCache.cplStatus });
+        if (primaryLogbookChannel(d) !== "cpl") {
+          maybeResumeFullSync(d);
         }
-        if (d.needsReconnect) {
-          msg += " · klik Ververs Strava-toestemming (privé) of Koppel opnieuw";
-        }
-        if (serverJobActive(d.activeSyncJob)) {
-          msg += ` · ${formatServerJobLine(d.activeSyncJob)}`;
-          startServerJobPolling();
-        } else {
-          stopServerJobPolling();
-        }
-        if (d.activeSyncJob?.status === "completed") {
-          const ch = logbookChannelLabel(logbookChannelFromJob(d.activeSyncJob));
-          msg += ` · ${ch} · server · afgerond`;
-          global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
-        }
-        if (d.activeSyncJob?.status === "failed") {
-          const ch = logbookChannelLabel(logbookChannelFromJob(d.activeSyncJob));
-          msg += ` · ${ch} · server · mislukt: ${d.activeSyncJob.error || "?"}`;
-        }
-        if (d.webhookPending?.objectId) {
-          msg += ` · Strava-webhook: activiteit ${d.webhookPending.objectId} (${d.webhookPending.aspectType || "update"})`;
-        }
-        if (d.lastSyncSummary) {
-          const s = d.lastSyncSummary;
-          const kind = s.kind === "full" ? "volledige sync" : "proef";
-          const scope = s.allDatasets ? "alle regio’s" : s.datasetId;
-          msg += ` · laatste ${kind}: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten (${scope})`;
-          msg += formatStravaDetailReadsLine(s);
-          if (s.geoFilterApplied) msg += " · geo-regio prefilter";
-          if (s.kind === "full" && s.completed === false && !serverJobActive(d.activeSyncJob)) {
-            if (s.allDatasets && s.regionProgress) msg += ` · ${s.regionProgress}`;
-            if (s.source === "cpl") {
-              if (s.activitiesWithMap != null) msg += ` · ${s.activitiesWithMap} ritten met route`;
-              if (s.dateQueryIndexRequired) {
-                msg += " · datumbereik: Firestore-index ownerId+date nodig in CPL";
-              }
-            } else if (s.nextPage) msg += ` · Strava pag. ${s.nextPage}`;
-          }
-        } else if (d.lastSyncAt) {
-          msg += ` · sync ${new Date(d.lastSyncAt).toLocaleString("nl-NL")}`;
-        }
-        setStatus(msg);
-        maybeResumeFullSync(d);
-        void maybeAutoCplSyncFromWebhook({ ...d, cplStatus: statusCache.cplStatus });
       } else {
-        let msg = "Strava API: niet gekoppeld";
-        if (fullDatabaseUsesCplRoutes()) {
-          msg += " · hele database kan via CPL-server (knop hierboven)";
-        }
+        let msg = "Logboek-sync: Strava niet gekoppeld";
+        if (fullDatabaseUsesCplRoutes()) msg += " · gebruik CPL-knop hierboven";
         msg += setupHint(d.setup);
         setStatus(msg, !d.setup?.backendConfigured);
         updateSyncButtonsVisibility(false);
@@ -1082,7 +985,7 @@
       setStatus("Koppel Strava eerst opnieuw voor privé-activiteiten.", true);
       return;
     }
-    if (serverJobActive(statusCache?.activeSyncJob)) {
+    if (serverJobActive(activeLogbookJob(statusCache))) {
       setStatus("Server-sync loopt al — status wordt ververst.", false);
       startServerJobPolling();
       return;

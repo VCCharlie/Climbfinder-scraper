@@ -783,18 +783,32 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
     } catch (e) {
       functions.logger.warn("getStravaStatus cpl integration", e);
     }
+    const primaryLogbookChannel = fullDatabaseUsesCpl ? "cpl" : "strava";
+    const activeLogbookSyncJob =
+      primaryLogbookChannel === "cpl"
+        ? activeCplSyncJob || null
+        : activeStravaSyncJob || activeCplSyncJob;
     const activeSyncJob = activeCplSyncJob || activeStravaSyncJob;
     const lastSyncSummary =
-      fullDatabaseUsesCpl && cplLastSyncSummary ? cplLastSyncSummary : data.lastSyncSummary || null;
+      primaryLogbookChannel === "cpl"
+        ? cplLastSyncSummary || null
+        : data.lastSyncSummary || null;
     const lastSyncAt =
-      fullDatabaseUsesCpl && cplLastSyncAt ? cplLastSyncAt : data.lastSyncAt?.toDate?.()?.toISOString?.() || null;
+      primaryLogbookChannel === "cpl"
+        ? cplLastSyncAt || null
+        : data.lastSyncAt?.toDate?.()?.toISOString?.() || null;
     return {
       connected: true,
       athleteName: data.athleteName || null,
+      primaryLogbookChannel,
       webhookPending: data.webhookPending || null,
       webhookPendingAt: data.webhookPendingAt?.toDate?.()?.toISOString?.() || null,
+      webhookCplJobId: data.webhookCplJobId || null,
       lastSyncAt,
       lastSyncSummary,
+      stravaLastSyncSummary: data.lastSyncSummary || null,
+      stravaLastSyncAt: data.lastSyncAt?.toDate?.()?.toISOString?.() || null,
+      activeLogbookSyncJob,
       includePrivate: prefs.includePrivate,
       hasPrivateScope: scopeInfo.hasPrivateScope,
       needsReconnect: scopeInfo.needsReconnect,
@@ -806,6 +820,7 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
       routeSync: {
         fullDatabaseUsesCpl,
         cplWorkerConfigured: routePolicy.cplWorkerConfigured(),
+        primaryLogbookChannel,
       },
       setup,
     };

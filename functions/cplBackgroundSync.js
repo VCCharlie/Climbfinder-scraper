@@ -217,7 +217,7 @@ async function assertNoOtherRouteSyncJob(uid) {
  * @param {string} email
  * @param {{ datasetId?: string, after?: number, before?: number }} data
  */
-async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
+async function enqueueFullSyncJob(uid, emailOrIdentity, data, opts = {}) {
   const identity =
     typeof emailOrIdentity === "string"
       ? { email: emailOrIdentity, googleUid: null }
@@ -237,7 +237,15 @@ async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
       `Er loopt al een CPL server-sync (${existing.status}).`
     );
   }
-  await assertNoOtherRouteSyncJob(uid);
+  if (!opts.fromWebhook) {
+    await assertNoOtherRouteSyncJob(uid);
+  } else {
+    const stravaBg = require("./stravaBackgroundSync");
+    const stravaActive = await stravaBg.getActiveSyncJob(uid);
+    if (stravaActive) {
+      return { ok: false, skipped: "strava_job_active", stravaStatus: stravaActive.status };
+    }
+  }
   const bounds = parseBounds(data);
   const routeMapPolicy =
     data.routeMapPolicy === "intervals_only" ? "intervals_only" : "default";
@@ -247,6 +255,7 @@ async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
     status: "queued",
     datasetId,
     routeMapPolicy,
+    triggerSource: opts.fromWebhook ? "strava_webhook" : data.triggerSource || null,
     afterMs: bounds.afterMs,
     beforeMs: bounds.beforeMs,
     batchCount: 0,
@@ -285,7 +294,93 @@ async function enqueueFullSyncJob(uid, emailOrIdentity, data) {
   };
 }
 
+const WEBHOOK_ENQUEUE_DEBOUNCE_MS = 5 * 60 * 1000;
+
+/**
+ * Strava webhook → CPL Cloud Task (geen browser-tab nodig).
+ * @returns {Promise<{ ok?: boolean, skipped?: string, jobId?: string }>}
+ */
+async function enqueueIncrementalCplFromWebhook(uid, event) {
+  if (!cplCfg().worker_secret) {
+    return { skipped: "cpl_worker_not_configured" };
+  }
+  const { resolveCplOwner } = require("./cplClient");
+  let email = "";
+  try {
+    const user = await admin.auth().getUser(uid);
+    email = user.email || "";
+  } catch (e) {
+    functions.logger.warn("enqueueIncrementalCplFromWebhook getUser", e?.message || e);
+  }
+  const owner = await resolveCplOwner({ email });
+  if (!owner) {
+    return { skipped: "no_cpl_account" };
+  }
+
+  const objectId = event?.object_id != null ? String(event.object_id) : "";
+  const cplIntegRef = admin.firestore().collection("users").doc(uid).collection("integrations").doc("cpl");
+  const cplSnap = await cplIntegRef.get();
+  const lastAuto = cplSnap.exists ? cplSnap.data()?.lastWebhookAutoEnqueue : null;
+  if (
+    objectId &&
+    lastAuto?.objectId === objectId &&
+    Date.now() - (lastAuto.atMs || 0) < WEBHOOK_ENQUEUE_DEBOUNCE_MS
+  ) {
+    return { skipped: "debounced", objectId };
+  }
+
+  const eventSec = Number(event?.event_time);
+  const afterMs =
+    Number.isFinite(eventSec) && eventSec > 0
+      ? (eventSec - 86400) * 1000
+      : Date.now() - 7 * 86400000;
+
+  let result;
+  try {
+    result = await enqueueFullSyncJob(
+      uid,
+      { email: owner.email || email, googleUid: null },
+      { datasetId: "__all__", after: afterMs },
+      { fromWebhook: true }
+    );
+  } catch (e) {
+    if (e?.code === "failed-precondition") {
+      return { skipped: e.message || "enqueue_failed" };
+    }
+    throw e;
+  }
+  if (result?.skipped || result?.ok === false) {
+    return { skipped: result.skipped || "not_enqueued" };
+  }
+
+  await cplIntegRef.set(
+    {
+      lastWebhookAutoEnqueue: { objectId, atMs: Date.now(), jobId: result.jobId },
+    },
+    { merge: true }
+  );
+
+  const stravaIntegRef = admin
+    .firestore()
+    .collection("users")
+    .doc(uid)
+    .collection("integrations")
+    .doc("strava");
+  await stravaIntegRef.set(
+    {
+      webhookPending: admin.firestore.FieldValue.delete(),
+      webhookPendingAt: admin.firestore.FieldValue.delete(),
+      webhookCplJobId: result.jobId,
+      webhookHandledAt: admin.firestore.FieldValue.serverTimestamp(),
+    },
+    { merge: true }
+  );
+
+  return { ok: true, jobId: result.jobId };
+}
+
 exports.enqueueFullSyncJob = enqueueFullSyncJob;
+exports.enqueueIncrementalCplFromWebhook = enqueueIncrementalCplFromWebhook;
 
 exports.cplEnqueueFullSync = functions
   .region(REGION)

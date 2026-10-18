@@ -100,6 +100,15 @@ exports.stravaWebhookHttp = functions
       const uid = await findUidForAthleteId(body.owner_id);
       if (uid && (body.object_type === "activity" || body.object_type === "athlete")) {
         await enqueueUserWebhookHint(uid, body);
+        if (body.object_type === "activity") {
+          try {
+            const cplBg = require("./cplBackgroundSync");
+            const enq = await cplBg.enqueueIncrementalCplFromWebhook(uid, body);
+            functions.logger.info("stravaWebhook cplEnqueue", { uid, enq });
+          } catch (e) {
+            functions.logger.warn("stravaWebhook cplEnqueue failed", e?.message || e);
+          }
+        }
       }
 
       functions.logger.info("stravaWebhook", { eventId, uid, object_type: body.object_type });
