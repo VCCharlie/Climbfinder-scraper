@@ -7,9 +7,11 @@
   const FULL_SYNC_MAX_LOOPS = 80;
   const FULL_SYNC_MAX_LOOPS_ALL = 800;
   const FULL_SYNC_WANTED_KEY = "fietsklim-strava-full-sync-wanted";
-  const SERVER_JOB_POLL_MS = 15000;
+  const SERVER_JOB_POLL_MS = 22000;
 
   let statusCache = null;
+  let refreshStatusInFlight = null;
+  let lastLogbookRouteStatusText = "";
   let serverJobPollTimer = null;
   let prefsSaveTimer = null;
   let fullSyncRunning = false;
@@ -99,11 +101,9 @@
 
   function startServerJobPolling() {
     stopServerJobPolling();
-    const tick = () => {
-      void refreshStatus();
-    };
-    tick();
-    serverJobPollTimer = setInterval(tick, SERVER_JOB_POLL_MS);
+    serverJobPollTimer = setInterval(() => {
+      void refreshStatus({ quiet: true });
+    }, SERVER_JOB_POLL_MS);
   }
 
   /** @param {'cpl'|'intervals'|'strava'|null} channel */
@@ -130,30 +130,22 @@
     const el = $("logbookRouteStatus");
     if (!el) return;
     const cpl = statusCache?.cplStatus;
+    let text;
     if (!cpl) {
-      el.textContent =
-        "Performance Lab: status niet geladen (deploy getCplStatus of ververs de pagina).";
-      return;
+      if (lastLogbookRouteStatusText && !/laden/i.test(lastLogbookRouteStatusText)) {
+        return;
+      }
+      text = "Performance Lab: laden…";
+    } else if (cpl.linked && cpl.serverSyncConfigured) {
+      text = "Performance Lab: gekoppeld";
+    } else if (cpl.linked) {
+      text = "Performance Lab: account gevonden (server-sync nog niet actief)";
+    } else {
+      text = "Performance Lab: niet gekoppeld — log in bij CPL met dezelfde Google-account";
     }
-    if (cpl.linked && cpl.serverSyncConfigured) {
-      const mail = cpl.emailChecked ? ` (${cpl.emailChecked})` : "";
-      el.textContent = `Performance Lab: gekoppeld${mail} · server-routes: Intervals-map, anders Strava-map`;
-      return;
-    }
-    if (cpl.linked) {
-      el.textContent = `Performance Lab: account gevonden · ${cpl.linkHint || "server-sync nog niet geconfigureerd"}`;
-      return;
-    }
-    const reason =
-      cpl.linkReason === "cpl_auth_lookup_denied"
-        ? "server IAM"
-        : cpl.linkReason === "lookup_failed"
-          ? "lookup-fout"
-          : "geen Auth-user";
-    const hint =
-      cpl.linkHint ||
-      "Log in bij Climb Performance Lab met dezelfde Google-mail als FietsKlim.";
-    el.textContent = `Performance Lab: niet gekoppeld (${reason}) · ${hint}`;
+    if (text === lastLogbookRouteStatusText) return;
+    lastLogbookRouteStatusText = text;
+    el.textContent = text;
   }
 
   function activeCplSyncJobRef() {
@@ -217,41 +209,36 @@
     const summary = cplLastSyncSummaryRef();
     const jobLive = serverJobActive(job);
 
-    if (!linked && !summary && !jobLive) {
+    const showPanel = jobLive || job?.status === "failed" || (summary && !summary.completed);
+    if (!linked && !showPanel) {
+      panel.hidden = true;
+      return;
+    }
+    if (!showPanel) {
       panel.hidden = true;
       return;
     }
 
     panel.hidden = false;
     const facts = [];
+    const detailsWrap = $("logbookCplRunTechDetails");
 
     if (jobLive) {
-      headline.textContent = formatServerJobLine(job);
-      if (job.after != null || job.before != null) {
-        facts.push(`Periode: ${formatCplPeriodLabel(job.after, job.before)}`);
-      }
+      headline.textContent = `Sync loopt · ${formatServerJobLine(job)}`;
     } else if (job?.status === "failed") {
-      headline.textContent = "CPL server-sync mislukt";
-      facts.push(job.error || "Onbekende fout");
+      headline.textContent = `Sync mislukt: ${(job.error || "onbekend").slice(0, 120)}`;
     } else if (summary) {
       const n = summary.matchesWritten ?? summary.uniqueClimbs ?? 0;
-      const rides = summary.activitiesWithMap ?? summary.activitiesScanned ?? 0;
-      headline.textContent = summary.completed
-        ? `Laatste run: ${n} klim(men) · ${rides} ritten met route`
-        : `Run onvolledig: ${n} klim(men) tot nu toe`;
+      headline.textContent = `Sync hervatten · ${n} klim(men) tot nu toe`;
       facts.push(`Periode: ${formatCplPeriodLabel(summary.after, summary.before)}`);
       if (summary.regionProgress) facts.push(summary.regionProgress);
-      if (summary.dateQueryIndexRequired) {
-        facts.push("CPL-index ownerId+date ontbreekt (zie docs/cpl-firestore-index-578c).");
-      }
-      if (cpl?.lastSyncAt) {
-        facts.push(`Opgeslagen: ${new Date(cpl.lastSyncAt).toLocaleString("nl-NL")}`);
-      }
     } else {
-      headline.textContent = "CPL — nog geen server-run";
+      headline.textContent = "Sync — wacht op start";
     }
 
     factsEl.innerHTML = "";
+    const showFacts = facts.length > 0;
+    if (detailsWrap) detailsWrap.hidden = !showFacts;
     for (const line of facts) {
       const li = document.createElement("li");
       li.textContent = line;
@@ -260,7 +247,7 @@
 
     const matches = summary?.matches || [];
     const matchDetails = $("logbookCplRunMatchesDetails");
-    if (matchDetails) matchDetails.hidden = !matches.length;
+    if (matchDetails) matchDetails.hidden = true;
     fillMatchList(
       $("logbookCplRunMatchList"),
       matches,
@@ -623,8 +610,10 @@
         ? "Strava API · volledig · periode (browser)"
         : "Strava API · volledig (browser)";
     }
-    cleanup?.toggleAttribute("hidden", !connected);
-    if (cleanup) cleanup.disabled = !connected;
+    const cplPrimary = primaryLogbookChannel(statusCache) === "cpl";
+    cleanup?.toggleAttribute("hidden", !connected || cplPrimary);
+    $("stravaOAuthDetails")?.toggleAttribute("hidden", cplPrimary);
+    if (cleanup) cleanup.disabled = !connected || cplPrimary;
     const cplBtn = $("logbookSyncCplBtn");
     const intervalsBtn = $("logbookSyncIntervalsBtn");
     const stravaBtn = $("logbookSyncStravaBtn");
@@ -719,37 +708,43 @@
     prefsSaveTimer = setTimeout(() => void savePrefsFromToggle(), 300);
   }
 
-  function renderLogbookSyncStatusLine(d) {
+  function renderLogbookSyncStatusLine(d, opts = {}) {
     const channel = primaryLogbookChannel(d);
     const job = activeLogbookJob(d);
     const parts = [];
 
     if (channel === "cpl") {
-      parts.push("Logboek-sync: CPL (routes uit Performance Lab, geen Strava API)");
       if (serverJobActive(job)) {
+        parts.push("CPL-sync loopt");
         parts.push(formatServerJobLine(job));
         startServerJobPolling();
       } else {
         stopServerJobPolling();
         const s = d.lastSyncSummary;
-        if (s) {
+        if (s?.completed) {
           parts.push(
-            `${s.matchesWritten ?? s.uniqueClimbs ?? 0} klim(men) · ${formatCplPeriodLabel(s.after, s.before)}`
+            `Klaar: ${s.matchesWritten ?? s.uniqueClimbs ?? 0} klim(men) · ${formatCplPeriodLabel(s.after, s.before)}`
           );
-          if (s.completed) parts.push("afgerond");
+        } else if (s) {
+          parts.push(`Onvolledig: ${s.matchesWritten ?? s.uniqueClimbs ?? 0} klim(men) — sync opnieuw indien nodig`);
         } else if (d.lastSyncAt) {
-          parts.push(`laatst ${new Date(d.lastSyncAt).toLocaleString("nl-NL")}`);
+          parts.push(`Laatst: ${new Date(d.lastSyncAt).toLocaleDateString("nl-NL")}`);
+        } else {
+          parts.push("Kies periode en start CPL-sync");
         }
       }
-      if (d.webhookPending?.objectId) {
-        parts.push(`webhook: activiteit ${d.webhookPending.objectId} (server start CPL)`);
+      if (d.webhookPending?.objectId && serverJobActive(job)) {
+        parts.push(`webhook ${d.webhookPending.objectId}`);
       }
-      setStatus(parts.join(" · "), false);
+      const line = parts.join(" · ");
+      if (!opts.quiet || serverJobActive(job)) setStatus(line, false);
       return;
     }
 
     if (!d.connected) {
-      setStatus("Logboek-sync: Strava API — niet gekoppeld.", !d.setup?.backendConfigured);
+      if (!opts.quiet) {
+        setStatus("Logboek-sync: Strava API — niet gekoppeld.", !d.setup?.backendConfigured);
+      }
       return;
     }
 
@@ -770,33 +765,49 @@
       }
     }
     if (d.needsReconnect) {
-      setStatus(`${parts.join(" · ")} · privé-scope ontbreekt (open Strava-koppeling)`, true);
+      if (!opts.quiet) {
+        setStatus(`${parts.join(" · ")} · privé-scope ontbreekt (open Strava-koppeling)`, true);
+      }
       return;
     }
-    setStatus(parts.join(" · "), false);
+    const line = parts.join(" · ");
+    if (!opts.quiet || serverJobActive(job)) setStatus(line, false);
   }
 
-  async function refreshStatus() {
+  async function refreshStatus(opts = {}) {
+    if (refreshStatusInFlight) {
+      return refreshStatusInFlight;
+    }
+    refreshStatusInFlight = refreshStatusInner(opts).finally(() => {
+      refreshStatusInFlight = null;
+    });
+    return refreshStatusInFlight;
+  }
+
+  async function refreshStatusInner(opts = {}) {
     if (typeof firebase === "undefined" || !firebase.auth?.().currentUser) {
       setStatus("Log in om logboek-sync te beheren.");
       updateSyncButtonsVisibility(false);
       return;
     }
     try {
-      const res = await callable("getStravaStatus")({});
-      const d = res.data || {};
-      statusCache = d;
-      try {
-        const cplRes = await callable("getCplStatus")({});
-        statusCache.cplStatus = cplRes.data || {};
-        if (!statusCache.routeSync && statusCache.cplStatus?.linked) {
-          statusCache.routeSync = {
-            fullDatabaseUsesCpl: Boolean(statusCache.cplStatus.serverSyncConfigured),
-            cplWorkerConfigured: Boolean(statusCache.cplStatus.serverSyncConfigured),
-          };
-        }
-      } catch (cplErr) {
-        statusCache.cplStatus = statusCache.cplStatus || null;
+      const prevCpl = statusCache?.cplStatus;
+      const [stravaRes, cplRes] = await Promise.all([
+        callable("getStravaStatus")({}),
+        callable("getCplStatus")({}).catch(() => null),
+      ]);
+      const d = stravaRes.data || {};
+      statusCache = {
+        ...d,
+        cplStatus: cplRes?.data || prevCpl || null,
+        activeCplSyncJob: d.activeCplSyncJob,
+      };
+      if (!statusCache.routeSync && statusCache.cplStatus?.linked) {
+        statusCache.routeSync = {
+          fullDatabaseUsesCpl: Boolean(statusCache.cplStatus.serverSyncConfigured),
+          cplWorkerConfigured: Boolean(statusCache.cplStatus.serverSyncConfigured),
+          primaryLogbookChannel: d.primaryLogbookChannel,
+        };
       }
       renderLogbookRouteStatus();
       if (d.activeCplSyncJob) statusCache.activeCplSyncJob = d.activeCplSyncJob;
@@ -816,7 +827,7 @@
       }
       statusCache.primaryLogbookChannel = primaryLogbookChannel(d);
       if (d.connected || primaryLogbookChannel(d) === "cpl") {
-        renderLogbookSyncStatusLine({ ...d, cplStatus: statusCache.cplStatus });
+        renderLogbookSyncStatusLine({ ...d, cplStatus: statusCache.cplStatus }, opts);
         if (primaryLogbookChannel(d) !== "cpl") {
           maybeResumeFullSync(d);
         }
@@ -831,7 +842,7 @@
       renderStravaMatchPanels();
     } catch (e) {
       const msg = formatCallableError(e);
-      setStatus(msg, true);
+      if (!opts.quiet) setStatus(msg, true);
       if (/not-found|404|UNIMPLEMENTED/i.test(msg)) {
         setStatus(
           msg +
