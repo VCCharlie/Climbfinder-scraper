@@ -202,6 +202,7 @@ function progressFromSummary(summary) {
   return {
     activitiesScanned: summary.activitiesScanned ?? 0,
     uniqueClimbs: summary.uniqueClimbs ?? summary.matchesWritten ?? 0,
+    stravaDetailReads: summary.stravaDetailReads ?? 0,
     nextPage: summary.nextPage ?? null,
     regionIndex: summary.nextDatasetIndex ?? 0,
     regionProgress: summary.regionProgress ?? null,

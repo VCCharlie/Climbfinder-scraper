@@ -7,6 +7,10 @@ const {
   matchActivitiesToClimbs: matchActivitiesToClimbsPipeline,
   activityPolylineFromRecord,
 } = require("./syncPipeline");
+const {
+  loadRegionDatasetRouter,
+  activityLikelyInDataset,
+} = require("./regionDatasetRouter");
 
 const REGION = "europe-west1";
 const STRAVA_AUTH = "https://www.strava.com/oauth/authorize";
@@ -483,24 +487,50 @@ function summaryMatchesFromMap(datasetId, bestByClimb) {
   return out;
 }
 
-async function matchAndWriteForDatasets(uid, accessToken, activities, includePrivate, datasetIds) {
+async function matchAndWriteForDatasets(
+  uid,
+  accessToken,
+  activities,
+  includePrivate,
+  datasetIds,
+  opts = {}
+) {
   let matchesWritten = 0;
   const datasetsProcessed = [];
   const matches = [];
+  let stravaDetailReads = 0;
+  const geoFilter = Boolean(opts.geoFilter) && (datasetIds?.length || 0) > 1;
+  const router = geoFilter ? await loadRegionDatasetRouter(fetchDataJson) : null;
+
   for (const datasetId of datasetIds) {
     const { climbs, meta, spatialIndex } = await loadDataset(datasetId);
     if (!climbs.length) continue;
-    const { bestByClimb } = await matchActivitiesToClimbsPipeline({
+
+    let batchActivities = activities;
+    if (router) {
+      batchActivities = (activities || []).filter((act) => {
+        const poly = activityPolylineFromRecord(act);
+        if (!poly) return true;
+        return activityLikelyInDataset(router, datasetId, poly);
+      });
+      if (!batchActivities.length) {
+        datasetsProcessed.push(datasetId);
+        continue;
+      }
+    }
+
+    const { bestByClimb, stravaDetailReads: detailReads } = await matchActivitiesToClimbsPipeline({
       accessToken,
       climbs,
       spatialIndex,
-      activities,
+      activities: batchActivities,
       includePrivate,
       stravaFetch,
       uid,
       datasetId,
       datasetMeta: meta,
     });
+    stravaDetailReads += detailReads || 0;
     if (bestByClimb.size) {
       await writeStravaMatches(uid, datasetId, bestByClimb);
       matchesWritten += bestByClimb.size;
@@ -508,7 +538,7 @@ async function matchAndWriteForDatasets(uid, accessToken, activities, includePri
     }
     datasetsProcessed.push(datasetId);
   }
-  return { matchesWritten, datasetsProcessed, matches };
+  return { matchesWritten, datasetsProcessed, matches, stravaDetailReads };
 }
 
 async function consumeOAuthState(state) {
@@ -761,6 +791,8 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
     return {
       connected: true,
       athleteName: data.athleteName || null,
+      webhookPending: data.webhookPending || null,
+      webhookPendingAt: data.webhookPendingAt?.toDate?.()?.toISOString?.() || null,
       lastSyncAt,
       lastSyncSummary,
       includePrivate: prefs.includePrivate,
@@ -975,7 +1007,8 @@ exports.stravaSyncTrial = functions
         accessToken,
         activities,
         prefs.includePrivate,
-        ids
+        ids,
+        { geoFilter: true }
       );
       matchesWritten = result.matchesWritten;
       summary = {
@@ -987,6 +1020,8 @@ exports.stravaSyncTrial = functions
         activitiesScanned: ridesScanned,
         matchesWritten,
         uniqueClimbs: matchesWritten,
+        stravaDetailReads: result.stravaDetailReads ?? 0,
+        geoFilterApplied: true,
         matches: result.matches.slice(0, SYNC_SUMMARY_MATCH_LIMIT),
         perPage,
         includePrivate: prefs.includePrivate,
@@ -998,7 +1033,7 @@ exports.stravaSyncTrial = functions
       if (!climbs.length) {
         throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
       }
-      const { bestByClimb } = await matchActivitiesToClimbs({
+      const { bestByClimb, stravaDetailReads } = await matchActivitiesToClimbs({
         accessToken,
         climbs,
         spatialIndex,
@@ -1016,6 +1051,7 @@ exports.stravaSyncTrial = functions
         activitiesScanned: ridesScanned,
         matchesWritten,
         uniqueClimbs: matchesWritten,
+        stravaDetailReads: stravaDetailReads ?? 0,
         matches: summaryMatchesFromMap(datasetId, bestByClimb),
         perPage,
         includePrivate: prefs.includePrivate,
@@ -1121,7 +1157,7 @@ async function runStravaSyncBatch(uid, data) {
         beforeSec: bounds.beforeSec,
       });
 
-      const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
+      const { bestByClimb, ridesScanned, stravaDetailReads } = await matchActivitiesToClimbs({
         accessToken,
         climbs,
         spatialIndex,
@@ -1155,6 +1191,7 @@ async function runStravaSyncBatch(uid, data) {
         completed,
         matchesWritten: bestByClimb.size,
         uniqueClimbs: bestByClimb.size,
+        stravaDetailReads: stravaDetailReads ?? 0,
         matches: summaryMatchesFromMap(datasetId, bestByClimb),
         includePrivate: prefs.includePrivate,
         after: bounds.afterMs,
@@ -1171,8 +1208,8 @@ async function runStravaSyncBatch(uid, data) {
       );
 
       const msg = completed
-        ? `Volledige sync klaar: ${summary.uniqueClimbs} klim(men) in ${datasetId} (deze batch: ${ridesScanned} ritten, ${pagesFetched} pagina’s).`
-        : `Sync batch klaar (${ridesScanned} ritten, pag. ${startPage}–${startPage + pagesFetched - 1}). Verder vanaf pag. ${nextPage}.`;
+        ? `Volledige sync klaar: ${summary.uniqueClimbs} klim(men) in ${datasetId} (deze batch: ${ridesScanned} ritten, ${pagesFetched} pagina’s, ${summary.stravaDetailReads} Strava-detail reads).`
+        : `Sync batch klaar (${ridesScanned} ritten, pag. ${startPage}–${startPage + pagesFetched - 1}, ${summary.stravaDetailReads} detail reads). Verder vanaf pag. ${nextPage}.`;
 
       return { ok: true, completed, nextPage, message: msg, summary };
     }
@@ -1210,13 +1247,10 @@ async function runStravaSyncBatch(uid, data) {
 
     const ridesScanned = countRideActivities(activities, prefs.includePrivate);
     const batchIds = regionIds.slice(nextDatasetIndex, nextDatasetIndex + datasetsPerCall);
-    const { matchesWritten, datasetsProcessed, matches: batchMatches } = await matchAndWriteForDatasets(
-      uid,
-      accessToken,
-      activities,
-      prefs.includePrivate,
-      batchIds
-    );
+    const { matchesWritten, datasetsProcessed, matches: batchMatches, stravaDetailReads } =
+      await matchAndWriteForDatasets(uid, accessToken, activities, prefs.includePrivate, batchIds, {
+        geoFilter: true,
+      });
 
     let nextDatasetIndexAfter = nextDatasetIndex + batchIds.length;
     let syncCompleted = false;
@@ -1267,6 +1301,8 @@ async function runStravaSyncBatch(uid, data) {
       completed: syncCompleted,
       matchesWritten,
       uniqueClimbs: matchesWritten,
+      stravaDetailReads: stravaDetailReads ?? 0,
+      geoFilterApplied: true,
       matches: batchMatches.slice(0, SYNC_SUMMARY_MATCH_LIMIT),
       includePrivate: prefs.includePrivate,
       after: bounds.afterMs,
@@ -1455,6 +1491,7 @@ exports.runStravaSyncBatch = runStravaSyncBatch;
 exports.isStravaRateLimitError = isStravaRateLimitError;
 exports.loadDataset = loadDataset;
 exports.loadRegionDatasetIds = loadRegionDatasetIds;
+exports.fetchDataJson = fetchDataJson;
 exports.rateLimitBatchDelaySeconds = rateLimitBatchDelaySeconds;
 exports.formatRateLimitJobMessage = formatRateLimitJobMessage;
 Object.assign(exports, require("./stravaBackgroundSync"));

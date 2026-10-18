@@ -157,3 +157,20 @@ exports.stravaRegisterWebhook = functions.region(REGION).https.onCall(async (_da
   }
   return { ok: true, subscription: json };
 });
+
+/** Clear webhook hint after UI/CPL handled the event (avoids repeat auto-sync). */
+exports.stravaAckWebhookPending = functions.region(REGION).https.onCall(async (_data, context) => {
+  if (!context.auth?.uid) {
+    throw new functions.https.HttpsError("unauthenticated", "Log in.");
+  }
+  const uid = context.auth.uid;
+  await integrationRef(uid).set(
+    {
+      webhookPending: admin.firestore.FieldValue.delete(),
+      webhookPendingAt: admin.firestore.FieldValue.delete(),
+      webhookAckAt: admin.firestore.FieldValue.serverTimestamp(),
+    },
+    { merge: true }
+  );
+  return { ok: true };
+});
