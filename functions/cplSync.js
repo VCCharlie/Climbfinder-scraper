@@ -243,6 +243,73 @@ async function writeCplMatches(uid, datasetId, bestByClimb) {
   }
 }
 
+async function fetchAllCplActivitiesInBounds(cplOwnerId, bounds, routeMapPolicy = "default") {
+  const all = [];
+  let cursor = null;
+  for (let guard = 0; guard < 500; guard += 1) {
+    const page = await fetchCplActivitiesPage(cplOwnerId, {
+      afterMs: bounds.afterMs,
+      beforeMs: bounds.beforeMs,
+      routeMapPolicy,
+      startAfterDate: cursor?.startAfterDate,
+      startAfterId: cursor?.startAfterId,
+    });
+    all.push(...page.activities);
+    if (page.completed || !page.cursor) break;
+    cursor = page.cursor;
+  }
+  return all;
+}
+
+/**
+ * Na afgeronde periode-sync: verwijder CPL-logboekregels in die periode die niet opnieuw matchen
+ * (bv. Karellis na zuidwaartse rit — oude fout van eerdere hele-database run).
+ */
+async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, activities) {
+  const authoritative = new Set();
+  for (const datasetId of regionIds) {
+    const { climbs } = await loadDataset(datasetId);
+    if (!climbs.length) continue;
+    const { bestByClimb } = matchStoredActivitiesToClimbs({
+      climbs,
+      activities,
+      includePrivate: true,
+    });
+    for (const climbId of bestByClimb.keys()) {
+      authoritative.add(logDocId(datasetId, climbId));
+    }
+  }
+
+  const logCol = admin.firestore().collection("users").doc(uid).collection("climbLog");
+  const snap = await logCol.get();
+  let removed = 0;
+  const batch = admin.firestore().batch();
+  let ops = 0;
+  for (const doc of snap.docs) {
+    const row = doc.data();
+    if (row?.source !== "cpl") continue;
+    const startMs =
+      typeof row.cplActivityStartAt === "number"
+        ? row.cplActivityStartAt
+        : typeof row.stravaActivityStartAt === "number"
+          ? row.stravaActivityStartAt
+          : null;
+    if (startMs == null) continue;
+    if (bounds.afterMs != null && startMs < bounds.afterMs) continue;
+    if (bounds.beforeMs != null && startMs > bounds.beforeMs) continue;
+    if (authoritative.has(doc.id)) continue;
+    batch.delete(doc.ref);
+    removed += 1;
+    ops += 1;
+    if (ops >= 400) {
+      await batch.commit();
+      ops = 0;
+    }
+  }
+  if (ops > 0) await batch.commit();
+  return { removed, authoritativeCount: authoritative.size };
+}
+
 async function matchAndWriteForDatasets(uid, matchActivities, datasetIds) {
   let matchesWritten = 0;
   const datasetsProcessed = [];
@@ -491,6 +558,29 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
         updatedAt: new Date().toISOString(),
       };
 
+  let periodReconcile = null;
+  if (syncCompleted && hasDateBounds) {
+    try {
+      const periodActivities = await fetchAllCplActivitiesInBounds(
+        cplOwnerId,
+        bounds,
+        routeMapPolicy
+      );
+      periodReconcile = await reconcileCplLogbookForPeriod(
+        uid,
+        bounds,
+        regionIds,
+        periodActivities
+      );
+      if (periodActivities.length > 0) {
+        await matchAndWriteForDatasets(uid, periodActivities, regionIds);
+      }
+    } catch (e) {
+      functions.logger.warn("reconcileCplLogbookForPeriod", e?.message || e);
+      periodReconcile = { error: String(e?.message || e) };
+    }
+  }
+
   const ridesScanned = page.activities.length;
   const summary = {
     kind: "full",
@@ -519,6 +609,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     regionProgress: syncCompleted
       ? `${regionCount}/${regionCount} regio’s`
       : `${Math.min(nextDatasetIndexAfter, regionCount)}/${regionCount} regio’s`,
+    periodReconcile,
   };
 
   await integrationRef(uid).set(
