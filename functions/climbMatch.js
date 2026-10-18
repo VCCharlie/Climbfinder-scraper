@@ -228,16 +228,23 @@ function splitTrackAtJumpGaps(track, maxJumpM = 350) {
   return segments;
 }
 
-/** Standaard match-parameters (strakker — minder parallelweg / polyline-spikes). */
+/**
+ * Standaard match-parameters — minder parallelweg in dalen (Maurienne e.d.).
+ * BigCycling-achtig: smalle corridor + voet/top dicht op het echte traject.
+ */
 const DEFAULT_MATCH_OPTS = {
-  bufferM: 28,
-  minCoverage: 0.82,
+  bufferM: 22,
+  minCoverage: 0.85,
   sampleStepM: 25,
   bboxPadDeg: 0.006,
-  endpointMaxM: 45,
-  maxMeanSampleDistM: 58,
-  minForwardRatio: 0.35,
-  maxBearingDiffDeg: 85,
+  endpointMaxM: 35,
+  maxMeanSampleDistM: 42,
+  /** P90 afstand klim→track; parallelweg ~30–50 m faalt hier. */
+  maxP90SampleDistM: 28,
+  /** Max aandeel steekproeven buiten bufferM (losse GPS-ruis). */
+  maxSampleMissRatio: 0.14,
+  minForwardRatio: 0.45,
+  maxBearingDiffDeg: 82,
   maxSegmentJumpM: 350,
 };
 
@@ -253,6 +260,8 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
   const bboxPadDeg = opts.bboxPadDeg ?? DEFAULT_MATCH_OPTS.bboxPadDeg;
   const endpointMaxM = opts.endpointMaxM ?? DEFAULT_MATCH_OPTS.endpointMaxM;
   const maxMeanSampleDistM = opts.maxMeanSampleDistM ?? DEFAULT_MATCH_OPTS.maxMeanSampleDistM;
+  const maxP90SampleDistM = opts.maxP90SampleDistM ?? DEFAULT_MATCH_OPTS.maxP90SampleDistM;
+  const maxSampleMissRatio = opts.maxSampleMissRatio ?? DEFAULT_MATCH_OPTS.maxSampleMissRatio;
 
   if (climbLatLon.length < 2 || track.length < 2) {
     return { matched: false, coverage: 0 };
@@ -293,6 +302,7 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
   let hit = 0;
   let sampled = 0;
   let distSum = 0;
+  const sampleDists = [];
   for (let dist = 0; dist <= totalLen; dist += sampleStepM) {
     sampled += 1;
     let idx = 0;
@@ -303,16 +313,28 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
     const lon = climbLatLon[idx][1] + t * (climbLatLon[idx + 1][1] - climbLatLon[idx][1]);
     const d = minDistToTrackM(lat, lon, track);
     distSum += d;
+    sampleDists.push(d);
     if (d <= bufferM) hit += 1;
   }
 
   const coverage = sampled ? hit / sampled : 0;
   const meanDist = sampled ? distSum / sampled : Infinity;
-  const matched = coverage >= minCoverage && meanDist <= maxMeanSampleDistM;
+  const missRatio = sampled ? 1 - hit / sampled : 1;
+  const sorted = sampleDists.slice().sort((a, b) => a - b);
+  const p90Idx = sorted.length ? Math.min(sorted.length - 1, Math.floor(sorted.length * 0.9)) : 0;
+  const p90Dist = sorted.length ? sorted[p90Idx] : Infinity;
+
+  const matched =
+    coverage >= minCoverage &&
+    meanDist <= maxMeanSampleDistM &&
+    p90Dist <= maxP90SampleDistM &&
+    missRatio <= maxSampleMissRatio;
   return {
     matched,
     coverage: Math.round(coverage * 1000) / 1000,
     meanDistM: Math.round(meanDist),
+    p90DistM: Math.round(p90Dist),
+    missRatio: Math.round(missRatio * 1000) / 1000,
     forwardAlongM: Math.round(direction.forwardAlongM),
     bearingDiffDeg: Math.round(direction.bearingDiffDeg),
   };
@@ -407,6 +429,7 @@ module.exports = {
   splitTrackAtJumpGaps,
   climbAscentDirectionOk,
   nearestAlongTrackM,
+  climbCoordsLonLat,
   isCyclingActivity,
   isOutdoorCyclingActivity,
   DEFAULT_MATCH_OPTS,
