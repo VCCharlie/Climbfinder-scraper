@@ -7,6 +7,7 @@
   const FULL_SYNC_MAX_LOOPS = 80;
   const FULL_SYNC_MAX_LOOPS_ALL = 800;
   const FULL_SYNC_WANTED_KEY = "fietsklim-strava-full-sync-wanted";
+  const WEBHOOK_CPL_AUTO_PREFIX = "fietsklim-webhook-cpl-auto";
   const SERVER_JOB_POLL_MS = 15000;
 
   let statusCache = null;
@@ -190,6 +191,9 @@
     if (viaCpl && p.uniqueClimbs != null) parts.push(`${p.uniqueClimbs} klim-match`);
     if (p.regionProgress) parts.push(p.regionProgress);
     if (!viaCpl && p.nextPage) parts.push(`Strava pag. ${p.nextPage}`);
+    if (!viaCpl && p.stravaDetailReads != null) {
+      parts.push(`${p.stravaDetailReads} Strava-detail read(s)`);
+    }
     if (p.activitiesScanned != null) parts.push(`${p.activitiesScanned} rit(ten)`);
     if (job.batchCount) parts.push(`batch ${job.batchCount}`);
     if (job.lastMessage) parts.push(job.lastMessage);
@@ -767,6 +771,62 @@
     prefsSaveTimer = setTimeout(() => void savePrefsFromToggle(), 300);
   }
 
+  function formatStravaDetailReadsLine(summary) {
+    if (!summary || summary.source === "cpl") return "";
+    if (summary.stravaDetailReads == null) return "";
+    return ` · ${summary.stravaDetailReads} Strava-detail read(s) in laatste batch`;
+  }
+
+  let webhookAutoSyncInFlight = false;
+
+  /**
+   * Strava webhook hint → incremental CPL server-sync (geen extra Strava API voor routes).
+   */
+  async function maybeAutoCplSyncFromWebhook(d) {
+    const pending = d?.webhookPending;
+    if (!pending || webhookAutoSyncInFlight) return;
+    const cpl = d.cplStatus;
+    if (!cpl?.linked || !cpl?.serverSyncConfigured) return;
+    if (serverJobActive(d.activeCplSyncJob) || serverJobActive(d.activeStravaSyncJob)) return;
+
+    const dedupeKey = `${WEBHOOK_CPL_AUTO_PREFIX}:${pending.objectId || "?"}:${pending.aspectType || "?"}:${pending.eventTime || "?"}`;
+    if (sessionStorage.getItem(dedupeKey)) return;
+
+    webhookAutoSyncInFlight = true;
+    sessionStorage.setItem(dedupeKey, String(Date.now()));
+
+    const eventSec = Number(pending.eventTime);
+    const after =
+      Number.isFinite(eventSec) && eventSec > 0
+        ? (eventSec - 86400) * 1000
+        : Date.now() - 7 * 86400000;
+
+    setStatus(
+      "Strava-webhook: activiteit bijgewerkt — CPL server-sync (hele database, recente ritten)…",
+      false
+    );
+    try {
+      const res = await callable("cplEnqueueFullSync")({
+        datasetId: ALL_DATASETS,
+        after,
+      });
+      try {
+        await callable("stravaAckWebhookPending")({});
+      } catch (ackErr) {
+        console.warn("stravaAckWebhookPending", ackErr);
+      }
+      setStatus(res.data?.message || "CPL-sync na webhook gestart.");
+      const panel = $("logbookCplRunPanel");
+      if (panel) panel.hidden = false;
+      startServerJobPolling();
+    } catch (e) {
+      setStatus(formatCallableError(e), true);
+      sessionStorage.removeItem(dedupeKey);
+    } finally {
+      webhookAutoSyncInFlight = false;
+    }
+  }
+
   async function refreshStatus() {
     if (typeof firebase === "undefined" || !firebase.auth?.().currentUser) {
       setStatus("Log in om Strava te koppelen.");
@@ -830,11 +890,16 @@
           const ch = logbookChannelLabel(logbookChannelFromJob(d.activeSyncJob));
           msg += ` · ${ch} · server · mislukt: ${d.activeSyncJob.error || "?"}`;
         }
+        if (d.webhookPending?.objectId) {
+          msg += ` · Strava-webhook: activiteit ${d.webhookPending.objectId} (${d.webhookPending.aspectType || "update"})`;
+        }
         if (d.lastSyncSummary) {
           const s = d.lastSyncSummary;
           const kind = s.kind === "full" ? "volledige sync" : "proef";
           const scope = s.allDatasets ? "alle regio’s" : s.datasetId;
           msg += ` · laatste ${kind}: ${s.uniqueClimbs} klimmen / ${s.activitiesScanned} ritten (${scope})`;
+          msg += formatStravaDetailReadsLine(s);
+          if (s.geoFilterApplied) msg += " · geo-regio prefilter";
           if (s.kind === "full" && s.completed === false && !serverJobActive(d.activeSyncJob)) {
             if (s.allDatasets && s.regionProgress) msg += ` · ${s.regionProgress}`;
             if (s.source === "cpl") {
@@ -849,6 +914,7 @@
         }
         setStatus(msg);
         maybeResumeFullSync(d);
+        void maybeAutoCplSyncFromWebhook({ ...d, cplStatus: statusCache.cplStatus });
       } else {
         let msg = "Strava API: niet gekoppeld";
         if (fullDatabaseUsesCplRoutes()) {
@@ -948,7 +1014,12 @@
         perPage: DEFAULT_PER_PAGE,
         ...dateBounds.payload,
       });
-      setStatus(res.data?.message || "Klaar.");
+      const sum = res.data?.summary;
+      let doneMsg = res.data?.message || "Klaar.";
+      if (sum?.stravaDetailReads != null) {
+        doneMsg += ` (${sum.stravaDetailReads} Strava-detail read(s))`;
+      }
+      setStatus(doneMsg);
       global.dispatchEvent(new CustomEvent("fietsklim-climb-log-changed"));
     } catch (e) {
       setStatus(formatCallableError(e), true);

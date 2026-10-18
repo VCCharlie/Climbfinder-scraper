@@ -311,16 +311,42 @@ async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, activities) 
   return { removed, authoritativeCount: authoritative.size };
 }
 
-async function matchAndWriteForDatasets(uid, matchActivities, datasetIds) {
+async function matchAndWriteForDatasets(uid, matchActivities, datasetIds, opts = {}) {
   let matchesWritten = 0;
   const datasetsProcessed = [];
   const matches = [];
+  const geoFilter = Boolean(opts.geoFilter) && (datasetIds?.length || 0) > 1;
+  let router = null;
+  if (geoFilter) {
+    const stravaMod = require("./strava");
+    router = await require("./regionDatasetRouter").loadRegionDatasetRouter(
+      stravaMod.fetchDataJson
+    );
+  }
+  const { encodedPolylineFromCplData } = require("./cplMatch");
+  const { activityLikelyInDataset } = require("./regionDatasetRouter");
+
   for (const datasetId of datasetIds) {
-    const { climbs } = await loadDataset(datasetId);
+    const { climbs, spatialIndex } = await loadDataset(datasetId);
     if (!climbs.length) continue;
+    let batch = matchActivities;
+    if (router) {
+      batch = (matchActivities || []).filter((act) => {
+        const poly =
+          act?.map?.summary_polyline ||
+          encodedPolylineFromCplData(act?._cplRaw || act, opts.routeMapPolicy || "default");
+        if (!poly) return true;
+        return activityLikelyInDataset(router, datasetId, poly);
+      });
+      if (!batch.length) {
+        datasetsProcessed.push(datasetId);
+        continue;
+      }
+    }
     const { bestByClimb } = matchStoredActivitiesToClimbs({
       climbs,
-      activities: matchActivities,
+      spatialIndex,
+      activities: batch,
       includePrivate: true,
     });
     if (bestByClimb.size) {
@@ -530,7 +556,8 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   const { matchesWritten, matches: batchMatches } = await matchAndWriteForDatasets(
     uid,
     page.activities,
-    batchIds
+    batchIds,
+    { geoFilter: batchIds.length > 1, routeMapPolicy }
   );
 
   let nextDatasetIndexAfter = nextDatasetIndex + batchIds.length;
@@ -574,7 +601,10 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
         periodActivities
       );
       if (periodActivities.length > 0) {
-        await matchAndWriteForDatasets(uid, periodActivities, regionIds);
+        await matchAndWriteForDatasets(uid, periodActivities, regionIds, {
+          geoFilter: true,
+          routeMapPolicy,
+        });
       }
     } catch (e) {
       functions.logger.warn("reconcileCplLogbookForPeriod", e?.message || e);
