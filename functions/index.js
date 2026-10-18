@@ -564,4 +564,5 @@ exports.requestClimbMacroBatchImport = functions.region("europe-west1").https.on
 });
 
 Object.assign(exports, require("./strava"));
+Object.assign(exports, require("./stravaWebhook"));
 Object.assign(exports, require("./cplSync"));

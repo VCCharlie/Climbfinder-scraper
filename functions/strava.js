@@ -2,6 +2,11 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const crypto = require("crypto");
 const { matchClimbToActivity, isCyclingActivity, climbsNearEncodedPolyline } = require("./climbMatch");
+const { buildClimbSpatialIndex } = require("./climbSpatialIndex");
+const {
+  matchActivitiesToClimbs: matchActivitiesToClimbsPipeline,
+  activityPolylineFromRecord,
+} = require("./syncPipeline");
 
 const REGION = "europe-west1";
 const STRAVA_AUTH = "https://www.strava.com/oauth/authorize";
@@ -418,7 +423,13 @@ async function getValidAccessToken(uid) {
 
 async function loadDataset(datasetId) {
   const bundle = await fetchDataJson(`${datasetId}.json`);
-  return { datasetId, climbs: bundle.climbs || [], meta: bundle.meta || {} };
+  const climbs = bundle.climbs || [];
+  return {
+    datasetId,
+    climbs,
+    meta: bundle.meta || {},
+    spatialIndex: buildClimbSpatialIndex(climbs),
+  };
 }
 
 function isAllDatasetsToken(datasetId) {
@@ -477,13 +488,18 @@ async function matchAndWriteForDatasets(uid, accessToken, activities, includePri
   const datasetsProcessed = [];
   const matches = [];
   for (const datasetId of datasetIds) {
-    const { climbs } = await loadDataset(datasetId);
+    const { climbs, meta, spatialIndex } = await loadDataset(datasetId);
     if (!climbs.length) continue;
-    const { bestByClimb } = await matchActivitiesToClimbs({
+    const { bestByClimb } = await matchActivitiesToClimbsPipeline({
       accessToken,
       climbs,
+      spatialIndex,
       activities,
       includePrivate,
+      stravaFetch,
+      uid,
+      datasetId,
+      datasetMeta: meta,
     });
     if (bestByClimb.size) {
       await writeStravaMatches(uid, datasetId, bestByClimb);
@@ -772,45 +788,11 @@ exports.getStravaStatus = functions.region(REGION).https.onCall(async (_data, co
   }
 });
 
-async function matchActivitiesToClimbs({ accessToken, climbs, activities, includePrivate }) {
-  const rides = (activities || [])
-    .filter(isCyclingActivity)
-    .filter((act) => activityVisibleForPrefs(act, includePrivate));
-
-  /** @type {Map<string, { activity: object, coverage: number }>} */
-  const bestByClimb = new Map();
-
-  for (const act of rides) {
-    let activityRecord = act;
-    let poly = activityPolylineFromRecord(act);
-    try {
-      const detail = await stravaFetch(`/activities/${act.id}`, accessToken);
-      if (!isCyclingActivity(detail)) continue;
-      activityRecord = detail;
-      poly = activityPolylineFromRecord(detail) || poly;
-    } catch (e) {
-      functions.logger.warn("activity detail skip", act.id, e.message);
-      if (!isCyclingActivity(activityRecord) || !poly) continue;
-    }
-    if (!isCyclingActivity(activityRecord)) continue;
-    if (!poly) continue;
-
-    const candidates = climbsNearEncodedPolyline(climbs, poly);
-    for (const climb of candidates) {
-      const result = matchClimbToActivity(climb, poly);
-      if (!result.matched) continue;
-      const prev = bestByClimb.get(climb.id);
-      if (!prev || result.coverage > prev.coverage) {
-        bestByClimb.set(climb.id, {
-          activity: activityRecord,
-          coverage: result.coverage,
-          climbName: climb.name || climb.title || String(climb.id),
-        });
-      }
-    }
-  }
-
-  return { bestByClimb, ridesScanned: rides.length };
+async function matchActivitiesToClimbs(params) {
+  return matchActivitiesToClimbsPipeline({
+    ...params,
+    stravaFetch: params.stravaFetch || stravaFetch,
+  });
 }
 
 function logFieldTimestampMillis(v) {
@@ -921,11 +903,6 @@ function activityListQuery(page, perPage, bounds) {
   return `/athlete/activities?${params.toString()}`;
 }
 
-function activityPolylineFromRecord(activity) {
-  const map = activity?.map;
-  if (!map) return null;
-  return map.polyline || map.summary_polyline || null;
-}
 
 async function fetchActivityPages(accessToken, { startPage, maxPages, perPage, afterSec, beforeSec }) {
   const bounds = { afterSec, beforeSec };
@@ -1017,15 +994,19 @@ exports.stravaSyncTrial = functions
         before: bounds.beforeMs,
       };
     } else {
-      const { climbs } = await loadDataset(datasetId);
+      const { climbs, meta, spatialIndex } = await loadDataset(datasetId);
       if (!climbs.length) {
         throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
       }
       const { bestByClimb } = await matchActivitiesToClimbs({
         accessToken,
         climbs,
+        spatialIndex,
         activities,
         includePrivate: prefs.includePrivate,
+        uid,
+        datasetId,
+        datasetMeta: meta,
       });
       await writeStravaMatches(uid, datasetId, bestByClimb);
       matchesWritten = bestByClimb.size;
@@ -1127,7 +1108,7 @@ async function runStravaSyncBatch(uid, data) {
         FULL_SYNC_MAX_PAGES_PER_CALL
       );
 
-      const { climbs } = await loadDataset(datasetId);
+      const { climbs, meta, spatialIndex } = await loadDataset(datasetId);
       if (!climbs.length) {
         throw new functions.https.HttpsError("not-found", `Geen klimmen in ${datasetId}`);
       }
@@ -1143,8 +1124,12 @@ async function runStravaSyncBatch(uid, data) {
       const { bestByClimb, ridesScanned } = await matchActivitiesToClimbs({
         accessToken,
         climbs,
+        spatialIndex,
         activities,
         includePrivate: prefs.includePrivate,
+        uid,
+        datasetId,
+        datasetMeta: meta,
       });
       await writeStravaMatches(uid, datasetId, bestByClimb);
 

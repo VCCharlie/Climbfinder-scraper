@@ -268,10 +268,11 @@ async function fetchAllCplActivitiesInBounds(cplOwnerId, bounds, routeMapPolicy 
 async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, activities) {
   const authoritative = new Set();
   for (const datasetId of regionIds) {
-    const { climbs } = await loadDataset(datasetId);
+    const { climbs, spatialIndex } = await loadDataset(datasetId);
     if (!climbs.length) continue;
     const { bestByClimb } = matchStoredActivitiesToClimbs({
       climbs,
+      spatialIndex,
       activities,
       includePrivate: true,
     });
