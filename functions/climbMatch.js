@@ -75,6 +75,48 @@ function bboxesOverlap(a, b, padDeg = 0.02) {
   );
 }
 
+function expandBBoxM(box, padM) {
+  if (!box || padM <= 0) return box;
+  const midLat = (box.minLat + box.maxLat) / 2;
+  const padLat = padM / 111320;
+  const cos = Math.cos((midLat * Math.PI) / 180);
+  const padLon = padM / (111320 * Math.max(0.2, Math.abs(cos)));
+  return {
+    minLat: box.minLat - padLat,
+    maxLat: box.maxLat + padLat,
+    minLon: box.minLon - padLon,
+    maxLon: box.maxLon + padLon,
+  };
+}
+
+function pointInBBox(lat, lon, box) {
+  return lat >= box.minLat && lat <= box.maxLat && lon >= box.minLon && lon <= box.maxLon;
+}
+
+/**
+ * Klim moet op het werkelijk bereden kaartvlak liggen (track-bbox + kleine marge).
+ * Voorkomt Karellis-noord terwijl rit alleen zuidwaarts gaat (St-Michel → zuid).
+ */
+function climbWithinRiddenCorridor(climbLatLon, track, padM) {
+  if (!climbLatLon.length || track.length < 2) return false;
+  const ridden = expandBBoxM(bboxFromCoords(track), padM);
+  const foot = climbLatLon[0];
+  const top = climbLatLon[climbLatLon.length - 1];
+  if (!pointInBBox(foot[0], foot[1], ridden) || !pointInBBox(top[0], top[1], ridden)) {
+    return false;
+  }
+  let inside = 0;
+  for (const [lat, lon] of climbLatLon) {
+    if (pointInBBox(lat, lon, ridden)) inside += 1;
+  }
+  return inside / climbLatLon.length >= 0.75;
+}
+
+function bboxesOverlapM(a, b, padM) {
+  if (!a || !b) return true;
+  return bboxesOverlap(expandBBoxM(a, padM), expandBBoxM(b, padM), 0);
+}
+
 function pointToSegmentDistM(px, py, ax, ay, bx, by) {
   const ab = haversineM(ax, ay, bx, by);
   if (ab < 1e-3) return haversineM(px, py, ax, ay);
@@ -228,16 +270,25 @@ function splitTrackAtJumpGaps(track, maxJumpM = 350) {
   return segments;
 }
 
-/** Standaard match-parameters (strakker — minder parallelweg / polyline-spikes). */
+/**
+ * Standaard match-parameters — minder parallelweg in dalen (Maurienne e.d.).
+ * BigCycling-achtig: smalle corridor + voet/top dicht op het echte traject.
+ */
 const DEFAULT_MATCH_OPTS = {
-  bufferM: 28,
-  minCoverage: 0.82,
+  bufferM: 22,
+  minCoverage: 0.85,
   sampleStepM: 25,
-  bboxPadDeg: 0.006,
-  endpointMaxM: 45,
-  maxMeanSampleDistM: 58,
-  minForwardRatio: 0.35,
-  maxBearingDiffDeg: 85,
+  /** Prefilter: overlap in meters, niet graden (0.006° ≈ 660 m veroorzaakte false positives). */
+  bboxPadM: 220,
+  riddenCorridorPadM: 200,
+  endpointMaxM: 35,
+  maxMeanSampleDistM: 42,
+  /** P90 afstand klim→track; parallelweg ~30–50 m faalt hier. */
+  maxP90SampleDistM: 28,
+  /** Max aandeel steekproeven buiten bufferM (losse GPS-ruis). */
+  maxSampleMissRatio: 0.14,
+  minForwardRatio: 0.45,
+  maxBearingDiffDeg: 82,
   maxSegmentJumpM: 350,
 };
 
@@ -250,9 +301,12 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
   const bufferM = opts.bufferM ?? DEFAULT_MATCH_OPTS.bufferM;
   const minCoverage = opts.minCoverage ?? DEFAULT_MATCH_OPTS.minCoverage;
   const sampleStepM = opts.sampleStepM ?? DEFAULT_MATCH_OPTS.sampleStepM;
-  const bboxPadDeg = opts.bboxPadDeg ?? DEFAULT_MATCH_OPTS.bboxPadDeg;
+  const bboxPadM = opts.bboxPadM ?? DEFAULT_MATCH_OPTS.bboxPadM;
+  const riddenCorridorPadM = opts.riddenCorridorPadM ?? DEFAULT_MATCH_OPTS.riddenCorridorPadM;
   const endpointMaxM = opts.endpointMaxM ?? DEFAULT_MATCH_OPTS.endpointMaxM;
   const maxMeanSampleDistM = opts.maxMeanSampleDistM ?? DEFAULT_MATCH_OPTS.maxMeanSampleDistM;
+  const maxP90SampleDistM = opts.maxP90SampleDistM ?? DEFAULT_MATCH_OPTS.maxP90SampleDistM;
+  const maxSampleMissRatio = opts.maxSampleMissRatio ?? DEFAULT_MATCH_OPTS.maxSampleMissRatio;
 
   if (climbLatLon.length < 2 || track.length < 2) {
     return { matched: false, coverage: 0 };
@@ -260,8 +314,11 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
 
   const climbBox = bboxFromCoords(climbLatLon);
   const trackBox = bboxFromCoords(track);
-  if (!bboxesOverlap(climbBox, trackBox, bboxPadDeg)) {
-    return { matched: false, coverage: 0 };
+  if (!bboxesOverlapM(climbBox, trackBox, bboxPadM)) {
+    return { matched: false, coverage: 0, outsideRiddenCorridor: true };
+  }
+  if (!climbWithinRiddenCorridor(climbLatLon, track, riddenCorridorPadM)) {
+    return { matched: false, coverage: 0, outsideRiddenCorridor: true };
   }
 
   const startDist = minDistToTrackM(climbLatLon[0][0], climbLatLon[0][1], track);
@@ -293,6 +350,7 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
   let hit = 0;
   let sampled = 0;
   let distSum = 0;
+  const sampleDists = [];
   for (let dist = 0; dist <= totalLen; dist += sampleStepM) {
     sampled += 1;
     let idx = 0;
@@ -303,16 +361,28 @@ function matchClimbToTrackSegment(climbLatLon, track, opts) {
     const lon = climbLatLon[idx][1] + t * (climbLatLon[idx + 1][1] - climbLatLon[idx][1]);
     const d = minDistToTrackM(lat, lon, track);
     distSum += d;
+    sampleDists.push(d);
     if (d <= bufferM) hit += 1;
   }
 
   const coverage = sampled ? hit / sampled : 0;
   const meanDist = sampled ? distSum / sampled : Infinity;
-  const matched = coverage >= minCoverage && meanDist <= maxMeanSampleDistM;
+  const missRatio = sampled ? 1 - hit / sampled : 1;
+  const sorted = sampleDists.slice().sort((a, b) => a - b);
+  const p90Idx = sorted.length ? Math.min(sorted.length - 1, Math.floor(sorted.length * 0.9)) : 0;
+  const p90Dist = sorted.length ? sorted[p90Idx] : Infinity;
+
+  const matched =
+    coverage >= minCoverage &&
+    meanDist <= maxMeanSampleDistM &&
+    p90Dist <= maxP90SampleDistM &&
+    missRatio <= maxSampleMissRatio;
   return {
     matched,
     coverage: Math.round(coverage * 1000) / 1000,
     meanDistM: Math.round(meanDist),
+    p90DistM: Math.round(p90Dist),
+    missRatio: Math.round(missRatio * 1000) / 1000,
     forwardAlongM: Math.round(direction.forwardAlongM),
     bearingDiffDeg: Math.round(direction.bearingDiffDeg),
   };
@@ -333,8 +403,17 @@ function matchClimbToActivity(climb, encodedPolyline, opts = {}) {
     const result = matchClimbToTrackSegment(climbLatLon, segment, opts);
     if (result.matched && result.coverage > best.coverage) {
       best = result;
-    } else if (!best.matched && result.coverage > best.coverage) {
-      best = result;
+    } else if (!best.matched) {
+      const betterCov = result.coverage > best.coverage;
+      const sameCovMoreInfo =
+        result.coverage === best.coverage &&
+        (result.outsideRiddenCorridor || result.endpointMiss || result.wrongDirection) &&
+        !best.outsideRiddenCorridor &&
+        !best.endpointMiss &&
+        !best.wrongDirection;
+      if (betterCov || sameCovMoreInfo) {
+        best = result;
+      }
     }
   }
   return best;
@@ -377,7 +456,7 @@ function isCyclingActivity(activity) {
 }
 
 /** Climbs whose bbox overlaps the activity track bbox (cheap prefilter). */
-function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = DEFAULT_MATCH_OPTS.bboxPadDeg) {
+function climbsNearEncodedPolyline(climbs, encodedPolyline, padM = DEFAULT_MATCH_OPTS.bboxPadM) {
   const track = decodePolyline(encodedPolyline);
   if (track.length < 2) return [];
   const segments = splitTrackAtJumpGaps(track, DEFAULT_MATCH_OPTS.maxSegmentJumpM);
@@ -391,10 +470,12 @@ function climbsNearEncodedPolyline(climbs, encodedPolyline, padDeg = DEFAULT_MAT
       if (id && seen.has(id)) continue;
       const coords = climbCoordsLonLat(climb);
       if (coords.length < 2) continue;
-      if (bboxesOverlap(bboxFromCoords(coords), trackBox, padDeg)) {
-        if (id) seen.add(id);
-        out.push(climb);
+      if (!bboxesOverlapM(bboxFromCoords(coords), trackBox, padM)) continue;
+      if (!climbWithinRiddenCorridor(coords, segment, DEFAULT_MATCH_OPTS.riddenCorridorPadM)) {
+        continue;
       }
+      if (id) seen.add(id);
+      out.push(climb);
     }
   }
   return out;
@@ -407,9 +488,13 @@ module.exports = {
   splitTrackAtJumpGaps,
   climbAscentDirectionOk,
   nearestAlongTrackM,
+  climbCoordsLonLat,
   isCyclingActivity,
   isOutdoorCyclingActivity,
   DEFAULT_MATCH_OPTS,
   bboxFromCoords,
+  expandBBoxM,
+  climbWithinRiddenCorridor,
+  bboxesOverlapM,
   climbsNearEncodedPolyline,
 };
