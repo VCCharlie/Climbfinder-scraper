@@ -14,11 +14,7 @@ const {
   summaryMatchesFromMap,
 } = require("./cplMatch");
 const { fietsklimMatchFromActivityData } = require("./fietsklimMatchSchema");
-const {
-  ensureFietsklimMatchOnCplActivity,
-  mergeHitsIntoBestByDataset,
-  mergeStoredActivityMatchesIntoBest,
-} = require("./cplMatchOnCpl");
+const { ensureFietsklimMatchOnCplActivity } = require("./cplMatchOnCpl");
 
 function polylineHintPresent(raw) {
   if (raw == null) return false;
@@ -169,14 +165,16 @@ function activityStartMillis(activity) {
   return Number.isFinite(t) ? t : null;
 }
 
-function buildCplLogPatch(datasetId, climbId, hit, data, nowMs) {
+function buildCplLogPatch(datasetId, climbId, hit, data, nowMs, journalEntry) {
   const doneUpdatedAt = logFieldTimestampMillis(data.doneUpdatedAt);
   const wishlistUpdatedAt = logFieldTimestampMillis(data.wishlistUpdatedAt);
   const act = hit.activity;
   const newCplId = String(act.cplActivityId || act.id || "");
   const prevCplId = data.cplActivityId ? String(data.cplActivityId) : null;
   let ascentCount = Number(data.cplAscentCount) || 0;
-  if (!prevCplId) ascentCount = 1;
+  if (journalEntry && Number.isFinite(journalEntry.ascent_count)) {
+    ascentCount = Math.max(1, journalEntry.ascent_count);
+  } else if (!prevCplId) ascentCount = 1;
   else if (newCplId && newCplId !== prevCplId) ascentCount += 1;
 
   const patch = {
@@ -199,16 +197,28 @@ function buildCplLogPatch(datasetId, climbId, hit, data, nowMs) {
   }
 
   const startAt = activityStartMillis(act);
-  if (startAt != null) {
-    patch.cplActivityStartAt = startAt;
-    if (stravaId) patch.stravaActivityStartAt = startAt;
+  const lastRideAt =
+    journalEntry?.last_ascent_at != null && Number.isFinite(journalEntry.last_ascent_at)
+      ? journalEntry.last_ascent_at
+      : startAt;
+  const firstClaimAt =
+    journalEntry?.first_claimed_at != null && Number.isFinite(journalEntry.first_claimed_at)
+      ? journalEntry.first_claimed_at
+      : startAt;
+
+  if (lastRideAt != null) {
+    patch.cplActivityStartAt = lastRideAt;
+    if (stravaId) patch.stravaActivityStartAt = lastRideAt;
+  }
+  if (firstClaimAt != null) {
+    patch.cplFirstClaimedAt = firstClaimAt;
   }
 
   if (nowMs >= doneUpdatedAt) {
     patch.done = true;
-    patch.doneUpdatedAt = startAt != null ? startAt : nowMs;
-  } else if (startAt != null && Boolean(data.done)) {
-    patch.doneUpdatedAt = startAt;
+    patch.doneUpdatedAt = firstClaimAt != null ? firstClaimAt : lastRideAt != null ? lastRideAt : nowMs;
+  } else if (firstClaimAt != null && Boolean(data.done)) {
+    patch.doneUpdatedAt = firstClaimAt;
   }
   if (nowMs >= wishlistUpdatedAt) {
     patch.wishlist = false;
@@ -238,12 +248,60 @@ async function writeCplMatches(uid, datasetId, bestByClimb) {
     for (let j = 0; j < slice.length; j += 1) {
       const [climbId, hit] = slice[j];
       const row = snaps[j].exists ? snaps[j].data() : {};
-      const { delete: del, patch } = buildCplLogPatch(datasetId, climbId, hit, row, nowMs);
+      const journalEntry = hit.journal || null;
+      const { delete: del, patch } = buildCplLogPatch(
+        datasetId,
+        climbId,
+        hit,
+        row,
+        nowMs,
+        journalEntry
+      );
       if (del) batch.delete(refs[j]);
       else batch.set(refs[j], patch, { merge: true });
     }
     await batch.commit();
   }
+}
+
+async function writeFietsklimLogFromJournal(uid, journalEntries) {
+  const { journalEntryToHit } = require("./cplClimbJournal");
+  const byDataset = new Map();
+  for (const entry of journalEntries || []) {
+    const hit = journalEntryToHit(entry);
+    if (!hit) continue;
+    hit.journal = entry;
+    let byClimb = byDataset.get(entry.datasetId);
+    if (!byClimb) {
+      byClimb = new Map();
+      byDataset.set(entry.datasetId, byClimb);
+    }
+    byClimb.set(entry.climbId, hit);
+  }
+  let matchesWritten = 0;
+  const matches = [];
+  for (const [datasetId, bestByClimb] of byDataset.entries()) {
+    if (!bestByClimb.size) continue;
+    await writeCplMatches(uid, datasetId, bestByClimb);
+    matchesWritten += bestByClimb.size;
+    matches.push(...summaryMatchesFromMap(datasetId, bestByClimb));
+  }
+  return { matchesWritten, matches };
+}
+
+function authoritativeFromActivityDocs(activityDocs, regionIds) {
+  const { claimsFromActivity } = require("./cplClimbJournal");
+  const regionSet = new Set(regionIds);
+  const authoritative = new Set();
+  for (const row of activityDocs || []) {
+    const claims = claimsFromActivity(row.id, row.data, row.matchAct);
+    for (const c of claims) {
+      if (regionSet.has(c.datasetId)) {
+        authoritative.add(logDocId(c.datasetId, c.climbId));
+      }
+    }
+  }
+  return authoritative;
 }
 
 async function fetchAllCplActivityDocsInBounds(cplOwnerId, bounds, routeMapPolicy = "default") {
@@ -311,11 +369,12 @@ async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, authoritativ
 }
 
 /**
- * Match op CPL (fietsklim_match) en importeer hits naar FietsKlim climbLog.
+ * Match op CPL (fietsklim_match), update fietsklim_journal op CPL, importeer journal → FietsKlim climbLog.
  * @param {{ id: string, data: object, matchAct: object }[]} activityDocs
  */
-async function matchAndImportActivityDocs(uid, activityDocs, regionIds, opts = {}) {
+async function matchAndImportActivityDocs(uid, cplOwnerId, activityDocs, regionIds, opts = {}) {
   const strava = require("./strava");
+  const { applyActivitiesToCplJournal } = require("./cplClimbJournal");
   const datasetCache = new Map();
   const matchCtx = {
     fetchDataJson: strava.fetchDataJson,
@@ -326,8 +385,7 @@ async function matchAndImportActivityDocs(uid, activityDocs, regionIds, opts = {
     datasetCache,
   };
 
-  const bestByDataset = new Map();
-  const authoritative = new Set();
+  const rowsForJournal = [];
   let cplMatchWrites = 0;
   let cplMatchCached = 0;
   let skippedNoRoute = 0;
@@ -338,13 +396,11 @@ async function matchAndImportActivityDocs(uid, activityDocs, regionIds, opts = {
     const { id, data, matchAct } = row;
     const hasPolyline = Boolean(matchAct?.map?.summary_polyline);
     const stored = fietsklimMatchFromActivityData(data);
+    const hasUserLinks = (data?.fietsklim_user_links?.length || 0) > 0;
 
     if (importOnly) {
-      if (stored?.computed_at) {
-        mergeStoredActivityMatchesIntoBest(bestByDataset, data, matchAct);
-        for (const idKey of authoritativeLogIdsFromHits(stored.hits, regionIds)) {
-          authoritative.add(idKey);
-        }
+      if (stored?.computed_at || hasUserLinks) {
+        rowsForJournal.push(row);
       } else {
         skippedNoRoute += 1;
       }
@@ -355,30 +411,29 @@ async function matchAndImportActivityDocs(uid, activityDocs, regionIds, opts = {
       const result = await ensureFietsklimMatchOnCplActivity(id, data, regionIds, matchCtx);
       if (result.skipped === "cached_on_cpl") cplMatchCached += 1;
       else if (!result.skipped) cplMatchWrites += 1;
-      mergeHitsIntoBestByDataset(bestByDataset, result.hits, result.matchAct);
-      for (const idKey of authoritativeLogIdsFromHits(result.hits, regionIds)) {
-        authoritative.add(idKey);
-      }
-    } else if (stored?.computed_at) {
-      mergeStoredActivityMatchesIntoBest(bestByDataset, data, matchAct);
-      for (const idKey of authoritativeLogIdsFromHits(stored.hits, regionIds)) {
-        authoritative.add(idKey);
-      }
+      rowsForJournal.push({
+        id,
+        data: result.block
+          ? { ...data, fietsklim_match: result.block }
+          : data,
+        matchAct: result.matchAct,
+      });
+    } else if (stored?.computed_at || hasUserLinks) {
+      rowsForJournal.push(row);
     } else {
       skippedNoRoute += 1;
     }
   }
 
-  let matchesWritten = 0;
-  const matches = [];
-  const datasetsProcessed = [];
-  for (const [datasetId, bestByClimb] of bestByDataset.entries()) {
-    datasetsProcessed.push(datasetId);
-    if (!bestByClimb.size) continue;
-    await writeCplMatches(uid, datasetId, bestByClimb);
-    matchesWritten += bestByClimb.size;
-    matches.push(...summaryMatchesFromMap(datasetId, bestByClimb));
-  }
+  const journalPersist = opts.journalPersist !== false;
+  const { entries: journalEntries } = await applyActivitiesToCplJournal(cplOwnerId, rowsForJournal, {
+    persist: journalPersist,
+    regionIds,
+  });
+
+  const { matchesWritten, matches } = await writeFietsklimLogFromJournal(uid, journalEntries);
+  const datasetsProcessed = [...new Set(journalEntries.map((e) => e.datasetId))];
+  const authoritative = authoritativeFromActivityDocs(rowsForJournal, regionIds);
 
   return {
     matchesWritten,
@@ -387,6 +442,7 @@ async function matchAndImportActivityDocs(uid, activityDocs, regionIds, opts = {
     cplMatchWrites,
     cplMatchCached,
     skippedNoRoute,
+    journalEntriesWritten: journalEntries.length,
     authoritative,
   };
 }
@@ -590,14 +646,15 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
 
   const hasDateBounds = bounds.afterMs != null || bounds.beforeMs != null;
   const activityDocs = page.activityDocs || [];
-  const {
+  let {
     matchesWritten,
     matches: batchMatches,
     cplMatchWrites,
     cplMatchCached,
     skippedNoRoute,
+    journalEntriesWritten,
     authoritative,
-  } = await matchAndImportActivityDocs(uid, activityDocs, regionIds, {
+  } = await matchAndImportActivityDocs(uid, cplOwnerId, activityDocs, regionIds, {
     routeMapPolicy,
     force: Boolean(data.forceRematch),
     importOnly,
@@ -625,11 +682,29 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
         updatedAt: new Date().toISOString(),
       };
 
+  let fullJournalImport = null;
+  if (syncCompleted && !hasDateBounds) {
+    try {
+      const { fetchAllJournalEntries } = require("./cplClimbJournal");
+      const allJournal = await fetchAllJournalEntries(cplOwnerId);
+      const imp = await writeFietsklimLogFromJournal(uid, allJournal);
+      fullJournalImport = {
+        journalEntries: allJournal.length,
+        matchesWritten: imp.matchesWritten,
+      };
+      matchesWritten = imp.matchesWritten;
+      batchMatches = imp.matches.slice(0, 120);
+    } catch (e) {
+      functions.logger.warn("fullJournalImport", e?.message || e);
+      fullJournalImport = { error: String(e?.message || e) };
+    }
+  }
+
   let periodReconcile = null;
   if (syncCompleted && hasDateBounds) {
     try {
       const periodDocs = await fetchAllCplActivityDocsInBounds(cplOwnerId, bounds, routeMapPolicy);
-      const periodImport = await matchAndImportActivityDocs(uid, periodDocs, regionIds, {
+      const periodImport = await matchAndImportActivityDocs(uid, cplOwnerId, periodDocs, regionIds, {
         routeMapPolicy,
         force: Boolean(data.forceRematch),
         importOnly,
@@ -665,6 +740,8 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     noMapSamples: page.noMapSamples ?? [],
     cplMatchWrites,
     cplMatchCached,
+    journalEntriesWritten,
+    fullJournalImport,
     importOnly,
     completed: syncCompleted,
     matchesWritten,
@@ -701,6 +778,56 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
 
   return { ok: true, completed: syncCompleted, message: msg, summary };
 }
+
+exports.cplLinkClimbOnActivity = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 120, memory: "512MB" })
+  .https.onCall(async (data, context) => {
+    const { uid } = requireAuth(context);
+    const activityId = String(data.cplActivityId || data.activityId || "").trim();
+    const datasetId = String(data.datasetId || "").trim();
+    const climbId = String(data.climbId || "").trim();
+    if (!activityId || !datasetId || !climbId) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "cplActivityId, datasetId en climbId zijn verplicht."
+      );
+    }
+    const cplOwnerId = await resolveCplOwnerForUid(uid, authIdentityFromContext(context));
+    const db = getCplFirestore();
+    const actSnap = await db.collection("activities").doc(activityId).get();
+    if (!actSnap.exists) {
+      throw new functions.https.HttpsError("not-found", "CPL-activiteit niet gevonden.");
+    }
+    const actData = actSnap.data();
+    if (String(actData.ownerId) !== String(cplOwnerId)) {
+      throw new functions.https.HttpsError("permission-denied", "Deze rit hoort niet bij jouw CPL-account.");
+    }
+    const { appendUserLinkOnCplActivity, applyActivitiesToCplJournal } = require("./cplClimbJournal");
+    await appendUserLinkOnCplActivity(activityId, {
+      datasetId,
+      climbId,
+      climbName: data.climbName || null,
+      note: data.note || null,
+    });
+    const fresh = await db.collection("activities").doc(activityId).get();
+    const matchAct = cplActivityToMatchRecord(activityId, fresh.data(), "default");
+    const { ids: regionIds } = await loadRegionDatasetIds();
+    const { entries } = await applyActivitiesToCplJournal(
+      cplOwnerId,
+      [{ id: activityId, data: fresh.data(), matchAct }],
+      { persist: true, regionIds }
+    );
+    const imp = await writeFietsklimLogFromJournal(uid, entries);
+    return {
+      ok: true,
+      activityId,
+      datasetId,
+      climbId,
+      journalEntries: entries.length,
+      matchesWritten: imp.matchesWritten,
+    };
+  });
 
 exports.getCplStatus = functions.region(REGION).https.onCall(async (_data, context) => {
   const { uid, email } = requireAuth(context);

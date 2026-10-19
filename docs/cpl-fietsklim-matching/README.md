@@ -1,6 +1,12 @@
 # FietsKlim matching op CPL-activiteiten
 
-Climb-matches worden opgeslagen op **CPL Firestore** (`climb-performance-lab`), veld `fietsklim_match` op `activities/{id}`. FietsKlim **importeert** die hits naar `users/{uid}/climbLog`.
+Climb-matches worden opgeslagen op **CPL Firestore** (`climb-performance-lab`):
+
+- **Rit:** `activities/{id}` → `fietsklim_match` (engine) + `fietsklim_user_links` (handmatig)
+- **Logboek (CPL):** `users/{cplOwnerId}/fietsklim_journal/{datasetId__climbId}` → teller, eerste/laatste ritdatum, `ascents[]`
+- **Logboek (FietsKlim):** import uit CPL-journal naar `users/{fietsklimUid}/climbLog`
+
+Portable kopie voor CPL-repo: [portable/README.md](./portable/README.md).
 
 ## Veld `fietsklim_match`
 
@@ -16,10 +22,22 @@ Climb-matches worden opgeslagen op **CPL Firestore** (`climb-performance-lab`), 
 
 Bron in code: `functions/fietsklimMatchSchema.js`.
 
+## Journal-velden (`fietsklim_journal`)
+
+| Veld | Betekenis |
+|------|-----------|
+| `ascent_count` | Unieke CPL-activiteiten met deze klim |
+| `first_claimed_at` | **Oudste** rit (epoch ms) — “claim”-datum in FietsKlim (`doneUpdatedAt`, `cplFirstClaimedAt`) |
+| `last_ascent_at` | Meest recente rit — Strava/CPL-link in UI |
+| `ascents[]` | `{ activity_id, activity_start_at, source: engine\|user, coverage?, … }` |
+
+Schema: `functions/fietsklimJournalSchema.js`, aggregatie: `functions/cplClimbJournal.js`.
+
 ## Wie schrijft?
 
-1. **FietsKlim CPL-sync** (`runCplSyncBatch` → `ensureFietsklimMatchOnCplActivity` in `functions/cplMatchOnCpl.js`): leest route uit CPL, matcht tegen alle regio’s, schrijft `fietsklim_match` terug naar CPL, schrijft logboek in FietsKlim.
-2. **Climb Performance Lab** (optioneel, zelfde contract): portable matcher — zie snippet hieronder.
+1. **FietsKlim CPL-sync** — match op activiteit → journal op CPL → import naar FietsKlim logboek.
+2. **Callable `cplLinkClimbOnActivity`** — handmatige klim op een CPL-rit (`datasetId`, `climbId`, `cplActivityId`).
+3. **Climb Performance Lab** (optioneel): zelfde schema’s uit `docs/cpl-fietsklim-matching/portable/`.
 
 Herberekening alleen als polyline-fingerprint, index-revisie, policy of schema veranderen (of `forceRematch`).
 

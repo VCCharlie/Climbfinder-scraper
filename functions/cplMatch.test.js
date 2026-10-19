@@ -51,4 +51,24 @@ assert.strictEqual(patch.source, "cpl");
 assert.strictEqual(patch.cplActivityId, "i99");
 assert.strictEqual(patch.done, true);
 
+const first = Date.parse("2018-05-01T10:00:00Z");
+const last = Date.parse("2024-08-01T10:00:00Z");
+const { patch: patchJ } = buildCplLogPatch(
+  "nl-utrecht",
+  "climb-1",
+  hit,
+  {},
+  Date.now(),
+  {
+    ascent_count: 3,
+    first_claimed_at: first,
+    last_ascent_at: last,
+    ascents: [],
+  }
+);
+assert.strictEqual(patchJ.cplAscentCount, 3);
+assert.strictEqual(patchJ.cplFirstClaimedAt, first);
+assert.strictEqual(patchJ.doneUpdatedAt, first);
+assert.strictEqual(patchJ.cplActivityStartAt, last);
+
 console.log("cplMatch.test.js OK");
