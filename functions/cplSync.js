@@ -14,6 +14,7 @@ const {
   summaryMatchesFromMap,
 } = require("./cplMatch");
 const { fietsklimMatchFromActivityData } = require("./fietsklimMatchSchema");
+const { userLinksFromActivityData } = require("./fietsklimUserLinksSchema");
 const { ensureFietsklimMatchOnCplActivity } = require("./cplMatchOnCpl");
 
 function polylineHintPresent(raw) {
@@ -575,6 +576,93 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   };
 }
 
+function summarizeCplActivityForList(docId, data, routeMapPolicy = "default") {
+  const stored = fietsklimMatchFromActivityData(data);
+  const userLinks = userLinksFromActivityData(data);
+  const matchAct = cplActivityToMatchRecord(docId, data, routeMapPolicy);
+  return {
+    id: String(docId),
+    title: data?.title || data?.name || "(zonder titel)",
+    date: activityCalendarYmd(data) || cplDateRawString(data),
+    hasRoute: Boolean(matchAct.map?.summary_polyline),
+    engineHitCount: stored?.hits?.length || 0,
+    userLinkCount: userLinks.length,
+  };
+}
+
+/** Lijst CPL-ritten voor handmatig koppelen (ook zonder route/polyline). */
+async function fetchCplActivityListPage(cplOwnerId, opts = {}) {
+  const routeMapPolicy = normalizeRouteMapPolicy(opts.routeMapPolicy);
+  const pageSize = Math.min(Math.max(1, opts.pageSize || 40), 80);
+  const db = getCplFirestore();
+  let q = db.collection("activities").where("ownerId", "==", cplOwnerId).orderBy("date", "desc");
+
+  const fromYmd = ymdFromMsLocal(opts.afterMs);
+  const toExclusiveYmd = opts.beforeMs != null ? ymdDayAfterLocal(opts.beforeMs) : null;
+  if (fromYmd) q = q.where("date", ">=", fromYmd);
+  if (toExclusiveYmd) q = q.where("date", "<", toExclusiveYmd);
+  q = q.limit(pageSize + 8);
+
+  if (opts.startAfterDate && opts.startAfterId) {
+    q = q.startAfter(String(opts.startAfterDate), String(opts.startAfterId));
+  }
+
+  let snap;
+  let dateQueryIndexRequired = false;
+  try {
+    snap = await q.get();
+  } catch (e) {
+    functions.logger.warn("fetchCplActivityListPage indexed query failed", e?.message || e);
+    if (fromYmd || toExclusiveYmd) {
+      return { items: [], completed: true, cursor: null, dateQueryIndexRequired: true };
+    }
+    q = db
+      .collection("activities")
+      .where("ownerId", "==", cplOwnerId)
+      .orderBy("date", "desc")
+      .limit(pageSize + 15);
+    if (opts.startAfterDate && opts.startAfterId) {
+      q = q.startAfter(String(opts.startAfterDate), String(opts.startAfterId));
+    }
+    snap = await q.get();
+  }
+
+  const items = [];
+  const fromYmdFilter = fromYmd;
+  const toYmdFilter = opts.beforeMs != null ? ymdFromMsLocal(opts.beforeMs) : null;
+  for (const doc of snap.docs) {
+    const data = doc.data();
+    if (fromYmdFilter || toYmdFilter) {
+      const ymd = activityCalendarYmd(data);
+      if (ymd) {
+        if (fromYmdFilter && ymd < fromYmdFilter) continue;
+        if (toYmdFilter && ymd > toYmdFilter) continue;
+      }
+    }
+    if (!activityInBounds(data, opts.afterMs ?? null, opts.beforeMs ?? null)) continue;
+    items.push(summarizeCplActivityForList(doc.id, data, routeMapPolicy));
+    if (items.length >= pageSize) break;
+  }
+
+  const lastDoc = snap.docs[snap.docs.length - 1];
+  const lastData = lastDoc?.data();
+  const completed = snap.empty || snap.docs.length < pageSize + 8;
+  const cursor =
+    lastDoc && !completed
+      ? {
+          startAfterDate: activityDateCursorValue(lastData) || null,
+          startAfterId: lastDoc.id,
+        }
+      : null;
+
+  return {
+    items,
+    completed: completed || !cursor,
+    cursor,
+    dateQueryIndexRequired,
+  };
+}
+
 async function resolveCplOwnerForUid(uid, identityOrContext) {
   let owner = null;
   if (identityOrContext?.auth) {
@@ -779,6 +867,34 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   return { ok: true, completed: syncCompleted, message: msg, summary };
 }
 
+exports.cplListActivitiesForLink = functions.region(REGION).https.onCall(async (data, context) => {
+  const { uid } = requireAuth(context);
+  const cplOwnerId = await resolveCplOwnerForUid(uid, authIdentityFromContext(context));
+  const bounds = parseActivityEpochBounds(data || {});
+  const pageSize = data?.pageSize != null ? Number(data.pageSize) : 40;
+  const cursor = data?.cursor && typeof data.cursor === "object" ? data.cursor : null;
+  const page = await fetchCplActivityListPage(cplOwnerId, {
+    afterMs: bounds.afterMs,
+    beforeMs: bounds.beforeMs,
+    pageSize,
+    startAfterDate: cursor?.startAfterDate,
+    startAfterId: cursor?.startAfterId,
+  });
+  if (page.dateQueryIndexRequired) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "CPL datumbereik: Firestore-index ownerId+date ontbreekt in climb-performance-lab."
+    );
+  }
+  return {
+    ok: true,
+    cplOwnerId,
+    activities: page.items,
+    cursor: page.cursor,
+    completed: page.completed,
+  };
+});
+
 exports.cplLinkClimbOnActivity = functions
   .region(REGION)
   .runWith({ timeoutSeconds: 120, memory: "512MB" })
@@ -899,3 +1015,5 @@ exports.buildCplLogPatch = buildCplLogPatch;
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
 exports.matchAndImportActivityDocs = matchAndImportActivityDocs;
 exports.authoritativeLogIdsFromHits = authoritativeLogIdsFromHits;
+exports.summarizeCplActivityForList = summarizeCplActivityForList;
+exports.fetchCplActivityListPage = fetchCplActivityListPage;
