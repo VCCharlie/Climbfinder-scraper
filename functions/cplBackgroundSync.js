@@ -150,7 +150,10 @@ function progressFromSummary(summary) {
   return {
     activitiesScanned: summary.activitiesScanned ?? 0,
     uniqueClimbs: summary.uniqueClimbs ?? summary.matchesWritten ?? 0,
-    regionIndex: summary.nextDatasetIndex ?? 0,
+    regionProgress: summary.regionProgress ?? null,
+    cplMatchWrites: summary.cplMatchWrites ?? 0,
+    cplMatchCached: summary.cplMatchCached ?? 0,
+    importOnly: Boolean(summary.importOnly),
     completed: Boolean(summary.completed),
   };
 }
@@ -249,12 +252,16 @@ async function enqueueFullSyncJob(uid, emailOrIdentity, data, opts = {}) {
   const bounds = parseBounds(data);
   const routeMapPolicy =
     data.routeMapPolicy === "intervals_only" ? "intervals_only" : "default";
+  const importOnly = Boolean(data.importOnly);
+  const forceRematch = Boolean(data.forceRematch);
   const jobId = admin.firestore().collection("_").doc().id;
   const now = admin.firestore.FieldValue.serverTimestamp();
   await jobRef(uid, jobId).set({
     status: "queued",
     datasetId,
     routeMapPolicy,
+    importOnly,
+    forceRematch,
     triggerSource: opts.fromWebhook ? "strava_webhook" : data.triggerSource || null,
     afterMs: bounds.afterMs,
     beforeMs: bounds.beforeMs,
@@ -390,6 +397,17 @@ exports.cplEnqueueFullSync = functions
     return enqueueFullSyncJob(uid, authIdentityFromContext(context), data);
   });
 
+exports.cplImportLogbookFromCpl = functions
+  .region(REGION)
+  .runWith({ timeoutSeconds: 120, memory: "256MB" })
+  .https.onCall(async (data, context) => {
+    const { uid } = requireAuth(context);
+    return enqueueFullSyncJob(uid, authIdentityFromContext(context), {
+      ...data,
+      importOnly: true,
+    });
+  });
+
 exports.getCplSyncJob = functions.region(REGION).https.onCall(async (data, context) => {
   const { uid } = requireAuth(context);
   const jobId = String(data.jobId || "").trim();
@@ -452,6 +470,8 @@ async function processCplSyncJob(uid, jobId, identity) {
     datasetId: job.datasetId,
     reset: Boolean(job.firstBatchPending),
     routeMapPolicy: job.routeMapPolicy === "intervals_only" ? "intervals_only" : "default",
+    importOnly: Boolean(job.importOnly),
+    forceRematch: Boolean(job.forceRematch),
     ...(job.afterMs != null ? { after: job.afterMs } : {}),
     ...(job.beforeMs != null ? { before: job.beforeMs } : {}),
   };
