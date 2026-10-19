@@ -1,6 +1,8 @@
 # CPL (Climb Performance Lab) → FietsKlim logboek
 
-Server-sync leest **routes uit CPL Firestore** (`strava_map` of `intervals_map`) en matcht tegen de FietsKlim-klimdatabase. Geen Strava rate limits tijdens deze sync.
+Server-sync leest **routes uit CPL Firestore** (`strava_map` of `intervals_map`), matcht tegen de FietsKlim-klimdatabase en schrijft resultaten naar **`fietsklim_match`** op CPL-activiteiten (bron van waarheid). FietsKlim importeert die hits naar het logboek. Geen Strava rate limits tijdens deze sync.
+
+Zie `docs/cpl-fietsklim-matching/README.md` voor het veldcontract.
 
 ## Vereisten
 
@@ -8,6 +10,7 @@ Server-sync leest **routes uit CPL Firestore** (`strava_map` of `intervals_map`)
 2. **Routes in CPL**: Strava-enrich (`strava_map`) of Intervals map-backfill (`intervals_map`) op activiteiten.
 3. **IAM op project `climb-performance-lab`** voor de Functions service account van `climb-database`:
    - `roles/datastore.viewer` (Firestore read)
+   - `roles/datastore.user` (Firestore write op `activities` voor veld `fietsklim_match`)
    - `roles/firebaseauth.viewer` + `firebaseauth.users.get` (of **Firebase Authentication Admin** voor `getUserByEmail`)
 
    Service account: `climb-database@appspot.gserviceaccount.com` (App Engine default — wat 1st-gen Functions normaal gebruiken).
@@ -39,7 +42,8 @@ IAM: runtime SA → **Cloud Tasks Enqueuer** op `climb-database`.
 | Functie | Doel |
 |---------|------|
 | `getCplStatus` | CPL gekoppeld? laatste sync, actieve job |
-| `cplEnqueueFullSync` | Start server-sync (`datasetId: "__all__"`, optioneel `after` / `before` ms) |
+| `cplEnqueueFullSync` | Start server-sync (`datasetId: "__all__"`, optioneel `after` / `before` ms, `importOnly`, `forceRematch`) |
+| `cplImportLogbookFromCpl` | Zelfde als full sync maar alleen import uit bestaande `fietsklim_match` (geen CPL-writes) |
 | `getCplSyncJob` / `cplCancelSyncJob` | Status / annuleren |
 | `cplSyncWorkerHttp` | Cloud Tasks worker (header `x-fietsklim-cpl-worker-secret`) |
 

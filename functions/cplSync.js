@@ -11,9 +11,14 @@ const {
 } = require("./cplClient");
 const {
   cplActivityToMatchRecord,
-  matchStoredActivitiesToClimbs,
   summaryMatchesFromMap,
 } = require("./cplMatch");
+const { fietsklimMatchFromActivityData } = require("./fietsklimMatchSchema");
+const {
+  ensureFietsklimMatchOnCplActivity,
+  mergeHitsIntoBestByDataset,
+  mergeStoredActivityMatchesIntoBest,
+} = require("./cplMatchOnCpl");
 
 function polylineHintPresent(raw) {
   if (raw == null) return false;
@@ -27,8 +32,6 @@ function polylineHintPresent(raw) {
 const REGION = "europe-west1";
 const ALL_DATASETS_TOKEN = "__all__";
 const CPL_ACTIVITIES_PAGE_SIZE = 60;
-const CPL_DATASETS_PER_CALL = 5;
-
 function allowedEmail(email) {
   const cfg = functions.config().auth || {};
   const list = (cfg.allowed_emails || "vr.deruiter@gmail.com")
@@ -243,7 +246,7 @@ async function writeCplMatches(uid, datasetId, bestByClimb) {
   }
 }
 
-async function fetchAllCplActivitiesInBounds(cplOwnerId, bounds, routeMapPolicy = "default") {
+async function fetchAllCplActivityDocsInBounds(cplOwnerId, bounds, routeMapPolicy = "default") {
   const all = [];
   let cursor = null;
   for (let guard = 0; guard < 500; guard += 1) {
@@ -254,7 +257,7 @@ async function fetchAllCplActivitiesInBounds(cplOwnerId, bounds, routeMapPolicy 
       startAfterDate: cursor?.startAfterDate,
       startAfterId: cursor?.startAfterId,
     });
-    all.push(...page.activities);
+    all.push(...(page.activityDocs || []));
     if (page.completed || !page.cursor) break;
     cursor = page.cursor;
   }
@@ -265,21 +268,17 @@ async function fetchAllCplActivitiesInBounds(cplOwnerId, bounds, routeMapPolicy 
  * Na afgeronde periode-sync: verwijder CPL-logboekregels in die periode die niet opnieuw matchen
  * (bv. Karellis na zuidwaartse rit — oude fout van eerdere hele-database run).
  */
-async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, activities) {
+function authoritativeLogIdsFromHits(hits, regionIds) {
+  const regionSet = new Set(regionIds);
   const authoritative = new Set();
-  for (const datasetId of regionIds) {
-    const { climbs, spatialIndex } = await loadDataset(datasetId);
-    if (!climbs.length) continue;
-    const { bestByClimb } = matchStoredActivitiesToClimbs({
-      climbs,
-      spatialIndex,
-      activities,
-      includePrivate: true,
-    });
-    for (const climbId of bestByClimb.keys()) {
-      authoritative.add(logDocId(datasetId, climbId));
-    }
+  for (const h of hits || []) {
+    if (!regionSet.has(h.datasetId)) continue;
+    authoritative.add(logDocId(h.datasetId, h.climbId));
   }
+  return authoritative;
+}
+
+async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, authoritative) {
 
   const logCol = admin.firestore().collection("users").doc(uid).collection("climbLog");
   const snap = await logCol.get();
@@ -311,52 +310,85 @@ async function reconcileCplLogbookForPeriod(uid, bounds, regionIds, activities) 
   return { removed, authoritativeCount: authoritative.size };
 }
 
-async function matchAndWriteForDatasets(uid, matchActivities, datasetIds, opts = {}) {
-  let matchesWritten = 0;
-  const datasetsProcessed = [];
-  const matches = [];
-  const geoFilter = Boolean(opts.geoFilter) && (datasetIds?.length || 0) > 1;
-  let router = null;
-  if (geoFilter) {
-    const stravaMod = require("./strava");
-    router = await require("./regionDatasetRouter").loadRegionDatasetRouter(
-      stravaMod.fetchDataJson
-    );
-  }
-  const { encodedPolylineFromCplData } = require("./cplMatch");
-  const { activityLikelyInDataset } = require("./regionDatasetRouter");
+/**
+ * Match op CPL (fietsklim_match) en importeer hits naar FietsKlim climbLog.
+ * @param {{ id: string, data: object, matchAct: object }[]} activityDocs
+ */
+async function matchAndImportActivityDocs(uid, activityDocs, regionIds, opts = {}) {
+  const strava = require("./strava");
+  const datasetCache = new Map();
+  const matchCtx = {
+    fetchDataJson: strava.fetchDataJson,
+    loadDataset,
+    routeMapPolicy: opts.routeMapPolicy || "default",
+    force: Boolean(opts.force),
+    persist: opts.persist !== false,
+    datasetCache,
+  };
 
-  for (const datasetId of datasetIds) {
-    const { climbs, spatialIndex } = await loadDataset(datasetId);
-    if (!climbs.length) continue;
-    let batch = matchActivities;
-    if (router) {
-      batch = (matchActivities || []).filter((act) => {
-        const poly =
-          act?.map?.summary_polyline ||
-          encodedPolylineFromCplData(act?._cplRaw || act, opts.routeMapPolicy || "default");
-        if (!poly) return true;
-        return activityLikelyInDataset(router, datasetId, poly);
-      });
-      if (!batch.length) {
-        datasetsProcessed.push(datasetId);
-        continue;
+  const bestByDataset = new Map();
+  const authoritative = new Set();
+  let cplMatchWrites = 0;
+  let cplMatchCached = 0;
+  let skippedNoRoute = 0;
+
+  const importOnly = Boolean(opts.importOnly);
+
+  for (const row of activityDocs || []) {
+    const { id, data, matchAct } = row;
+    const hasPolyline = Boolean(matchAct?.map?.summary_polyline);
+    const stored = fietsklimMatchFromActivityData(data);
+
+    if (importOnly) {
+      if (stored?.computed_at) {
+        mergeStoredActivityMatchesIntoBest(bestByDataset, data, matchAct);
+        for (const idKey of authoritativeLogIdsFromHits(stored.hits, regionIds)) {
+          authoritative.add(idKey);
+        }
+      } else {
+        skippedNoRoute += 1;
       }
+      continue;
     }
-    const { bestByClimb } = matchStoredActivitiesToClimbs({
-      climbs,
-      spatialIndex,
-      activities: batch,
-      includePrivate: true,
-    });
-    if (bestByClimb.size) {
-      await writeCplMatches(uid, datasetId, bestByClimb);
-      matchesWritten += bestByClimb.size;
-      matches.push(...summaryMatchesFromMap(datasetId, bestByClimb));
+
+    if (hasPolyline) {
+      const result = await ensureFietsklimMatchOnCplActivity(id, data, regionIds, matchCtx);
+      if (result.skipped === "cached_on_cpl") cplMatchCached += 1;
+      else if (!result.skipped) cplMatchWrites += 1;
+      mergeHitsIntoBestByDataset(bestByDataset, result.hits, result.matchAct);
+      for (const idKey of authoritativeLogIdsFromHits(result.hits, regionIds)) {
+        authoritative.add(idKey);
+      }
+    } else if (stored?.computed_at) {
+      mergeStoredActivityMatchesIntoBest(bestByDataset, data, matchAct);
+      for (const idKey of authoritativeLogIdsFromHits(stored.hits, regionIds)) {
+        authoritative.add(idKey);
+      }
+    } else {
+      skippedNoRoute += 1;
     }
-    datasetsProcessed.push(datasetId);
   }
-  return { matchesWritten, datasetsProcessed, matches };
+
+  let matchesWritten = 0;
+  const matches = [];
+  const datasetsProcessed = [];
+  for (const [datasetId, bestByClimb] of bestByDataset.entries()) {
+    datasetsProcessed.push(datasetId);
+    if (!bestByClimb.size) continue;
+    await writeCplMatches(uid, datasetId, bestByClimb);
+    matchesWritten += bestByClimb.size;
+    matches.push(...summaryMatchesFromMap(datasetId, bestByClimb));
+  }
+
+  return {
+    matchesWritten,
+    datasetsProcessed,
+    matches,
+    cplMatchWrites,
+    cplMatchCached,
+    skippedNoRoute,
+    authoritative,
+  };
 }
 
 /**
@@ -412,6 +444,8 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
   }
 
   const records = [];
+  /** @type {{ id: string, data: object, matchAct: object }[]} */
+  const activityDocs = [];
   let skippedNoMap = 0;
   let skippedOutOfBounds = 0;
   /** @type {{ id: string, title: string|null, date: string|null, hasIntervalsMap: boolean, hasStravaMap: boolean }[]} */
@@ -438,8 +472,13 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
       continue;
     }
     const matchAct = cplActivityToMatchRecord(doc.id, data, routeMapPolicy);
+    const storedMatch = fietsklimMatchFromActivityData(data);
+    const hasStoredMatch = Boolean(storedMatch?.computed_at);
     if (matchAct.map?.summary_polyline) {
       records.push(matchAct);
+      activityDocs.push({ id: doc.id, data, matchAct });
+    } else if (hasStoredMatch) {
+      activityDocs.push({ id: doc.id, data, matchAct });
     } else {
       skippedNoMap += 1;
       if (noMapSamples.length < 5) {
@@ -453,7 +492,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
         });
       }
     }
-    if (records.length >= pageSize) break;
+    if (activityDocs.length >= pageSize) break;
   }
 
   const lastDoc = snap.docs[snap.docs.length - 1];
@@ -469,6 +508,7 @@ async function fetchCplActivitiesPage(cplOwnerId, opts = {}) {
 
   return {
     activities: records,
+    activityDocs,
     ridesWithMap: records.length,
     scannedDocs: snap.docs.length,
     skippedNoMap,
@@ -524,12 +564,11 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   const prev = integration?.fullSyncCursor;
 
   let activityCursor = null;
-  let nextDatasetIndex = 0;
   const routeMapPolicy = normalizeRouteMapPolicy(data.routeMapPolicy ?? prev?.routeMapPolicy);
+  const importOnly = Boolean(data.importOnly);
 
   if (!reset && prev?.mode === "all") {
     activityCursor = prev.activityCursor || null;
-    nextDatasetIndex = Number(prev.nextDatasetIndex) || 0;
   }
 
   const page = await fetchCplActivitiesPage(cplOwnerId, {
@@ -550,28 +589,29 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   const { ids: regionIds, totalClimbs, regionCount } = await loadRegionDatasetIds();
 
   const hasDateBounds = bounds.afterMs != null || bounds.beforeMs != null;
-  const datasetsPerCall =
-    hasDateBounds && page.activities.length > 0 ? regionIds.length : CPL_DATASETS_PER_CALL;
-  const batchIds = regionIds.slice(nextDatasetIndex, nextDatasetIndex + datasetsPerCall);
-  const { matchesWritten, matches: batchMatches } = await matchAndWriteForDatasets(
-    uid,
-    page.activities,
-    batchIds,
-    { geoFilter: batchIds.length > 1, routeMapPolicy }
-  );
+  const activityDocs = page.activityDocs || [];
+  const {
+    matchesWritten,
+    matches: batchMatches,
+    cplMatchWrites,
+    cplMatchCached,
+    skippedNoRoute,
+    authoritative,
+  } = await matchAndImportActivityDocs(uid, activityDocs, regionIds, {
+    routeMapPolicy,
+    force: Boolean(data.forceRematch),
+    importOnly,
+    persist: !importOnly,
+  });
 
-  let nextDatasetIndexAfter = nextDatasetIndex + batchIds.length;
   let syncCompleted = false;
   let nextActivityCursor = activityCursor;
 
-  if (nextDatasetIndexAfter >= regionIds.length) {
-    nextDatasetIndexAfter = 0;
-    if (page.completed) {
-      syncCompleted = true;
-      nextActivityCursor = null;
-    } else {
-      nextActivityCursor = page.cursor;
-    }
+  if (page.completed) {
+    syncCompleted = true;
+    nextActivityCursor = null;
+  } else {
+    nextActivityCursor = page.cursor;
   }
 
   const fullSyncCursor = syncCompleted
@@ -579,7 +619,6 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     : {
         mode: "all",
         activityCursor: nextActivityCursor,
-        nextDatasetIndex: nextDatasetIndexAfter,
         afterMs: bounds.afterMs,
         beforeMs: bounds.beforeMs,
         routeMapPolicy,
@@ -589,30 +628,26 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   let periodReconcile = null;
   if (syncCompleted && hasDateBounds) {
     try {
-      const periodActivities = await fetchAllCplActivitiesInBounds(
-        cplOwnerId,
-        bounds,
-        routeMapPolicy
-      );
+      const periodDocs = await fetchAllCplActivityDocsInBounds(cplOwnerId, bounds, routeMapPolicy);
+      const periodImport = await matchAndImportActivityDocs(uid, periodDocs, regionIds, {
+        routeMapPolicy,
+        force: Boolean(data.forceRematch),
+        importOnly,
+        persist: !importOnly,
+      });
       periodReconcile = await reconcileCplLogbookForPeriod(
         uid,
         bounds,
         regionIds,
-        periodActivities
+        periodImport.authoritative
       );
-      if (periodActivities.length > 0) {
-        await matchAndWriteForDatasets(uid, periodActivities, regionIds, {
-          geoFilter: true,
-          routeMapPolicy,
-        });
-      }
     } catch (e) {
       functions.logger.warn("reconcileCplLogbookForPeriod", e?.message || e);
       periodReconcile = { error: String(e?.message || e) };
     }
   }
 
-  const ridesScanned = page.activities.length;
+  const ridesScanned = activityDocs.length;
   const summary = {
     kind: "full",
     source: "cpl",
@@ -625,10 +660,12 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     activitiesWithMap: ridesScanned,
     docsScanned: page.scannedDocs,
     skippedNoMap: page.skippedNoMap ?? 0,
+    skippedNoRoute,
     skippedOutOfBounds: page.skippedOutOfBounds ?? 0,
     noMapSamples: page.noMapSamples ?? [],
-    nextDatasetIndex: nextDatasetIndexAfter,
-    datasetsInBatch: batchIds.length,
+    cplMatchWrites,
+    cplMatchCached,
+    importOnly,
     completed: syncCompleted,
     matchesWritten,
     uniqueClimbs: matchesWritten,
@@ -636,10 +673,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
     after: bounds.afterMs,
     before: bounds.beforeMs,
     dateQueryIndexRequired: Boolean(page.dateQueryIndexRequired),
-    periodSyncAllRegionsInBatch: hasDateBounds && datasetsPerCall === regionIds.length,
-    regionProgress: syncCompleted
-      ? `${regionCount}/${regionCount} regio’s`
-      : `${Math.min(nextDatasetIndexAfter, regionCount)}/${regionCount} regio’s`,
+    regionProgress: syncCompleted ? `${regionCount}/${regionCount} regio’s` : `regio’s: alle ${regionCount}`,
     periodReconcile,
   };
 
@@ -662,7 +696,7 @@ async function runCplSyncBatch(uid, identityOrEmail, data) {
   } else if (syncCompleted) {
     msg = `CPL-sync klaar: ${matchesWritten} match(es) · ${ridesScanned} rit(ten) met route · ${regionCount} regio’s.`;
   } else {
-    msg = `CPL-sync batch: ${matchesWritten} match(es), ${ridesScanned} ritten met route, regio’s ${nextDatasetIndex}–${nextDatasetIndex + batchIds.length - 1} van ${regionCount}.`;
+    msg = `CPL-sync batch: ${matchesWritten} match(es), ${ridesScanned} rit(ten) verwerkt, ${regionCount} regio’s.`;
   }
 
   return { ok: true, completed: syncCompleted, message: msg, summary };
@@ -736,3 +770,5 @@ Object.assign(exports, require("./cplBackgroundSync"));
 // Export helpers for tests
 exports.buildCplLogPatch = buildCplLogPatch;
 exports.ALL_DATASETS_TOKEN = ALL_DATASETS_TOKEN;
+exports.matchAndImportActivityDocs = matchAndImportActivityDocs;
+exports.authoritativeLogIdsFromHits = authoritativeLogIdsFromHits;
