@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klim aan rit koppelen — FietsKlim</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon-192.png" type="image/png" sizes="192x192" />
+  <script src="assets/pwa-register.js?v=20261012phase2"></script>
+  <link rel="stylesheet" href="../auth/gate.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/settings.css?v=20261019linkride1" />
+</head>
+<body class="fietsklim-locked settings-page">
+  <div id="fietsklim-auth-gate">
+    <div class="fietsklim-auth-card">
+      <h1>FietsKlim — persoonlijk</h1>
+      <p>Log in om een klim aan een CPL-rit te koppelen.</p>
+      <button type="button" id="fietsklim-google-btn" class="fietsklim-auth-btn">Inloggen met Google</button>
+      <div id="fietsklim-auth-error" class="fietsklim-auth-error" role="alert"></div>
+    </div>
+  </div>
+
+  <div id="fietsklim-app-root" class="settings-wrap">
+    <p class="settings-userbar"><span id="fietsklim-auth-userbar"></span></p>
+    <nav class="fietsklim-site-nav" aria-label="FietsKlim">
+      <a href="index.html">Database</a>
+      <a href="logbook.html">Logboek</a>
+      <a href="import.html">Import</a>
+      <a href="settings.html">Instellingen</a>
+    </nav>
+    <h1>Klim aan rit koppelen</h1>
+    <p class="settings-lead">
+      Handmatige claim in <strong>Climb Performance Lab</strong>: kies een rit, zoek een klim, koppel. Journal en logboek worden bijgewerkt.
+    </p>
+    <p id="cplLinkRideCplStatus" class="settings-sync-line" role="status">Performance Lab: laden…</p>
+
+    <section class="settings-card" aria-labelledby="cplLinkRideStep1">
+      <h2 id="cplLinkRideStep1">1. CPL-rit</h2>
+      <p class="settings-hint">Optioneel datumbereik (leeg = recentste ritten). Zelfde kalenderdag als bij logboek-sync.</p>
+      <div class="cpl-link-ride-dates">
+        <label class="settings-field-label" for="cplLinkRideAfter">Van</label>
+        <input type="date" id="cplLinkRideAfter" class="settings-input" />
+        <label class="settings-field-label" for="cplLinkRideBefore">Tot</label>
+        <input type="date" id="cplLinkRideBefore" class="settings-input" />
+        <button type="button" id="cplLinkRideLoadBtn" class="secondary">Ritten laden</button>
+      </div>
+      <p id="cplLinkRideListStatus" class="settings-status" role="status"></p>
+      <ul id="cplLinkRideActivityList" class="cpl-link-ride-list" aria-label="CPL-ritten"></ul>
+      <button type="button" id="cplLinkRideMoreBtn" class="secondary" hidden>Meer ritten</button>
+    </section>
+
+    <section class="settings-card" aria-labelledby="cplLinkRideStep2">
+      <h2 id="cplLinkRideStep2">2. Klim zoeken</h2>
+      <div class="climb-search-block cpl-link-ride-search">
+        <label class="settings-field-label" for="cplLinkRideClimbSearch">Naam of Climbfinder-slug</label>
+        <input
+          type="search"
+          id="cplLinkRideClimbSearch"
+          class="settings-input"
+          placeholder="bv. La Redoute"
+          autocomplete="off"
+        />
+        <ul id="cplLinkRideClimbResults" class="climb-search-suggest" role="listbox" hidden></ul>
+      </div>
+      <p id="cplLinkRideClimbPick" class="settings-status" hidden></p>
+    </section>
+
+    <section class="settings-card" aria-labelledby="cplLinkRideStep3">
+      <h2 id="cplLinkRideStep3">3. Koppelen</h2>
+      <p id="cplLinkRideSummary" class="settings-hint">Selecteer een rit en een klim.</p>
+      <button type="button" id="cplLinkRideSubmitBtn" class="primary" disabled>Klim aan rit koppelen</button>
+      <p id="cplLinkRideResult" class="settings-status" role="status"></p>
+      <p class="settings-hint">
+        API voor CPL-app: <a href="../cpl-fietsklim-matching/CPL_API.md">CPL_API.md</a>
+      </p>
+    </section>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-functions-compat.js"></script>
+  <script src="../auth/firebase-config.js?v=20261011cartovoyager2"></script>
+  <script src="../auth/gate.js"></script>
+  <script src="climbfinder-browser.js?v=20261006slug1"></script>
+  <script src="assets/cpl-link-ride.js?v=20261019linkride1"></script>
+</body>
+</html>

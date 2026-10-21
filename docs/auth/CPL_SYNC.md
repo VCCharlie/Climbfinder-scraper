@@ -44,7 +44,10 @@ IAM: runtime SA → **Cloud Tasks Enqueuer** op `climb-database`.
 | `getCplStatus` | CPL gekoppeld? laatste sync, actieve job |
 | `cplEnqueueFullSync` | Start server-sync (`datasetId: "__all__"`, optioneel `after` / `before` ms, `importOnly`, `forceRematch`) |
 | `cplImportLogbookFromCpl` | Zelfde als full sync maar alleen import uit bestaande `fietsklim_match` (geen CPL-writes) |
+| `cplListActivitiesForLink` | Lijst CPL-ritten (UI / CPL-app) |
 | `cplLinkClimbOnActivity` | Handmatig: klim koppelen aan CPL-rit → `fietsklim_user_links` + journal + FietsKlim-logboek |
+
+Zie `docs/cpl-fietsklim-matching/CPL_API.md`. Web-UI: `docs/climbs/link-ride.html`.
 | `getCplSyncJob` / `cplCancelSyncJob` | Status / annuleren |
 | `cplSyncWorkerHttp` | Cloud Tasks worker (header `x-fietsklim-cpl-worker-secret`) |
 

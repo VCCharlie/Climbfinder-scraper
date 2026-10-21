@@ -8,6 +8,8 @@ Climb-matches worden opgeslagen op **CPL Firestore** (`climb-performance-lab`):
 
 Portable kopie voor CPL-repo: [portable/README.md](./portable/README.md).
 
+**API & CPL-app integratie:** [CPL_API.md](./CPL_API.md) · UI: [link-ride.html](../climbs/link-ride.html).
+
 ## Veld `fietsklim_match`
 
 | Veld | Betekenis |
